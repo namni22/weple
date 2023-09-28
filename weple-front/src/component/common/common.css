@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  outline: none;
+  font-family: "Noto Sans KR", sans-serif;
+  color: #171717;
+}
+.weple-wrap {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.weple-content {
+  flex: 1;
+}

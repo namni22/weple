@@ -1,23 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import "./component/common/common.css";
+import Feed from "./component/feed/Feed";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="weple-wrap">
+      {/* 헤더삽입 */}
+      <div className="weple-content">
+        <Routes>
+          <Route path="/feed/*" element={<Feed />} />
+        </Routes>
+      </div>
+      {/* 푸터삽입 */}
     </div>
   );
 }
