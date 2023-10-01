@@ -1,13 +1,23 @@
 import "./meetSettingFrm.css";
 import JwInput from "./meetUtil/JwInputFrm";
-const MeetSettingFrm = () => {
+const MeetSettingFrm = (props) => {
+    // 모임만들 정보 선언
+    const meetTitle = props.meetTitle;
+    const setMeetTitle = props.setMeetTitle;
+    
+    
     return (
-        <div className="meetCreateFrm-wrap">
+        <div className="meetSettingFrm-wrap">
             <div className="meetCategoriFrm">카테고리</div>
             <div className="meetTitleFrm">
-                <span>제목</span>
-                <div className="jwInput">
-                    <JwInput/>
+                <label htmlFor="meetTitleFrm">제목</label>
+                <div className="jwInput" id="jwInput">
+                    <JwInput
+                        type="text"
+                        data={meetTitle}
+                        setData={setMeetTitle}
+                        content="meetTitleFrm" 
+                    />
                 </div>
             </div>
             <div className="meetThumbnailFrm">썸네일</div>

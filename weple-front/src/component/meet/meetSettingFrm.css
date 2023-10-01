@@ -1,5 +1,16 @@
-.meetCreateFrm-wrap {
+.meetSettingFrm-wrap {
     /* 임시구분 패딩 */
     padding-top: 50px;
     width: 800px;
+}
+.meetSettingFrm-wrap>div{
+    /* 각 에리어 선택자 카테고리, 제목, 썸네일 ... */
+    overflow: hidden;
+}
+.meetSettingFrm-wrap>div>label{
+    float: left;
+}
+.jwInput{
+    float: left;
+    
 }
