@@ -1,0 +1,58 @@
+.header{
+    overflow: hidden;
+    margin: 10px 0;
+}
+.header *{
+    cursor: pointer;
+}
+.header >*{
+    float: left;
+
+}
+.header .material-icons{
+font-size: 30px;
+color: gray;
+margin: 0 5px;
+}
+.header .icon-explain{
+    font-size: 10px;
+    color: gray;
+    text-align: center;
+
+}
+.header .logo{
+    font-size: 30px;
+    width: 15%;
+
+}
+/* 
+.header .bar{
+    -ms-transform: rotate(90deg); 
+    -webkit-transform: rotate(90deg); 
+    transform: rotate(90deg);
+    font-size: 50px;
+    color: black;
+    width: 50px;
+
+} 
+*/
+.header .searchFrm{
+    border-radius: 15px;
+    outline: none;
+    border: 1px solid #ccc;
+    width: 50%;
+    cursor:inherit;
+    height: 40px;
+    padding-left: 15px;
+    display: block;
+    margin: 4px;
+}
+.icons{
+    float: right;
+    overflow: hidden;
+}
+.icons>div{
+    float: left;
+}
+
+
