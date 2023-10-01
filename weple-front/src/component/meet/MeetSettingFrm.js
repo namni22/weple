@@ -1,6 +1,6 @@
-import "./meetCreateFrm.css";
+import "./meetSettingFrm.css";
 import JwInput from "./meetUtil/JwInputFrm";
-const MeetCreateFrm = () => {
+const MeetSettingFrm = () => {
     return (
         <div className="meetCreateFrm-wrap">
             <div className="meetCategoriFrm">카테고리</div>
@@ -24,4 +24,4 @@ const MeetCreateFrm = () => {
 
 }
 
-export default MeetCreateFrm;
+export default MeetSettingFrm;

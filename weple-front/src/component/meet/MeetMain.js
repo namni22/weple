@@ -1,7 +1,7 @@
 import { Link, Route, Routes } from "react-router-dom";
 import "./meetDefault.css"
 import { JwButton1 } from "./meetUtil/JwButton";
-import MeetCreateFrm from "./MeetCreateFrm";
+import MeetSettingFrm from "./MeetSettingFrm";
 import MeetCreate from "./MeetCreate";
 
 const MeetMain = () => {
@@ -10,10 +10,10 @@ const MeetMain = () => {
             <div>모임메인</div>
             <Link to="/meet">모임메인link</Link>
             <Link to="/meet/meetCreate">임시모임생성Frmlink</Link>
-            <Link to="/meet/meetCreateFrm">임시모임생성link</Link>
+            <Link to="/meet/meetSettingFrm">임시모임생성link</Link>
 
             <Routes>
-                <Route path="/meetCreateFrm" element={<MeetCreateFrm />} />
+                <Route path="/meetSettingFrm" element={<MeetSettingFrm />} />
                 <Route path="/meetCreate" element={<MeetCreate/>}></Route>
             </Routes>
         </div>
