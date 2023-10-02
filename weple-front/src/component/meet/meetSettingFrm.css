@@ -5,12 +5,20 @@
 }
 .meetSettingFrm-wrap>div{
     /* 각 에리어 선택자 카테고리, 제목, 썸네일 ... */
-    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 20px 0;
 }
 .meetSettingFrm-wrap>div>label{
-    float: left;
+    width: 30%;
+    text-align: center;
 }
 .jwInput{
-    float: left;
-    
+    width: 70%;
+}
+.meetSettingFrm-wrap>div>input{
+    width: 70%;
 }
