@@ -16,6 +16,9 @@
     width: 20%;
     text-align: center;
 }
+.meetSettingFrm-wrap>div>div{
+    width: 80%;
+}
 .jwInput{
     width: 80%;
 }
@@ -26,15 +29,21 @@
     width: 80%;
     height: 200px;
 }
+.meetMaterials-content-wrap{
+    overflow: hidden;
+}
 .meetMaterials-input-box{
-    width: 65%;
+    float: left;
+    width: 80%;
     
 }
 .meetMaterialsInsert-btn-box{
+    float: left;
     width: 10%;
     margin-left: 50px;
 }
-.materialsSetting{
+.meetMaterials-wrap{
+    margin-top: 60px;
     
 }
 

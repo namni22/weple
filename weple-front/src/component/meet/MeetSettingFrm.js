@@ -26,15 +26,17 @@ const MeetSettingFrm = (props) => {
             </div>
             <div className="meetThumbnailFrm">
                 <label>썸네일</label>
-                {/* accept = image/* : 이미지파일만 올릴수 있도록 */}
-                <input
-                    className="meetThumbnail-input"
-                    type="file"
-                    id="meetThumbnail"
-                    accept="image/*"
-                // 파일선택을 바꿀때 이벤트 발생
-                //썸네일 미리보기 함수
-                ></input>
+                <div>
+                    {/* accept = image/* : 이미지파일만 올릴수 있도록 */}
+                    <input
+                        className="meetThumbnail-input"
+                        type="file"
+                        id="meetThumbnail"
+                        accept="image/*"
+                    // 파일선택을 바꿀때 이벤트 발생
+                    //썸네일 미리보기 함수
+                    ></input>
+                </div>
 
             </div>
             <div className="meetDateFrm">
@@ -56,18 +58,25 @@ const MeetSettingFrm = (props) => {
             </div>
             <div className="meetMaterialsFrm">
                 <label>준비물</label>
-                <div className="meetMaterials-input-box">
-                    <JwInput
-                        type="text"
-                        data={meetMaterials}
-                        setData={setMeetMaterials}
-                        content="meetTitleFrm"
-                    ></JwInput>
+                <div className="meetMaterials-content-wrap">
+                    <div className="meetMaterials-input-box">
+                        <JwInput
+                            type="text"
+                            data={meetMaterials}
+                            setData={setMeetMaterials}
+                            content="meetTitleFrm"
+                        ></JwInput>
+                    </div>
+                    <div className="meetMaterialsInsert-btn-box">
+                        <JwButton1 text="추가"></JwButton1>
+                    </div>
+
+                    <div className="meetMaterials-wrap">
+                        <div className="meetMaterials-one">준비물1</div>
+                        <div className="meetMaterials-one">준비물2</div>
+                        <div className="meetMaterials-one">준비물3</div>
+                    </div>
                 </div>
-                <div className="meetMaterialsInsert-btn-box">
-                    <JwButton1 text="추가"></JwButton1>
-                </div>
-                <div className="materialsSetting">준비물1</div>
 
             </div>
             <div className="meet-btn-box">
