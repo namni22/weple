@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import "./component/common/common.css";
 import Feed from "./component/feed/Feed";
 import Header from "./component/common/header";
+import Board from "./component/board/Board";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Routes>
           <Route path="/feed/*" element={<Feed />} />
           <Route path="/header" element={<Header />} />
+          <Route path="/board/*" element={<Board />}/>
         </Routes>
       </div>
       {/* 푸터삽입 */}
