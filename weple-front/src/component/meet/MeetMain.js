@@ -13,6 +13,7 @@ const MeetMain = () => {
             <Link to="/meet/meetCreate">임시모임생성Frmlink</Link>
             <Link to="/meet/meetSettingFrm">임시모임생성link</Link>
             <Link to="/meet/afterMeet">가입후 모임</Link>
+            <Link to="#">내가 계설한 그룹 신청 인원</Link>
             <Routes>
                 <Route path="meetSettingFrm" element={<MeetSettingFrm />} />
                 <Route path="meetCreate" element={<MeetCreate/>}></Route>

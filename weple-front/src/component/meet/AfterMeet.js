@@ -9,12 +9,13 @@ import MeetMemberList from "./MeetMemberList"
 const AfterMeet =   ()=>{
     const [meetMenu,setMeetMenu]=useState([
         {url : "info", text : "소개", active:true},
-        {url : "meetChat", text : "채팅", active:false},
+        {url : "meetChat", text : "글 작성", active:false},
         {url : "meetCalendar", text : "캘린더", active:false},
         {url : "meetList", text : "멤버목록", active:false},
     ]);
     return (
-        <div className="afterMeet-all-wrap">            
+        <div className="afterMeet-all-wrap"> 
+        <div className="feed-title">MY GROUB</div>           
             <AfterMeetMain/>
             <AfterMeetSubNavi meetMenu={meetMenu} setMeetMenu={setMeetMenu}/>
             <Routes>
