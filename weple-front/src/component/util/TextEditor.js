@@ -5,20 +5,17 @@ import "react-quill/dist/quill.snow.css";
 import ImageResize from "quill-image-resize-module-react";
 Quill.register("modules/ImageResize", ImageResize);
 const TextEditor = (props) => {
-  //컴포넌트 내부에서 특정 DOM객체를 선택해야할 때
-  const quillRef = useRef(); //imageHandler 사용하기위해서
+ 
+  const quillRef = useRef(); 
   const data = props.data;
   const setData = props.setData;
   const url = props.url;
 
-  //이미지를 업로드하고 에디터 내부에 추가하는 함수
-  const imageHandler = () => {
-    //input태그 생성
+  const imageHandler = () => {   
     const input = document.createElement("input");
     input.setAttribute("type", "file");
     input.setAttribute("accept", "image/*");
-    input.click();
-    //async => 비동기요청을 동기처리 해라
+    input.click();    
     input.onchange = async () => {
       const file = input.files;
       if (file !== null) {
@@ -47,7 +44,7 @@ const TextEditor = (props) => {
     };
   };
 
-  //quill에디터 형식옵션을 담는 배열
+
   const formats = [
     "header",
     "font",
@@ -63,12 +60,11 @@ const TextEditor = (props) => {
     "image",
     "color",
   ];
-  //useMemo : 동일값을 반환하는 경우 함수를 반복적으로 호출하는 것이 아니라 메모리에 저장해두고
-  //바로 가져오는 hooks
+  
   const modules = useMemo(() => {
     return {
       toolbar: {
-        //툴바에 넣을 기능을 순서대로 나열
+        
         container: [
           ["bold", "italic", "underline", "strike", "blockquote"],
           [{ size: ["small", false, "large", "huge"] }, { color: [] }],
@@ -82,7 +78,7 @@ const TextEditor = (props) => {
           ["image", "video"],
         ],
         handlers: {
-          //이미지 업로드 버튼 클릭시 우리가 만든 함수가 동작하도록 설정
+          
           image: imageHandler,
         },
       },
@@ -94,7 +90,7 @@ const TextEditor = (props) => {
   }, []);
   return (
     <ReactQuill
-      ref={quillRef} //useRef사용하려고 설정
+      ref={quillRef} 
       theme="snow"
       value={data}
       formats={formats}
