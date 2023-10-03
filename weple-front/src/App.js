@@ -6,8 +6,7 @@ import Footer from "./component/common/Footer";
 import MeetMain from "./component/meet/MeetMain";
 import Board from "./component/board/Board";
 import Header from "./component/common/Header";
-
-
+import Admin from "./component/admin/Admin";
 
 function App() {
   return (
@@ -19,6 +18,7 @@ function App() {
           <Route path="/feed/*" element={<Feed />} />
           <Route path="/meet/*" element={<MeetMain />}></Route>
           <Route path="/board/*" element={<Board />}/>
+          <Route path="/admin/*" element={<Admin />}/>
         </Routes>
       </div>
       <Footer/>
