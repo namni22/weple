@@ -5,6 +5,7 @@ import MeetChat from "./MeetChat"
 import { useState } from "react"
 import MeetCalendar from "./MeetCalendar"
 import MeetMemberList from "./MeetMemberList"
+import { useEffect } from "react"
 
 const AfterMeet =   ()=>{
     const [meetMenu,setMeetMenu]=useState([
@@ -59,7 +60,7 @@ const AfterMeetMain = ()=>{
                     0/40명
                 </div>
             </div>   
-                    
+                
         </div>
     )
 }
@@ -103,4 +104,5 @@ const AfterMeetSubNavi = (props)=>{
         </div>
     )
 }
+
 export default AfterMeet;
