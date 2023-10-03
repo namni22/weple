@@ -16,7 +16,8 @@ const MeetMain = () => {
             <Routes>
                 <Route path="meetSettingFrm" element={<MeetSettingFrm />} />
                 <Route path="meetCreate" element={<MeetCreate/>}></Route>
-                <Route path="afterMeet" element={<AfterMeet />}/>
+                <Route path="afterMeet/*" element={<AfterMeet />}/>
+                
             </Routes>
         </div>
 

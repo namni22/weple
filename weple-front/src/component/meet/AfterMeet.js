@@ -1,17 +1,34 @@
-import { Link } from "react-router-dom"
+import { Link, Route, Routes } from "react-router-dom"
 import "./afterMeet.css"
+import MeetInfo from "./MeetInfo"
+import MeetChat from "./MeetChat"
+import { useState } from "react"
+import MeetCalendar from "./MeetCalendar"
+import MeetMemberList from "./MeetMemberList"
 
 const AfterMeet =   ()=>{
+    const [meetMenu,setMeetMenu]=useState([
+        {url : "info", text : "소개", active:true},
+        {url : "meetChat", text : "채팅", active:false},
+        {url : "meetCalendar", text : "캘린더", active:false},
+        {url : "meetList", text : "멤버목록", active:false},
+    ]);
     return (
-        <div className="afterMeet-all-wrap">
-            <div>모임 가입후 보여지는창</div>
+        <div className="afterMeet-all-wrap">            
             <AfterMeetMain/>
-            <AfterMeetSubNavi />
+            <AfterMeetSubNavi meetMenu={meetMenu} setMeetMenu={setMeetMenu}/>
+            <Routes>
+                <Route path="meetChat" element={<MeetChat />}/>
+                <Route path="meetCalendar" element={<MeetCalendar/>}/>
+                <Route path="meetList" element={<MeetMemberList/>}/>
+                <Route path="*" element={<MeetInfo/>}/>
+            </Routes>
         </div>
     )
 }
 
 const AfterMeetMain = ()=>{
+   
     return (
         <div className="afterMeet-main-wrap">
             <div className="afterMeet-main-thumbnail">
@@ -40,18 +57,47 @@ const AfterMeetMain = ()=>{
                 <div className="afterMeet-member-count">
                     0/40명
                 </div>
-            </div>           
+            </div>   
+                    
         </div>
     )
 }
-const AfterMeetSubNavi = ()=>{
+const AfterMeetSubNavi = (props)=>{
+    const meetMenu = props.meetMenu;
+    const setMeetMenu = props.setMeetMenu;
+    const activeTab = (index) =>{
+        meetMenu.forEach((item)=>{
+            item.active = false;
+        })
+        meetMenu[index].active = true;
+        setMeetMenu([...meetMenu]);
+    }
     return ( 
-        <div>
+        <div className="afterMeet-sub-navi">
             <ul>
-                <li>소개</li>
-                <li>채팅</li>
-                <li>캘린더</li>
-                <li>멤버 목록</li>
+                {meetMenu.map((meetMenu,index)=>{
+                    return(
+                        <li key={"meetMenu"+index}>
+                          {meetMenu.active ?(
+                              <Link to={meetMenu.url} className="active-side" 
+                              onClick={()=>{
+                                activeTab(index);
+                              }}
+                              >
+                              {meetMenu.text}
+                          </Link>
+                          ):(
+                            <Link to={meetMenu.url}
+                              onClick={()=>{
+                                activeTab(index);
+                              }}
+                            >
+                            {meetMenu.text}
+                        </Link>
+                          )}
+                        </li>
+                    );
+                })}
             </ul>
         </div>
     )
