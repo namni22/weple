@@ -1,7 +1,12 @@
+.meetSettingFrm-main-wrap{
+    width: 800px;
+    margin: 0 auto;
+}
 .meetSettingFrm-wrap {
     /* 임시구분 패딩 */
     padding-top: 50px;
     width: 800px;
+
 }
 .meetSettingFrm-wrap>div{
     /* 각 에리어 선택자 카테고리, 제목, 썸네일 ... */

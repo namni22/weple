@@ -1,0 +1,68 @@
+.afterMeet-all-wrap{
+    width: 1200px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+.afterMeet-main-wrap{
+    width: 80%;
+    overflow: hidden;
+    margin: 0 auto;
+}
+.afterMeet-main-thumbnail,
+.afterMeet-main-info{
+    box-sizing: border-box;
+    display: block;
+    float: left;
+    width: calc(100% /2);
+}
+.afterMeet-thumbnail-img{
+    width: 400px;
+    height: 400px;
+}
+.afterMeet-thumbnail-img>img{
+    width: 100%;
+    height: 100%;
+}
+.afterMeet-main-info{
+    box-sizing: border-box;
+    height: 400px;
+}
+.afterMeet-info-host{
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+.afterMeet-info-host>.aferMeet-host-img,.aferMeet-host-name,.afer-host-like{
+    float: left;
+}
+.aferMeet-host-img{
+    width: 40px;
+    height: 40px;
+}
+.aferMeet-host-img>img{
+    border-radius: 50%;
+    width: 100%;
+}
+.aferMeet-host-name{
+    padding-left: 20px;
+    height: 40px;
+}
+.aferMeet-host-name>a{
+    display: block;
+    height: 100%;
+    line-height: 35px;
+}
+.afer-host-like{
+    float: right;
+    margin-right: 30px;
+}
+.afer-host-like>span{
+    font-size: 35px;
+    color: red;
+}
+.afterMeet-info-title{
+    margin-bottom: 10px;
+}
+.afterMeet-info-sub-content{
+    margin-bottom: 10px;
+}

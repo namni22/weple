@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./header.css";
 
 const Header = ()=>{
@@ -20,7 +21,12 @@ const Header = ()=>{
           </div>
           <div className="icon-wrap">
             <div className="material-icons meet">diversity_1</div>
-            <div className="icon-explain">모임</div>
+            
+          <div className="icon-explain">
+            <Link to="/meet">           
+                모임                
+            </Link>
+          </div>
           </div>
           <div className="icon-wrap">
             <div className="material-icons mypage">contact_page</div>
