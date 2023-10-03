@@ -20,13 +20,10 @@ const Header = () => {
           <div className="icon-explain">피드</div>
         </div>
         <div className="icon-wrap">
-          <div className="material-icons meet">diversity_1</div>
-          <div className="icon-explain">
-            
           <Link to="/meet">           
-                모임                
-            </Link>
-          </div>
+          <div className="material-icons meet">diversity_1</div>
+          <div className="icon-explain">모임</div>
+          </Link>
           {/* 회원가입 */}
         </div>
         <div className="icon-wrap">
