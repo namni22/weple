@@ -1,0 +1,17 @@
+/* 사이드 메뉴 */
+.admin-content {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .current-content {
+    width: 900px;
+  }
+  .my-content-wrap {
+    width: 700px;
+    margin: 0 auto;
+  }
+  .my-content-title {
+    padding: 30px 0px;
+    color: plum;
+  }
+/* 공지 등록 */
