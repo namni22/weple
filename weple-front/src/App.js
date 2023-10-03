@@ -6,7 +6,7 @@ import Footer from "./component/common/Footer";
 import MeetMain from "./component/meet/MeetMain";
 import Board from "./component/board/Board";
 import Header from "./component/common/Header";
-
+import ReviewWriteFrm from "./component/review/ReviewWriteFrm";
 
 
 function App() {
