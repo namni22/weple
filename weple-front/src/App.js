@@ -12,13 +12,13 @@ function App() {
   return (
     <div className="weple-wrap">
       <Header/>
-      <div className="weple-content">
-        <Main/>
+      <div className="weple-content">        
         <Routes>
           <Route path="/feed/*" element={<Feed />} />
           <Route path="/meet/*" element={<MeetMain />}></Route>
           <Route path="/board/*" element={<Board />}/>
           <Route path="/admin/*" element={<Admin />}/>
+          <Route path="*" element={<Main/>}/>
         </Routes>
       </div>
       <Footer/>
