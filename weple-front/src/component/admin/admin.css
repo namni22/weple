@@ -15,3 +15,51 @@
     color: plum;
   }
 /* 공지 등록 */
+.admin-menu-title{
+  font-weight: 900;   
+  margin: 30px 0px;
+}
+.board-frm-top{
+  padding-bottom: 20px;
+}
+.board-info {
+  width: 900px;
+}
+.board-info-tbl {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  width: 100%; 
+  padding: 10px 0px;
+}
+.board-info-tbl tr > td:first-child {
+  width: 150px;
+  padding: 10px 20px;  
+}
+.board-info-tbl tr > td:nth-child(2) {  
+  width: 90px;
+}
+.board-info-tbl tr > td:nth-child(2)>label {  
+  padding-left: 30px ;
+}
+.board-info-tbl tr > td:last-child>input{
+  width: 500px;
+  height: 40px;
+}
+.selectOption>select{
+  width:150px;
+  height: 40px;
+}
+.board-btn-box{
+  padding: 20px 0px;
+  
+}
+.board-btn-box> button{
+    width: 100%;
+    padding: 0.7rem;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: ns-eb;
+    border: none;
+    outline: none;
+    color: #000;
+}
