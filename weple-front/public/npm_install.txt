@@ -8,3 +8,6 @@ npm install swiper@6.8.4
 
 2023.10.02
 npm i swiper@8.0.0
+
+2023-10-04
+npm install react-calendar

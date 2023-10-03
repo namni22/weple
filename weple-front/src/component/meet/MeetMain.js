@@ -5,19 +5,30 @@ import MeetSettingFrm from "./MeetSettingFrm";
 import MeetCreate from "./MeetCreate";
 import MeetList from "./MeetList";
 
+import AfterMeet from "./AfterMeet";
+
 const MeetMain = () => {
     return (
         <div className="meet-all-wrap">
-            <div>모임메인</div>
+            
             <Link to="/meet">모임메인link</Link>
             <Link to="/meet/meetCreate">임시모임생성Frmlink</Link>
             <Link to="/meet/meetSettingFrm">임시모임생성link</Link>
             <Link to="/meet/meetList">모임리스트</Link>
-
+            
+            <Link to="/meet/afterMeet">가입후 모임</Link>
+            <Link to="#">내가 계설한 그룹 신청 인원</Link>
             <Routes>
                 <Route path="/meetSettingFrm" element={<MeetSettingFrm />} />
                 <Route path="/meetCreate" element={<MeetCreate />}></Route>
                 <Route path="/meetList" element={<MeetList />}></Route>
+
+
+            {/* <Routes> */}
+                <Route path="meetSettingFrm" element={<MeetSettingFrm />} />
+                <Route path="meetCreate" element={<MeetCreate/>}></Route>
+                <Route path="afterMeet/*" element={<AfterMeet />}/>
+                
             </Routes>
         </div>
 

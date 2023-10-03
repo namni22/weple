@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./header.css";
 
 const Header = () => {
@@ -19,8 +20,10 @@ const Header = () => {
           <div className="icon-explain">피드</div>
         </div>
         <div className="icon-wrap">
+          <Link to="/meet">           
           <div className="material-icons meet">diversity_1</div>
           <div className="icon-explain">모임</div>
+          </Link>
           {/* 회원가입 */}
         </div>
         <div className="icon-wrap">

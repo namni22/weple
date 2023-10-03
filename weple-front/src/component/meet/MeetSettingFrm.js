@@ -11,6 +11,8 @@ const MeetSettingFrm = (props) => {
 
 
     return (
+        <div className="meetSettingFrm-main-wrap">
+
         <div className="meetSettingFrm-wrap">
             <div className="meetCategoriFrm">카테고리</div>
             <div className="meetTitleFrm">
@@ -83,6 +85,7 @@ const MeetSettingFrm = (props) => {
                 <JwButton1 text="모임 생성"></JwButton1>
             </div>
 
+        </div>
         </div>
     );
 
