@@ -1,5 +1,5 @@
 .board-all-wrap {
-    width: 800px;
+    width: 1000px;
     margin: 0 auto;
 }
 /* 공지사항 */
@@ -9,6 +9,7 @@
 }
 
 /* 공지사항 리스트 */
+
 .board-tab-wrap{
     padding:20px 0px;
     border-bottom: 1px solid #ccc;
@@ -47,4 +48,14 @@
     text-align: center;
     background-color: plum;    
     
+}
+.board-list-title{
+    font-weight: 900;
+}
+/* 공지사항 상세보기 */
+.board-view-wrap{
+    display:flex;
+    width:100%;
+    font-size: 14px;
+    background-color: thistle;
 }
