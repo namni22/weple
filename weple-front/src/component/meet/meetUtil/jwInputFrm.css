@@ -1,0 +1,12 @@
+.jwInput-form {
+    /* block, 너비 100% 한 이유 :  필요한데서 div크기를 지정하면 그만큼 input이 커짐 */
+    display: block;
+    width: 100%;
+    padding: 0.7rem;
+    background-color: #fff;
+    outline: none;
+    border: 2px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 3px;
+  }
+  

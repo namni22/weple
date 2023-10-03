@@ -1,0 +1,33 @@
+/* 
+메인색상
+#004225 rgb(0, 66, 37)
+#F5F5DC rgb(245, 245, 220)
+#FFB000 rgb(255, 176, 0)
+#FFCF9D rgb(255, 207, 157)
+
+https://colorhunt.co/palette/004225f5f5dcffb000ffcf9d
+*/
+
+.jwBtn {
+    width: 100%;
+    padding: 0.7rem;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: ns-eb;
+    border: none;
+    outline: none;
+    color: #000;
+  }
+  
+  .jwBtnst1 {
+    background-color: #004225;
+    color: #fff;
+  }
+  .jwBtnst2 {
+    background-color: #f5f5dc;
+    border: 1px solid #ccc;
+  }
+  .jwBtnst3 {
+    background-color: #ffb000;
+  }
+  

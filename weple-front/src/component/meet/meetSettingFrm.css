@@ -1,0 +1,49 @@
+.meetSettingFrm-wrap {
+    /* 임시구분 패딩 */
+    padding-top: 50px;
+    width: 800px;
+}
+.meetSettingFrm-wrap>div{
+    /* 각 에리어 선택자 카테고리, 제목, 썸네일 ... */
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.meetSettingFrm-wrap>div>label{
+    width: 20%;
+    text-align: center;
+}
+.meetSettingFrm-wrap>div>div{
+    width: 80%;
+}
+.jwInput{
+    width: 80%;
+}
+.meetSettingFrm-wrap>div>input{
+    width: 80%;
+}
+.meetContentFrm>textarea{
+    width: 80%;
+    height: 200px;
+}
+.meetMaterials-content-wrap{
+    overflow: hidden;
+}
+.meetMaterials-input-box{
+    float: left;
+    width: 80%;
+    
+}
+.meetMaterialsInsert-btn-box{
+    float: left;
+    width: 10%;
+    margin-left: 50px;
+}
+.meetMaterials-wrap{
+    margin-top: 60px;
+    
+}
+
