@@ -7,3 +7,5 @@ npm install @mui/material @emotion/react @emotion/styled
 npm install swiper@6.8.4
 
 npm install react-calendar
+2023.10.02
+npm i swiper@8.0.0

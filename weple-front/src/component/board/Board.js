@@ -9,7 +9,8 @@ const Board = () => {
     <div className="board-all-wrap">
       <div className="board-title"><h1>공지사항</h1></div>
       <Routes>        
-        <Route path="*" element={<BoardList />} />       
+        <Route path="*" element={<BoardList />} /> 
+              
       </Routes>
     </div>
   );

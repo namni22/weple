@@ -1,0 +1,18 @@
+.footer{
+    padding: 50px 0;
+    background-color: gainsboro;
+}
+.footer-inner{
+    margin: 0 auto;
+    width: 1200px;
+}
+.footer .title{
+    font-size: 16px;
+    font-weight: 700;
+}
+.footer-inner>div{
+margin: 10px 0;
+}
+.footer span{
+    display: block;
+}

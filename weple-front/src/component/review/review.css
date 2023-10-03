@@ -1,0 +1,54 @@
+.review-top{
+    display: flex;
+    margin-bottom: 10px;
+}
+.profileImg{
+    width: 64px;
+    height: 64px;
+    background-color: gray;
+    border-radius: 45px;
+}
+.profileImg>img{
+    width: 100%;
+}
+.material-icons{
+    font-size: 40px;
+    cursor: pointer;
+}
+.review-star{
+    margin-left: 30px;
+}
+.review-star>span{
+    margin-top: 20px;
+}
+.review-write{
+    width: 100%;
+    height: 300px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.review-bottom{
+    display: flex;
+}
+.review-bottom .plus{
+    display: block;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+    border: 1px solid gainsboro;
+}
+.reviewImg{
+    background-color: gainsboro;
+    margin-right: 5px;
+    width: 100px;
+    height: 100px;
+}
+.review-write-wrap button{
+    margin-top: 30px;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    height: 40px;
+    cursor: pointer;
+}
