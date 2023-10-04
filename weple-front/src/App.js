@@ -11,8 +11,6 @@ import Header from "./component/common/Header";
 import Category from "./component/common/Category";
 import Join from "./component/member/Join";
 
-
-
 function App() {
   return (
     <div className="weple-wrap">
