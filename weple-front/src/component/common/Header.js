@@ -6,14 +6,18 @@ const Header = () => {
     <div className="header">
       <div className="header-inner">
         <div className="icon-wrap">
-          <div class="material-icons" id="category">
-            menu
-          </div>
+          <Link to="/category">
+            <div class="material-icons" id="category">
+              menu
+            </div>
+          </Link>
         </div>
         {/* <span class="material-icons bar">maximize</span> */}
-        <Link to="/">
-          <div className="logo">Weple</div>
-        </Link>
+
+        <div className="logo">
+          <Link to="/">Weple</Link>
+        </div>
+
         <input
           className="searchFrm"
           placeholder="지금 생각나는 취미를 검색하세요."

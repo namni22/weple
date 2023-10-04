@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { useState } from "react";
 import { Button2 } from "../util/Button";
+import SwiperComponent from "../util/Swiper";
 
 const FeedWriteFrm = (props) => {
   const prev = props.prev;
@@ -38,7 +39,7 @@ const FeedWriteFrm = (props) => {
       </div>
       <div className="feed-write-wrap">
         <div className="file-box">
-          <label htmlFor="file" className="feed-btn">
+          <label htmlFor="file" className="btn btn1 feed-label">
             사진 첨부하기
           </label>
           <input
@@ -55,23 +56,31 @@ const FeedWriteFrm = (props) => {
               <img />
             </div>
           ) : (
-            <>
-              {feedThumb.map((item, index) => {
-                return (
-                  <div key={"img" + index}>
-                    <img src={item} />
-                  </div>
-                );
-              })}
-            </>
+            <SwiperComponent
+              spaceBetween={21}
+              slidesPerView={4}
+              list={feedThumb}
+              pagination={false}
+              loop={false}
+              autoplay={false}
+            />
           )}
         </div>
         <textarea></textarea>
         <Button2 text="파일업로드"></Button2>
-        <button className="feed-btn upload">파일업로드</button>
       </div>
     </div>
   );
 };
 
+const ImgList = () => {
+  return (
+    <div>
+      <img src=""></img>
+      <button>
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+  );
+};
 export default FeedWriteFrm;

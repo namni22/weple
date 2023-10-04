@@ -8,7 +8,7 @@
 
 .btn {
   width: 100%;
-  padding: 0.7rem;
+  padding: 10px;
   cursor: pointer;
   border-radius: 5px;
   border: none;
@@ -17,6 +17,9 @@
   height: 40px;
   background-color: transparent;
   font-weight: 600;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition-duration: 300ms;
 }
 
 .btn1 {
@@ -31,4 +34,9 @@
 .btn3 {
   background-color: #ededed;
   color: #171717;
+}
+
+.btn2:hover {
+  background-color: #3d40e5;
+  color: #fff;
 }
