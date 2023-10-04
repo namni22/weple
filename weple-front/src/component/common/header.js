@@ -21,8 +21,10 @@ const Header = () => {
       ></input>
       <div className="icons">
         <div className="icon-wrap">
-          <div className="material-icons feed">note_alt</div>
-          <div className="icon-explain">피드</div>
+          <Link to="/feed">
+            <div className="material-icons feed">note_alt</div>
+            <div className="icon-explain">피드</div>
+          </Link>
         </div>
         <div className="icon-wrap">
           <Link to="/meet">
