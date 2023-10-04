@@ -8,8 +8,8 @@ import Swal from "sweetalert2";
 import { useState } from "react";
 
 const BoardFrm = (props) => {
-  const boardTitle = props.boardTitle;
-  const setBoardTitle = props.setBoardTitle;
+  const [boardTitle, setBoardTitle] = useState("");
+
   const boardDetail = props.boardDetail;
   const setBoardDetail = props.setBoardDetail;
   const board = props.board;
@@ -40,7 +40,7 @@ const BoardFrm = (props) => {
                   <Input
                     type="text"
                     data={boardTitle}
-                    set={setBoardTitle}
+                    setData={setBoardTitle}
                     content="boardTitle"
 
                   />
