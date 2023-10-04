@@ -2,13 +2,13 @@
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, {Navigation, Pagination} from "swiper";
+import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./swiper.css";
-SwiperCore.use([Navigation, Pagination]);
+SwiperCore.use([Navigation, Pagination, Autoplay]);
 
 const SwiperComponent = () => {
   return (
@@ -18,6 +18,8 @@ const SwiperComponent = () => {
       // scrollbar={{ draggable: true }}
       navigation={{ clickable: true }}
       pagination={{ clickable: true }}
+      autoplay={{ delay: 2000, disableOnInteraction: false }}
+      loop={true}
       // onSlideChange={() => console.log("slide change")}
       // onSwiper={(swiper) => console.log(swiper)}
     >
@@ -30,6 +32,5 @@ const SwiperComponent = () => {
     </Swiper>
   );
 };
-
 
 export default SwiperComponent;

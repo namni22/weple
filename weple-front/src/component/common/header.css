@@ -1,31 +1,35 @@
-.header{
-    overflow: hidden;
-    margin: 10px auto;
-    width: 1200px;
-
+.header {
+  border-bottom: 1px solid gainsboro;
+  width: 100%;
 }
-.header *{
-    cursor: pointer;
+.header-inner {
+  margin: 0 auto;
+  overflow: hidden;
+  height: 65px;
+  box-sizing: border-box;
+  padding-top: 10px;
+  width: 1200px;
 }
-.header >*{
-    float: left;
-
+.header * {
+  cursor: pointer;
 }
-.header .material-icons{
-font-size: 30px;
-color: gray;
-margin: 0 5px;
+.header-inner > * {
+  float: left;
 }
-.header .icon-explain{
-    font-size: 10px;
-    color: gray;
-    text-align: center;
-
+.header .material-icons {
+  font-size: 30px;
+  color: gray;
+  margin: 0 5px;
 }
-.header .logo{
-    font-size: 30px;
-    width: 15%;
-
+.header .icon-explain {
+  font-size: 10px;
+  color: gray;
+  text-align: center;
+}
+.header .logo {
+  font-size: 30px;
+  width: 200px;
+  padding-left: 20px;
 }
 /* 
 .header .bar{
@@ -38,23 +42,25 @@ margin: 0 5px;
 
 } 
 */
-.header .searchFrm{
-    border-radius: 15px;
-    outline: none;
-    border: 1px solid #ccc;
-    width: 50%;
-    cursor:inherit;
-    height: 40px;
-    padding-left: 15px;
-    display: block;
-    margin: 4px;
+.header .searchFrm {
+  border-radius: 15px;
+  outline: none;
+  border: 1px solid #ccc;
+  width: 50%;
+  cursor: inherit;
+  height: 40px;
+  padding-left: 15px;
+  display: block;
+  margin: 4px;
 }
-.icons{
-    float: right;
-    overflow: hidden;
+.icons {
+  float: right;
+  overflow: hidden;
 }
-.icons>div{
-    float: left;
+.icons > div {
+  float: left;
 }
-
-
+#category {
+  font-size: 40px;
+  padding-top: 5px;
+}
