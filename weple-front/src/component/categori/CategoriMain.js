@@ -8,7 +8,6 @@ const CategoriMain = () => {
         <div>카테고리 메인
             <Link to="/categori/categoriList">카테고리보기</Link>
             <Routes>
-
                 <Route path="/categoriList" element={<CategoriList />}></Route>
             </Routes>
         </div>
