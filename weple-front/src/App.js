@@ -7,10 +7,12 @@ import MeetMain from "./component/meet/MeetMain";
 import Board from "./component/board/Board";
 import Admin from "./component/admin/Admin";
 import Join from "./component/member/Join";
+import Header from "./component/common/Header";
 
 function App() {
   return (
     <div className="weple-wrap">
+      <Header />
       <div className="weple-content">
         <Routes>
           <Route path="/feed/*" element={<Feed />} />
