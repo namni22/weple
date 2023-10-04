@@ -30,8 +30,10 @@ const Header = () => {
           {/* 회원가입 */}
         </div>
         <div className="icon-wrap">
-          <div className="material-icons mypage">contact_page</div>
-          <div className="icon-explain">마이</div>
+          <Link to="/join">
+            <div className="material-icons mypage">contact_page</div>
+            <div className="icon-explain">마이</div>
+          </Link>
           {/* 로그인 */}
         </div>
       </div>

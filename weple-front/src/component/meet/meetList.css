@@ -7,13 +7,14 @@
 }
 .meet-one{
     float: left;
-    width: 300px;
+    width: 260px;
     height: 400px;
     box-sizing: border-box;
     position: relative;
+    margin: 5px;
 }
 .MeetList-meet-img-box{
-    width: 300px;
+    width: 260px;
     height: 300px;
     /*  */
     background-color: beige;
