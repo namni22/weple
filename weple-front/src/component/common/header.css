@@ -10,11 +10,9 @@
   padding-top: 10px;
   width: 1200px;
 }
-.header * {
-  cursor: pointer;
-}
 .header-inner > * {
   float: left;
+  cursor: pointer;
 }
 .header .material-icons {
   font-size: 30px;
@@ -28,10 +26,12 @@
 }
 .header .logo {
   font-size: 30px;
-  width: 200px;
-  padding-left: 20px;
-  color: #2d31fa;
+  margin-right: 150px;
+  margin-left: 20px;
   font-weight: 800;
+}
+.header .logo a {
+  color: #2d31fa;
 }
 .header .material-icons {
   font-size: 30px;

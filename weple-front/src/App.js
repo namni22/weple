@@ -6,9 +6,10 @@ import Footer from "./component/common/Footer";
 import MeetMain from "./component/meet/MeetMain";
 import Board from "./component/board/Board";
 import Admin from "./component/admin/Admin";
-import Join from "./component/member/Join";
-import CategoriMain from "./component/categori/CategoriMain";
+
 import Header from "./component/common/Header";
+import Join from "./component/member/Join";
+import Category from "./component/common/Category";
 
 function App() {
   return (
@@ -19,10 +20,10 @@ function App() {
         <Routes>
           <Route path="/feed/*" element={<Feed />} />
           <Route path="/meet/*" element={<MeetMain />}></Route>
-          <Route path="/categori" element={<CategoriMain />}></Route>
           <Route path="/board/*" element={<Board />} />
           <Route path="/admin/*" element={<Admin />} />
           <Route path="/join/*" element={<Join />} />
+          <Route path="/category" element={<Category />} />
           <Route path="*" element={<Main />} />
         </Routes>
       </div>

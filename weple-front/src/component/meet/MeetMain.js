@@ -7,10 +7,11 @@ import MeetList from "./MeetList";
 
 import AfterMeet from "./AfterMeet";
 import { useState } from "react";
+import MyMeetList from "./MyMeetList";
 
 const MeetMain = () => {
   const [meetNavi, setMeetNavi] = useState([
-    { url: "afterMeet", text: "내가 개설한 모임", active: false },
+    { url: "myMeet", text: "내가 개설한 모임", active: false },
     { url: "currentMeet", text: "참여하는 모임", active: false },
     { url: "endMeet", text: "종료된 모임", active: false },
   ]);
@@ -37,7 +38,8 @@ const MeetMain = () => {
         <Route path="meetSettingFrm" element={<MeetSettingFrm />} />
         <Route path="meetCreate" element={<MeetCreate />}></Route>
         {/* */}
-        <Route path="afterMeet/*" element={<AfterMeet />} />
+        <Route path="myMeet/afterMeet/*" element={<AfterMeet />} />
+        <Route path="myMeet" element={<MyMeetList />} />
       </Routes>
     </div>
   );

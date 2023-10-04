@@ -4,7 +4,8 @@ import "./admin.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { Pagination} from "@mui/material";
+import  Pagination  from "./Pagination";
+
 const AdminBoard = () => {
     const [boardList, setBoardList] = useState([]);
     const [pageInfo, setPageInfo] = useState({});
