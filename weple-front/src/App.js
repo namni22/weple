@@ -10,6 +10,7 @@ import Admin from "./component/admin/Admin";
 
 import Header from "./component/common/Header";
 import Join from "./component/member/Join";
+import CategoriMain from "./component/categori/CategoriMain";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/feed/*" element={<Feed />} />
           <Route path="/meet/*" element={<MeetMain />}></Route>
+          <Route path="/categori" element={<CategoriMain />}></Route>
           <Route path="/board/*" element={<Board />} />
           <Route path="/admin/*" element={<Admin />} />
           <Route path="/join/*" element={<Join />} />

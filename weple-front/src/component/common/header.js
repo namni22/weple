@@ -4,10 +4,12 @@ import "./header.css";
 const Header = () => {
   return (
     <div className="header">
-      <div className="category icon-wrap">
-        <div class="material-icons">menu</div>
-        <div className="icon-explain">카테고리</div>
-      </div>
+      <Link to = "/categori">
+        <div className="category icon-wrap">
+          <div class="material-icons">menu</div>
+          <div className="icon-explain">카테고리</div>
+        </div>
+      </Link>
       {/* <span class="material-icons bar">maximize</span> */}
       <Link to="/">
         <div className="logo">Weple</div>
