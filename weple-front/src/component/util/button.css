@@ -1,0 +1,34 @@
+/*
+메인색상
+#3d40e5 - 진한파랑
+#5D8BF4 - 연한파랑
+#ededed - 연한회색
+#171717 - 진한회색(기본폰트색)
+*/
+
+.btn {
+  width: 100%;
+  padding: 0.7rem;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  text-align: center;
+  height: 40px;
+  background-color: transparent;
+  font-weight: 600;
+}
+
+.btn1 {
+  background-color: #3d40e5;
+}
+
+.btn2 {
+  border: 1px solid #4d75ff;
+  color: #3d40e5;
+  background-color: transparent;
+}
+.btn3 {
+  background-color: #ededed;
+  color: #171717;
+}

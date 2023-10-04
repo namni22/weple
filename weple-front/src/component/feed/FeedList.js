@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { Button1, Button2, Button3 } from "../util/Button";
 
 const FeedList = () => {
   const navigate = useNavigate();
@@ -12,9 +13,7 @@ const FeedList = () => {
     <div>
       <div className="feed-title">WEPLE FEED</div>
       <div className="feed-list-btn">
-        <button className="feed-btn" onClick={write}>
-          피드작성
-        </button>
+        <Button1 text="피드작성" clickEvent={write} />
       </div>
       <div className="feed-list-content-wrap">
         <div className="feed-list-content">
