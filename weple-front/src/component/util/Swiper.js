@@ -10,18 +10,20 @@ import "swiper/css/pagination";
 import "./swiper.css";
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
-const SwiperComponent = () => {
+const SwiperComponent = (props) => {
+  const spaceBetween = props.spaceBetween;
+  const slidesPerView = props.slidesPerView;
+  const navigation = props.navigation;
+  const pagination = props.pagination;
+
   return (
     <Swiper
-      spaceBetween={26} //SwiperSlide간 간격
-      slidesPerView={1} //한번에 보여지는 슬라이드 개수
-      // scrollbar={{ draggable: true }}
-      navigation={{ clickable: true }}
-      pagination={{ clickable: true }}
+      spaceBetween={spaceBetween} //SwiperSlide간 간격
+      slidesPerView={slidesPerView} //한번에 보여지는 슬라이드 개수
+      navigation={{ clickable: { navigation } }}
+      pagination={{ clickable: { pagination } }}
       autoplay={{ delay: 2000, disableOnInteraction: false }}
       loop={true}
-      // onSlideChange={() => console.log("slide change")}
-      // onSwiper={(swiper) => console.log(swiper)}
     >
       <SwiperSlide>
         <img src="./img/main_1.jpg"></img>
