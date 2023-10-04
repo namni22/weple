@@ -6,11 +6,9 @@ const Header = () => {
     <div className="header">
       <div className="header-inner">
         <div className="icon-wrap">
-          <Link to="/category">
-            <div class="material-icons" id="category">
-              menu
-            </div>
-          </Link>
+          <div className="material-icons" id="category">
+            menu
+          </div>
         </div>
         {/* <span class="material-icons bar">maximize</span> */}
 
