@@ -4,41 +4,41 @@ import "./header.css";
 const Header = () => {
   return (
     <div className="header">
-      <Link to = "/categori">
-        <div className="category icon-wrap">
-          <div class="material-icons">menu</div>
-          <div className="icon-explain">카테고리</div>
-        </div>
-      </Link>
-      {/* <span class="material-icons bar">maximize</span> */}
-      <Link to="/">
-        <div className="logo">Weple</div>
-      </Link>
-
-      <input
-        className="searchFrm"
-        placeholder="지금 생각나는 취미를 검색하세요."
-      ></input>
-      <div className="icons">
+      <div className="header-inner">
         <div className="icon-wrap">
-          <Link to="/feed">
-            <div className="material-icons feed">note_alt</div>
-            <div className="icon-explain">피드</div>
-          </Link>
+          <div class="material-icons" id="category">
+            menu
+          </div>
         </div>
-        <div className="icon-wrap">
-          <Link to="/meet">
-            <div className="material-icons meet">diversity_1</div>
-            <div className="icon-explain">모임</div>
-          </Link>
-          {/* 회원가입 */}
-        </div>
-        <div className="icon-wrap">
-          <Link to="/join">
-            <div className="material-icons mypage">contact_page</div>
-            <div className="icon-explain">마이</div>
-          </Link>
-          {/* 로그인 */}
+        {/* <span class="material-icons bar">maximize</span> */}
+        <Link to="/">
+          <div className="logo">Weple</div>
+        </Link>
+        <input
+          className="searchFrm"
+          placeholder="지금 생각나는 취미를 검색하세요."
+        ></input>
+        <div className="icons">
+          <div className="icon-wrap">
+            <Link to="/feed">
+              <div className="material-icons feed">note_alt</div>
+              <div className="icon-explain">피드</div>
+            </Link>
+          </div>
+          <div className="icon-wrap">
+            <Link to="/meet">
+              <div className="material-icons meet">diversity_1</div>
+              <div className="icon-explain">모임</div>
+              {/* 회원가입 */}
+            </Link>
+          </div>
+          <div className="icon-wrap">
+            <Link to="/join">
+              <div className="material-icons mypage">contact_page</div>
+              <div className="icon-explain">마이</div>
+              {/* 로그인 */}
+            </Link>
+          </div>
         </div>
       </div>
     </div>

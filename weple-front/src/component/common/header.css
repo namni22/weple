@@ -1,7 +1,35 @@
 .header {
+  border-bottom: 1px solid gainsboro;
+  width: 100%;
+}
+.header-inner {
+  margin: 0 auto;
   overflow: hidden;
-  margin: 10px auto;
+  height: 65px;
+  box-sizing: border-box;
+  padding-top: 10px;
   width: 1200px;
+}
+.header * {
+  cursor: pointer;
+}
+.header-inner > * {
+  float: left;
+}
+.header .material-icons {
+  font-size: 30px;
+  color: gray;
+  margin: 0 5px;
+}
+.header .icon-explain {
+  font-size: 10px;
+  color: gray;
+  text-align: center;
+}
+.header .logo {
+  font-size: 30px;
+  width: 200px;
+  padding-left: 20px;
 }
 .header * {
   cursor: pointer;
@@ -53,4 +81,8 @@
 }
 .icons > div {
   float: left;
+}
+#category {
+  font-size: 40px;
+  padding-top: 5px;
 }
