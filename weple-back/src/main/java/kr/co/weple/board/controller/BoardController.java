@@ -1,5 +1,8 @@
 package kr.co.weple.board.controller;
 
-public class BoardController {
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+public class BoardController {
+	
 }
