@@ -4,7 +4,7 @@ import "./header.css";
 const Header = () => {
   return (
     <div className="header">
-      <Link to = "/categori">
+      <Link to="/categori">
         <div className="category icon-wrap">
           <div class="material-icons">menu</div>
           <div className="icon-explain">카테고리</div>

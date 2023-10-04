@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { useState } from "react";
+import { Button2 } from "../util/Button";
 
 const FeedWriteFrm = (props) => {
   const prev = props.prev;
@@ -66,6 +67,7 @@ const FeedWriteFrm = (props) => {
           )}
         </div>
         <textarea></textarea>
+        <Button2 text="파일업로드"></Button2>
         <button className="feed-btn upload">파일업로드</button>
       </div>
     </div>
