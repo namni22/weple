@@ -5,9 +5,10 @@ const Header = () => {
   return (
     <div className="header">
       <div className="header-inner">
-        <div className="category icon-wrap">
-          <div class="material-icons">menu</div>
-          <div className="icon-explain">카테고리</div>
+        <div className="icon-wrap">
+          <div class="material-icons" id="category">
+            menu
+          </div>
         </div>
         {/* <span class="material-icons bar">maximize</span> */}
         <Link to="/">
@@ -43,5 +44,4 @@ const Header = () => {
     </div>
   );
 };
-
 export default Header;
