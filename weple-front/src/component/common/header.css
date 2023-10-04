@@ -1,31 +1,29 @@
-.header{
-    overflow: hidden;
-    margin: 10px auto;
-    width: 1200px;
-
+.header {
+  overflow: hidden;
+  margin: 10px auto;
+  width: 1200px;
 }
-.header *{
-    cursor: pointer;
+.header * {
+  cursor: pointer;
 }
-.header >*{
-    float: left;
-
+.header > * {
+  float: left;
 }
-.header .material-icons{
-font-size: 30px;
-color: gray;
-margin: 0 5px;
+.header .material-icons {
+  font-size: 30px;
+  color: gray;
+  margin: 0 5px;
 }
-.header .icon-explain{
-    font-size: 10px;
-    color: gray;
-    text-align: center;
-
+.header .icon-explain {
+  font-size: 10px;
+  color: gray;
+  text-align: center;
 }
-.header .logo{
-    font-size: 30px;
-    width: 15%;
-
+.header .logo {
+  font-size: 30px;
+  width: 15%;
+  color: #2d31fa;
+  font-weight: 900;
 }
 /* 
 .header .bar{
@@ -38,23 +36,21 @@ margin: 0 5px;
 
 } 
 */
-.header .searchFrm{
-    border-radius: 15px;
-    outline: none;
-    border: 1px solid #ccc;
-    width: 50%;
-    cursor:inherit;
-    height: 40px;
-    padding-left: 15px;
-    display: block;
-    margin: 4px;
+.header .searchFrm {
+  border-radius: 15px;
+  outline: none;
+  border: 1px solid #ccc;
+  width: 50%;
+  cursor: inherit;
+  height: 40px;
+  padding-left: 15px;
+  display: block;
+  margin: 4px;
 }
-.icons{
-    float: right;
-    overflow: hidden;
+.icons {
+  float: right;
+  overflow: hidden;
 }
-.icons>div{
-    float: left;
+.icons > div {
+  float: left;
 }
-
-
