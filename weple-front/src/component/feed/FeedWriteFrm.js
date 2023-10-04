@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { useState } from "react";
 import { Button2 } from "../util/Button";
+import SwiperComponent from "../util/Swiper";
 
 const FeedWriteFrm = (props) => {
   const prev = props.prev;
@@ -55,15 +56,14 @@ const FeedWriteFrm = (props) => {
               <img />
             </div>
           ) : (
-            <>
-              {feedThumb.map((item, index) => {
-                return (
-                  <div key={"img" + index}>
-                    <img src={item} />
-                  </div>
-                );
-              })}
-            </>
+            <SwiperComponent
+              spaceBetween={21}
+              slidesPerView={4}
+              list={feedThumb}
+              pagination={false}
+              loop={false}
+              autoplay={false}
+            />
           )}
         </div>
         <textarea></textarea>
@@ -73,4 +73,14 @@ const FeedWriteFrm = (props) => {
   );
 };
 
+const ImgList = () => {
+  return (
+    <div>
+      <img src=""></img>
+      <button>
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+  );
+};
 export default FeedWriteFrm;

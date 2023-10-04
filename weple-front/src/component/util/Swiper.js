@@ -15,6 +15,9 @@ const SwiperComponent = (props) => {
   const slidesPerView = props.slidesPerView;
   const navigation = props.navigation;
   const pagination = props.pagination;
+  const list = props.list;
+  const autoplay = props.autoplay;
+  const loop = props.loop;
 
   return (
     <Swiper
@@ -22,15 +25,14 @@ const SwiperComponent = (props) => {
       slidesPerView={slidesPerView} //한번에 보여지는 슬라이드 개수
       navigation={{ clickable: { navigation } }}
       pagination={{ clickable: { pagination } }}
-      autoplay={{ delay: 2000, disableOnInteraction: false }}
-      loop={true}
+      autoplay={autoplay}
+      // autoplay= {{delay: 2000, disableOnInteraction: false}}
+
+      loop={loop}
     >
-      <SwiperSlide>
-        <img src="./img/main_1.jpg"></img>
-      </SwiperSlide>
-      <SwiperSlide>
-        <img src="./img/main_2.jpg"></img>
-      </SwiperSlide>
+      {list.map((item, index) => {
+        return <SwiperSlide key={"img" + index}>{item}</SwiperSlide>;
+      })}
     </Swiper>
   );
 };
