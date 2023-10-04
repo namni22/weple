@@ -13,19 +13,9 @@
 .feed-list-btn {
   text-align: right;
 }
-.feed-btn {
-  display: inline-block;
+.feed-list-btn .btn {
   width: 150px;
-  border-radius: 5px;
-  background-color: #aaa;
-  color: #fff;
-  height: 40px;
-  line-height: 40px;
-  text-align: center;
-  border: none;
-  cursor: pointer;
 }
-
 .feed-list-content-wrap {
   display: flex;
   justify-content: space-between;
