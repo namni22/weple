@@ -1,5 +1,10 @@
-/* #2D31FA
-#5D8BF4 */
+/*
+메인색상
+#2D31FA - 진한파랑
+#5D8BF4 - 연한파랑
+#ededed - 연한회색
+#171717 - 진한회색(기본폰트색)
+*/
 /* 사이드 메뉴 */
 .admin-content {
     display: flex;
@@ -28,8 +33,8 @@
   width: 900px;
 }
 .board-info-tbl {
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ededed;
+  border-bottom: 1px solid #ededed;
   width: 100%; 
   padding: 10px 0px;
 }
@@ -64,4 +69,48 @@
     border: none;
     outline: none;
     color: #000;
+}
+/* 회원 목록 */
+.admin-member-tbl-box > table {
+  width: 100%;
+  border-spacing: 0;
+}
+.admin-member-tbl-box > table td {
+  text-align: center;
+  padding: 5px;
+  border: 1px solid #ededed ;
+}
+.admin-member-tbl-box > table > thead td {
+ 
+  color: #2D31FA;
+}
+.admin-paging-wrap {
+  margin-top: 50px;
+}
+/* 공지등록 */
+.admin-board-tbl > table {
+  width: 100%;
+  border-spacing: 0;
+}
+.admin-board-tbl td {
+  text-align: center;
+  padding: 10px 5px;
+}
+.admin-board-tbl td.title-td {
+  text-align: left;
+}
+.admin-board-tbl td.title-td > div {
+  width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.admin-board-tbl > table > thead td {
+  border-bottom: 2px solid #5D8BF4;
+  border-top: 2px solid #5D8BF4;
+  color: #5D8BF4;
+  font-family: ns-b;
+}
+.admin-board-tbl > table > tbody td {
+  border-bottom: 1px solid #ededed;
 }
