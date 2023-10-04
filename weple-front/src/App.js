@@ -6,9 +6,9 @@ import Footer from "./component/common/Footer";
 import MeetMain from "./component/meet/MeetMain";
 import Board from "./component/board/Board";
 import Admin from "./component/admin/Admin";
-import Join from "./component/member/Join";
 import CategoriMain from "./component/categori/CategoriMain";
 import Header from "./component/common/Header";
+import Join from "./component/member/Join";
 
 function App() {
   return (

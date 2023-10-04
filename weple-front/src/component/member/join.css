@@ -23,9 +23,11 @@
 .join-content {
   width: 70%;
   margin: 0 auto;
+  text-align: ;
 }
 
 .join-agree-explain {
+  color: #bababa;
   width: 90%;
   height: 200px;
   overflow: auto;
@@ -38,4 +40,46 @@
 
 .agree-required {
   color: #ff4c4c;
+}
+
+.checks {
+  margin: 30px 10px;
+}
+
+.checks input[type="checkbox"] {
+  display: none;
+}
+
+.checks input[type="checkbox"] + label:before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  position: relative;
+  top: 3px;
+  margin-right: 10px;
+  background: #fff;
+  border: 1px solid #c7c7c7;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+  float: left;
+}
+
+.checks input[type="checkbox"]:checked + label:before {
+  background: url(/public/img/check.png) no-repeat 50% 50% #2d31fa;
+  border-color: #2d31fa;
+}
+
+.join-agree-btn {
+  text-align: center;
+}
+
+.join-agree-btn > div {
+  width: 30%;
+  display: inline-block;
+  margin: 50px 0;
+}
+
+.join-agree-btn > div:first-child {
+  margin-right: 30px;
 }
