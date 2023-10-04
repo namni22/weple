@@ -4,7 +4,14 @@ import MeetSettingFrm from "./MeetSettingFrm";
 const MeetCreate = () => {
     const [meetTitle, setMeetTitle] = useState("");
     const [meetMaterials, setMeetMaterials] = useState("");
+    const [meetThumbnail, setmeetThumbnail] = useState({});
     
+    
+    const meetCreate= ()=>{
+        console.log("연결");
+        console.log(meetTitle);
+    }
+
     return (
         <div>MeetCreate
             <MeetSettingFrm 
@@ -12,6 +19,7 @@ const MeetCreate = () => {
                 setMeetTitle={setMeetTitle}
                 meetMaterials={meetMaterials}
                 setMeetMaterials={setMeetMaterials}
+                buttonEvent={meetCreate}
             />
         </div>
 
