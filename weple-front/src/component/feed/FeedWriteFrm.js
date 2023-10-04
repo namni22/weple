@@ -38,7 +38,7 @@ const FeedWriteFrm = (props) => {
       </div>
       <div className="feed-write-wrap">
         <div className="file-box">
-          <label htmlFor="file" className="feed-btn">
+          <label htmlFor="file" className="btn btn1 feed-label">
             사진 첨부하기
           </label>
           <input
@@ -68,7 +68,6 @@ const FeedWriteFrm = (props) => {
         </div>
         <textarea></textarea>
         <Button2 text="파일업로드"></Button2>
-        <button className="feed-btn upload">파일업로드</button>
       </div>
     </div>
   );
