@@ -19,10 +19,10 @@ const MeetList = () => {
           </div>
           <div className="MeetList-star">
             <span>별점 </span>
-            <span class="material-icons">star_rate</span>
+            <span className="material-icons">star_rate</span>
           </div>
           <div className="MeetList-like-box">
-            <span class="material-icons MeetList-like">favorite_border</span>
+            <span className="material-icons MeetList-like">favorite_border</span>
           </div>
         </div>
         {/* < */}
