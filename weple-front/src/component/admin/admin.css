@@ -1,3 +1,5 @@
+/* #2D31FA
+#5D8BF4 */
 /* 사이드 메뉴 */
 .admin-content {
     display: flex;
@@ -12,7 +14,7 @@
   }
   .my-content-title {
     padding: 30px 0px;
-    color: plum;
+    color: #2D31FA;
   }
 /* 공지 등록 */
 .admin-menu-title{
