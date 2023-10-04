@@ -1,3 +1,5 @@
+/* #2D31FA
+#5D8BF4 */
 .admin-side {
     width: 200px;
   }
@@ -10,7 +12,7 @@
   .admin-side > ul > li > a {
     display: block;
     padding: 10px;
-    color: plum;
+    color: #5D8BF4;
     font-family: ns-b;
     position: relative;
   }
@@ -19,7 +21,7 @@
     right: 0;
   }
   .admin-side > ul > li > a.active-side {
-    background-color: plum;
+    background-color: #5D8BF4;
     color: #fff;
   }
   .admin-side > ul > li > a.active-side > span {
