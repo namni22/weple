@@ -9,4 +9,9 @@ import kr.co.weple.meet.model.dao.MeetDao;
 public class MeetService {
 	@Autowired
 	private MeetDao meetDao;
+
+	public void myMeetList(int reqPage) {
+		//
+		
+	}
 }
