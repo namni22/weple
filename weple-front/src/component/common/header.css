@@ -31,6 +31,28 @@
   width: 200px;
   padding-left: 20px;
 }
+.header * {
+  cursor: pointer;
+}
+.header > * {
+  float: left;
+}
+.header .material-icons {
+  font-size: 30px;
+  color: gray;
+  margin: 0 5px;
+}
+.header .icon-explain {
+  font-size: 10px;
+  color: gray;
+  text-align: center;
+}
+.header .logo {
+  font-size: 30px;
+  width: 15%;
+  color: #2d31fa;
+  font-weight: 900;
+}
 /* 
 .header .bar{
     -ms-transform: rotate(90deg); 

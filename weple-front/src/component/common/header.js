@@ -14,7 +14,6 @@ const Header = () => {
         <Link to="/">
           <div className="logo">Weple</div>
         </Link>
-
         <input
           className="searchFrm"
           placeholder="지금 생각나는 취미를 검색하세요."
