@@ -5,16 +5,12 @@ import Main from "./component/common/Main";
 import Footer from "./component/common/Footer";
 import MeetMain from "./component/meet/MeetMain";
 import Board from "./component/board/Board";
-
 import Admin from "./component/admin/Admin";
-
-import Header from "./component/common/Header";
 import Join from "./component/member/Join";
 
 function App() {
   return (
     <div className="weple-wrap">
-      <Header />
       <div className="weple-content">
         <Routes>
           <Route path="/feed/*" element={<Feed />} />
