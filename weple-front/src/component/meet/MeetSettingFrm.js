@@ -3,6 +3,7 @@ import JwInput from "./meetUtil/JwInputFrm";
 import { JwButton1 } from "../meet/meetUtil/JwButton";
 import { Button1, Button2 } from "../util/Button";
 import TextEditor from "../util/TextEditor";
+import { useEffect } from "react";
 
 const MeetSettingFrm = (props) => {
     // 모임만들 정보 선언
@@ -11,6 +12,14 @@ const MeetSettingFrm = (props) => {
     const meetMaterials = props.meetMaterials;
     const setMeetMaterials = props.setMeetMaterials;
     const buttonEvent = props.buttonEvent;
+    
+
+    // 지도
+    // const container = document.getElementById('map');//지도를 담을 영역의 dom 레퍼런스
+    // const options ={
+    //     center : new kakao.maps.LatLng(33.45, 126.57)
+    // }
+    // const map = new kakao.maps.Map(container, options);
 
     return (
         <div className="meetSettingFrm-main-wrap">
@@ -49,7 +58,10 @@ const MeetSettingFrm = (props) => {
                 </div>
                 <div className="meetPlaceFrm">
                     <label>모임위치</label>
-                    <div>주소입력 , 지도</div>
+                    <div id="map" style={{width: '500px', height: '500px'}}>
+                        주소입력 , 지도
+                        <Kakao2></Kakao2>
+                    </div>
                 </div>
                 <div className="meetMemberLimitFrm">
                     <label>모임참여인원</label>
@@ -97,6 +109,24 @@ const MeetSettingFrm = (props) => {
     );
 
 
+}
+
+const {kakao}= window;
+const Kakao2 = ()=>{
+    useEffect(()=>{
+        const container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+        const options = { //지도를 생성할 때 필요한 기본 옵션
+	        center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+	        level: 3 //지도의 레벨(확대, 축소 정도)
+    };
+    const map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+    },[])
+    return(
+        <div id="map" style={{
+            width : "500px",
+            height : "500px"
+        }}></div>
+    )
 }
 
 export default MeetSettingFrm;
