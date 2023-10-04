@@ -1,6 +1,7 @@
 import "./meetSettingFrm.css";
 import JwInput from "./meetUtil/JwInputFrm";
 import { JwButton1 } from "../meet/meetUtil/JwButton";
+import { Button1, Button2 } from "../util/Button";
 
 const MeetSettingFrm = (props) => {
     // 모임만들 정보 선언
@@ -70,7 +71,7 @@ const MeetSettingFrm = (props) => {
                         ></JwInput>
                     </div>
                     <div className="meetMaterialsInsert-btn-box">
-                        <JwButton1 text="추가"></JwButton1>
+                        <Button2 text="추가"></Button2>
                     </div>
 
                     <div className="meetMaterials-wrap">
@@ -82,7 +83,7 @@ const MeetSettingFrm = (props) => {
 
             </div>
             <div className="meet-btn-box">
-                <JwButton1 text="모임 생성"></JwButton1>
+                <Button1 text="모임생성"></Button1>
             </div>
 
         </div>
