@@ -22,7 +22,7 @@
 
 .join-content {
   width: 70%;
-  margin: 0 auto;
+  margin: 50px auto;
 }
 
 .join-agree-explain {
@@ -94,4 +94,78 @@
 
 .joinFrm-wrap {
   display: none;
+}
+
+.joinFrm-content {
+  width: 500px;
+  margin: 0 auto;
+}
+
+.join-input-wrap {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0px;
+  border-bottom: 1px solid #ededed;
+}
+
+.join-input-wrap > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.join-input-wrap > div > .label {
+  width: 25%;
+}
+
+.join-input-wrap > div > .input {
+  width: 75%;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.label {
+  font-size: 18p;
+}
+
+.join-essential {
+  color: #ff4c4c;
+}
+
+.input input[type="radio"] + label {
+  width: calc(100% / 2);
+  cursor: pointer;
+  height: 45px;
+  float: left;
+  border: 1px solid #5d8bf4;
+  box-sizing: border-box;
+  text-align: center;
+  color: #5d8bf4;
+  line-height: 45px;
+}
+
+input[type="radio"]:checked + label {
+  background-color: #5d8bf4;
+  color: #fff;
+}
+
+.join-profileImg {
+  display: inline-block;
+  width: 200px;
+  border: 1px solid #5d8bf4;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  color: #fff;
+  background-color: #5d8bf4;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.join-profileImg-pre > img {
+  margin-bottom: 15px;
 }
