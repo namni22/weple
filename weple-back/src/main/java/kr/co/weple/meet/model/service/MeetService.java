@@ -32,4 +32,11 @@ public class MeetService {
 		return map;
 		
 	}
+
+	public Map enrollMember(int reqPage) {
+		int numPerPage	= 10;
+		int pageNaviSize = 5;
+		int totalCount = meetDao.enrollMemberList();
+		return null;
+	}
 }

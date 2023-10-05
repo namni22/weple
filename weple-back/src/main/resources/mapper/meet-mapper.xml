@@ -18,4 +18,7 @@
 		        ORDER BY 1 DESC)M)
 		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
+	<select id="enrollMemberList" resultType="int">
+		select count(*) from follower where follower_status=0
+	</select>
 </mapper>

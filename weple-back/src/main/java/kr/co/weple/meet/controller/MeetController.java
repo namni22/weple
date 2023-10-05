@@ -21,14 +21,18 @@ import kr.co.weple.meet.model.vo.Meet;
 public class MeetController {
 	@Autowired
 	private MeetService meetService;
+	
 	@GetMapping(value = "/myMeetList/{reqPage}")
 	public Map myMeetList(@PathVariable int reqPage) {
 		Map map = meetService.myMeetList(reqPage);
 		return map;
 	}
 	//개설한 모임에 가입 신청자 list 출력
-	@GetMapping(value = "/enrollMember")
-	public void enrollMember() {
+	@GetMapping(value = "/enrollMember/{reqPage}")
+	public Map enrollMember(@PathVariable int reqPage,@ModelAttribute String meetNo) {
+		System.out.println(meetNo);
+		Map map = meetService.enrollMember(reqPage);
+		return map;
 		
 	}
 
