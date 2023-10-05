@@ -30,7 +30,7 @@ const MeetCreate = () => {
         // console.log("썸네일 : " + meetThumbnail);
 
         const meet = { meetTitle, meetThumbnail, meetDate, meetTotal, meetContentS, meetContentD }
-        axios.post("/meet/create", meet)
+        axios.post("/meet/meetCreate", meet)
             .then((res) => {
 
             })

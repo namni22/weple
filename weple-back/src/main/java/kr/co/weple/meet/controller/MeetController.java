@@ -23,6 +23,10 @@ public class MeetController {
 		return null;
 	}
 	
+	@PostMapping(value = "/meetCreate")
+	public int meetCreate() {
+		return 0;
+	}
 	
 	
 	
