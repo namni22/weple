@@ -5,27 +5,39 @@ import axios from "axios";
 import { FormControl, Select } from "@mui/material";
 import Swal from "sweetalert2";
 import Pagination from "../common/Pagination";
+import Input from "../util/InputFrm";
+import { Button1 } from "../util/Button";
 const AdminMember = () => {
   const [memberList, setMemberList] = useState([]);
   const [pageInfo, setPageInfo] = useState({});
   const [reqPage, setReqPage] = useState(1);
+  const [memberId, setMemberId] = useState("");
   useEffect(() => {
     axios
-      .get("/member/memberList/")
+      .get("/member/memberList/" + reqPage)
       .then((res) => {
         console.log(res.data);
         setMemberList(res.data.list);
+        setPageInfo(res.data.pi);
       })
       .catch((res) => {
         console.log(res);
       });
-  });
+  }, [reqPage]);
 
   return (
     <div className="admin-member-wrap">
       <div className="admin-member-top">
         <div className="admin-menu-title">
           <h1>회원 목록</h1>
+        </div>
+        <div className="admin-member-search-wrap">
+          <div className="admin-member-search-input">
+            <Input type="text" data={memberId} setData={setMemberId} content="memberId" placeholder="아이디를 입력해주세요" />
+          </div>
+          <div className="admin-member-search-button">
+            <Button1 text="검색" clickEvent={searchMember} />
+          </div>
         </div>
         <div className="admin-member-tbl-box">
           <table>
@@ -57,21 +69,17 @@ const AdminMember = () => {
 };
 const MemberItem = (props) => {
   const member = props.member;
-  const [memberType, setMemberType] = useState(member.memberType);
+  const [memberGrade, setMemberGrade] = useState(member.memberGrade);
 
   const handleChange = (event) => {
-    const obj = { memberNo: member.memberNo, memberType: event.target.value };
-    const token = window.localStorage.getItem("token");
+    const obj = { memberNo: member.memberNo, memberGrade: event.target.value };
+
     axios
-      .post("/member/changeMemberType", obj, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
+      .post("/member/changeMemberGrade", obj)
       .then((res) => {
         console.log(res.data);
         if (res.data === 1) {
-          setMemberType(event.target.value);
+          setMemberGrade(event.target.value);
         } else {
           Swal.fire("변경 중 문제가 발생했습니다.");
         }
@@ -87,7 +95,7 @@ const MemberItem = (props) => {
       <td>{member.memberEmail}</td>
       <td>
         <FormControl sx={{ m: 1, minWidth: 80 }}>
-          <Select value={memberType} onChange={handleChange}>
+          <Select value={memberGrade} onChange={handleChange}>
             <MenuItem value={0}>관리자</MenuItem>
             <MenuItem value={1}>정회원</MenuItem>
             <MenuItem value={2}>블랙리스트</MenuItem>
@@ -97,4 +105,9 @@ const MemberItem = (props) => {
     </tr>
   );
 };
+const searchMember = (props) => {
+  // const member = props.member;
+  // const [memberId, setMemberId] = useState(member.memberId);
+
+}
 export default AdminMember;

@@ -105,7 +105,24 @@
 }
 
 .admin-paging-wrap {
-  margin-top: 50px;
+  margin: 50px;
+}
+
+.admin-member-search-wrap {
+  margin: 20px;
+  overflow: hidden;
+}
+
+.admin-member-search-wrap>:first-child {
+  width: 80%;
+  float: left;
+  padding-right: 40px;
+
+}
+
+.admin-member-search-wrap>:last-child {
+  width: 15%;
+  float: left;
 }
 
 /* 공지 목록 */
