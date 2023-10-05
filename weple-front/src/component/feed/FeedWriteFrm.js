@@ -19,7 +19,14 @@ const FeedWriteFrm = (props) => {
         const reader = new FileReader();
         reader.readAsDataURL(Imgs[i]);
         reader.onload = () => {
-          arr.push(reader.result);
+          arr.push(
+            <div>
+              <img src={reader.result}></img>
+              <button>
+                <span class="material-icons">close</span>
+              </button>
+            </div>
+          );
           setFeedThumb([...arr]);
         };
       }
@@ -73,14 +80,4 @@ const FeedWriteFrm = (props) => {
   );
 };
 
-const ImgList = () => {
-  return (
-    <div>
-      <img src=""></img>
-      <button>
-        <span class="material-icons">close</span>
-      </button>
-    </div>
-  );
-};
 export default FeedWriteFrm;
