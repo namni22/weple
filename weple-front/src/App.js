@@ -10,13 +10,13 @@ import Admin from "./component/admin/Admin";
 import Header from "./component/common/Header";
 import Category from "./component/common/Category";
 import Join from "./component/member/Join";
+import Mypage from "./component/member/Mypage";
 
 function App() {
   return (
     <div className="weple-wrap">
       <Header />
       <div className="weple-content">
-        {/* <ReviewWriteFrm /> */}
         <Routes>
           <Route path="/feed/*" element={<Feed />} />
           <Route path="/meet/*" element={<MeetMain />}></Route>
@@ -26,6 +26,7 @@ function App() {
           <Route path="/category" element={<Category />} />
           <Route path="*" element={<Main />} />
         </Routes>
+        <Mypage></Mypage>
       </div>
       <Footer />
     </div>

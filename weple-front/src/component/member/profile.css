@@ -1,0 +1,65 @@
+.profile-info {
+  width: 80%;
+}
+.profile-top {
+  display: flex;
+  flex-wrap: wrap;
+}
+.profile-top > .img {
+  width: 100%;
+}
+.profile-top img {
+  width: 80px;
+  margin-bottom: 20px;
+}
+.profile-top > *:not(.img) {
+  margin-left: 10px;
+}
+.profile-info {
+  width: 90%;
+}
+.profile-top .name {
+  font-size: 18px;
+  font-weight: 700;
+}
+.profile-info .intro {
+  margin-top: 20px;
+  font-size: 16px;
+}
+.profile-wrap .like {
+  font-size: 14px;
+  margin-left: auto;
+  background-color: rgba(217, 167, 93, 0.15);
+  color: rgb(217, 167, 93);
+  font-weight: 700;
+  border-radius: 45px;
+  height: 30px;
+  padding: 3px 10px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.profile-wrap .like > #temp {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+}
+.profile-wrap .prefer {
+  width: 100%;
+  margin-top: 20px;
+}
+.profile-wrap .prefer > span {
+  background-color: #eee;
+  border-radius: 45px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  margin-right: 10px;
+}
+.profile-mid {
+  margin-top: 20px;
+}
+.profile-mid .btn {
+  width: 50%;
+}
