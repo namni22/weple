@@ -11,16 +11,16 @@ const AdminMember = () => {
   const [reqPage, setReqPage] = useState(1);
   useEffect(() => {
     axios
-      .get("/board/memberList/" + reqPage)
+      .get("/member/memberList/")
       .then((res) => {
         console.log(res.data);
         setMemberList(res.data.list);
-        setPageInfo(res.data.pi);
+
       })
       .catch((res) => {
         console.log(res);
       });
-  }, [reqPage]);
+  });
 
   return (
     <div className="admin-member-wrap">
@@ -66,7 +66,7 @@ const MemberItem = (props) => {
     const obj = { memberNo: member.memberNo, memberType: event.target.value };
     const token = window.localStorage.getItem("token");
     axios
-      .post("/board/changeMemberType", obj, {
+      .post("/member/changeMemberType", obj, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -91,8 +91,9 @@ const MemberItem = (props) => {
       <td>
         <FormControl sx={{ m: 1, minWidth: 80 }}>
           <Select value={memberType} onChange={handleChange}>
-            <MenuItem value={1}>관리자</MenuItem>
-            <MenuItem value={2}>일반회원</MenuItem>
+            <MenuItem value={0}>관리자</MenuItem>
+            <MenuItem value={1}>정회원</MenuItem>
+            <MenuItem value={2}>블랙리스트</MenuItem>
           </Select>
         </FormControl>
       </td>
