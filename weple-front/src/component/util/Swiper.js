@@ -30,7 +30,7 @@ const SwiperComponent = (props) => {
       loop={loop}
     >
       {list.map((item, index) => {
-        return <SwiperSlide key={"img" + index}>{item}</SwiperSlide>;
+        return <SwiperSlide key={"box" + index}>{item}</SwiperSlide>;
       })}
     </Swiper>
   );
