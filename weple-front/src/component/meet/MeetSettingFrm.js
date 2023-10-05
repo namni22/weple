@@ -3,14 +3,34 @@ import JwInput from "./meetUtil/JwInputFrm";
 import { JwButton1 } from "../meet/meetUtil/JwButton";
 import { Button1, Button2 } from "../util/Button";
 import TextEditor from "../util/TextEditor";
+import { useEffect } from "react";
+import { useDaumPostcodePopup } from "react-daum-postcode";
+import Input from "../util/InputFrm";
 
 const MeetSettingFrm = (props) => {
-    // 모임만들 정보 선언
+    // 모임만들 정보 선언 //create에서 받음 // update에서 받을예정
     const meetTitle = props.meetTitle;
     const setMeetTitle = props.setMeetTitle;
     const meetMaterials = props.meetMaterials;
     const setMeetMaterials = props.setMeetMaterials;
+    const meetContentS = props.meetContentS;
+    const setMeetContentS = props.setMeetContentS;
+    const meetContentD = props.meetContentD;
+    const setMeetContentD = props.setMeetContentD;
+    const meetDate = props.meetDate;
+    const setMeetDate = props.setMeetDate;
+    const meetTotal = props.meetTotal;
+    const setMeetTotal = props.setMeetTotal;
+
     const buttonEvent = props.buttonEvent;
+
+
+    // 지도
+    // const container = document.getElementById('map');//지도를 담을 영역의 dom 레퍼런스
+    // const options ={
+    //     center : new kakao.maps.LatLng(33.45, 126.57)
+    // }
+    // const map = new kakao.maps.Map(container, options);
 
     return (
         <div className="meetSettingFrm-main-wrap">
@@ -20,7 +40,7 @@ const MeetSettingFrm = (props) => {
                 <div className="meetTitleFrm">
                     <label htmlFor="meetTitleFrm">모임 이름</label>
                     <div className="jwInput" id="jwInput">
-                        <JwInput
+                        <Input
                             type="text"
                             data={meetTitle}
                             setData={setMeetTitle}
@@ -49,12 +69,23 @@ const MeetSettingFrm = (props) => {
                 </div>
                 <div className="meetPlaceFrm">
                     <label>모임위치</label>
-                    <div>주소입력 , 지도</div>
+                    <div id="map" style={{ width: '500px', height: '500px' }}>
+                        <Kakao2></Kakao2>
+                    </div>
                 </div>
                 <div className="meetMemberLimitFrm">
                     <label>모임참여인원</label>
                     <input type="number" min="1" max="100"></input>
 
+                </div>
+                <div>
+                    <label>모임 한줄 설명</label>
+                    <Input
+                        type="text"
+                        data={meetContentS}
+                        setData={setMeetContentS}
+                    // content=""
+                    />
                 </div>
                 <div className="meetContentFrm">
                     <label>모임설명</label>
@@ -69,24 +100,22 @@ const MeetSettingFrm = (props) => {
                     <label>준비물</label>
                     <div className="meetMaterials-content-wrap">
                         <div className="meetMaterials-input-box">
-                            <JwInput
+                            <Input
                                 type="text"
                                 data={meetMaterials}
                                 setData={setMeetMaterials}
                                 content="meetTitleFrm"
-                            ></JwInput>
+                            ></Input>
                         </div>
                         <div className="meetMaterialsInsert-btn-box">
                             <Button2 text="추가"></Button2>
                         </div>
-
                         <div className="meetMaterials-wrap">
                             <div className="meetMaterials-one">준비물1</div>
                             <div className="meetMaterials-one">준비물2</div>
                             <div className="meetMaterials-one">준비물3</div>
                         </div>
                     </div>
-
                 </div>
                 <div className="meet-btn-box">
                     <Button1 text="모임생성" clickEvent={buttonEvent}></Button1>
@@ -98,5 +127,26 @@ const MeetSettingFrm = (props) => {
 
 
 }
+
+const { kakao } = window;
+const Kakao2 = () => {
+    useEffect(() => {
+        const container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+        const options = { //지도를 생성할 때 필요한 기본 옵션
+            center: new kakao.maps.LatLng(37.566826, 126.9786567), //지도의 중심좌표.
+            level: 3 //지도의 레벨(확대, 축소 정도)
+        };
+        const map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+    }, [])
+    return (
+        <div id="map" style={{
+            width: "500px",
+            height: "500px"
+        }}></div>
+    )
+}
+
+
+
 
 export default MeetSettingFrm;

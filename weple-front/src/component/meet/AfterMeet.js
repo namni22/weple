@@ -6,8 +6,10 @@ import { useState } from "react";
 import MeetCalendar from "./MeetCalendar";
 import MeetMemberList from "./MeetMemberList";
 import { useEffect } from "react";
+import axios from "axios";
 
 const AfterMeet = () => {
+  // const [meetInfo, setMeetInfo] = useState("");
   const [meetMenu, setMeetMenu] = useState([
     { url: "info", text: "소개", active: true },
     { url: "meetChat", text: "글 작성", active: false },
@@ -28,6 +30,14 @@ const AfterMeet = () => {
     </div>
   );
 };
+axios
+  .post("/meet/meetInfo", null)
+  .then((res) => {
+    console.log(res.data);
+  })
+  .catch((res) => {
+    console.log(res.data);
+  });
 
 const AfterMeetMain = () => {
   return (

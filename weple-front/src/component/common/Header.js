@@ -5,19 +5,17 @@ const Header = () => {
   return (
     <div className="header">
       <div className="header-inner">
-        <div className="icon-wrap">
-          <Link to="/category">
-            <div class="material-icons" id="category">
+        <Link to="/category">
+          <div className="icon-wrap">
+            <div className="material-icons" id="category">
               menu
             </div>
-          </Link>
-        </div>
+          </div>
+        </Link>
         {/* <span class="material-icons bar">maximize</span> */}
-
         <div className="logo">
           <Link to="/">Weple</Link>
         </div>
-
         <input
           className="searchFrm"
           placeholder="지금 생각나는 취미를 검색하세요."
