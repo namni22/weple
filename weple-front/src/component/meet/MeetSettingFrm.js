@@ -22,8 +22,8 @@ const MeetSettingFrm = (props) => {
     const meetTotal = props.meetTotal;
     const setMeetTotal = props.setMeetTotal;
 
-    const meetThumbnail = props.meetThumbnail;
-    const setMeetThumbnail = props.setMeetThumbnail;
+    const meetThumbnail2 = props.meetThumbnail2;
+    const setMeetThumbnail2 = props.setMeetThumbnail2;
 
     const buttonEvent = props.buttonEvent;
 
@@ -40,17 +40,18 @@ const MeetSettingFrm = (props) => {
         const files = e.currentTarget.files;
         if (files.length !== 0 && files[0] != 0) {
             // 파일이 들어왔을때
-            setMeetThumbnail(files[0]); //썸네일 파일 전송을 위한 state에 값 파일객체 저장
+            setMeetThumbnail2(files[0]); //썸네일 파일 전송을 위한 state에 값 파일객체 저장
             //화면에 썸네일 미리보기
             const reader = new FileReader(); //객체만들고
             reader.readAsDataURL(files[0]); //파일 읽어와
             reader.onloadend = () => {
-                setMeetThumbnail(reader.result);
+                setMeetThumbnail2(reader.result);
+                console.log("썸네일 바꼇을때 : " + meetThumbnail2);
             };
         } else {
             // 파일이 취소됐을때
-            setMeetThumbnail({}); //썸내일 빈객체로
-            setMeetThumbnail(null); //보드이미지 빈문자열로 //빈문자열에서 null로 바꿈
+            setMeetThumbnail2({}); //썸내일 빈객체로
+            setMeetThumbnail2(null); //보드이미지 빈문자열로 //빈문자열에서 null로 바꿈
         }
     };
 
@@ -80,6 +81,8 @@ const MeetSettingFrm = (props) => {
                     <label>썸네일</label>
                     <div>
                         {/* accept = image/* : 이미지파일만 올릴수 있도록 */}
+
+
                         <input
                             className="meetThumbnail-input"
                             type="file"
@@ -90,15 +93,18 @@ const MeetSettingFrm = (props) => {
                             onChange={thumbnailChange}
                         ></input>
 
+
+
                         <div className="meetThumbnailPreview">
-                            {/* <img src={meetThumbnail}></img> */}
-                            {meetThumbnail === null ? ( //""에서 null로 바꿈
+                            {/* <img src={meetThumbnail2}></img> */}
+                            {meetThumbnail2 === null ? ( //""에서 null로 바꿈
                                 // 기본이미지 넣어야함
                                 <img src="/img/main_1.jpg"></img>
                             ) : (
-                                <img src={meetThumbnail}></img>
+                                <img src={meetThumbnail2}></img>
                             )}
                         </div>
+
                     </div>
 
                 </div>
@@ -174,7 +180,7 @@ const MeetSettingFrm = (props) => {
                 </div>
 
             </div>
-        </div>
+        </div >
     );
 
 

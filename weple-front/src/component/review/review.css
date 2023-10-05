@@ -1,54 +1,128 @@
-.review-top{
-    display: flex;
-    margin-bottom: 10px;
+.review-top {
+  display: flex;
+  margin-bottom: 10px;
 }
-.profileImg{
-    width: 64px;
-    height: 64px;
-    background-color: gray;
-    border-radius: 45px;
+.profileImg {
+  width: 64px;
+  height: 64px;
+  background-color: gray;
+  border-radius: 45px;
 }
-.profileImg>img{
-    width: 100%;
+.profileImg > img {
+  width: 100%;
 }
-.material-icons{
-    font-size: 40px;
-    cursor: pointer;
+.review-star .material-icons {
+  font-size: 40px;
+  cursor: pointer;
 }
-.review-star{
-    margin-left: 30px;
+.review-write-wrap .star {
+  margin-left: 30px;
 }
-.review-star>span{
-    margin-top: 20px;
+.review-write-wrap .star > span {
+  margin-top: 20px;
 }
-.review-write{
-    width: 100%;
-    height: 300px;
-    padding: 10px;
-    box-sizing: border-box;
+.review-write {
+  width: 100%;
+  height: 300px;
+  padding: 10px;
+  box-sizing: border-box;
 }
-.review-bottom{
-    display: flex;
+.review-bottom {
+  display: flex;
 }
-.review-bottom .plus{
-    display: block;
-    width: 100px;
-    height: 100px;
-    text-align: center;
-    line-height: 100px;
-    border: 1px solid gainsboro;
+.review-bottom .plus {
+  display: block;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+  border: 1px solid gainsboro;
 }
-.reviewImg{
-    background-color: gainsboro;
-    margin-right: 5px;
-    width: 100px;
-    height: 100px;
+.reviewImg {
+  background-color: gainsboro;
+  margin-right: 5px;
+  width: 100px;
+  height: 100px;
 }
-.review-write-wrap button{
-    margin-top: 30px;
-    width: 100%;
-    border: none;
-    border-radius: 10px;
-    height: 40px;
-    cursor: pointer;
+.review-write-wrap button {
+  margin-top: 30px;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  height: 40px;
+  cursor: pointer;
+}
+/* ******************************* */
+.review-wrap .star-wrap {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+}
+.review-wrap .star {
+  font-size: 30px;
+}
+.review-wrap .star-rating {
+  margin-left: 15px;
+  font-size: 20px;
+}
+.review-wrap .review-component {
+  width: 230px;
+}
+
+.review-wrap .review-thumb {
+  width: 230px;
+  height: 230px;
+  background-color: gainsboro;
+}
+.review-wrap .review-profile {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  /* padding-left: 5px; */
+}
+.review-wrap .review-name {
+  padding-left: 15px;
+  font-weight: 600;
+}
+.review-wrap .review-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 45px;
+  background-color: gray;
+  box-sizing: border-box;
+  /* display: block; */
+}
+.review-wrap .review-component .simple {
+  text-overflow: ellipsis;
+  font-size: 14px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+/* ----------------------------- */
+.review-wrap .swiper {
+  width: 100%;
+  height: 350px;
+}
+.review-wrap .swiper-button-next,
+.review-wrap .swiper-button-prev {
+  top: 35%;
+  background-color: white;
+  color: black;
+  border-radius: 45px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+}
+.review-wrap .swiper-button-prev:after,
+.review-wrap .swiper-button-next:after {
+  font-size: 13px;
+}
+.review-wrap .swiper-slide {
+  margin: 0;
+}
+.review-wrap .swiper-pagination-bullets {
+  display: none;
 }
