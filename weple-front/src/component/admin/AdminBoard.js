@@ -1,10 +1,9 @@
-
 import axios from "axios";
 import "./admin.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import Pagination from "./Pagination";
+import Pagination from "../common/Pagination";
 
 const AdminBoard = () => {
   const [boardList, setBoardList] = useState([]);
@@ -19,13 +18,15 @@ const AdminBoard = () => {
       })
       .catch((res) => {
         console.log(res);
-      })
+      });
   }, [reqPage]);
 
   return (
     <div className="admin-board-wrap">
       <div className="admin-board-top">
-        <div className="admin-menu-title"><h1>공지 목록</h1></div>
+        <div className="admin-menu-title">
+          <h1>공지 목록</h1>
+        </div>
         <div className="admin-board-tbl">
           <table>
             <thead>
@@ -52,14 +53,11 @@ const AdminBoard = () => {
         </div>
       </div>
     </div>
-  )
-
+  );
 };
 const BoardItem = (props) => {
   const board = props.board;
   const navigate = useNavigate();
-  const boardDetail = () => {
-
-  }
-}
+  const boardDetail = () => {};
+};
 export default AdminBoard;
