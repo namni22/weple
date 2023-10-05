@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 
 const MeetSettingFrm = (props) => {
-    // 모임만들 정보 선언
+    // 모임만들 정보 선언 //create에서 받음 // update에서 받을예정
     const meetTitle = props.meetTitle;
     const setMeetTitle = props.setMeetTitle;
     const meetMaterials = props.meetMaterials;
