@@ -1,4 +1,4 @@
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useLocation } from "react-router-dom";
 import "./afterMeet.css";
 import MeetInfo from "./MeetInfo";
 import MeetChat from "./MeetChat";
@@ -7,21 +7,31 @@ import MeetCalendar from "./MeetCalendar";
 import MeetMemberList from "./MeetMemberList";
 import { useEffect } from "react";
 import axios from "axios";
+import EnrollMeetMember from "./EnrollMeetMember";
 
 const AfterMeet = () => {
-  // const [meetInfo, setMeetInfo] = useState("");
+  const location = useLocation();
+  console.log(location);
+
+  const [myMeet, setMyMeet] = useState({});
+  useEffect(() => {
+    setMyMeet(location.state.mm);
+  }, []);
   const [meetMenu, setMeetMenu] = useState([
-    { url: "info", text: "소개", active: true },
+    { url: "", text: "소개", active: true },
     { url: "meetChat", text: "글 작성", active: false },
     { url: "meetCalendar", text: "캘린더", active: false },
     { url: "meetList", text: "멤버목록", active: false },
+    { url: "enrollMeetMember", text: "신청자목록", active: false },
   ]);
+  // const [meetInfo, setMeetInfo] = useState("");
   return (
     <div className="afterMeet-all-wrap">
-      <div className="feed-title">MY GROUB</div>
-      <AfterMeetMain />
+      <div className="feed-title">MY GROUP</div>
+      <AfterMeetMain myMeet={myMeet} />
       <AfterMeetSubNavi meetMenu={meetMenu} setMeetMenu={setMeetMenu} />
       <Routes>
+        <Route path="enrollMeetMember" element={<EnrollMeetMember />} />
         <Route path="meetChat" element={<MeetChat />} />
         <Route path="meetCalendar" element={<MeetCalendar />} />
         <Route path="meetList" element={<MeetMemberList />} />
@@ -30,16 +40,9 @@ const AfterMeet = () => {
     </div>
   );
 };
-axios
-  .post("/meet/meetInfo", null)
-  .then((res) => {
-    console.log(res.data);
-  })
-  .catch((res) => {
-    console.log(res.data);
-  });
 
-const AfterMeetMain = () => {
+const AfterMeetMain = (props) => {
+  const myMeet = props.myMeet;
   return (
     <div className="afterMeet-main-wrap">
       <div className="afterMeet-main-thumbnail">
@@ -60,10 +63,10 @@ const AfterMeetMain = () => {
           </div>
         </div>
         <div className="afterMeet-info-title">
-          <h3>모임명</h3>
+          <h3>{myMeet.meetTitle}</h3>
         </div>
         <div className="afterMeet-info-sub-content">
-          <p>간단한 모임설명...</p>
+          <p>{myMeet.meetContentS}</p>
         </div>
         <div className="afterMeet-member-count">0/40명</div>
       </div>
