@@ -1,6 +1,7 @@
 import { useState } from "react";
 import MeetSettingFrm from "./MeetSettingFrm";
 
+
 const MeetCreate = () => {
     const [meetTitle, setMeetTitle] = useState("");
     const [meetContentS, setMeetContentS] = useState("");
@@ -23,7 +24,8 @@ const MeetCreate = () => {
     const meetCreate = () => {
         console.log("연결");
         console.log(meetTitle);
-        console.log(meetThumbnail);
+        // console.log(meetDate);
+
     }
 
     return (
@@ -31,12 +33,12 @@ const MeetCreate = () => {
             <MeetSettingFrm
                 meetTitle={meetTitle}
                 setMeetTitle={setMeetTitle}
+                meetMaterials={meetMaterials}
+                setMeetMaterials={setMeetMaterials}
                 meetContentS={meetContentS}
                 setMeetContentS={setMeetContentS}
                 meetContentD={meetContentD}
                 setMeetContentD={setMeetContentD}
-                meetMaterials={meetMaterials}
-                setMeetMaterials={setMeetMaterials}
                 meetDate={meetDate}
                 setMeetDate={setMeetDate}
                 meetTotal={meetTotal}

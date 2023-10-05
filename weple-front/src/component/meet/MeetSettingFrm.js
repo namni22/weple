@@ -5,6 +5,7 @@ import { Button1, Button2 } from "../util/Button";
 import TextEditor from "../util/TextEditor";
 import { useEffect } from "react";
 import { useDaumPostcodePopup } from "react-daum-postcode";
+import Input from "../util/InputFrm";
 
 const MeetSettingFrm = (props) => {
     // 모임만들 정보 선언 //create에서 받음 // update에서 받을예정
@@ -12,6 +13,15 @@ const MeetSettingFrm = (props) => {
     const setMeetTitle = props.setMeetTitle;
     const meetMaterials = props.meetMaterials;
     const setMeetMaterials = props.setMeetMaterials;
+    const meetContentS = props.meetContentS;
+    const setMeetContentS = props.setMeetContentS;
+    const meetContentD = props.meetContentD;
+    const setMeetContentD = props.setMeetContentD;
+    const meetDate = props.meetDate;
+    const setMeetDate = props.setMeetDate;
+    const meetTotal = props.meetTotal;
+    const setMeetTotal = props.setMeetTotal;
+
     const buttonEvent = props.buttonEvent;
 
 
@@ -30,7 +40,7 @@ const MeetSettingFrm = (props) => {
                 <div className="meetTitleFrm">
                     <label htmlFor="meetTitleFrm">모임 이름</label>
                     <div className="jwInput" id="jwInput">
-                        <JwInput
+                        <Input
                             type="text"
                             data={meetTitle}
                             setData={setMeetTitle}
@@ -68,6 +78,15 @@ const MeetSettingFrm = (props) => {
                     <input type="number" min="1" max="100"></input>
 
                 </div>
+                <div>
+                    <label>모임 한줄 설명</label>
+                    <Input
+                        type="text"
+                        data={meetContentS}
+                        setData={setMeetContentS}
+                    // content=""
+                    />
+                </div>
                 <div className="meetContentFrm">
                     <label>모임설명</label>
                     <TextEditor
@@ -81,12 +100,12 @@ const MeetSettingFrm = (props) => {
                     <label>준비물</label>
                     <div className="meetMaterials-content-wrap">
                         <div className="meetMaterials-input-box">
-                            <JwInput
+                            <Input
                                 type="text"
                                 data={meetMaterials}
                                 setData={setMeetMaterials}
                                 content="meetTitleFrm"
-                            ></JwInput>
+                            ></Input>
                         </div>
                         <div className="meetMaterialsInsert-btn-box">
                             <Button2 text="추가"></Button2>
