@@ -29,7 +29,7 @@ const MeetCreate = () => {
         console.log("모임 날짜 : " + meetDate);
         console.log("모임한줄설명 : " + meetContentS);
         console.log("모임인원 :" + meetTotal);
-        // console.log("썸네일 : " + meetThumbnail);
+        console.log("썸네일 : " + meetThumbnail);
 
         const meet = { meetTitle, meetDate, meetTotal, meetContentS, meetContentD }
         if (meetTitle !== "" && meetDate !== "" && meetTotal !== "" && meetContentS !== "") {
@@ -38,6 +38,7 @@ const MeetCreate = () => {
             form.append("meetDate", meetDate);
             form.append("meetContentS", meetContentS);
             form.append("meetTotal", meetTotal);
+            form.append("meetThumbnail", meetThumbnail);
             axios
                 .post("/meet/meetCreate", form)
                 .then()
