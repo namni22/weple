@@ -13,4 +13,6 @@ public interface MeetDao {
 
 	List selectBoardList(PageInfo pi);
 
+	int enrollMemberList();
+
 }

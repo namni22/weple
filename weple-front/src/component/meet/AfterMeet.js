@@ -11,7 +11,6 @@ import EnrollMeetMember from "./EnrollMeetMember";
 
 const AfterMeet = () => {
   const location = useLocation();
-  console.log(location);
 
   const [myMeet, setMyMeet] = useState({});
   useEffect(() => {
@@ -31,7 +30,10 @@ const AfterMeet = () => {
       <AfterMeetMain myMeet={myMeet} />
       <AfterMeetSubNavi meetMenu={meetMenu} setMeetMenu={setMeetMenu} />
       <Routes>
-        <Route path="enrollMeetMember" element={<EnrollMeetMember />} />
+        <Route
+          path="enrollMeetMember"
+          element={<EnrollMeetMember myMeet={myMeet} />}
+        />
         <Route path="meetChat" element={<MeetChat />} />
         <Route path="meetCalendar" element={<MeetCalendar />} />
         <Route path="meetList" element={<MeetMemberList />} />
@@ -43,6 +45,7 @@ const AfterMeet = () => {
 
 const AfterMeetMain = (props) => {
   const myMeet = props.myMeet;
+  console.log(myMeet);
   return (
     <div className="afterMeet-main-wrap">
       <div className="afterMeet-main-thumbnail">

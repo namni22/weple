@@ -2,16 +2,19 @@ import { useEffect, useState } from "react";
 import "./afterMeet.css";
 import axios from "axios";
 
-const EnrollMeetMember = () => {
+const EnrollMeetMember = (props) => {
+  const myMeet = props.myMeet;
+  console.log(myMeet.meetNo);
   const [enrollMember, setEnrollMember] = useState([]);
+  const [reqPage, setReqPage] = useState(1);
   useEffect(() => {
     axios
-      .get("/meet/enrollMember", { params: enrollMember })
+      .get("/meet/enrollMember/" + reqPage, { params: myMeet.meetNo })
       .then((res) => {
         console.log(res.data);
       })
       .catch((res) => {
-        console.log(res.response.status);
+        //console.log(res.response.status);
       });
   }, []);
   return (
