@@ -56,7 +56,8 @@ const MeetSettingFrm = (props) => {
 
     //모임 인원 변경 함수
     const changeMeetTotal = (e) => {
-        console.log(e);
+        console.log(e.currentTarget.value);
+        setMeetTotal(e.currentTarget.value)
     }
 
     return (
