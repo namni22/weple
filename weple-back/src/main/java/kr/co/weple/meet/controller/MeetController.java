@@ -39,10 +39,13 @@ public class MeetController {
 	// 모임생성
 	@PostMapping(value = "/meetCreate")
 	public int meetCreate(
-			@ModelAttribute Meet meet
+			@ModelAttribute Meet meet,
+			@ModelAttribute MultipartFile meetThumbnail2
 			
 		) {
 		System.out.println("진행확인" +meet);
+		System.out.println(meetThumbnail2);
+//		System.out.println(meetThumbnail2.getOriginalFilename());
 		
 		return 0;
 	}

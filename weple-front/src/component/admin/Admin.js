@@ -15,7 +15,7 @@ const Admin = () => {
     { url: "insertBoard", text: "공지 등록", active: false },
     { url: "boardList", text: "공지 목록", active: false },
     { url: "reportList", text: "신고 내역", active: false },
-    { url: "memberList", text: "회원목록", active: false },
+    { url: "memberList", text: "회원 목록", active: false },
     { url: "meetList", text: "모임 신청 내역", active: false },
   ]);
 
