@@ -1,12 +1,13 @@
 import { useState } from "react";
 import MeetSettingFrm from "./MeetSettingFrm";
+import axios from "axios";
 
 
 const MeetCreate = () => {
     const [meetTitle, setMeetTitle] = useState("");
     const [meetContentS, setMeetContentS] = useState("");
     const [meetContentD, setMeetContentD] = useState("");
-    const [meetThumbnail, setmeetThumbnail] = useState({});
+    const [meetThumbnail, setMeetThumbnail] = useState({});
     const [meetDate, setMeetDate] = useState("");
     const [meetTotal, setMeetTotal] = useState("");
     const [meetMargin, setMeetMargin] = useState(0)
@@ -21,10 +22,19 @@ const MeetCreate = () => {
 
 
 
-    const meetCreate = () => {
-        console.log("연결");
-        console.log(meetTitle);
-        // console.log(meetDate);
+    const meetCreateBtn = () => {
+        console.log("모임제목 : " + meetTitle);
+        console.log("모임 날짜 : " + meetDate);
+        console.log("모임한줄설명 : " + meetContentS);
+        console.log("모임인원 :" + meetTotal);
+        // console.log("썸네일 : " + meetThumbnail);
+
+        const meet = { meetTitle, meetThumbnail, meetDate, meetTotal, meetContentS, meetContentD }
+        axios.post("/meet/meetCreate", meet)
+            .then((res) => {
+
+            })
+            .catch()
 
     }
 
@@ -44,7 +54,10 @@ const MeetCreate = () => {
                 meetTotal={meetTotal}
                 setMeetTotal={setMeetTotal}
 
-                buttonEvent={meetCreate}
+                meetThumbnail={meetThumbnail}
+                setMeetThumbnail={setMeetThumbnail}
+
+                buttonEvent={meetCreateBtn}
             />
         </div>
 
