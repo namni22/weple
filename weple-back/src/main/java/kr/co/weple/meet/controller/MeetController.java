@@ -36,12 +36,12 @@ public class MeetController {
 	@PostMapping(value = "/meetCreate")
 	public int meetCreate(
 			@ModelAttribute Meet meet,
-			@ModelAttribute MultipartFile meetThumbnail2
+			@ModelAttribute MultipartFile meetThumbnail
 			
 		) {
 		System.out.println("진행확인" +meet);
-		System.out.println(meetThumbnail2);
-//		System.out.println(meetThumbnail2.getOriginalFilename());
+		System.out.println(meetThumbnail);
+		System.out.println(meetThumbnail.getOriginalFilename());
 		
 		return 0;
 	}
