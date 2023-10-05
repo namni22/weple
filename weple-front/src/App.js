@@ -26,7 +26,6 @@ function App() {
           <Route path="/category" element={<Category />} />
           <Route path="*" element={<Main />} />
         </Routes>
-        <Mypage></Mypage>
       </div>
       <Footer />
     </div>
