@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.weple.meet.model.service.MeetService;
 import kr.co.weple.meet.model.vo.Meet;
@@ -28,8 +29,12 @@ public class MeetController {
 
 	// 모임생성
 	@PostMapping(value = "/meetCreate")
-	public int meetCreate(@ModelAttribute Meet meet) {
+	public int meetCreate(
+			@ModelAttribute Meet meet
+			
+		) {
 		System.out.println("진행확인" +meet);
+		
 		return 0;
 	}
 
