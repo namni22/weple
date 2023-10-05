@@ -11,7 +11,7 @@ const AdminMember = () => {
   const [reqPage, setReqPage] = useState(1);
   useEffect(() => {
     axios
-      .get("/member/list/" + reqPage)
+      .get("/board/memberList/" + reqPage)
       .then((res) => {
         console.log(res.data);
         setMemberList(res.data.list);
@@ -66,7 +66,7 @@ const MemberItem = (props) => {
     const obj = { memberNo: member.memberNo, memberType: event.target.value };
     const token = window.localStorage.getItem("token");
     axios
-      .post("/member/changeType", obj, {
+      .post("/board/changeMemberType", obj, {
         headers: {
           Authorization: "Bearer " + token,
         },
