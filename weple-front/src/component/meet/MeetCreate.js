@@ -8,7 +8,6 @@ const MeetCreate = () => {
     const [meetTitle, setMeetTitle] = useState("");
     const [meetContentS, setMeetContentS] = useState("");
     const [meetContentD, setMeetContentD] = useState("");
-    const [meetThumbnail, setMeetThumbnail] = useState({});
     const [meetDate, setMeetDate] = useState("");
     const [meetTotal, setMeetTotal] = useState("");
     const [meetMargin, setMeetMargin] = useState(0)
@@ -17,10 +16,10 @@ const MeetCreate = () => {
     const [meetAddress1, setMeetAddress1] = useState("");
     const [meetAddress2, setMeetAddress2] = useState("");
     const [meetName, setMeetName] = useState("");
-
-
     const [meetMaterials, setMeetMaterials] = useState("");
 
+    // 썸네일
+    const [meetThumbnail2, setMeetThumbnail2] = useState({});
 
 
     //write역할
@@ -29,7 +28,7 @@ const MeetCreate = () => {
         console.log("모임 날짜 : " + meetDate);
         console.log("모임한줄설명 : " + meetContentS);
         console.log("모임인원 :" + meetTotal);
-        console.log("썸네일 : " + meetThumbnail);
+        console.log("썸네일 : " + meetThumbnail2);
 
         const meet = { meetTitle, meetDate, meetTotal, meetContentS, meetContentD }
         if (meetTitle !== "" && meetDate !== "" && meetTotal !== "" && meetContentS !== "") {
@@ -38,11 +37,17 @@ const MeetCreate = () => {
             form.append("meetDate", meetDate);
             form.append("meetContentS", meetContentS);
             form.append("meetTotal", meetTotal);
-            form.append("meetThumbnail", meetThumbnail);
+            form.append("meetThumbnail2", meetThumbnail2);
             axios
-                .post("/meet/meetCreate", form)
+                .post("/meet/meetCreate", form, {
+                    headers: {
+                        contentType: "multipart/form-data",
+                        processData: false,
+
+                    },
+                })
                 .then((res) => {
-                    console.log(res.data);
+                    console.log("결과 : " + res.data);
                 })
                 .catch();
 
@@ -69,8 +74,8 @@ const MeetCreate = () => {
                 meetTotal={meetTotal}
                 setMeetTotal={setMeetTotal}
 
-                meetThumbnail={meetThumbnail}
-                setMeetThumbnail={setMeetThumbnail}
+                meetThumbnail2={meetThumbnail2}
+                setMeetThumbnail2={setMeetThumbnail2}
 
                 buttonEvent={meetCreateBtn}
             />
