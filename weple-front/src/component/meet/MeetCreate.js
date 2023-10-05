@@ -1,6 +1,7 @@
 import { useState } from "react";
 import MeetSettingFrm from "./MeetSettingFrm";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 
 const MeetCreate = () => {
@@ -22,6 +23,7 @@ const MeetCreate = () => {
 
 
 
+    //write역할
     const meetCreateBtn = () => {
         console.log("모임제목 : " + meetTitle);
         console.log("모임 날짜 : " + meetDate);
@@ -30,11 +32,21 @@ const MeetCreate = () => {
         // console.log("썸네일 : " + meetThumbnail);
 
         const meet = { meetTitle, meetDate, meetTotal, meetContentS, meetContentD }
-        axios.post("/meet/meetCreate", meet)
-            .then((res) => {
+        if (meetTitle !== "" && meetDate !== "" && meetTotal !== "" && meetContentS !== "") {
+            const form = new FormData();
+            form.append("meetTitle", meetTitle);
+            form.append("meetDate", meetDate);
+            form.append("meetContentS", meetContentS);
+            form.append("meetTotal", meetTotal);
+            axios
+                .post("/meet/meetCreate", form)
+                .then()
+                .catch();
 
-            })
-            .catch()
+
+        } else {
+            Swal.fire("입력값을 확인하세요")
+        }
 
     }
 
