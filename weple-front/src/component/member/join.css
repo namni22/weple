@@ -163,7 +163,7 @@ input[type="radio"]:checked + label {
   border-radius: 5px;
 }
 
-input[type="file"] {
+.join-imgUp-btn {
   display: none;
 }
 
@@ -171,4 +171,11 @@ input[type="file"] {
   margin-bottom: 15px;
   width: 200px;
   height: 200px;
+}
+
+.check-msg {
+  font-size: 0.8em;
+  width: 75%;
+  align-self: flex-end;
+  color: #ff4c4c;
 }

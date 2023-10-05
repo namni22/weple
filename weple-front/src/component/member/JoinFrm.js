@@ -15,9 +15,11 @@ const JoinFrm = () => {
   const [memberImage, setMemberImage] = useState("");
   const [checkIdMsg, setCheckIdMsg] = useState("");
   const [checkPwMsg, setCheckPwMsg] = useState("");
+  const [useId, setUseId] = useState("false");
 
   const idCheck = () => {
     const idReg = /^[a-zA-Z0-9]{4,8}$/;
+
     if (!idReg.test(memberId)) {
       // 정규표현식 만족하지 못했을 때
       setCheckIdMsg("아이디는 영어 대/소문자/숫자로 4~8글자 입니다.");
@@ -45,7 +47,8 @@ const JoinFrm = () => {
         .then((res) => {
           console.log(res.data); // 응답 객체의 data속성이 Controller에서 리턴한 데이터
           if (res.data == 0) {
-            setCheckIdMsg("");
+            setCheckIdMsg("사용 가능한 아이디 입니다.");
+            setUseId("true");
           } else {
             setCheckIdMsg("이미 사용중인 아이디입니다.");
           }
@@ -53,8 +56,6 @@ const JoinFrm = () => {
         .catch((res) => {
           console.log(res);
         });
-
-      setCheckIdMsg("정규표현식 만족");
     }
   };
   return (
@@ -158,7 +159,12 @@ const JoinFrm = () => {
               <label className="join-profileImg" htmlFor="memberImage">
                 이미지 업로드
               </label>
-              <input type="file" id="memberImage" accept="image/*" />
+              <input
+                type="file"
+                className="join-imgUp-btn"
+                id="memberImage"
+                accept="image/*"
+              />
             </div>
           </div>
         </div>
