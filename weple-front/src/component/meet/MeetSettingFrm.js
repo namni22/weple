@@ -80,7 +80,7 @@ const MeetSettingFrm = (props) => {
                     <label>썸네일</label>
                     <div>
                         {/* accept = image/* : 이미지파일만 올릴수 있도록 */}
-                        인풋어디갓어 :
+
 
                         <input
                             className="meetThumbnail-input"
@@ -92,7 +92,7 @@ const MeetSettingFrm = (props) => {
                             onChange={thumbnailChange}
                         ></input>
 
-                        인풋
+
 
                         <div className="meetThumbnailPreview">
                             {/* <img src={meetThumbnail}></img> */}
