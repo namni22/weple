@@ -5,17 +5,16 @@ import "react-quill/dist/quill.snow.css";
 import ImageResize from "quill-image-resize-module-react";
 Quill.register("modules/ImageResize", ImageResize);
 const TextEditor = (props) => {
- 
-  const quillRef = useRef(); 
+  const quillRef = useRef();
   const data = props.data;
   const setData = props.setData;
   const url = props.url;
 
-  const imageHandler = () => {   
+  const imageHandler = () => {
     const input = document.createElement("input");
     input.setAttribute("type", "file");
     input.setAttribute("accept", "image/*");
-    input.click();    
+    input.click();
     input.onchange = async () => {
       const file = input.files;
       if (file !== null) {
@@ -33,7 +32,6 @@ const TextEditor = (props) => {
           .then((res) => {
             const editor = quillRef.current.getEditor();
             const range = editor.getSelection();
-
             editor.insertEmbed(range.index, "image", res.data);
             editor.setSelection(range.index + 1);
           })
@@ -60,11 +58,10 @@ const TextEditor = (props) => {
     "image",
     "color",
   ];
-  
+
   const modules = useMemo(() => {
     return {
       toolbar: {
-        
         container: [
           ["bold", "italic", "underline", "strike", "blockquote"],
           [{ size: ["small", false, "large", "huge"] }, { color: [] }],
@@ -78,7 +75,6 @@ const TextEditor = (props) => {
           ["image", "video"],
         ],
         handlers: {
-          
           image: imageHandler,
         },
       },
@@ -90,7 +86,7 @@ const TextEditor = (props) => {
   }, []);
   return (
     <ReactQuill
-      ref={quillRef} 
+      ref={quillRef}
       theme="snow"
       value={data}
       formats={formats}
