@@ -10,7 +10,6 @@ import Admin from "./component/admin/Admin";
 import Header from "./component/common/Header";
 import Category from "./component/common/Category";
 import Join from "./component/member/Join";
-import Mypage from "./component/member/Mypage";
 
 function App() {
   return (

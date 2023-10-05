@@ -12,6 +12,9 @@
   float: left;
   overflow: hidden;
 }
+.category:hover > img {
+  opacity: 0.75;
+}
 .category > span {
   position: absolute;
   bottom: 15px;

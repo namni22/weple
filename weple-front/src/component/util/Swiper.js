@@ -27,7 +27,6 @@ const SwiperComponent = (props) => {
       pagination={{ clickable: { pagination } }}
       autoplay={autoplay}
       // autoplay= {{delay: 2000, disableOnInteraction: false}}
-
       loop={loop}
     >
       {list.map((item, index) => {
