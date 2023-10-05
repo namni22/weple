@@ -29,7 +29,7 @@ const MeetCreate = () => {
         console.log("모임인원 :" + meetTotal);
         // console.log("썸네일 : " + meetThumbnail);
 
-        const meet = { meetTitle, meetThumbnail, meetDate, meetTotal, meetContentS, meetContentD }
+        const meet = { meetTitle, meetDate, meetTotal, meetContentS, meetContentD }
         axios.post("/meet/meetCreate", meet)
             .then((res) => {
 
