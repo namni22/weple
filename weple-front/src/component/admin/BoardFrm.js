@@ -6,14 +6,35 @@ import { FormControl, MenuItem, Select } from "@mui/material";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const BoardFrm = (props) => {
+const BoardFrm = () => {
   const [boardTitle, setBoardTitle] = useState("");
+  const [boardDetail, setBoardDetail] = useState("");
+  const [boardType, setBoardType] = useState(0);
+  const navigate = useNavigate();
+  const insert = () => {
+    if (boardTitle !== "" && boardDetail !== "") {
+      const form = new FormData();
+      form.append("boardTitle", boardTitle);
+      form.append("boardDetail", boardDetail);
+      axios
+        .post("/board/insert", form, {
 
-  const boardDetail = props.boardDetail;
-  const setBoardDetail = props.setBoardDetail;
-  const board = props.board;
-  const boardType = props.boardType;
+        })
+        .then((res) => {
+          console.log(res.data);
+          if (res.data > 0) {
+            navigate("/board");
+          }
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    } else {
+
+    }
+  }
 
 
   return (
@@ -42,7 +63,6 @@ const BoardFrm = (props) => {
                     data={boardTitle}
                     setData={setBoardTitle}
                     content="boardTitle"
-
                   />
                 </td>
               </tr>
@@ -58,7 +78,7 @@ const BoardFrm = (props) => {
         />
       </div>
       <div className="board-btn-box">
-        <Button1 text="등록"></Button1>
+        <Button1 text="등록" clickEvent={insert}></Button1>
       </div>
     </div>
 
