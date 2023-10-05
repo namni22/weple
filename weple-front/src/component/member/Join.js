@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { Button1, Button2 } from "../util/Button";
 import "./join.css";
 import { useEffect, useState } from "react";
@@ -44,7 +43,6 @@ const Join = () => {
   const [termsAgree, setTermsAgree] = useState(false);
   const [personalInfoAgree, setPersonalInfoAgree] = useState(false);
   const [eventAlarmAgree, setEventAlarmAgree] = useState(false);
-  const navigate = useNavigate();
 
   const allAgreeChecked = () => {
     if (allAgree === false) {
