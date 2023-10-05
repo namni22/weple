@@ -1,8 +1,7 @@
 import { useState } from "react";
 import Input from "../util/InputFrm";
-import { initial } from "lodash";
-import Radio from "../util/Radio";
 import { Button1, Button2 } from "../util/Button";
+import axios from "axios";
 
 const JoinFrm = () => {
   const [memberId, setMemberId] = useState("");
@@ -17,6 +16,47 @@ const JoinFrm = () => {
   const [checkIdMsg, setCheckIdMsg] = useState("");
   const [checkPwMsg, setCheckPwMsg] = useState("");
 
+  const idCheck = () => {
+    const idReg = /^[a-zA-Z0-9]{4,8}$/;
+    if (!idReg.test(memberId)) {
+      // 정규표현식 만족하지 못했을 때
+      setCheckIdMsg("아이디는 영어 대/소문자/숫자로 4~8글자 입니다.");
+    } else {
+      // 정규표현식 만족했을 때 -> DB 중복체크
+      // 비동기 통신 도와주는 것 : axios
+      // axios.보내주는 방식(get or post)
+      // params라는 key값, 객체 value
+      /*
+        $.ajax({
+          url:"/member/checkId",
+          data:{memberId:memberId},
+          type:"get",
+          success: function(data{
+          },
+          error: function(data){
+          }
+        })
+        형태를 axios를 쓰면 ↓
+      */
+      axios
+        // .get("/member/checkId", { params: { memberId: memberId } }) 방법 1
+        // then: success, catch: error
+        .get("/member/checkId/" + memberId) // 방법 2
+        .then((res) => {
+          console.log(res.data); // 응답 객체의 data속성이 Controller에서 리턴한 데이터
+          if (res.data == 0) {
+            setCheckIdMsg("");
+          } else {
+            setCheckIdMsg("이미 사용중인 아이디입니다.");
+          }
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+
+      setCheckIdMsg("정규표현식 만족");
+    }
+  };
   return (
     <div className="joinFrm">
       <div className="joinFrm-content">
@@ -29,6 +69,7 @@ const JoinFrm = () => {
           es=" *"
           checkMsg={checkIdMsg}
           placeholder="아이디를 입력해주세요"
+          blurEvent={idCheck}
         />
         <JoinInputWrap
           data={memberPw}
@@ -99,6 +140,7 @@ const JoinFrm = () => {
           content="memberEmail"
           label="이메일"
           es=" *"
+          placeholder="ex) weple@weple.co.kr"
         />
 
         <div className="join-input-wrap">

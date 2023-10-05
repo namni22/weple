@@ -10,18 +10,16 @@ import { useNavigate } from "react-router-dom";
 
 const BoardFrm = () => {
   const [boardTitle, setBoardTitle] = useState("");
-  const [boardDetail, setBoardDetail] = useState("");
+  const [boardContent, setBoardContent] = useState("");
   const [boardType, setBoardType] = useState(0);
   const navigate = useNavigate();
   const insert = () => {
-    if (boardTitle !== "" && boardDetail !== "") {
+    if (boardTitle !== "" && boardContent !== "") {
       const form = new FormData();
       form.append("boardTitle", boardTitle);
-      form.append("boardDetail", boardDetail);
+      form.append("boardContent", boardContent);
       axios
-        .post("/board/insert", form, {
-
-        })
+        .post("/board/insert", form)
         .then((res) => {
           console.log(res.data);
           if (res.data > 0) {
@@ -72,8 +70,8 @@ const BoardFrm = () => {
       </div>
       <div className="board-content-box">
         <TextEditor
-          data={boardDetail}
-          setData={setBoardDetail}
+          data={boardContent}
+          setData={setBoardContent}
           url="/board/contentImg"
         />
       </div>
