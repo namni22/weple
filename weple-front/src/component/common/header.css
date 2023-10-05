@@ -16,12 +16,12 @@
 }
 .header .material-icons {
   font-size: 30px;
-  color: gray;
+  color: #171717;
   margin: 0 5px;
 }
 .header .icon-explain {
   font-size: 10px;
-  color: gray;
+  color: #171717;
   text-align: center;
 }
 .header .logo {
@@ -32,16 +32,6 @@
 }
 .header .logo a {
   color: #2d31fa;
-}
-.header .material-icons {
-  font-size: 30px;
-  color: gray;
-  margin: 0 5px;
-}
-.header .icon-explain {
-  font-size: 10px;
-  color: gray;
-  text-align: center;
 }
 
 /* 
@@ -76,4 +66,5 @@
 #category {
   font-size: 40px;
   padding-top: 5px;
+  color: #171717;
 }

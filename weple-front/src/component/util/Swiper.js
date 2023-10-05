@@ -14,7 +14,6 @@ const SwiperComponent = (props) => {
   const spaceBetween = props.spaceBetween;
   const slidesPerView = props.slidesPerView;
   const navigation = props.navigation;
-  const pagination = props.pagination;
   const list = props.list;
   const autoplay = props.autoplay;
   const loop = props.loop;
@@ -24,10 +23,9 @@ const SwiperComponent = (props) => {
       spaceBetween={spaceBetween} //SwiperSlide간 간격
       slidesPerView={slidesPerView} //한번에 보여지는 슬라이드 개수
       navigation={{ clickable: { navigation } }}
-      pagination={{ clickable: { pagination } }}
+      pagination={{ clickable: true }}
       autoplay={autoplay}
       // autoplay= {{delay: 2000, disableOnInteraction: false}}
-
       loop={loop}
     >
       {list.map((item, index) => {

@@ -22,8 +22,7 @@
 
 .join-content {
   width: 70%;
-  margin: 0 auto;
-  text-align: ;
+  margin: 50px auto;
 }
 
 .join-agree-explain {
@@ -65,6 +64,10 @@
   float: left;
 }
 
+.join-agree-wrap {
+  display: block;
+}
+
 .checks input[type="checkbox"]:checked + label:before {
   background: url(/public/img/check.png) no-repeat 50% 50% #2d31fa;
   border-color: #2d31fa;
@@ -82,4 +85,97 @@
 
 .join-agree-btn > div:first-child {
   margin-right: 30px;
+}
+
+.all-check {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.joinFrm-wrap {
+  display: none;
+}
+
+.joinFrm-content {
+  width: 500px;
+  margin: 0 auto;
+}
+
+.join-input-wrap {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0px;
+  border-bottom: 1px solid #ededed;
+}
+
+.join-input-wrap > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.join-input-wrap > div > .label {
+  width: 25%;
+}
+
+.join-input-wrap > div > .input {
+  width: 75%;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.label {
+  font-size: 18p;
+}
+
+.join-essential {
+  color: #ff4c4c;
+}
+
+.input input[type="radio"] + label {
+  width: calc(100% / 2);
+  cursor: pointer;
+  height: 45px;
+  float: left;
+  border: 1px solid #5d8bf4;
+  box-sizing: border-box;
+  text-align: center;
+  color: #5d8bf4;
+  line-height: 45px;
+}
+
+input[type="radio"]:checked + label {
+  background-color: #5d8bf4;
+  color: #fff;
+}
+
+.join-profileImg {
+  display: inline-block;
+  width: 200px;
+  border: 1px solid #5d8bf4;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  color: #fff;
+  background-color: #5d8bf4;
+  border-radius: 5px;
+}
+
+.join-imgUp-btn {
+  display: none;
+}
+
+.join-profileImg-pre > img {
+  margin-bottom: 15px;
+  width: 200px;
+  height: 200px;
+}
+
+.check-msg {
+  font-size: 0.8em;
+  width: 75%;
+  align-self: flex-end;
+  color: #ff4c4c;
 }
