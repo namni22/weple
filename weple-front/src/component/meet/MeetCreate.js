@@ -41,7 +41,9 @@ const MeetCreate = () => {
             form.append("meetThumbnail", meetThumbnail);
             axios
                 .post("/meet/meetCreate", form)
-                .then()
+                .then((res) => {
+                    console.log(res.data);
+                })
                 .catch();
 
 
