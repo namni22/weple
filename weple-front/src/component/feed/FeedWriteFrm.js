@@ -2,36 +2,44 @@
 import { useState } from "react";
 import { Button2 } from "../util/Button";
 import SwiperComponent from "../util/Swiper";
+import { prop } from "dom7";
 
 const FeedWriteFrm = (props) => {
   const prev = props.prev;
-  const [feedImg, setFeedImg] = useState([]);
   const [feedContent, setFeedContent] = useState("");
   const [feedThumb, setFeedThumb] = useState([]);
+  const [feedImg, setFeedImg] = useState([]);
+  const [feedBox, setFeedBox] = useState([]);
+  const [delImgNo, setDelImgNo] = useState([]);
 
   const changeFile = (e) => {
     const Imgs = e.currentTarget.files;
-    if (Imgs.length !== 0 && Imgs[0] != 0) {
+
+    if (Imgs.length !== 0 && Imgs[0] !== 0) {
       setFeedImg(Imgs);
-      let arr = new Array();
+      const arr = new Array();
+      const imgArr = new Array();
 
       for (let i = 0; i < Imgs.length; i++) {
         const reader = new FileReader();
         reader.readAsDataURL(Imgs[i]);
         reader.onload = () => {
           arr.push(
-            <div>
-              <img src={reader.result}></img>
-              <button>
-                <span class="material-icons">close</span>
-              </button>
-            </div>
+            <ImgBox
+              src={reader.result}
+              feedBox={feedBox}
+              setFeedBox={setFeedBox}
+              i={i}
+            />
           );
-          setFeedThumb([...arr]);
+          setFeedBox([...arr]);
+          imgArr.push(reader.result);
+          setFeedThumb([...imgArr]);
         };
       }
     } else {
       setFeedImg([]);
+      setFeedBox([]);
       setFeedThumb([]);
     }
   };
@@ -40,7 +48,7 @@ const FeedWriteFrm = (props) => {
     <div>
       <div className="feed-title">
         FEED UPLOAD
-        <span class="material-icons" onClick={prev}>
+        <span className="material-icons" onClick={prev}>
           close
         </span>
       </div>
@@ -65,9 +73,8 @@ const FeedWriteFrm = (props) => {
           ) : (
             <SwiperComponent
               spaceBetween={21}
-              slidesPerView={4}
-              list={feedThumb}
-              pagination={false}
+              slidesPerView={3.5}
+              list={feedBox}
               loop={false}
               autoplay={false}
             />
@@ -76,6 +83,24 @@ const FeedWriteFrm = (props) => {
         <textarea></textarea>
         <Button2 text="파일업로드"></Button2>
       </div>
+    </div>
+  );
+};
+
+const ImgBox = (props) => {
+  const src = props.src;
+  const feedBox = props.feedBox;
+  const setFeedBox = props.setFeedBox;
+  const i = props.i;
+
+  const deleteImg = () => {};
+
+  return (
+    <div className="feed-write-img-box">
+      <img src={src}></img>
+      <button onClick={deleteImg}>
+        <span className="material-icons">close</span>
+      </button>
     </div>
   );
 };
