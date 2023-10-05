@@ -1,12 +1,9 @@
-import "./inputFrm.css";
-
-const Input = (props) => {
+const Radio = (props) => {
   const data = props.data;
   const setData = props.setData;
-  const type = props.type;
   const content = props.content;
   const blurEvent = props.blurEvent;
-  const placeholder = props.placeholder;
+  const name = props.name;
   const changeValue = (e) => {
     const inputValue = e.currentTarget.value;
     setData(inputValue);
@@ -15,14 +12,15 @@ const Input = (props) => {
     <>
       <input
         id={content}
-        className="input-form"
-        type={type}
+        className="radio-btn"
+        name={name}
+        type="radio"
         value={data || ""}
         onChange={changeValue}
         onBlur={blurEvent}
-        placeholder={placeholder}
       ></input>
     </>
   );
 };
-export default Input;
+
+export default Radio;

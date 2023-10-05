@@ -22,6 +22,9 @@ const MeetSettingFrm = (props) => {
     const meetTotal = props.meetTotal;
     const setMeetTotal = props.setMeetTotal;
 
+    const meetThumbnail = props.meetThumbnail;
+    const setMeetThumbnail = props.setMeetThumbnail;
+
     const buttonEvent = props.buttonEvent;
 
 
@@ -31,6 +34,31 @@ const MeetSettingFrm = (props) => {
     //     center : new kakao.maps.LatLng(33.45, 126.57)
     // }
     // const map = new kakao.maps.Map(container, options);
+
+    //   썸네일 미리보기 함수
+    const thumbnailChange = (e) => {
+        const files = e.currentTarget.files;
+        if (files.length !== 0 && files[0] != 0) {
+            // 파일이 들어왔을때
+            setMeetThumbnail(files[0]); //썸네일 파일 전송을 위한 state에 값 파일객체 저장
+            //화면에 썸네일 미리보기
+            const reader = new FileReader(); //객체만들고
+            reader.readAsDataURL(files[0]); //파일 읽어와
+            reader.onloadend = () => {
+                setMeetThumbnail(reader.result);
+            };
+        } else {
+            // 파일이 취소됐을때
+            setMeetThumbnail({}); //썸내일 빈객체로
+            setMeetThumbnail(null); //보드이미지 빈문자열로 //빈문자열에서 null로 바꿈
+        }
+    };
+
+    //모임 인원 변경 함수
+    const changeMeetTotal = (e) => {
+        console.log(e.currentTarget.value);
+        setMeetTotal(e.currentTarget.value)
+    }
 
     return (
         <div className="meetSettingFrm-main-wrap">
@@ -52,20 +80,40 @@ const MeetSettingFrm = (props) => {
                     <label>썸네일</label>
                     <div>
                         {/* accept = image/* : 이미지파일만 올릴수 있도록 */}
+                        인풋어디갓어 :
+
                         <input
                             className="meetThumbnail-input"
                             type="file"
                             id="meetThumbnail"
                             accept="image/*"
-                        // 파일선택을 바꿀때 이벤트 발생
-                        //썸네일 미리보기 함수
+                            // 파일선택을 바꿀때 이벤트 발생
+                            //썸네일 미리보기 함수
+                            onChange={thumbnailChange}
                         ></input>
+
+                        인풋
+
+                        <div className="meetThumbnailPreview">
+                            {/* <img src={meetThumbnail}></img> */}
+                            {meetThumbnail === null ? ( //""에서 null로 바꿈
+                                // 기본이미지 넣어야함
+                                <img src="/img/main_1.jpg"></img>
+                            ) : (
+                                <img src={meetThumbnail}></img>
+                            )}
+                        </div>
+
                     </div>
 
                 </div>
                 <div className="meetDateFrm">
                     <label>모임날짜</label>
-                    <input type="datetime-local"></input>
+                    <Input
+                        type="date"
+                        data={meetDate}
+                        setData={setMeetDate}
+                    />
                 </div>
                 <div className="meetPlaceFrm">
                     <label>모임위치</label>
@@ -75,7 +123,16 @@ const MeetSettingFrm = (props) => {
                 </div>
                 <div className="meetMemberLimitFrm">
                     <label>모임참여인원</label>
-                    <input type="number" min="1" max="100"></input>
+                    <input
+                        type="number"
+                        min="1"
+                        max="100"
+                        onChange={changeMeetTotal}
+
+                    >
+
+
+                    </input>
 
                 </div>
                 <div>
@@ -122,7 +179,7 @@ const MeetSettingFrm = (props) => {
                 </div>
 
             </div>
-        </div>
+        </div >
     );
 
 

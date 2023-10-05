@@ -3,29 +3,30 @@ import MenuItem from "@mui/material/MenuItem";
 import "./admin.css";
 import axios from "axios";
 import { FormControl, Select } from "@mui/material";
-import Pagination from "./Pagination";
 import Swal from "sweetalert2";
+import Pagination from "../common/Pagination";
 const AdminMember = () => {
   const [memberList, setMemberList] = useState([]);
   const [pageInfo, setPageInfo] = useState({});
   const [reqPage, setReqPage] = useState(1);
   useEffect(() => {
     axios
-      .get("/member/list/" + reqPage)
+      .get("/member/memberList/")
       .then((res) => {
         console.log(res.data);
         setMemberList(res.data.list);
-        setPageInfo(res.data.pi);
       })
       .catch((res) => {
         console.log(res);
       });
-  }, [reqPage]);
+  });
 
   return (
     <div className="admin-member-wrap">
       <div className="admin-member-top">
-        <div className="admin-menu-title"><h1>회원 목록</h1></div>
+        <div className="admin-menu-title">
+          <h1>회원 목록</h1>
+        </div>
         <div className="admin-member-tbl-box">
           <table>
             <thead>
@@ -52,11 +53,7 @@ const AdminMember = () => {
         </div>
       </div>
     </div>
-
-
-
-  )
-
+  );
 };
 const MemberItem = (props) => {
   const member = props.member;
@@ -66,7 +63,7 @@ const MemberItem = (props) => {
     const obj = { memberNo: member.memberNo, memberType: event.target.value };
     const token = window.localStorage.getItem("token");
     axios
-      .post("/member/changeType", obj, {
+      .post("/member/changeMemberType", obj, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -91,8 +88,9 @@ const MemberItem = (props) => {
       <td>
         <FormControl sx={{ m: 1, minWidth: 80 }}>
           <Select value={memberType} onChange={handleChange}>
-            <MenuItem value={1}>관리자</MenuItem>
-            <MenuItem value={2}>일반회원</MenuItem>
+            <MenuItem value={0}>관리자</MenuItem>
+            <MenuItem value={1}>정회원</MenuItem>
+            <MenuItem value={2}>블랙리스트</MenuItem>
           </Select>
         </FormControl>
       </td>

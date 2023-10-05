@@ -5,6 +5,7 @@ import "react-quill/dist/quill.snow.css";
 import ImageResize from "quill-image-resize-module-react";
 Quill.register("modules/ImageResize", ImageResize);
 const TextEditor = (props) => {
+
   const quillRef = useRef();
   const data = props.data;
   const setData = props.setData;
@@ -62,6 +63,7 @@ const TextEditor = (props) => {
   const modules = useMemo(() => {
     return {
       toolbar: {
+
         container: [
           ["bold", "italic", "underline", "strike", "blockquote"],
           [{ size: ["small", false, "large", "huge"] }, { color: [] }],
@@ -75,6 +77,7 @@ const TextEditor = (props) => {
           ["image", "video"],
         ],
         handlers: {
+
           image: imageHandler,
         },
       },
