@@ -10,6 +10,7 @@ const MeetCreate = () => {
     const meetCreate= ()=>{
         console.log("연결");
         console.log(meetTitle);
+        console.log(meetThumbnail);
     }
 
     return (
