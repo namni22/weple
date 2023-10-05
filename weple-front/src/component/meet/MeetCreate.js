@@ -1,5 +1,6 @@
 import { useState } from "react";
 import MeetSettingFrm from "./MeetSettingFrm";
+import axios from "axios";
 
 
 const MeetCreate = () => {
@@ -27,6 +28,13 @@ const MeetCreate = () => {
         console.log("모임한줄설명 : " + meetContentS);
         console.log("모임인원 :" + meetTotal);
         // console.log("썸네일 : " + meetThumbnail);
+
+        const meet = { meetTitle, meetThumbnail, meetDate, meetTotal, meetContentS, meetContentD }
+        axios.post("/meet/create", meet)
+            .then((res) => {
+
+            })
+            .catch()
 
     }
 
