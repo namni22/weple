@@ -6,7 +6,7 @@ const Main = () => {
     return <img src={item} key={"mainSwiper" + index}></img>;
   });
   return (
-    <>
+    <div className="main-wrap">
       <SwiperComponent
         spaceBetween={21}
         slidesPerView={1}
@@ -16,7 +16,7 @@ const Main = () => {
         autoplay={true}
         list={list}
       />
-    </>
+    </div>
   );
 };
 export default Main;
