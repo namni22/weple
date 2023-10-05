@@ -1,7 +1,10 @@
 import SwiperComponent from "../util/Swiper";
 import "./main.css";
 const Main = () => {
-  const list = ["./img/main_1.jpg", "./img/main_2.jpg"];
+  const imgList = ["./img/main_1.jpg", "./img/main_2.jpg"];
+  const list = imgList.map((item, index) => {
+    return <img src={item} key={"mainSwiper" + index}></img>;
+  });
   return (
     <>
       <SwiperComponent

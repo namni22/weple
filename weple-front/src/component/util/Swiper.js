@@ -27,11 +27,10 @@ const SwiperComponent = (props) => {
       pagination={{ clickable: { pagination } }}
       autoplay={autoplay}
       // autoplay= {{delay: 2000, disableOnInteraction: false}}
-
       loop={loop}
     >
       {list.map((item, index) => {
-        return <SwiperSlide key={"img" + index}>{item}</SwiperSlide>;
+        return <SwiperSlide key={"box" + index}>{item}</SwiperSlide>;
       })}
     </Swiper>
   );

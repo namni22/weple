@@ -16,7 +16,6 @@ function App() {
     <div className="weple-wrap">
       <Header />
       <div className="weple-content">
-        {/* <ReviewWriteFrm /> */}
         <Routes>
           <Route path="/feed/*" element={<Feed />} />
           <Route path="/meet/*" element={<MeetMain />}></Route>
