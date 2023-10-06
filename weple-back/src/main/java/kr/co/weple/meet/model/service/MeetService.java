@@ -44,7 +44,9 @@ public class MeetService {
 	public int createMeet(Meet meet) {
 		// TODO Auto-generated method stub
 		System.out.println(meet);
-		//모임 장장 select 해와서 meet에 set
+		//모임 장장 select 해와서 meet에 set 은 같은 자료형이라 controller에서 이미 해왔고 여기선 안해도됨
+		int result = meetDao.createMeet(meet);
+		
 		
 		return 0;
 	}
