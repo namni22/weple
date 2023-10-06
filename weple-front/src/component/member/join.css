@@ -179,3 +179,10 @@ input[type="radio"]:checked + label {
   align-self: flex-end;
   color: #ff4c4c;
 }
+
+.check-blue {
+  font-size: 0.8em;
+  width: 75%;
+  align-self: flex-end;
+  color: #2d31fa;
+}

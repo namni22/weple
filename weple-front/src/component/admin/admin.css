@@ -105,7 +105,24 @@
 }
 
 .admin-paging-wrap {
-  margin-top: 50px;
+  margin: 50px;
+}
+
+.admin-member-search-wrap {
+  margin: 20px;
+  overflow: hidden;
+}
+
+.admin-member-search-wrap>:first-child {
+  width: 80%;
+  float: left;
+  padding-right: 40px;
+
+}
+
+.admin-member-search-wrap>:last-child {
+  width: 15%;
+  float: left;
 }
 
 /* 공지 목록 */
@@ -139,4 +156,23 @@
 
 .admin-board-tbl>table>tbody td {
   border-bottom: 1px solid #ededed;
+}
+
+/* 모임 조회  */
+.admin-meet-tbl-box>table {
+  width: 100%;
+  border-spacing: 0;
+}
+
+.admin-meet-tbl-box>table td {
+  text-align: center;
+  padding: 5px;
+  border-top: 1px solid #ededed;
+  border-bottom: 1px solid #ededed;
+}
+
+.admin-meet-tbl-box>table>thead td {
+  border-bottom: 2px solid #5D8BF4;
+  border-top: 2px solid #5D8BF4;
+  color: #5D8BF4;
 }

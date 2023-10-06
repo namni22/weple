@@ -7,5 +7,5 @@ import kr.co.weple.board.model.vo.Board;
 public interface BoardDao {
 
 	int insertBoard(Board b);
-
+	
 }

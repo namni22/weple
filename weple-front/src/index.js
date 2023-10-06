@@ -4,11 +4,13 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import ScrollToTop from "./component/util/ScrollTop";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <App />
+    <ScrollToTop />
   </BrowserRouter>
 );
 

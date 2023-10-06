@@ -33,7 +33,7 @@ public class BoardController {
 
 	@PostMapping(value="/insert")
 	public int insertBoard(@ModelAttribute Board b) {	
-		System.out.println("boardController" + b);
+		//System.out.println("boardController" + b);
 		int result = boardService.insertBoard(b);		
 		return result;
 	}

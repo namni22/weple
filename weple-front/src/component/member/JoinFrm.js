@@ -3,7 +3,7 @@ import Input from "../util/InputFrm";
 import { Button1, Button2 } from "../util/Button";
 import axios from "axios";
 
-const JoinFrm = () => {
+const JoinFrm = (props) => {
   const [memberId, setMemberId] = useState("");
   const [memberName, setMemberName] = useState("");
   const [memberPw, setMemberPw] = useState("");
@@ -13,9 +13,68 @@ const JoinFrm = () => {
   const [memberBirth, setMemberBirth] = useState("");
   const [memberGender, setMemberGender] = useState("");
   const [memberImage, setMemberImage] = useState("");
+  const [profileImg, setProfileImg] = useState(null);
   const [checkIdMsg, setCheckIdMsg] = useState("");
   const [checkPwMsg, setCheckPwMsg] = useState("");
-  const [useId, setUseId] = useState("false");
+  const [checkPwReMsg, setCheckPwReMsg] = useState("");
+  const [checkEmailMsg, setCheckEmailMsg] = useState("");
+  const [useId, setUseId] = useState(false);
+
+  axios
+    .get("/member/categoryList")
+    .then((res) => {
+      res.data.forEach((item) => {
+        console.log(item);
+        console.log(item.categoryRefNo);
+      });
+    })
+    .catch((res) => {
+      console.log(res.response.status);
+    });
+
+  const profileImgChange = (e) => {
+    const files = e.currentTarget.files;
+    if (files.length !== 0 && files[0] != 0) {
+      setProfileImg(files[0]); // 썸네일 파일 전송을 위한 state에 파일 객체 저장
+      // 화면 썸네일 미리보기
+      const reader = new FileReader();
+      reader.readAsDataURL(files[0]);
+      reader.onloadend = () => {
+        setMemberImage(reader.result);
+      };
+    } else {
+      setProfileImg({});
+      setMemberImage(null);
+    }
+  };
+
+  const emailCheck = () => {
+    const emailReg = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
+    if (!emailReg.test(memberEmail)) {
+      setCheckEmailMsg("ex) weple@weple.co.kr 형식으로 입력해주세요. ");
+    } else {
+      setCheckEmailMsg("");
+    }
+  };
+
+  const pwCheck = () => {
+    const pwReg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    if (!pwReg.test(memberPw)) {
+      setCheckPwMsg(
+        "비밀번호는 최소 8자, 최소 하나의 문자 및 숫자를 포함해야 합니다."
+      );
+    } else {
+      setCheckPwMsg("");
+    }
+  };
+
+  const pwReCheck = () => {
+    if (memberPw !== memberPwRe) {
+      setCheckPwReMsg("비밀번호가 일치하지 않습니다.");
+    } else {
+      setCheckPwReMsg("");
+    }
+  };
 
   const idCheck = () => {
     const idReg = /^[a-zA-Z0-9]{4,8}$/;
@@ -23,34 +82,18 @@ const JoinFrm = () => {
     if (!idReg.test(memberId)) {
       // 정규표현식 만족하지 못했을 때
       setCheckIdMsg("아이디는 영어 대/소문자/숫자로 4~8글자 입니다.");
+      setUseId(false);
     } else {
-      // 정규표현식 만족했을 때 -> DB 중복체크
-      // 비동기 통신 도와주는 것 : axios
-      // axios.보내주는 방식(get or post)
-      // params라는 key값, 객체 value
-      /*
-        $.ajax({
-          url:"/member/checkId",
-          data:{memberId:memberId},
-          type:"get",
-          success: function(data{
-          },
-          error: function(data){
-          }
-        })
-        형태를 axios를 쓰면 ↓
-      */
       axios
-        // .get("/member/checkId", { params: { memberId: memberId } }) 방법 1
-        // then: success, catch: error
-        .get("/member/checkId/" + memberId) // 방법 2
+        .get("/member/checkId/" + memberId)
         .then((res) => {
-          console.log(res.data); // 응답 객체의 data속성이 Controller에서 리턴한 데이터
+          console.log(res.data);
           if (res.data == 0) {
             setCheckIdMsg("사용 가능한 아이디 입니다.");
-            setUseId("true");
+            setUseId(true);
           } else {
             setCheckIdMsg("이미 사용중인 아이디입니다.");
+            setUseId(false);
           }
         })
         .catch((res) => {
@@ -71,6 +114,7 @@ const JoinFrm = () => {
           checkMsg={checkIdMsg}
           placeholder="아이디를 입력해주세요"
           blurEvent={idCheck}
+          msgClass={useId ? "check-blue" : "check-msg"}
         />
         <JoinInputWrap
           data={memberPw}
@@ -79,7 +123,10 @@ const JoinFrm = () => {
           content="memberPw"
           label="비밀번호"
           es=" *"
+          checkMsg={checkPwMsg}
           placeholder="비밀번호를 입력해주세요"
+          blurEvent={pwCheck}
+          msgClass="check-msg"
         />
         <JoinInputWrap
           data={memberPwRe}
@@ -88,8 +135,10 @@ const JoinFrm = () => {
           content="memberPwRe"
           label="비밀번호 확인"
           es=" *"
-          checkMsg={checkPwMsg}
+          checkMsg={checkPwReMsg}
           placeholder="비밀번호를 다시 한 번 입력해주세요"
+          blurEvent={pwReCheck}
+          msgClass="check-msg"
         />
         <JoinInputWrap
           data={memberName}
@@ -141,7 +190,10 @@ const JoinFrm = () => {
           content="memberEmail"
           label="이메일"
           es=" *"
+          checkMsg={checkEmailMsg}
           placeholder="ex) weple@weple.co.kr"
+          blurEvent={emailCheck}
+          msgClass="check-msg"
         />
 
         <div className="join-input-wrap">
@@ -154,7 +206,11 @@ const JoinFrm = () => {
             </div>
             <div className="input">
               <div className="join-profileImg-pre">
-                <img src="/img/testImg_01.png" />
+                {profileImg === null ? (
+                  <img src="/img/testImg_01.png" />
+                ) : (
+                  <img src={memberImage} />
+                )}
               </div>
               <label className="join-profileImg" htmlFor="memberImage">
                 이미지 업로드
@@ -164,7 +220,20 @@ const JoinFrm = () => {
                 className="join-imgUp-btn"
                 id="memberImage"
                 accept="image/*"
+                onChange={profileImgChange}
               />
+            </div>
+          </div>
+        </div>
+
+        <div className="join-input-wrap">
+          <div>
+            <div className="label">
+              <label htmlFor="memberImage">관심 카테고리</label>
+            </div>
+            <div className="input">
+              <select id="main-category"></select>
+              <select id="sub-category" name="categoryNo"></select>
             </div>
           </div>
         </div>
@@ -181,24 +250,6 @@ const JoinFrm = () => {
   );
 };
 
-/*
-const JoinRadio = (props) => {
-  const data = props.data;
-  const setData = props.setData;
-  const content = props.content;
-  const label = props.label;
-
-  return (
-    <div className="radio">
-      <Radio data={data} setData={setData} content={content} />
-      <div className="radio-label">
-        <label htmlFor={content}>{label}</label>
-      </div>
-    </div>
-  );
-};
-*/
-
 const JoinInputWrap = (props) => {
   const data = props.data;
   const setData = props.setData;
@@ -209,6 +260,7 @@ const JoinInputWrap = (props) => {
   const blurEvent = props.blurEvent;
   const checkMsg = props.checkMsg;
   const placeholder = props.placeholder;
+  const msgClass = props.msgClass;
 
   return (
     <div className="join-input-wrap">
@@ -230,7 +282,7 @@ const JoinInputWrap = (props) => {
           />
         </div>
       </div>
-      <div className="check-msg">{checkMsg}</div>
+      <div className={msgClass}>{checkMsg}</div>
     </div>
   );
 };

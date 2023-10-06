@@ -8,7 +8,6 @@ const MeetCreate = () => {
     const [meetTitle, setMeetTitle] = useState("");
     const [meetContentS, setMeetContentS] = useState("");
     const [meetContentD, setMeetContentD] = useState("");
-    const [meetThumbnail, setMeetThumbnail] = useState({});
     const [meetDate, setMeetDate] = useState("");
     const [meetTotal, setMeetTotal] = useState("");
     const [meetMargin, setMeetMargin] = useState(0)
@@ -17,10 +16,12 @@ const MeetCreate = () => {
     const [meetAddress1, setMeetAddress1] = useState("");
     const [meetAddress2, setMeetAddress2] = useState("");
     const [meetName, setMeetName] = useState("");
-
-
     const [meetMaterials, setMeetMaterials] = useState("");
 
+    //썸네일
+    const [meetThumbnail, setMeetThumbnail] = useState({});
+    // 썸네일 미리보기
+    const [meetThumbnailPreview, setMeetThumbnailPreview] = useState(null);
 
 
     //write역할
@@ -39,10 +40,17 @@ const MeetCreate = () => {
             form.append("meetContentS", meetContentS);
             form.append("meetTotal", meetTotal);
             form.append("meetThumbnail", meetThumbnail);
+            // 토큰선언자리
             axios
-                .post("/meet/meetCreate", form)
+                .post("/meet/meetCreate", form, {
+                    headers: {
+                        contentType: "multipart/form-data",
+                        processData: false,
+                        // 토큰자리
+                    },
+                })
                 .then((res) => {
-                    console.log(res.data);
+                    console.log("결과 : " + res.data);
                 })
                 .catch();
 
@@ -71,6 +79,8 @@ const MeetCreate = () => {
 
                 meetThumbnail={meetThumbnail}
                 setMeetThumbnail={setMeetThumbnail}
+                meetThumbnailPreview={meetThumbnailPreview}
+                setMeetThumbnailPreview={setMeetThumbnailPreview}
 
                 buttonEvent={meetCreateBtn}
             />

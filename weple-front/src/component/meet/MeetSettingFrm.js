@@ -25,6 +25,10 @@ const MeetSettingFrm = (props) => {
     const meetThumbnail = props.meetThumbnail;
     const setMeetThumbnail = props.setMeetThumbnail;
 
+    //썸네일 미리보기용
+    const meetThumbnailPreview = props.meetThumbnailPreview;
+    const setMeetThumbnailPreview = props.setMeetThumbnailPreview;
+
     const buttonEvent = props.buttonEvent;
 
 
@@ -45,12 +49,13 @@ const MeetSettingFrm = (props) => {
             const reader = new FileReader(); //객체만들고
             reader.readAsDataURL(files[0]); //파일 읽어와
             reader.onloadend = () => {
-                setMeetThumbnail(reader.result);
+                setMeetThumbnailPreview(reader.result);
+                console.log("썸네일 바꼇을때 : " + meetThumbnailPreview);
             };
         } else {
             // 파일이 취소됐을때
             setMeetThumbnail({}); //썸내일 빈객체로
-            setMeetThumbnail(null); //보드이미지 빈문자열로 //빈문자열에서 null로 바꿈
+            setMeetThumbnailPreview(null); //보드이미지 빈문자열로 //빈문자열에서 null로 바꿈
         }
     };
 
@@ -80,7 +85,7 @@ const MeetSettingFrm = (props) => {
                     <label>썸네일</label>
                     <div>
                         {/* accept = image/* : 이미지파일만 올릴수 있도록 */}
-                        인풋어디갓어 :
+
 
                         <input
                             className="meetThumbnail-input"
@@ -92,15 +97,15 @@ const MeetSettingFrm = (props) => {
                             onChange={thumbnailChange}
                         ></input>
 
-                        인풋
+
 
                         <div className="meetThumbnailPreview">
-                            {/* <img src={meetThumbnail}></img> */}
-                            {meetThumbnail === null ? ( //""에서 null로 바꿈
+                            {/* <img src={meetThumbnail2}></img> */}
+                            {meetThumbnailPreview === null ? ( //""에서 null로 바꿈
                                 // 기본이미지 넣어야함
                                 <img src="/img/main_1.jpg"></img>
                             ) : (
-                                <img src={meetThumbnail}></img>
+                                <img src={meetThumbnailPreview}></img>
                             )}
                         </div>
 
