@@ -50,13 +50,10 @@ public class MeetController {
 			@ModelAttribute MultipartFile meetThumbnail
 			
 		) {
-		// @RequestAttribute String memberId 로 아이디 받아서 meet에 방장으로 추가
-		
-
+		// @RequestAttribute String memberId 로 아이디 받아서 meet에 방장으로 추가 (토큰필요)
 		
 		String savepath = root + "meet/";
-		
-		
+
 		if(meetThumbnail != null) {//썸네일이 있다면 meet에 set
 			meet.setMeetThumbNail(meetThumbnail.getOriginalFilename());
 			String filename = meetThumbnail.getOriginalFilename();
@@ -71,6 +68,12 @@ public class MeetController {
 		int result = meetService.createMeet(meet);
 		//리턴 리절트로 변경
 		return result;
+	}
+	
+	//모임생성 에디터 사진 추가
+	@PostMapping(value = "/meetContentDImg")
+	public String meetContentDImg() {
+		return null;
 	}
 	
 	

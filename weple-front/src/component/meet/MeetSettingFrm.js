@@ -152,7 +152,9 @@ const MeetSettingFrm = (props) => {
                 <div className="meetContentFrm">
                     <label>모임설명</label>
                     <TextEditor
-
+                        data={meetContentD}
+                        setData={setMeetContentD}
+                        url="/meet/meetContentDImg"
                     />
 
 
