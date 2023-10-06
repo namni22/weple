@@ -51,6 +51,7 @@ const MeetCreate = () => {
                 })
                 .then((res) => {
                     console.log("결과 : " + res.data);
+                    Swal.fire("모임생성 완료");
                 })
                 .catch();
 

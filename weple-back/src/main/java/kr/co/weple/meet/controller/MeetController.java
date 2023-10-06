@@ -49,33 +49,38 @@ public class MeetController {
 		return map;
 	}
 
-	// 모임생성
+	//모임생성
 	@PostMapping(value = "/meetCreate")
 	public int meetCreate(
 			@ModelAttribute Meet meet,
 			@ModelAttribute MultipartFile meetThumbnail
 			
 		) {
-		// @RequestAttribute String memberId 로 아이디 받아서 meet에 방장으로 추가
-		
-		System.out.println("진행확인" +meet);
-		System.out.println(meetThumbnail);
+		// @RequestAttribute String memberId 로 아이디 받아서 meet에 방장으로 추가 (토큰필요)
 		
 		String savepath = root + "meet/";
-		System.out.println("savepath : "+savepath);
-		
-		if(meetThumbnail != null) {
-			System.out.println(meetThumbnail.getOriginalFilename());
+
+		if(meetThumbnail != null) {//썸네일이 있다면 meet에 set
 			meet.setMeetThumbNail(meetThumbnail.getOriginalFilename());
 			String filename = meetThumbnail.getOriginalFilename();
 			String filepath = fileUtil.getFilepath(savepath, filename, meetThumbnail) ;//물리적으로 업로드
 			meet.setMeetThumbNail(filepath);
 
 		}
+		//meetMargin set 남은인원 셋팅
+		meet.setMeetMargin(meet.getMeetTotal()-1);
+		
 		
 		int result = meetService.createMeet(meet);
-		
+		//리턴 리절트로 변경
 		return result;
 	}
-
+	
+	//모임생성 에디터 사진 추가
+	@PostMapping(value = "/meetContentDImg")
+	public String meetContentDImg() {
+		return null;
+	}
+	
+	
 }

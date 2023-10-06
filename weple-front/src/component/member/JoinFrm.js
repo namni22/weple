@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../util/InputFrm";
 import { Button1, Button2 } from "../util/Button";
 import axios from "axios";
@@ -19,12 +19,24 @@ const JoinFrm = (props) => {
   const [checkPwReMsg, setCheckPwReMsg] = useState("");
   const [checkEmailMsg, setCheckEmailMsg] = useState("");
   const [useId, setUseId] = useState(false);
+  const [mainCategoryList, setMainCategoryList] = useState([]);
+  const [subCategoryList, setSubCategoryList] = useState([]);
 
-  axios.get("/member/categoryList").then((res) => {
-    console.log(res.data).catch((res) => {
-      console.log(res);
-    });
-  });
+  useEffect(() => {
+    axios
+      .get("/member/categoryList")
+      .then((res) => {
+        const mainCategory = [];
+        res.data.forEach((item) => {
+          if (item.categoryRefNo === 0) {
+            mainCategory.push(item);
+          }
+        });
+      })
+      .catch((res) => {
+        console.log(res.response.status);
+      });
+  }, []);
 
   const profileImgChange = (e) => {
     const files = e.currentTarget.files;

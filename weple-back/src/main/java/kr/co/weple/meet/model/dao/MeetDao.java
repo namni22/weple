@@ -30,4 +30,8 @@ public interface MeetDao {
 
 	List selectMeetMemberList(HashMap<String, Integer> param);
 
+	List meetList(PageInfo pi);
+
+	
+
 }

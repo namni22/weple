@@ -30,21 +30,9 @@ public class MemberController {
 		}
 		
 	}
-		
-	
-	@GetMapping(value="/memberList/{reqPage}")
-	public Map list(@PathVariable int reqPage) {
-		return memberService.memberList(reqPage);
-	}
-	
 	@GetMapping(value="/categoryList")
 	public List categoryList() {
 		return memberService.categoryList();
 	}
 	
-	@PostMapping(value="/changeMemberGrade")
-	public int changeMemberGrade(@RequestBody Member member) {
-		return memberService.changeMemberGrade(member);
-	}
-
 }

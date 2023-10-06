@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import Pagination from "../common/Pagination";
 import Input from "../util/InputFrm";
 import { Button1 } from "../util/Button";
+import { useNavigate, useSearchParams } from "react-router-dom";
 const AdminMember = () => {
   const [memberList, setMemberList] = useState([]);
   const [pageInfo, setPageInfo] = useState({});
@@ -14,7 +15,7 @@ const AdminMember = () => {
   const [memberId, setMemberId] = useState("");
   useEffect(() => {
     axios
-      .get("/member/memberList/" + reqPage)
+      .get("/admin/memberList/" + reqPage)
       .then((res) => {
         console.log(res.data);
         setMemberList(res.data.list);
@@ -36,7 +37,7 @@ const AdminMember = () => {
             <Input type="text" data={memberId} setData={setMemberId} content="memberId" placeholder="아이디를 입력해주세요" />
           </div>
           <div className="admin-member-search-button">
-            <Button1 text="검색" clickEvent={searchMember} />
+            <Button1 text="검색" />
           </div>
         </div>
         <div className="admin-member-tbl-box">
@@ -75,7 +76,7 @@ const MemberItem = (props) => {
     const obj = { memberNo: member.memberNo, memberGrade: event.target.value };
 
     axios
-      .post("/member/changeMemberGrade", obj)
+      .post("/admin/changeMemberGrade", obj)
       .then((res) => {
         console.log(res.data);
         if (res.data === 1) {
@@ -105,9 +106,6 @@ const MemberItem = (props) => {
     </tr>
   );
 };
-const searchMember = (props) => {
-  // const member = props.member;
-  // const [memberId, setMemberId] = useState(member.memberId);
 
-}
+
 export default AdminMember;
