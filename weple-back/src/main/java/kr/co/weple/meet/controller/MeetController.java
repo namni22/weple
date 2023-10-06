@@ -59,10 +59,12 @@ public class MeetController {
 			System.out.println(meetThumbnail.getOriginalFilename());
 			meet.setMeetThumbNail(meetThumbnail.getOriginalFilename());
 			String filename = meetThumbnail.getOriginalFilename();
-//			String filepath = 
-					
-			
+			String filepath = fileUtil.getFilepath(savepath, filename, meetThumbnail) ;//물리적으로 업로드
+			meet.setMeetThumbNail(filepath);
+
 		}
+		
+//		int result = meetService.createMeet(meet);
 		
 		return 0;
 	}
