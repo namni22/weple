@@ -13,7 +13,7 @@ const JoinFrm = (props) => {
   const [memberBirth, setMemberBirth] = useState("");
   const [memberGender, setMemberGender] = useState("");
   const [memberImage, setMemberImage] = useState("");
-  const [profileImg, setProfileImg] = useState("");
+  const [profileImg, setProfileImg] = useState(null);
   const [checkIdMsg, setCheckIdMsg] = useState("");
   const [checkPwMsg, setCheckPwMsg] = useState("");
   const [checkPwReMsg, setCheckPwReMsg] = useState("");
@@ -194,7 +194,7 @@ const JoinFrm = (props) => {
             </div>
             <div className="input">
               <div className="join-profileImg-pre">
-                {memberImage === null ? (
+                {profileImg === null ? (
                   <img src="/img/testImg_01.png" />
                 ) : (
                   <img src={memberImage} />
