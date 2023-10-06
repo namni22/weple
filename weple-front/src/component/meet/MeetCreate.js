@@ -21,7 +21,7 @@ const MeetCreate = () => {
     //썸네일
     const [meetThumbnail, setMeetThumbnail] = useState({});
     // 썸네일 미리보기
-    const [meetThumbnailPreview, setMeetThumbnailPreview] = useState({});
+    const [meetThumbnailPreview, setMeetThumbnailPreview] = useState(null);
 
 
     //write역할
