@@ -21,4 +21,7 @@
 	<select id="enrollMemberList" resultType="int">
 		select count(*) from follower where follower_status=0
 	</select>
+	<insert id="createMeet">
+	
+	</insert>
 </mapper>

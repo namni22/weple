@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import kr.co.weple.PageInfo;
 import kr.co.weple.Pagination;
 import kr.co.weple.meet.model.dao.MeetDao;
+import kr.co.weple.meet.model.vo.Meet;
 
 @Service
 public class MeetService {
@@ -38,5 +39,15 @@ public class MeetService {
 		int pageNaviSize = 5;
 		int totalCount = meetDao.enrollMemberList();
 		return null;
+	}
+
+	public int createMeet(Meet meet) {
+		// TODO Auto-generated method stub
+		System.out.println(meet);
+		//모임 장장 select 해와서 meet에 set 은 같은 자료형이라 controller에서 이미 해왔고 여기선 안해도됨
+		int result = meetDao.createMeet(meet);
+		
+		
+		return 0;
 	}
 }

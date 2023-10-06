@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,6 +50,8 @@ public class MeetController {
 			@ModelAttribute MultipartFile meetThumbnail
 			
 		) {
+		// @RequestAttribute String memberId 로 아이디 받아서 meet에 방장으로 추가
+		
 		System.out.println("진행확인" +meet);
 		System.out.println(meetThumbnail);
 		
@@ -64,7 +67,7 @@ public class MeetController {
 
 		}
 		
-//		int result = meetService.createMeet(meet);
+		int result = meetService.createMeet(meet);
 		
 		return 0;
 	}
