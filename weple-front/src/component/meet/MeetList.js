@@ -61,4 +61,4 @@ const MeetItem = (props) => {
   );
 }
 
-export { MeetList };
+export { MeetList, MeetItem };

@@ -52,24 +52,25 @@ public class MeetController {
 		) {
 		// @RequestAttribute String memberId 로 아이디 받아서 meet에 방장으로 추가
 		
-		System.out.println("진행확인" +meet);
-		System.out.println(meetThumbnail);
+
 		
 		String savepath = root + "meet/";
-		System.out.println("savepath : "+savepath);
 		
-		if(meetThumbnail != null) {
-			System.out.println(meetThumbnail.getOriginalFilename());
+		
+		if(meetThumbnail != null) {//썸네일이 있다면 meet에 set
 			meet.setMeetThumbNail(meetThumbnail.getOriginalFilename());
 			String filename = meetThumbnail.getOriginalFilename();
 			String filepath = fileUtil.getFilepath(savepath, filename, meetThumbnail) ;//물리적으로 업로드
 			meet.setMeetThumbNail(filepath);
 
 		}
+		//meetMargin set 남은인원 셋팅
+		meet.setMeetMargin(meet.getMeetTotal()-1);
+		
 		
 		int result = meetService.createMeet(meet);
 		//리턴 리절트로 변경
-		return 0;
+		return result;
 	}
 	
 	
