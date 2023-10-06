@@ -1,6 +1,6 @@
 import { Button1, Button2 } from "../util/Button";
 import "./join.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import JoinFrm from "./JoinFrm";
 
 const Join = () => {
@@ -96,6 +96,7 @@ const Join = () => {
 
   const goJoinFrm = () => {
     if (termsAgree === true && personalInfoAgree === true) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
       document.getElementsByClassName("join-agree-wrap")[0].style.display =
         "none";
       document.getElementsByClassName("joinFrm-wrap")[0].style.display =
