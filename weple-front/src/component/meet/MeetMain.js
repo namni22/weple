@@ -3,7 +3,7 @@ import "./afterMeet.css";
 import { JwButton1 } from "./meetUtil/JwButton";
 import MeetSettingFrm from "./MeetSettingFrm";
 import MeetCreate from "./MeetCreate";
-import MeetList from "./MeetList";
+import MeetComponent from "./MeetComponent";
 
 import AfterMeet from "./AfterMeet";
 import { useState } from "react";
@@ -24,7 +24,7 @@ const MeetMain = () => {
             <Link to="/meet">모임메인link</Link>
             <Link to="/meet/meetCreate">임시모임생성Frmlink</Link>
             <Link to="/meet/meetSettingFrm">임시모임생성link</Link>
-            <Link to="/meet/meetList">모임리스트</Link>
+            <Link to="/meet/meetComponent">모임리스트</Link>
             
             <Link to="/meet/afterMeet">가입후 모임</Link>
             <Link to="#">내가 계설한 그룹 신청 인원</Link>
@@ -32,7 +32,7 @@ const MeetMain = () => {
       <Routes>
         <Route path="/meetSettingFrm" element={<MeetSettingFrm />} />
         <Route path="/meetCreate" element={<MeetCreate />}></Route>
-        <Route path="/meetList" element={<MeetList />}></Route>
+        <Route path="/meetComponent" element={<MeetComponent />}></Route>
 
         {/* <Routes> */}
         <Route path="meetSettingFrm" element={<MeetSettingFrm />} />

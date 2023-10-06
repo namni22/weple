@@ -1,6 +1,6 @@
-import "./meetList.css";
+import "./meetComponent.css";
 
-const MeetList = () => {
+const MeetComponent = () => {
   return (
     <div className="meetList-all-wrap">
       <div className="meetListCategori-area">카테고리</div>
@@ -33,4 +33,4 @@ const MeetList = () => {
   );
 };
 
-export default MeetList;
+export default MeetComponent;
