@@ -5,6 +5,8 @@
 		select * from member where member_id=#{memberId}
 	</select>
 	
+	<select id="categoryList" resultType
+	
 	
 	
 	
