@@ -69,7 +69,7 @@ public class MeetController {
 		
 		int result = meetService.createMeet(meet);
 		
-		return 0;
+		return result;
 	}
 
 }

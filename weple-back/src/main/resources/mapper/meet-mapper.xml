@@ -28,12 +28,12 @@
 	<insert id="createMeet">
 		MEET_SEQ.NEXTVAL,
 		'2023-10-06',
-		'모임타이틀',
-		'내용 S',
-		'내용 D',
-		21, --정원
-		20, --남은 인원
-		'임시준비물',
+		#{meetTitle},
+		#{meetContentS},
+		#{meetContentD},
+		#{meetTotal}, --정원
+		#{meetMargin}, --남은 인원
+		#{meetPrepare},
 		3, --카테고리
 		'주소1', --주소
 		'주소2', --상세주소
