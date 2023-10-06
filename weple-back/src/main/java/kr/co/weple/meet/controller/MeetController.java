@@ -67,7 +67,7 @@ public class MeetController {
 
 		}
 		
-		//int result = meetService.createMeet(meet);
+		int result = meetService.createMeet(meet);
 		//리턴 리절트로 변경
 		return 0;
 	}

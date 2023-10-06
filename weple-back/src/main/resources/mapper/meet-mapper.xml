@@ -8,7 +8,8 @@
 	</select>
 	<select id="selectBoardList" resultType="meet">
 		SELECT * FROM
-		(SELECT ROWNUM AS RNUM, M.* FROM
+		(SELECT
+		ROWNUM AS RNUM, M.* FROM
 		(SELECT
 		MEET_NO,
 		MEET_TITLE,
@@ -17,64 +18,75 @@
 		MEET_THUMBNAIL
 		FROM MEET
 		WHERE MEET_TYPE = 1
-		ORDER BY 1 DESC)M)
+		ORDER BY 1
+		DESC)M)
 		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
 	<select id="enrollMemberList" resultType="int">
-		select count(*) from follower where follower_status=0 and meet_no = #{meetNo}
+		select count(*) from
+		follower where follower_status=0 and meet_no = #{meetNo}
 	</select>
 
 	<select id="selectEnrollMemberList" resultType="enrollMember">
 		SELECT * FROM
-		    (SELECT ROWNUM AS RNUM, F.* FROM
-		        (SELECT
-			         MEMBER_ID,
-			        MEMBER_GENDER,
-			        MEMBER_IMAGE,
-			        MEMBER_LIKE,
-			        FOLLOWER_STATUS,
-			        MEET_NO,
-			        MEMBER_NO
-			    FROM FOLLOWER
-			    JOIN MEMBER USING (MEMBER_NO)
-		        WHERE FOLLOWER_STATUS = 0 AND MEET_NO = #{meetNo}
-		        ORDER BY 1 DESC)F)
-		WHERE RNUM BETWEEN #{start} AND #{end}
-		select count(*) from
+		(SELECT ROWNUM AS RNUM, F.* FROM
+		(SELECT
+		MEMBER_ID,
+		MEMBER_GENDER,
+		MEMBER_IMAGE,
+		MEMBER_LIKE,
+		FOLLOWER_STATUS,
+		MEET_NO,
+		MEMBER_NO
+		FROM
+		FOLLOWER
+		JOIN MEMBER USING (MEMBER_NO)
+		WHERE FOLLOWER_STATUS = 0 AND
+		MEET_NO = #{meetNo}
+		ORDER BY 1 DESC)F)
+		WHERE RNUM BETWEEN #{start} AND
+		#{end}
+		select count(*)
+		from
 		follower where follower_status=0
 	</select>
-	
+
 	<!-- 모임생성 -->
 	<insert id="createMeet">
+		INSERT INTO MEET VALUES (
 		MEET_SEQ.NEXTVAL,
-		'2023-10-06',
+		#{meetDate},
 		#{meetTitle},
-		#{meetContentS},
-		#{meetContentD},
-		#{meetTotal}, 
-		#{meetMargin}, 
-		#{meetPrepare},
+		'내용 S',
+		'내용 D',
+		21, 
+		20, 
+		'임시준비물',
 		3, 
-		'주소1', 
-		'주소2', 
-		36, 
+		'주소1',
+		'주소2',
+		36,
 		126, 
-		#{meetThumbNail}, 
-		0, 
+		'썸네일',
+		0,
 		'test99'
+
+		)
 	</insert>
 
 	<!-- 모임 조회 Count -->
 	<select id="meetListCount" resultType="int">
-		select count(*) from meet 
+		select count(*) from meet
 	</select>
 	<select id="meetList" resultType="meet">
 		select * from
-			(select rownum as rnum, m.* from
-				(select * from meet order by meet_type)m
-			)
-		where rnum between #{start} and #{end}	
+		(select rownum as
+		rnum, m.* from
+		(select * from meet order by meet_type)m
+		)
+		where rnum
+		between #{start} and #{end}
 	</select>
-	
+
 
 </mapper>
