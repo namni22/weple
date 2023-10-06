@@ -3,27 +3,12 @@
 <mapper namespace="kr.co.weple.member.model.dao.MemberDao">
 	<select id="selectOneMember" resultType="member">
 		select * from member where member_id=#{memberId}
+
 	</select>
 	
-	<select id="categoryList" resultType
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
 	<select id="totalCount" resultType="int">
 		select count(*) from member
 	</select>
@@ -37,4 +22,8 @@
 	<update id="changeMemberGrade">
 		update member set member_grade=#{memberGrade} where member_no = #{memberNo}
 	</update>
+	
+	<select id="categoryList" resultType="category">
+		select * from category
+	</select>
 </mapper>

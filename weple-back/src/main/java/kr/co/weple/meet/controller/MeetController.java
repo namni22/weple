@@ -36,14 +36,14 @@ public class MeetController {
 	}
 	//개설한 모임에 가입 신청자 list 출력
 	@GetMapping(value = "/enrollMember/{reqPage}")
-	public Map enrollMember(@PathVariable int reqPage,@ModelAttribute String meetNo) {
+	public Map enrollMember(@PathVariable int reqPage, int meetNo) {
 		System.out.println(meetNo);
-		Map map = meetService.enrollMember(reqPage);
+		Map map = meetService.enrollMember(reqPage,meetNo);
 		return map;
 		
 	}
 
-	// 모임생성
+	//모임생성
 	@PostMapping(value = "/meetCreate")
 	public int meetCreate(
 			@ModelAttribute Meet meet,
@@ -71,5 +71,10 @@ public class MeetController {
 		//리턴 리절트로 변경
 		return 0;
 	}
-
+	
+	//모임조회
+	@GetMapping(value="/meetList/{reqPage}")
+	public Map list(@PathVariable int reqPage) {
+		return meetService.meetList(reqPage);
+	}
 }

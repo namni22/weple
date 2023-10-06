@@ -20,11 +20,17 @@ const JoinFrm = (props) => {
   const [checkEmailMsg, setCheckEmailMsg] = useState("");
   const [useId, setUseId] = useState(false);
 
-  axios.get("/member/categoryList").then((res) => {
-    console.log(res.data).catch((res) => {
-      console.log(res);
+  axios
+    .get("/member/categoryList")
+    .then((res) => {
+      res.data.forEach((item) => {
+        console.log(item);
+        console.log(item.categoryRefNo);
+      });
+    })
+    .catch((res) => {
+      console.log(res.response.status);
     });
-  });
 
   const profileImgChange = (e) => {
     const files = e.currentTarget.files;
