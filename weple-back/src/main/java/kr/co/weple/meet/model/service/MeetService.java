@@ -39,4 +39,19 @@ public class MeetService {
 		int totalCount = meetDao.enrollMemberList();
 		return null;
 	}
+	//모임 리스트 조회
+	public Map meetList(int reqPage) {
+		
+		int totalCount = meetDao.totalCount();
+		int numPerPage = 10;
+		int pageNaviSize = 5;
+		PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
+		List meetList = meetDao.meetList(pi);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("list", meetList);
+		map.put("pi", pi);
+		return map;
+	
+	
+	}
 }

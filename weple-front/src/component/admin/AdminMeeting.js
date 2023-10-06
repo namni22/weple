@@ -1,21 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./admin.css";
 import { FormControl, MenuItem, Select } from "@mui/material";
 import Swal from "sweetalert2";
 import axios from "axios";
 import Pagination from "../common/Pagination";
 const AdminMeeting = () => {
-  const [meetingList, setMeetingList] = useState([]);
+  const [meetList, setMeetList] = useState([]);
   const [pageInfo, setPageInfo] = useState({});
   const [reqPage, setReqPage] = useState(1);
 
+  useEffect(() => {
+    axios
+      .get("/meet/meetList/" + reqPage)
+      .then((res) => {
+        console.log(res.data);
+        setMeetList(res.data.list);
+        setPageInfo(res.data.pi);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  }, [reqPage]);
   return (
     <div className="admin-meeting-wrap">
       <div className="admin-meeting-top">
         <div className="admin-menu-title">
           <h1>모임 신청 내역</h1>
         </div>
-        <div className="admin-member-tbl-box">
+        <div className="admin-meet-tbl-box">
           <table>
             <thead>
               <tr>
@@ -26,9 +38,9 @@ const AdminMeeting = () => {
               </tr>
             </thead>
             <tbody>
-              {meetingList.map((meeting, index) => {
+              {meetList.map((meet, index) => {
                 return (
-                  <MeetingItem key={"meeting" + index} meeting={meeting} />
+                  <MeetingItem key={"meet" + index} meet={meet} />
                 );
               })}
             </tbody>
@@ -53,7 +65,7 @@ const MeetingItem = (props) => {
     const obj = { meetNo: meet.meetNo, meetType: event.target.value };
     const token = window.localStorage.getItem("token");
     axios
-      .post("/member/changeType", obj, {
+      .post("/meet/changeMeetType", obj, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -72,14 +84,14 @@ const MeetingItem = (props) => {
   };
   return (
     <tr>
-      <td>{meet.meetName}</td>
+      <td>{meet.meetCaptain}</td>
       <td>{meet.meetTitle}</td>
       <td>{meet.meetTotal}</td>
       <td>
         <FormControl sx={{ m: 1, minWidth: 80 }}>
           <Select value={meetType} onChange={handleChange}>
-            <MenuItem value={0}>대기중</MenuItem>
-            <MenuItem value={1}>승인</MenuItem>
+            <MenuItem value={0}>검수중</MenuItem>
+            <MenuItem value={1}>승인완료</MenuItem>
             <MenuItem value={2}>거절</MenuItem>
           </Select>
         </FormControl>

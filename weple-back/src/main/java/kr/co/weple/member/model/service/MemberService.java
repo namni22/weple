@@ -25,7 +25,7 @@ public class MemberService {
 		
 		return memberDao.selectOneMember(memberId);
 	}
-
+	//멤버리스트조회
 	public Map memberList(int reqPage) {
 		int totalCount = memberDao.totalCount();
 		int numPerPage = 10;
@@ -38,6 +38,7 @@ public class MemberService {
 		return map;
 		
 	}
+	//멤버 등급 변경
 	@Transactional
 	public int changeMemberGrade(Member member) {
 		return memberDao.changeMemberGrade(member);

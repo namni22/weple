@@ -36,7 +36,7 @@ public class MeetController {
 		
 	}
 
-	// 모임생성
+	//모임생성
 	@PostMapping(value = "/meetCreate")
 	public int meetCreate(
 			@ModelAttribute Meet meet,
@@ -49,5 +49,10 @@ public class MeetController {
 		
 		return 0;
 	}
-
+	
+	//모임조회
+	@GetMapping(value="/meetList/{reqPage}")
+	public Map list(@PathVariable int reqPage) {
+		return meetService.meetList(reqPage);
+	}
 }

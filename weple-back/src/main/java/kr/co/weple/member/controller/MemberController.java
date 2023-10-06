@@ -30,12 +30,12 @@ public class MemberController {
 		
 	}
 		
-	
+	//멤버리스트조회
 	@GetMapping(value="/memberList/{reqPage}")
 	public Map list(@PathVariable int reqPage) {
 		return memberService.memberList(reqPage);
 	}
-	
+	//멤버 등급 변경
 	@PostMapping(value="/changeMemberGrade")
 	public int changeMemberGrade(@RequestBody Member member) {
 		return memberService.changeMemberGrade(member);
