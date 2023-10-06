@@ -59,7 +59,7 @@
 		#{meetTitle},
 		#{meetContentS},
 		'내용 D',
-		21, 
+		#{meetTotal}, 
 		#{meetMargin}, 
 		'임시준비물',
 		3, 
