@@ -20,6 +20,12 @@ const JoinFrm = (props) => {
   const [checkEmailMsg, setCheckEmailMsg] = useState("");
   const [useId, setUseId] = useState(false);
 
+  axios.get("/member/categoryList").then((res) => {
+    console.log(res.data).catch((res) => {
+      console.log(res);
+    });
+  });
+
   const profileImgChange = (e) => {
     const files = e.currentTarget.files;
     if (files.length !== 0 && files[0] != 0) {
@@ -210,6 +216,18 @@ const JoinFrm = (props) => {
                 accept="image/*"
                 onChange={profileImgChange}
               />
+            </div>
+          </div>
+        </div>
+
+        <div className="join-input-wrap">
+          <div>
+            <div className="label">
+              <label htmlFor="memberImage">관심 카테고리</label>
+            </div>
+            <div className="input">
+              <select id="main-category"></select>
+              <select id="sub-category" name="categoryNo"></select>
             </div>
           </div>
         </div>

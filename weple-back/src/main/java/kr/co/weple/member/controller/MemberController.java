@@ -1,5 +1,6 @@
 package kr.co.weple.member.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,11 @@ public class MemberController {
 	@GetMapping(value="/memberList/{reqPage}")
 	public Map list(@PathVariable int reqPage) {
 		return memberService.memberList(reqPage);
+	}
+	
+	@GetMapping(value="/categoryList")
+	public List categoryList() {
+		return memberService.categoryList();
 	}
 	
 	@PostMapping(value="/changeMemberGrade")

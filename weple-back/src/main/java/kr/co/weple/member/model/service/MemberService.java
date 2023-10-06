@@ -43,4 +43,9 @@ public class MemberService {
 		return memberDao.changeMemberGrade(member);
 		
 	}
+
+	public List categoryList() {
+		List categoryList = memberDao.categoryList();
+		return categoryList;
+	}
 }

@@ -18,4 +18,6 @@ public interface MemberDao {
 
 	int changeMemberGrade(Member member);
 
+	List categoryList();
+
 }
