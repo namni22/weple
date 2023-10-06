@@ -18,4 +18,8 @@
 	<update id="changeMemberGrade">
 		update member set member_grade=#{memberGrade} where member_no = #{memberNo}
 	</update>
+	
+	<select id="categoryList" resultType="category">
+		select * from category
+	</select>
 </mapper>
