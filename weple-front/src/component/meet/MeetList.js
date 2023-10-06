@@ -61,4 +61,4 @@ const MeetItem = (props) => {
   );
 }
 
-export default MeetList;
+export { MeetList };

@@ -3,7 +3,7 @@ import "./afterMeet.css";
 import { JwButton1 } from "./meetUtil/JwButton";
 import MeetSettingFrm from "./MeetSettingFrm";
 import MeetCreate from "./MeetCreate";
-import MeetList from "./MeetList";
+import { MeetList } from "./MeetList";
 
 import AfterMeet from "./AfterMeet";
 import { useState } from "react";
