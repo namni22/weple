@@ -5,25 +5,6 @@
 		select * from member where member_id=#{memberId}
 	</select>
 	
-	<select id="categoryList" resultType
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	<select id="totalCount" resultType="int">
 		select count(*) from member
 	</select>
