@@ -51,30 +51,20 @@
 		#{meetTitle},
 		#{meetContentS},
 		#{meetContentD},
-		#{meetTotal}, --정원
-		#{meetMargin}, --남은 인원
+		#{meetTotal}, 
+		#{meetMargin}, 
 		#{meetPrepare},
-		3, --카테고리
-		'주소1', --주소
-		'주소2', --상세주소
-		36, --위도
-		126, --경도
-		'썸네일', --썸네일
-		0, --모임승인 검수중
-		'test99' --모임장
+		3, 
+		'주소1', 
+		'주소2', 
+		36, 
+		126, 
+		#{meetThumbNail}, 
+		0, 
+		'test99'
 	</insert>
 
-	<!-- 모임 조회 Count -->
-	<select id="meetListCount" resultType="int">
-		select count(*) from meet 
-	</select>
-	<select id="meetList" resultType="meet">
-		select * from
-			(select rownum as rnum, m.* from
-				(select * from meet order by meet_type)m
-			)
-		where rnum between #{start} and #{end}	
-	</select>
+	
 	
 
 </mapper>

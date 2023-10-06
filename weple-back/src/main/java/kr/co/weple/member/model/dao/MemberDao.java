@@ -10,13 +10,7 @@ import kr.co.weple.member.model.vo.Member;
 @Mapper
 public interface MemberDao {
 
-	Member selectOneMember(String memberId);
-
-	int totalCount();
-
-	List memberList(PageInfo pi);
-
-	int changeMemberGrade(Member member);
+	Member selectOneMember(String memberId);	
 
 	List categoryList();
 
