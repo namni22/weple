@@ -1,4 +1,4 @@
-package kr.co.weple.member.model.dao;
+package kr.co.weple.admin.model.dao;
 
 import java.util.List;
 
@@ -8,10 +8,11 @@ import kr.co.weple.PageInfo;
 import kr.co.weple.member.model.vo.Member;
 
 @Mapper
-public interface MemberDao {
+public interface AdminDao {
+	
+	int totalCount();
 
-	Member selectOneMember(String memberId);	
+	List memberList(PageInfo pi);
 
-	List categoryList();
-
+	int changeMemberGrade(Member member);
 }
