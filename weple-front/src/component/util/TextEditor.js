@@ -31,6 +31,7 @@ const TextEditor = (props) => {
             },
           })
           .then((res) => {
+            console.log(res.data);
             const editor = quillRef.current.getEditor();
             const range = editor.getSelection();
             editor.insertEmbed(range.index, "image", res.data);

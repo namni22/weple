@@ -38,6 +38,7 @@ const MeetCreate = () => {
             form.append("meetTitle", meetTitle);
             form.append("meetDate", meetDate);
             form.append("meetContentS", meetContentS);
+            form.append("meetContentD", meetContentD);
             form.append("meetTotal", meetTotal);
             form.append("meetThumbnail", meetThumbnail);
             // 토큰선언자리

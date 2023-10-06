@@ -58,6 +58,8 @@ public class MeetController {
 		) {
 		// @RequestAttribute String memberId 로 아이디 받아서 meet에 방장으로 추가 (토큰필요)
 		
+		System.out.println("텍스트 에디터 : "+meet.getMeetContentD());
+		
 		String savepath = root + "meet/";
 
 		if(meetThumbnail != null) {//썸네일이 있다면 meet에 set
@@ -78,8 +80,14 @@ public class MeetController {
 	
 	//모임생성 에디터 사진 추가
 	@PostMapping(value = "/meetContentDImg")
-	public String meetContentDImg() {
-		return null;
+	public String meetContentDImg(@ModelAttribute MultipartFile image) {
+		
+		String savepath = root +"meet/editor/";
+		String filename = image.getOriginalFilename();
+		String filepath = fileUtil.getFilepath(savepath, filename, image);
+		
+		//webconfig 랑 맞워야함 /meet/editor/를
+		return "/meet/editor/"+filepath;
 	}
 	
 	
