@@ -11,6 +11,7 @@ import Header from "./component/common/Header";
 import Category from "./component/common/Category";
 import Join from "./component/member/Join";
 import Review from "./component/review/Review";
+import Login from "./component/member/Login";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/board/*" element={<Board />} />
           <Route path="/admin/*" element={<Admin />} />
           <Route path="/join" element={<Join />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/category" element={<Category />} />
           <Route path="*" element={<Main />} />
         </Routes>

@@ -13,11 +13,34 @@ const JoinFrm = (props) => {
   const [memberBirth, setMemberBirth] = useState("");
   const [memberGender, setMemberGender] = useState("");
   const [memberImage, setMemberImage] = useState("");
+  const [profileImg, setProfileImg] = useState(null);
   const [checkIdMsg, setCheckIdMsg] = useState("");
   const [checkPwMsg, setCheckPwMsg] = useState("");
   const [checkPwReMsg, setCheckPwReMsg] = useState("");
   const [checkEmailMsg, setCheckEmailMsg] = useState("");
   const [useId, setUseId] = useState(false);
+
+  axios.get("/member/categoryList").then((res) => {
+    console.log(res.data).catch((res) => {
+      console.log(res);
+    });
+  });
+
+  const profileImgChange = (e) => {
+    const files = e.currentTarget.files;
+    if (files.length !== 0 && files[0] != 0) {
+      setProfileImg(files[0]); // 썸네일 파일 전송을 위한 state에 파일 객체 저장
+      // 화면 썸네일 미리보기
+      const reader = new FileReader();
+      reader.readAsDataURL(files[0]);
+      reader.onloadend = () => {
+        setMemberImage(reader.result);
+      };
+    } else {
+      setProfileImg({});
+      setMemberImage(null);
+    }
+  };
 
   const emailCheck = () => {
     const emailReg = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
@@ -177,7 +200,11 @@ const JoinFrm = (props) => {
             </div>
             <div className="input">
               <div className="join-profileImg-pre">
-                <img src="/img/testImg_01.png" />
+                {profileImg === null ? (
+                  <img src="/img/testImg_01.png" />
+                ) : (
+                  <img src={memberImage} />
+                )}
               </div>
               <label className="join-profileImg" htmlFor="memberImage">
                 이미지 업로드
@@ -187,7 +214,20 @@ const JoinFrm = (props) => {
                 className="join-imgUp-btn"
                 id="memberImage"
                 accept="image/*"
+                onChange={profileImgChange}
               />
+            </div>
+          </div>
+        </div>
+
+        <div className="join-input-wrap">
+          <div>
+            <div className="label">
+              <label htmlFor="memberImage">관심 카테고리</label>
+            </div>
+            <div className="input">
+              <select id="main-category"></select>
+              <select id="sub-category" name="categoryNo"></select>
             </div>
           </div>
         </div>

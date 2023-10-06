@@ -18,8 +18,10 @@ const MeetCreate = () => {
     const [meetName, setMeetName] = useState("");
     const [meetMaterials, setMeetMaterials] = useState("");
 
-    // 썸네일
-    const [meetThumbnail2, setMeetThumbnail2] = useState({});
+    //썸네일
+    const [meetThumbnail, setMeetThumbnail] = useState({});
+    // 썸네일 미리보기
+    const [meetThumbnailPreview, setMeetThumbnailPreview] = useState(null);
 
 
     //write역할
@@ -28,7 +30,7 @@ const MeetCreate = () => {
         console.log("모임 날짜 : " + meetDate);
         console.log("모임한줄설명 : " + meetContentS);
         console.log("모임인원 :" + meetTotal);
-        console.log("썸네일 : " + meetThumbnail2);
+        console.log("썸네일 : " + meetThumbnail);
 
         const meet = { meetTitle, meetDate, meetTotal, meetContentS, meetContentD }
         if (meetTitle !== "" && meetDate !== "" && meetTotal !== "" && meetContentS !== "") {
@@ -37,13 +39,14 @@ const MeetCreate = () => {
             form.append("meetDate", meetDate);
             form.append("meetContentS", meetContentS);
             form.append("meetTotal", meetTotal);
-            form.append("meetThumbnail2", meetThumbnail2);
+            form.append("meetThumbnail", meetThumbnail);
+            // 토큰선언자리
             axios
                 .post("/meet/meetCreate", form, {
                     headers: {
                         contentType: "multipart/form-data",
                         processData: false,
-
+                        // 토큰자리
                     },
                 })
                 .then((res) => {
@@ -74,8 +77,10 @@ const MeetCreate = () => {
                 meetTotal={meetTotal}
                 setMeetTotal={setMeetTotal}
 
-                meetThumbnail2={meetThumbnail2}
-                setMeetThumbnail2={setMeetThumbnail2}
+                meetThumbnail={meetThumbnail}
+                setMeetThumbnail={setMeetThumbnail}
+                meetThumbnailPreview={meetThumbnailPreview}
+                setMeetThumbnailPreview={setMeetThumbnailPreview}
 
                 buttonEvent={meetCreateBtn}
             />

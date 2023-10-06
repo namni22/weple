@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.weple.PageInfo;
+import kr.co.weple.meet.model.vo.Meet;
 
 @Mapper
 public interface MeetDao {
@@ -21,5 +22,8 @@ public interface MeetDao {
 	List selectEnrollMemberList(HashMap<String, Integer> param);
 
 	
+
+	//모임생성
+	int createMeet(Meet meet);
 
 }
