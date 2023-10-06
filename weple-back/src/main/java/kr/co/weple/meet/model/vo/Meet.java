@@ -26,5 +26,6 @@ public class Meet {
 	private int meetLongitude;
 	private String meetThumbNail;
 	private int meetType;
-	private String meetId;
+	private String meetCaptain;
+
 }

@@ -33,6 +33,6 @@
 		where rnum between #{start} and #{end}	
 	</select>
 	<update id="changeMemberGrade">
-		update member set member_type=#{memberGrade} where member_no = #{memberNo}
+		update member set member_grade=#{memberGrade} where member_no = #{memberNo}
 	</update>
 </mapper>
