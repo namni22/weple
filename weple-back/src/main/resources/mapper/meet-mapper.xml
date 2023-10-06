@@ -74,6 +74,7 @@
 		)
 	</insert>
 
+
 	<!-- 모임 조회 Count -->
 	<select id="meetListCount" resultType="int">
 		select count(*) from meet
@@ -87,6 +88,7 @@
 		where rnum
 		between #{start} and #{end}
 	</select>
+
 
 
 </mapper>

@@ -15,7 +15,7 @@ const AdminMember = () => {
   const [memberId, setMemberId] = useState("");
   useEffect(() => {
     axios
-      .get("/member/memberList/" + reqPage)
+      .get("/admin/memberList/" + reqPage)
       .then((res) => {
         console.log(res.data);
         setMemberList(res.data.list);
@@ -76,7 +76,7 @@ const MemberItem = (props) => {
     const obj = { memberNo: member.memberNo, memberGrade: event.target.value };
 
     axios
-      .post("/member/changeMemberGrade", obj)
+      .post("/admin/changeMemberGrade", obj)
       .then((res) => {
         console.log(res.data);
         if (res.data === 1) {

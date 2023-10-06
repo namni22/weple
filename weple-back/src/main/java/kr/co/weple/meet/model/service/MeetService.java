@@ -66,6 +66,7 @@ public class MeetService {
 		
 		return result;
 	}
+
 	//모임 리스트 조회
 	public Map meetList(int reqPage) {
 		
@@ -79,7 +80,6 @@ public class MeetService {
 		map.put("pi", pi);
 		return map;
 		
+
 	
-	
-	}
 }

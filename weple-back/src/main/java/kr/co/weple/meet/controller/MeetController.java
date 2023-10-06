@@ -72,9 +72,5 @@ public class MeetController {
 		return 0;
 	}
 	
-	//모임조회
-	@GetMapping(value="/meetList/{reqPage}")
-	public Map list(@PathVariable int reqPage) {
-		return meetService.meetList(reqPage);
-	}
+	
 }
