@@ -19,6 +19,23 @@
 		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
 	<select id="enrollMemberList" resultType="int">
-		select count(*) from follower where follower_status=0
+		select count(*) from follower where follower_status=0 and meet_no = #{meetNo}
+	</select>
+	<select id="selectEnrollMemberList" resultType="enrollMember">
+		SELECT * FROM
+		    (SELECT ROWNUM AS RNUM, F.* FROM
+		        (SELECT
+			         MEMBER_ID,
+			        MEMBER_GENDER,
+			        MEMBER_IMAGE,
+			        MEMBER_LIKE,
+			        FOLLOWER_STATUS,
+			        MEET_NO,
+			        MEMBER_NO
+			    FROM FOLLOWER
+			    JOIN MEMBER USING (MEMBER_NO)
+		        WHERE FOLLOWER_STATUS = 0 AND MEET_NO = #{meetNo}
+		        ORDER BY 1 DESC)F)
+		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
 </mapper>

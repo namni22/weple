@@ -1,5 +1,6 @@
 package kr.co.weple.meet.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -13,6 +14,12 @@ public interface MeetDao {
 
 	List selectBoardList(PageInfo pi);
 
-	int enrollMemberList();
+	int enrollMemberList(int meetNo);
+
+	
+
+	List selectEnrollMemberList(HashMap<String, Integer> param);
+
+	
 
 }

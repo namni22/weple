@@ -33,10 +33,23 @@ public class MeetService {
 		
 	}
 
-	public Map enrollMember(int reqPage) {
+	public Map enrollMember(int reqPage,int meetNo) {
 		int numPerPage	= 10;
 		int pageNaviSize = 5;
-		int totalCount = meetDao.enrollMemberList();
-		return null;
+		int totalCount = meetDao.enrollMemberList(meetNo);
+		System.out.println("totalCount : "+totalCount);
+		
+		PageInfo pi = pagination.getPageInfo(reqPage,numPerPage,pageNaviSize,totalCount);
+		System.out.println("pi : "+pi);
+		HashMap<String, Integer> param = new HashMap<String, Integer>();
+		param.put("start", pi.getStart());
+		param.put("end", pi.getEnd());
+		param.put("meetNo",meetNo);
+		List enrollMemberList = meetDao.selectEnrollMemberList(param);
+		System.out.println("enrollMemberList : "+enrollMemberList);
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		map.put("enrollMemberList",enrollMemberList);
+		map.put("pi",pi);
+		return map;
 	}
 }

@@ -29,9 +29,9 @@ public class MeetController {
 	}
 	//개설한 모임에 가입 신청자 list 출력
 	@GetMapping(value = "/enrollMember/{reqPage}")
-	public Map enrollMember(@PathVariable int reqPage,@ModelAttribute String meetNo) {
+	public Map enrollMember(@PathVariable int reqPage, int meetNo) {
 		System.out.println(meetNo);
-		Map map = meetService.enrollMember(reqPage);
+		Map map = meetService.enrollMember(reqPage,meetNo);
 		return map;
 		
 	}
