@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.weple.FileUtil;
 import kr.co.weple.meet.model.service.MeetService;
 import kr.co.weple.meet.model.vo.Meet;
 
@@ -21,6 +23,10 @@ import kr.co.weple.meet.model.vo.Meet;
 public class MeetController {
 	@Autowired
 	private MeetService meetService;
+	@Autowired
+	private FileUtil fileUtil;
+	@Value("${file.root}")
+	private String root;
 	
 	@GetMapping(value = "/myMeetList/{reqPage}")
 	public Map myMeetList(@PathVariable int reqPage) {
@@ -45,7 +51,18 @@ public class MeetController {
 		) {
 		System.out.println("진행확인" +meet);
 		System.out.println(meetThumbnail);
-		System.out.println(meetThumbnail.getOriginalFilename());
+		
+		String savepath = root + "meet/";
+		System.out.println("savepath : "+savepath);
+		
+		if(meetThumbnail != null) {
+			System.out.println(meetThumbnail.getOriginalFilename());
+			meet.setMeetThumbNail(meetThumbnail.getOriginalFilename());
+			String filename = meetThumbnail.getOriginalFilename();
+//			String filepath = 
+					
+			
+		}
 		
 		return 0;
 	}
