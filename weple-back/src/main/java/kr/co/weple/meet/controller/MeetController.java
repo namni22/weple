@@ -67,14 +67,10 @@ public class MeetController {
 
 		}
 		
-		int result = meetService.createMeet(meet);
-		
-		return result;
+		//int result = meetService.createMeet(meet);
+		//리턴 리절트로 변경
+		return 0;
 	}
 	
-	//모임조회
-	@GetMapping(value="/meetList/{reqPage}")
-	public Map list(@PathVariable int reqPage) {
-		return meetService.meetList(reqPage);
-	}
+	
 }

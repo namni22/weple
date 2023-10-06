@@ -17,6 +17,7 @@ const SwiperComponent = (props) => {
   const list = props.list;
   const autoplay = props.autoplay;
   const loop = props.loop;
+  console.log(list);
 
   return (
     <Swiper

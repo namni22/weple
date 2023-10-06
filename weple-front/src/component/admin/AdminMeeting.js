@@ -11,7 +11,7 @@ const AdminMeeting = () => {
 
   useEffect(() => {
     axios
-      .get("/meet/meetList/" + reqPage)
+      .get("/admin/meetList/" + reqPage)
       .then((res) => {
         console.log(res.data);
         setMeetList(res.data.list);
@@ -32,8 +32,8 @@ const AdminMeeting = () => {
             <thead>
               <tr>
                 <td width={"20%"}>모임장</td>
-                <td width={"20%"}>모임제목</td>
-                <td width={"35%"}>모집인원</td>
+                <td width={"35%"}>모임제목</td>
+                <td width={"20%"}>모집인원</td>
                 <td width={"25%"}>승인</td>
               </tr>
             </thead>
@@ -65,7 +65,7 @@ const MeetingItem = (props) => {
     const obj = { meetNo: meet.meetNo, meetType: event.target.value };
     const token = window.localStorage.getItem("token");
     axios
-      .post("/meet/changeMeetType", obj, {
+      .post("/admin/changeMeetType", obj, {
         headers: {
           Authorization: "Bearer " + token,
         },

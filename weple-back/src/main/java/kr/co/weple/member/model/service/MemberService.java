@@ -25,26 +25,7 @@ public class MemberService {
 		
 		return memberDao.selectOneMember(memberId);
 	}
-	//멤버리스트조회
-	public Map memberList(int reqPage) {
-		int totalCount = memberDao.totalCount();
-		int numPerPage = 10;
-		int pageNaviSize = 5;
-		PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
-		List memberList = memberDao.memberList(pi);
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("list", memberList);
-		map.put("pi", pi);
-		return map;
-		
-	}
-	//멤버 등급 변경
-	@Transactional
-	public int changeMemberGrade(Member member) {
-		return memberDao.changeMemberGrade(member);
-		
-	}
-
+	
 	public List categoryList() {
 		List categoryList = memberDao.categoryList();
 		return categoryList;

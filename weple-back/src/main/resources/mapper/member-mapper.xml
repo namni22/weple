@@ -5,25 +5,9 @@
 		select * from member where member_id=#{memberId}
 
 	</select>
-	
-
-
-
-	<select id="totalCount" resultType="int">
-		select count(*) from member
-	</select>
-	<select id="memberList" resultType="member">
-		select * from
-			(select rownum as rnum, m.* from
-				(select * from member order by member_grade)m
-			)
-		where rnum between #{start} and #{end}	
-	</select>
-	<update id="changeMemberGrade">
-		update member set member_grade=#{memberGrade} where member_no = #{memberNo}
-	</update>
-	
+		
 	<select id="categoryList" resultType="category">
 		select * from category
 	</select>
+
 </mapper>
