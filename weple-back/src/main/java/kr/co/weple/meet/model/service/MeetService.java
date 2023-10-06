@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.weple.PageInfo;
 import kr.co.weple.Pagination;
@@ -41,6 +42,7 @@ public class MeetService {
 		return null;
 	}
 
+	@Transactional
 	public int createMeet(Meet meet) {
 		// TODO Auto-generated method stub
 		System.out.println(meet);
@@ -48,6 +50,6 @@ public class MeetService {
 		int result = meetDao.createMeet(meet);
 		
 		
-		return 0;
+		return result;
 	}
 }
