@@ -31,14 +31,14 @@ const Header = () => {
             <Link to="/meet">
               <div className="material-icons meet">diversity_1</div>
               <div className="icon-explain">모임</div>
-              {/* 회원가입 */}
             </Link>
           </div>
           <div className="icon-wrap">
             <Link to="/login">
-              <div className="material-icons mypage">contact_page</div>
-              <div className="icon-explain">마이</div>
-              {/* 로그인 */}
+              <div class="material-icons login">login</div>
+              <div className="icon-explain">로그인</div>
+              {/* <div className="material-icons mypage">contact_page</div>
+              <div className="icon-explain">마이</div> */}
             </Link>
           </div>
         </div>
