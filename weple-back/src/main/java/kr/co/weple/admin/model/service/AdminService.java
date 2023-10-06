@@ -23,7 +23,7 @@ public class AdminService {
 	
 		//멤버리스트조회
 		public Map memberList(int reqPage) {
-			int totalCount = adminDao.totalCount();
+			int totalCount = adminDao.memberListCount();
 			int numPerPage = 10;
 			int pageNaviSize = 5;
 			PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
@@ -39,6 +39,20 @@ public class AdminService {
 			return adminDao.changeMemberGrade(member);
 			
 		}
-
+		//모임 리스트 조회
+		public Map meetList(int reqPage) {
+			
+			int totalCount = adminDao.meetListCount();
+			int numPerPage = 10;
+			int pageNaviSize = 5;
+			PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
+			List meetList = adminDao.meetList(pi);
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("list", meetList);
+			map.put("pi", pi);
+			return map;
+		
+		
+		}
 		
 }

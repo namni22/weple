@@ -10,9 +10,15 @@ import kr.co.weple.member.model.vo.Member;
 @Mapper
 public interface AdminDao {
 	
-	int totalCount();
+
 
 	List memberList(PageInfo pi);
 
 	int changeMemberGrade(Member member);
+	
+	List meetList(PageInfo pi);
+
+	int meetListCount();
+
+	int memberListCount();
 }

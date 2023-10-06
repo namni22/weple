@@ -64,17 +64,7 @@
 		'test99'
 	</insert>
 
-	<!-- 모임 조회 Count -->
-	<select id="meetListCount" resultType="int">
-		select count(*) from meet 
-	</select>
-	<select id="meetList" resultType="meet">
-		select * from
-			(select rownum as rnum, m.* from
-				(select * from meet order by meet_type)m
-			)
-		where rnum between #{start} and #{end}	
-	</select>
+	
 	
 
 </mapper>

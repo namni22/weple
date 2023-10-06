@@ -22,7 +22,7 @@ public class AdminController {
 	
 	//멤버리스트조회
 	@GetMapping(value="/memberList/{reqPage}")
-	public Map list(@PathVariable int reqPage) {
+	public Map memberList(@PathVariable int reqPage) {
 		return adminService.memberList(reqPage);
 	}
 	
@@ -34,6 +34,12 @@ public class AdminController {
 	@PostMapping(value="/changeMemberGrade")
 	public int changeMemberGrade(@RequestBody Member member) {
 		return adminService.changeMemberGrade(member);
+	}
+	
+	//모임조회
+	@GetMapping(value="/meetList/{reqPage}")
+	public Map meetList(@PathVariable int reqPage) {
+		return adminService.meetList(reqPage);
 	}
 
 }

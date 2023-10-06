@@ -26,6 +26,6 @@ public interface MeetDao {
 	//모임생성
 	int createMeet(Meet meet);
 
-	List meetList(PageInfo pi);
+	
 
 }
