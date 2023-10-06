@@ -58,7 +58,7 @@
 		#{meetDate},
 		#{meetTitle},
 		#{meetContentS},
-		'내용 D',
+		#{meetContentD},
 		#{meetTotal}, 
 		#{meetMargin}, 
 		'임시준비물',
