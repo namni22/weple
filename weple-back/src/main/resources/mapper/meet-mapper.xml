@@ -5,7 +5,7 @@
 		select count(*) from meet
 		where meet_type =1
 	</select>
-	<select id="selectBoardList" resultType="meet">
+	<select id="selectMyMeetList" resultType="meet">
 		SELECT * FROM
 		(SELECT ROWNUM AS RNUM, M.* FROM
 		(SELECT
@@ -22,7 +22,7 @@
 	<select id="enrollMemberList" resultType="int">
 		select count(*) from follower where follower_status=0 and meet_no = #{meetNo}
 	</select>
-	<select id="selectEnrollMemberList" resultType="enrollMember">
+	<select id="selectEnrollMemberList" resultType="follower">
 		SELECT * FROM
 		    (SELECT ROWNUM AS RNUM, F.* FROM
 		        (SELECT
@@ -38,8 +38,7 @@
 		        WHERE FOLLOWER_STATUS = 0 AND MEET_NO = #{meetNo}
 		        ORDER BY 1 DESC)F)
 		WHERE RNUM BETWEEN #{start} AND #{end}
-		select count(*) from
-		follower where follower_status=0
+		
 	</select>
 	
 	<!-- 모임생성 -->
@@ -61,4 +60,24 @@
 		0, --모임승인 검수중
 		'test99' --모임장
 	</insert>
+	<select id="meetMemberList" resultType="int">
+		select count(*) from follower where follower_status=1 and meet_no = #{meetNo}
+	</select>
+	<select id="selectMeetMemberList" resultType="follower">
+		SELECT * FROM
+		    (SELECT ROWNUM AS RNUM, F.* FROM
+		        (SELECT
+			         MEMBER_ID,
+			        MEMBER_GENDER,
+			        MEMBER_IMAGE,
+			        MEMBER_LIKE,
+			        FOLLOWER_STATUS,
+			        MEET_NO,
+			        MEMBER_NO
+			    FROM FOLLOWER
+			    JOIN MEMBER USING (MEMBER_NO)
+		        WHERE FOLLOWER_STATUS = 1 AND MEET_NO = #{meetNo}
+		        ORDER BY 1 DESC)F)
+		WHERE RNUM BETWEEN #{start} AND #{end}
+	</select>
 </mapper>

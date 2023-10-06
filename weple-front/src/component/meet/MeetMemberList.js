@@ -1,30 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./afterMeet.css";
 import { JwButton1, JwButton2, JwButton3 } from "./meetUtil/JwButton";
 import { Button1, Button2, Button3 } from "../util/Button";
+import axios from "axios";
 
-const MeetMemberList = () => {
-  const [member, setMember] = useState([
-    {
-      img: "/img/testImg_01.png",
-      memberId: "닉네임1",
-    },
-    {
-      img: "/img/testImg_01.png",
-      memberId: "닉네임2",
-    },
-    {
-      img: "/img/testImg_01.png",
-      memberId: "닉네임3",
-    },
-    {
-      img: "/img/testImg_01.png",
-      memberId: "닉네임4",
-    },
-  ]);
+const MeetMemberList = (props) => {
+  const myMeet = props.myMeet;
+
+  const [meetMember, setMeetMember] = useState([]);
+  const [reqPage, setReqPage] = useState(1);
+  const [pageInfo, setPageInfo] = useState({});
+  console.log(myMeet.meetNo);
+  useEffect(() => {
+    axios
+      .get("/meet/meetMember/" + reqPage + "?meetNo=" + myMeet.meetNo)
+      .then((res) => {
+        console.log(res.data);
+        setMeetMember(res.data.selectMeetMemberList);
+        setPageInfo(res.data.pi);
+      })
+      .catch((res) => {
+        console.log(res.response.status);
+      });
+  }, []);
   return (
     <div className="meetMemberList-all-wrap">
-      {member.map((member, index) => {
+      {meetMember.map((member, index) => {
         return <MemberList key={"member" + index} member={member} />;
       })}
     </div>
@@ -55,19 +56,6 @@ const MemberList = (props) => {
           </tr>
         </tbody>
       </table>
-      {/*
-        <div className="meetMemberList-wrap">
-            <div className="meetMemberList-img">
-                <img src={memberList.img}/>
-            </div>
-            <div className="meetMemberList-name">{memberList.memberId}</div>
-            <div className="meetMemberList-btn-wrap">
-                <JwButton1 text={"호감도"} className="meetMemberList-btn"/>
-                <JwButton2 text={"신고"} className="meetMemberList-btn"/>
-                <JwButton3 text={"강퇴"} className="meetMemberList-btn"/>
-            </div>
-        </div>
-         */}
     </>
   );
 };

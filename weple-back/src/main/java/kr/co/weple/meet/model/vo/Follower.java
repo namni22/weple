@@ -9,13 +9,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Alias(value = "enrollMember")
-public class EnrollMember {
+@Alias(value = "follower")
+public class Follower {
+	private int followerStatus;
+	private int meetNo;
+	private int memberNo;
+	
+	//추가 회원 정보
 	private String memberId;
 	private String memberGender;
 	private String memberImage;
 	private String memberLike;
-	private int followerStatus;
-	private int meetNo;
-	private int memberNo;
 }

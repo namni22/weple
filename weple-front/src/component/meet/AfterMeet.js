@@ -36,7 +36,7 @@ const AfterMeet = () => {
         />
         <Route path="meetChat" element={<MeetChat />} />
         <Route path="meetCalendar" element={<MeetCalendar />} />
-        <Route path="meetList" element={<MeetMemberList />} />
+        <Route path="meetList" element={<MeetMemberList myMeet={myMeet} />} />
         <Route path="*" element={<MeetInfo />} />
       </Routes>
     </div>

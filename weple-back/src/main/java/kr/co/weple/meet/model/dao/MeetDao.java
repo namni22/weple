@@ -13,7 +13,7 @@ public interface MeetDao {
 
 	int totalCount();
 
-	List selectBoardList(PageInfo pi);
+	List selectMyMeetList(PageInfo pi);
 
 	int enrollMemberList(int meetNo);
 
@@ -25,5 +25,9 @@ public interface MeetDao {
 
 	//모임생성
 	int createMeet(Meet meet);
+	//내 모임 멤버리스트
+	int meetMemberList(int meetNo);
+
+	List selectMeetMemberList(HashMap<String, Integer> param);
 
 }
