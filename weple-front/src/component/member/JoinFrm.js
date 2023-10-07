@@ -32,6 +32,7 @@ const JoinFrm = (props) => {
             mainCategory.push(item);
           }
         });
+        console.log(mainCategory);
       })
       .catch((res) => {
         console.log(res.response.status);

@@ -51,6 +51,7 @@
   float: right;
   width: 100px;
   font-size: 13px;
+  cursor: pointer;
 }
 
 .login-search-box > ul > li:last-child > a {
@@ -62,4 +63,5 @@
   margin: 50px auto;
   padding: 50px;
   border-top: 1px solid #ededed;
+  cursor: pointer;
 }
