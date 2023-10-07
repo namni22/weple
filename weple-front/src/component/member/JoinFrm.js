@@ -19,25 +19,77 @@ const JoinFrm = (props) => {
   const [checkPwReMsg, setCheckPwReMsg] = useState("");
   const [checkEmailMsg, setCheckEmailMsg] = useState("");
   const [useId, setUseId] = useState(false);
-  const [mainCategoryList, setMainCategoryList] = useState([]);
-  const [subCategoryList, setSubCategoryList] = useState([]);
+  const [mainCategory, setMainCategory] = useState([]);
+  const [subCategory, setSubCategory] = useState([]);
+  const [subSports, setSubSports] = useState([]);
+  const [subCrafts, setSubCrafts] = useState([]);
+  const [subCook, setSubCook] = useState([]);
+  const [subArt, setSubArt] = useState([]);
+  const [subSelfDevelopment, setSubSelfDevelopment] = useState([]);
+  const [subTravel, setSubTravel] = useState([]);
 
   useEffect(() => {
     axios
       .get("/member/categoryList")
       .then((res) => {
-        const mainCategory = [];
+        const mainKeyword = [];
+        const sports = [];
+        const crafts = [];
+        const cook = [];
+        const art = [];
+        const selfDevelopment = [];
+        const travel = [];
+
         res.data.forEach((item) => {
           if (item.categoryRefNo === 0) {
-            mainCategory.push(item);
+            mainKeyword.push(item);
+            setMainCategory(mainKeyword);
+          } else if (item.categoryRefNo === 1) {
+            sports.push(item);
+            setSubSports(sports);
+          } else if (item.categoryRefNo === 8) {
+            crafts.push(item);
+            setSubCrafts(crafts);
+          } else if (item.categoryRefNo === 14) {
+            cook.push(item);
+            setSubCook(cook);
+          } else if (item.categoryRefNo === 19) {
+            art.push(item);
+            setSubArt(art);
+          } else if (item.categoryRefNo === 25) {
+            selfDevelopment.push(item);
+            setSubSelfDevelopment(selfDevelopment);
+          } else if (item.categoryRefNo === 30) {
+            travel.push(item);
+            setSubTravel(travel);
           }
         });
-        console.log(mainCategory);
       })
       .catch((res) => {
         console.log(res.response.status);
       });
   }, []);
+
+  // 서브 카테고리 출력 함수
+  const printSub = () => {
+    const sub = document.getElementById("sub-category");
+    sub.style.display = "inline-block";
+    const main = document.getElementById("main-category");
+    const mainValue = main.options[main.selectedIndex].value;
+    if (mainValue == 1) {
+      setSubCategory(subSports);
+    } else if (mainValue == 8) {
+      setSubCategory(subCrafts);
+    } else if (mainValue == 14) {
+      setSubCategory(subCook);
+    } else if (mainValue == 19) {
+      setSubCategory(subArt);
+    } else if (mainValue == 25) {
+      setSubCategory(subSelfDevelopment);
+    } else if (mainValue == 30) {
+      setSubCategory(subTravel);
+    }
+  };
 
   const profileImgChange = (e) => {
     const files = e.currentTarget.files;
@@ -239,8 +291,24 @@ const JoinFrm = (props) => {
               <label htmlFor="memberImage">관심 카테고리</label>
             </div>
             <div className="input">
-              <select id="main-category"></select>
-              <select id="sub-category" name="categoryNo"></select>
+              <select id="main-category" onChange={printSub}>
+                {mainCategory.map((main, index) => {
+                  return (
+                    <option key={"main" + index} value={main.categoryNo}>
+                      {main.categoryName}
+                    </option>
+                  );
+                })}
+              </select>
+              <select id="sub-category" name="categoryNo">
+                {subCategory.map((sub, index) => {
+                  return (
+                    <option key={"sub" + index} value={sub.categoryNo}>
+                      {sub.categoryName}
+                    </option>
+                  );
+                })}
+              </select>
             </div>
           </div>
         </div>
