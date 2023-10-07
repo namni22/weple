@@ -39,9 +39,9 @@ const AdminMeeting = () => {
             </thead>
             <tbody>
               {meetList.map((meet, index) => {
-                return (
+                return 
                   <MeetingItem key={"meet" + index} meet={meet} />
-                );
+                ;
               })}
             </tbody>
           </table>
@@ -63,13 +63,9 @@ const MeetingItem = (props) => {
 
   const handleChange = (event) => {
     const obj = { meetNo: meet.meetNo, meetType: event.target.value };
-    const token = window.localStorage.getItem("token");
+   
     axios
-      .post("/admin/changeMeetType", obj, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
+      .post("/admin/changeMeetType", obj)
       .then((res) => {
         console.log(res.data);
         if (res.data === 1) {
