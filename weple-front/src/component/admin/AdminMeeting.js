@@ -13,7 +13,7 @@ const AdminMeeting = () => {
     axios
       .get("/admin/meetList/" + reqPage)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data.list);
         setMeetList(res.data.list);
         setPageInfo(res.data.pi);
       })
@@ -39,9 +39,7 @@ const AdminMeeting = () => {
             </thead>
             <tbody>
               {meetList.map((meet, index) => {
-                return 
-                  <MeetingItem key={"meet" + index} meet={meet} />
-                ;
+                return <MeetingItem key={"meet" + index} meet={meet} />;
               })}
             </tbody>
           </table>
@@ -60,10 +58,10 @@ const AdminMeeting = () => {
 const MeetingItem = (props) => {
   const meet = props.meet;
   const [meetType, setMeetType] = useState(meet.meetType);
-
+  // console.log(meet.meetCaptain + " : " + meet.meetTitle+":"+meet.meetTotal);
   const handleChange = (event) => {
     const obj = { meetNo: meet.meetNo, meetType: event.target.value };
-   
+    
     axios
       .post("/admin/changeMeetType", obj)
       .then((res) => {

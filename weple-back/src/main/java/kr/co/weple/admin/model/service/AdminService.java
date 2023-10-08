@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.weple.PageInfo;
 import kr.co.weple.Pagination;
 import kr.co.weple.admin.model.dao.AdminDao;
+import kr.co.weple.meet.model.vo.Meet;
 import kr.co.weple.member.model.vo.Member;
 
 @Service
@@ -53,6 +54,10 @@ public class AdminService {
 			return map;
 		
 		
+		}
+		@Transactional
+		public int changeMeetType(Meet meet) {
+			return adminDao.changeMeetType(meet);
 		}
 		
 }

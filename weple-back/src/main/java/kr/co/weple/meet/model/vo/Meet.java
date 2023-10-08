@@ -18,7 +18,7 @@ public class Meet {
 	private String meetContentD;
 	private int meetTotal;
 	private int meetMargin;
-	private int meetPrepare;
+	private String meetPrepare;
 	private int meetCategory;
 	private String meetAddress1;
 	private String meetAddrsee2;

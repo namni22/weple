@@ -26,4 +26,8 @@
 			)
 		where rnum between #{start} and #{end}	
 	</select>
+	<update id="changeMeetType">
+		update meet set meet_type=#{meetType} where meet_no = #{meetNo}
+	</update>
+	
 </mapper>

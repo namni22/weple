@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.weple.admin.model.service.AdminService;
+import kr.co.weple.meet.model.vo.Meet;
 import kr.co.weple.member.model.vo.Member;
 
 @RestController
@@ -40,6 +41,11 @@ public class AdminController {
 	@GetMapping(value="/meetList/{reqPage}")
 	public Map meetList(@PathVariable int reqPage) {
 		return adminService.meetList(reqPage);
+	}
+	//모임 등급 변경
+	@PostMapping(value="/changeMeetType")
+	public int changeMeetType(@RequestBody Meet meet) {
+		return adminService.changeMeetType(meet);
 	}
 
 }
