@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import Pagination from "../common/Pagination";
 import Input from "../util/InputFrm";
 import { Button1 } from "../util/Button";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const AdminMember = () => {
   const [memberList, setMemberList] = useState([]);
   const [pageInfo, setPageInfo] = useState({});
