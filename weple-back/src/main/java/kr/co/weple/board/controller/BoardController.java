@@ -41,6 +41,7 @@ public class BoardController {
 	public String contentImg(@ModelAttribute MultipartFile image) {
 		String savepath=root+"board/editor/";
 		String filename= image.getOriginalFilename();
+		System.out.println("ContentImg + " + filename);
 		String filepath=fileUtil.getFilepath(savepath, filename, image);
 		return "/board/editor/"+filepath;
 	}

@@ -8,26 +8,34 @@ import Swal from "sweetalert2";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const BoardFrm = () => {
-  const [boardTitle, setBoardTitle] = useState("");
-  const [boardContent, setBoardContent] = useState("");
-  const [boardType, setBoardType] = useState(0);
+const BoardFrm = (props) => {
+  const [boardTitle, setBoardTitle] = useState(""); 
+  const [boardContent, setBoardContent] = useState("");  
+  const boardType = props.boardType;
+ const setBoardType = props.setBoardType;
+
   const navigate = useNavigate();
+
+  console.log("boardContent : " + boardContent);
+
   const insert = () => {
     if (boardTitle !== "" && boardContent !== "") {
+      console.log(boardTitle);
+      console.log(boardContent);
       const form = new FormData();
       form.append("boardTitle", boardTitle);
       form.append("boardContent", boardContent);
+      form.append("boardWriter", "test96")
       axios
         .post("/board/insert", form)
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           if (res.data > 0) {
             navigate("/board");
           }
         })
         .catch((res) => {
-          console.log(res.response.status);
+         // console.log(res.response.status);
         });
     } else {
 
@@ -38,7 +46,7 @@ const BoardFrm = () => {
   return (
     <div className="board-frm-wrap">
       <div className="board-frm-top">
-        <div className="admin-menu-title"><h1>공지등록</h1></div>
+        <div className="admin-menu-title"><h1>공지 등록</h1></div>
         <div className="board-info">
           <table className="board-info-tbl">
             <tbody>

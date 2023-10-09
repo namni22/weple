@@ -84,7 +84,13 @@
   outline: none;
 
 }
-
+/* 텍스트 에디터 높이 */
+.board-content-box .ql-container {
+  height: 400px;
+}
+.board-content-box {
+  margin: 10px 0px;
+}
 /* 회원 목록 */
 .admin-member-tbl-box>table {
   width: 100%;
@@ -176,3 +182,26 @@
   border-top: 2px solid #5D8BF4;
   color: #5D8BF4;
 }
+/* 신고 목록 */
+.admin-report-tbl-box>table {
+  width: 100%;
+  border-spacing: 0;
+}
+
+.admin-report-tbl-box>table td {
+  text-align: center;
+  padding: 5px;
+  border-top: 1px solid #ededed;
+  border-bottom: 1px solid #ededed;
+}
+
+.admin-report-tbl-box>table>thead td {
+  border-bottom: 2px solid #5D8BF4;
+  border-top: 2px solid #5D8BF4;
+  color: #5D8BF4;
+}
+
+.admin-paging-wrap {
+  margin: 50px;
+}
+
