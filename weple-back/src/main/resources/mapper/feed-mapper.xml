@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="kr.co.weple.feed.model.dao.FeedDao">
+	<insert id="insertFeed">
+		insert into feed values(feed_Seq.nextval,#{feedWriter},#{feedContent},sysdate)
+		<selectKey resultType="int" keyProperty="feedNo" order="AFTER">
+	 		select max(feed_no) from feed
+	 	</selectKey>
+	</insert>
+	<insert id="insertFImage">
+		insert into fimage values (fimage_seq.nextval,#{feedNo},#{fImageName})
+	</insert>
+</mapper>
