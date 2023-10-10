@@ -13,7 +13,10 @@ const Feed = () => {
     <div className="feed-wrap">
       <Routes>
         <Route path="*" element={<FeedList />} />
-        <Route path="write" element={<FeedWrite prev={prev} />} />
+        <Route
+          path="write"
+          element={<FeedWrite prev={prev} navigate={navigate} />}
+        />
         <Route path="comment" element={<FeedComment prev={prev} />} />
       </Routes>
     </div>

@@ -52,9 +52,10 @@
     width: 80%;
 }
 
-.meetContentFrm>textarea {
-    width: 80%;
-    height: 200px;
+.meetContentD-box .ql-container {
+    /* 텍스트에디터 박스 ,텍스트 에디터 선택자? */
+    /* height: 200px; */
+    min-height: 200px;
 }
 
 .meetMaterials-content-wrap {

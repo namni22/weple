@@ -21,11 +21,17 @@ const MyMeetList = () => {
         console.log(res.response.status);
       });
   }, []);
+
+  const navigate = useNavigate();
+  const create = () => {
+    navigate("../meetCreate");
+  }
+
   return (
     <div>
       <div>내가 개설한 모임 리스트 출력하는 페이지</div>
       <div>
-        <Button1 text={"모임만들기"} />
+        <Button1 text={"모임만들기"} clickEvent={create} />
       </div>
       <div>
         {/*
