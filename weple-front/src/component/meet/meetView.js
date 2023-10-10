@@ -53,7 +53,9 @@ const MeetView = () => {
                 </div >
             </div>
             <div className="meetView-feedPreView-area">피드 미리보기</div>
-            <div>콘텐츠d</div>
+            <div className="meetView-meetContentD"
+                dangerouslySetInnerHTML={{ __html: meet.meetContentD }}
+            ></div>
             <div>모임 지도</div>
             <div>준비물</div>
             <div>모임멤버미리보기</div>
