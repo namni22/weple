@@ -26,7 +26,7 @@ const MeetView = () => {
 
     return (
         <div className="meetView-wrap">
-            <div className="meetViewTop">
+            <div className="meetViewTop meetView-area">
                 <div className="meetThumNail-box">
                     <img src={meet.meetThumbNail}></img>
                 </div>
@@ -53,15 +53,27 @@ const MeetView = () => {
                 </div >
             </div>
             <div className="meetView-feedPreView-area">피드 미리보기</div>
-            <div className="meetView-meetContentD"
-                dangerouslySetInnerHTML={{ __html: meet.meetContentD }}
-            ></div>
-            <div>모임 지도</div>
-            <div>준비물</div>
-            <div>모임멤버미리보기</div>
-            <div>추천모임</div>
+            {/* 태그로 인식시키기위해 dangerouslySetInnerHTML추가 */}
+            <div className="meetView-meetContentD-area  meetView-area" >
+                <div className="meetView-meetContentD"
+                    dangerouslySetInnerHTML={{ __html: meet.meetContentD }}
+                ></div>
+            </div>
+            <div className=" meetView-area">
+                <div>모임 장소</div>
+            </div>
+            <div className=" meetView-area">
+                <div className="meetView-area-title">준비물</div>
+            </div>
+            <div className=" meetView-area">
+                <div>모임멤버</div>
+            </div>
+            <div className=" meetView-area">
+                <div>추천모임</div>
+            </div>
             <div className="meetJoin-btn-box">
-                <Button1 text="가입신청" /></div>
+                <Button1 text="가입신청" />
+            </div>
         </div>
     );
 }

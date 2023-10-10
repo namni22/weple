@@ -32,5 +32,10 @@
     /* 모임 상세보기 제목 선택자 */
     font-size: 20px;
     font-weight: bold;
+}
 
+.meetView-area>div:first-child {
+    /* 각 에리어 제목 선택자 */
+    font-size: 24px;
+    font-weight: bold;
 }
