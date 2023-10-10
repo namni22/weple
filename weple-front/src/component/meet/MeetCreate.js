@@ -11,17 +11,20 @@ const MeetCreate = () => {
     const [meetDate, setMeetDate] = useState("");
     const [meetTotal, setMeetTotal] = useState("");
     const [meetMargin, setMeetMargin] = useState(0)
-    const [meetPrepare, setMeetPrepare] = useState("");
     // 카테고리 자리
     const [meetAddress1, setMeetAddress1] = useState("");
     const [meetAddress2, setMeetAddress2] = useState("");
     const [meetName, setMeetName] = useState("");
-    const [meetMaterials, setMeetMaterials] = useState("");
+    // const [meetMaterials, setMeetMaterials] = useState("");
 
     //썸네일
     const [meetThumbnail, setMeetThumbnail] = useState({});
     // 썸네일 미리보기
     const [meetThumbnailPreview, setMeetThumbnailPreview] = useState(null);
+    // 준비물 리스트 추가용
+    const [meetPrepare, setMeetPrepare] = useState("");
+    const [meetPrepareList, setMeetPrepareList] = useState([]);
+
 
 
     //write역할
@@ -68,8 +71,8 @@ const MeetCreate = () => {
             <MeetSettingFrm
                 meetTitle={meetTitle}
                 setMeetTitle={setMeetTitle}
-                meetMaterials={meetMaterials}
-                setMeetMaterials={setMeetMaterials}
+                // meetMaterials={meetMaterials}
+                // setMeetMaterials={setMeetMaterials}
                 meetContentS={meetContentS}
                 setMeetContentS={setMeetContentS}
                 meetContentD={meetContentD}
@@ -83,6 +86,11 @@ const MeetCreate = () => {
                 setMeetThumbnail={setMeetThumbnail}
                 meetThumbnailPreview={meetThumbnailPreview}
                 setMeetThumbnailPreview={setMeetThumbnailPreview}
+
+                meetPrepare={meetPrepare}
+                setMeetPrepare={setMeetPrepare}
+                meetPrepareList={meetPrepareList}
+                setMeetPrepareList={setMeetPrepareList}
 
                 buttonEvent={meetCreateBtn}
             />
