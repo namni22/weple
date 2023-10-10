@@ -4,18 +4,25 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Pagination from "../common/Pagination";
 
+var BoardContentList = [];
 
 var BoardState = false;
-const ToggleBoardView = () => {
-
+const ToggleBoardView = (props) => {
+    const boardNo = props.boardNo;
+    const boardContent = props.boardContent;
+    console.log("boardNo : " + boardNo);
+    console.log("boardContent : " + boardContent);
+    //console.log("BoardContentList : " + BoardContentList[0].boardContent);
+      
     BoardState = !BoardState;
-
+    //BoardContentList.boardList[boardNo].boardContent;
     if (BoardState) {
         var innerDiv = document.createElement('div');
         innerDiv.className = 'board-view-wrap';
-
+        //innerDiv.innerText = ;
         var innerP = document.createElement('p');
-        innerP.innerText = '공지사항 내용입니다.';
+        innerP.innerHTML = boardContent;
+       
 
         innerDiv.appendChild(innerP);
         document.getElementById("board-list-li-wrap").appendChild(innerDiv);
@@ -38,6 +45,9 @@ const BoardList = () => {
                 console.log(res.data);
                 setBoardList(res.data.boardList);
                 setPageInfo(res.data.pi);
+                //BoardContentList = res.data.boardList;
+                //console.log("BoardList BoardContentList : " + BoardContentList);
+
             })
             .catch((res) => {
                 console.log(res.response.status);
@@ -81,7 +91,7 @@ const BoardItem = (props) => {
     const board = props.board;
 
     return (
-        <div className="board-list-title-wrap" onClick={ToggleBoardView}>
+        <div className="board-list-title-wrap" onClick={()=>ToggleBoardView(board)}>
             <div className="board-list-tab">
                 {board.boardType === 0 ? "공지사항" : (board.boardType === 1 ? "이벤트" : "FAQ")}
             </div>

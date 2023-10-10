@@ -36,12 +36,14 @@ public class BoardController {
 		Map map = boardService.boardList(reqPage);
 		return map;
 	}
+	//게시판 삽입
 	@PostMapping(value="/insert")
 	public int insertBoard(@ModelAttribute Board b) {	
 		//System.out.println("boardController" + b);
 		int result = boardService.insertBoard(b);		
 		return result;
 	}
+	//게시판 texteditor 사진
 	@PostMapping(value="/contentImg")
 	public String contentImg(@ModelAttribute MultipartFile image) {
 		String savepath=root+"board/editor/";
@@ -50,5 +52,9 @@ public class BoardController {
 		String filepath=fileUtil.getFilepath(savepath, filename, image);
 		return "/board/editor/"+filepath;
 	}
-	
+	//게시판 보기
+	@GetMapping(value="/view/{boardNo}")
+	public Board view(@PathVariable int boardNo) {
+		return boardService.selectOneBoard(boardNo);
+	}
 }
