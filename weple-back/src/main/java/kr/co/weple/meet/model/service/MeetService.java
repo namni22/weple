@@ -100,5 +100,26 @@ public class MeetService {
 		return map;
 	}
 
+	public Map circleList(int reqPage) {
+		// TODO Auto-generated method stub
+		
+		// 게시물조회, 페이징에 필요한 데이터를 취합
+
+		int numPerPage = 12; // 한페이지당 게시물 수
+		int pageNaviSize = 5; // 페이지 네비게이션 길이
+		int totalCount = meetDao.totalCount();// 전체게시물수 구해오기
+		PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
+
+		// 리스트조회
+		List circleList = meetDao.selectCircleList(pi);
+		
+		//map으로 list와 pi 묶어서 리턴
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("meetList", circleList);
+		map.put("pi", pi);
+		
+		return map;
+	}
+
 	
 }
