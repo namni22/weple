@@ -27,9 +27,6 @@ public class AdminController {
 		return adminService.memberList(reqPage);
 	}
 	
-	
-	
-
 	//멤버 등급 변경
 
 	@PostMapping(value="/changeMemberGrade")
@@ -47,5 +44,6 @@ public class AdminController {
 	public int changeMeetType(@RequestBody Meet meet) {
 		return adminService.changeMeetType(meet);
 	}
-
+	
+	
 }

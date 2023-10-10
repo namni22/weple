@@ -9,17 +9,17 @@ const AdminBoard = () => {
   const [boardList, setBoardList] = useState([]);
   const [pageInfo, setPageInfo] = useState({});
   const [reqPage, setReqPage] = useState(1);
-  useEffect(() => {
-    axios
-      .get("/board/adminList/" + reqPage)
-      .then((res) => {
-        setBoardList(res.data.list);
-        setPageInfo(res.data.pi);
-      })
-      .catch((res) => {
-        console.log(res);
-      });
-  }, [reqPage]);
+  // useEffect(() => {
+  //   axios
+  //     .get("/admin/boardList/" + reqPage)
+  //     .then((res) => {
+  //       setBoardList(res.data.list);
+  //       setPageInfo(res.data.pi);
+  //     })
+  //     .catch((res) => {
+  //       console.log(res);
+  //     });
+  // }, [reqPage]);
 
   return (
     <div className="admin-board-wrap">
@@ -58,6 +58,6 @@ const AdminBoard = () => {
 const BoardItem = (props) => {
   const board = props.board;
   const navigate = useNavigate();
-  const boardDetail = () => {};
+  const boardDetail = () => { };
 };
 export default AdminBoard;
