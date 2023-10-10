@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.weple.FileUtil;
 import kr.co.weple.meet.model.service.MeetService;
+import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.meet.model.vo.Meet;
 
 @RestController
@@ -90,5 +91,11 @@ public class MeetController {
 		return "/meet/editor/"+filepath;
 	}
 	
-	
+	//updateEnrollMember
+	@PostMapping(value = "/updateEnrollMember")
+	public int updateEnrollMember(@RequestBody Follower enroll) {
+		System.out.println(enroll);
+		int result = meetService.updateEnrollMember(enroll.getMemberNo());
+		return result;
+	}
 }

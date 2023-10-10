@@ -32,6 +32,8 @@ public interface MeetDao {
 
 	List meetList(PageInfo pi);
 
+	int updateEnrollMember(int memberNo);
+
 	
 
 }

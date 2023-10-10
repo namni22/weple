@@ -11,11 +11,7 @@
 		(SELECT
 		ROWNUM AS RNUM, M.* FROM
 		(SELECT
-		MEET_NO,
-		MEET_TITLE,
-		MEET_CONTENT_S,
-		MEET_CATEGORY,
-		MEET_THUMBNAIL
+		*
 		FROM MEET
 		WHERE MEET_TYPE = 1
 		ORDER BY 1
@@ -87,7 +83,9 @@
 		        ORDER BY 1 DESC)F)
 		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
-
+	<update id="updateEnrollMember">
+		update follower set follower_status=1 where member_NO=#{memberId}
+	</update>
 
 	
 
