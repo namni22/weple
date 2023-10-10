@@ -21,8 +21,6 @@ const JoinFrm = (props) => {
   const [useId, setUseId] = useState(false);
   const [mainCategory, setMainCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
-  const [categoryNo, setCategoryNo] = useState(null);
-  const [selected, setSelected] = useState();
   const [subSports, setSubSports] = useState([]);
   const [subCrafts, setSubCrafts] = useState([]);
   const [subCook, setSubCook] = useState([]);
@@ -35,9 +33,37 @@ const JoinFrm = (props) => {
     axios
       .get("/member/categoryList")
       .then((res) => {
+        const mainKeyword = [];
+        const sports = [];
+        const crafts = [];
+        const cook = [];
+        const art = [];
+        const selfDevelopment = [];
+        const travel = [];
+
         res.data.forEach((item) => {
-          mainCategory.push(item);
-          setMainCategory([...mainCategory]);
+          if (item.categoryRefNo === 0) {
+            mainKeyword.push(item);
+            setMainCategory(mainKeyword);
+          } else if (item.categoryRefNo === 1) {
+            sports.push(item);
+            setSubSports(sports);
+          } else if (item.categoryRefNo === 8) {
+            crafts.push(item);
+            setSubCrafts(crafts);
+          } else if (item.categoryRefNo === 14) {
+            cook.push(item);
+            setSubCook(cook);
+          } else if (item.categoryRefNo === 19) {
+            art.push(item);
+            setSubArt(art);
+          } else if (item.categoryRefNo === 25) {
+            selfDevelopment.push(item);
+            setSubSelfDevelopment(selfDevelopment);
+          } else if (item.categoryRefNo === 30) {
+            travel.push(item);
+            setSubTravel(travel);
+          }
         });
       })
       .catch((res) => {
@@ -47,22 +73,23 @@ const JoinFrm = (props) => {
 
   // 서브 카테고리 출력 함수
   const printSub = () => {
-    const mainKeyword = document.getElementById("main-category");
-    const categoryNo = mainKeyword.options[mainKeyword.selectedIndex].value;
-
-    axios
-      .get("/member/subcategory/" + categoryNo)
-      .then((res) => {
-        const sub = document.getElementById("sub-category");
-        sub.style.display = "inline-block";
-        res.data.forEach((item) => {
-          subCategory.push(item);
-        });
-        setSubCategory([...subCategory]);
-      })
-      .catch((res) => {
-        console.log(res.response.status);
-      });
+    const sub = document.getElementById("sub-category");
+    sub.style.display = "inline-block";
+    const main = document.getElementById("main-category");
+    const mainValue = main.options[main.selectedIndex].value;
+    if (mainValue == 1) {
+      setSubCategory(subSports);
+    } else if (mainValue == 8) {
+      setSubCategory(subCrafts);
+    } else if (mainValue == 14) {
+      setSubCategory(subCook);
+    } else if (mainValue == 19) {
+      setSubCategory(subArt);
+    } else if (mainValue == 25) {
+      setSubCategory(subSelfDevelopment);
+    } else if (mainValue == 30) {
+      setSubCategory(subTravel);
+    }
   };
 
   // 서브 카테고리 선택 시 텍스트 출력 함수
@@ -71,8 +98,6 @@ const JoinFrm = (props) => {
     const subText = sub.options[sub.selectedIndex].text;
     const subTagList = [...subTag];
     subTagList.push(subText);
-    const emptyArr = [];
-    setSubCategory([...emptyArr]);
     const newSubTagList = [];
     subTagList.forEach((item) => {
       if (!newSubTagList.includes(item)) {
@@ -297,7 +322,6 @@ const JoinFrm = (props) => {
                 id="main-category"
                 defaultValue="default"
                 onChange={printSub}
-                value={selected}
               >
                 <option value="default" disabled>
                   대분류
@@ -389,5 +413,3 @@ const JoinInputWrap = (props) => {
     </div>
   );
 };
-
-export default JoinFrm;

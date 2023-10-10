@@ -30,4 +30,10 @@ public class MemberService {
 		List categoryList = memberDao.categoryList();
 		return categoryList;
 	}
+
+	public List subCategory(int categoryNo) {
+		return memberDao.subCategory(categoryNo);
+	}
+
+
 }
