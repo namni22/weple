@@ -13,6 +13,7 @@ const JoinFrm = (props) => {
   const [memberBirth, setMemberBirth] = useState("");
   const [memberGender, setMemberGender] = useState("");
   const [memberImage, setMemberImage] = useState("");
+  const [memberCategory, setMemberCategory] = useState("");
   const [profileImg, setProfileImg] = useState(null);
   const [checkIdMsg, setCheckIdMsg] = useState("");
   const [checkPwMsg, setCheckPwMsg] = useState("");
@@ -23,12 +24,6 @@ const JoinFrm = (props) => {
   const [subCategory, setSubCategory] = useState([]);
   const [categoryNo, setCategoryNo] = useState(null);
   const [selected, setSelected] = useState();
-  const [subSports, setSubSports] = useState([]);
-  const [subCrafts, setSubCrafts] = useState([]);
-  const [subCook, setSubCook] = useState([]);
-  const [subArt, setSubArt] = useState([]);
-  const [subSelfDevelopment, setSubSelfDevelopment] = useState([]);
-  const [subTravel, setSubTravel] = useState([]);
   const [subTag, setSubTag] = useState([]);
 
   useEffect(() => {
@@ -70,23 +65,32 @@ const JoinFrm = (props) => {
     const sub = document.getElementById("sub-category");
     const subText = sub.options[sub.selectedIndex].text;
     const subTagList = [...subTag];
-    subTagList.push(subText);
+    subTagList.push(subText); //기타, 구기스포츠
     const emptyArr = [];
     setSubCategory([...emptyArr]);
     const newSubTagList = [];
+    const main = document.getElementById("main-category");
+    const mainName = main.options[main.selectedIndex].innerText;
     subTagList.forEach((item) => {
       if (!newSubTagList.includes(item)) {
+        //태그가 처음 선택된 경우
         if (newSubTagList.length < 5) {
-          newSubTagList.push(item);
-          setSubTag(newSubTagList);
-          const main = document.getElementById("main-category");
+          if (item === "기타") {
+            newSubTagList.push(mainName);
+          } else {
+            newSubTagList.push(item);
+          }
+          setSubTag(newSubTagList); //최종 출력되는 list
           main.options[0].selected = true;
           sub.options[0].selected = true;
           sub.style.display = "none";
-        } else {
+        }
+        //5개 이상 선택된 경우
+        else {
           alert("카테고리는 5개까지 선택가능합니다.");
           return;
         }
+        //이미 값이 있는 경우
       } else {
         alert("이미 선택된 카테고리입니다.");
       }
@@ -160,6 +164,30 @@ const JoinFrm = (props) => {
         .catch((res) => {
           console.log(res);
         });
+    }
+  };
+
+  const join = () => {
+    if (
+      memberId !== "" &&
+      memberPw !== "" &&
+      memberPwRe !== "" &&
+      memberName !== "" &&
+      memberPhone !== "" &&
+      memberGender !== "" &&
+      memberBirth !== "" &&
+      memberEmail !== "" &&
+      memberImage !== ""
+    ) {
+      const form = new FormData();
+      form.append("memberId", memberId);
+      form.append("memberPw", memberPw);
+      form.append("memberName", memberName);
+      form.append("memberPhone", memberPhone);
+      form.append("memberGender", memberGender);
+      form.append("memberBirth", memberBirth);
+      form.append("memberEmail", memberEmail);
+      form.append("profileImg", profileImg);
     }
   };
   return (
@@ -346,7 +374,7 @@ const JoinFrm = (props) => {
           <Button2 text="취소" />
         </div>
         <div>
-          <Button1 text="회원가입" />
+          <Button1 text="회원가입" clickEvent={join} />
         </div>
       </div>
     </div>

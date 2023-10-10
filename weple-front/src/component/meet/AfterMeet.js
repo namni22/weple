@@ -11,8 +11,8 @@ import EnrollMeetMember from "./EnrollMeetMember";
 
 const AfterMeet = () => {
   const location = useLocation();
-
   const [myMeet, setMyMeet] = useState({});
+
   useEffect(() => {
     setMyMeet(location.state.mm);
   }, []);
@@ -50,7 +50,7 @@ const AfterMeetMain = (props) => {
     <div className="afterMeet-main-wrap">
       <div className="afterMeet-main-thumbnail">
         <div className="afterMeet-thumbnail-img">
-          <img src="/img/meetTestImg_01.png"></img>
+          <img src={myMeet.meetThumbNail}></img>
         </div>
       </div>
       <div className="afterMeet-main-info">
@@ -59,7 +59,7 @@ const AfterMeetMain = (props) => {
             <img src="/img/testImg_01.png"></img>
           </div>
           <div className="aferMeet-host-name">
-            <Link to="#">호스트이름</Link>
+            <Link to="#">{myMeet.meetCaptain}</Link>
           </div>
           <div className="afer-host-like">
             <span className="material-icons">favorite</span>
@@ -71,7 +71,9 @@ const AfterMeetMain = (props) => {
         <div className="afterMeet-info-sub-content">
           <p>{myMeet.meetContentS}</p>
         </div>
-        <div className="afterMeet-member-count">0/40명</div>
+        <div className="afterMeet-member-count">
+          {myMeet.meetMargin}/{myMeet.meetTotal}명
+        </div>
       </div>
     </div>
   );

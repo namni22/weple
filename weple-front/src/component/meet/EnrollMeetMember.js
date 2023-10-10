@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./afterMeet.css";
 import axios from "axios";
 import Pagination from "../common/Pagination";
+import { Button1, Button2, Button3 } from "../util/Button";
 
 const EnrollMeetMember = (props) => {
   const myMeet = props.myMeet;
@@ -25,7 +26,13 @@ const EnrollMeetMember = (props) => {
     <div>
       <div>
         {enrollMember.map((enroll, index) => {
-          return <EnrollItem key={"enroll" + index} enroll={enroll} />;
+          return (
+            <EnrollItem
+              key={"enroll" + index}
+              enroll={enroll}
+              setEnrollMember={setEnrollMember}
+            />
+          );
         })}
       </div>
       <div>
@@ -41,6 +48,44 @@ const EnrollMeetMember = (props) => {
 
 const EnrollItem = (props) => {
   const enroll = props.enroll;
-  return <div>{enroll.memberId}</div>;
+  const setEnrollMember = props.setEnrollMember;
+  console.log("아이탬 : " + setEnrollMember);
+  //신청자 수락 이벤트
+  const changeStatus = () => {
+    console.log(enroll);
+    axios
+      .post("/meet/updateEnrollMember", enroll)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((res) => {
+        console.log(res.response.data);
+      });
+  };
+  return (
+    <table className="meetMemberList-wrap">
+      <tbody>
+        <tr>
+          <td width="5%">
+            <div className="meetMemberList-img">
+              {enroll.memberImage === null ? (
+                <img src="/img/testImg_01.png" />
+              ) : (
+                ""
+              )}
+            </div>
+          </td>
+          <td width="60%">
+            <div className="meetMemberList-name">{enroll.memberId}</div>
+          </td>
+          <td width="35%">
+            <div className="meetMemberList-btn-wrap">
+              <Button2 text={"수락"} clickEvent={changeStatus} />
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  );
 };
 export default EnrollMeetMember;

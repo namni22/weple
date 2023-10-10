@@ -1,40 +1,54 @@
+/*
+메인색상
+#2D31FA - 진한파랑
+#5D8BF4 - 연한파랑
+#ededed - 연한회색
+#171717 - 진한회색(기본폰트색)
+*/
 .board-all-wrap {
     width: 1000px;
     margin: 0 auto;
 }
+
 /* 공지사항 */
-.board-title {   
-    font-weight: 900;   
+.board-title {
+    font-weight: 900;
     margin: 30px 0px;
 }
 
 /* 공지사항 리스트 */
 
-.board-tab-wrap{
-    padding:20px 0px;
-    border-bottom: 1px solid #ccc;
+.board-tab-wrap {
+    padding: 20px 0px;
+    border-bottom: 1px solid #ededed;
+
 }
-.board-tab-wrap>span{
+
+.board-tab-wrap>span {
     margin-right: 30px;
+    cursor: pointer;
 }
-.board-list-title-wrap{
+
+.board-list-title-wrap {
     display: flex;
     justify-content: space-between;
     line-height: 24px;
     padding: 18px 0px;
     font-size: 14px;
     cursor: pointer;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #ededed;
 }
+
 .board-list-title-wrap>:nth-child(1),
-.board-list-title-wrap>:nth-child(3)
-{
-    flex: 0 0 auto; 
+.board-list-title-wrap>:nth-child(3) {
+    flex: 0 0 auto;
 }
-.board-list-title-wrap>:nth-child(2){
-    flex: 1 1 auto; 
+
+.board-list-title-wrap>:nth-child(2) {
+    flex: 1 1 auto;
 }
-.board-list-tab{
+
+.board-list-tab {
     margin-left: 0px;
     margin-right: 21px;
     width: 48px;
@@ -44,18 +58,20 @@
     padding: 0px 6px;
     font-size: 10px;
     font-weight: bold;
-    color: white;
+    color: #fff;
     text-align: center;
-    background-color: plum;    
-    
+    background-color: #2D31FA;
+
 }
-.board-list-title{
+
+.board-list-title {
     font-weight: 900;
 }
+
 /* 공지사항 상세보기 */
-.board-view-wrap{
-    display:flex;
-    width:100%;
+.board-view-wrap {
+    display: flex;
+    width: 100%;
     font-size: 14px;
-    background-color: thistle;
+    background-color: #5D8BF4;
 }

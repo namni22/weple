@@ -1,0 +1,40 @@
+.modal-all-wrap {
+  width: 800px;
+}
+.modal-title > h1 {
+  padding-bottom: 10px;
+}
+.modal-tbl {
+  width: 100%;
+  border-top: 2px solid #ccc;
+  border-bottom: 2px solid#ccc;
+  margin-bottom: 10px;
+  border-collapse: collapse;
+}
+.modal-tbl > tbody > tr {
+  border-bottom: 1px solid #ededed;
+  border-collapse: collapse;
+}
+.modal-tbl > tbody > tr > td:first-child {
+  height: 50px;
+  background-color: #dee4f8;
+  padding-left: 20px;
+}
+.modal-tbl > tbody > tr > td:last-child {
+  padding-left: 20px;
+  box-sizing: border-box;
+}
+.modal-tbl-textarea {
+  height: 300px;
+  width: 500px;
+  margin: 10px 20px;
+  box-sizing: border-box;
+  resize: none;
+  padding: 10px;
+}
+.modal-btn-wrap {
+  margin-top: 20px;
+}
+.modal-btn-wrap > button {
+  width: calc(100% / 2);
+}

@@ -99,6 +99,11 @@ public class MeetService {
 		map.put("pi", pi);
 		return map;
 	}
+	@Transactional
+	public int updateEnrollMember(int memberNo) {
+		// TODO Auto-generated method stub
+		return meetDao.updateEnrollMember(memberNo);
+	}
 
 	public Map circleList(int reqPage) {
 		// TODO Auto-generated method stub

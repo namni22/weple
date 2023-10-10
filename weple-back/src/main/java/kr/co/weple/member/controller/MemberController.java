@@ -41,4 +41,10 @@ public class MemberController {
 		return memberService.subCategory(categoryNo);
 	}
 	
+	@PostMapping(value="/join")
+	public int join(@RequestBody Member member) {
+		System.out.println(member);
+		return 0;
+	}
+	
 }
