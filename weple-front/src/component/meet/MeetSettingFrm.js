@@ -205,9 +205,12 @@ const MeetSettingFrm = (props) => {
                                 <li className="meetMaterials-one">준비물2</li>
                                 <li className="meetMaterials-one">준비물3</li>
                             </ul>
-                            <div className="meetMaterials-one">준비물1</div>
-                            <div className="meetMaterials-one">준비물2</div>
-                            <div className="meetMaterials-one">준비물3</div>
+                            {meetPrepareList.map((meetPrepare, index) => {
+                                return (
+                                    <div key={"meetPrepare" + index} className="meetMaterials-one">{meetPrepare}</div>
+                                )
+                            })}
+
                         </div>
                     </div>
                 </div>
