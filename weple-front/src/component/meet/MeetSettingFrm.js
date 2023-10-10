@@ -75,6 +75,8 @@ const MeetSettingFrm = (props) => {
     const meetPrepareAdd = () => {
         if (meetPrepare !== "") {//준비물 input이 빈칸이 아닐때만 추가
             const meetPrepare2 = document.querySelector("#meetPrepare").value
+            setMeetPrepare(meetPrepare2)
+            console.log("추가한 준비물 : " + meetPrepare2);
             const newArr = [...meetPrepareList];//깊은복사해서
             newArr.push(meetPrepare2);
             setMeetPrepareList(newArr);
