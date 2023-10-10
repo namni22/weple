@@ -67,7 +67,7 @@ const ImgBox = (props) => {
   };
 
   return (
-    <div className="feed-write-img-box">
+    <div className="swiper-img-box">
       <img src={src}></img>
       {delButton ? (
         <button onClick={deleteImg}>
