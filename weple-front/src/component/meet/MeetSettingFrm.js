@@ -151,11 +151,14 @@ const MeetSettingFrm = (props) => {
                 </div>
                 <div className="meetContentFrm">
                     <label>모임설명</label>
-                    <TextEditor
-                        data={meetContentD}
-                        setData={setMeetContentD}
-                        url="/meet/meetContentDImg"
-                    />
+                    <div className="meetContentD-box">
+                        <TextEditor
+                            data={meetContentD}
+                            setData={setMeetContentD}
+                            url="/meet/meetContentDImg"
+                        />
+
+                    </div>
 
 
 

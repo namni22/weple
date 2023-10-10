@@ -60,13 +60,11 @@ const MeetItem = (props) => {
 
   // 상세보기로 이동하는 함수
   const meetView = () => {
-    navigate();
+    navigate("/meet/meetView", { state: { meetNo: meet.meetNo } }); //이동할곳 state로 데이터 전송
   }
 
-
   return (
-    <div className="meet-one">
-
+    <div className="meet-one" onClick={meetView}>
       <div className="MeetList-meet-img-box">
         {/* <img src="/img/main_1.jpg"></img> */}
         <img src={meet.meetThumbNail}></img>

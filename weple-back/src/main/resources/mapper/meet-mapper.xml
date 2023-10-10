@@ -69,12 +69,12 @@
 	</insert>
 	<select id="selectCircleList" resultType="meet">
 		SELECT * FROM
-(SELECT ROWNUM AS RNUM, M.* FROM
-    (SELECT * 
-    FROM MEET
-    WHERE MEET_TYPE = 1
-    ORDER BY 1 DESC)M)
-WHERE RNUM BETWEEN 1 AND 10
+			(SELECT ROWNUM AS RNUM, M.* FROM
+			    (SELECT * 
+			    FROM MEET
+			    WHERE MEET_TYPE = 1
+			    ORDER BY 1 DESC)M)
+			WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
 	
 	
