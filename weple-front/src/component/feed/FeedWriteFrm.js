@@ -3,19 +3,19 @@ import { Button2 } from "../util/Button";
 import SwiperComponent from "../util/Swiper";
 
 const FeedWriteFrm = (props) => {
-  const prev = props.prev;
   const feedContent = props.feedContent;
   const setFeedContent = props.setFeedContent;
-  const feedThumb = props.feedThumb;
-  const setFeedThumb = props.setFeedThumb;
+  const feedImage = props.feedImage;
+  const setFeedImage = props.setFeedImage;
   const feedBox = props.feedBox;
   const setFeedBox = props.setFeedBox;
+  const uploadEvent = props.uploadEvent;
 
   const changeFile = (e) => {
     const Imgs = e.currentTarget.files;
 
     if (Imgs.length !== 0 && Imgs[0] !== 0) {
-      const arr = [...feedThumb]; //파일객체 더해주기
+      const arr = [...feedImage]; //파일객체 더해주기
       const arrBox = [...feedBox]; //화면객체 더해주기
 
       for (let i = 0; i < Imgs.length; i++) {
@@ -26,11 +26,11 @@ const FeedWriteFrm = (props) => {
           arrBox.push(reader.result);
           setFeedBox([...arrBox]);
         };
-        setFeedThumb([...arr]);
+        setFeedImage([...arr]);
       }
     } else {
       setFeedBox([]);
-      setFeedThumb([]);
+      setFeedImage([]);
     }
   };
 
@@ -49,7 +49,7 @@ const FeedWriteFrm = (props) => {
         />
       </div>
       <div className="feed-write-img">
-        {feedThumb.length === 0 ? (
+        {feedImage.length === 0 ? (
           <div>
             <img />
           </div>
@@ -59,8 +59,8 @@ const FeedWriteFrm = (props) => {
             slidesPerView={3.5}
             list={feedBox}
             setFeedBox={setFeedBox}
-            feedThumb={feedThumb}
-            setFeedThumb={setFeedThumb}
+            feedImage={feedImage}
+            setFeedImage={setFeedImage}
             loop={false}
             autoplay={false}
             delButton={true}
@@ -68,7 +68,7 @@ const FeedWriteFrm = (props) => {
         )}
       </div>
       <textarea></textarea>
-      <Button2 text="피드 업로드"></Button2>
+      <Button2 text="피드 업로드" onclick={uploadEvent}></Button2>
     </div>
   );
 };

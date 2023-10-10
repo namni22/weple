@@ -1,11 +1,41 @@
 import { useState } from "react";
 import FeedWriteFrm from "./FeedWriteFrm";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const FeedWrite = (props) => {
   const prev = props.prev;
-  const [feedContent, setFeedContent] = useState(""); //피드내용
-  const [feedThumb, setFeedThumb] = useState([]); //서버 전송용 배열
-  const [feedBox, setFeedBox] = useState([]); //화면 구현용 배열
+  const [feedContent, setFeedContent] = useState("");
+  const [feedImage, setFeedImage] = useState([]);
+  const [feedBox, setFeedBox] = useState([]);
+  const navigate = useNavigate;
+
+  const write = () => {
+    if (feedContent !== "" && feedImage.length !== 0) {
+      const form = new FormData();
+      form.append("feedContent", feedContent);
+      for (let i = 0; i < feedImage.length; i++) {
+        form.append("fImage", feedImage[i]);
+      }
+
+      axios
+        .post("/feed/insert", form, {
+          headers: {
+            contentType: "multipart/form-data",
+            processData: false,
+          },
+        })
+        .then((res) => {
+          if (res.data > 0) {
+            navigate("/feed");
+          }
+        })
+        .catch((res) => {});
+    } else {
+      Swal.fire("이미지 1개이상, 내용 입력 필수입니다");
+    }
+  };
 
   return (
     <div>
@@ -18,10 +48,11 @@ const FeedWrite = (props) => {
       <FeedWriteFrm
         feedContent={feedContent}
         setFeedContent={setFeedContent}
-        feedThumb={feedThumb}
-        setFeedThumb={setFeedThumb}
+        feedImage={feedImage}
+        setFeedImage={setFeedImage}
         feedBox={feedBox}
         setFeedBox={setFeedBox}
+        uploadEvent={write}
       />
     </div>
   );
