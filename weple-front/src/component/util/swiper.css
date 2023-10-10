@@ -15,3 +15,18 @@
 .swiper-pagination-bullet {
   background-color: white;
 }
+
+.swiper-img-box {
+  position: relative;
+}
+.swiper-img-box button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.swiper-img-box button > span {
+  color: #fff;
+}

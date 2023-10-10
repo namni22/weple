@@ -129,20 +129,6 @@
   margin-right: 30px;
   object-fit: cover;
 }
-.feed-write-img-box {
-  position: relative;
-}
-.feed-write-img-box button {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-}
-.feed-write-img-box button > span {
-  color: #fff;
-}
 .feed-write-img > .swiper {
   height: 327px;
 }
