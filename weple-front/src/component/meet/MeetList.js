@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import "./meetList.css";
 import axios from "axios";
+import { Pagination } from "@mui/material";
+import { useNavigate } from "react-router";
 
 const MeetList = () => {
 
@@ -35,7 +37,13 @@ const MeetList = () => {
         {meetList.map((meet, index) => {
           return <MeetItem key={"meet" + index} meet={meet} />
         })}
-
+      </div>
+      <div className="meetList-page-area">
+        <Pagination
+          reqPage={reqPage}
+          setReqPage={setReqPage}
+          pageInfo={pagenfo}
+        />
       </div>
     </div>
   );
@@ -46,6 +54,15 @@ const MeetItem = (props) => {
   const meet = props.meet;
 
   console.log(meet.meetThumbNail);
+
+  const navigate = useNavigate();
+
+
+  // 상세보기로 이동하는 함수
+  const meetView = () => {
+    navigate();
+  }
+
 
   return (
     <div className="meet-one">
