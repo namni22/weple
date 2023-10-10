@@ -30,9 +30,15 @@ public class MemberController {
 		}
 		
 	}
+	
 	@GetMapping(value="/categoryList")
 	public List categoryList() {
 		return memberService.categoryList();
+	}
+	
+	@GetMapping(value="/subcategory/{categoryNo}")
+	public List subCategory(@PathVariable int categoryNo) {
+		return memberService.subCategory(categoryNo);
 	}
 	
 }

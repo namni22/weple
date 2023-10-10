@@ -14,4 +14,6 @@ public interface MemberDao {
 
 	List categoryList();
 
+	List subCategory(int categoryNo);
+
 }
