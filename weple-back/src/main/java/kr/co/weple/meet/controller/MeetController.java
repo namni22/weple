@@ -98,4 +98,21 @@ public class MeetController {
 		int result = meetService.updateEnrollMember(enroll.getMemberNo());
 		return result;
 	}
+	@GetMapping(value = "/meetList/{reqPage}")
+	public Map meetList(@PathVariable int reqPage) {
+
+		//이미 meetList를 쓰고 있어서 바꿈
+		Map map = meetService.circleList(reqPage);
+
+		
+		return map;
+	}
+	@GetMapping(value = "/meetView/{meetNo}")
+	public Meet meetView(@PathVariable int meetNo) {
+		
+		return meetService.selectOneMeet(meetNo);
+	}
+	
+	
+	
 }

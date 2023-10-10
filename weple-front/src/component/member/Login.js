@@ -43,11 +43,12 @@ const Login = () => {
           </li>
         </ul>
       </div>
-      <Link to="/join">
-        <div className="login-join-btn">
+
+      <div className="login-join-btn">
+        <Link to="/join">
           <Button2 text="회원가입" />
-        </div>
-      </Link>
+        </Link>
+      </div>
     </div>
   );
 };

@@ -35,6 +35,13 @@
 
 .MeetList-meetTitle {
     padding: 10px 0;
+
+    /* 아래로 안떨어지고 옆으로 길게 늘려주기 */
+    white-space: nowrap;
+    /* 보여주지마 */
+    overflow: hidden;
+    /* 텍스트 삐져나온거 ... 처리 */
+    text-overflow: ellipsis;
 }
 
 .MeetList-like-box {

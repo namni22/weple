@@ -13,7 +13,6 @@ const JoinFrm = (props) => {
   const [memberBirth, setMemberBirth] = useState("");
   const [memberGender, setMemberGender] = useState("");
   const [memberImage, setMemberImage] = useState("");
-  const [memberCategory, setMemberCategory] = useState("");
   const [profileImg, setProfileImg] = useState(null);
   const [checkIdMsg, setCheckIdMsg] = useState("");
   const [checkPwMsg, setCheckPwMsg] = useState("");
@@ -22,17 +21,49 @@ const JoinFrm = (props) => {
   const [useId, setUseId] = useState(false);
   const [mainCategory, setMainCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
-  const [categoryNo, setCategoryNo] = useState(null);
-  const [selected, setSelected] = useState();
+  const [subSports, setSubSports] = useState([]);
+  const [subCrafts, setSubCrafts] = useState([]);
+  const [subCook, setSubCook] = useState([]);
+  const [subArt, setSubArt] = useState([]);
+  const [subSelfDevelopment, setSubSelfDevelopment] = useState([]);
+  const [subTravel, setSubTravel] = useState([]);
   const [subTag, setSubTag] = useState([]);
 
   useEffect(() => {
     axios
       .get("/member/categoryList")
       .then((res) => {
+        const mainKeyword = [];
+        const sports = [];
+        const crafts = [];
+        const cook = [];
+        const art = [];
+        const selfDevelopment = [];
+        const travel = [];
+
         res.data.forEach((item) => {
-          mainCategory.push(item);
-          setMainCategory([...mainCategory]);
+          if (item.categoryRefNo === 0) {
+            mainKeyword.push(item);
+            setMainCategory(mainKeyword);
+          } else if (item.categoryRefNo === 1) {
+            sports.push(item);
+            setSubSports(sports);
+          } else if (item.categoryRefNo === 8) {
+            crafts.push(item);
+            setSubCrafts(crafts);
+          } else if (item.categoryRefNo === 14) {
+            cook.push(item);
+            setSubCook(cook);
+          } else if (item.categoryRefNo === 19) {
+            art.push(item);
+            setSubArt(art);
+          } else if (item.categoryRefNo === 25) {
+            selfDevelopment.push(item);
+            setSubSelfDevelopment(selfDevelopment);
+          } else if (item.categoryRefNo === 30) {
+            travel.push(item);
+            setSubTravel(travel);
+          }
         });
       })
       .catch((res) => {
@@ -42,22 +73,23 @@ const JoinFrm = (props) => {
 
   // 서브 카테고리 출력 함수
   const printSub = () => {
-    const mainKeyword = document.getElementById("main-category");
-    const categoryNo = mainKeyword.options[mainKeyword.selectedIndex].value;
-
-    axios
-      .get("/member/subcategory/" + categoryNo)
-      .then((res) => {
-        const sub = document.getElementById("sub-category");
-        sub.style.display = "inline-block";
-        res.data.forEach((item) => {
-          subCategory.push(item);
-        });
-        setSubCategory([...subCategory]);
-      })
-      .catch((res) => {
-        console.log(res.response.status);
-      });
+    const sub = document.getElementById("sub-category");
+    sub.style.display = "inline-block";
+    const main = document.getElementById("main-category");
+    const mainValue = main.options[main.selectedIndex].value;
+    if (mainValue == 1) {
+      setSubCategory(subSports);
+    } else if (mainValue == 8) {
+      setSubCategory(subCrafts);
+    } else if (mainValue == 14) {
+      setSubCategory(subCook);
+    } else if (mainValue == 19) {
+      setSubCategory(subArt);
+    } else if (mainValue == 25) {
+      setSubCategory(subSelfDevelopment);
+    } else if (mainValue == 30) {
+      setSubCategory(subTravel);
+    }
   };
 
   // 서브 카테고리 선택 시 텍스트 출력 함수
@@ -65,32 +97,21 @@ const JoinFrm = (props) => {
     const sub = document.getElementById("sub-category");
     const subText = sub.options[sub.selectedIndex].text;
     const subTagList = [...subTag];
-    subTagList.push(subText); //기타, 구기스포츠
-    const emptyArr = [];
-    setSubCategory([...emptyArr]);
+    subTagList.push(subText);
     const newSubTagList = [];
-    const main = document.getElementById("main-category");
-    const mainName = main.options[main.selectedIndex].innerText;
     subTagList.forEach((item) => {
       if (!newSubTagList.includes(item)) {
-        //태그가 처음 선택된 경우
         if (newSubTagList.length < 5) {
-          if (item === "기타") {
-            newSubTagList.push(mainName);
-          } else {
-            newSubTagList.push(item);
-          }
-          setSubTag(newSubTagList); //최종 출력되는 list
+          newSubTagList.push(item);
+          setSubTag(newSubTagList);
+          const main = document.getElementById("main-category");
           main.options[0].selected = true;
           sub.options[0].selected = true;
           sub.style.display = "none";
-        }
-        //5개 이상 선택된 경우
-        else {
+        } else {
           alert("카테고리는 5개까지 선택가능합니다.");
           return;
         }
-        //이미 값이 있는 경우
       } else {
         alert("이미 선택된 카테고리입니다.");
       }
@@ -164,30 +185,6 @@ const JoinFrm = (props) => {
         .catch((res) => {
           console.log(res);
         });
-    }
-  };
-
-  const join = () => {
-    if (
-      memberId !== "" &&
-      memberPw !== "" &&
-      memberPwRe !== "" &&
-      memberName !== "" &&
-      memberPhone !== "" &&
-      memberGender !== "" &&
-      memberBirth !== "" &&
-      memberEmail !== "" &&
-      memberImage !== ""
-    ) {
-      const form = new FormData();
-      form.append("memberId", memberId);
-      form.append("memberPw", memberPw);
-      form.append("memberName", memberName);
-      form.append("memberPhone", memberPhone);
-      form.append("memberGender", memberGender);
-      form.append("memberBirth", memberBirth);
-      form.append("memberEmail", memberEmail);
-      form.append("profileImg", profileImg);
     }
   };
   return (
@@ -325,7 +322,6 @@ const JoinFrm = (props) => {
                 id="main-category"
                 defaultValue="default"
                 onChange={printSub}
-                value={selected}
               >
                 <option value="default" disabled>
                   대분류
@@ -374,7 +370,7 @@ const JoinFrm = (props) => {
           <Button2 text="취소" />
         </div>
         <div>
-          <Button1 text="회원가입" clickEvent={join} />
+          <Button1 text="회원가입" />
         </div>
       </div>
     </div>
@@ -417,5 +413,3 @@ const JoinInputWrap = (props) => {
     </div>
   );
 };
-
-export default JoinFrm;

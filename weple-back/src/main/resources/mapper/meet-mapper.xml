@@ -58,11 +58,26 @@
 		36,
 		126, 
 		#{meetThumbNail},
-		0,
+		1,
 		'test99'
 
 		)
 	</insert>
+	<select id="selectCircleList" resultType="meet">
+		SELECT * FROM
+			(SELECT ROWNUM AS RNUM, M.* FROM
+			    (SELECT * 
+			    FROM MEET
+			    WHERE MEET_TYPE = 1
+			    ORDER BY 1 DESC)M)
+			WHERE RNUM BETWEEN #{start} AND #{end}
+	</select>
+	<!-- 모임번호를 받아 모임을 select -->
+	<select id="selectOneMeet" resultType="meet">
+		SELECT * FROM MEET WHERE MEET_NO = #{meetNo}
+	</select>
+	
+	
 	<select id="meetMemberList" resultType="int">
 		select count(*) from follower where follower_status=1 and meet_no = #{meetNo}
 	</select>

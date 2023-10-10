@@ -30,9 +30,21 @@ public class MemberController {
 		}
 		
 	}
+	
 	@GetMapping(value="/categoryList")
 	public List categoryList() {
 		return memberService.categoryList();
+	}
+	
+	@GetMapping(value="/subcategory/{categoryNo}")
+	public List subCategory(@PathVariable int categoryNo) {
+		return memberService.subCategory(categoryNo);
+	}
+	
+	@PostMapping(value="/join")
+	public int join(@RequestBody Member member) {
+		System.out.println(member);
+		return 0;
 	}
 	
 }

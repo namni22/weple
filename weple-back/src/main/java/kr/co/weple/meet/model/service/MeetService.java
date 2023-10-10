@@ -105,5 +105,51 @@ public class MeetService {
 		return meetDao.updateEnrollMember(memberNo);
 	}
 
+	public Map circleList(int reqPage) {
+		// TODO Auto-generated method stub
+		
+		// 게시물조회, 페이징에 필요한 데이터를 취합
+
+		int numPerPage = 12; // 한페이지당 게시물 수
+		int pageNaviSize = 5; // 페이지 네비게이션 길이
+		int totalCount = meetDao.totalCount();// 전체게시물수 구해오기
+		PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
+
+		// 리스트조회
+		List circleList = meetDao.selectCircleList(pi);
+		//별점 조회 해오기
+//		List starRate = meetDao.selectMeetStarRate(pi);
+		System.out.println("모임 : "+circleList);
+		if(circleList.size()>0) {//조회한 리스트가 존재한다면
+			for(int i = 0 ; i<circleList.size(); i ++) {
+				System.out.println("모임"+circleList.get(i));
+				Meet meet = (Meet) circleList.get(i);
+				//모임번호 들고가서 후기(review) 조회해오기
+				
+				//List reviewList = meetDao.selectReviewListStar(meet.getMeetNo());
+				//조회한 review 별점 평균내서 선언한 별점 변수에 추가 가 아니라 meetVo 에 추가해야 할듯
+				//reviewVo 추가 되고 나서 다시 해야할듯
+				
+				
+			}
+			
+		}
+		
+		//map으로 list와 pi 묶어서 리턴
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("meetList", circleList);
+		map.put("pi", pi);
+		
+		
+		return map;
+	}
+
+	//meet
+	public Meet selectOneMeet(int meetNo) {
+		// TODO Auto-generated method stub
+		
+		return meetDao.selectOneMeet(meetNo);
+	}
+
 	
 }
