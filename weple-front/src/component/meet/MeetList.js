@@ -25,7 +25,7 @@ const MeetList = () => {
       .catch((res) => {
         console.log("catch : " + res.response.status);
       });
-  }, []);
+  }, [reqPage]);
 
 
   return (
@@ -67,7 +67,7 @@ const MeetItem = (props) => {
     <div className="meet-one" onClick={meetView}>
       <div className="MeetList-meet-img-box">
         {/* <img src="/img/main_1.jpg"></img> */}
-        <img src={meet.meetThumbNail}></img>
+        <img src={"/meet/" + meet.meetThumbNail}></img>
       </div>
       <div className="MeetList-meetTitle">
         <span>{meet.meetTitle}</span>
