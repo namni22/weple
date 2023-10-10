@@ -76,6 +76,10 @@
 			    ORDER BY 1 DESC)M)
 			WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
+	<!-- 모임번호를 받아 모임을 select -->
+	<select id="selectOneMeet" resultType="meet">
+		SELECT * FROM MEET WHERE MEET_NO = #{meetNo}
+	</select>
 	
 	
 	<select id="meetMemberList" resultType="int">

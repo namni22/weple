@@ -99,6 +99,11 @@ public class MeetController {
 		
 		return map;
 	}
+	@GetMapping(value = "/meetView/{meetNo}")
+	public Meet meetView(@PathVariable int meetNo) {
+		
+		return meetService.selectOneMeet(meetNo);
+	}
 	
 	
 	

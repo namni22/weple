@@ -121,5 +121,12 @@ public class MeetService {
 		return map;
 	}
 
+	//meet
+	public Meet selectOneMeet(int meetNo) {
+		// TODO Auto-generated method stub
+		
+		return meetDao.selectOneMeet(meetNo);
+	}
+
 	
 }
