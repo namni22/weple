@@ -91,9 +91,13 @@ public class MeetController {
 	}
 	
 	@GetMapping(value = "/meetList/{reqPage}")
-	public String meetList(@PathVariable int reqPage) {
-		System.out.println("reqPage : "+reqPage);
-		return "연결확인";
+	public Map meetList(@PathVariable int reqPage) {
+
+		//이미 meetList를 쓰고 있어서 바꿈
+		Map map = meetService.circleList(reqPage);
+
+		
+		return map;
 	}
 	
 	
