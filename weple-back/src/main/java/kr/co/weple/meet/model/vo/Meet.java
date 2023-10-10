@@ -27,5 +27,8 @@ public class Meet {
 	private String meetThumbNail;
 	private int meetType;
 	private String meetCaptain;
+	
+	//모임 별점을위해 추가한 변수
+	private int meetStar;
 
 }
