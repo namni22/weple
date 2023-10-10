@@ -42,4 +42,12 @@ public class BoardService {
 			return map;
 	}
 
+
+	public Board selectOneBoard(int boardNo) {
+		Board b = boardDao.selectOneBoard(boardNo);
+		//List fileList = boardDao.selectOneBoardFile(boardNo);
+		//b.setFileList(fileList);
+		return b;
+	}
+
 }
