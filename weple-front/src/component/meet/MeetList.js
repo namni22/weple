@@ -1,6 +1,32 @@
+import { useEffect, useState } from "react";
 import "./meetList.css";
+import axios from "axios";
 
 const MeetList = () => {
+
+  //로그인상태 불러올곳 ( 모임생성버튼이 이곳에 있다면 버튼을 위해서 )
+  //const isLogin = props.isLogin;
+
+  const [meetList, setMeetList] = useState([]);
+  const [reqPage, setReqPage] = useState(1); //처음에는 1페이지
+  const [pagenfo, setPageInfo] = useState({});
+
+  useEffect(() => {
+
+  }, [reqPage]);
+  axios
+    .get("/meet/meetList" + reqPage)
+    .then((res) => {
+      console.log(res.data);
+      //setMeetList(res.data.meetList);
+      //페이지인포 셋팅
+      //setPageInfo(res.data.pi);
+    })
+    .catch((res) => {
+      console.log(res.response.status);
+    });
+
+
   return (
     <div className="meetList-all-wrap">
       <div className="meetListCategori-area">카테고리</div>

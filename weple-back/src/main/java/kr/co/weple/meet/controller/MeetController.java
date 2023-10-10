@@ -90,5 +90,12 @@ public class MeetController {
 		return "/meet/editor/"+filepath;
 	}
 	
+	@GetMapping(value = "/meetList/{reqPage}")
+	public String meetList(@PathVariable int reqPage) {
+		System.out.println("reqPage : "+reqPage);
+		return "연결확인";
+	}
+	
+	
 	
 }
