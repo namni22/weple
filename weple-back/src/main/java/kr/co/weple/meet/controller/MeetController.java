@@ -90,5 +90,16 @@ public class MeetController {
 		return "/meet/editor/"+filepath;
 	}
 	
+	@GetMapping(value = "/meetList/{reqPage}")
+	public Map meetList(@PathVariable int reqPage) {
+
+		//이미 meetList를 쓰고 있어서 바꿈
+		Map map = meetService.circleList(reqPage);
+
+		
+		return map;
+	}
+	
+	
 	
 }

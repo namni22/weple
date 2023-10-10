@@ -1,34 +1,49 @@
+import { useEffect, useState } from "react";
 import "./meetList.css";
+import axios from "axios";
+import { Pagination } from "@mui/material";
+import { useNavigate } from "react-router";
 
 const MeetList = () => {
+
+  //로그인상태 불러올곳 ( 모임생성버튼이 이곳에 있다면 버튼을 위해서 )
+  //const isLogin = props.isLogin;
+
+  const [meetList, setMeetList] = useState([]);
+  const [reqPage, setReqPage] = useState(1); //처음에는 1페이지
+  const [pagenfo, setPageInfo] = useState({});
+
+  useEffect(() => {
+    axios
+      .get("/meet/meetList/" + reqPage)
+      .then((res) => {
+        console.log(res.data);
+        setMeetList(res.data.meetList);
+        //페이지인포 셋팅
+        setPageInfo(res.data.pi);
+      })
+      .catch((res) => {
+        console.log("catch : " + res.response.status);
+      });
+  }, []);
+
+
   return (
     <div className="meetList-all-wrap">
       <div className="meetListCategori-area">카테고리</div>
       <div className="meetList-area">
         {/* meetList db에서 받아온후 map으로 반복출력 예정 */}
         {/* props로 meet 정보 줄예정 */}
-        <MeetItem />
-        <div className="meet-one">
-          <div className="MeetList-meet-img-box">
-            <img src="/img/main_1.jpg"></img>
-          </div>
-          <div className="MeetList-meetTitle">
-            <span>제목</span>
-            <span>db</span>
-          </div>
-
-          <div>
-            <span>인원 : </span>
-            <span>db</span>
-          </div>
-          <div className="MeetList-star">
-            <span>별점 </span>
-            <span className="material-icons">star_rate</span>
-          </div>
-          <div className="MeetList-like-box">
-            <span className="material-icons MeetList-like">favorite_border</span>
-          </div>
-        </div>
+        {meetList.map((meet, index) => {
+          return <MeetItem key={"meet" + index} meet={meet} />
+        })}
+      </div>
+      <div className="meetList-page-area">
+        <Pagination
+          reqPage={reqPage}
+          setReqPage={setReqPage}
+          pageInfo={pagenfo}
+        />
       </div>
     </div>
   );
@@ -37,18 +52,31 @@ const MeetList = () => {
 const MeetItem = (props) => {
   // 연주님께~  meet props로 전달해주시고 meetList 따로 select 해와서 map으로 반복 출력해주세요
   const meet = props.meet;
-  return (
-    <div className="meet-one">
 
+  console.log(meet.meetThumbNail);
+
+  const navigate = useNavigate();
+
+
+  // 상세보기로 이동하는 함수
+  const meetView = () => {
+    navigate("/meet/meetView", { state: { meetNo: meet.meetNo } }); //이동할곳 state로 데이터 전송
+  }
+
+  return (
+    <div className="meet-one" onClick={meetView}>
       <div className="MeetList-meet-img-box">
-        <img src="/img/main_1.jpg"></img>
+        {/* <img src="/img/main_1.jpg"></img> */}
+        <img src={meet.meetThumbNail}></img>
       </div>
       <div className="MeetList-meetTitle">
-        <span>제목</span>
+        <span>{meet.meetTitle}</span>
       </div>
-      <div>
+      <div className="">
         <span>인원 : </span>
-        <span>db</span>
+        <span>{meet.meetTotal - meet.meetMargin}</span>
+        <span>/</span>
+        <span>{meet.meetTotal}</span>
       </div>
       <div className="MeetList-star">
         <span>별점 </span>

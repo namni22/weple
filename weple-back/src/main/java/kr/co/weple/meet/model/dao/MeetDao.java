@@ -32,6 +32,9 @@ public interface MeetDao {
 
 	List meetList(PageInfo pi);
 
+	//meetList겹쳐서 새로 만듬
+	List selectCircleList(PageInfo pi);
+
 	
 
 }

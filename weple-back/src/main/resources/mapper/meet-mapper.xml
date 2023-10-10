@@ -67,6 +67,17 @@
 
 		)
 	</insert>
+	<select id="selectCircleList" resultType="meet">
+		SELECT * FROM
+			(SELECT ROWNUM AS RNUM, M.* FROM
+			    (SELECT * 
+			    FROM MEET
+			    WHERE MEET_TYPE = 1
+			    ORDER BY 1 DESC)M)
+			WHERE RNUM BETWEEN #{start} AND #{end}
+	</select>
+	
+	
 	<select id="meetMemberList" resultType="int">
 		select count(*) from follower where follower_status=1 and meet_no = #{meetNo}
 	</select>

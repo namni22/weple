@@ -27,6 +27,7 @@ const JoinFrm = (props) => {
   const [subArt, setSubArt] = useState([]);
   const [subSelfDevelopment, setSubSelfDevelopment] = useState([]);
   const [subTravel, setSubTravel] = useState([]);
+  const [subTag, setSubTag] = useState([]);
 
   useEffect(() => {
     axios
@@ -89,6 +90,26 @@ const JoinFrm = (props) => {
     } else if (mainValue == 30) {
       setSubCategory(subTravel);
     }
+  };
+
+  // 서브 카테고리 선택 시 텍스트 출력 함수
+  const printSelect = () => {
+    const sub = document.getElementById("sub-category");
+    const subText = sub.options[sub.selectedIndex].text;
+    const subTagList = [...subTag];
+    subTagList.push(subText);
+    const newSubTagList = [];
+    subTagList.forEach((item) => {
+      if (!newSubTagList.includes(item)) {
+        newSubTagList.push(item);
+        setSubTag(newSubTagList);
+        const main = document.getElementById("main-category");
+        main.options[0].selected = true;
+        sub.style.display = "none";
+      } else {
+        alert("이미 선택된 카테고리입니다.");
+      }
+    });
   };
 
   const profileImgChange = (e) => {
@@ -291,7 +312,14 @@ const JoinFrm = (props) => {
               <label htmlFor="memberImage">관심 카테고리</label>
             </div>
             <div className="input">
-              <select id="main-category" onChange={printSub}>
+              <select
+                id="main-category"
+                defaultValue="default"
+                onChange={printSub}
+              >
+                <option value="default" disabled>
+                  대분류
+                </option>
                 {mainCategory.map((main, index) => {
                   return (
                     <option key={"main" + index} value={main.categoryNo}>
@@ -300,7 +328,15 @@ const JoinFrm = (props) => {
                   );
                 })}
               </select>
-              <select id="sub-category" name="categoryNo">
+              <select
+                id="sub-category"
+                name="categoryNo"
+                defaultValue="default"
+                onChange={printSelect}
+              >
+                <option value="default" disabled>
+                  소분류
+                </option>
                 {subCategory.map((sub, index) => {
                   return (
                     <option key={"sub" + index} value={sub.categoryNo}>
@@ -309,6 +345,16 @@ const JoinFrm = (props) => {
                   );
                 })}
               </select>
+              <div className="join-select-print-box">
+                {subTag.map((subT, index) => {
+                  return (
+                    <div key={"subT" + index}>
+                      <img src="/img/hashtag.png" />
+                      {subT}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>

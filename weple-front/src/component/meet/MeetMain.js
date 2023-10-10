@@ -8,6 +8,7 @@ import { MeetList } from "./MeetList";
 import AfterMeet from "./AfterMeet";
 import { useState } from "react";
 import MyMeetList from "./MyMeetList";
+import MeetView from "./meetView";
 
 const MeetMain = () => {
   const [meetNavi, setMeetNavi] = useState([
@@ -33,6 +34,7 @@ const MeetMain = () => {
         <Route path="/meetSettingFrm" element={<MeetSettingFrm />} />
         <Route path="/meetCreate" element={<MeetCreate />}></Route>
         <Route path="/meetList" element={<MeetList />}></Route>
+        <Route path="meetView" element={<MeetView />}></Route>
 
         {/* <Routes> */}
         <Route path="meetSettingFrm" element={<MeetSettingFrm />} />
