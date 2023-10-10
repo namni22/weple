@@ -13,6 +13,7 @@ const MeetList = () => {
   const [reqPage, setReqPage] = useState(1); //처음에는 1페이지
   const [pagenfo, setPageInfo] = useState({});
 
+  // 모임 조회해오기
   useEffect(() => {
     axios
       .get("/meet/meetList/" + reqPage)

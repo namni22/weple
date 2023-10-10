@@ -112,11 +112,28 @@ public class MeetService {
 
 		// 리스트조회
 		List circleList = meetDao.selectCircleList(pi);
+		//별점 조회 해오기
+//		List starRate = meetDao.selectMeetStarRate(pi);
+		System.out.println("모임 : "+circleList);
+		if(circleList.size()>0) {//조회한 리스트가 존재한다면
+			for(int i = 0 ; i<circleList.size(); i ++) {
+				System.out.println("모임"+circleList.get(i));
+				Meet meet = (Meet) circleList.get(i);
+				//모임번호 들고가서 후기(review) 조회해오기
+				
+				List review = meetDao.selectReviewListStar(meet.getMeetNo());
+				//조회한 review 별점 평균내서 선언한 별점 변수에 추가 가 아니라 meetVo 에 추가해야 할듯
+				
+				
+			}
+			
+		}
 		
 		//map으로 list와 pi 묶어서 리턴
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("meetList", circleList);
 		map.put("pi", pi);
+		
 		
 		return map;
 	}
