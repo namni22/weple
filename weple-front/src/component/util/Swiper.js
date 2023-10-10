@@ -18,8 +18,8 @@ const SwiperComponent = (props) => {
   const autoplay = props.autoplay;
   const loop = props.loop;
   const setFeedBox = props.setFeedBox;
-  const feedImage = props.feedImage;
-  const setFeedImage = props.setFeedImage;
+  const fImage = props.fImage;
+  const setFImage = props.setFImage;
   const delButton = props.delButton; //삭제버튼 생성 ture/false
 
   return (
@@ -39,8 +39,8 @@ const SwiperComponent = (props) => {
               index={index}
               list={list}
               setFeedBox={setFeedBox}
-              feedImage={feedImage}
-              setFeedImage={setFeedImage}
+              fImage={fImage}
+              setFImage={setFImage}
               delButton={delButton}
             />
           </SwiperSlide>
@@ -55,15 +55,15 @@ const ImgBox = (props) => {
   const index = props.index;
   const list = props.list;
   const setFeedBox = props.setFeedBox;
-  const feedImage = props.feedImage;
-  const setFeedImage = props.setFeedImage;
+  const fImage = props.fImage;
+  const setFImage = props.setFImage;
   const delButton = props.delButton;
 
   const deleteImg = () => {
     list.splice(index, 1);
     setFeedBox([...list]);
-    feedImage.splice(index, 1);
-    setFeedImage([...feedImage]);
+    fImage.splice(index, 1);
+    setFImage([...fImage]);
   };
 
   return (

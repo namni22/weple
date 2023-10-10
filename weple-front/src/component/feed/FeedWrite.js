@@ -7,16 +7,16 @@ import { useNavigate } from "react-router-dom";
 const FeedWrite = (props) => {
   const prev = props.prev;
   const [feedContent, setFeedContent] = useState("");
-  const [feedImage, setFeedImage] = useState([]);
+  const [fImage, setFImage] = useState([]);
   const [feedBox, setFeedBox] = useState([]);
-  const navigate = useNavigate;
+  const navigate = props.navigate;
 
   const write = () => {
-    if (feedContent !== "" && feedImage.length !== 0) {
+    if (feedContent !== "" && fImage.length !== 0) {
       const form = new FormData();
       form.append("feedContent", feedContent);
-      for (let i = 0; i < feedImage.length; i++) {
-        form.append("fImage", feedImage[i]);
+      for (let i = 0; i < fImage.length; i++) {
+        form.append("fImage", fImage[i]);
       }
 
       axios
@@ -28,10 +28,13 @@ const FeedWrite = (props) => {
         })
         .then((res) => {
           if (res.data > 0) {
+            Swal.fire("성공");
             navigate("/feed");
           }
         })
-        .catch((res) => {});
+        .catch((res) => {
+          Swal.fire("실패");
+        });
     } else {
       Swal.fire("이미지 1개이상, 내용 입력 필수입니다");
     }
@@ -48,8 +51,8 @@ const FeedWrite = (props) => {
       <FeedWriteFrm
         feedContent={feedContent}
         setFeedContent={setFeedContent}
-        feedImage={feedImage}
-        setFeedImage={setFeedImage}
+        fImage={fImage}
+        setFImage={setFImage}
         feedBox={feedBox}
         setFeedBox={setFeedBox}
         uploadEvent={write}
