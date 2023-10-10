@@ -17,12 +17,12 @@ const AdminMember = () => {
     axios
       .get("/admin/memberList/" + reqPage)
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         setMemberList(res.data.list);
         setPageInfo(res.data.pi);
       })
       .catch((res) => {
-        console.log(res);
+        //console.log(res);
       });
   }, [reqPage]);
 

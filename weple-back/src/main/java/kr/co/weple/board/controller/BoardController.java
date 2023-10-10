@@ -20,7 +20,6 @@ import kr.co.weple.board.model.service.BoardService;
 import kr.co.weple.board.model.vo.Board;
 
 
-
 @RestController
 @RequestMapping(value="/board")
 public class BoardController {
@@ -30,7 +29,13 @@ public class BoardController {
 	private FileUtil fileUtil;
 	@Value("${file.root}")
 	private String root;
-
+	
+	//게시판 목록
+	@GetMapping(value="/list/{reqPage}")
+	public Map list(@PathVariable int reqPage) {
+		Map map = boardService.boardList(reqPage);
+		return map;
+	}
 	@PostMapping(value="/insert")
 	public int insertBoard(@ModelAttribute Board b) {	
 		//System.out.println("boardController" + b);
