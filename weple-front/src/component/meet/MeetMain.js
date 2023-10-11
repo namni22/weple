@@ -18,7 +18,7 @@ const MeetMain = () => {
       <Routes>
         <Route path="/meetSettingFrm" element={<MeetSettingFrm />} />
         <Route path="/meetCreate" element={<MeetCreate />}></Route>
-        <Route path="/category/meetList" element={<MeetList />}></Route>
+        <Route path="meetList" element={<MeetList />}></Route>
         <Route path="category" element={<Category />} />
         <Route path="meetSettingFrm" element={<MeetSettingFrm />} />
         <Route path="meetCreate" element={<MeetCreate />}></Route>
