@@ -12,11 +12,13 @@ import Category from "./component/common/Category";
 import Join from "./component/member/Join";
 import Review from "./component/review/Review";
 import Login from "./component/member/Login";
+import { useState } from "react";
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false);
   return (
     <div className="weple-wrap">
-      <Header />
+      <Header isLogin={isLogin} setIsLogin={setIsLogin} />
       <div className="weple-content">
         <Routes>
           <Route path="/feed/*" element={<Feed />} />
@@ -24,8 +26,8 @@ function App() {
           <Route path="/board/*" element={<Board />} />
           <Route path="/admin/*" element={<Admin />} />
           <Route path="/join" element={<Join />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/category" element={<Category />} />
+          <Route path="/login" element={<Login setIsLogin={setIsLogin} />} />
+          {/* <Route path="/category" element={<Category />} /> */}
           <Route path="*" element={<Main />} />
         </Routes>
       </div>

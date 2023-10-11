@@ -1,5 +1,7 @@
 package kr.co.weple.meet.model.vo;
 
+import java.util.List;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.AllArgsConstructor;
@@ -28,8 +30,12 @@ public class Meet {
 	private int meetType;
 	private String meetCaptain;
 	
+	//준비물 추가를 위한 변수
+	private List meetPrepareList;
+
 	//모임 별점
 	private int reviewStar;
 	private int reviewCount;
+
 
 }

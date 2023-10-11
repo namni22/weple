@@ -22,7 +22,7 @@ public class MeetService {
 	
 	public Map myMeetList(int reqPage) {
 		//내가 창설한 모임 리스트 조회, 페이징에 필요한 데이터 취합
-		int numPerPage = 10; //한페이지당 게시물수(변경가능)
+		int numPerPage = 12; //한페이지당 게시물수(변경가능)
 		int pageNaviSize = 5; //페이지 네비게이션 길이
 		int totalCount = meetDao.totalCount();
 		
@@ -68,7 +68,7 @@ public class MeetService {
 	}
 
 	public Map meetMemberList(int reqPage, int meetNo) {
-		int numPerPage	= 10;
+		int numPerPage	= 12;
 		int pageNaviSize = 5;
 		int totalCount = meetDao.meetMemberList(meetNo);
 		System.out.println("totalCount : "+totalCount);
@@ -90,7 +90,7 @@ public class MeetService {
 	public Map meetList(int reqPage) {
 		
 		int totalCount = meetDao.totalCount();
-		int numPerPage = 10;
+		int numPerPage = 12;
 		int pageNaviSize = 5;
 		PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
 		List meetList = meetDao.meetList(pi);

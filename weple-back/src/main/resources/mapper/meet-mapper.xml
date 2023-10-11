@@ -51,7 +51,7 @@
 		#{meetContentD},
 		#{meetTotal}, 
 		#{meetMargin}, 
-		'임시준비물',
+		#{meetPrepare},
 		3, 
 		'주소1',
 		'주소2',

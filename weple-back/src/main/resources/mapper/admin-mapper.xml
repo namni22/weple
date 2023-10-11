@@ -29,5 +29,8 @@
 	<update id="changeMeetType">
 		update meet set meet_type=#{meetType} where meet_no = #{meetNo}
 	</update>
-	
+	<select id="selectOneMember" resultType="member">
+		select * from member where member_id=#{memberId}
+
+	</select>
 </mapper>

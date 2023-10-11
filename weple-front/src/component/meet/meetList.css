@@ -9,7 +9,7 @@
 
 .meet-one {
   float: left;
-  width: 260px;
+  width: calc(100% / 4- 10px);
   height: 400px;
   box-sizing: border-box;
   position: relative;

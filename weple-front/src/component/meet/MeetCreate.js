@@ -34,6 +34,7 @@ const MeetCreate = () => {
         console.log("모임한줄설명 : " + meetContentS);
         console.log("모임인원 :" + meetTotal);
         console.log("썸네일 : " + meetThumbnail);
+        console.log("준비물 : " + meetPrepareList);
 
         const meet = { meetTitle, meetDate, meetTotal, meetContentS, meetContentD }
         if (meetTitle !== "" && meetDate !== "" && meetTotal !== "" && meetContentS !== "") {
@@ -44,6 +45,7 @@ const MeetCreate = () => {
             form.append("meetContentD", meetContentD);
             form.append("meetTotal", meetTotal);
             form.append("meetThumbnail", meetThumbnail);
+            form.append("meetPrepareList", meetPrepareList);
             // 토큰선언자리
             axios
                 .post("/meet/meetCreate", form, {

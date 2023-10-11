@@ -1,5 +1,7 @@
 package kr.co.weple.feed.model.vo;
 
+import java.util.List;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.AllArgsConstructor;
@@ -15,4 +17,5 @@ public class Feed {
 	private String feedWriter;
 	private String feedContent;
 	private String feedDate;
+	private List imageList;
 }

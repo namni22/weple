@@ -13,5 +13,8 @@
 	<select id="subCategory" resultType="category">
 		select * from category where category_ref_no=#{categoryNo}
 	</select>
-
+	
+	<insert id ="insertMember">
+		insert into member values(member_seq.nextval,#{memberId},#{memberName},#{memberPw},#{memberEmail},#{memberPhone},#{memberBirth},#{memberGender},#{memberImage},36.5,1,#{memberCategory},1)
+	</insert>
 </mapper>

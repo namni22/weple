@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import "./header.css";
 
-const Header = () => {
+const Header = (props) => {
+  const isLogin = props.isLogin;
+  const setIsLogin = props.setIsLogin;
   return (
     <div className="header">
       <div className="header-inner">
-        <Link to="/category">
+        <Link to="/meet/category">
           <div className="icon-wrap">
             <div className="material-icons" id="category">
               menu
@@ -28,7 +30,7 @@ const Header = () => {
             </Link>
           </div>
           <div className="icon-wrap">
-            <Link to="/meet">
+            <Link to="/">
               <div className="material-icons meet">diversity_1</div>
               <div className="icon-explain">모임</div>
             </Link>

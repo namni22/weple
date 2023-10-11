@@ -1,5 +1,7 @@
 package kr.co.weple.member.model.vo;
 
+import java.util.List;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.AllArgsConstructor;

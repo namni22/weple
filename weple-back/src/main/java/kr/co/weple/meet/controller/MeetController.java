@@ -59,7 +59,23 @@ public class MeetController {
 		) {
 		// @RequestAttribute String memberId 로 아이디 받아서 meet에 방장으로 추가 (토큰필요)
 		
-		System.out.println("텍스트 에디터 : "+meet.getMeetContentD());
+		
+		//구분자로 준비물 String으로 이어서 set
+		if(!meet.getMeetPrepareList().isEmpty()) {//준비물이 있다면
+			String newPrepare = "";
+			for(int i = 0 ; i<meet.getMeetPrepareList().size(); i++) {
+				//마지막 준비물 추가면
+				if(i==meet.getMeetPrepareList().size()-1) {
+					newPrepare += (String) meet.getMeetPrepareList().get(i);
+					break;
+				}
+				newPrepare += (String) meet.getMeetPrepareList().get(i)+"/";
+				
+
+			}
+			meet.setMeetPrepare(newPrepare);
+			
+		}
 		
 		String savepath = root + "meet/";
 
@@ -98,9 +114,10 @@ public class MeetController {
 		int result = meetService.updateEnrollMember(enroll.getMemberNo());
 		return result;
 	}
-	@GetMapping(value = "/meetList/{reqPage}")
-	public Map meetList(@PathVariable int reqPage) {
-
+	//모임 리스트 조회
+	@GetMapping(value = "/meetList/{reqPage}/{meetCategory}")
+	public Map meetList(@PathVariable int reqPage, @PathVariable int meetCategory) {
+		System.out.println("모임 카테고리 번호 : "+meetCategory);
 		//이미 meetList를 쓰고 있어서 바꿈
 		Map map = meetService.circleList(reqPage);
 
