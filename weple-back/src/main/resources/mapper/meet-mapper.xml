@@ -68,7 +68,7 @@
 		select * from category where CATEGORY_REF_NO=#{categoryNo}
 	</select>
 	<!-- 모임 리스트 조회 -->
-	<select id="selectCircleList" resultType="meet">
+	<!-- <select id="selectCircleList" resultType="meet">
 		SELECT * FROM
 			(SELECT ROWNUM AS RNUM, M.* FROM
 			    (SELECT * 
@@ -76,6 +76,16 @@
 			    WHERE MEET_TYPE = 1
 			    ORDER BY 1 DESC)M)
 			WHERE RNUM BETWEEN #{start} AND #{end}
+	</select> -->
+	<select id="selectCircleList" resultType="meet">
+		SELECT * FROM
+		    (SELECT ROWNUM AS RNUM, M.* FROM
+		        (SELECT * 
+		        FROM MEET
+		        JOIN CATEGORY ON ( MEET_CATEGORY = CATEGORY_NO)
+		        WHERE MEET_TYPE = 1 AND CATEGORY_REF_NO = 14
+		        ORDER BY 1 DESC)M)
+		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
 	<!-- 모임번호를 받아 모임을 select -->
 	<select id="selectOneMeet" resultType="meet">
