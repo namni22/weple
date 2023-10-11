@@ -13,9 +13,19 @@ import Join from "./component/member/Join";
 import Review from "./component/review/Review";
 import Login from "./component/member/Login";
 import { useState } from "react";
+import { useEffect } from "react";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
+  useEffect(() => {
+    const token = window.localStorage.getItem("token");
+    if (token === null) {
+      setIsLogin(false);
+    } else {
+      setIsLogin(true);
+    }
+  }, []);
+
   return (
     <div className="weple-wrap">
       <Header isLogin={isLogin} setIsLogin={setIsLogin} />

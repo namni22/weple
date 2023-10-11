@@ -161,6 +161,12 @@ public class MeetService {
 		List meetChat = meetDao.meetChatList(meetNo);
 		return meetChat;
 	}
+	//메인페이지에 인기순 모임조회
+	public List meetPopular() {
+		// TODO Auto-generated method stub
+		List list = meetDao.meetPopular();
+		return list;
+	}
 
 	
 }
