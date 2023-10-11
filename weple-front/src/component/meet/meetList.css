@@ -64,6 +64,7 @@
   /* -webkit-text-stroke-width: 1.3px; 별 border 두께 */
   /* -webkit-text-stroke-color: #2d31fa; 별 border 색상*/
   color: #2d31fa;
+  margin-left: -3px;
 }
 .meet-one .star-rating .material-icons:not(:first-child) {
   margin-left: -4px;

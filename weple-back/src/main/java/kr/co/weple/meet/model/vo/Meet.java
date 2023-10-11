@@ -28,7 +28,8 @@ public class Meet {
 	private int meetType;
 	private String meetCaptain;
 	
-	//모임 별점을위해 추가한 변수
+	//모임 별점
 	private int reviewStar;
+	private int reviewCount;
 
 }

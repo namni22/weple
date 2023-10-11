@@ -1,8 +1,9 @@
 import axios from "axios";
-import { MeetItem, MeetList } from "../meet/MeetList";
+import { MeetItem } from "../meet/MeetList";
 import SwiperComponent from "../util/Swiper";
 import "./main.css";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 const Main = () => {
   // const imgList = ["./img/main_1.jpg", "./img/main_2.jpg"];
   // const list = imgList.map((item, index) => {
@@ -21,32 +22,46 @@ const Main = () => {
         list={list}
         delButton={false}
       />
-      <MeetMain meetSet={"meetMargin"} />
+      {/* 비로그인 */}
+      <MeetMain meetSet={"meetMargin"} meetTitle={"주간 인기 TOP 30 👑"} />
+      <MeetMain meetSet={"meetMargin"} meetTitle={"마감임박!"} />
+      <MeetMain meetSet={"meetMargin"} meetTitle={"신규개설"} />
+      {/* 로그인 */}
+      {/* <MeetMain meetSet={"meetMargin"} meetTitle={"이 모임은 어때요?"} />
+      <MeetMain meetSet={"meetMargin"} meetTitle={"마감임박!"} />
+      <MeetMain meetSet={"meetMargin"} meetTitle={"신규개설"} /> */}
     </div>
   );
 };
 
 const MeetMain = (props) => {
   const meetSet = props.meetSet;
+  const meetTitle = props.meetTitle;
   const [meetMain, setMeetMain] = useState([]);
 
   useEffect(() => {
     axios
       .get("/meet/" + meetSet)
       .then((res) => {
-        console.log(res.data);
-        setMeetMain(res.data);
+        setMeetMain(res.data.slice(0, 4));
       })
       .catch((res) => {
-        console.log(res.data);
+        console.log(res.data.status);
       });
   }, []);
   return (
-    <div className="MeetMain">
-      <div>모임 카테고리</div>
-      {meetMain.map((meet, index) => {
-        return <MeetItem key={"meet" + index} meet={meet} />;
-      })}
+    <div className="meet-main">
+      <div className="meet-main-title">
+        {meetTitle}
+        <Link to="/" className="meet-move-btn">
+          전체보기
+        </Link>
+      </div>
+      <div className="meet-one-wrap">
+        {meetMain.map((meet, index) => {
+          return <MeetItem key={"meetMain" + index} meet={meet} />;
+        })}
+      </div>
     </div>
   );
 };
