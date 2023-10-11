@@ -32,7 +32,7 @@ public class FeedService {
 	//피드출력
 	public List feedList(int start, int end) {
 		int totalCount = feedDao.totalCount();
-		if(start<totalCount) {			
+		if(start<=totalCount) {	
 			List feedList = feedDao.selectFeedList(start,end);
 			return feedList;
 		}

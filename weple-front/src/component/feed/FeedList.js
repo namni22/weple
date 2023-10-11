@@ -17,6 +17,7 @@ const FeedList = () => {
       .get("/feed/list/" + start + "/" + end)
       .then((res) => {
         const arr = [...feedList];
+        console.log(arr[0]);
         for (let i = 0; i < res.data.length; i++) {
           arr.push(res.data[i]);
         }
@@ -61,7 +62,6 @@ const FeedContent = (props) => {
   const list = feed.imageList.map((img, index) => {
     return "/feed/" + img.fimageName;
   });
-  console.log(list);
 
   const comment = () => {
     navigate("/feed/comment");
