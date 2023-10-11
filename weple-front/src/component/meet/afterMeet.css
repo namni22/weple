@@ -278,3 +278,46 @@
 .meet-navi > ul > li > a.active-side {
   background-color: #2d31fa;
 }
+/*챗 CSS*/
+.meetChat-chat-wrap {
+  background-color: #dee4f8;
+}
+.meetChat-chat-wrap > ul {
+  overflow: hidden;
+  padding: 20px;
+}
+.meetChat-chat-wrap > ul > li {
+  display: block;
+  float: left;
+}
+.meetChat-chat-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50px;
+  overflow: hidden;
+  margin-right: 20px;
+}
+.meetChat-chat-img > img {
+  width: 100%;
+}
+.meetChat-chat-writer {
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+.meetChat-chat-writer > span {
+  font-weight: 900;
+  padding: 0px 20px 0px 10px;
+  display: block;
+  float: left;
+}
+.meetChat-chat-writer > sub {
+  font-size: 3px;
+  display: block;
+  float: left;
+  padding-top: 7px;
+}
+.meetChat-chat-content {
+  padding: 5px 20px 5px 10px;
+  background-color: #fff;
+  border-radius: 5px;
+}

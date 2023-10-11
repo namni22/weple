@@ -157,9 +157,11 @@ public class MeetService {
 		return list;
 	}
 
-	public List meetChatList(int meetNo) {
+	public Map meetChatList(int meetNo) {
 		List meetChat = meetDao.meetChatList(meetNo);
-		return meetChat;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("meetChat", meetChat);
+		return map;
 	}
 
 	

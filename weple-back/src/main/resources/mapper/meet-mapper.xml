@@ -118,7 +118,16 @@
 	]]>
 	</select>
 	<select id="meetChatList" resultType="chat">
-		select * from chat
+		SELECT 
+	        CHAT_NO,
+	        CHAT_CONTENT,
+	        MEMBER_ID,
+	        MEET_NO,
+	        TO_CHAR(CHAT_DATE,'""YYYY"년"MM"월"DD"일" AMHH:mm:SS')as CHAT_DATE,
+	        MEMBER_IMAGE
+	    FROM CHAT
+	    JOIN MEMBER USING(MEMBER_ID)
+	    WHERE MEET_NO = #{meetNo}
 	</select>
 
 

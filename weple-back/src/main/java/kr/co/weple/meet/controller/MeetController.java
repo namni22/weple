@@ -139,9 +139,10 @@ public class MeetController {
 	}
 	//meet챗팅 조회
 	@GetMapping(value = "/meetChat/{meetNo}")
-	public List meetChat(@PathVariable int meetNo) {
+	public Map meetChat(@PathVariable int meetNo) {
 		System.out.println("meetNo : "+ meetNo);
-		List meetChat = meetService.meetChatList(meetNo);
+		Map meetChat = meetService.meetChatList(meetNo);
+		System.out.println("챗 리스트 : "+meetChat);
 		return meetChat;
 	}
 }
