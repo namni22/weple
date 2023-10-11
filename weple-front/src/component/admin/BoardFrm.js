@@ -25,7 +25,7 @@ const BoardFrm = (props) => {
       const form = new FormData();
       form.append("boardTitle", boardTitle);
       form.append("boardContent", boardContent);
-      form.append("boardWriter", "test96")
+      
       axios
         .post("/board/insert", form)
         .then((res) => {

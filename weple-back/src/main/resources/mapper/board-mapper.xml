@@ -26,4 +26,17 @@
 			    ORDER BY 1 DESC)B)
 		WHERE RNUM BETWEEN #{start} and #{end}
 	</select>
+	<select id ="selectOneBoard" resultType="board">
+		select
+			  BOARD_NO,
+              BOARD_TYPE,
+			  BOARD_TITLE,
+			  BOARD_CONTENT,
+			  BOARD_WRITER,
+			  member_id,
+			  BOARD_DATE
+		from board
+		JOIN MEMBER ON (BOARD_WRITER = MEMBER_ID)
+		where board_no = #{boardNo}
+	</select>
 </mapper>
