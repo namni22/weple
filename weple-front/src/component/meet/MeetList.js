@@ -41,7 +41,7 @@ const MeetList = () => {
   return (
     <div className="meetList-all-wrap">
       <div className="meetListCategori-area">
-        <div>대분류</div>
+        <div>주간인기30</div>
         <div>
           <ul>
             <li>전체</li>
