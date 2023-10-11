@@ -42,6 +42,7 @@ function App() {
           <Route path="/login" element={<Login setIsLogin={setIsLogin} />} />
           <Route path="/mypage" element={<Mypage />} />
           {/* <Route path="/category" element={<Category />} /> */}
+
           <Route path="*" element={<Main />} />
         </Routes>
       </div>
