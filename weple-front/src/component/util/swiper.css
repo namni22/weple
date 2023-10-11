@@ -1,6 +1,7 @@
 .swiper img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 .swiper-button-prev,
 .swiper-button-next {
@@ -18,6 +19,8 @@
 
 .swiper-img-box {
   position: relative;
+  width: 100%;
+  height: 100%;
 }
 .swiper-img-box button {
   position: absolute;

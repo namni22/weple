@@ -23,7 +23,7 @@
   flex-direction: row;
 }
 .feed-list-content {
-  width: calc(100% / 3 - 30px);
+  width: calc(100% / 3 - 40px);
   box-sizing: border-box;
   margin: 30px 0;
   position: relative;
@@ -64,9 +64,15 @@
   font-size: 12px;
 }
 .feed-list-img {
-  height: calc(1200px / 3 - 30px);
+  width: 100%;
+  height: 370px;
+  object-fit: cover;
   background-color: #eee;
   margin: 10px 0;
+}
+.feed-list-content .swiper {
+  width: 100%;
+  height: 370px;
 }
 .feed-list-img > img {
   width: 100%;

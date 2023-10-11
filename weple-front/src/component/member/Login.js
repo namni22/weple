@@ -11,6 +11,11 @@ const Login = (props) => {
   const [memberId, setMemberId] = useState("");
   const [memberPw, setMemberPw] = useState("");
   const navigate = useNavigate();
+  const enterEvent = (e) => {
+    if (e.key === "Enter") {
+      login();
+    }
+  };
 
   const login = () => {
     const member = { memberId, memberPw };
@@ -49,6 +54,7 @@ const Login = (props) => {
             setData={setMemberPw}
             content="memberPw"
             placeholder="비밀번호"
+            enter={enterEvent}
           />
         </div>
         <div className="login-btn-box">

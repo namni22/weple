@@ -10,21 +10,32 @@ const MeetList = () => {
   //const isLogin = props.isLogin;
 
   const [meetList, setMeetList] = useState([]);
-  const [reqPage, setReqPage] = useState(2); //처음에는 1페이지
+  const [reqPage, setReqPage] = useState(1); //처음에는 1페이지
   const [pagenfo, setPageInfo] = useState({});
-  const location = useLocation();
   const [meetCategory, setmeetCategory] = useState(1);
+  //카테고리 메뉴 출력할 카테고리 리스트
+  const [smallCategoryList, setSmallCategoryList] = useState([]);
+
+  const location = useLocation();
   const bigCategoryNo = location.state.bigCategoryNo;
-  console.log("카테고리번호 : " + bigCategoryNo);
 
   //카테고리 메뉴 조회해오기
   useEffect(() => {
-
+    setmeetCategory(bigCategoryNo);
+    axios
+      .get("/meet/selectSmallCategory/" + bigCategoryNo)
+      .then((res) => {
+        console.log(res.data);
+        setSmallCategoryList(res.data);
+        console.log("배열 하나 값 : " + res.data[1]);
+      })
+      .catch((res) => {
+        console.log("catch : " + res.response.status);
+      });
   }, []);
 
   // 모임 조회해오기
   useEffect(() => {
-    setmeetCategory(bigCategoryNo);
     axios
       .get("/meet/meetList/" + reqPage + "/" + meetCategory)
       .then((res) => {
@@ -45,6 +56,13 @@ const MeetList = () => {
         <div>
           <ul>
             <li>전체</li>
+            {(smallCategory, index) => {
+              return (
+                <li key={"smallCategory" + index}>
+                  {smallCategory.categoryName}
+                </li>
+              );
+            }}
           </ul>
         </div>
       </div>
@@ -74,12 +92,16 @@ const MeetItem = (props) => {
 
   // 상세보기로 이동하는 함수
   const meetView = () => {
-    navigate("View", { state: { m: meet } }); //이동할곳 state로 데이터 전송
+    navigate("/meet/meetList/View", { state: { m: meet } }); //이동할곳 state로 데이터 전송
   };
   const starRating = (meetStar) => {
     const result = [];
     for (let i = 0; i < Math.ceil(meetStar); i++) {
-      result.push(<span className="material-icons">grade</span>);
+      result.push(
+        <span className="material-icons" key={"starRating" + i}>
+          grade
+        </span>
+      );
     }
     return result;
   };
@@ -99,20 +121,23 @@ const MeetItem = (props) => {
         <span>/</span>
         <span>{meet.meetTotal}</span>
       </div>
-      <div className="star-rating">
-        <div
-          className="star-rating-fill"
-          style={{ width: (meet.reviewStar / 5) * 100 + "%" }}
-        >
-          {starRating(meet.reviewStar)}
+      <div className="star-wrap">
+        <div className="star-rating">
+          <div
+            className="star-rating-fill"
+            style={{ width: (meet.reviewStar / 5) * 100 + "%" }}
+          >
+            {starRating(meet.reviewStar)}
+          </div>
+          <div className="star-rating-base">
+            <span className="material-icons">grade</span>
+            <span className="material-icons">grade</span>
+            <span className="material-icons">grade</span>
+            <span className="material-icons">grade</span>
+            <span className="material-icons">grade</span>
+          </div>
         </div>
-        <div className="star-rating-base">
-          <span className="material-icons">grade</span>
-          <span className="material-icons">grade</span>
-          <span className="material-icons">grade</span>
-          <span className="material-icons">grade</span>
-          <span className="material-icons">grade</span>
-        </div>
+        <div className="review-count">후기 {meet.reviewCount}</div>
       </div>
       <div className="MeetList-like-box">
         <span className="material-icons MeetList-like">favorite_border</span>

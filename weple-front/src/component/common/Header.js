@@ -4,6 +4,10 @@ import "./header.css";
 const Header = (props) => {
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
+  const logout = () => {
+    window.localStorage.removeItem("token");
+    setIsLogin(false);
+  };
   return (
     <div className="header">
       <div className="header-inner">
@@ -16,7 +20,9 @@ const Header = (props) => {
         </Link>
         {/* <span class="material-icons bar">maximize</span> */}
         <div className="logo">
-          <Link to="/">Weple</Link>
+          <Link to="/" onClick={logout}>
+            Weple
+          </Link>
         </div>
         <input
           className="searchFrm"
@@ -35,14 +41,21 @@ const Header = (props) => {
               <div className="icon-explain">모임</div>
             </Link>
           </div>
-          <div className="icon-wrap">
-            <Link to="/login">
-              <div className="material-icons login">login</div>
-              <div className="icon-explain">로그인</div>
-              {/* <div className="material-icons mypage">contact_page</div>
-              <div className="icon-explain">마이</div> */}
-            </Link>
-          </div>
+          {isLogin ? (
+            <div className="icon-wrap">
+              <Link to="/mypage">
+                <div className="material-icons mypage">contact_page</div>
+                <div className="icon-explain">마이</div>
+              </Link>
+            </div>
+          ) : (
+            <div className="icon-wrap">
+              <Link to="/login">
+                <div className="material-icons login">login</div>
+                <div className="icon-explain">로그인</div>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>
