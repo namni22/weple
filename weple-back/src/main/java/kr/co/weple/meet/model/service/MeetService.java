@@ -131,6 +131,30 @@ public class MeetService {
 		return map;
 	}
 
+	// 모임 카테고리 메뉴바 눌럿을때 모임 리스트 조회
+	public Map categoryMeetList(int reqPage, int meetCategory) {
+		// TODO Auto-generated method stub
+		// 게시물조회, 페이징에 필요한 데이터를 취합
+
+		int numPerPage = 12; // 한페이지당 게시물 수
+		int pageNaviSize = 5; // 페이지 네비게이션 길이
+		int totalCount = meetDao.totalCount();// 전체게시물수 구해오기
+		PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
+
+		// map으로 list와 pi 묶어서 리턴
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("pi", pi);
+		map.put("start", pi.getStart());
+		map.put("end", pi.getEnd());
+		map.put("meetCategory", meetCategory);
+
+		// 리스트조회 //pi 랑 meetCategory도 묶어서 보냄
+		List circleList = meetDao.categoryMeetList(map);
+		map.put("meetList", circleList);
+
+		return map;
+	}
+
 	//meet
 	public Meet selectOneMeet(int meetNo) {
 		// TODO Auto-generated method stub
@@ -166,6 +190,8 @@ public class MeetService {
 		List smallCategoryList = meetDao.smallCategoryList(category);
 		return smallCategoryList;
 	}
+
+
 
 	
 }

@@ -87,6 +87,16 @@
 		        ORDER BY 1 DESC)M)
 		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
+	<select id="categoryMeetList" resultType="meet">
+		SELECT * FROM
+		    (SELECT ROWNUM AS RNUM, M.* FROM
+		        (SELECT * 
+		        FROM MEET
+		        JOIN CATEGORY ON ( MEET_CATEGORY = CATEGORY_NO)
+		        WHERE MEET_TYPE = 1 AND CATEGORY_NO = #{meetCategory}
+		        ORDER BY 1 DESC)M)
+		WHERE RNUM BETWEEN #{start} AND #{end}
+	</select>
 	<!-- 모임번호를 받아 모임을 select -->
 	<select id="selectOneMeet" resultType="meet">
 		SELECT * FROM MEET WHERE MEET_NO = #{meetNo}
