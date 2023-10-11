@@ -10,7 +10,7 @@ const MeetList = () => {
   //const isLogin = props.isLogin;
 
   const [meetList, setMeetList] = useState([]);
-  const [reqPage, setReqPage] = useState(2); //처음에는 1페이지
+  const [reqPage, setReqPage] = useState(1); //처음에는 1페이지
   const [pagenfo, setPageInfo] = useState({});
   const location = useLocation();
   const [meetCategory, setmeetCategory] = useState(1);
@@ -19,12 +19,21 @@ const MeetList = () => {
 
   //카테고리 메뉴 조회해오기
   useEffect(() => {
+    setmeetCategory(bigCategoryNo);
+    axios
+      .get("/meet/selectSmallCategory/" + bigCategoryNo)
+      .then((res) => {
+        console.log(res.data);
+
+      })
+      .catch((res) => {
+        console.log("catch : " + res.response.status);
+      })
 
   }, []);
 
   // 모임 조회해오기
   useEffect(() => {
-    setmeetCategory(bigCategoryNo);
     axios
       .get("/meet/meetList/" + reqPage + "/" + meetCategory)
       .then((res) => {
@@ -41,7 +50,7 @@ const MeetList = () => {
   return (
     <div className="meetList-all-wrap">
       <div className="meetListCategori-area">
-        <div>대분류</div>
+        <div>주간인기30</div>
         <div>
           <ul>
             <li>전체</li>
