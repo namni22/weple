@@ -113,4 +113,4 @@ const FeedContent = (props) => {
     </div>
   );
 };
-export default FeedList;
+export { FeedContent, FeedList };

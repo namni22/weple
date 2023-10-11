@@ -24,7 +24,7 @@ const MeetList = () => {
     axios
       .get("/meet/selectSmallCategory/" + bigCategoryNo)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setSmallCategoryList(res.data);
         console.log("배열 하나 값 : " + res.data[1]);
       })
