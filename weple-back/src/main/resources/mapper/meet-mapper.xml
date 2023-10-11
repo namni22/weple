@@ -52,14 +52,14 @@
 		#{meetTotal}, 
 		#{meetMargin}, 
 		#{meetPrepare},
-		3, 
+		2, 
 		'주소1',
 		'주소2',
 		36,
 		126, 
 		#{meetThumbNail},
 		1,
-		'test99'
+		'pongo'
 
 		)
 	</insert>
