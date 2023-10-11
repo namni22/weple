@@ -1,5 +1,7 @@
 package kr.co.weple.member.model.vo;
 
+import java.util.List;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.AllArgsConstructor;
@@ -22,6 +24,6 @@ public class Member {
 	private String memberImage;
 	private int memberLike;
 	private int memberGrade;
-	private String memberCategory;
+	private List memberCategory;
 	private int memberMeet;
 }
