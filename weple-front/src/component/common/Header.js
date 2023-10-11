@@ -7,7 +7,7 @@ const Header = (props) => {
   return (
     <div className="header">
       <div className="header-inner">
-        <Link to="/category">
+        <Link to="/meet/category">
           <div className="icon-wrap">
             <div className="material-icons" id="category">
               menu
@@ -30,7 +30,7 @@ const Header = (props) => {
             </Link>
           </div>
           <div className="icon-wrap">
-            <Link to="/meet">
+            <Link to="/">
               <div className="material-icons meet">diversity_1</div>
               <div className="icon-explain">모임</div>
             </Link>

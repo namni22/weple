@@ -1,10 +1,14 @@
 package kr.co.weple.feed.controller;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +29,7 @@ public class FeedController {
 	@Value("${file.root}")
 	private String root;
 	
+	//피드작성
 	@PostMapping(value="/insert")
 	public int insert(
 			@ModelAttribute Feed f,
@@ -37,13 +42,22 @@ public class FeedController {
 		for(MultipartFile file : fImage) {				
 			String filename = file.getOriginalFilename();
 			String filepath = fileUtil.getFilepath(savepath, filename, file);
-			FImage fI = new FImage(); //파일 VO변수 생성
-			fI.setFImageName(filename); //파일이름세팅
-			imageList.add(fI); //배열에 추가
+			FImage fI = new FImage();
+			fI.setFImageName(filepath);
+			imageList.add(fI);
 		}
 		int result = feedService.insertFeed(f,imageList);
-		System.out.println(result);
 		return result;
+	}
+	
+	//피드출력
+	@GetMapping(value="/list/{start}/{end}")
+	public List list(
+			@PathVariable int start,
+			@PathVariable int end
+			) {
+		List feedList = feedService.feedList(start, end);
+		return feedList;
 	}
 
 }

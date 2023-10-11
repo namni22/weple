@@ -3,20 +3,30 @@ import "./meetList.css";
 import axios from "axios";
 // import { Pagination } from "@mui/material";
 import Pagination from "../common/Pagination";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 const MeetList = () => {
   //로그인상태 불러올곳 ( 모임생성버튼이 이곳에 있다면 버튼을 위해서 )
   //const isLogin = props.isLogin;
 
   const [meetList, setMeetList] = useState([]);
-  const [reqPage, setReqPage] = useState(1); //처음에는 1페이지
+  const [reqPage, setReqPage] = useState(2); //처음에는 1페이지
   const [pagenfo, setPageInfo] = useState({});
+  const location = useLocation();
+  const [meetCategory, setmeetCategory] = useState(1);
+  const bigCategoryNo = location.state.bigCategoryNo;
+  console.log("카테고리번호 : " + bigCategoryNo);
+
+  //카테고리 메뉴 조회해오기
+  useEffect(() => {
+
+  }, []);
 
   // 모임 조회해오기
   useEffect(() => {
+    setmeetCategory(bigCategoryNo);
     axios
-      .get("/meet/meetList/" + reqPage)
+      .get("/meet/meetList/" + reqPage + "/" + meetCategory)
       .then((res) => {
         console.log(res.data);
         setMeetList(res.data.meetList);
@@ -30,7 +40,14 @@ const MeetList = () => {
 
   return (
     <div className="meetList-all-wrap">
-      <div className="meetListCategori-area">카테고리</div>
+      <div className="meetListCategori-area">
+        <div>대분류</div>
+        <div>
+          <ul>
+            <li>전체</li>
+          </ul>
+        </div>
+      </div>
       <div className="meetList-area">
         {/* meetList db에서 받아온후 map으로 반복출력 예정 */}
         {/* props로 meet 정보 줄예정 */}
@@ -44,7 +61,6 @@ const MeetList = () => {
           setReqPage={setReqPage}
           pageInfo={pagenfo}
         />
-
       </div>
     </div>
   );
@@ -54,13 +70,11 @@ const MeetItem = (props) => {
   // 연주님께~  meet props로 전달해주시고 meetList 따로 select 해와서 map으로 반복 출력해주세요
   const meet = props.meet;
 
-  console.log(meet.meetThumbNail);
-
   const navigate = useNavigate();
 
   // 상세보기로 이동하는 함수
   const meetView = () => {
-    navigate("/meet/meetView", { state: { meetNo: meet.meetNo } }); //이동할곳 state로 데이터 전송
+    navigate("View", { state: { m: meet } }); //이동할곳 state로 데이터 전송
   };
   const starRating = (meetStar) => {
     const result = [];

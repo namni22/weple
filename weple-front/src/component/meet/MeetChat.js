@@ -1,7 +1,6 @@
 import FeedComment from "../feed/FeedComment";
 import { Button1 } from "../util/Button";
 import "./afterMeet.css";
-import { JwButton1 } from "./meetUtil/JwButton";
 
 const MeetChat = () => {
   return (
