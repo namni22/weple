@@ -50,7 +50,6 @@ const MemberList = (props) => {
   const handleClickSubmit = () => {
     setOpen(false);
   };
-
   const handleClickCancel = () => setOpen(false);
 
   const likeEvent = () => {

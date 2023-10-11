@@ -22,7 +22,7 @@ const MeetMain = () => {
         <Route path="category" element={<Category />} />
         <Route path="meetSettingFrm" element={<MeetSettingFrm />} />
         <Route path="meetCreate" element={<MeetCreate />}></Route>
-        <Route path="meetList/afterMeet/*" element={<MeetView />} />
+        <Route path="meetList/view/*" element={<MeetView />} />
       </Routes>
     </div>
   );
