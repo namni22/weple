@@ -13,7 +13,7 @@ const ToggleBoardView = (props) => {
     console.log("boardNo : " + boardNo);
     console.log("boardContent : " + boardContent);
     //console.log("BoardContentList : " + BoardContentList[0].boardContent);
-      
+
     BoardState = !BoardState;
     //BoardContentList.boardList[boardNo].boardContent;
     if (BoardState) {
@@ -22,7 +22,7 @@ const ToggleBoardView = (props) => {
         //innerDiv.innerText = ;
         var innerP = document.createElement('p');
         innerP.innerHTML = boardContent;
-       
+
 
         innerDiv.appendChild(innerP);
         document.getElementById("board-list-li-wrap").appendChild(innerDiv);
@@ -91,7 +91,7 @@ const BoardItem = (props) => {
     const board = props.board;
 
     return (
-        <div className="board-list-title-wrap" onClick={()=>ToggleBoardView(board)}>
+        <div className="board-list-title-wrap" onClick={() => ToggleBoardView(board)}>
             <div className="board-list-tab">
                 {board.boardType === 0 ? "공지사항" : (board.boardType === 1 ? "이벤트" : "FAQ")}
             </div>
