@@ -64,7 +64,12 @@ public class MeetController {
 		if(!meet.getMeetPrepareList().isEmpty()) {//준비물이 있다면
 			String newPrepare = "";
 			for(int i = 0 ; i<meet.getMeetPrepareList().size(); i++) {
-				newPrepare += "/"+(String) meet.getMeetPrepareList().get(i);
+				//마지막 준비물 추가면
+				if(i==meet.getMeetPrepareList().size()-1) {
+					newPrepare += (String) meet.getMeetPrepareList().get(i);
+					break;
+				}
+				newPrepare += (String) meet.getMeetPrepareList().get(i)+"/";
 				
 
 			}

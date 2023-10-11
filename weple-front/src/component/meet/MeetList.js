@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import "./meetList.css";
 import axios from "axios";
-import { Pagination } from "@mui/material";
+// import { Pagination } from "@mui/material";
+import Pagination from "../common/Pagination";
 import { useNavigate } from "react-router";
 
 const MeetList = () => {
@@ -45,6 +46,7 @@ const MeetList = () => {
           setReqPage={setReqPage}
           pageInfo={pagenfo}
         />
+
       </div>
     </div>
   );
