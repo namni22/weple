@@ -19,12 +19,12 @@ const MeetList = () => {
 
   //카테고리 메뉴 조회해오기
   useEffect(() => {
+    setmeetCategory(bigCategoryNo);
 
   }, []);
 
   // 모임 조회해오기
   useEffect(() => {
-    setmeetCategory(bigCategoryNo);
     axios
       .get("/meet/meetList/" + reqPage + "/" + meetCategory)
       .then((res) => {
