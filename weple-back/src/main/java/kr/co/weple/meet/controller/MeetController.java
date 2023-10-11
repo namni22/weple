@@ -59,7 +59,23 @@ public class MeetController {
 		) {
 		// @RequestAttribute String memberId 로 아이디 받아서 meet에 방장으로 추가 (토큰필요)
 		
-		System.out.println("텍스트 에디터 : "+meet.getMeetContentD());
+		
+		//구분자로 준비물 String으로 이어서 set
+		if(!meet.getMeetPrepareList().isEmpty()) {//준비물이 있다면
+			String newPrepare = "";
+			for(int i = 0 ; i<meet.getMeetPrepareList().size(); i++) {
+				//마지막 준비물 추가면
+				if(i==meet.getMeetPrepareList().size()-1) {
+					newPrepare += (String) meet.getMeetPrepareList().get(i);
+					break;
+				}
+				newPrepare += (String) meet.getMeetPrepareList().get(i)+"/";
+				
+
+			}
+			meet.setMeetPrepare(newPrepare);
+			
+		}
 		
 		String savepath = root + "meet/";
 
@@ -113,6 +129,12 @@ public class MeetController {
 		return meetService.selectOneMeet(meetNo);
 	}
 	
-	
+	//메인페이지에 참여인원 순 모임 조회
+	@GetMapping(value = "/meetMargin")
+	public List meetMargin() {
+		List list = meetService.meetMargin();
+		System.out.println(list);
+		return list;
+	}
 	
 }
