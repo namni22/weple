@@ -32,7 +32,7 @@ const MyMeetList = () => {
       <div className="myMeetList-btn-wrap">
         <Button1 text={"모임만들기"} clickEvent={create} />
       </div>
-      <div className="myMeetList-list-wrap">
+      <div>
         {myMeetList.map((myMeet, index) => {
           return <MyMeetItem key={"myMeet" + index} myMeet={myMeet} />;
         })}

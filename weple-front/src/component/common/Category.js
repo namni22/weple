@@ -1,11 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import "./category.css";
+import MeetCreate from "../meet/MeetCreate";
+import { MeetList } from "../meet/MeetList";
 const Category = () => {
   const bool = true;
   return (
     <div className="category-wrap">
       <div className="a">카테고리</div>
-      <Link to="/">
+      <Link to="/meetList">
         <div className="category">
           <img src="../img/category/sport.jpg"></img>
           <span>스포츠</span>
