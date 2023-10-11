@@ -61,7 +61,7 @@ const MeetingItem = (props) => {
   // console.log(meet.meetCaptain + " : " + meet.meetTitle+":"+meet.meetTotal);
   const handleChange = (event) => {
     const obj = { meetNo: meet.meetNo, meetType: event.target.value };
-    
+
     axios
       .post("/admin/changeMeetType", obj)
       .then((res) => {

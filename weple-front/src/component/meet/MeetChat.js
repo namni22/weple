@@ -1,13 +1,29 @@
+import { useEffect, useState } from "react";
 import FeedComment from "../feed/FeedComment";
 import { Button1 } from "../util/Button";
 import "./afterMeet.css";
+import axios from "axios";
 
+const MeetChat = (props) => {
+  const meet = props.myMeet;
+  console.log(meet.meetNo);
+  const [chat, setChat] = useState([]);
 
-const MeetChat = () => {
+  useEffect(() => {
+    axios
+      .get("/meet/meetChat/" + meet.meetNo)
+      .then((res) => {
+        console.log(res.data);
+        setChat(res.data.meetChat);
+      })
+      .catch((res) => {
+        console.log(res.response.status);
+      });
+  }, []);
   return (
     <>
       <div className="meetChat-chat-wrap">
-        <div className="meetChat-chat">--등록된 메세지가 없습니다.--</div>
+        <div className="meetChat-chat"></div>
       </div>
       <div className="meetChat-all-wrap">
         <ul>

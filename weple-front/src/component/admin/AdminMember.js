@@ -8,11 +8,13 @@ import Pagination from "../common/Pagination";
 import Input from "../util/InputFrm";
 import { Button1 } from "../util/Button";
 import { useNavigate } from "react-router-dom";
+import { setMaxListeners } from "events";
 const AdminMember = () => {
   const [memberList, setMemberList] = useState([]);
   const [pageInfo, setPageInfo] = useState({});
   const [reqPage, setReqPage] = useState(1);
   const [memberId, setMemberId] = useState("");
+  const [search, setSearch] = useState("");
   useEffect(() => {
     axios
       .get("/admin/memberList/" + reqPage)
@@ -25,7 +27,45 @@ const AdminMember = () => {
         //console.log(res);
       });
   }, [reqPage]);
+  const onChangeSearch = (e) => {
+    const memberId = { memberId: e.target.value };
+    console.log(memberId);
 
+    axios
+      .get("/admin/searchId", memberId)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data === 1) {
+          setMemberId(e.target.value);
+        } else {
+          Swal.fire("변경 중 문제가 발생했습니다.");
+        }
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+
+  }
+  const onSearch = (e) => {
+    // const memberIdInputValue = document.querySelector("#memberId");
+    // const memberId = memberIdInputValue.value;
+    // // console.log(e.currentTarget.value);
+    // axios
+    //   .get("/admin/searchId", memberId)
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     if (res.data === 1) {
+    //       setMemberId(e.target.value);
+
+    //     } else {
+    //       Swal.fire("변경 중 문제가 발생했습니다.");
+    //     }
+    //   })
+    //   .catch((res) => {
+    //     console.log(res);
+    //   });
+
+  }
   return (
     <div className="admin-member-wrap">
       <div className="admin-member-top">
@@ -37,7 +77,7 @@ const AdminMember = () => {
             <Input type="text" data={memberId} setData={setMemberId} content="memberId" placeholder="아이디를 입력해주세요" />
           </div>
           <div className="admin-member-search-button">
-            <Button1 text="검색" />
+            <Button1 text="검색" clickEvent={onSearch} />
           </div>
         </div>
         <div className="admin-member-tbl-box">

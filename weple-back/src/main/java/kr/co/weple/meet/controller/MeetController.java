@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.weple.FileUtil;
 import kr.co.weple.meet.model.service.MeetService;
+import kr.co.weple.meet.model.vo.Chat;
 import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.meet.model.vo.Meet;
 
@@ -114,9 +115,10 @@ public class MeetController {
 		int result = meetService.updateEnrollMember(enroll.getMemberNo());
 		return result;
 	}
-	@GetMapping(value = "/meetList/{reqPage}")
-	public Map meetList(@PathVariable int reqPage) {
-
+	//모임 리스트 조회
+	@GetMapping(value = "/meetList/{reqPage}/{meetCategory}")
+	public Map meetList(@PathVariable int reqPage, @PathVariable int meetCategory) {
+		System.out.println("모임 카테고리 번호 : "+meetCategory);
 		//이미 meetList를 쓰고 있어서 바꿈
 		Map map = meetService.circleList(reqPage);
 
@@ -133,8 +135,21 @@ public class MeetController {
 	@GetMapping(value = "/meetMargin")
 	public List meetMargin() {
 		List list = meetService.meetMargin();
-		System.out.println(list);
 		return list;
 	}
 	
+	//메인페이지에 인기순 모임조회
+		@GetMapping(value = "/meetPopular")
+		public List meetPopular() {
+			List list = meetService.meetPopular();
+			return list;
+		}
+		
+	//meet챗팅 조회
+	@GetMapping(value = "/meetChat/{meetNo}")
+	public List meetChat(@PathVariable int meetNo) {
+		System.out.println("meetNo : "+ meetNo);
+		List meetChat = meetService.meetChatList(meetNo);
+		return meetChat;
+	}
 }

@@ -101,12 +101,39 @@
 	<update id="updateEnrollMember">
 		update follower set follower_status=1 where member_NO=#{memberId}
 	</update>
-	<select id="meetMargin" resultType="meet">
-	select Meet_no, MEET_THUMBNAIL, meet_title, meet_total, meet_margin,
-	nvl((select avg(NVL(review_star, 0)) from review r where r.meet_no = m.meet_no),0) review_star
-	from meet m
-	</select>
 	
-
+	<!-- 마감임박 모임 조회 -->
+	<select id="meetMargin" resultType="meet">
+	<![CDATA[ 
+	select * 
+	from (select Meet_no, MEET_THUMBNAIL, meet_title, meet_total, meet_margin,
+	    NVL((select avg(NVL(review_star, 0)) 
+	        from review r 
+	        where r.meet_no = m.meet_no),0) review_star,
+	        (select count(meet_no)
+	        from review r
+	        where r.meet_no = m.meet_no) review_count 
+	    from meet m where meet_type = 1 order by meet_margin desc) 
+	where rownum<=12 order by meet_margin desc,review_star desc
+	]]>
+	</select>
+	<select id="meetChatList" resultType="chat">
+		select * from chat
+	</select>
+	<!--메인페이지에 인기순 모임조회 -->
+	<select id="meetPopular" resultType="meet">
+	<![CDATA[ 
+	select * 
+	from (select meet_no, meet_thumbnail, meet_title, meet_total, meet_margin,
+	    NVL((select avg(NVL(review_star, 0))
+	        from review r
+	        where r.meet_no = m.meet_no),0) review_star,
+	     (select count(meet_no)
+	        from review r
+	        where r.meet_no = m.meet_no) review_count 
+	    from meet m where meet_type = 1 order by review_star desc, review_count desc) 
+	where rownum<=12
+	]]>
+	</select>
 
 </mapper>

@@ -72,6 +72,7 @@ const JoinFrm = (props) => {
     const subInfo = sub.options[sub.selectedIndex];
     const subInfoList = [...subInformation];
     subInfoList.push(subInfo); // <option value="3">구기스포츠</option>
+    console.log(subInfoList);
 
     const emptyArr = [];
     setSubCategory([...emptyArr]);
@@ -95,19 +96,21 @@ const JoinFrm = (props) => {
           }
           setSubInformation(newSubInfoList);
           setSubTag(newSubTagList); //최종 출력되는 list
-          setMemberCategory(newSubValueList);
+          const cate = newSubValueList.join();
+          setMemberCategory(cate);
+
           main.options[0].selected = true;
           sub.options[0].selected = true;
           sub.style.display = "none";
         }
         //5개 이상 선택된 경우
         else {
-          alert("카테고리는 5개까지 선택가능합니다.");
+          Swal.fire("5개까지 선택가능합니다.");
           return;
         }
         //이미 값이 있는 경우
       } else {
-        alert("이미 선택된 카테고리입니다.");
+        Swal.fire("이미 선택된 카테고리입니다.");
       }
     });
   };
@@ -196,8 +199,8 @@ const JoinFrm = (props) => {
     console.log(memberGender);
     console.log(memberBirth);
     console.log(memberEmail);
-    console.log(memberImage);
     console.log(memberCategory);
+    console.log(profileImg);
     const member = {
       memberId,
       memberPw,
@@ -206,13 +209,11 @@ const JoinFrm = (props) => {
       memberGender,
       memberBirth,
       memberEmail,
-      memberImage,
     };
 
     if (
       memberId !== "" &&
       memberPw !== "" &&
-      memberPwRe !== "" &&
       memberName !== "" &&
       memberPhone !== "" &&
       memberGender !== "" &&
@@ -228,8 +229,15 @@ const JoinFrm = (props) => {
       form.append("memberGender", memberGender);
       form.append("memberBirth", memberBirth);
       form.append("memberEmail", memberEmail);
-      form.append("memberImage", memberImage);
+      /*
+      let memberCategoryStr = "";
+      for (let i = 0; i < memberCategory.length; i++) {
+        memberCategoryStr = memberCategory[i] + "/";
+        memberCategoryStr+=;
+      }
+      */
       form.append("memberCategory", memberCategory);
+      form.append("profileImg", profileImg);
 
       axios
         .post("/member/join", form, {
@@ -241,7 +249,7 @@ const JoinFrm = (props) => {
         .then((res) => {
           console.log(res.data);
           if (res.data > 0) {
-            Swal.fire("회원가입 완료!😆");
+            Swal.fire("회원가입 완료!");
             navigate("/login");
           }
         })

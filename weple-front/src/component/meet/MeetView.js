@@ -34,7 +34,7 @@ const MeetView = () => {
           path="enrollMeetMember"
           element={<EnrollMeetMember myMeet={myMeet} />}
         />
-        <Route path="meetChat" element={<MeetChat />} />
+        <Route path="meetChat" element={<MeetChat myMeet={myMeet} />} />
         <Route path="meetCalendar" element={<MeetCalendar />} />
         <Route path="meetList" element={<MeetMemberList myMeet={myMeet} />} />
         <Route path="*" element={<MeetInfo />} />
@@ -121,5 +121,4 @@ const AfterMeetSubNavi = (props) => {
     </div>
   );
 };
-
 export default MeetView;

@@ -10,17 +10,23 @@ const MeetList = () => {
   //const isLogin = props.isLogin;
 
   const [meetList, setMeetList] = useState([]);
-  const [reqPage, setReqPage] = useState(1); //처음에는 1페이지
+  const [reqPage, setReqPage] = useState(2); //처음에는 1페이지
   const [pagenfo, setPageInfo] = useState({});
   const location = useLocation();
-  const [categoryNo, setCategoryNo] = useState(0);
+  const [meetCategory, setmeetCategory] = useState(1);
   const bigCategoryNo = location.state.bigCategoryNo;
   console.log("카테고리번호 : " + bigCategoryNo);
 
+  //카테고리 메뉴 조회해오기
+  useEffect(() => {
+
+  }, []);
+
   // 모임 조회해오기
   useEffect(() => {
+    setmeetCategory(bigCategoryNo);
     axios
-      .get("/meet/meetList/" + reqPage)
+      .get("/meet/meetList/" + reqPage + "/" + meetCategory)
       .then((res) => {
         console.log(res.data);
         setMeetList(res.data.meetList);
