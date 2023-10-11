@@ -119,7 +119,7 @@ public class MeetService {
 		List circleList = meetDao.selectCircleList(pi);
 		//별점 조회 해오기
 //		List starRate = meetDao.selectMeetStarRate(pi);
-		System.out.println("모임 : "+circleList);
+		
 		if(circleList.size()>0) {//조회한 리스트가 존재한다면
 			for(int i = 0 ; i<circleList.size(); i ++) {
 				System.out.println("모임"+circleList.get(i));
