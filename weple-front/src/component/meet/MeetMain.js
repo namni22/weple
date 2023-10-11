@@ -5,7 +5,7 @@ import MeetCreate from "./MeetCreate";
 import { MeetList } from "./MeetList";
 import { useState } from "react";
 import Category from "../common/Category";
-import MeetView from "./MeetView";
+import MeetView from "./cc";
 
 const MeetMain = () => {
   const aa = "";

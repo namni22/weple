@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import EnrollMeetMember from "./EnrollMeetMember";
 
 const MeetView = () => {
-  const bb = "";
+  const cc = "";
   const location = useLocation();
   const [myMeet, setMyMeet] = useState({});
 
