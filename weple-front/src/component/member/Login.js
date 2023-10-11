@@ -11,6 +11,11 @@ const Login = (props) => {
   const [memberId, setMemberId] = useState("");
   const [memberPw, setMemberPw] = useState("");
   const navigate = useNavigate();
+  const enterEvent = (e) => {
+    if (e.key === "Enter") {
+      login();
+    }
+  };
 
   const login = () => {
     const member = { memberId, memberPw };
