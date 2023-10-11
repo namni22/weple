@@ -23,7 +23,7 @@ const Main = () => {
         delButton={false}
       />
       {/* 비로그인 */}
-      <MeetMain meetSet={"meetMargin"} meetTitle={"주간 인기 TOP 30 👑"} />
+      <MeetMain meetSet={"meetPopular"} meetTitle={"주간 인기 TOP 30 👑"} />
       <MeetMain meetSet={"meetMargin"} meetTitle={"마감임박!"} />
       <MeetMain meetSet={"meetMargin"} meetTitle={"신규개설"} />
       {/* 로그인 */}
