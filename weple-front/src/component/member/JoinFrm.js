@@ -2,8 +2,12 @@ import { useEffect, useState } from "react";
 import Input from "../util/InputFrm";
 import { Button1, Button2 } from "../util/Button";
 import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const JoinFrm = (props) => {
+  const navigate = useNavigate();
+
   const [memberId, setMemberId] = useState("");
   const [memberName, setMemberName] = useState("");
   const [memberPw, setMemberPw] = useState("");
@@ -13,7 +17,7 @@ const JoinFrm = (props) => {
   const [memberBirth, setMemberBirth] = useState("");
   const [memberGender, setMemberGender] = useState("");
   const [memberImage, setMemberImage] = useState("");
-  const [memberCategory, setMemberCategory] = useState("");
+  const [memberCategory, setMemberCategory] = useState([]);
   const [profileImg, setProfileImg] = useState(null);
   const [checkIdMsg, setCheckIdMsg] = useState("");
   const [checkPwMsg, setCheckPwMsg] = useState("");
@@ -24,7 +28,9 @@ const JoinFrm = (props) => {
   const [subCategory, setSubCategory] = useState([]);
   const [categoryNo, setCategoryNo] = useState(null);
   const [selected, setSelected] = useState();
+  const [subInformation, setSubInformation] = useState([]);
   const [subTag, setSubTag] = useState([]);
+  const [subValue, setSubValue] = useState([]);
 
   useEffect(() => {
     axios
@@ -63,24 +69,33 @@ const JoinFrm = (props) => {
   // 서브 카테고리 선택 시 텍스트 출력 함수
   const printSelect = () => {
     const sub = document.getElementById("sub-category");
-    const subText = sub.options[sub.selectedIndex].text;
-    const subTagList = [...subTag];
-    subTagList.push(subText); //기타, 구기스포츠
+    const subInfo = sub.options[sub.selectedIndex];
+    const subInfoList = [...subInformation];
+    subInfoList.push(subInfo); // <option value="3">구기스포츠</option>
+
     const emptyArr = [];
     setSubCategory([...emptyArr]);
+    const newSubInfoList = [];
     const newSubTagList = [];
+    const newSubValueList = [];
     const main = document.getElementById("main-category");
     const mainName = main.options[main.selectedIndex].innerText;
-    subTagList.forEach((item) => {
-      if (!newSubTagList.includes(item)) {
+    subInfoList.forEach((item) => {
+      if (!newSubInfoList.includes(item)) {
         //태그가 처음 선택된 경우
-        if (newSubTagList.length < 5) {
-          if (item === "기타") {
+        if (newSubInfoList.length < 5) {
+          if (item.text === "기타") {
+            newSubInfoList.push(item);
             newSubTagList.push(mainName);
+            newSubValueList.push(item.value);
           } else {
-            newSubTagList.push(item);
+            newSubInfoList.push(item);
+            newSubTagList.push(item.text);
+            newSubValueList.push(item.value);
           }
+          setSubInformation(newSubInfoList);
           setSubTag(newSubTagList); //최종 출력되는 list
+          setMemberCategory(newSubValueList);
           main.options[0].selected = true;
           sub.options[0].selected = true;
           sub.style.display = "none";
@@ -167,7 +182,33 @@ const JoinFrm = (props) => {
     }
   };
 
+  const clickRadio = (e) => {
+    console.log(e.target.value);
+    setMemberGender(e.target.value);
+  };
+
+  // 회원가입 insert
   const join = () => {
+    console.log(memberId);
+    console.log(memberPw);
+    console.log(memberName);
+    console.log(memberPhone);
+    console.log(memberGender);
+    console.log(memberBirth);
+    console.log(memberEmail);
+    console.log(memberImage);
+    console.log(memberCategory);
+    const member = {
+      memberId,
+      memberPw,
+      memberName,
+      memberPhone,
+      memberGender,
+      memberBirth,
+      memberEmail,
+      memberImage,
+    };
+
     if (
       memberId !== "" &&
       memberPw !== "" &&
@@ -187,9 +228,31 @@ const JoinFrm = (props) => {
       form.append("memberGender", memberGender);
       form.append("memberBirth", memberBirth);
       form.append("memberEmail", memberEmail);
-      form.append("profileImg", profileImg);
+      form.append("memberImage", memberImage);
+      form.append("memberCategory", memberCategory);
+
+      axios
+        .post("/member/join", form, {
+          headers: {
+            contentType: "multipart/form-data",
+            processData: false,
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+          if (res.data > 0) {
+            Swal.fire("회원가입 완료!😆");
+            navigate("/login");
+          }
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    } else {
+      Swal.fire("입력값을 확인하세요.");
     }
   };
+
   return (
     <div className="joinFrm">
       <div className="joinFrm-content">
@@ -255,9 +318,23 @@ const JoinFrm = (props) => {
               </label>
             </div>
             <div className="input">
-              <input type="radio" value="M" id="male" name="memberGender" />
+              <input
+                type="radio"
+                value="M"
+                id="male"
+                name="memberGender"
+                checked={memberGender === "M"}
+                onChange={clickRadio}
+              />
               <label htmlFor="male">남자</label>
-              <input type="radio" value="F" id="female" name="memberGender" />
+              <input
+                type="radio"
+                value="F"
+                id="female"
+                name="memberGender"
+                checked={memberGender === "F"}
+                onChange={clickRadio}
+              />
               <label htmlFor="female">여자</label>
             </div>
           </div>
