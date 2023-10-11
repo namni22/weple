@@ -106,7 +106,9 @@
 	nvl((select avg(NVL(review_star, 0)) from review r where r.meet_no = m.meet_no),0) review_star
 	from meet m
 	</select>
-	
+	<select id="meetChatList" resultType="chat">
+		select * from chat
+	</select>
 
 
 </mapper>

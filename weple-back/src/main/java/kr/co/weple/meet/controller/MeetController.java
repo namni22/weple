@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.weple.FileUtil;
 import kr.co.weple.meet.model.service.MeetService;
+import kr.co.weple.meet.model.vo.Chat;
 import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.meet.model.vo.Meet;
 
@@ -137,5 +138,11 @@ public class MeetController {
 		System.out.println(list);
 		return list;
 	}
-	
+	//meet챗팅 조회
+	@GetMapping(value = "/meetChat/{meetNo}")
+	public List meetChat(@PathVariable int meetNo) {
+		System.out.println("meetNo : "+ meetNo);
+		List meetChat = meetService.meetChatList(meetNo);
+		return meetChat;
+	}
 }

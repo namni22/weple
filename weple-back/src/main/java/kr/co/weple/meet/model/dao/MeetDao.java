@@ -40,4 +40,6 @@ public interface MeetDao {
 	//메인페이지에 참여인원 순 모임 조회
 	List meetMargin();
 
+	List meetChatList(int meetNo);
+
 }

@@ -157,5 +157,10 @@ public class MeetService {
 		return list;
 	}
 
+	public List meetChatList(int meetNo) {
+		List meetChat = meetDao.meetChatList(meetNo);
+		return meetChat;
+	}
+
 	
 }
