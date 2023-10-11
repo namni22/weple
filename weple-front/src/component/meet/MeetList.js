@@ -60,6 +60,13 @@ const MeetItem = (props) => {
   const meetView = () => {
     navigate("/meet/meetView", { state: { meetNo: meet.meetNo } }); //이동할곳 state로 데이터 전송
   };
+  const starRating = (meetStar) => {
+    const result = [];
+    for (let i = 0; i < Math.ceil(meetStar); i++) {
+      result.push(<span className="material-icons">grade</span>);
+    }
+    return result;
+  };
 
   return (
     <div className="meet-one" onClick={meetView}>
