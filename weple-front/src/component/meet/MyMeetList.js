@@ -25,18 +25,14 @@ const MyMeetList = () => {
   const navigate = useNavigate();
   const create = () => {
     navigate("../meetCreate");
-  }
+  };
 
   return (
-    <div>
-      <div>내가 개설한 모임 리스트 출력하는 페이지</div>
-      <div>
+    <div className="myMeetList-all-wrap">
+      <div className="myMeetList-btn-wrap">
         <Button1 text={"모임만들기"} clickEvent={create} />
       </div>
-      <div>
-        {/*
-        <Link to="afterMeet">리스트 있다가정하고</Link>
-         */}
+      <div className="myMeetList-list-wrap">
         {myMeetList.map((myMeet, index) => {
           return <MyMeetItem key={"myMeet" + index} myMeet={myMeet} />;
         })}
@@ -61,10 +57,29 @@ const MyMeetItem = (props) => {
           navigate("afterMeet", { state: { mm: myMeet } });
         }}
       >
-        {myMeet.meetTitle}
-        {/*
-        <Link to="afterMeet">{myMeet.meetTitle}</Link>
-        */}
+        <div className="meet-one">
+          <div className="MeetList-meet-img-box">
+            <img src={"/meet/" + myMeet.meetThumbNail}></img>
+          </div>
+          <div className="MeetList-meetTitle">
+            <span>{myMeet.meetTitle}</span>
+          </div>
+          <div className="">
+            <span>인원 : </span>
+            <span>{myMeet.meetTotal - myMeet.meetMargin}</span>
+            <span>/</span>
+            <span>{myMeet.meetTotal}</span>
+          </div>
+          <div className="MeetList-star">
+            <span>별점 </span>
+            <span className="material-icons">star_rate</span>
+          </div>
+          <div className="MeetList-like-box">
+            <span className="material-icons MeetList-like">
+              favorite_border
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );
