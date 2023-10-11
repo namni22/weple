@@ -29,6 +29,6 @@ public class Meet {
 	private String meetCaptain;
 	
 	//모임 별점을위해 추가한 변수
-	private int meetStar;
+	private int reviewStar;
 
 }
