@@ -54,6 +54,7 @@ const Login = (props) => {
             setData={setMemberPw}
             content="memberPw"
             placeholder="비밀번호"
+            enter={enterEvent}
           />
         </div>
         <div className="login-btn-box">
