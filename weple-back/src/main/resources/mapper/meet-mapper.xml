@@ -83,7 +83,7 @@
 		        (SELECT * 
 		        FROM MEET
 		        JOIN CATEGORY ON ( MEET_CATEGORY = CATEGORY_NO)
-		        WHERE MEET_TYPE = 1 AND CATEGORY_REF_NO = 14
+		        WHERE MEET_TYPE = 1 AND CATEGORY_REF_NO = #{meetCategory}
 		        ORDER BY 1 DESC)M)
 		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>

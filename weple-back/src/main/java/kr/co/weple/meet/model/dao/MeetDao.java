@@ -35,7 +35,7 @@ public interface MeetDao {
 
 	int updateEnrollMember(int memberNo);
 	//meetList겹쳐서 새로 만듬
-	List selectCircleList(PageInfo pi);
+	List selectCircleList(HashMap<String, Object> map);
 
 	Meet selectOneMeet(int meetNo);
 

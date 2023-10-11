@@ -106,7 +106,7 @@ public class MeetService {
 		return meetDao.updateEnrollMember(memberNo);
 	}
 
-	public Map circleList(int reqPage) {
+	public Map circleList(int reqPage, int meetCategory) {
 		// TODO Auto-generated method stub
 		
 		// 게시물조회, 페이징에 필요한 데이터를 취합
@@ -115,16 +115,17 @@ public class MeetService {
 		int pageNaviSize = 5; // 페이지 네비게이션 길이
 		int totalCount = meetDao.totalCount();// 전체게시물수 구해오기
 		PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
-
-		// 리스트조회
-		List circleList = meetDao.selectCircleList(pi);
-		//별점 조회 해오기
-
 		
 		//map으로 list와 pi 묶어서 리턴
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("meetList", circleList);
 		map.put("pi", pi);
+		map.put("start", pi.getStart());
+		map.put("end", pi.getEnd());
+		map.put("meetCategory",meetCategory);
+
+		// 리스트조회 //pi 랑 meetCategory도 묶어서 보냄
+		List circleList = meetDao.selectCircleList(map);
+		map.put("meetList", circleList);
 		
 		
 		return map;

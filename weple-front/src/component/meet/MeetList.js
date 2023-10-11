@@ -18,6 +18,7 @@ const MeetList = () => {
 
   const location = useLocation();
   const bigCategoryNo = location.state.bigCategoryNo;
+  console.log("대분류 카테고리번호 : " + bigCategoryNo);
 
   //카테고리 메뉴 조회해오기
   useEffect(() => {
@@ -27,7 +28,7 @@ const MeetList = () => {
       .then((res) => {
         // console.log(res.data);
         setSmallCategoryList(res.data);
-        console.log("배열 하나 값 : " + res.data[1]);
+        console.log("배열 하나 값 : " + res.data[0]);
       })
       .catch((res) => {
         console.log("catch : " + res.response.status);

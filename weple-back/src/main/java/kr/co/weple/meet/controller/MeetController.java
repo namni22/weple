@@ -131,7 +131,7 @@ public class MeetController {
 	public Map meetList(@PathVariable int reqPage, @PathVariable int meetCategory) {
 		System.out.println("모임 카테고리 번호 : "+meetCategory);
 		//이미 meetList를 쓰고 있어서 바꿈
-		Map map = meetService.circleList(reqPage);
+		Map map = meetService.circleList(reqPage,meetCategory);
 
 		return map;
 	}
