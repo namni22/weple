@@ -7,7 +7,11 @@
 	</select>
 		
 	<select id="categoryList" resultType="category">
-		select * from category
+		select * from category where category_ref_no is null
+	</select>
+	
+	<select id="subCategory" resultType="category">
+		select * from category where category_ref_no=#{categoryNo}
 	</select>
 
 </mapper>

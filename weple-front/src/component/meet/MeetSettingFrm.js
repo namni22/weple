@@ -1,9 +1,8 @@
 import "./meetSettingFrm.css";
-import JwInput from "./meetUtil/JwInputFrm";
-import { JwButton1 } from "../meet/meetUtil/JwButton";
+
 import { Button1, Button2 } from "../util/Button";
 import TextEditor from "../util/TextEditor";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import Input from "../util/InputFrm";
 
@@ -11,8 +10,8 @@ const MeetSettingFrm = (props) => {
     // 모임만들 정보 선언 //create에서 받음 // update에서 받을예정
     const meetTitle = props.meetTitle;
     const setMeetTitle = props.setMeetTitle;
-    const meetMaterials = props.meetMaterials;
-    const setMeetMaterials = props.setMeetMaterials;
+    // const meetMaterials = props.meetMaterials;
+    // const setMeetMaterials = props.setMeetMaterials;
     const meetContentS = props.meetContentS;
     const setMeetContentS = props.setMeetContentS;
     const meetContentD = props.meetContentD;
@@ -28,6 +27,12 @@ const MeetSettingFrm = (props) => {
     //썸네일 미리보기용
     const meetThumbnailPreview = props.meetThumbnailPreview;
     const setMeetThumbnailPreview = props.setMeetThumbnailPreview;
+
+    // 준비물 리스트 추가용
+    const meetPrepare = props.meetPrepare
+    const setMeetPrepare = props.setMeetPrepare
+    const meetPrepareList = props.meetPrepareList;
+    const setMeetPrepareList = props.setMeetPrepareList;
 
     const buttonEvent = props.buttonEvent;
 
@@ -64,6 +69,22 @@ const MeetSettingFrm = (props) => {
         console.log(e.currentTarget.value);
         setMeetTotal(e.currentTarget.value)
     }
+
+    // 준비물 추가버튼 눌럿을때 작동하는 함수
+    const meetPrepareAdd = () => {
+        if (meetPrepare !== "") {//준비물 input이 빈칸이 아닐때만 추가
+            const meetPrepare2 = document.querySelector("#meetPrepare").value
+            setMeetPrepare(meetPrepare2)
+            console.log("추가한 준비물 : " + meetPrepare2);
+            const newArr = [...meetPrepareList];//깊은복사해서
+            newArr.push(meetPrepare2);
+            setMeetPrepareList(newArr);
+            setMeetPrepare("");//준비물 input 비워주기
+            console.log(meetPrepareList);
+
+        }
+
+    };
 
     return (
         <div className="meetSettingFrm-main-wrap">
@@ -169,18 +190,26 @@ const MeetSettingFrm = (props) => {
                         <div className="meetMaterials-input-box">
                             <Input
                                 type="text"
-                                data={meetMaterials}
-                                setData={setMeetMaterials}
-                                content="meetTitleFrm"
+                                data={meetPrepare}
+                                setData={setMeetPrepare}
+                                content="meetPrepare"
                             ></Input>
                         </div>
                         <div className="meetMaterialsInsert-btn-box">
-                            <Button2 text="추가"></Button2>
+                            <Button2 text="추가" clickEvent={meetPrepareAdd}></Button2>
                         </div>
                         <div className="meetMaterials-wrap">
-                            <div className="meetMaterials-one">준비물1</div>
-                            <div className="meetMaterials-one">준비물2</div>
-                            <div className="meetMaterials-one">준비물3</div>
+                            <ul>
+                                <li className="meetMaterials-one">준비물1</li>
+                                <li className="meetMaterials-one">준비물2</li>
+                                <li className="meetMaterials-one">준비물3</li>
+                            </ul>
+                            {meetPrepareList.map((meetPrepare, index) => {
+                                return (
+                                    <div key={"meetPrepare" + index} className="meetMaterials-one">{meetPrepare}</div>
+                                )
+                            })}
+
                         </div>
                     </div>
                 </div>

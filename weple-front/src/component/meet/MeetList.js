@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
 import "./meetList.css";
 import axios from "axios";
-import { Pagination } from "@mui/material";
-import { useNavigate } from "react-router";
+// import { Pagination } from "@mui/material";
+import Pagination from "../common/Pagination";
+import { useLocation, useNavigate } from "react-router";
 
 const MeetList = () => {
-
   //로그인상태 불러올곳 ( 모임생성버튼이 이곳에 있다면 버튼을 위해서 )
   //const isLogin = props.isLogin;
 
   const [meetList, setMeetList] = useState([]);
   const [reqPage, setReqPage] = useState(1); //처음에는 1페이지
   const [pagenfo, setPageInfo] = useState({});
+  const location = useLocation();
+  const [categoryNo, setCategoryNo] = useState(0);
+  const bigCategoryNo = location.state.bigCategoryNo;
+  console.log("카테고리번호 : " + bigCategoryNo);
 
+  // 모임 조회해오기
   useEffect(() => {
     axios
       .get("/meet/meetList/" + reqPage)
@@ -25,17 +30,23 @@ const MeetList = () => {
       .catch((res) => {
         console.log("catch : " + res.response.status);
       });
-  }, []);
-
+  }, [reqPage]);
 
   return (
     <div className="meetList-all-wrap">
-      <div className="meetListCategori-area">카테고리</div>
+      <div className="meetListCategori-area">
+        <div>대분류</div>
+        <div>
+          <ul>
+            <li>전체</li>
+          </ul>
+        </div>
+      </div>
       <div className="meetList-area">
         {/* meetList db에서 받아온후 map으로 반복출력 예정 */}
         {/* props로 meet 정보 줄예정 */}
         {meetList.map((meet, index) => {
-          return <MeetItem key={"meet" + index} meet={meet} />
+          return <MeetItem key={"meet" + index} meet={meet} />;
         })}
       </div>
       <div className="meetList-page-area">
@@ -53,21 +64,27 @@ const MeetItem = (props) => {
   // 연주님께~  meet props로 전달해주시고 meetList 따로 select 해와서 map으로 반복 출력해주세요
   const meet = props.meet;
 
-  console.log(meet.meetThumbNail);
+
 
   const navigate = useNavigate();
 
-
   // 상세보기로 이동하는 함수
   const meetView = () => {
-    navigate("/meet/meetView", { state: { meetNo: meet.meetNo } }); //이동할곳 state로 데이터 전송
-  }
+    navigate("afterMeet", { state: { m: meet } }); //이동할곳 state로 데이터 전송
+  };
+  const starRating = (meetStar) => {
+    const result = [];
+    for (let i = 0; i < Math.ceil(meetStar); i++) {
+      result.push(<span className="material-icons">grade</span>);
+    }
+    return result;
+  };
 
   return (
     <div className="meet-one" onClick={meetView}>
       <div className="MeetList-meet-img-box">
         {/* <img src="/img/main_1.jpg"></img> */}
-        <img src={meet.meetThumbNail}></img>
+        <img src={"/meet/" + meet.meetThumbNail}></img>
       </div>
       <div className="MeetList-meetTitle">
         <span>{meet.meetTitle}</span>
@@ -78,15 +95,26 @@ const MeetItem = (props) => {
         <span>/</span>
         <span>{meet.meetTotal}</span>
       </div>
-      <div className="MeetList-star">
-        <span>별점 </span>
-        <span className="material-icons">star_rate</span>
+      <div className="star-rating">
+        <div
+          className="star-rating-fill"
+          style={{ width: (meet.reviewStar / 5) * 100 + "%" }}
+        >
+          {starRating(meet.reviewStar)}
+        </div>
+        <div className="star-rating-base">
+          <span className="material-icons">grade</span>
+          <span className="material-icons">grade</span>
+          <span className="material-icons">grade</span>
+          <span className="material-icons">grade</span>
+          <span className="material-icons">grade</span>
+        </div>
       </div>
       <div className="MeetList-like-box">
         <span className="material-icons MeetList-like">favorite_border</span>
       </div>
     </div>
   );
-}
+};
 
 export { MeetList, MeetItem };

@@ -6,4 +6,37 @@
 		(board_seq.nextval,#{boardType},#{boardTitle},#{boardContent},
 		sysdate,#{boardWriter})
 	</insert>
+	<select id="totalCount" resultType="int">
+		select count(*) from board 
+	</select>
+	<select id="selectBoardList" resultType="board">
+		SELECT * FROM
+			(SELECT ROWNUM AS RNUM, B.* FROM
+			    (SELECT 
+			        BOARD_NO,
+                    BOARD_TYPE,
+			        BOARD_TITLE,
+			        BOARD_CONTENT,
+			        BOARD_WRITER,
+			        MEMBER_ID,
+			        BOARD_DATE
+			    FROM BOARD
+			    JOIN MEMBER ON (BOARD_WRITER = MEMBER_ID)
+			    WHERE BOARD_TYPE=0
+			    ORDER BY 1 DESC)B)
+		WHERE RNUM BETWEEN #{start} and #{end}
+	</select>
+	<select id ="selectOneBoard" resultType="board">
+		select
+			  BOARD_NO,
+              BOARD_TYPE,
+			  BOARD_TITLE,
+			  BOARD_CONTENT,
+			  BOARD_WRITER,
+			  member_id,
+			  BOARD_DATE
+		from board
+		JOIN MEMBER ON (BOARD_WRITER = MEMBER_ID)
+		where board_no = #{boardNo}
+	</select>
 </mapper>

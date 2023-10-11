@@ -32,9 +32,12 @@ public interface MeetDao {
 
 	List meetList(PageInfo pi);
 
+	int updateEnrollMember(int memberNo);
 	//meetList겹쳐서 새로 만듬
 	List selectCircleList(PageInfo pi);
 
-	
+	Meet selectOneMeet(int meetNo);
+	//메인페이지에 참여인원 순 모임 조회
+	List meetMargin();
 
 }
