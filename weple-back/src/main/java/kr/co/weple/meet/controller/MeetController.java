@@ -114,9 +114,10 @@ public class MeetController {
 		int result = meetService.updateEnrollMember(enroll.getMemberNo());
 		return result;
 	}
-	@GetMapping(value = "/meetList/{reqPage}")
-	public Map meetList(@PathVariable int reqPage) {
-
+	//모임 리스트 조회
+	@GetMapping(value = "/meetList/{reqPage}/{meetCategory}")
+	public Map meetList(@PathVariable int reqPage, @PathVariable int meetCategory) {
+		System.out.println("모임 카테고리 번호 : "+meetCategory);
 		//이미 meetList를 쓰고 있어서 바꿈
 		Map map = meetService.circleList(reqPage);
 

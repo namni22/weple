@@ -13,33 +13,33 @@ const Category = () => {
           <span>스포츠</span>
         </div>
       </Link>
-      <Link to="/">
+      <Link to="/meet/meetList" state={{ bigCategoryNo: 30 }}>
         <div className="category">
           <img src="../img/category/travel.jpg"></img>
           <span>여행</span>
         </div>
       </Link>
 
-      <Link to="/">
+      <Link to="/meet/meetList" state={{ bigCategoryNo: 14 }}>
         <div className="category">
           <img src="../img/category/cook.jpg"></img>
           <span>요리</span>
         </div>
       </Link>
-      <Link to="/">
+      <Link to="/meet/meetList" state={{ bigCategoryNo: 8 }}>
         <div className="category">
           <img src="../img/category/DIY.jpg"></img>
           <span>공예DIY</span>
         </div>
       </Link>
-      <Link to="/">
+      <Link to="/meet/meetList" state={{ bigCategoryNo: 25 }}>
         <div className="category">
           <img src="../img/category/selfdevelop.jpg"></img>
           <span>자기계발</span>
         </div>
       </Link>
 
-      <Link to="/">
+      <Link to="/meet/meetList" state={{ bigCategoryNo: 19 }}>
         <div className="category">
           <img src="../img/category/movie.jpg"></img>
           <span>문화예술</span>
