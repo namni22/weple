@@ -113,6 +113,12 @@ public class MeetController {
 		return meetService.selectOneMeet(meetNo);
 	}
 	
-	
+	//메인페이지에 참여인원 순 모임 조회
+	@GetMapping(value = "/meetMargin")
+	public List meetMargin() {
+		List list = meetService.meetMargin();
+		System.out.println(list);
+		return list;
+	}
 	
 }

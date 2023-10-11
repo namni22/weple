@@ -150,6 +150,12 @@ public class MeetService {
 		
 		return meetDao.selectOneMeet(meetNo);
 	}
+	//메인페이지에 참여인원 순 모임 조회
+	public List meetMargin() {
+		// TODO Auto-generated method stub
+		List list = meetDao.meetMargin();
+		return list;
+	}
 
 	
 }
