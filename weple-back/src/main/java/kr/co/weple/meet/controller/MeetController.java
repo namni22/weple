@@ -118,7 +118,7 @@ public class MeetController {
 	@GetMapping(value = "/selectSmallCategory/{bigCategoryNo}")
 	public List selectSmallCategory (@PathVariable int bigCategoryNo) {
 		System.out.println("대분류 : "+ bigCategoryNo);
-		List smallCategoryList = meetService.selectSmallCategory(bigCategoryNo);
+		//List smallCategoryList = meetService.selectSmallCategory(bigCategoryNo);
 		return null;
 	}
 	//모임 리스트 조회
