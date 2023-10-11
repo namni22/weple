@@ -37,7 +37,7 @@ public interface MeetDao {
 	List selectCircleList(PageInfo pi);
 
 	Meet selectOneMeet(int meetNo);
-
-	
+	//메인페이지에 참여인원 순 모임 조회
+	List meetMargin();
 
 }

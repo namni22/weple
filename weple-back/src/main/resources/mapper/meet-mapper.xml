@@ -101,7 +101,11 @@
 	<update id="updateEnrollMember">
 		update follower set follower_status=1 where member_NO=#{memberId}
 	</update>
-
+	<select id="meetMargin" resultType="meet">
+	select Meet_no, MEET_THUMBNAIL, meet_title, meet_total, meet_margin,
+	nvl((select avg(NVL(review_star, 0)) from review r where r.meet_no = m.meet_no),0) review_star
+	from meet m
+	</select>
 	
 
 
