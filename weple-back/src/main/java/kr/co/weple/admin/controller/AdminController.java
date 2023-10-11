@@ -34,9 +34,11 @@ public class AdminController {
 		return adminService.changeMemberGrade(member);
 	}
 	//회원 검색 조회
-	@GetMapping(value="/searchId")
+	@PostMapping(value="/searchId")
 	public int searchId(@PathVariable String memberId) {
+		System.out.println("memberId :" + memberId);
 		Member m = adminService.selectOneMember(memberId);
+		System.out.println("memberId :" + memberId);
 		if(m == null) {
 			return 0;
 		}else {

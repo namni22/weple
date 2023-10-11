@@ -28,6 +28,7 @@ function App() {
           <Route path="/join" element={<Join />} />
           <Route path="/login" element={<Login setIsLogin={setIsLogin} />} />
           {/* <Route path="/category" element={<Category />} /> */}
+
           <Route path="*" element={<Main />} />
         </Routes>
       </div>
