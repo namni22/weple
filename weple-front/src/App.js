@@ -25,6 +25,7 @@ function App() {
     } else {
       setIsLogin(true);
     }
+    console.log(token);
   }, []);
 
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/admin/*" element={<Admin />} />
           <Route path="/join" element={<Join />} />
           <Route path="/login" element={<Login setIsLogin={setIsLogin} />} />
+          <Route path="/mypage" element={<Mypage />} />
           {/* <Route path="/category" element={<Category />} /> */}
           <Route path="*" element={<Main />} />
         </Routes>

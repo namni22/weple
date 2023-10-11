@@ -38,12 +38,14 @@ public interface MeetDao {
 	List selectCircleList(PageInfo pi);
 
 	Meet selectOneMeet(int meetNo);
-	//메인페이지에 참여인원 순 모임조회
-	List meetMargin();
 
 	List meetChatList(int meetNo);
+	//메인페이지에 참여인원 순 모임조회
+	List meetMargin();
 	//메인페이지에 인기순 모임조회
 	List meetPopular();
+	//메인페이지에 최신순 모임조회
+	List meetNew();
 
 	//모임 카테고리 메뉴 조회
 	List smallCategoryList(Category category);

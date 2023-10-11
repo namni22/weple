@@ -140,5 +140,19 @@
 	where rownum<=12
 	]]>
 	</select>
-
+	<!--메인페이지에 인기순 모임조회 -->
+	<select id="meetNew" resultType="meet">
+	<![CDATA[ 
+	select * 
+	from (select meet_no, meet_thumbnail, meet_title, meet_total, meet_margin,
+	    NVL((select avg(NVL(review_star, 0))
+	        from review r
+	        where r.meet_no = m.meet_no),0) review_star,
+	     (select count(meet_no)
+	        from review r
+	        where r.meet_no = m.meet_no) review_count 
+	    from meet m where meet_type = 1 order by meet_date desc) 
+	where rownum<=12
+	]]>
+	</select>
 </mapper>

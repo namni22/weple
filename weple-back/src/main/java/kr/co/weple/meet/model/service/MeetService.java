@@ -153,11 +153,15 @@ public class MeetService {
 		List list = meetDao.meetPopular();
 		return list;
 	}
-
+	//메인페이지에 최신순 모임조회
+	public List meetNew() {
+		// TODO Auto-generated method stub
+		List list = meetDao.meetNew();
+		return list;
+	}
 	//모임 카테고리 메뉴 조회
 	public List selectSmallCategory(Category category) {
 		// TODO Auto-generated method stub
-
 		List smallCategoryList = meetDao.smallCategoryList(category);
 		return smallCategoryList;
 	}

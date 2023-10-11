@@ -27,12 +27,10 @@ const MeetList = () => {
         console.log(res.data);
         setSmallCategoryList(res.data);
         console.log("배열 하나 값 : " + res.data[1]);
-
       })
       .catch((res) => {
         console.log("catch : " + res.response.status);
-      })
-
+      });
   }, []);
 
   // 모임 조회해오기
@@ -58,7 +56,11 @@ const MeetList = () => {
           <ul>
             <li>전체</li>
             {smallCategoryList.map((smallCategory, index) => {
-              return <li key={"smallCategory" + index}>{smallCategory.categoryName}</li>
+              return (
+                <li key={"smallCategory" + index}>
+                  {smallCategory.categoryName}
+                </li>
+              );
             })}
           </ul>
         </div>
@@ -94,7 +96,11 @@ const MeetItem = (props) => {
   const starRating = (meetStar) => {
     const result = [];
     for (let i = 0; i < Math.ceil(meetStar); i++) {
-      result.push(<span className="material-icons">grade</span>);
+      result.push(
+        <span className="material-icons" key={"starRating" + i}>
+          grade
+        </span>
+      );
     }
     return result;
   };
@@ -114,20 +120,23 @@ const MeetItem = (props) => {
         <span>/</span>
         <span>{meet.meetTotal}</span>
       </div>
-      <div className="star-rating">
-        <div
-          className="star-rating-fill"
-          style={{ width: (meet.reviewStar / 5) * 100 + "%" }}
-        >
-          {starRating(meet.reviewStar)}
+      <div className="star-wrap">
+        <div className="star-rating">
+          <div
+            className="star-rating-fill"
+            style={{ width: (meet.reviewStar / 5) * 100 + "%" }}
+          >
+            {starRating(meet.reviewStar)}
+          </div>
+          <div className="star-rating-base">
+            <span className="material-icons">grade</span>
+            <span className="material-icons">grade</span>
+            <span className="material-icons">grade</span>
+            <span className="material-icons">grade</span>
+            <span className="material-icons">grade</span>
+          </div>
         </div>
-        <div className="star-rating-base">
-          <span className="material-icons">grade</span>
-          <span className="material-icons">grade</span>
-          <span className="material-icons">grade</span>
-          <span className="material-icons">grade</span>
-          <span className="material-icons">grade</span>
-        </div>
+        <div className="review-count">후기 {meet.reviewCount}</div>
       </div>
       <div className="MeetList-like-box">
         <span className="material-icons MeetList-like">favorite_border</span>
