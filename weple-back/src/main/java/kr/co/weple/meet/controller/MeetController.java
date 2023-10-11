@@ -135,7 +135,6 @@ public class MeetController {
 	@GetMapping(value = "/meetMargin")
 	public List meetMargin() {
 		List list = meetService.meetMargin();
-		System.out.println(list);
 		return list;
 	}
 	//meet챗팅 조회

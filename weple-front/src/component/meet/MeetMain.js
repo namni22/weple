@@ -5,9 +5,10 @@ import MeetCreate from "./MeetCreate";
 import { MeetList } from "./MeetList";
 import { useState } from "react";
 import Category from "../common/Category";
-import MeetView from "./MeetView";
+import MeetView from "./cc";
 
 const MeetMain = () => {
+  const aa = "";
   const [meetNavi, setMeetNavi] = useState([
     { url: "myMeet", text: "내가 개설한 모임", active: false },
     { url: "currentMeet", text: "참여하는 모임", active: false },

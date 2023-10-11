@@ -32,8 +32,10 @@ public class Meet {
 	
 	//준비물 추가를 위한 변수
 	private List meetPrepareList;
-	//모임 별점을위해 추가한 변수
+
+	//모임 별점
 	private int reviewStar;
+	private int reviewCount;
 
 
 }

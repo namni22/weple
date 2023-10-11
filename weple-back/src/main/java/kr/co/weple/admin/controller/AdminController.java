@@ -33,10 +33,20 @@ public class AdminController {
 	public int changeMemberGrade(@RequestBody Member member) {
 		return adminService.changeMemberGrade(member);
 	}
+	//회원 검색 조회
+	@GetMapping(value="/searchId")
+	public int searchId(@PathVariable String memberId) {
+		Member m = adminService.selectOneMember(memberId);
+		if(m == null) {
+			return 0;
+		}else {
+			return 1;
+		}
+	}
 	
 	//모임조회
 	@GetMapping(value="/meetList/{reqPage}")
-	public Map meetList(@PathVariable int reqPage) {
+	public Map meetList(@PathVariable int reqPage) {		
 		return adminService.meetList(reqPage);
 	}
 	//모임 등급 변경
