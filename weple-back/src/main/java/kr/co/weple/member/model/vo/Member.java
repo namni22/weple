@@ -24,6 +24,6 @@ public class Member {
 	private String memberImage;
 	private int memberLike;
 	private int memberGrade;
-	private List memberCategory;
+	private String memberCategory;
 	private int memberMeet;
 }
