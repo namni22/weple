@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import "./header.css";
 
-const Header = () => {
+const Header = (props) => {
+  const isLogin = props.isLogin;
+  const setIsLogin = props.setIsLogin;
   return (
     <div className="header">
       <div className="header-inner">

@@ -10,4 +10,30 @@
 	<insert id="insertFImage">
 		insert into fimage values (fimage_seq.nextval,#{feedNo},#{fImageName})
 	</insert>
+	<select id="totalCount">
+		select count(*) from feed
+	</select>
+	<!-- feed 리스트 조회 resultMap -->
+	<select id="selectFeedList" resultMap="getImage">
+		select *
+		from (select rownum as rnum, f.*
+			from (select * from feed order by 1 desc)f)
+		where rnum between #{start} and #{end}
+	</select>
+	<select id="selectImageList" resultType="FImage">
+		select * from fImage where feed_no = #{feedNo}
+	</select>
+	<resultMap id="getImage" type="Feed">
+		<result column="feed_no" property="feedNo" />
+		<result column="feed_writer" property="feedWriter" />
+		<result column="feed_content" property="feedContent" />
+		<result column="feed_date" property="feedDate" />
+		<collection
+			property="imageList"
+			select="selectImageList"
+			column="feed_no"
+			javaType="java.util.List"
+			ofType="FImage"
+		/>
+	</resultMap>
 </mapper>
