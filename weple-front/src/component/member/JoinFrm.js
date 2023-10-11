@@ -72,7 +72,6 @@ const JoinFrm = (props) => {
     const subInfo = sub.options[sub.selectedIndex];
     const subInfoList = [...subInformation];
     subInfoList.push(subInfo); // <option value="3">구기스포츠</option>
-    console.log(subInfoList);
 
     const emptyArr = [];
     setSubCategory([...emptyArr]);
