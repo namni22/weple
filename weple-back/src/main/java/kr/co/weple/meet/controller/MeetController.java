@@ -115,6 +115,12 @@ public class MeetController {
 		int result = meetService.updateEnrollMember(enroll.getMemberNo());
 		return result;
 	}
+	@GetMapping(value = "/selectSmallCategory/{bigCategoryNo}")
+	public List selectSmallCategory (@PathVariable int bigCategoryNo) {
+		System.out.println("대분류 : "+ bigCategoryNo);
+		//List smallCategoryList = meetService.selectSmallCategory(bigCategoryNo);
+		return null;
+	}
 	//모임 리스트 조회
 	@GetMapping(value = "/meetList/{reqPage}/{meetCategory}")
 	public Map meetList(@PathVariable int reqPage, @PathVariable int meetCategory) {
@@ -122,7 +128,6 @@ public class MeetController {
 		//이미 meetList를 쓰고 있어서 바꿈
 		Map map = meetService.circleList(reqPage);
 
-		
 		return map;
 	}
 	@GetMapping(value = "/meetView/{meetNo}")

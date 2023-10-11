@@ -14,6 +14,7 @@ import Review from "./component/review/Review";
 import Login from "./component/member/Login";
 import { useState } from "react";
 import { useEffect } from "react";
+import Mypage from "./component/member/Mypage";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -31,6 +32,7 @@ function App() {
       <Header isLogin={isLogin} setIsLogin={setIsLogin} />
       <div className="weple-content">
         <Routes>
+          <Route path="/mypage/*" element={<Mypage />} />
           <Route path="/feed/*" element={<Feed />} />
           <Route path="/meet/*" element={<MeetMain />}></Route>
           <Route path="/board/*" element={<Board />} />

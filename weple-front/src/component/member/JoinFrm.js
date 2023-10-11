@@ -140,10 +140,10 @@ const JoinFrm = (props) => {
   };
 
   const pwCheck = () => {
-    const pwReg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const pwReg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
     if (!pwReg.test(memberPw)) {
       setCheckPwMsg(
-        "비밀번호는 최소 8자, 최소 하나의 문자 및 숫자를 포함해야 합니다."
+        "최소 8자, 최소 하나의 문자, 특수문자 및 숫자를 포함해야 합니다."
       );
     } else {
       setCheckPwMsg("");
