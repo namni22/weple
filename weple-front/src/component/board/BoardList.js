@@ -23,7 +23,6 @@ const ToggleBoardView = (props) => {
         var innerP = document.createElement('p');
         innerP.innerHTML = boardContent;
 
-
         innerDiv.appendChild(innerP);
         document.getElementById("board-list-li-wrap").appendChild(innerDiv);
     }

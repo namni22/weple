@@ -55,9 +55,16 @@ public class AdminService {
 		
 		
 		}
+		//모임 등급 변경
 		@Transactional
 		public int changeMeetType(Meet meet) {
 			return adminDao.changeMeetType(meet);
 		}
+		//회원 검색 조회
+		public Member selectOneMember(String memberId) {
+			
+			return adminDao.selectOneMember(memberId);
+		}
+		
 		
 }

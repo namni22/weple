@@ -23,5 +23,7 @@ public interface AdminDao {
 
 	int changeMeetType(Meet meet);
 
+	Member selectOneMember(String memberId);
+
 	
 }
