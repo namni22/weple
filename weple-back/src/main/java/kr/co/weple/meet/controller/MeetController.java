@@ -137,6 +137,14 @@ public class MeetController {
 		List list = meetService.meetMargin();
 		return list;
 	}
+	
+	//메인페이지에 인기순 모임조회
+		@GetMapping(value = "/meetPopular")
+		public List meetPopular() {
+			List list = meetService.meetPopular();
+			return list;
+		}
+		
 	//meet챗팅 조회
 	@GetMapping(value = "/meetChat/{meetNo}")
 	public List meetChat(@PathVariable int meetNo) {
