@@ -72,6 +72,7 @@ const JoinFrm = (props) => {
     const subInfo = sub.options[sub.selectedIndex];
     const subInfoList = [...subInformation];
     subInfoList.push(subInfo); // <option value="3">구기스포츠</option>
+    console.log(subInfoList);
 
     const emptyArr = [];
     setSubCategory([...emptyArr]);
@@ -104,12 +105,12 @@ const JoinFrm = (props) => {
         }
         //5개 이상 선택된 경우
         else {
-          alert("카테고리는 5개까지 선택가능합니다.");
+          Swal.fire("5개까지 선택가능합니다.");
           return;
         }
         //이미 값이 있는 경우
       } else {
-        alert("이미 선택된 카테고리입니다.");
+        Swal.fire("이미 선택된 카테고리입니다.");
       }
     });
   };
