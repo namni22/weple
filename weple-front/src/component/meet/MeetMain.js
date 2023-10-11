@@ -9,6 +9,7 @@ import AfterMeet from "./AfterMeet";
 import { useState } from "react";
 import MyMeetList from "./MyMeetList";
 import MeetView from "./meetView";
+import Category from "../common/Category";
 
 const MeetMain = () => {
   const [meetNavi, setMeetNavi] = useState([
@@ -18,9 +19,7 @@ const MeetMain = () => {
   ]);
   return (
     <div className="meet-all-wrap">
-      <div className="meet-navi">
-        <MeetNavi meetNavi={meetNavi} setMeetNavi={setMeetNavi} />
-      </div>
+
       {/*
             <Link to="/meet">모임메인link</Link>
             <Link to="/meet/meetCreate">임시모임생성Frmlink</Link>
@@ -33,8 +32,9 @@ const MeetMain = () => {
       <Routes>
         <Route path="/meetSettingFrm" element={<MeetSettingFrm />} />
         <Route path="/meetCreate" element={<MeetCreate />}></Route>
-        <Route path="/meetList" element={<MeetList />}></Route>
+        <Route path="category/meetList" element={<MeetList />}></Route>
         <Route path="meetView" element={<MeetView />}></Route>
+        <Route path="category" element={<Category />} />
 
         {/* <Routes> */}
         <Route path="meetSettingFrm" element={<MeetSettingFrm />} />
