@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.weple.FileUtil;
 import kr.co.weple.meet.model.service.MeetService;
+import kr.co.weple.meet.model.vo.Category;
 import kr.co.weple.meet.model.vo.Chat;
 import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.meet.model.vo.Meet;
@@ -115,11 +116,15 @@ public class MeetController {
 		int result = meetService.updateEnrollMember(enroll.getMemberNo());
 		return result;
 	}
+	//모임 카테고리 조회
 	@GetMapping(value = "/selectSmallCategory/{bigCategoryNo}")
 	public List selectSmallCategory (@PathVariable int bigCategoryNo) {
-		System.out.println("대분류 : "+ bigCategoryNo);
-		//List smallCategoryList = meetService.selectSmallCategory(bigCategoryNo);
-		return null;
+		
+		Category category = new Category();
+		category.setCategoryNo(bigCategoryNo);
+		List smallCategoryList = meetService.selectSmallCategory(category);
+		
+		return smallCategoryList;
 	}
 	//모임 리스트 조회
 	@GetMapping(value = "/meetList/{reqPage}/{meetCategory}")

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.weple.PageInfo;
+import kr.co.weple.meet.model.vo.Category;
 import kr.co.weple.meet.model.vo.Meet;
 
 @Mapper
@@ -43,5 +44,8 @@ public interface MeetDao {
 	List meetChatList(int meetNo);
 	//메인페이지에 인기순 모임조회
 	List meetPopular();
+
+	//모임 카테고리 메뉴 조회
+	List smallCategoryList(Category category);
 
 }

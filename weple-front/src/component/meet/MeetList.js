@@ -15,7 +15,8 @@ const MeetList = () => {
   const location = useLocation();
   const [meetCategory, setmeetCategory] = useState(1);
   const bigCategoryNo = location.state.bigCategoryNo;
-  console.log("카테고리번호 : " + bigCategoryNo);
+  //카테고리 메뉴 출력할 카테고리 리스트
+  const [smallCategoryList, setSmallCategoryList] = useState([]);
 
   //카테고리 메뉴 조회해오기
   useEffect(() => {
@@ -24,6 +25,8 @@ const MeetList = () => {
       .get("/meet/selectSmallCategory/" + bigCategoryNo)
       .then((res) => {
         console.log(res.data);
+        setSmallCategoryList(res.data);
+        console.log("배열 하나 값 : " + res.data[1]);
 
       })
       .catch((res) => {
@@ -50,10 +53,13 @@ const MeetList = () => {
   return (
     <div className="meetList-all-wrap">
       <div className="meetListCategori-area">
-        <div>주간인기30</div>
+        <div>대분류</div>
         <div>
           <ul>
             <li>전체</li>
+            {smallCategoryList.map((smallCategory, index) => {
+              return <li key={"smallCategory" + index}>{smallCategory.categoryName}</li>
+            })}
           </ul>
         </div>
       </div>
