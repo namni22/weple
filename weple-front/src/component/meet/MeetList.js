@@ -60,7 +60,7 @@ const MeetItem = (props) => {
 
   // 상세보기로 이동하는 함수
   const meetView = () => {
-    navigate("/meet/meetView", { state: { meetNo: meet.meetNo } }); //이동할곳 state로 데이터 전송
+    navigate("afterMeet", { state: { meetNo: meet.meetNo } }); //이동할곳 state로 데이터 전송
   };
   const starRating = (meetStar) => {
     const result = [];
