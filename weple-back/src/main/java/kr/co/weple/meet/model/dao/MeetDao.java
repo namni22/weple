@@ -44,4 +44,6 @@ public interface MeetDao {
 	//메인페이지에 인기순 모임조회
 	List meetPopular();
 
+	List meetNew();
+
 }

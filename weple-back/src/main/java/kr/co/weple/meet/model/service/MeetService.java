@@ -168,5 +168,11 @@ public class MeetService {
 		return list;
 	}
 
+	public List meetNew() {
+		// TODO Auto-generated method stub
+		List list = meetDao.meetNew();
+		return list;
+	}
+
 	
 }

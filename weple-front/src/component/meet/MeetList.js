@@ -24,12 +24,10 @@ const MeetList = () => {
       .get("/meet/selectSmallCategory/" + bigCategoryNo)
       .then((res) => {
         console.log(res.data);
-
       })
       .catch((res) => {
         console.log("catch : " + res.response.status);
-      })
-
+      });
   }, []);
 
   // 모임 조회해오기
@@ -88,7 +86,11 @@ const MeetItem = (props) => {
   const starRating = (meetStar) => {
     const result = [];
     for (let i = 0; i < Math.ceil(meetStar); i++) {
-      result.push(<span className="material-icons">grade</span>);
+      result.push(
+        <span className="material-icons" key={"starRating" + i}>
+          grade
+        </span>
+      );
     }
     return result;
   };
@@ -108,20 +110,23 @@ const MeetItem = (props) => {
         <span>/</span>
         <span>{meet.meetTotal}</span>
       </div>
-      <div className="star-rating">
-        <div
-          className="star-rating-fill"
-          style={{ width: (meet.reviewStar / 5) * 100 + "%" }}
-        >
-          {starRating(meet.reviewStar)}
+      <div className="star-wrap">
+        <div className="star-rating">
+          <div
+            className="star-rating-fill"
+            style={{ width: (meet.reviewStar / 5) * 100 + "%" }}
+          >
+            {starRating(meet.reviewStar)}
+          </div>
+          <div className="star-rating-base">
+            <span className="material-icons">grade</span>
+            <span className="material-icons">grade</span>
+            <span className="material-icons">grade</span>
+            <span className="material-icons">grade</span>
+            <span className="material-icons">grade</span>
+          </div>
         </div>
-        <div className="star-rating-base">
-          <span className="material-icons">grade</span>
-          <span className="material-icons">grade</span>
-          <span className="material-icons">grade</span>
-          <span className="material-icons">grade</span>
-          <span className="material-icons">grade</span>
-        </div>
+        <div className="review-count">후기 {meet.reviewCount}</div>
       </div>
       <div className="MeetList-like-box">
         <span className="material-icons MeetList-like">favorite_border</span>
