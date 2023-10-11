@@ -56,13 +56,13 @@ const MeetList = () => {
         <div>
           <ul>
             <li>전체</li>
-            {smallCategoryList.map((smallCategory, index) => {
+            {(smallCategory, index) => {
               return (
                 <li key={"smallCategory" + index}>
                   {smallCategory.categoryName}
                 </li>
               );
-            })}
+            }}
           </ul>
         </div>
       </div>
@@ -92,7 +92,7 @@ const MeetItem = (props) => {
 
   // 상세보기로 이동하는 함수
   const meetView = () => {
-    navigate("View", { state: { m: meet } }); //이동할곳 state로 데이터 전송
+    navigate("/meet/meetList/View", { state: { m: meet } }); //이동할곳 state로 데이터 전송
   };
   const starRating = (meetStar) => {
     const result = [];

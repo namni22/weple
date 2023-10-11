@@ -59,6 +59,7 @@ const MeetMain = (props) => {
       </div>
       <div className="meet-one-wrap">
         {meetMain.map((meet, index) => {
+          console.log(meet);
           return <MeetItem key={"meetMain" + index} meet={meet} />;
         })}
       </div>
