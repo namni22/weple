@@ -7,7 +7,7 @@ const Category = () => {
   return (
     <div className="category-wrap">
       <div className="a">카테고리</div>
-      <Link to="/meet/meetList">
+      <Link to="/meet/meetList" state={{ bigCategoryNo: 1 }}>
         <div className="category">
           <img src="../img/category/sport.jpg"></img>
           <span>스포츠</span>
