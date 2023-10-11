@@ -64,13 +64,11 @@ const MeetItem = (props) => {
   // 연주님께~  meet props로 전달해주시고 meetList 따로 select 해와서 map으로 반복 출력해주세요
   const meet = props.meet;
 
-
-
   const navigate = useNavigate();
 
   // 상세보기로 이동하는 함수
   const meetView = () => {
-    navigate("afterMeet", { state: { m: meet } }); //이동할곳 state로 데이터 전송
+    navigate("View", { state: { m: meet } }); //이동할곳 state로 데이터 전송
   };
   const starRating = (meetStar) => {
     const result = [];
