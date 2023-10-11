@@ -5,7 +5,6 @@ import { Pagination } from "@mui/material";
 import { useNavigate } from "react-router";
 
 const MeetList = () => {
-
   //로그인상태 불러올곳 ( 모임생성버튼이 이곳에 있다면 버튼을 위해서 )
   //const isLogin = props.isLogin;
 
@@ -28,7 +27,6 @@ const MeetList = () => {
       });
   }, [reqPage]);
 
-
   return (
     <div className="meetList-all-wrap">
       <div className="meetListCategori-area">카테고리</div>
@@ -36,7 +34,7 @@ const MeetList = () => {
         {/* meetList db에서 받아온후 map으로 반복출력 예정 */}
         {/* props로 meet 정보 줄예정 */}
         {meetList.map((meet, index) => {
-          return <MeetItem key={"meet" + index} meet={meet} />
+          return <MeetItem key={"meet" + index} meet={meet} />;
         })}
       </div>
       <div className="meetList-page-area">
@@ -58,11 +56,17 @@ const MeetItem = (props) => {
 
   const navigate = useNavigate();
 
-
   // 상세보기로 이동하는 함수
   const meetView = () => {
     navigate("/meet/meetView", { state: { meetNo: meet.meetNo } }); //이동할곳 state로 데이터 전송
-  }
+  };
+  const starRating = (meetStar) => {
+    const result = [];
+    for (let i = 0; i < Math.ceil(meetStar); i++) {
+      result.push(<span className="material-icons">grade</span>);
+    }
+    return result;
+  };
 
   return (
     <div className="meet-one" onClick={meetView}>
@@ -79,15 +83,26 @@ const MeetItem = (props) => {
         <span>/</span>
         <span>{meet.meetTotal}</span>
       </div>
-      <div className="MeetList-star">
-        <span>별점 </span>
-        <span className="material-icons">star_rate</span>
+      <div className="star-rating">
+        <div
+          className="star-rating-fill"
+          style={{ width: (meet.reviewStar / 5) * 100 + "%" }}
+        >
+          {starRating(meet.reviewStar)}
+        </div>
+        <div className="star-rating-base">
+          <span className="material-icons">grade</span>
+          <span className="material-icons">grade</span>
+          <span className="material-icons">grade</span>
+          <span className="material-icons">grade</span>
+          <span className="material-icons">grade</span>
+        </div>
       </div>
       <div className="MeetList-like-box">
         <span className="material-icons MeetList-like">favorite_border</span>
       </div>
     </div>
   );
-}
+};
 
 export { MeetList, MeetItem };
