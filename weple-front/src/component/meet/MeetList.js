@@ -3,7 +3,7 @@ import "./meetList.css";
 import axios from "axios";
 // import { Pagination } from "@mui/material";
 import Pagination from "../common/Pagination";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 const MeetList = () => {
   //로그인상태 불러올곳 ( 모임생성버튼이 이곳에 있다면 버튼을 위해서 )
@@ -12,6 +12,10 @@ const MeetList = () => {
   const [meetList, setMeetList] = useState([]);
   const [reqPage, setReqPage] = useState(1); //처음에는 1페이지
   const [pagenfo, setPageInfo] = useState({});
+  const location = useLocation();
+  const [categoryNo, setCategoryNo] = useState(0);
+  const bigCategoryNo = location.state.bigCategoryNo;
+  console.log("카테고리번호 : " + bigCategoryNo);
 
   // 모임 조회해오기
   useEffect(() => {
@@ -30,7 +34,14 @@ const MeetList = () => {
 
   return (
     <div className="meetList-all-wrap">
-      <div className="meetListCategori-area">카테고리</div>
+      <div className="meetListCategori-area">
+        <div>대분류</div>
+        <div>
+          <ul>
+            <li>전체</li>
+          </ul>
+        </div>
+      </div>
       <div className="meetList-area">
         {/* meetList db에서 받아온후 map으로 반복출력 예정 */}
         {/* props로 meet 정보 줄예정 */}
@@ -54,7 +65,7 @@ const MeetItem = (props) => {
   // 연주님께~  meet props로 전달해주시고 meetList 따로 select 해와서 map으로 반복 출력해주세요
   const meet = props.meet;
 
-  console.log(meet.meetThumbNail);
+
 
   const navigate = useNavigate();
 
