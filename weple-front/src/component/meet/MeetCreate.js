@@ -37,7 +37,7 @@ const MeetCreate = () => {
         console.log("준비물 : " + meetPrepareList);
 
         const meet = { meetTitle, meetDate, meetTotal, meetContentS, meetContentD }
-        if (meetTitle !== "" && meetDate !== "" && meetTotal !== "" && meetContentS !== "") {
+        if (meetTitle !== "" && meetDate !== "" && meetTotal !== "" && meetContentS !== "" && meetThumbnail !== null) {
             const form = new FormData();
             form.append("meetTitle", meetTitle);
             form.append("meetDate", meetDate);
@@ -47,12 +47,14 @@ const MeetCreate = () => {
             form.append("meetThumbnail", meetThumbnail);
             form.append("meetPrepareList", meetPrepareList);
             // 토큰선언자리
+            const token = window.localStorage.getItem("token");
             axios
                 .post("/meet/meetCreate", form, {
                     headers: {
                         contentType: "multipart/form-data",
                         processData: false,
                         // 토큰자리
+                        Authorization: "Bearer " + token,
                     },
                 })
                 .then((res) => {

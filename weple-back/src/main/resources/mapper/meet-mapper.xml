@@ -59,7 +59,7 @@
 		126, 
 		#{meetThumbNail},
 		1,
-		'pongo'
+		#{meetCaptain}
 
 		)
 	</insert>
