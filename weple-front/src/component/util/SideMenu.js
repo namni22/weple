@@ -1,9 +1,7 @@
-
-import "./adminSideMenu.css";
+import "./sideMenu.css";
 import { Link } from "react-router-dom";
 
-
-const AdminSideMenu = (props) => {
+const SideMenu = (props) => {
   const menus = props.menus;
   const setMenus = props.setMenus;
 
@@ -29,7 +27,6 @@ const AdminSideMenu = (props) => {
                   }}
                 >
                   {menu.text}
-
                 </Link>
               ) : (
                 <Link
@@ -39,7 +36,6 @@ const AdminSideMenu = (props) => {
                   }}
                 >
                   {menu.text}
-
                 </Link>
               )}
             </li>
@@ -50,4 +46,4 @@ const AdminSideMenu = (props) => {
   );
 };
 
-export default AdminSideMenu;
+export default SideMenu;

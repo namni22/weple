@@ -1,17 +1,15 @@
 import { Route, Routes } from "react-router-dom";
 import "./admin.css";
-import AdminSideMenu from "./AdminSideMenu";
 import { useState } from "react";
 import BoardFrm from "./BoardFrm";
 import AdminBoard from "./AdminBoard";
 import AdminReport from "./AdminReport";
 import AdminMember from "./AdminMember";
 import AdminMeeting from "./AdminMeeting";
-
+import SideMenu from "../util/SideMenu";
 
 const Admin = () => {
   const [menus, setMenus] = useState([
-
     { url: "insertBoard", text: "공지 등록", active: false },
     { url: "boardList", text: "공지 목록", active: false },
     { url: "reportList", text: "신고 내역", active: false },
@@ -21,10 +19,8 @@ const Admin = () => {
 
   return (
     <div className="admin-all-wrap">
-
-
       <div className="admin-content">
-        <AdminSideMenu menus={menus} setMenus={setMenus} />
+        <SideMenu menus={menus} setMenus={setMenus} />
         <div className="current-content">
           <Routes>
             <Route path="insertBoard" element={<BoardFrm />} />
@@ -35,8 +31,6 @@ const Admin = () => {
           </Routes>
         </div>
       </div>
-
-
     </div>
   );
 };

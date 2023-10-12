@@ -1,0 +1,34 @@
+/*
+메인색상
+#2D31FA - 진한파랑
+#5D8BF4 - 연한파랑
+#ededed - 연한회색
+#171717 - 진한회색(기본폰트색)
+*/
+.admin-side {
+  width: 200px;
+}
+.admin-side > ul {
+  list-style-type: none;
+  box-sizing: border-box;
+  padding-top: 30px;
+  margin: 0;
+}
+.admin-side > ul > li > a {
+  display: block;
+  padding: 10px;
+  color: #5d8bf4;
+  font-family: ns-b;
+  position: relative;
+}
+.admin-side > ul > li > a > span {
+  position: absolute;
+  right: 0;
+}
+.admin-side > ul > li > a.active-side {
+  background-color: #5d8bf4;
+  color: #fff;
+}
+.admin-side > ul > li > a.active-side > span {
+  color: #fff;
+}
