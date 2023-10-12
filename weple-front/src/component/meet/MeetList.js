@@ -17,7 +17,8 @@ const MeetList = () => {
   const [smallCategoryList, setSmallCategoryList] = useState([]);
 
   const location = useLocation();
-  var bigCategoryNo = location.state.bigCategoryNo;
+  let bigCategoryNo = location.state.bigCategoryNo;//카테고리에서 넘어온거
+  let bigCategoryName = location.state.bigCategoryName;
 
 
   //카테고리 메뉴 조회해오기
@@ -75,7 +76,9 @@ const MeetList = () => {
   return (
     <div className="meetList-all-wrap">
       <div className="meetListCategori-area">
-        <div>대분류</div>
+        <div>
+          {bigCategoryName}
+        </div>
         <div>
           <ul>
             <li>전체</li>
@@ -119,6 +122,7 @@ const MeetItem = (props) => {
 
   // 상세보기로 이동하는 함수
   const meetView = () => {
+
     navigate("/meet/meetList/View", { state: { m: meet } }); //이동할곳 state로 데이터 전송
   };
   const starRating = (meetStar) => {
