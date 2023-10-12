@@ -47,25 +47,25 @@
   padding: 10px 0px;
 }
 
-.board-info-tbl tr > td:first-child {
+.board-info-tbl tr>td:first-child {
   width: 150px;
   padding: 10px 20px;
 }
 
-.board-info-tbl tr > td:nth-child(2) {
+.board-info-tbl tr>td:nth-child(2) {
   width: 90px;
 }
 
-.board-info-tbl tr > td:nth-child(2) > label {
+.board-info-tbl tr>td:nth-child(2)>label {
   padding-left: 30px;
 }
 
-.board-info-tbl tr > td:last-child > input {
+.board-info-tbl tr>td:last-child>input {
   width: 500px;
   height: 40px;
 }
 
-.selectOption > select {
+.selectOption>select {
   width: 150px;
   height: 40px;
 }
@@ -74,7 +74,7 @@
   padding: 20px 0px;
 }
 
-.board-btn-box > button {
+.board-btn-box>button {
   width: 150px;
   padding: 0.7rem;
   cursor: pointer;
@@ -94,19 +94,19 @@
 }
 
 /* 회원 목록 */
-.admin-member-tbl-box > table {
+.admin-member-tbl-box>table {
   width: 100%;
   border-spacing: 0;
 }
 
-.admin-member-tbl-box > table td {
+.admin-member-tbl-box>table td {
   text-align: center;
   padding: 5px;
   border-top: 1px solid #ededed;
   border-bottom: 1px solid #ededed;
 }
 
-.admin-member-tbl-box > table > thead td {
+.admin-member-tbl-box>table>thead td {
   border-bottom: 2px solid #5d8bf4;
   border-top: 2px solid #5d8bf4;
   color: #5d8bf4;
@@ -121,19 +121,19 @@
   overflow: hidden;
 }
 
-.admin-member-search-wrap > :first-child {
+.admin-member-search-wrap> :first-child {
   width: 80%;
   float: left;
   padding-right: 40px;
 }
 
-.admin-member-search-wrap > :last-child {
+.admin-member-search-wrap> :last-child {
   width: 15%;
   float: left;
 }
 
 /* 공지 목록 */
-.admin-board-tbl > table {
+.admin-board-tbl>table {
   width: 100%;
   border-spacing: 0;
 }
@@ -144,60 +144,60 @@
 }
 
 .admin-board-tbl td.title-td {
-  text-align: left;
+  text-align: center;
 }
 
-.admin-board-tbl td.title-td > div {
+.admin-board-tbl td.title-td>div {
   width: 300px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.admin-board-tbl > table > thead td {
+.admin-board-tbl>table>thead td {
   border-bottom: 2px solid #5d8bf4;
   border-top: 2px solid #5d8bf4;
   color: #5d8bf4;
   font-family: ns-b;
 }
 
-.admin-board-tbl > table > tbody td {
+.admin-board-tbl>table>tbody td {
   border-bottom: 1px solid #ededed;
 }
 
 /* 모임 조회  */
-.admin-meet-tbl-box > table {
+.admin-meet-tbl-box>table {
   width: 100%;
   border-spacing: 0;
 }
 
-.admin-meet-tbl-box > table td {
+.admin-meet-tbl-box>table td {
   text-align: center;
   padding: 5px;
   border-top: 1px solid #ededed;
   border-bottom: 1px solid #ededed;
 }
 
-.admin-meet-tbl-box > table > thead td {
+.admin-meet-tbl-box>table>thead td {
   border-bottom: 2px solid #5d8bf4;
   border-top: 2px solid #5d8bf4;
   color: #5d8bf4;
 }
 
 /* 신고 목록 */
-.admin-report-tbl-box > table {
+.admin-report-tbl-box>table {
   width: 100%;
   border-spacing: 0;
 }
 
-.admin-report-tbl-box > table td {
+.admin-report-tbl-box>table td {
   text-align: center;
   padding: 5px;
   border-top: 1px solid #ededed;
   border-bottom: 1px solid #ededed;
 }
 
-.admin-report-tbl-box > table > thead td {
+.admin-report-tbl-box>table>thead td {
   border-bottom: 2px solid #5d8bf4;
   border-top: 2px solid #5d8bf4;
   color: #5d8bf4;

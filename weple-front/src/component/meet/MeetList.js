@@ -53,9 +53,9 @@ const MeetList = () => {
 
   // 카테고리 메뉴바의 카테고리를 클릭하면 동작하는 함수
   const changeCategory = (smallCategory) => {
-    console.log(smallCategory);
+
     const categoryNo = smallCategory.categoryNo;
-    console.log("카테고리번호 : " + categoryNo);
+
     bigCategoryNo = smallCategory.categoryRefNo;
     const big = smallCategory.categoryRefNo;//선택한 카테고리의 대분류
 
