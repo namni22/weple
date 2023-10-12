@@ -1,8 +1,12 @@
 import ReactModal from "react-modal";
-import { Button1, Button2 } from "./Button";
+import { Button2 } from "./Button";
 import "./modal.css";
-import { color } from "@mui/system";
-const MyModal = ({ isOpen, onSubmit, onCancel, memberId }) => {
+import { useState } from "react";
+const MyModal = (props) => {
+  const isOpen = props.isOpen;
+  const onSubmit = props.onSubmit;
+  const onCancel = props.onCancel;
+  const memberId = props.memberId;
   const customStyles = {
     content: {
       top: "50%",
@@ -34,7 +38,7 @@ const MyModal = ({ isOpen, onSubmit, onCancel, memberId }) => {
             <tbody>
               <tr>
                 <td width="20%">신고자</td>
-                <td>신고자ID</td>
+                <td>{memberId}</td>
               </tr>
               <tr>
                 <td>신고 타입</td>
@@ -78,4 +82,66 @@ const MyModal = ({ isOpen, onSubmit, onCancel, memberId }) => {
   );
 };
 
-export default MyModal;
+const MoreModal = (props) => {
+  const isOpen = props.isOpen;
+  const onCancel = props.onCancel;
+  const deleteEvent = props.deleteEvent;
+  const modifyEvent = props.modifyEvent;
+  const [reportIsOpen, setReportIsOpen] = useState(false);
+  const reportHandleClickCancel = () => {
+    setReportIsOpen(false);
+  };
+  const handleClickSubmit = () => {
+    setReportIsOpen(false);
+  };
+  const reportBtn = () => {
+    setReportIsOpen(true);
+    onCancel();
+  };
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      padding: "40px",
+    },
+    overlay: {
+      backgroundColor: "rgba(0, 0, 0, 0.4)",
+    },
+  };
+  const handleClickCancel = () => {
+    onCancel();
+  };
+  return (
+    <ReactModal style={customStyles} isOpen={isOpen}>
+      <div className="modal-all-wrap">
+        <div className="modal-select">
+          <span className="material-icons" onClick={modifyEvent}>
+            수정
+          </span>
+          <span className="material-icons" onClick={deleteEvent}>
+            삭제
+          </span>
+          <span className="material-icons" onClick={reportBtn}>
+            신고
+          </span>
+        </div>
+        <div className="modal-close">
+          <span className="material-icons" onClick={handleClickCancel}>
+            close
+          </span>
+        </div>
+      </div>
+      <MyModal
+        isOpen={reportIsOpen}
+        onCancel={reportHandleClickCancel}
+        onSubmit={handleClickSubmit}
+      />
+    </ReactModal>
+  );
+};
+
+export { MyModal, MoreModal };
