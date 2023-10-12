@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./afterMeet.css";
 import { useEffect } from "react";
+import Review from "../review/Review";
 
 const MeetInfo = () => {
   //임시 리뷰 배열 데이터
@@ -32,19 +33,7 @@ const MeetInfo = () => {
   ]);
   return (
     <div className="meetInfo-all-wrap">
-      <div className="meetInfo-starRate">
-        <span>평균 : </span>
-        <span className="material-icons">star</span>
-        <span className="material-icons">star</span>
-        <span className="material-icons">star</span>
-        <span className="material-icons">star</span>
-        <span className="material-icons">star</span>
-      </div>
-      <div className="meetInfo-review">
-        {reviewList.map((review, index) => {
-          return <ReviewList key={"review" + index} review={review} />;
-        })}
-      </div>
+      <Review />
       <div className="meetInfo-content">
         모임소개.input 폼에서 불러오기
         <Kakao />
