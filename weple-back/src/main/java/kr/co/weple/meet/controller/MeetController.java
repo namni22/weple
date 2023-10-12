@@ -134,6 +134,18 @@ public class MeetController {
 		
 		return map;
 	}
+	//아이디 받아서 멤버 조회
+	@PostMapping(value = "/selectOneMember")
+	public Member selectOneMember(@RequestBody Member member) {
+		
+		return meetService.selectOneMember(member.getMemberId());
+	}
+	
+	@GetMapping(value = "/meetView/{meetNo}")
+	public Meet meetView(@PathVariable int meetNo) {
+		return meetService.selectOneMeet(meetNo);
+	}
+	
 	//메인페이지에 참여인원 순 모임 조회
 	@GetMapping(value = "/meetMargin")
 	public List meetMargin() {

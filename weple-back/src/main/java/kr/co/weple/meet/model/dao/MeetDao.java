@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import kr.co.weple.PageInfo;
 import kr.co.weple.meet.model.vo.Category;
 import kr.co.weple.meet.model.vo.Meet;
+import kr.co.weple.member.model.vo.Member;
 
 @Mapper
 public interface MeetDao {
@@ -54,6 +55,8 @@ public interface MeetDao {
 	int deleteMember(int memberNo);
 	//모임 내 회원 호감도
 	int memberLike(String memberId, double changeMemberLike);
+
+	Member selectOneMember(String memberId);
 
 
 }

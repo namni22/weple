@@ -13,6 +13,7 @@ import kr.co.weple.Pagination;
 import kr.co.weple.meet.model.dao.MeetDao;
 import kr.co.weple.meet.model.vo.Category;
 import kr.co.weple.meet.model.vo.Meet;
+import kr.co.weple.member.model.vo.Member;
 
 @Service
 public class MeetService {
@@ -205,6 +206,12 @@ public class MeetService {
 		
 		
 		return meetDao.memberLike(memberId,changeMemberLike);
+	}
+
+	//아이디 받아서 멤버 조회
+	public Member selectOneMember(String memberId) {
+		// TODO Auto-generated method stub
+		return meetDao.selectOneMember(memberId);
 	}
 
 
