@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import kr.co.weple.PageInfo;
 import kr.co.weple.meet.model.vo.Category;
 import kr.co.weple.meet.model.vo.Meet;
+import kr.co.weple.member.model.vo.Member;
 
 @Mapper
 public interface MeetDao {
@@ -48,9 +49,12 @@ public interface MeetDao {
 	List meetPopular();
 	//메인페이지에 최신순 모임조회
 	List meetNew();
-
 	//모임 카테고리 메뉴 조회
 	List smallCategoryList(Category category);
+	//내모임회원 추방
+	int deleteMember(int memberNo);
+
+	Member selectOneMember(String memberId);
 
 
 }

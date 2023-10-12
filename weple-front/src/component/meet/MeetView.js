@@ -8,10 +8,34 @@ import MeetMemberList from "./MeetMemberList";
 import { useEffect } from "react";
 
 import EnrollMeetMember from "./EnrollMeetMember";
+import axios from "axios";
 
 const MeetView = () => {
     const location = useLocation();
     const [myMeet, setMyMeet] = useState({});
+
+    //모임이름 받아서 선언이후 DB에서 모임장 정보 불러오기
+    const [meetCaptainName, setMeetCaptainName] = useState("왜 이게 넘어가지?");
+    useEffect(() => {
+        setMeetCaptainName(location.state.m.meetCaptain)
+    }, []);
+    const member = { memberId: meetCaptainName }
+    const [meetCaptain, setMeetCaptain] = useState({});
+    useEffect(() => {
+        axios
+            .post("/meet/selectOneMember", member)
+            .then((res) => {
+                console.log(res.data);
+                setMeetCaptain(res.data);
+            })
+            .catch((res) => {
+                console.log("catch : " + res.response.status);
+            })
+    }, [])
+    console.log(meetCaptain);
+
+
+
 
     useEffect(() => {
         setMyMeet(location.state.m);
@@ -56,7 +80,9 @@ const AfterMeetMain = (props) => {
             <div className="afterMeet-main-info">
                 <div className="afterMeet-info-host">
                     <div className="aferMeet-host-img">
-                        <img src="/img/testImg_01.png"></img>
+                        {/* <img src="/img/testImg_01.png"></img> */}
+
+                        {/* <img src={"/member/" + meetCaptain.memberImage}></img> */}
                     </div>
                     <div className="aferMeet-host-name">
                         <Link to="#">{myMeet.meetCaptain}</Link>

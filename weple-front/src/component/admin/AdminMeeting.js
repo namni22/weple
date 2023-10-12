@@ -49,6 +49,7 @@ const AdminMeeting = () => {
             reqPage={reqPage}
             setReqPage={setReqPage}
             pageInfo={pageInfo}
+            setData={setMeetList}
           />
         </div>
       </div>
@@ -63,8 +64,13 @@ const MeetingItem = (props) => {
     const obj = { meetNo: meet.meetNo, meetType: event.target.value };
     //console.log("모임번호 : " + meet.meetNo);
     //console.log("모임타입" + meet.meetType);
+    const token = window.localStorage.getItem("token");
     axios
-      .post("/admin/changeMeetType", obj)
+      .post("/admin/changeMeetType", obj, {
+        headers: {
+          Authorization: "Bearer " + token,
+        }
+      })
       .then((res) => {
         //console.log("res.data : " + res.data);
         if (res.data === 1) {

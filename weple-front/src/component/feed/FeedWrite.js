@@ -9,6 +9,7 @@ const FeedWrite = (props) => {
   const [fImage, setFImage] = useState([]);
   const [feedBox, setFeedBox] = useState([]);
   const navigate = props.navigate;
+  const isLogin = props.isLogin;
 
   const write = () => {
     if (feedContent !== "" && fImage.length !== 0) {
@@ -18,11 +19,13 @@ const FeedWrite = (props) => {
         form.append("fImage", fImage[i]);
       }
 
+      const token = window.localStorage.getItem("token");
       axios
         .post("/feed/insert", form, {
           headers: {
             contentType: "multipart/form-data",
             processData: false,
+            Authorization: "Bearer " + token,
           },
         })
         .then((res) => {
@@ -32,6 +35,7 @@ const FeedWrite = (props) => {
           }
         })
         .catch((res) => {
+          console.log(res.response.status);
           Swal.fire("실패");
         });
     } else {

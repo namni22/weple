@@ -21,6 +21,7 @@ import kr.co.weple.meet.model.vo.Category;
 import kr.co.weple.meet.model.vo.Chat;
 import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.meet.model.vo.Meet;
+import kr.co.weple.member.model.vo.Member;
 
 @RestController
 @RequestMapping(value = "/meet")
@@ -56,12 +57,9 @@ public class MeetController {
 	@PostMapping(value = "/meetCreate")
 	public int meetCreate(
 			@ModelAttribute Meet meet,
-			@ModelAttribute MultipartFile meetThumbnail
-			
+			@ModelAttribute MultipartFile meetThumbnail			
 		) {
-		// @RequestAttribute String memberId 로 아이디 받아서 meet에 방장으로 추가 (토큰필요)
-		
-		
+		// @RequestAttribute String memberId 로 아이디 받아서 meet에 방장으로 추가 (토큰필요)		
 		//구분자로 준비물 String으로 이어서 set
 		if(!meet.getMeetPrepareList().isEmpty()) {//준비물이 있다면
 			String newPrepare = "";
@@ -72,25 +70,18 @@ public class MeetController {
 					break;
 				}
 				newPrepare += (String) meet.getMeetPrepareList().get(i)+"/";
-				
-
 			}
-			meet.setMeetPrepare(newPrepare);
-			
-		}
-		
+			meet.setMeetPrepare(newPrepare);			
+		}		
 		String savepath = root + "meet/";
-
 		if(meetThumbnail != null) {//썸네일이 있다면 meet에 set
 			meet.setMeetThumbNail(meetThumbnail.getOriginalFilename());
 			String filename = meetThumbnail.getOriginalFilename();
 			String filepath = fileUtil.getFilepath(savepath, filename, meetThumbnail) ;//물리적으로 업로드
 			meet.setMeetThumbNail(filepath);
-
 		}
 		//meetMargin set 남은인원 셋팅
-		meet.setMeetMargin(meet.getMeetTotal()-1);
-		
+		meet.setMeetMargin(meet.getMeetTotal()-1);		
 		
 		int result = meetService.createMeet(meet);
 		//리턴 리절트로 변경
@@ -143,6 +134,12 @@ public class MeetController {
 		
 		return map;
 	}
+	//아이디 받아서 멤버 조회
+	@PostMapping(value = "/selectOneMember")
+	public Member selectOneMember(@RequestBody Member member) {
+		
+		return meetService.selectOneMember(member.getMemberId());
+	}
 	
 	@GetMapping(value = "/meetView/{meetNo}")
 	public Meet meetView(@PathVariable int meetNo) {
@@ -167,13 +164,20 @@ public class MeetController {
 	public List meetNew() {
 		List list = meetService.meetNew();
 		return list;
-	}
-		
+	}		
 	//meet챗팅 조회
 	@GetMapping(value = "/meetChat/{meetNo}")
-	public List meetChat(@PathVariable int meetNo) {
+	public Map meetChat(@PathVariable int meetNo) {
 		System.out.println("meetNo : "+ meetNo);
-		List meetChat = meetService.meetChatList(meetNo);
+		Map meetChat = meetService.meetChatList(meetNo);
+		System.out.println("챗 리스트 : "+meetChat);
 		return meetChat;
+	}	
+	//내모임회원 추방
+	@PostMapping(value = "/deleteMember")
+	public int deleteMember(@RequestBody Follower memberList) {
+		System.out.println(memberList);
+		int result = meetService.deleteMember(memberList.getMemberNo());
+		return 0;
 	}
 }
