@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 
 const Login = (props) => {
   const setIsLogin = props.setIsLogin;
+  const setId = props.setId;
   const [memberId, setMemberId] = useState("");
   const [memberPw, setMemberPw] = useState("");
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ const Login = (props) => {
         } else {
           window.localStorage.setItem("token", res.data);
           setIsLogin(true);
+          setId(member.memberId);
           navigate("/");
         }
       })

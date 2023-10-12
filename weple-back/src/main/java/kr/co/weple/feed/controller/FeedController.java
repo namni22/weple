@@ -61,4 +61,13 @@ public class FeedController {
 		return feedList;
 	}
 
+	//피드수정
+	@PostMapping(value="/modify")
+	public int modify(
+			@ModelAttribute Feed f,
+			@ModelAttribute MultipartFile[] fImage,
+			@RequestAttribute String memberId
+			) {
+		return 0;
+	}
 }

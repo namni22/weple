@@ -10,10 +10,11 @@ const FeedWriteFrm = (props) => {
   const feedBox = props.feedBox;
   const setFeedBox = props.setFeedBox;
   const uploadEvent = props.uploadEvent;
+  const deleteImg = props.deleteImg;
+  const setDeleteImg = props.setDeleteImg;
 
   const changeFile = (e) => {
     const Imgs = e.currentTarget.files;
-
     if (Imgs.length !== 0 && Imgs[0] !== 0) {
       const arr = [...fImage]; //파일객체 더해주기
       const arrBox = [...feedBox]; //화면객체 더해주기
@@ -55,8 +56,9 @@ const FeedWriteFrm = (props) => {
       </div>
       <div className="feed-write-img">
         {fImage.length === 0 ? (
-          <div>
+          <div className="no-image">
             <img />
+            <div>NO IMAGE!</div>
           </div>
         ) : (
           <SwiperComponent
@@ -69,6 +71,8 @@ const FeedWriteFrm = (props) => {
             loop={false}
             autoplay={false}
             delButton={true}
+            deleteImg={deleteImg}
+            setDeleteImg={setDeleteImg}
           />
         )}
       </div>

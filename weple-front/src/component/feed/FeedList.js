@@ -11,6 +11,7 @@ const FeedList = (props) => {
   const [feedList, setFeedList] = useState([]);
   const [start, setStart] = useState(1);
   const isLogin = props.isLogin;
+  const id = props.id;
 
   const amount = 9;
   useEffect(() => {
@@ -51,7 +52,13 @@ const FeedList = (props) => {
       <div className="feed-list-content-wrap">
         {feedList.map((feed, index) => {
           return (
-            <FeedContent key={"feed" + index} navigate={navigate} feed={feed} />
+            <FeedContent
+              key={"feed" + index}
+              navigate={navigate}
+              feed={feed}
+              isLogin={isLogin}
+              id={id}
+            />
           );
         })}
       </div>
@@ -64,6 +71,8 @@ const FeedList = (props) => {
 
 const FeedContent = (props) => {
   const feed = props.feed;
+  const isLogin = props.isLogin;
+  const id = props.id;
   const navigate = props.navigate;
   const list = feed.imageList.map((img, index) => {
     return <img src={"/feed/" + img.fimageName} />;
@@ -79,15 +88,13 @@ const FeedContent = (props) => {
   };
   const deleteEvent = () => {};
   const modifyEvent = () => {
-    navigate("/feed/modify");
+    navigate("/feed/modify", { state: { feed: feed } });
   };
-
   //댓글
   const comment = () => {
     setIsOpen(false);
     navigate("/feed/comment");
   };
-  console.log("111 : " + isOpen);
   return (
     <div className="feed-list-content">
       <div className="feed-list-top">
@@ -134,6 +141,9 @@ const FeedContent = (props) => {
           isOpen={isOpen}
           onCancel={onCancel}
           modifyEvent={modifyEvent}
+          isLogin={isLogin}
+          feedWriter={feed.feedWriter}
+          id={id}
         />
       </div>
     </div>
