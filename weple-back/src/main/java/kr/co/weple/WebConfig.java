@@ -13,6 +13,7 @@ public class WebConfig implements WebMvcConfigurer{
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/feed/**")
 		.addResourceLocations("file:///c:/Temp/weple/feed/");
+		registry.addResourceHandler("/member/**").addResourceLocations("file:///c:/Temp/weple/member/");
 	}
 
 	@Bean
