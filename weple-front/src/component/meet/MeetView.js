@@ -67,7 +67,7 @@ const AfterMeetMain = (props) => {
         <div className="afterMeet-main-wrap">
             <div className="afterMeet-main-thumbnail">
                 <div className="afterMeet-thumbnail-img">
-                    <img src={myMeet.meetThumbNail}></img>
+                    <img src={"/meet/" + myMeet.meetThumbNail}></img>
                 </div>
             </div>
             <div className="afterMeet-main-info">
