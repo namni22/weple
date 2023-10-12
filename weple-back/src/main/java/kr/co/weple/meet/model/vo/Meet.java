@@ -34,7 +34,7 @@ public class Meet {
 	private List meetPrepareList;
 
 	//모임 별점
-	private int reviewStar;
+	private double reviewStar;
 	private int reviewCount;
 
 

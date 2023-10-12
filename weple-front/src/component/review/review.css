@@ -53,8 +53,17 @@
   cursor: pointer;
 }
 /* ******************************* */
+.review-wrap .review-top {
+  margin: 20px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.review-wrap .more-btn {
+  font-size: 15px;
+  font-weight: 600;
+}
 .review-wrap .star-wrap {
-  margin: 20px 0;
   display: flex;
   align-items: center;
 }

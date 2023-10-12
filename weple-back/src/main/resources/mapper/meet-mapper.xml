@@ -59,7 +59,7 @@
 		126, 
 		#{meetThumbNail},
 		1,
-		'pongo'
+		#{meetCaptain}
 
 		)
 	</insert>
@@ -77,6 +77,7 @@
 			    ORDER BY 1 DESC)M)
 			WHERE RNUM BETWEEN #{start} AND #{end}
 	</select> -->
+	<!-- 모임리스트 대분류로 조회 -->
 	<select id="selectCircleList" resultType="meet">
 		SELECT * FROM
 		    (SELECT ROWNUM AS RNUM, M.* FROM
@@ -87,6 +88,7 @@
 		        ORDER BY 1 DESC)M)
 		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
+	<!-- 모임리스트 소분류로 조회 -->
 	<select id="categoryMeetList" resultType="meet">
 		SELECT * FROM
 		    (SELECT ROWNUM AS RNUM, M.* FROM
@@ -101,6 +103,18 @@
 	<select id="selectOneMeet" resultType="meet">
 		SELECT * FROM MEET WHERE MEET_NO = #{meetNo}
 	</select>
+	<!-- 멤버아이디를 받아 멤버 조회 -->
+	<select id="selectOneMember" resultType="member">
+		select * from member where member_id = #{memberId}
+	</select>
+	<!-- 모임 가입 신청 -->
+	<insert id="meetJoin">
+		INSERT INTO FOLLOWER VALUES (
+			#{meetNo},
+			#{memberNo},
+			1
+		)
+	</insert>
 	
 	
 	<select id="meetMemberList" resultType="int">
@@ -132,9 +146,9 @@
 	<![CDATA[ 
 	select * 
 	from (select Meet_no, MEET_THUMBNAIL, meet_title, meet_total, meet_margin,
-	    NVL((select avg(NVL(review_star, 0)) 
+	    ROUND(NVL((select avg(NVL(review_star, 0)) 
 	        from review r 
-	        where r.meet_no = m.meet_no),0) review_star,
+	        where r.meet_no = m.meet_no),0),1) review_star,
 	        (select count(meet_no)
 	        from review r
 	        where r.meet_no = m.meet_no) review_count 
@@ -143,16 +157,25 @@
 	]]>
 	</select>
 	<select id="meetChatList" resultType="chat">
-		select * from chat
+		SELECT 
+	        CHAT_NO,
+	        CHAT_CONTENT,
+	        MEMBER_ID,
+	        MEET_NO,
+	        TO_CHAR(CHAT_DATE,'""YYYY"년"MM"월"DD"일" AMHH:mm:SS')as CHAT_DATE,
+	        MEMBER_IMAGE
+	    FROM CHAT
+	    JOIN MEMBER USING(MEMBER_ID)
+	    WHERE MEET_NO = #{meetNo}
 	</select>
 	<!--메인페이지에 인기순 모임조회 -->
 	<select id="meetPopular" resultType="meet">
 	<![CDATA[ 
 	select * 
 	from (select meet_no, meet_thumbnail, meet_title, meet_total, meet_margin,
-	    NVL((select avg(NVL(review_star, 0))
+	    ROUND(NVL((select avg(NVL(review_star, 0))
 	        from review r
-	        where r.meet_no = m.meet_no),0) review_star,
+	        where r.meet_no = m.meet_no),0),1) review_star,
 	     (select count(meet_no)
 	        from review r
 	        where r.meet_no = m.meet_no) review_count 
@@ -160,14 +183,14 @@
 	where rownum<=12
 	]]>
 	</select>
-	<!--메인페이지에 인기순 모임조회 -->
+	<!--메인페이지에 최신순 모임조회 -->
 	<select id="meetNew" resultType="meet">
 	<![CDATA[ 
 	select * 
 	from (select meet_no, meet_thumbnail, meet_title, meet_total, meet_margin,
-	    NVL((select avg(NVL(review_star, 0))
+	    ROUND(NVL((select avg(NVL(review_star, 0))
 	        from review r
-	        where r.meet_no = m.meet_no),0) review_star,
+	        where r.meet_no = m.meet_no),0),1) review_star,
 	     (select count(meet_no)
 	        from review r
 	        where r.meet_no = m.meet_no) review_count 
@@ -175,4 +198,12 @@
 	where rownum<=12
 	]]>
 	</select>
+	<!-- 내모임 추방 -->
+	<delete id="deleteMember">
+		 DELETE FROM FOLLOWER WHERE MEMBER_NO = #{memberNo}
+	</delete>
+	<!-- 모임 내 회원 호감도 -->
+	<update id="memberLike">
+		UPDATE MEMBER SET MEMBER_LIKE= #{changeMemberLike} WHERE MEMBER_ID = #{memberId}
+	</update>
 </mapper>

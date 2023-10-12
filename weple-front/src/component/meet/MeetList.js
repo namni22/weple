@@ -17,9 +17,8 @@ const MeetList = () => {
   const [smallCategoryList, setSmallCategoryList] = useState([]);
 
   const location = useLocation();
-  let bigCategoryNo = location.state.bigCategoryNo;//카테고리에서 넘어온거
+  let bigCategoryNo = location.state.bigCategoryNo; //카테고리에서 넘어온거
   let bigCategoryName = location.state.bigCategoryName;
-
 
   //카테고리 메뉴 조회해오기
   useEffect(() => {
@@ -29,7 +28,6 @@ const MeetList = () => {
       .then((res) => {
         // console.log(res.data);
         setSmallCategoryList(res.data);
-
       })
       .catch((res) => {
         console.log("catch : " + res.response.status);
@@ -53,11 +51,10 @@ const MeetList = () => {
 
   // 카테고리 메뉴바의 카테고리를 클릭하면 동작하는 함수
   const changeCategory = (smallCategory) => {
-    console.log(smallCategory);
     const categoryNo = smallCategory.categoryNo;
-    console.log("카테고리번호 : " + categoryNo);
+
     bigCategoryNo = smallCategory.categoryRefNo;
-    const big = smallCategory.categoryRefNo;//선택한 카테고리의 대분류
+    const big = smallCategory.categoryRefNo; //선택한 카테고리의 대분류
 
     axios
       .get("/meet/categoryMeetList/" + reqPage + "/" + categoryNo)
@@ -70,28 +67,26 @@ const MeetList = () => {
       .catch((res) => {
         console.log("catch : " + res.response.status);
       });
-
-  }
+  };
 
   return (
     <div className="meetList-all-wrap">
       <div className="meetListCategori-area">
-        <div>
-          {bigCategoryName}
-        </div>
+        <div>{bigCategoryName}</div>
         <div>
           <ul>
             <li>전체</li>
             {smallCategoryList.map((smallCategory, index) => {
               return (
-                <li key={"smallCategory" + index} onClick={() => {
-                  changeCategory(smallCategory);
-                }}>
-                  <div>
-                    {smallCategory.categoryName}
-                  </div>
-
-                </li>);
+                <li
+                  key={"smallCategory" + index}
+                  onClick={() => {
+                    changeCategory(smallCategory);
+                  }}
+                >
+                  <div>{smallCategory.categoryName}</div>
+                </li>
+              );
             })}
           </ul>
         </div>
@@ -110,7 +105,7 @@ const MeetList = () => {
           pageInfo={pagenfo}
         />
       </div>
-    </div >
+    </div>
   );
 };
 
@@ -122,7 +117,6 @@ const MeetItem = (props) => {
 
   // 상세보기로 이동하는 함수
   const meetView = () => {
-
     navigate("/meet/meetList/View", { state: { m: meet } }); //이동할곳 state로 데이터 전송
   };
   const starRating = (meetStar) => {

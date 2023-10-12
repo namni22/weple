@@ -28,7 +28,7 @@ public class JwtConfig {
 				.and()							
 				.authorizeHttpRequests()		
 				.antMatchers(HttpMethod.POST,"/member/login","/member/join").permitAll() 
-				.antMatchers(HttpMethod.POST,"/member/**").authenticated()
+				.antMatchers(HttpMethod.POST,"/member/**","/board/insert","/board/contentImg").authenticated()
 				.and()
 				.sessionManagement()			
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)

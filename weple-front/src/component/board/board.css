@@ -24,9 +24,15 @@
 
 }
 
+.board-active-tab:hover {
+    color: #2D31FA;
+    font-weight: 900;
+}
+
 .board-tab-wrap>span {
     margin-right: 30px;
     cursor: pointer;
+
 }
 
 .board-list-title-wrap {

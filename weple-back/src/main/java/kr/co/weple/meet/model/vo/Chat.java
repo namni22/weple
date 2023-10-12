@@ -16,4 +16,7 @@ public class Chat {
 	private String memberId;
 	private int meetNo;
 	private String chatDate;
+	
+	//추가로 필요한 값
+	private String memberImage;
 }

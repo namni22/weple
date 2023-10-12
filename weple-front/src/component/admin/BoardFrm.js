@@ -9,10 +9,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const BoardFrm = (props) => {
-  const [boardTitle, setBoardTitle] = useState(""); 
-  const [boardContent, setBoardContent] = useState("");  
+  const [boardTitle, setBoardTitle] = useState("");
+  const [boardContent, setBoardContent] = useState("");
   const boardType = props.boardType;
- const setBoardType = props.setBoardType;
+  const setBoardType = props.setBoardType;
 
   const navigate = useNavigate();
 
@@ -25,9 +25,17 @@ const BoardFrm = (props) => {
       const form = new FormData();
       form.append("boardTitle", boardTitle);
       form.append("boardContent", boardContent);
-      
+      form.append("boardWriter", "admin3")
+      const token = window.localStorage.getItem("token");
       axios
-        .post("/board/insert", form)
+        .post("/board/insert", form, {
+          headers: {
+            contentType: "multipart/form-data",
+            processData: false,
+            Authorization: "Bearer " + token,
+
+          }
+        })
         .then((res) => {
           // console.log(res.data);
           if (res.data > 0) {
@@ -35,7 +43,7 @@ const BoardFrm = (props) => {
           }
         })
         .catch((res) => {
-         // console.log(res.response.status);
+          // console.log(res.response.status);
         });
     } else {
 

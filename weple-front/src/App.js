@@ -41,7 +41,10 @@ function App() {
             }
           />
           <Route path="/feed/*" element={<Feed isLogin={isLogin} id={id} />} />
-          <Route path="/meet/*" element={<MeetMain />}></Route>
+          <Route
+            path="/meet/*"
+            element={<MeetMain isLogin={isLogin} />}
+          ></Route>
           <Route path="/board/*" element={<Board />} />
           <Route path="/admin/*" element={<Admin />} />
           <Route path="/join" element={<Join />} />

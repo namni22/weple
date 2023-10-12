@@ -15,6 +15,7 @@ import kr.co.weple.admin.model.service.AdminService;
 import kr.co.weple.meet.model.vo.Meet;
 import kr.co.weple.member.model.vo.Member;
 
+
 @RestController
 @RequestMapping(value="/admin")
 public class AdminController {
@@ -28,7 +29,6 @@ public class AdminController {
 	}
 	
 	//멤버 등급 변경
-
 	@PostMapping(value="/changeMemberGrade")
 	public int changeMemberGrade(@RequestBody Member member) {
 		return adminService.changeMemberGrade(member);

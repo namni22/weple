@@ -215,8 +215,7 @@ const JoinFrm = (props) => {
       memberPhone !== "" &&
       memberGender !== "" &&
       memberBirth !== "" &&
-      memberEmail !== "" &&
-      memberImage !== ""
+      memberEmail !== ""
     ) {
       const form = new FormData();
       form.append("memberId", memberId);
