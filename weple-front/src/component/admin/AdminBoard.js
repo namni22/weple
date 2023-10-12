@@ -9,17 +9,17 @@ const AdminBoard = () => {
   const [boardList, setBoardList] = useState([]);
   const [pageInfo, setPageInfo] = useState({});
   const [reqPage, setReqPage] = useState(1);
-  // useEffect(() => {
-  //   axios
-  //     .get("/admin/boardList/" + reqPage)
-  //     .then((res) => {
-  //       setBoardList(res.data.list);
-  //       setPageInfo(res.data.pi);
-  //     })
-  //     .catch((res) => {
-  //       console.log(res);
-  //     });
-  // }, [reqPage]);
+  useEffect(() => {
+    axios
+      .get("/admin/boardList/" + reqPage)
+      .then((res) => {
+        setBoardList(res.data.list);
+        setPageInfo(res.data.pi);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  }, [reqPage]);
 
   return (
     <div className="admin-board-wrap">
@@ -31,10 +31,12 @@ const AdminBoard = () => {
           <table>
             <thead>
               <tr>
+                <td width={"10%"}>글번호</td>
                 <td width={"50%"} className="title-td">
                   제목
                 </td>
-                <td width={"25%"}>작성일</td>
+                <td width={"20%"}>작성자</td>
+                <td width={"20%"}>작성일</td>
               </tr>
             </thead>
             <tbody>
@@ -49,6 +51,7 @@ const AdminBoard = () => {
             pageInfo={pageInfo}
             reqPage={reqPage}
             setReqPage={setReqPage}
+            setData={setBoardList}
           />
         </div>
       </div>
@@ -58,6 +61,18 @@ const AdminBoard = () => {
 const BoardItem = (props) => {
   const board = props.board;
   const navigate = useNavigate();
-  const boardDetail = () => { };
+  const boardContent = () => {
+    navigate("/board/list", { state: { boardNo: board.boardNo } });
+  };
+  return (
+    <tr>
+      <td>{board.boardNo}</td>
+      <td className="title-td" onClick={boardContent}>
+        <div>{board.boardTitle}</div>
+      </td>
+      <td>{board.memberId}</td>
+      <td>{board.boardDate}</td>
+    </tr>
+  )
 };
 export default AdminBoard;

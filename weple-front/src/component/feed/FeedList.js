@@ -6,10 +6,11 @@ import Swal from "sweetalert2";
 import SwiperComponent from "../util/Swiper";
 import { MoreModal } from "../util/Modal";
 
-const FeedList = () => {
+const FeedList = (props) => {
   const navigate = useNavigate();
   const [feedList, setFeedList] = useState([]);
   const [start, setStart] = useState(1);
+  const isLogin = props.isLogin;
 
   const amount = 9;
   useEffect(() => {
@@ -39,9 +40,14 @@ const FeedList = () => {
   return (
     <div>
       <div className="feed-title">WEPLE FEED</div>
-      <div className="feed-list-btn">
-        <Button1 text="피드작성" clickEvent={write} />
-      </div>
+      {isLogin ? (
+        <div className="feed-list-btn">
+          <Button1 text="피드작성" clickEvent={write} />
+        </div>
+      ) : (
+        ""
+      )}
+
       <div className="feed-list-content-wrap">
         {feedList.map((feed, index) => {
           return (
@@ -64,24 +70,24 @@ const FeedContent = (props) => {
   });
   //more버튼
   const [isOpen, setIsOpen] = useState(false);
-  const handleClickCancel = () => {
+  const onCancel = () => {
     setIsOpen(false);
-    console.log("취소하라고");
     console.log(isOpen);
   };
   const moreModal = () => {
     setIsOpen(true);
   };
-
-  const deleteEvent = () => {
+  const deleteEvent = () => {};
+  const modifyEvent = () => {
     navigate("/feed/modify");
   };
-  const modifyEvent = () => {};
 
+  //댓글
   const comment = () => {
+    setIsOpen(false);
     navigate("/feed/comment");
   };
-
+  console.log("111 : " + isOpen);
   return (
     <div className="feed-list-content">
       <div className="feed-list-top">
@@ -126,8 +132,8 @@ const FeedContent = (props) => {
         <span className="material-icons-outlined">more_vert</span>
         <MoreModal
           isOpen={isOpen}
-          onCancel={handleClickCancel}
-          deleteEvent={deleteEvent}
+          onCancel={onCancel}
+          modifyEvent={modifyEvent}
         />
       </div>
     </div>

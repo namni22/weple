@@ -14,6 +14,7 @@ const MeetChat = (props) => {
       .get("/meet/meetChat/" + meet.meetNo)
       .then((res) => {
         console.log(res.data);
+
         setChat(res.data.meetChat);
       })
       .catch((res) => {
@@ -23,7 +24,9 @@ const MeetChat = (props) => {
   return (
     <>
       <div className="meetChat-chat-wrap">
-        <div className="meetChat-chat"></div>
+        {chat.map((chat, index) => {
+          return <ChatItem key={"chat" + index} chat={chat} />;
+        })}
       </div>
       <div className="meetChat-all-wrap">
         <ul>
@@ -44,5 +47,23 @@ const MeetChat = (props) => {
     </>
   );
 };
-
+const ChatItem = (props) => {
+  const chat = props.chat;
+  return (
+    <ul>
+      <li>
+        <div className="meetChat-chat-img">
+          {chat.memberImage === null ? <img src="/img/testImg_01.png" /> : ""}
+        </div>
+      </li>
+      <li>
+        <div className="meetChat-chat-writer">
+          <span>{chat.memberId}</span>
+          <sub>{chat.chatDate}</sub>
+        </div>
+        <div className="meetChat-chat-content">{chat.chatContent}</div>
+      </li>
+    </ul>
+  );
+};
 export default MeetChat;

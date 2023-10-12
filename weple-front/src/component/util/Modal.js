@@ -2,10 +2,16 @@ import ReactModal from "react-modal";
 import { Button2 } from "./Button";
 import "./modal.css";
 import { useState } from "react";
-const MyModal = (props) => {
+import Swal from "sweetalert2";
+const ReportModal = (props) => {
   const isOpen = props.isOpen;
   const onSubmit = props.onSubmit;
   const onCancel = props.onCancel;
+  const memberId = props.memberId;
+  const [reportMember, setReportMember] = useState({});
+  const [reportMeet, setReportMeet] = useState({});
+  const [reportFeed, setReportFeed] = useState({});
+  const [reportReview, setReportReView] = useState({});
   const customStyles = {
     content: {
       top: "50%",
@@ -17,10 +23,17 @@ const MyModal = (props) => {
       padding: "40px",
     },
     overlay: {
-      backgroundColor: "rgba(0, 0, 0, 0.4)",
+      backgroundColor: "rgba(0,0,0,0.1)",
     },
   };
   const handleClickSubmit = () => {
+    console.log("모달 확인 클릭시 이벤트발생");
+    Swal.fire({
+      title: "신고가 완료되었습니다.",
+      text: "신고 처리 완료",
+      icon: "success",
+    });
+
     onSubmit();
   };
   const handleClickCancel = () => {
@@ -37,7 +50,7 @@ const MyModal = (props) => {
             <tbody>
               <tr>
                 <td width="20%">신고자</td>
-                <td>신고자ID</td>
+                <td>{memberId}</td>
               </tr>
               <tr>
                 <td>신고 타입</td>
@@ -46,6 +59,7 @@ const MyModal = (props) => {
                     <option value={0}>후기</option>
                     <option value={1}>피드</option>
                     <option value={2}>모임</option>
+                    <option value={3}>후기</option>
                   </select>
                 </td>
               </tr>
@@ -67,7 +81,9 @@ const MyModal = (props) => {
               </tr>
               <tr>
                 <td>신고내용</td>
-                <textarea className="modal-tbl-textarea"></textarea>
+                <td>
+                  <textarea className="modal-tbl-textarea"></textarea>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -87,7 +103,7 @@ const MoreModal = (props) => {
   const deleteEvent = props.deleteEvent;
   const modifyEvent = props.modifyEvent;
   const [reportIsOpen, setReportIsOpen] = useState(false);
-  const reportHandleClickCancel = () => {
+  const reportCancel = () => {
     setReportIsOpen(false);
   };
   const handleClickSubmit = () => {
@@ -112,21 +128,29 @@ const MoreModal = (props) => {
     },
   };
   const handleClickCancel = () => {
+    console.log("취소!");
     onCancel();
   };
+  console.log("222 : " + isOpen);
   return (
     <ReactModal style={customStyles} isOpen={isOpen}>
-      <div className="modal-all-wrap">
+      <div className="more-modal-wrap">
         <div className="modal-select">
-          <span className="material-icons" onClick={modifyEvent}>
-            수정
-          </span>
-          <span className="material-icons" onClick={deleteEvent}>
-            삭제
-          </span>
-          <span className="material-icons" onClick={reportBtn}>
-            신고
-          </span>
+          <div>
+            <span className="material-icons" onClick={modifyEvent}>
+              수정
+            </span>
+          </div>
+          <div>
+            <span className="material-icons" onClick={deleteEvent}>
+              삭제
+            </span>
+          </div>
+          <div>
+            <span className="material-icons" onClick={reportBtn}>
+              신고
+            </span>
+          </div>
         </div>
         <div className="modal-close">
           <span className="material-icons" onClick={handleClickCancel}>
@@ -134,13 +158,13 @@ const MoreModal = (props) => {
           </span>
         </div>
       </div>
-      <MyModal
+      <ReportModal
         isOpen={reportIsOpen}
-        onCancel={reportHandleClickCancel}
+        onCancel={reportCancel}
         onSubmit={handleClickSubmit}
       />
     </ReactModal>
   );
 };
 
-export { MyModal, MoreModal };
+export { ReportModal, MoreModal };

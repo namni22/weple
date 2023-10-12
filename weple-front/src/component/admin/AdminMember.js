@@ -49,23 +49,23 @@ const AdminMember = () => {
 
   }
   const onSearch = (e) => {
-    // const memberIdInputValue = document.querySelector("#memberId");
-    // const memberId = memberIdInputValue.value;
-    // // console.log(e.currentTarget.value);
-    // axios
-    //   .get("/admin/searchId", memberId)
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     if (res.data === 1) {
-    //       setMemberId(e.target.value);
+    const memberIdInputValue = document.querySelector("#memberId");
+    const memberId = memberIdInputValue.value;
+    // console.log(e.currentTarget.value);
+    axios
+      .get("/admin/searchId", memberId)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data === 1) {
+          setMemberId(e.target.value);
 
-    //     } else {
-    //       Swal.fire("변경 중 문제가 발생했습니다.");
-    //     }
-    //   })
-    //   .catch((res) => {
-    //     console.log(res);
-    //   });
+        } else {
+          Swal.fire("변경 중 문제가 발생했습니다.");
+        }
+      })
+      .catch((res) => {
+        console.log(res);
+      });
 
   }
   return (
@@ -104,6 +104,7 @@ const AdminMember = () => {
             reqPage={reqPage}
             setReqPage={setReqPage}
             pageInfo={pageInfo}
+            setData={setMemberList}
           />
         </div>
       </div>
@@ -116,9 +117,13 @@ const MemberItem = (props) => {
 
   const handleChange = (event) => {
     const obj = { memberNo: member.memberNo, memberGrade: event.target.value };
-    //토큰 자리
+    const token = window.localStorage.getItem("token");
     axios
-      .post("/admin/changeMemberGrade", obj)
+      .post("/admin/changeMemberGrade", obj, {
+        headers: {
+          Authorization: "Bearer" + token,
+        }
+      })
       .then((res) => {
         console.log(res.data);
         if (res.data === 1) {
