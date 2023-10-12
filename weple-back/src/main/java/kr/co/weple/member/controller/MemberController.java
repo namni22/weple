@@ -29,6 +29,7 @@ public class MemberController {
 	@Value("${file.root}")
 	private String root;
 	
+	// 아이디 중복검사
 	@GetMapping(value="/checkId/{memberId}")
 	public int checkId(@PathVariable String memberId) {
 		Member m = memberService.selectOneMember(memberId);
@@ -40,16 +41,26 @@ public class MemberController {
 		
 	}
 	
+	// 대분류 조회
 	@GetMapping(value="/categoryList")
 	public List categoryList() {
 		return memberService.categoryList();
 	}
 	
+	// 소분류 조회
+	
+	@GetMapping(value="/subcategory")
+	public List subCategoryList() {
+		return memberService.subCategoryList();
+	}
+	
+	// 대분류 번호로 해당 소분류 조회
 	@GetMapping(value="/subcategory/{categoryNo}")
 	public List subCategory(@PathVariable int categoryNo) {
 		return memberService.subCategory(categoryNo);
 	}
 	
+	// 회원가입
 	@PostMapping(value="/join")
 	public int join(@ModelAttribute Member member, @ModelAttribute MultipartFile profileImg) {
 		String savepath = root+"member/";
@@ -63,12 +74,14 @@ public class MemberController {
 		return result;
 	}
 	
+	// 로그인
 	@PostMapping(value="/login")
 	public String login(@RequestBody Member member) {
 		String result = memberService.login(member);
 		return result;
 	}
 	
+	// 아이디로 멤버 정보 가져오기
 	@PostMapping(value="/getMember")
 	public Member mypage(@RequestAttribute String memberId) {
 		return memberService.selectOneMember(memberId);

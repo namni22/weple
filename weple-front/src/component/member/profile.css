@@ -1,34 +1,46 @@
+.profile-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  position: relative;
+}
+
+.profile-img > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50px;
+}
+
 .profile-info {
   width: 80%;
 }
 .profile-top {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 30px;
 }
-.profile-top > .img {
-  width: 100%;
-}
-.profile-top img {
-  width: 80px;
-  margin-bottom: 20px;
-}
+
 .profile-top > *:not(.img) {
   margin-left: 10px;
 }
 .profile-info {
   width: 90%;
+  margin-top: 30px;
+  padding: 0 15px;
 }
 .profile-top .name {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
 }
 .profile-info .intro {
-  margin-top: 20px;
-  font-size: 16px;
+  margin-top: 10px;
+  font-size: 15px;
 }
 .profile-wrap .like {
   font-size: 14px;
   margin-left: auto;
+  margin-right: 10px;
   background-color: rgba(217, 167, 93, 0.15);
   color: rgb(217, 167, 93);
   font-weight: 700;
@@ -48,12 +60,13 @@
 .profile-wrap .prefer {
   width: 100%;
   margin-top: 20px;
+  padding: 0 10px;
 }
 .profile-wrap .prefer > span {
   background-color: #eee;
   border-radius: 45px;
   font-size: 12px;
-  font-weight: 700;
+
   padding: 3px 10px;
   margin-right: 10px;
 }

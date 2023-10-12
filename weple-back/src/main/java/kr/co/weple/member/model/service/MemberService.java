@@ -69,5 +69,9 @@ public class MemberService {
 		}
 	}
 
+	public List subCategoryList() {
+		return memberDao.subCategoryList();
+	}
+
 
 }
