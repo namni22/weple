@@ -14,7 +14,7 @@ const MeetView = () => {
     const location = useLocation();
     const [myMeet, setMyMeet] = useState({});
 
-    //모임이름 받아서 선언이후 DB에서 모임장 정보 불러오기
+    //모임장 id 전송 이후 DB에서 모임장 정보 불러오기
     const [meetCaptain, setMeetCaptain] = useState({});
     useEffect(() => {
         axios
@@ -52,7 +52,7 @@ const MeetView = () => {
                 <Route path="meetChat" element={<MeetChat myMeet={myMeet} />} />
                 <Route path="meetCalendar" element={<MeetCalendar />} />
                 <Route path="meetList" element={<MeetMemberList myMeet={myMeet} />} />
-                <Route path="*" element={<MeetInfo />} />
+                <Route path="*" element={<MeetInfo myMeet={myMeet} />} />
             </Routes>
         </div>
     );
