@@ -5,7 +5,7 @@ import axios from "axios";
 import ReactDOM from "react-dom";
 import Pagination from "../common/Pagination";
 import Swal from "sweetalert2";
-import { MyModal } from "../util/Modal";
+import { ReportModal } from "../util/Modal";
 
 const MeetMemberList = (props) => {
   const [isOpen, setOpen] = useState(false);
@@ -120,7 +120,7 @@ const MemberList = (props) => {
                 <Button2 text={"신고"} clickEvent={reportEvent} />
                 <Button3 text={"추방"} clickEvent={deleteEvent} />
 
-                <MyModal
+                <ReportModal
                   isOpen={isOpen}
                   onSubmit={handleClickSubmit}
                   onCancel={handleClickCancel}
