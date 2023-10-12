@@ -8,11 +8,13 @@ import Pagination from "../common/Pagination";
 import Input from "../util/InputFrm";
 import { Button1 } from "../util/Button";
 import { useNavigate } from "react-router-dom";
-import { setMaxListeners } from "events";
+
+
 const AdminMember = () => {
   const [memberList, setMemberList] = useState([]);
   const [pageInfo, setPageInfo] = useState({});
   const [reqPage, setReqPage] = useState(1);
+
   const [memberId, setMemberId] = useState("");
   const [search, setSearch] = useState("");
   useEffect(() => {
@@ -114,7 +116,7 @@ const MemberItem = (props) => {
 
   const handleChange = (event) => {
     const obj = { memberNo: member.memberNo, memberGrade: event.target.value };
-
+    //토큰 자리
     axios
       .post("/admin/changeMemberGrade", obj)
       .then((res) => {

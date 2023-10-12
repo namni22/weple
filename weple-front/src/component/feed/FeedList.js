@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import SwiperComponent from "../util/Swiper";
+import { MoreModal } from "../util/Modal";
 
 const FeedList = () => {
   const navigate = useNavigate();
@@ -17,7 +18,6 @@ const FeedList = () => {
       .get("/feed/list/" + start + "/" + end)
       .then((res) => {
         const arr = [...feedList];
-        console.log(arr[0]);
         for (let i = 0; i < res.data.length; i++) {
           arr.push(res.data[i]);
         }
@@ -60,8 +60,23 @@ const FeedContent = (props) => {
   const feed = props.feed;
   const navigate = props.navigate;
   const list = feed.imageList.map((img, index) => {
-    return "/feed/" + img.fimageName;
+    return <img src={"/feed/" + img.fimageName} />;
   });
+  //more버튼
+  const [isOpen, setIsOpen] = useState(false);
+  const handleClickCancel = () => {
+    setIsOpen(false);
+    console.log("취소하라고");
+    console.log(isOpen);
+  };
+  const moreModal = () => {
+    setIsOpen(true);
+  };
+
+  const deleteEvent = () => {
+    navigate("/feed/modify");
+  };
+  const modifyEvent = () => {};
 
   const comment = () => {
     navigate("/feed/comment");
@@ -107,8 +122,13 @@ const FeedContent = (props) => {
           <span>0</span>
         </div>
       </div>
-      <div className="feed-list-more-btn">
+      <div className="feed-list-more-btn" onClick={moreModal}>
         <span className="material-icons-outlined">more_vert</span>
+        <MoreModal
+          isOpen={isOpen}
+          onCancel={handleClickCancel}
+          deleteEvent={deleteEvent}
+        />
       </div>
     </div>
   );
