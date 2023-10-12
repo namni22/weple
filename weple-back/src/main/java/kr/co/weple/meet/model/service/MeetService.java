@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.weple.PageInfo;
 import kr.co.weple.Pagination;
 import kr.co.weple.meet.model.dao.MeetDao;
+import kr.co.weple.meet.model.vo.Category;
 import kr.co.weple.meet.model.vo.Meet;
 
 @Service
@@ -105,7 +106,7 @@ public class MeetService {
 		return meetDao.updateEnrollMember(memberNo);
 	}
 
-	public Map circleList(int reqPage) {
+	public Map circleList(int reqPage, int meetCategory) {
 		// TODO Auto-generated method stub
 		
 		// 게시물조회, 페이징에 필요한 데이터를 취합
@@ -114,33 +115,43 @@ public class MeetService {
 		int pageNaviSize = 5; // 페이지 네비게이션 길이
 		int totalCount = meetDao.totalCount();// 전체게시물수 구해오기
 		PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
-
-		// 리스트조회
-		List circleList = meetDao.selectCircleList(pi);
-		//별점 조회 해오기
-//		List starRate = meetDao.selectMeetStarRate(pi);
-		System.out.println("모임 : "+circleList);
-		if(circleList.size()>0) {//조회한 리스트가 존재한다면
-			for(int i = 0 ; i<circleList.size(); i ++) {
-				System.out.println("모임"+circleList.get(i));
-				Meet meet = (Meet) circleList.get(i);
-				//모임번호 들고가서 후기(review) 조회해오기
-				
-				//List reviewList = meetDao.selectReviewListStar(meet.getMeetNo());
-				//조회한 review 별점 평균내서 선언한 별점 변수에 추가 가 아니라 meetVo 에 추가해야 할듯
-				//reviewVo 추가 되고 나서 다시 해야할듯
-				
-				
-			}
-			
-		}
 		
 		//map으로 list와 pi 묶어서 리턴
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("meetList", circleList);
 		map.put("pi", pi);
+		map.put("start", pi.getStart());
+		map.put("end", pi.getEnd());
+		map.put("meetCategory",meetCategory);
+
+		// 리스트조회 //pi 랑 meetCategory도 묶어서 보냄
+		List circleList = meetDao.selectCircleList(map);
+		map.put("meetList", circleList);
 		
 		
+		return map;
+	}
+
+	// 모임 카테고리 메뉴바 눌럿을때 모임 리스트 조회
+	public Map categoryMeetList(int reqPage, int meetCategory) {
+		// TODO Auto-generated method stub
+		// 게시물조회, 페이징에 필요한 데이터를 취합
+
+		int numPerPage = 12; // 한페이지당 게시물 수
+		int pageNaviSize = 5; // 페이지 네비게이션 길이
+		int totalCount = meetDao.totalCount();// 전체게시물수 구해오기
+		PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
+
+		// map으로 list와 pi 묶어서 리턴
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("pi", pi);
+		map.put("start", pi.getStart());
+		map.put("end", pi.getEnd());
+		map.put("meetCategory", meetCategory);
+
+		// 리스트조회 //pi 랑 meetCategory도 묶어서 보냄
+		List circleList = meetDao.categoryMeetList(map);
+		map.put("meetList", circleList);
+
 		return map;
 	}
 
@@ -167,6 +178,20 @@ public class MeetService {
 		List list = meetDao.meetPopular();
 		return list;
 	}
+	//메인페이지에 최신순 모임조회
+	public List meetNew() {
+		// TODO Auto-generated method stub
+		List list = meetDao.meetNew();
+		return list;
+	}
+	//모임 카테고리 메뉴 조회
+	public List selectSmallCategory(Category category) {
+		// TODO Auto-generated method stub
+		List smallCategoryList = meetDao.smallCategoryList(category);
+		return smallCategoryList;
+	}
+
+
 
 	
 }

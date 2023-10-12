@@ -30,7 +30,6 @@ const JoinFrm = (props) => {
   const [selected, setSelected] = useState();
   const [subInformation, setSubInformation] = useState([]);
   const [subTag, setSubTag] = useState([]);
-  const [subValue, setSubValue] = useState([]);
 
   useEffect(() => {
     axios
@@ -73,43 +72,42 @@ const JoinFrm = (props) => {
     const subInfoList = [...subInformation];
     subInfoList.push(subInfo); // <option value="3">구기스포츠</option>
 
+    // 대분류 소분류 선택상태 리셋
     const emptyArr = [];
     setSubCategory([...emptyArr]);
+
     const newSubInfoList = [];
     const newSubTagList = [];
     const newSubValueList = [];
+
+    // 기타 선택 시 대분류 이름 출력하기 위해 필요
     const main = document.getElementById("main-category");
     const mainName = main.options[main.selectedIndex].innerText;
-    subInfoList.forEach((item) => {
-      if (!newSubInfoList.includes(item)) {
-        //태그가 처음 선택된 경우
-        if (newSubInfoList.length < 5) {
-          if (item.text === "기타") {
-            newSubInfoList.push(item);
-            newSubTagList.push(mainName);
-            newSubValueList.push(item.value);
-          } else {
-            newSubInfoList.push(item);
-            newSubTagList.push(item.text);
-            newSubValueList.push(item.value);
-          }
-          setSubInformation(newSubInfoList);
-          setSubTag(newSubTagList); //최종 출력되는 list
-          const cate = newSubValueList.join();
-          setMemberCategory(cate);
 
-          main.options[0].selected = true;
-          sub.options[0].selected = true;
-          sub.style.display = "none";
+    subInfoList.forEach((item) => {
+      if (newSubInfoList.length < 5) {
+        if (item.text === "기타") {
+          newSubInfoList.push(item);
+          newSubTagList.push(mainName);
+          newSubValueList.push(item.value);
+        } else {
+          newSubInfoList.push(item);
+          newSubTagList.push(item.text);
+          newSubValueList.push(item.value);
         }
-        //5개 이상 선택된 경우
-        else {
-          Swal.fire("5개까지 선택가능합니다.");
-          return;
-        }
-        //이미 값이 있는 경우
-      } else {
-        Swal.fire("이미 선택된 카테고리입니다.");
+        setSubInformation(newSubInfoList);
+        setSubTag(newSubTagList); //최종 출력되는 list
+        const cate = newSubValueList.join();
+        setMemberCategory(cate);
+
+        main.options[0].selected = true;
+        sub.options[0].selected = true;
+        sub.style.display = "none";
+      }
+      //5개 이상 선택된 경우
+      else {
+        Swal.fire("5개까지 선택가능합니다.");
+        return;
       }
     });
   };
@@ -140,10 +138,10 @@ const JoinFrm = (props) => {
   };
 
   const pwCheck = () => {
-    const pwReg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const pwReg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
     if (!pwReg.test(memberPw)) {
       setCheckPwMsg(
-        "비밀번호는 최소 8자, 최소 하나의 문자 및 숫자를 포함해야 합니다."
+        "최소 8자, 최소 하나의 문자, 특수문자 및 숫자를 포함해야 합니다."
       );
     } else {
       setCheckPwMsg("");
@@ -372,10 +370,7 @@ const JoinFrm = (props) => {
         <div className="join-input-wrap">
           <div>
             <div className="label">
-              <label htmlFor="memberImage">
-                대표 이미지
-                <span className="join-essential"> *</span>
-              </label>
+              <label htmlFor="memberImage">대표 이미지</label>
             </div>
             <div className="input">
               <div className="join-profileImg-pre">

@@ -86,3 +86,12 @@
 .meet-one .star-rating-base > .material-icons {
   color: gainsboro;
 }
+.star-wrap {
+  display: flex;
+  align-items: center;
+}
+.star-wrap .review-count {
+  font-size: 12px;
+  font-weight: 600;
+  margin-left: 10px;
+}

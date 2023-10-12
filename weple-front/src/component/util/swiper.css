@@ -33,7 +33,8 @@
 .swiper-img-box button > span {
   color: #fff;
 }
-.feed-list-img > img {
+
+.swiper-img-box > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
