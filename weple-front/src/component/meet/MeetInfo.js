@@ -1,14 +1,24 @@
 import { useState } from "react";
 import "./afterMeet.css";
+import "./meetInfo.css";
 import { useEffect } from "react";
 import Review from "../review/Review";
 
-const MeetInfo = () => {
+const MeetInfo = (props) => {
+  const myMeet = props.myMeet;
   return (
     <div className="meetInfo-all-wrap">
       <Review meetNo={102} />
       <div className="meetInfo-content">
-        모임소개.input 폼에서 불러오기
+        <div className="meetViewContentD-area">
+          <div className="meetViewContentD-title">모임소개</div>
+          <div
+            className="meetViewContentD"
+            dangerouslySetInnerHTML={{ __html: myMeet.meetContentD }}
+          >
+          </div>
+        </div>
+
         <Kakao />
       </div>
     </div>

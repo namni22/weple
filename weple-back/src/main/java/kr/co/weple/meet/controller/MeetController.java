@@ -137,7 +137,8 @@ public class MeetController {
 	//아이디 받아서 멤버 조회
 	@PostMapping(value = "/selectOneMember")
 	public Member selectOneMember(@RequestBody Member member) {
-		
+		Member m = meetService.selectOneMember(member.getMemberId());
+		System.out.println("m : "+m);
 		return meetService.selectOneMember(member.getMemberId());
 	}
 	
