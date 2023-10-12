@@ -25,6 +25,19 @@
 .btn1 {
   background-color: #3d40e5;
 }
+.btn1:disabled,
+.btn2:disabled,
+.btn3:disabled {
+  background-color: #ccc;
+}
+.btn2:disabled {
+  color: #171717;
+  border: 1px solid #ccc;
+}
+.btn2:disabled:hover {
+  background-color: #ccc;
+  color: #171717;
+}
 
 .btn2 {
   border: 1px solid #4d75ff;

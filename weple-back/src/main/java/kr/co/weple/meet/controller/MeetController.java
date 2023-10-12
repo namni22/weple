@@ -177,8 +177,13 @@ public class MeetController {
 	//내모임회원 추방
 	@PostMapping(value = "/deleteMember")
 	public int deleteMember(@RequestBody Follower memberList) {
-		System.out.println(memberList);
 		int result = meetService.deleteMember(memberList.getMemberNo());
-		return 0;
+		return result;
 	}
+	//모임 내 맴버 호감도 올리기
+		@PostMapping(value = "/memberLike")
+		public int memberLike(@RequestBody Member memberList) {
+			int result = meetService.memberLike(memberList.getMemberId(),memberList.getMemberLike());
+			return result;
+		}
 }

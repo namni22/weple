@@ -53,6 +53,8 @@ public interface MeetDao {
 	List smallCategoryList(Category category);
 	//내모임회원 추방
 	int deleteMember(int memberNo);
+	//모임 내 회원 호감도
+	int memberLike(String memberId, double changeMemberLike);
 
 	Member selectOneMember(String memberId);
 

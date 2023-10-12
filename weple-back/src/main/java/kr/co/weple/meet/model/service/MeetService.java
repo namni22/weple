@@ -199,6 +199,14 @@ public class MeetService {
 		// TODO Auto-generated method stub
 		return meetDao.deleteMember(memberNo);
 	}
+	//모임 내 회원 호감도
+	@Transactional
+	public int memberLike(String memberId, double memberLike) {
+		double changeMemberLike = memberLike + 0.7;
+		
+		
+		return meetDao.memberLike(memberId,changeMemberLike);
+	}
 
 	//아이디 받아서 멤버 조회
 	public Member selectOneMember(String memberId) {
