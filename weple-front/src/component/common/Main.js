@@ -4,12 +4,13 @@ import SwiperComponent from "../util/Swiper";
 import "./main.css";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Review from "../review/Review";
+
 const Main = () => {
-  // const imgList = ["./img/main_1.jpg", "./img/main_2.jpg"];
-  // const list = imgList.map((item, index) => {
-  //   return <img src={item} key={"mainSwiper" + index}></img>;
-  // });
-  const list = ["./img/main_1.jpg", "./img/main_2.jpg"];
+  const imgList = ["./img/main_1.jpg", "./img/main_2.jpg"];
+  const list = imgList.map((item, index) => {
+    return <img src={item} key={"mainSwiper" + index}></img>;
+  });
   return (
     <div className="main-wrap">
       <SwiperComponent
@@ -22,6 +23,7 @@ const Main = () => {
         list={list}
         delButton={false}
       />
+      <Review />
       {/* 비로그인 */}
       <MeetMain meetSet={"meetPopular"} meetTitle={"주간 인기 TOP 30 👑"} />
       <MeetMain meetSet={"meetMargin"} meetTitle={"마감임박!"} />

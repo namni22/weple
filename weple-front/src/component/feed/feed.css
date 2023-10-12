@@ -74,11 +74,6 @@
   width: 100%;
   height: 370px;
 }
-.feed-list-img > img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
 .feed-list-more-btn {
   position: absolute;
   top: 15px;
