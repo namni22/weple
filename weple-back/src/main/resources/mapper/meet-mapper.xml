@@ -136,9 +136,9 @@
 	<![CDATA[ 
 	select * 
 	from (select Meet_no, MEET_THUMBNAIL, meet_title, meet_total, meet_margin,
-	    NVL((select avg(NVL(review_star, 0)) 
+	    ROUND(NVL((select avg(NVL(review_star, 0)) 
 	        from review r 
-	        where r.meet_no = m.meet_no),0) review_star,
+	        where r.meet_no = m.meet_no),0),1) review_star,
 	        (select count(meet_no)
 	        from review r
 	        where r.meet_no = m.meet_no) review_count 
@@ -163,9 +163,9 @@
 	<![CDATA[ 
 	select * 
 	from (select meet_no, meet_thumbnail, meet_title, meet_total, meet_margin,
-	    NVL((select avg(NVL(review_star, 0))
+	    ROUND(NVL((select avg(NVL(review_star, 0))
 	        from review r
-	        where r.meet_no = m.meet_no),0) review_star,
+	        where r.meet_no = m.meet_no),0),1) review_star,
 	     (select count(meet_no)
 	        from review r
 	        where r.meet_no = m.meet_no) review_count 
@@ -173,14 +173,14 @@
 	where rownum<=12
 	]]>
 	</select>
-	<!--메인페이지에 인기순 모임조회 -->
+	<!--메인페이지에 최신순 모임조회 -->
 	<select id="meetNew" resultType="meet">
 	<![CDATA[ 
 	select * 
 	from (select meet_no, meet_thumbnail, meet_title, meet_total, meet_margin,
-	    NVL((select avg(NVL(review_star, 0))
+	    ROUND(NVL((select avg(NVL(review_star, 0))
 	        from review r
-	        where r.meet_no = m.meet_no),0) review_star,
+	        where r.meet_no = m.meet_no),0),1) review_star,
 	     (select count(meet_no)
 	        from review r
 	        where r.meet_no = m.meet_no) review_count 

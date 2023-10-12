@@ -144,7 +144,6 @@ public class MeetController {
 	
 	@GetMapping(value = "/meetView/{meetNo}")
 	public Meet meetView(@PathVariable int meetNo) {
-		
 		return meetService.selectOneMeet(meetNo);
 	}
 	
