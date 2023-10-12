@@ -23,7 +23,7 @@ const FeedWriteFrm = (props) => {
         const reader = new FileReader();
         reader.readAsDataURL(Imgs[i]);
         reader.onload = () => {
-          arrBox.push(reader.result);
+          arrBox.push(<img src={reader.result}></img>);
           setFeedBox([...arrBox]);
         };
         setFImage([...arr]);

@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import "./afterMeet.css";
 import { Button1, Button2, Button3 } from "../util/Button";
 import axios from "axios";
-import MyModal from "../util/Modal";
 import ReactDOM from "react-dom";
 import Pagination from "../common/Pagination";
 import Swal from "sweetalert2";
+import { MyModal } from "../util/Modal";
 
 const MeetMemberList = (props) => {
   const [isOpen, setOpen] = useState(false);

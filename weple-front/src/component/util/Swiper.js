@@ -31,11 +31,11 @@ const SwiperComponent = (props) => {
       autoplay={autoplay}
       loop={loop}
     >
-      {list.map((src, index) => {
+      {list.map((object, index) => {
         return (
           <SwiperSlide key={"box" + index}>
             <ImgBox
-              src={src}
+              object={object}
               index={index}
               list={list}
               setFeedBox={setFeedBox}
@@ -51,7 +51,7 @@ const SwiperComponent = (props) => {
 };
 
 const ImgBox = (props) => {
-  const src = props.src;
+  const object = props.object;
   const index = props.index;
   const list = props.list;
   const setFeedBox = props.setFeedBox;
@@ -68,7 +68,7 @@ const ImgBox = (props) => {
 
   return (
     <div className="swiper-img-box">
-      <img src={src}></img>
+      {object}
       {delButton ? (
         <button onClick={deleteImg}>
           <span className="material-icons">close</span>

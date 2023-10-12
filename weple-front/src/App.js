@@ -25,7 +25,6 @@ function App() {
     } else {
       setIsLogin(true);
     }
-    console.log(token);
   }, []);
 
   return (
@@ -33,7 +32,10 @@ function App() {
       <Header isLogin={isLogin} setIsLogin={setIsLogin} />
       <div className="weple-content">
         <Routes>
-          <Route path="/mypage/*" element={<Mypage />} />
+          <Route
+            path="/mypage/*"
+            element={<Mypage isLogin={isLogin} setIsLogin={setIsLogin} />}
+          />
           <Route path="/feed/*" element={<Feed />} />
           <Route path="/meet/*" element={<MeetMain />}></Route>
           <Route path="/board/*" element={<Board />} />

@@ -34,7 +34,7 @@ const MyModal = ({ isOpen, onSubmit, onCancel, memberId }) => {
             <tbody>
               <tr>
                 <td width="20%">신고자</td>
-                <td>{memberId}</td>
+                <td>신고자ID</td>
               </tr>
               <tr>
                 <td>신고 타입</td>

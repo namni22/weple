@@ -61,13 +61,17 @@ const MeetingItem = (props) => {
   // console.log(meet.meetCaptain + " : " + meet.meetTitle+":"+meet.meetTotal);
   const handleChange = (event) => {
     const obj = { meetNo: meet.meetNo, meetType: event.target.value };
-
+    //console.log("모임번호 : " + meet.meetNo);
+    //console.log("모임타입" + meet.meetType);
     axios
       .post("/admin/changeMeetType", obj)
       .then((res) => {
-        console.log(res.data);
+        //console.log("res.data : " + res.data);
         if (res.data === 1) {
+          //console.log("if문 안 이벤트 타겟 : " + event.target.value);
           setMeetType(event.target.value);
+          // console.log("다녀온후 모임타입 : " + meet.meetType);
+
         } else {
           Swal.fire("변경 중 문제가 발생했습니다.");
         }
@@ -75,6 +79,7 @@ const MeetingItem = (props) => {
       .catch((res) => {
         console.log(res);
       });
+    console.log("다녀온후 모임타입 : " + meet.meetType);
   };
   return (
     <tr>
