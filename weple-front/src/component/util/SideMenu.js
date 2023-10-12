@@ -13,7 +13,7 @@ const SideMenu = (props) => {
     setMenus([...menus]);
   };
   return (
-    <div className="admin-side">
+    <div className="side-menu">
       <ul>
         {menus.map((menu, index) => {
           return (
