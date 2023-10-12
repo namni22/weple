@@ -33,7 +33,6 @@ const Main = () => {
       <MeetMain meetSet={"meetPopular"} meetTitle={"주간 인기 TOP 30 👑"} />
       <MeetMain meetSet={"meetMargin"} meetTitle={"마감임박!"} />
       <MeetMain meetSet={"meetNew"} meetTitle={"신규개설"} />
-      <FeedMain />
       {/* 로그인 */}
       {/* <MeetMain meetSet={"meetMargin"} meetTitle={"이 모임은 어때요?"} />
       <MeetMain meetSet={"meetMargin"} meetTitle={"마감임박!"} />

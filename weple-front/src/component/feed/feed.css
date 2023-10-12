@@ -63,7 +63,7 @@
 .feed-list-info > div:last-child {
   font-size: 12px;
 }
-.feed-list-img {
+.feed-list-img img {
   width: 100%;
   height: 370px;
   object-fit: cover;
