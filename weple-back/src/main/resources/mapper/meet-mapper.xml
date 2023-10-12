@@ -184,4 +184,12 @@
 	where rownum<=12
 	]]>
 	</select>
+	<!-- 내모임 추방 -->
+	<delete id="deleteMember">
+		 DELETE FROM FOLLOWER WHERE MEMBER_NO = #{memberNo}
+	</delete>
+	<!-- 모임 내 회원 호감도 -->
+	<update id="memberLike">
+		UPDATE MEMBER SET MEMBER_LIKE= #{changeMemberLike} WHERE MEMBER_ID = #{memberId}
+	</update>
 </mapper>

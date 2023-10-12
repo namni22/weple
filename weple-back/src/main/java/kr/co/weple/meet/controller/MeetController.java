@@ -21,6 +21,7 @@ import kr.co.weple.meet.model.vo.Category;
 import kr.co.weple.meet.model.vo.Chat;
 import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.meet.model.vo.Meet;
+import kr.co.weple.member.model.vo.Member;
 
 @RestController
 @RequestMapping(value = "/meet")
@@ -133,13 +134,6 @@ public class MeetController {
 		
 		return map;
 	}
-	
-	@GetMapping(value = "/meetView/{meetNo}")
-	public Meet meetView(@PathVariable int meetNo) {
-		
-		return meetService.selectOneMeet(meetNo);
-	}
-	
 	//메인페이지에 참여인원 순 모임 조회
 	@GetMapping(value = "/meetMargin")
 	public List meetMargin() {
@@ -170,8 +164,13 @@ public class MeetController {
 	//내모임회원 추방
 	@PostMapping(value = "/deleteMember")
 	public int deleteMember(@RequestBody Follower memberList) {
-		System.out.println(memberList);
 		int result = meetService.deleteMember(memberList.getMemberNo());
-		return 0;
+		return result;
 	}
+	//모임 내 맴버 호감도 올리기
+		@PostMapping(value = "/memberLike")
+		public int memberLike(@RequestBody Member memberList) {
+			int result = meetService.memberLike(memberList.getMemberId(),memberList.getMemberLike());
+			return result;
+		}
 }
