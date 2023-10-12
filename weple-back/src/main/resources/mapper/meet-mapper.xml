@@ -101,6 +101,10 @@
 	<select id="selectOneMeet" resultType="meet">
 		SELECT * FROM MEET WHERE MEET_NO = #{meetNo}
 	</select>
+	<!-- 멤버아이디를 받아 멤버 조회 -->
+	<select id="selectOneMember" resultType="member">
+		select * from member where member_id = #{memberId}
+	</select>
 	
 	
 	<select id="meetMemberList" resultType="int">

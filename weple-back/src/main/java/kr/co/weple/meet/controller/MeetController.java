@@ -21,6 +21,7 @@ import kr.co.weple.meet.model.vo.Category;
 import kr.co.weple.meet.model.vo.Chat;
 import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.meet.model.vo.Meet;
+import kr.co.weple.member.model.vo.Member;
 
 @RestController
 @RequestMapping(value = "/meet")
@@ -142,6 +143,12 @@ public class MeetController {
 		Map map = meetService.categoryMeetList(reqPage, meetCategory);
 		
 		return map;
+	}
+	//아이디 받아서 멤버 조회
+	@PostMapping(value = "/selectOneMember")
+	public Member selectOneMember(@RequestBody Member member) {
+		
+		return meetService.selectOneMember(member.getMemberId());
 	}
 	
 	@GetMapping(value = "/meetView/{meetNo}")
