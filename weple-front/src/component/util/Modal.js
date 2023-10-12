@@ -121,7 +121,7 @@ const MoreModal = (props) => {
           <span className="material-icons" onClick={modifyEvent}>
             수정
           </span>
-          <span className="material-icons" onClick={deleteEvent()}>
+          <span className="material-icons" onClick={deleteEvent}>
             삭제
           </span>
           <span className="material-icons" onClick={reportBtn}>
