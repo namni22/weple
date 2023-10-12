@@ -11,6 +11,7 @@ const FeedModify = (props) => {
   const feed = location.state.feed;
   const [feedContent, setFeedContent] = useState(feed.feedContent);
   const [fImage, setFImage] = useState(feed.imageList);
+  //DB에서 불러온 파일을 띄우기 위한 배열
   const imgArr = [];
   for (let i = 0; i < feed.imageList.length; i++) {
     imgArr.push(<img src={feed.imageList[i].fimageName} />);
@@ -25,11 +26,10 @@ const FeedModify = (props) => {
       for (let i = 0; i < fImage.length; i++) {
         form.append("fImage", fImage[i]);
       }
-      form.append("feedContent", feed.feedNo); //수정할 피드 번호
+      form.append("feedNo", feed.feedNo); //수정할 피드 번호
       form.append("deleteImg", deleteImg.join("/")); //삭제할 파일
 
       const token = window.localStorage.getItem("token");
-
       axios
         .post("/feed/modify", form, {
           headers: {

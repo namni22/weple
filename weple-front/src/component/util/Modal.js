@@ -105,8 +105,7 @@ const MoreModal = (props) => {
   const isLogin = props.isLogin;
   const id = props.id;
   const feedWriter = props.feedWriter;
-  console.log(id);
-  console.log(feedWriter);
+
   const [reportIsOpen, setReportIsOpen] = useState(false);
   const reportCancel = () => {
     setReportIsOpen(false);
@@ -136,7 +135,6 @@ const MoreModal = (props) => {
     console.log("취소!");
     onCancel();
   };
-  console.log("222 : " + isOpen);
   return (
     <ReactModal
       style={customStyles}
@@ -146,28 +144,22 @@ const MoreModal = (props) => {
       <div className="more-modal-wrap">
         {!isLogin ? (
           <div>로그인이 필요한 기능입니다</div>
-        ) : id == feedWriter ? (
+        ) : id === feedWriter ? (
           <div className="modal-select writer">
             <div>
-              <span className="material-icons" onClick={modifyEvent}>
-                drive_file_rename_outline
-              </span>
-              <Button3 text="수정" />
+              <span className="material-icons">drive_file_rename_outline</span>
+              <Button3 text="수정" clickEvent={modifyEvent} />
             </div>
             <div>
-              <span className="material-icons" onClick={deleteEvent}>
-                delete
-              </span>
-              <Button3 text="삭제" />
+              <span className="material-icons">delete</span>
+              <Button3 text="삭제" clickEvent={deleteEvent} />
             </div>
           </div>
         ) : (
           <div className="modal-select">
             <div>
-              <span className="material-icons" onClick={reportBtn}>
-                error_outline
-              </span>
-              <Button3 text="신고" />
+              <span className="material-icons">error_outline</span>
+              <Button3 text="신고" clickEvent={reportBtn} />
             </div>
           </div>
         )}

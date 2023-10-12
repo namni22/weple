@@ -81,12 +81,38 @@ const FeedContent = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const onCancel = () => {
     setIsOpen(false);
-    console.log(isOpen);
   };
   const moreModal = () => {
     setIsOpen(true);
   };
-  const deleteEvent = () => {};
+  const deleteEvent = () => {
+    Swal.fire({
+      icon: "warning",
+      text: "피드를 삭제하시겠습니까?",
+      showCancelButton: true,
+      confirmButtonText: "삭제",
+      cancelButtonText: "취소",
+    }).then((res) => {
+      if (res.isConfirmed) {
+        axios
+          .get("/feed/delete/" + feed.feedNo)
+          .then((res) => {
+            if (res.data !== 0) {
+              Swal.fire({
+                icon: "success",
+                text: "피드가 삭제되었습니다",
+                confirmButtonText: "확인",
+              }).then((res) => {
+                navigate("/feed");
+              });
+            }
+          })
+          .catch((res) => {
+            console.log(res.response.status);
+          });
+      }
+    });
+  };
   const modifyEvent = () => {
     navigate("/feed/modify", { state: { feed: feed } });
   };
@@ -143,6 +169,7 @@ const FeedContent = (props) => {
           modifyEvent={modifyEvent}
           isLogin={isLogin}
           feedWriter={feed.feedWriter}
+          deleteEvent={deleteEvent}
           id={id}
         />
       </div>
