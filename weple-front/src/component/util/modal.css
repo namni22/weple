@@ -41,3 +41,8 @@
 .modal-btn-wrap > button {
   width: calc(100% / 2);
 }
+
+/* MoreModal */
+.more-modal-wrap {
+  width: 250px;
+}
