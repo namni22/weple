@@ -22,7 +22,7 @@ public class Member {
 	private String memberBirth;
 	private String memberGender;
 	private String memberImage;
-	private int memberLike;
+	private double memberLike;
 	private int memberGrade;
 	private String memberCategory;
 	private int memberMeet;
