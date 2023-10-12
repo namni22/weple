@@ -13,6 +13,7 @@ const MeetMemberList = (props) => {
   const [meetMember, setMeetMember] = useState([]);
   const [reqPage, setReqPage] = useState(1);
   const [pageInfo, setPageInfo] = useState({});
+
   console.log(myMeet.meetNo);
   useEffect(() => {
     axios
@@ -58,14 +59,14 @@ const MemberList = (props) => {
   const memberList = props.member;
   const isOpen = props.isOpen;
   const setOpen = props.setOpen;
-
+  const [disable, setDisable] = useState("");
   const handleClick = () => setOpen(true);
 
   const handleClickSubmit = () => {
     setOpen(false);
   };
   const handleClickCancel = () => setOpen(false);
-
+  const buttonDisable = () => setDisable("");
   const likeEvent = () => {
     console.log("호감도 이벤트");
     Swal.fire({
@@ -91,6 +92,7 @@ const MemberList = (props) => {
           text: `"` + memberList.memberId + `"` + "님의 호감도를 올렸습니다.",
           icon: "success",
         });
+        setDisable(true);
       }
     });
   };
@@ -144,9 +146,13 @@ const MemberList = (props) => {
             </td>
             <td width="35%">
               <div className="meetMemberList-btn-wrap">
-                <Button1 text={"호감도"} clickEvent={likeEvent} />
+                <Button2
+                  text={"호감도"}
+                  clickEvent={likeEvent}
+                  disable={disable}
+                />
                 <Button2 text={"신고"} clickEvent={reportEvent} />
-                <Button3 text={"추방"} clickEvent={deleteEvent} />
+                <Button2 text={"추방"} clickEvent={deleteEvent} />
 
                 <ReportModal
                   isOpen={isOpen}
