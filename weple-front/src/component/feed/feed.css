@@ -63,12 +63,14 @@
 .feed-list-info > div:last-child {
   font-size: 12px;
 }
+.feed-list-img {
+  margin: 10px 0;
+}
 .feed-list-img img {
   width: 100%;
   height: 370px;
   object-fit: cover;
   background-color: #eee;
-  margin: 10px 0;
 }
 .feed-list-content .swiper {
   width: 100%;
