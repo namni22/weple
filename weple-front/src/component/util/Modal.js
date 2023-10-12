@@ -103,7 +103,7 @@ const MoreModal = (props) => {
   const deleteEvent = props.deleteEvent;
   const modifyEvent = props.modifyEvent;
   const [reportIsOpen, setReportIsOpen] = useState(false);
-  const reportHandleClickCancel = () => {
+  const reportCancel = () => {
     setReportIsOpen(false);
   };
   const handleClickSubmit = () => {
@@ -128,21 +128,29 @@ const MoreModal = (props) => {
     },
   };
   const handleClickCancel = () => {
+    console.log("취소!");
     onCancel();
   };
+  console.log("222 : " + isOpen);
   return (
     <ReactModal style={customStyles} isOpen={isOpen}>
-      <div className="modal-all-wrap">
+      <div className="more-modal-wrap">
         <div className="modal-select">
-          <span className="material-icons" onClick={modifyEvent}>
-            수정
-          </span>
-          <span className="material-icons" onClick={deleteEvent}>
-            삭제
-          </span>
-          <span className="material-icons" onClick={reportBtn}>
-            신고
-          </span>
+          <div>
+            <span className="material-icons" onClick={modifyEvent}>
+              수정
+            </span>
+          </div>
+          <div>
+            <span className="material-icons" onClick={deleteEvent}>
+              삭제
+            </span>
+          </div>
+          <div>
+            <span className="material-icons" onClick={reportBtn}>
+              신고
+            </span>
+          </div>
         </div>
         <div className="modal-close">
           <span className="material-icons" onClick={handleClickCancel}>
@@ -152,7 +160,7 @@ const MoreModal = (props) => {
       </div>
       <ReportModal
         isOpen={reportIsOpen}
-        onCancel={reportHandleClickCancel}
+        onCancel={reportCancel}
         onSubmit={handleClickSubmit}
       />
     </ReactModal>
