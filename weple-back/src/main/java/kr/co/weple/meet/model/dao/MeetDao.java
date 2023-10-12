@@ -35,7 +35,9 @@ public interface MeetDao {
 
 	int updateEnrollMember(int memberNo);
 	//meetList겹쳐서 새로 만듬
-	List selectCircleList(PageInfo pi);
+	List selectCircleList(HashMap<String, Object> map);
+	// 모임 카테고리 메뉴바 눌럿을때 모임 리스트 조회
+	List categoryMeetList(HashMap<String, Object> map);
 
 	Meet selectOneMeet(int meetNo);
 
@@ -49,5 +51,6 @@ public interface MeetDao {
 
 	//모임 카테고리 메뉴 조회
 	List smallCategoryList(Category category);
+
 
 }

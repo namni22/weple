@@ -17,27 +17,28 @@ const MeetList = () => {
   const [smallCategoryList, setSmallCategoryList] = useState([]);
 
   const location = useLocation();
-  const bigCategoryNo = location.state.bigCategoryNo;
+  var bigCategoryNo = location.state.bigCategoryNo;
+
 
   //카테고리 메뉴 조회해오기
   useEffect(() => {
-    setmeetCategory(bigCategoryNo);
+    // setmeetCategory(bigCategoryNo);
     axios
       .get("/meet/selectSmallCategory/" + bigCategoryNo)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setSmallCategoryList(res.data);
-        console.log("배열 하나 값 : " + res.data[1]);
+
       })
       .catch((res) => {
         console.log("catch : " + res.response.status);
       });
   }, []);
 
-  // 모임 조회해오기
+  // 카테고리에서 넘어오면서 기본적으로 전체 모임 조회해오기
   useEffect(() => {
     axios
-      .get("/meet/meetList/" + reqPage + "/" + meetCategory)
+      .get("/meet/meetList/" + reqPage + "/" + bigCategoryNo)
       .then((res) => {
         console.log(res.data);
         setMeetList(res.data.meetList);
@@ -49,6 +50,28 @@ const MeetList = () => {
       });
   }, [reqPage]);
 
+  // 카테고리 메뉴바의 카테고리를 클릭하면 동작하는 함수
+  const changeCategory = (smallCategory) => {
+    console.log(smallCategory);
+    const categoryNo = smallCategory.categoryNo;
+    console.log("카테고리번호 : " + categoryNo);
+    bigCategoryNo = smallCategory.categoryRefNo;
+    const big = smallCategory.categoryRefNo;//선택한 카테고리의 대분류
+
+    axios
+      .get("/meet/categoryMeetList/" + reqPage + "/" + categoryNo)
+      .then((res) => {
+        console.log(res.data);
+        setMeetList(res.data.meetList);
+        //페이지인포 셋팅
+        setPageInfo(res.data.pi);
+      })
+      .catch((res) => {
+        console.log("catch : " + res.response.status);
+      });
+
+  }
+
   return (
     <div className="meetList-all-wrap">
       <div className="meetListCategori-area">
@@ -56,13 +79,17 @@ const MeetList = () => {
         <div>
           <ul>
             <li>전체</li>
-            {(smallCategory, index) => {
+            {smallCategoryList.map((smallCategory, index) => {
               return (
-                <li key={"smallCategory" + index}>
-                  {smallCategory.categoryName}
-                </li>
-              );
-            }}
+                <li key={"smallCategory" + index} onClick={() => {
+                  changeCategory(smallCategory);
+                }}>
+                  <div>
+                    {smallCategory.categoryName}
+                  </div>
+
+                </li>);
+            })}
           </ul>
         </div>
       </div>
@@ -80,7 +107,7 @@ const MeetList = () => {
           pageInfo={pagenfo}
         />
       </div>
-    </div>
+    </div >
   );
 };
 

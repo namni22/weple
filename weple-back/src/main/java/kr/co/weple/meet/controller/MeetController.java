@@ -131,10 +131,19 @@ public class MeetController {
 	public Map meetList(@PathVariable int reqPage, @PathVariable int meetCategory) {
 		System.out.println("모임 카테고리 번호 : "+meetCategory);
 		//이미 meetList를 쓰고 있어서 바꿈
-		Map map = meetService.circleList(reqPage);
+		Map map = meetService.circleList(reqPage,meetCategory);
 
 		return map;
 	}
+	//모임 카테고리 메뉴바 눌럿을때 모임 리스트 조회
+	@GetMapping(value = "/categoryMeetList/{reqPage}/{meetCategory}")
+	public Map categoryMeetList(@PathVariable int reqPage,@PathVariable int meetCategory) {
+		
+		Map map = meetService.categoryMeetList(reqPage, meetCategory);
+		
+		return map;
+	}
+	
 	@GetMapping(value = "/meetView/{meetNo}")
 	public Meet meetView(@PathVariable int meetNo) {
 		
