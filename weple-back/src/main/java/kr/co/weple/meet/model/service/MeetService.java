@@ -192,6 +192,12 @@ public class MeetService {
 		List smallCategoryList = meetDao.smallCategoryList(category);
 		return smallCategoryList;
 	}
+	//내모임회원 추방
+	@Transactional
+	public int deleteMember(int memberNo) {
+		// TODO Auto-generated method stub
+		return meetDao.deleteMember(memberNo);
+	}
 
 
 

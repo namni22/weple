@@ -2,7 +2,7 @@ import ReactModal from "react-modal";
 import { Button1, Button2 } from "./Button";
 import "./modal.css";
 import { color } from "@mui/system";
-const MyModal = ({ isOpen, onSubmit, onCancel }) => {
+const MyModal = ({ isOpen, onSubmit, onCancel, memberId }) => {
   const customStyles = {
     content: {
       top: "50%",
@@ -34,7 +34,7 @@ const MyModal = ({ isOpen, onSubmit, onCancel }) => {
             <tbody>
               <tr>
                 <td width="20%">신고자</td>
-                <td>신고자ID</td>
+                <td>{memberId}</td>
               </tr>
               <tr>
                 <td>신고 타입</td>
