@@ -21,7 +21,7 @@ public class ReviewController {
 		List list = reviewService.reviewList(meetNo);
 		return list;
 	}
-	
+	//리뷰 별점,후기개수 조회
 	@GetMapping(value = "/reviewTotal/{meetNo}")
 	public List reviewTotal(@PathVariable int meetNo) {
 		List list = reviewService.reviewList(meetNo);
