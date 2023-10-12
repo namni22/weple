@@ -37,7 +37,7 @@ function App() {
             element={<Mypage isLogin={isLogin} setIsLogin={setIsLogin} />}
           />
           <Route path="/feed/*" element={<Feed isLogin={isLogin} />} />
-          <Route path="/meet/*" element={<MeetMain />}></Route>
+          <Route path="/meet/*" element={<MeetMain isLogin={isLogin} />}></Route>
           <Route path="/board/*" element={<Board />} />
           <Route path="/admin/*" element={<Admin />} />
           <Route path="/join" element={<Join />} />

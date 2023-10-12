@@ -10,7 +10,9 @@ import { useEffect } from "react";
 import EnrollMeetMember from "./EnrollMeetMember";
 import axios from "axios";
 
-const MeetView = () => {
+const MeetView = (props) => {
+    const isLogin = props.isLogin;
+
     const location = useLocation();
     const [myMeet, setMyMeet] = useState({});
 
