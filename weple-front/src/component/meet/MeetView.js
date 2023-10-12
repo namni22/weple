@@ -54,7 +54,7 @@ const MeetView = (props) => {
                 <Route path="meetChat" element={<MeetChat myMeet={myMeet} />} />
                 <Route path="meetCalendar" element={<MeetCalendar />} />
                 <Route path="meetList" element={<MeetMemberList myMeet={myMeet} />} />
-                <Route path="*" element={<MeetInfo myMeet={myMeet} />} />
+                <Route path="*" element={<MeetInfo myMeet={myMeet} isLogin={isLogin} />} />
             </Routes>
         </div>
     );

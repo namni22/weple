@@ -87,6 +87,7 @@ public class MeetService {
 		map.put("selectMeetMemberList",selectMeetMemberList);
 		map.put("pi",pi);
 		return map;
+		
 	}
 	//모임 리스트 조회
 	public Map meetList(int reqPage) {
@@ -212,6 +213,21 @@ public class MeetService {
 	public Member selectOneMember(String memberId) {
 		// TODO Auto-generated method stub
 		return meetDao.selectOneMember(memberId);
+	}
+
+	//모임가입신청
+	public int meetJoin(Member joinMember, Meet meet) {
+		// TODO Auto-generated method stub
+		// 가입신청한 멤버번호와 가입할 모임번호를 모임가입정보로 묶어서 전달
+		System.out.println("가입할 회원 아이디 : "+ joinMember);
+		System.out.println("가입신청한 모임 : " + meet);
+		HashMap<String, Object> meetJoinInfo = new HashMap<String,Object>();
+		meetJoinInfo.put("memberNo",joinMember.getMemberNo());
+		meetJoinInfo.put("meetNo",meet.getMeetNo());
+		
+		int result = meetDao.meetJoin(meetJoinInfo);
+		System.out.println("결과확인");
+		return result;
 	}
 
 

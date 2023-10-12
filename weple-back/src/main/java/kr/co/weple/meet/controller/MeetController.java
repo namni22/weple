@@ -1,5 +1,6 @@
 package kr.co.weple.meet.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,7 @@ import kr.co.weple.meet.model.vo.Category;
 import kr.co.weple.meet.model.vo.Chat;
 import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.meet.model.vo.Meet;
+import kr.co.weple.member.model.service.MemberService;
 import kr.co.weple.member.model.vo.Member;
 
 @RestController
@@ -28,6 +30,8 @@ import kr.co.weple.member.model.vo.Member;
 public class MeetController {
 	@Autowired
 	private MeetService meetService;
+	@Autowired
+	private MemberService memberService;
 	@Autowired
 	private FileUtil fileUtil;
 	@Value("${file.root}")
@@ -142,6 +146,22 @@ public class MeetController {
 		Member m = meetService.selectOneMember(member.getMemberId());
 		System.out.println("m : "+m);
 		return meetService.selectOneMember(member.getMemberId());
+	}
+	//모임 가입
+	@PostMapping(value = "/meetJoin")
+	public int meetJoin (
+			@RequestAttribute String memberId,
+			@RequestBody Meet meet
+			
+			) {
+		
+		
+		Member joinMember =  memberService.selectOneMember(memberId);
+		System.out.println(joinMember);
+		
+		int result = meetService.meetJoin(joinMember, meet);
+		
+		return result;
 	}
 	
 	@GetMapping(value = "/meetView/{meetNo}")

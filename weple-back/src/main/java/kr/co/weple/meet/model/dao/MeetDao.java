@@ -57,6 +57,8 @@ public interface MeetDao {
 	int memberLike(String memberId, double changeMemberLike);
 
 	Member selectOneMember(String memberId);
+	//모임 가입 신청
+	int meetJoin(HashMap<String, Object> meetJoinInfo);
 
 
 }
