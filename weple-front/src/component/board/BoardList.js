@@ -56,10 +56,10 @@ const BoardList = () => {
     return (
         <div>
             <div className="board-tab-wrap">
-                <span>전체</span>
-                <span>공지</span>
-                <span>이벤트</span>
-                <span>자주묻는질문</span>
+                <span className="board-active-tab">전체</span>
+                <span className="board-active-tab">공지</span>
+                <span className="board-active-tab">이벤트</span>
+                <span className="board-active-tab">자주묻는질문</span>
             </div>
             <div className="board-list-wrap">
                 <ul className="board-list">

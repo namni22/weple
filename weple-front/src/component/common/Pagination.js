@@ -4,9 +4,14 @@ const Pagination = (props) => {
   const pageInfo = props.pageInfo;
   const reqPage = props.reqPage;
   const setReqPage = props.setReqPage;
+  const data = props.data;
+  const setData = props.setData;
   const changePage = (e) => {
     const changePage = e.currentTarget.innerText;
-    setReqPage(changePage);
+    if (changePage != reqPage) {
+      setData([]);
+      setReqPage(changePage);
+    }
   }
   const arr = new Array();
   //제일 왼 버튼
