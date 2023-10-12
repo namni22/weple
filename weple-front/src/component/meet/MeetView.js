@@ -15,15 +15,10 @@ const MeetView = () => {
     const [myMeet, setMyMeet] = useState({});
 
     //모임이름 받아서 선언이후 DB에서 모임장 정보 불러오기
-    const [meetCaptainName, setMeetCaptainName] = useState("왜 이게 넘어가지?");
-    useEffect(() => {
-        setMeetCaptainName(location.state.m.meetCaptain)
-    }, []);
-    const member = { memberId: meetCaptainName }
     const [meetCaptain, setMeetCaptain] = useState({});
     useEffect(() => {
         axios
-            .post("/meet/selectOneMember", member)
+            .post("/meet/selectOneMember", { memberId: location.state.m.meetCaptain })
             .then((res) => {
                 console.log(res.data);
                 setMeetCaptain(res.data);
@@ -32,10 +27,6 @@ const MeetView = () => {
                 console.log("catch : " + res.response.status);
             })
     }, [])
-    console.log(meetCaptain);
-
-
-
 
     useEffect(() => {
         setMyMeet(location.state.m);
@@ -51,7 +42,7 @@ const MeetView = () => {
     return (
         <div className="afterMeet-all-wrap">
             <div className="feed-title">MY GROUP</div>
-            <AfterMeetMain myMeet={myMeet} />
+            <AfterMeetMain myMeet={myMeet} meetCaptain={meetCaptain} />
             <AfterMeetSubNavi meetMenu={meetMenu} setMeetMenu={setMeetMenu} />
             <Routes>
                 <Route
@@ -69,6 +60,8 @@ const MeetView = () => {
 
 const AfterMeetMain = (props) => {
     const myMeet = props.myMeet;
+    const meetCaptain = props.meetCaptain;
+
     console.log(myMeet);
     return (
         <div className="afterMeet-main-wrap">
@@ -81,8 +74,11 @@ const AfterMeetMain = (props) => {
                 <div className="afterMeet-info-host">
                     <div className="aferMeet-host-img">
                         {/* <img src="/img/testImg_01.png"></img> */}
-
-                        {/* <img src={"/member/" + meetCaptain.memberImage}></img> */}
+                        {meetCaptain.memberImage ? (
+                            <img src={"/member/" + meetCaptain.memberImage}></img>
+                        ) : (
+                            <img src="/img/testImg_01.png"></img>
+                        )}
                     </div>
                     <div className="aferMeet-host-name">
                         <Link to="#">{myMeet.meetCaptain}</Link>
