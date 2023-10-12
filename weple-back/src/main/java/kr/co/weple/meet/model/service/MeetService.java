@@ -169,9 +169,11 @@ public class MeetService {
 		return list;
 	}
 
-	public List meetChatList(int meetNo) {
+	public Map meetChatList(int meetNo) {
 		List meetChat = meetDao.meetChatList(meetNo);
-		return meetChat;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("meetChat", meetChat);
+		return map;
 	}
 	//메인페이지에 인기순 모임조회
 	public List meetPopular() {
@@ -190,6 +192,12 @@ public class MeetService {
 		// TODO Auto-generated method stub
 		List smallCategoryList = meetDao.smallCategoryList(category);
 		return smallCategoryList;
+	}
+	//내모임회원 추방
+	@Transactional
+	public int deleteMember(int memberNo) {
+		// TODO Auto-generated method stub
+		return meetDao.deleteMember(memberNo);
 	}
 
 	//아이디 받아서 멤버 조회

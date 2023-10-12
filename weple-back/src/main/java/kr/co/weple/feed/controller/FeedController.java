@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,10 +34,10 @@ public class FeedController {
 	@PostMapping(value="/insert")
 	public int insert(
 			@ModelAttribute Feed f,
-			@ModelAttribute MultipartFile[] fImage
+			@ModelAttribute MultipartFile[] fImage,
+			@RequestAttribute String memberId
 			) {
-		//임시 아이디값 넣기 (로그인로직 완료되면 작성자 불러오기)
-		f.setFeedWriter("admin");
+		f.setFeedWriter(memberId);
 		String savepath = root+"feed/";
 		ArrayList<FImage> imageList = new ArrayList<FImage>();
 		for(MultipartFile file : fImage) {				
