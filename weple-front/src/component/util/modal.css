@@ -1,3 +1,6 @@
+.ReactModal__Overlay {
+  z-index: 1;
+}
 .modal-all-wrap {
   width: 800px;
 }
