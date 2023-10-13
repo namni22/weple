@@ -40,16 +40,23 @@
 }
 
 .btn2 {
-  border: 1px solid #4d75ff;
+  border: 1px solid #3d40e5;
   color: #3d40e5;
   background-color: transparent;
 }
 .btn3 {
-  background-color: #ededed;
+  border: 1px solid #171717;
   color: #171717;
+  background-color: transparent;
+  /* background-color: #ededed;
+  color: #171717; */
 }
 
 .btn2:hover {
   background-color: #3d40e5;
+  color: #fff;
+}
+.btn3:hover {
+  background-color: #171717;
   color: #fff;
 }

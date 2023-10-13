@@ -38,5 +38,42 @@ public class FeedService {
 		}
 		return null;
 	}
+
+	//피드수정
+	@Transactional
+	public List<FImage> modify(Feed f, ArrayList<FImage> imageList) {
+		List<FImage> delImageList = new ArrayList<FImage>();
+		String [] deleteImg = {};
+		int result = 0;
+		//삭제파일 DB처리
+		if(!f.getDeleteImg().equals("")) {
+			deleteImg = f.getDeleteImg().split("/");
+			System.out.println(deleteImg);
+			delImageList = feedDao.selectFeedFile(deleteImg);
+			System.out.println(delImageList);
+			result += feedDao.deleteFeedFile(deleteImg);
+		}
+		//추가한파일 처리
+		for(FImage fi : imageList) {
+			result += feedDao.insertFImage(fi);
+		}
+		//피드수정
+		result += feedDao.updateFeed(f);
+		if(result == 1+imageList.size()+deleteImg.length) {
+			return delImageList;
+		}	
+		return null;
+	}
+
+	//피드삭제
+	@Transactional
+	public List<FImage> delete(int feedNo) {
+		List<FImage> list = feedDao.selectImageList(feedNo);
+		int result = feedDao.deleteFeed(feedNo);
+		if(result >0) {
+			return list;
+		}
+		return null;
+	}
 	
 }

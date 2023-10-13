@@ -20,4 +20,12 @@ public interface FeedDao {
 
 	List<FImage> selectImageList(int feedNo);
 
+	List<FImage> selectFeedFile(String[] deleteImg);
+
+	int deleteFeedFile(String[] deleteImg);
+
+	int updateFeed(Feed f);
+
+	int deleteFeed(int feedNo);
+
 }

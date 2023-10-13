@@ -11,6 +11,7 @@ const FeedList = (props) => {
   const [feedList, setFeedList] = useState([]);
   const [start, setStart] = useState(1);
   const isLogin = props.isLogin;
+  const id = props.id;
 
   const amount = 9;
   useEffect(() => {
@@ -51,7 +52,13 @@ const FeedList = (props) => {
       <div className="feed-list-content-wrap">
         {feedList.map((feed, index) => {
           return (
-            <FeedContent key={"feed" + index} navigate={navigate} feed={feed} />
+            <FeedContent
+              key={"feed" + index}
+              navigate={navigate}
+              feed={feed}
+              isLogin={isLogin}
+              id={id}
+            />
           );
         })}
       </div>
@@ -64,6 +71,8 @@ const FeedList = (props) => {
 
 const FeedContent = (props) => {
   const feed = props.feed;
+  const isLogin = props.isLogin;
+  const id = props.id;
   const navigate = props.navigate;
   const list = feed.imageList.map((img, index) => {
     return <img src={"/feed/" + img.fimageName} />;
@@ -72,22 +81,46 @@ const FeedContent = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const onCancel = () => {
     setIsOpen(false);
-    console.log(isOpen);
   };
   const moreModal = () => {
     setIsOpen(true);
   };
-  const deleteEvent = () => {};
-  const modifyEvent = () => {
-    navigate("/feed/modify");
+  const deleteEvent = () => {
+    Swal.fire({
+      icon: "warning",
+      text: "피드를 삭제하시겠습니까?",
+      showCancelButton: true,
+      confirmButtonText: "삭제",
+      cancelButtonText: "취소",
+    }).then((res) => {
+      if (res.isConfirmed) {
+        axios
+          .get("/feed/delete/" + feed.feedNo)
+          .then((res) => {
+            if (res.data !== 0) {
+              Swal.fire({
+                icon: "success",
+                text: "피드가 삭제되었습니다",
+                confirmButtonText: "확인",
+              }).then((res) => {
+                navigate("/feed");
+              });
+            }
+          })
+          .catch((res) => {
+            console.log(res.response.status);
+          });
+      }
+    });
   };
-
+  const modifyEvent = () => {
+    navigate("/feed/modify", { state: { feed: feed } });
+  };
   //댓글
   const comment = () => {
     setIsOpen(false);
     navigate("/feed/comment");
   };
-  console.log("111 : " + isOpen);
   return (
     <div className="feed-list-content">
       <div className="feed-list-top">
@@ -134,6 +167,10 @@ const FeedContent = (props) => {
           isOpen={isOpen}
           onCancel={onCancel}
           modifyEvent={modifyEvent}
+          isLogin={isLogin}
+          feedWriter={feed.feedWriter}
+          deleteEvent={deleteEvent}
+          id={id}
         />
       </div>
     </div>

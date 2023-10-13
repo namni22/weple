@@ -18,4 +18,5 @@ public class Feed {
 	private String feedContent;
 	private String feedDate;
 	private List imageList;
+	private String deleteImg;
 }

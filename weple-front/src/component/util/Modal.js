@@ -1,5 +1,5 @@
 import ReactModal from "react-modal";
-import { Button2 } from "./Button";
+import { Button2, Button3 } from "./Button";
 import "./modal.css";
 import { useState } from "react";
 import Swal from "sweetalert2";
@@ -102,6 +102,10 @@ const MoreModal = (props) => {
   const onCancel = props.onCancel;
   const deleteEvent = props.deleteEvent;
   const modifyEvent = props.modifyEvent;
+  const isLogin = props.isLogin;
+  const id = props.id;
+  const feedWriter = props.feedWriter;
+
   const [reportIsOpen, setReportIsOpen] = useState(false);
   const reportCancel = () => {
     setReportIsOpen(false);
@@ -121,38 +125,46 @@ const MoreModal = (props) => {
       bottom: "auto",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
-      padding: "40px",
+      padding: "10px",
     },
     overlay: {
-      backgroundColor: "rgba(0, 0, 0, 0.4)",
+      backgroundColor: "rgba(0, 0, 0, 0.1)",
     },
   };
   const handleClickCancel = () => {
     console.log("취소!");
     onCancel();
   };
-  console.log("222 : " + isOpen);
   return (
-    <ReactModal style={customStyles} isOpen={isOpen}>
+    <ReactModal
+      style={customStyles}
+      isOpen={isOpen}
+      shouldCloseOnOverlayClick={true}
+    >
       <div className="more-modal-wrap">
-        <div className="modal-select">
-          <div>
-            <span className="material-icons" onClick={modifyEvent}>
-              수정
-            </span>
+        {!isLogin ? (
+          <div>로그인이 필요한 기능입니다</div>
+        ) : id === feedWriter ? (
+          <div className="modal-select writer">
+            <div>
+              <span className="material-icons">drive_file_rename_outline</span>
+              <Button3 text="수정" clickEvent={modifyEvent} />
+            </div>
+            <div>
+              <span className="material-icons">delete</span>
+              <Button3 text="삭제" clickEvent={deleteEvent} />
+            </div>
           </div>
-          <div>
-            <span className="material-icons" onClick={deleteEvent}>
-              삭제
-            </span>
+        ) : (
+          <div className="modal-select">
+            <div>
+              <span className="material-icons">error_outline</span>
+              <Button3 text="신고" clickEvent={reportBtn} />
+            </div>
           </div>
-          <div>
-            <span className="material-icons" onClick={reportBtn}>
-              신고
-            </span>
-          </div>
-        </div>
-        <div className="modal-close">
+        )}
+
+        <div className="more-modal-close">
           <span className="material-icons" onClick={handleClickCancel}>
             close
           </span>

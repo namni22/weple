@@ -18,10 +18,12 @@ import Mypage from "./component/member/Mypage";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
+  const [id, setId] = useState("");
   useEffect(() => {
     const token = window.localStorage.getItem("token");
     if (token === null) {
       setIsLogin(false);
+      setId("");
     } else {
       setIsLogin(true);
     }
@@ -29,19 +31,27 @@ function App() {
 
   return (
     <div className="weple-wrap">
-      <Header isLogin={isLogin} setIsLogin={setIsLogin} />
+      <Header isLogin={isLogin} setIsLogin={setIsLogin} setId={setId} />
       <div className="weple-content">
         <Routes>
           <Route
             path="/mypage/*"
-            element={<Mypage isLogin={isLogin} setIsLogin={setIsLogin} />}
+            element={
+              <Mypage isLogin={isLogin} setIsLogin={setIsLogin} setId={setId} />
+            }
           />
-          <Route path="/feed/*" element={<Feed isLogin={isLogin} />} />
-          <Route path="/meet/*" element={<MeetMain isLogin={isLogin} />}></Route>
+          <Route path="/feed/*" element={<Feed isLogin={isLogin} id={id} />} />
+          <Route
+            path="/meet/*"
+            element={<MeetMain isLogin={isLogin} />}
+          ></Route>
           <Route path="/board/*" element={<Board />} />
           <Route path="/admin/*" element={<Admin />} />
           <Route path="/join" element={<Join />} />
-          <Route path="/login" element={<Login setIsLogin={setIsLogin} />} />
+          <Route
+            path="/login"
+            element={<Login setIsLogin={setIsLogin} setId={setId} />}
+          />
           <Route path="/mypage" element={<Mypage />} />
           {/* <Route path="/category" element={<Category />} /> */}
 
