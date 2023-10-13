@@ -11,7 +11,8 @@ const MeetInfo = (props) => {
   const myMeet = props.myMeet;
   const isLogin = props.isLogin;
 
-  const meetPrepareList = myMeet.meetPrepare.split("/");
+
+  //const meetPrepareList = myMeet.meetPrepare.split("/");
 
 
   //로그인 이후 모임가입하기 버튼 클릭시 작동하는 함수
@@ -56,11 +57,11 @@ const MeetInfo = (props) => {
         <div className="meetInfo-content-area">
           <div className="meetInfo-content-title">준비물</div>
           <div className="meetInfo-meetPrepareList">
-            {meetPrepareList.map((meetPrepare, index) => {
+            {/* {meetPrepareList.map((meetPrepare, index) => {
               return (
                 <span key={"meetPrepare" + index} className="meetInfo-meetPrepare">{meetPrepare}</span>
               )
-            })}
+            })} */}
 
           </div>
         </div>
