@@ -94,6 +94,20 @@ const MeetSettingFrm = (props) => {
 
     };
 
+    //준비물 삭제 버튼 눌럿을때 작동하는 함수
+    const deleteMeetPrepare = (meetPrepareList2, index) => {
+        // console.log("넘겨받은 준비물 리스트 ", meetPrepareList2);
+        // console.log("원본 준비물 리스트 : ", meetPrepareList);
+
+        const newArr = meetPrepareList2.splice(index, 1);
+        const newArr2 = meetPrepareList.filter(function (item) {
+            return item !== newArr;
+        });
+        console.log("삭제 완료 한 새 배열 : ", newArr2);
+
+        setMeetPrepareList(newArr2)
+    }
+
     const enterEvent = (e) => {
         if (e.key === "Enter") {
             meetPrepareAdd();
@@ -104,7 +118,13 @@ const MeetSettingFrm = (props) => {
         <div className="meetSettingFrm-main-wrap">
 
             <div className="meetSettingFrm-wrap">
-                <div className="meetCategoriFrm">카테고리</div>
+                <div className="meetCategoriFrm">
+                    <label>카테고리</label>
+                    <div>
+                        <div>대분류</div>
+                        <div>소분류</div>
+                    </div>
+                </div>
                 <div className="meetTitleFrm">
                     <label htmlFor="meetTitleFrm">모임 이름</label>
                     <div className="jwInput" id="jwInput">
@@ -219,7 +239,15 @@ const MeetSettingFrm = (props) => {
 
                             {meetPrepareList.map((meetPrepare, index) => {
                                 return (
-                                    <div key={"meetPrepare" + index} className="meetMaterials-one">{meetPrepare}</div>
+                                    <div key={"meetPrepare" + index} className="meetMaterials-one">
+                                        <span class="material-icons ">{meetPrepare}</span>
+                                        <span
+                                            class="material-icons delete-meetPrepare"
+                                            onClick={() => {
+                                                deleteMeetPrepare(meetPrepareList, index);
+                                            }}
+                                        >clear</span>
+                                    </div>
                                 )
                             })}
 

@@ -17,7 +17,8 @@ const MeetInfo = (props) => {
   const [meetPrepareList, setMeetPrepareList] = useState([]);
   useEffect(() => {
     setMeet(props.myMeet);
-
+    console.log("reveiwCount:" + meet.reviewCount);
+    console.log("reveiwStar:" + meet.reviewStar);
     if (props.myMeet.meetPrepare) {
       setMeetPrepareList(props.myMeet.meetPrepare.split("/"));
     }
