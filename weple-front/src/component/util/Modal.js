@@ -3,6 +3,7 @@ import { Button2, Button3 } from "./Button";
 import "./modal.css";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import axios from "axios";
 const ReportModal = (props) => {
   const isOpen = props.isOpen;
   const onSubmit = props.onSubmit;
@@ -39,6 +40,14 @@ const ReportModal = (props) => {
   const handleClickCancel = () => {
     onCancel();
   };
+  axios
+    .get("/meet/reportCategory")
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((res) => {
+      console.log(res.response.status);
+    });
   return (
     <ReactModal style={customStyles} isOpen={isOpen}>
       <div className="modal-all-wrap">

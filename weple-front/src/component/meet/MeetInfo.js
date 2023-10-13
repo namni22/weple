@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 
 const MeetInfo = (props) => {
   const myMeet = props.myMeet;
+  console.log(myMeet);
   const isLogin = props.isLogin;
 
   //로그인 이후 모임가입하기 버튼 클릭시 작동하는 함수
@@ -26,15 +27,13 @@ const MeetInfo = (props) => {
       .then((res) => {
         console.log(res.data);
         if (res.data === 1) {
-          Swal.fire("가입신청 완료")
+          Swal.fire("가입신청 완료");
         }
-
       })
       .catch((res) => {
         console.log(res.response.status);
-
-      })
-  }
+      });
+  };
 
   return (
     <div className="meetInfo-all-wrap">
@@ -45,8 +44,7 @@ const MeetInfo = (props) => {
           <div
             className="meetViewContentD"
             dangerouslySetInnerHTML={{ __html: myMeet.meetContentD }}
-          >
-          </div>
+          ></div>
         </div>
 
         <Kakao />

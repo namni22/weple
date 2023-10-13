@@ -208,4 +208,10 @@ public class MeetController {
 			int result = meetService.memberLike(memberList.getMemberId(),memberList.getMemberLike());
 			return result;
 		}
+	//신고유형 가져오기
+		@GetMapping(value = "/reportCategory")
+		public Map reportCategory() {
+			Map map = meetService.reportCategory();
+			return null;
+		}
 }

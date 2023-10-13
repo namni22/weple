@@ -3,12 +3,14 @@ import FeedComment from "../feed/FeedComment";
 import { Button1 } from "../util/Button";
 import "./afterMeet.css";
 import axios from "axios";
+import TextEditor from "../util/TextEditor";
 
 const MeetChat = (props) => {
   const meet = props.myMeet;
   console.log(meet.meetNo);
+  console.log(meet);
   const [chat, setChat] = useState([]);
-
+  const [data, setData] = useState({});
   useEffect(() => {
     axios
       .get("/meet/meetChat/" + meet.meetNo)
@@ -21,6 +23,9 @@ const MeetChat = (props) => {
         console.log(res.response.status);
       });
   }, []);
+  const insertChat = () => {
+    console.log("전송이벤트");
+  };
   return (
     <>
       <div className="meetChat-chat-wrap">
@@ -31,10 +36,12 @@ const MeetChat = (props) => {
       <div className="meetChat-all-wrap">
         <ul>
           <li className="meetChat-input-form-wrap">
-            <textarea className="meetChat-input-form"></textarea>
-          </li>
-          <li className="meetChat-btn">
-            <Button1 text={"전송"} />
+            <div className="meetChat-textEditor">
+              <TextEditor data={data} setData={setData} />
+            </div>
+            <div className="meetChat-btn">
+              <Button1 text={"전송"} clickEvent={insertChat} />
+            </div>
           </li>
         </ul>
         <div className="meetChat-span">
