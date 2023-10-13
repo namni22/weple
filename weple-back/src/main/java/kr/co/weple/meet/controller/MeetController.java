@@ -1,5 +1,6 @@
 package kr.co.weple.meet.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,7 @@ import kr.co.weple.meet.model.vo.Category;
 import kr.co.weple.meet.model.vo.Chat;
 import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.meet.model.vo.Meet;
+import kr.co.weple.member.model.service.MemberService;
 import kr.co.weple.member.model.vo.Member;
 
 @RestController
@@ -28,6 +30,8 @@ import kr.co.weple.member.model.vo.Member;
 public class MeetController {
 	@Autowired
 	private MeetService meetService;
+	@Autowired
+	private MemberService memberService;
 	@Autowired
 	private FileUtil fileUtil;
 	@Value("${file.root}")
@@ -57,9 +61,11 @@ public class MeetController {
 	@PostMapping(value = "/meetCreate")
 	public int meetCreate(
 			@ModelAttribute Meet meet,
-			@ModelAttribute MultipartFile meetThumbnail			
+			@ModelAttribute MultipartFile meetThumbnail,
+			@RequestAttribute String memberId
 		) {
-		// @RequestAttribute String memberId 로 아이디 받아서 meet에 방장으로 추가 (토큰필요)		
+		// @RequestAttribute String memberId 로 아이디 받아서 meet에 방장으로 추가 (토큰필요)
+		meet.setMeetCaptain(memberId);
 		//구분자로 준비물 String으로 이어서 set
 		if(!meet.getMeetPrepareList().isEmpty()) {//준비물이 있다면
 			String newPrepare = "";
@@ -137,8 +143,25 @@ public class MeetController {
 	//아이디 받아서 멤버 조회
 	@PostMapping(value = "/selectOneMember")
 	public Member selectOneMember(@RequestBody Member member) {
-		
+		Member m = meetService.selectOneMember(member.getMemberId());
+		System.out.println("m : "+m);
 		return meetService.selectOneMember(member.getMemberId());
+	}
+	//모임 가입
+	@PostMapping(value = "/meetJoin")
+	public int meetJoin (
+			@RequestAttribute String memberId,
+			@RequestBody Meet meet
+			
+			) {
+		
+		
+		Member joinMember =  memberService.selectOneMember(memberId);
+		System.out.println(joinMember);
+		
+		int result = meetService.meetJoin(joinMember, meet);
+		
+		return result;
 	}
 	
 	@GetMapping(value = "/meetView/{meetNo}")
@@ -176,8 +199,13 @@ public class MeetController {
 	//내모임회원 추방
 	@PostMapping(value = "/deleteMember")
 	public int deleteMember(@RequestBody Follower memberList) {
-		System.out.println(memberList);
 		int result = meetService.deleteMember(memberList.getMemberNo());
-		return 0;
+		return result;
 	}
+	//모임 내 맴버 호감도 올리기
+		@PostMapping(value = "/memberLike")
+		public int memberLike(@RequestBody Member memberList) {
+			int result = meetService.memberLike(memberList.getMemberId(),memberList.getMemberLike());
+			return result;
+		}
 }

@@ -20,7 +20,7 @@
 			from (select * from feed order by 1 desc)f)
 		where rnum between #{start} and #{end}
 	</select>
-	<select id="selectImageList" resultType="FImage">
+	<select id="selectImageList" resultType="fImage">
 		select * from fImage where feed_no = #{feedNo}
 	</select>
 	<resultMap id="getImage" type="Feed">
@@ -33,7 +33,27 @@
 			select="selectImageList"
 			column="feed_no"
 			javaType="java.util.List"
-			ofType="FImage"
+			ofType="fImage"
 		/>
 	</resultMap>
+	<select id="selectFeedFile" resultType="fImage">
+		select * from fimage
+			where fimage_no in
+			<foreach collection="array" open="(" close=")" separator="," item="fImageNo">
+				#{fImageNo}
+			</foreach>
+	</select>
+	<delete id="deleteFeedFile">
+		delete from fimage
+			where fimage_no in
+			<foreach collection="array" open="(" close=")" separator="," item="fImageNo">
+				#{fImageNo}
+			</foreach>
+	</delete>
+	<update id="updateFeed">
+		update feed set feed_content = #{feedContent} where feed_no = #{feedNo}			
+	</update>
+	<delete id="deleteFeed">
+		delete from feed where feed_no = #{feedNo}
+	</delete>
 </mapper>

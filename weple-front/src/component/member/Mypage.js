@@ -6,12 +6,17 @@ import AdminBoard from "../admin/AdminBoard";
 import AdminReport from "../admin/AdminReport";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import axios from "axios";
+import ModifyInfo from "./ModifyInfo";
 
 const Mypage = (props) => {
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
   const token = window.localStorage.getItem("token");
   const [member, setMember] = useState({});
+  const [mainCategory, setMainCategory] = useState([]);
+  const [subCategory, setSubCategory] = useState([]);
+  const [myCategory, setMyCategory] = useState([]);
+
   const [menus, setMenus] = useState([
     { url: "", text: "프로필", active: true },
     { url: "modifyInfo", text: "정보 수정", active: false },
@@ -28,7 +33,46 @@ const Mypage = (props) => {
         },
       })
       .then((res) => {
+        console.log(res.data);
         setMember(res.data);
+        // 회원이 선택한 카테고리 번호 문자열 , 기준으로 split
+        // memberCategory가 현재 object로 생성된 string타입이어서 new String
+        const data = res.data;
+        const myCategoryNo = new String(data.memberCategory);
+        const myCategoryNoList = myCategoryNo.split(",");
+        myCategoryNoList.forEach((item) => {
+          myCategory.push(item);
+        });
+        setMyCategory([...myCategory]);
+        console.log(myCategory);
+      })
+      .catch((res) => {
+        console.log(res.response.status);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("/member/subcategory")
+      .then((res) => {
+        res.data.forEach((item) => {
+          subCategory.push(item);
+          setSubCategory([...subCategory]);
+        });
+      })
+      .catch((res) => {
+        console.log(res.response.status);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("/member/categoryList")
+      .then((res) => {
+        res.data.forEach((item) => {
+          mainCategory.push(item);
+          setMainCategory([...mainCategory]);
+        });
       })
       .catch((res) => {
         console.log(res.response.status);
@@ -48,10 +92,24 @@ const Mypage = (props) => {
                   member={member}
                   setMember={setMember}
                   setIsLogin={setIsLogin}
+                  subCategory={subCategory}
+                  setSubCategory={setSubCategory}
+                  mainCategory={mainCategory}
+                  setMainCategory={setMainCategory}
+                  myCategory={myCategory}
                 />
               }
             />
-            <Route path="modifyInfo" element={<AdminBoard />} />
+            <Route
+              path="modifyInfo"
+              element={
+                <ModifyInfo
+                  member={member}
+                  setMember={setMember}
+                  setIsLogin={setIsLogin}
+                />
+              }
+            />
             <Route path="myCalendar" element={<AdminReport />} />
             <Route path="alarm" element={<AdminReport />} />
           </Routes>

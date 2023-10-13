@@ -4,9 +4,11 @@ import "./header.css";
 const Header = (props) => {
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
+  const setId = props.setId;
   const logout = () => {
     window.localStorage.removeItem("token");
     setIsLogin(false);
+    setId("");
   };
   return (
     <div className="header">

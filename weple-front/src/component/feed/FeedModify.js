@@ -2,26 +2,36 @@ import { useEffect, useState } from "react";
 import FeedWriteFrm from "./FeedWriteFrm";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
-const FeedWrite = (props) => {
+const FeedModify = (props) => {
   const prev = props.prev;
-  const [feedContent, setFeedContent] = useState("");
-  const [fImage, setFImage] = useState([]);
-  const [feedBox, setFeedBox] = useState([]);
   const navigate = useNavigate();
+  const location = useLocation();
+  const feed = location.state.feed;
+  const [feedContent, setFeedContent] = useState(feed.feedContent);
+  const [fImage, setFImage] = useState(feed.imageList);
+  //DB에서 불러온 파일을 띄우기 위한 배열
+  const imgArr = [];
+  for (let i = 0; i < feed.imageList.length; i++) {
+    imgArr.push(<img src={feed.imageList[i].fimageName} />);
+  }
+  const [feedBox, setFeedBox] = useState(imgArr);
+  const [deleteImg, setDeleteImg] = useState([]); //삭제파일 state 추가
 
-  const write = () => {
+  const modify = () => {
     if (feedContent !== "" && fImage.length !== 0) {
       const form = new FormData();
       form.append("feedContent", feedContent);
       for (let i = 0; i < fImage.length; i++) {
         form.append("fImage", fImage[i]);
       }
+      form.append("feedNo", feed.feedNo); //수정할 피드 번호
+      form.append("deleteImg", deleteImg.join("/")); //삭제할 파일
 
       const token = window.localStorage.getItem("token");
       axios
-        .post("/feed/insert", form, {
+        .post("/feed/modify", form, {
           headers: {
             contentType: "multipart/form-data",
             processData: false,
@@ -29,7 +39,7 @@ const FeedWrite = (props) => {
           },
         })
         .then((res) => {
-          if (res.data > 0) {
+          if (res.data == 1) {
             Swal.fire("성공");
             navigate("/feed");
           }
@@ -46,7 +56,7 @@ const FeedWrite = (props) => {
   return (
     <div>
       <div className="feed-title">
-        FEED UPLOAD
+        FEED MODIFY
         <span className="material-icons" onClick={prev}>
           close
         </span>
@@ -58,10 +68,13 @@ const FeedWrite = (props) => {
         setFImage={setFImage}
         feedBox={feedBox}
         setFeedBox={setFeedBox}
-        uploadEvent={write}
+        uploadEvent={modify}
+        deleteImg={deleteImg}
+        setDeleteImg={setDeleteImg}
+        type="modify"
       />
     </div>
   );
 };
 
-export default FeedWrite;
+export default FeedModify;

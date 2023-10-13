@@ -17,7 +17,8 @@ const MeetList = () => {
   const [smallCategoryList, setSmallCategoryList] = useState([]);
 
   const location = useLocation();
-  var bigCategoryNo = location.state.bigCategoryNo;
+  let bigCategoryNo = location.state.bigCategoryNo; //카테고리에서 넘어온거
+  let bigCategoryName = location.state.bigCategoryName;
 
   //카테고리 메뉴 조회해오기
   useEffect(() => {
@@ -50,7 +51,6 @@ const MeetList = () => {
 
   // 카테고리 메뉴바의 카테고리를 클릭하면 동작하는 함수
   const changeCategory = (smallCategory) => {
-    console.log(smallCategory);
     const categoryNo = smallCategory.categoryNo;
     console.log("카테고리번호 : " + categoryNo);
     bigCategoryNo = smallCategory.categoryRefNo;
@@ -72,7 +72,7 @@ const MeetList = () => {
   return (
     <div className="meetList-all-wrap">
       <div className="meetListCategori-area">
-        <div>대분류</div>
+        <div>{bigCategoryName}</div>
         <div>
           <ul>
             <li>전체</li>

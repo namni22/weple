@@ -25,15 +25,21 @@ const EnrollMeetMember = (props) => {
   return (
     <div>
       <div>
-        {enrollMember.map((enroll, index) => {
-          return (
-            <EnrollItem
-              key={"enroll" + index}
-              enroll={enroll}
-              setEnrollMember={setEnrollMember}
-            />
-          );
-        })}
+        {enrollMember.length === 0 ? (
+          <>신청내역이 없습니다.</>
+        ) : (
+          <>
+            {enrollMember.map((enroll, index) => {
+              return (
+                <EnrollItem
+                  key={"enroll" + index}
+                  enroll={enroll}
+                  setEnrollMember={setEnrollMember}
+                />
+              );
+            })}
+          </>
+        )}
       </div>
       <div>
         <Pagination
@@ -49,10 +55,9 @@ const EnrollMeetMember = (props) => {
 const EnrollItem = (props) => {
   const enroll = props.enroll;
   const setEnrollMember = props.setEnrollMember;
-  console.log("아이탬 : " + setEnrollMember);
+
   //신청자 수락 이벤트
   const changeStatus = () => {
-    console.log(enroll);
     axios
       .post("/meet/updateEnrollMember", enroll)
       .then((res) => {

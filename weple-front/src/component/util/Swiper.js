@@ -21,6 +21,8 @@ const SwiperComponent = (props) => {
   const fImage = props.fImage;
   const setFImage = props.setFImage;
   const delButton = props.delButton; //삭제버튼 생성 ture/false
+  const deleteImg = props.deleteImg;
+  const setDeleteImg = props.setDeleteImg;
 
   return (
     <Swiper
@@ -42,6 +44,8 @@ const SwiperComponent = (props) => {
               fImage={fImage}
               setFImage={setFImage}
               delButton={delButton}
+              deleteImg={deleteImg}
+              setDeleteImg={setDeleteImg}
             />
           </SwiperSlide>
         );
@@ -58,8 +62,15 @@ const ImgBox = (props) => {
   const fImage = props.fImage;
   const setFImage = props.setFImage;
   const delButton = props.delButton;
+  const deleteImg = props.deleteImg;
+  const setDeleteImg = props.setDeleteImg;
 
-  const deleteImg = () => {
+  const deleteImgFile = () => {
+    if (fImage[index].fimageNo != null) {
+      const delArr = [...deleteImg];
+      delArr.push(fImage[index].fimageNo);
+      setDeleteImg([...delArr]);
+    }
     list.splice(index, 1);
     setFeedBox([...list]);
     fImage.splice(index, 1);
@@ -70,7 +81,7 @@ const ImgBox = (props) => {
     <div className="swiper-img-box">
       {object}
       {delButton ? (
-        <button onClick={deleteImg}>
+        <button onClick={deleteImgFile}>
           <span className="material-icons">close</span>
         </button>
       ) : (
