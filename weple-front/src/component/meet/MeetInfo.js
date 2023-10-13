@@ -8,11 +8,11 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 const MeetInfo = (props) => {
-  const myMeet = props.myMeet;
+  const meet = props.meet;
   const isLogin = props.isLogin;
 
 
-  //const meetPrepareList = myMeet.meetPrepare.split("/");
+  const meetPrepareList = meet.meetPrepare.split("/");
 
 
   //로그인 이후 모임가입하기 버튼 클릭시 작동하는 함수
@@ -20,7 +20,7 @@ const MeetInfo = (props) => {
     const token = window.localStorage.getItem("token");
 
     axios
-      .post("/meet/meetJoin", myMeet, {
+      .post("/meet/meetJoin", meet, {
         headers: {
           contentType: "multipart/form-data",
           processData: false,
@@ -48,7 +48,7 @@ const MeetInfo = (props) => {
           <div className="meetInfo-content-title">모임소개</div>
           <div
             className="meetViewContentD"
-            dangerouslySetInnerHTML={{ __html: myMeet.meetContentD }}
+            dangerouslySetInnerHTML={{ __html: meet.meetContentD }}
           >
           </div>
         </div>
@@ -57,11 +57,12 @@ const MeetInfo = (props) => {
         <div className="meetInfo-content-area">
           <div className="meetInfo-content-title">준비물</div>
           <div className="meetInfo-meetPrepareList">
-            {/* {meetPrepareList.map((meetPrepare, index) => {
+            {meetPrepareList.map((meetPrepare, index) => {
               return (
                 <span key={"meetPrepare" + index} className="meetInfo-meetPrepare">{meetPrepare}</span>
+
               )
-            })} */}
+            })}
 
           </div>
         </div>

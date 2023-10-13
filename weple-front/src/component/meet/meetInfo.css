@@ -1,8 +1,16 @@
+/* 
+#051367
+#2D31FA
+#5D8BF4
+#DFF6FF
+ */
+
 .meetInfo-content-area {
     /* border: 1px solid #ccc; */
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
-    margin: 20px 0;
+    /* margin: 20px 0; */
+    padding: 20px 0;
 }
 
 .meetInfo-content-title {
@@ -10,6 +18,7 @@
     font-size: 30px;
     font-weight: bold;
     padding: 10px 0;
+
 }
 
 .meetViewContentD {
@@ -20,8 +29,25 @@
     /* overflow: auto; */
 }
 
+.meetInfo-meetPrepareList {
+    overflow: hidden;
+}
+
+.meetInfo-meetPrepare-wrap {
+    /* 준비물을 감싸는 div 선택자 */
+    margin: 10px 0;
+}
+
 .meetInfo-meetPrepare {
-    background-color: aquamarine;
+    background-color: #2d30fa1b;
+    border: 1px solid #2d30fa89;
+
+
+    border-radius: 20px;
+    padding: 7px 20px;
     display: inline-block;
+    font-weight: bold;
+    margin: 0 5px;
+
 
 }
