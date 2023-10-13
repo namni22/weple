@@ -52,8 +52,9 @@ const MeetInfo = (props) => {
           >
           </div>
         </div>
-
-        <Kakao />
+        <div className="meetInfo-content-area">
+          <Kakao />
+        </div>
         <div className="meetInfo-content-area">
           <div className="meetInfo-content-title">준비물</div>
           <div className="meetInfo-meetPrepareList">
