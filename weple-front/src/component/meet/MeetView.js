@@ -15,6 +15,20 @@ const MeetView = (props) => {
 
     const location = useLocation();
     const [myMeet, setMyMeet] = useState({});
+    const meetNo = myMeet.meetNo;
+    console.log("모임 번호 ", meetNo);
+    // const [meet, setMeet] = useState({});
+    useEffect(() => {
+        axios
+            .get("/meet/selectOneMeet/" + meetNo)
+            .then((res) => {
+                setMyMeet(res.data)
+            })
+            .catch((res) => {
+                console.log("catch : " + res.response.status);
+            })
+    }, []);
+
 
     //모임장 id 전송 이후 DB에서 모임장 정보 불러오기
     const [meetCaptain, setMeetCaptain] = useState({});
