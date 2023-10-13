@@ -15,6 +15,8 @@ const MeetView = (props) => {
 
     const location = useLocation();
     const [myMeet, setMyMeet] = useState({});
+    //state가 초기화되서 빈 myMeet가 MeetInfo로 전달되기 때문에 const로 모임 다시 선언
+    const meet = location.state.m
 
     //모임장 id 전송 이후 DB에서 모임장 정보 불러오기
     const [meetCaptain, setMeetCaptain] = useState({});
@@ -54,7 +56,7 @@ const MeetView = (props) => {
                 <Route path="meetChat" element={<MeetChat myMeet={myMeet} />} />
                 <Route path="meetCalendar" element={<MeetCalendar />} />
                 <Route path="meetList" element={<MeetMemberList myMeet={myMeet} />} />
-                <Route path="*" element={<MeetInfo myMeet={myMeet} isLogin={isLogin} />} />
+                <Route path="*" element={<MeetInfo meet={meet} isLogin={isLogin} />} />
             </Routes>
         </div>
     );
