@@ -117,7 +117,11 @@ const MeetItem = (props) => {
 
   // 상세보기로 이동하는 함수
   const meetView = () => {
-    navigate("/meet/meetList/View", { state: { m: meet, meetNo: meet.meetNo } }); //이동할곳 state로 데이터 전송
+    console.log("reveiwCount:" + meet.reviewCount);
+    console.log("reveiwStar:" + meet.reviewStar);
+    navigate("/meet/meetList/View", {
+      state: { m: meet, meetNo: meet.meetNo },
+    }); //이동할곳 state로 데이터 전송
   };
   const starRating = () => {
     const result = [];
