@@ -54,7 +54,7 @@ const ReportModal = (props) => {
       padding: "40px",
     },
     overlay: {
-      backgroundColor: "rgba(0,0,0,0.1)",
+      backgroundColor: "rgba(0,0,0,0.3)",
     },
   };
   const handleClickSubmit = () => {
@@ -177,12 +177,11 @@ const MoreModal = (props) => {
   const reportCancel = () => {
     setReportIsOpen(false);
   };
-  const handleClickSubmit = () => {
+  const reportSubmit = () => {
     setReportIsOpen(false);
   };
-  const reportBtn = () => {
+  const reportBtn = (e) => {
     setReportIsOpen(true);
-    onCancel();
   };
   const customStyles = {
     content: {
@@ -195,13 +194,10 @@ const MoreModal = (props) => {
       padding: "10px",
     },
     overlay: {
-      backgroundColor: "rgba(0, 0, 0, 0.1)",
+      backgroundColor: "rgba(0, 0, 0, 0.3)",
     },
   };
-  const handleClickCancel = () => {
-    console.log("취소!");
-    onCancel();
-  };
+
   return (
     <ReactModal
       style={customStyles}
@@ -209,9 +205,7 @@ const MoreModal = (props) => {
       shouldCloseOnOverlayClick={true}
     >
       <div className="more-modal-wrap">
-        {!isLogin ? (
-          <div>로그인이 필요한 기능입니다</div>
-        ) : id === feedWriter ? (
+        {id === feedWriter ? (
           <div className="modal-select writer">
             <div>
               <span className="material-icons">drive_file_rename_outline</span>
@@ -231,16 +225,14 @@ const MoreModal = (props) => {
           </div>
         )}
 
-        <div className="more-modal-close">
-          <span className="material-icons" onClick={handleClickCancel}>
-            close
-          </span>
+        <div className="more-modal-close" onClick={onCancel}>
+          <span className="material-icons">close</span>
         </div>
       </div>
       <ReportModal
         isOpen={reportIsOpen}
         onCancel={reportCancel}
-        onSubmit={handleClickSubmit}
+        onSubmit={reportSubmit}
       />
     </ReactModal>
   );

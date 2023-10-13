@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button2 } from "../util/Button";
 import SwiperComponent from "../util/Swiper";
 
@@ -12,6 +11,8 @@ const FeedWriteFrm = (props) => {
   const uploadEvent = props.uploadEvent;
   const deleteImg = props.deleteImg;
   const setDeleteImg = props.setDeleteImg;
+  const fimageNoList = props.fimageNoList;
+  console.log(fimageNoList);
 
   const changeFile = (e) => {
     const Imgs = e.currentTarget.files;
@@ -55,7 +56,7 @@ const FeedWriteFrm = (props) => {
         />
       </div>
       <div className="feed-write-img">
-        {fImage.length === 0 ? (
+        {feedBox.length === 0 ? (
           <div className="no-image">
             <img />
             <div>NO IMAGE!</div>
@@ -73,6 +74,7 @@ const FeedWriteFrm = (props) => {
             delButton={true}
             deleteImg={deleteImg}
             setDeleteImg={setDeleteImg}
+            fimageNoList={fimageNoList}
           />
         )}
       </div>
