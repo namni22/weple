@@ -11,6 +11,9 @@ const MeetInfo = (props) => {
   const myMeet = props.myMeet;
   const isLogin = props.isLogin;
 
+  const meetPrepareList = myMeet.meetPrepare.split("/");
+
+
   //로그인 이후 모임가입하기 버튼 클릭시 작동하는 함수
   const meetJoin = () => {
     const token = window.localStorage.getItem("token");
@@ -52,7 +55,12 @@ const MeetInfo = (props) => {
         <Kakao />
         <div className="meetViewPrepare-area">
           <div>준비물</div>
-          <div>{myMeet.meetPrepare}</div>
+
+          {meetPrepareList.map((meetPrepare, index) => {
+            return (
+              <div key={"meetPrepare" + index}>{meetPrepare}</div>
+            )
+          })}
         </div>
       </div>
       <div className="meetJoin-btn-zone">
