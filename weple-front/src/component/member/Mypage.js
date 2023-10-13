@@ -23,7 +23,6 @@ const Mypage = (props) => {
     { url: "myCalendar", text: "캘린더", active: false },
     { url: "alarm", text: "알림", active: false },
   ]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     axios
