@@ -144,7 +144,7 @@ public class MeetController {
 	@PostMapping(value = "/selectOneMember")
 	public Member selectOneMember(@RequestBody Member member) {
 		Member m = meetService.selectOneMember(member.getMemberId());
-		System.out.println("m : "+m);
+		
 		return meetService.selectOneMember(member.getMemberId());
 	}
 	//모임 가입
@@ -164,8 +164,9 @@ public class MeetController {
 		return result;
 	}
 	
-	@GetMapping(value = "/meetView/{meetNo}")
+	@GetMapping(value = "/selectOneMeet/{meetNo}")
 	public Meet meetView(@PathVariable int meetNo) {
+		System.out.println("모임 번호 : "+meetNo);
 		return meetService.selectOneMeet(meetNo);
 	}
 	
@@ -207,5 +208,11 @@ public class MeetController {
 		public int memberLike(@RequestBody Member memberList) {
 			int result = meetService.memberLike(memberList.getMemberId(),memberList.getMemberLike());
 			return result;
+		}
+	//신고유형 가져오기
+		@GetMapping(value = "/reportCategory")
+		public Map reportCategory() {
+			Map map = meetService.reportCategory();
+			return null;
 		}
 }

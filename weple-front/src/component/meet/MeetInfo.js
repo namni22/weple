@@ -30,14 +30,11 @@ const MeetInfo = (props) => {
     //모임멤버라면 해당 정보 리턴 아직 멤버가 아니라면 null 리턴
     axios
       .post("/meet/isMeetMember")
-      .then((res) => { })
+      .then((res) => {})
       .catch((res) => {
         console.log(res.response.status);
-
-      })
-
+      });
   }
-
 
   //로그인 이후 모임가입하기 버튼 클릭시 작동하는 함수
   const meetJoin = () => {
@@ -54,15 +51,13 @@ const MeetInfo = (props) => {
       .then((res) => {
         console.log(res.data);
         if (res.data === 1) {
-          Swal.fire("가입신청 완료")
+          Swal.fire("가입신청 완료");
         }
-
       })
       .catch((res) => {
         console.log(res.response.status);
-
-      })
-  }
+      });
+  };
 
   return (
     <div className="meetInfo-all-wrap">
@@ -73,8 +68,7 @@ const MeetInfo = (props) => {
           <div
             className="meetViewContentD"
             dangerouslySetInnerHTML={{ __html: meet ? meet.meetContentD : "" }}
-          >
-          </div>
+          ></div>
         </div>
         <div className="meetInfo-content-area">
           <Kakao />
@@ -84,11 +78,14 @@ const MeetInfo = (props) => {
           <div className="meetInfo-meetPrepareList">
             {meetPrepareList.map((meetPrepare, index) => {
               return (
-                <span key={"meetPrepare" + index} className="meetInfo-meetPrepare">{meetPrepare}</span>
-
-              )
+                <span
+                  key={"meetPrepare" + index}
+                  className="meetInfo-meetPrepare"
+                >
+                  {meetPrepare}
+                </span>
+              );
             })}
-
           </div>
         </div>
       </div>

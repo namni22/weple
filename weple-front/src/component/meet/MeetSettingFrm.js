@@ -67,7 +67,15 @@ const MeetSettingFrm = (props) => {
     //모임 인원 변경 함수
     const changeMeetTotal = (e) => {
         console.log(e.currentTarget.value);
-        setMeetTotal(e.currentTarget.value)
+        if (e.currentTarget.value < 1) {
+            setMeetTotal(1);
+        }
+        else if (e.currentTarget.value > 100) {
+            setMeetTotal(100);
+        }
+        else {
+            setMeetTotal(e.currentTarget.value)
+        }
     }
 
     // 준비물 추가버튼 눌럿을때 작동하는 함수
@@ -84,6 +92,12 @@ const MeetSettingFrm = (props) => {
 
         }
 
+    };
+
+    const enterEvent = (e) => {
+        if (e.key === "Enter") {
+            meetPrepareAdd();
+        }
     };
 
     return (
@@ -154,6 +168,8 @@ const MeetSettingFrm = (props) => {
                         min="1"
                         max="100"
                         onChange={changeMeetTotal}
+                        className="meetMemberLimit-input"
+                        value={meetTotal}
 
                     >
 
@@ -193,17 +209,14 @@ const MeetSettingFrm = (props) => {
                                 data={meetPrepare}
                                 setData={setMeetPrepare}
                                 content="meetPrepare"
+                                enter={enterEvent}
                             ></Input>
                         </div>
                         <div className="meetMaterialsInsert-btn-box">
                             <Button2 text="추가" clickEvent={meetPrepareAdd}></Button2>
                         </div>
                         <div className="meetMaterials-wrap">
-                            <ul>
-                                <li className="meetMaterials-one">준비물1</li>
-                                <li className="meetMaterials-one">준비물2</li>
-                                <li className="meetMaterials-one">준비물3</li>
-                            </ul>
+
                             {meetPrepareList.map((meetPrepare, index) => {
                                 return (
                                     <div key={"meetPrepare" + index} className="meetMaterials-one">{meetPrepare}</div>
