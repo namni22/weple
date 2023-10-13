@@ -45,7 +45,7 @@ const Profile = (props) => {
         }
       });
     });
-  }, []);
+  }, [myCategory]);
 
   return (
     <div className="profile-wrap">
