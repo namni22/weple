@@ -33,10 +33,6 @@
     overflow: hidden;
 }
 
-.meetInfo-meetPrepare-wrap {
-    /* 준비물을 감싸는 div 선택자 */
-    margin: 10px 0;
-}
 
 .meetInfo-meetPrepare {
     background-color: #2d30fa1b;

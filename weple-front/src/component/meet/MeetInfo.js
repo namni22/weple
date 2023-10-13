@@ -8,11 +8,35 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 const MeetInfo = (props) => {
-  const meet = props.meet;
+  //console.log("info", props)
+  const [meet, setMeet] = useState({});
+  console.log("info1", meet);
+  console.log("info2", props);
   const isLogin = props.isLogin;
+  console.log(meet);
+  const [meetPrepareList, setMeetPrepareList] = useState([]);
+  useEffect(() => {
+    setMeet(props.myMeet);
 
+    if (props.myMeet.meetPrepare) {
+      setMeetPrepareList(props.myMeet.meetPrepare.split("/"));
+    }
+  }, [props]);
+  console.log(meetPrepareList);
+  console.log(isLogin);
 
-  const meetPrepareList = meet.meetPrepare.split("/");
+  if (isLogin) {
+    //로그인이 되어있다면 로그인멤버가 모임멤버인지 조회해오기
+    //모임멤버라면 해당 정보 리턴 아직 멤버가 아니라면 null 리턴
+    axios
+      .post("/meet/isMeetMember")
+      .then((res) => { })
+      .catch((res) => {
+        console.log(res.response.status);
+
+      })
+
+  }
 
 
   //로그인 이후 모임가입하기 버튼 클릭시 작동하는 함수
@@ -48,7 +72,7 @@ const MeetInfo = (props) => {
           <div className="meetInfo-content-title">모임소개</div>
           <div
             className="meetViewContentD"
-            dangerouslySetInnerHTML={{ __html: meet.meetContentD }}
+            dangerouslySetInnerHTML={{ __html: meet ? meet.meetContentD : "" }}
           >
           </div>
         </div>
