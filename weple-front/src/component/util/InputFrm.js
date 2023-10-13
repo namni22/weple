@@ -8,6 +8,7 @@ const Input = (props) => {
   const blurEvent = props.blurEvent;
   const placeholder = props.placeholder;
   const enter = props.enter;
+  const readOnly = props.readOnly;
   const changeValue = (e) => {
     const inputValue = e.currentTarget.value;
     setData(inputValue);
@@ -23,6 +24,7 @@ const Input = (props) => {
         onBlur={blurEvent}
         onKeyPress={enter}
         placeholder={placeholder}
+        readOnly={readOnly}
       ></input>
     </>
   );

@@ -15,13 +15,14 @@ const Mypage = (props) => {
   const [member, setMember] = useState({});
   const [mainCategory, setMainCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
+  const [myCategory, setMyCategory] = useState([]);
+
   const [menus, setMenus] = useState([
     { url: "", text: "프로필", active: true },
     { url: "modifyInfo", text: "정보 수정", active: false },
     { url: "myCalendar", text: "캘린더", active: false },
     { url: "alarm", text: "알림", active: false },
   ]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -31,7 +32,18 @@ const Mypage = (props) => {
         },
       })
       .then((res) => {
+        console.log(res.data);
         setMember(res.data);
+        // 회원이 선택한 카테고리 번호 문자열 , 기준으로 split
+        // memberCategory가 현재 object로 생성된 string타입이어서 new String
+        const data = res.data;
+        const myCategoryNo = new String(data.memberCategory);
+        const myCategoryNoList = myCategoryNo.split(",");
+        myCategoryNoList.forEach((item) => {
+          myCategory.push(item);
+        });
+        setMyCategory([...myCategory]);
+        console.log(myCategory);
       })
       .catch((res) => {
         console.log(res.response.status);
@@ -46,7 +58,6 @@ const Mypage = (props) => {
           subCategory.push(item);
           setSubCategory([...subCategory]);
         });
-        console.log(subCategory);
       })
       .catch((res) => {
         console.log(res.response.status);
@@ -84,6 +95,7 @@ const Mypage = (props) => {
                   setSubCategory={setSubCategory}
                   mainCategory={mainCategory}
                   setMainCategory={setMainCategory}
+                  myCategory={myCategory}
                 />
               }
             />

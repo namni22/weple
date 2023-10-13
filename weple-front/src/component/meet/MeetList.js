@@ -52,7 +52,7 @@ const MeetList = () => {
   // 카테고리 메뉴바의 카테고리를 클릭하면 동작하는 함수
   const changeCategory = (smallCategory) => {
     const categoryNo = smallCategory.categoryNo;
-
+    console.log("카테고리번호 : " + categoryNo);
     bigCategoryNo = smallCategory.categoryRefNo;
     const big = smallCategory.categoryRefNo; //선택한 카테고리의 대분류
 
@@ -117,11 +117,11 @@ const MeetItem = (props) => {
 
   // 상세보기로 이동하는 함수
   const meetView = () => {
-    navigate("/meet/meetList/View", { state: { m: meet } }); //이동할곳 state로 데이터 전송
+    navigate("/meet/meetList/View", { state: { m: meet, meetNo: meet.meetNo } }); //이동할곳 state로 데이터 전송
   };
-  const starRating = (meetStar) => {
+  const starRating = () => {
     const result = [];
-    for (let i = 0; i < Math.ceil(meetStar); i++) {
+    for (let i = 0; i < 5; i++) {
       result.push(
         <span className="material-icons" key={"starRating" + i}>
           grade
@@ -152,15 +152,9 @@ const MeetItem = (props) => {
             className="star-rating-fill"
             style={{ width: (meet.reviewStar / 5) * 100 + "%" }}
           >
-            {starRating(meet.reviewStar)}
+            {starRating()}
           </div>
-          <div className="star-rating-base">
-            <span className="material-icons">grade</span>
-            <span className="material-icons">grade</span>
-            <span className="material-icons">grade</span>
-            <span className="material-icons">grade</span>
-            <span className="material-icons">grade</span>
-          </div>
+          <div className="star-rating-base">{starRating()}</div>
         </div>
         <div className="review-count">후기 {meet.reviewCount}</div>
       </div>
