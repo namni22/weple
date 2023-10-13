@@ -2,6 +2,7 @@ package kr.co.weple.meet.model.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -59,6 +60,7 @@ public interface MeetDao {
 	Member selectOneMember(String memberId);
 	//모임 가입 신청
 	int meetJoin(HashMap<String, Object> meetJoinInfo);
+	
 
 
 }

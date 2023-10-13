@@ -206,4 +206,6 @@
 	<update id="memberLike">
 		UPDATE MEMBER SET MEMBER_LIKE= #{changeMemberLike} WHERE MEMBER_ID = #{memberId}
 	</update>
+	
+	
 </mapper>

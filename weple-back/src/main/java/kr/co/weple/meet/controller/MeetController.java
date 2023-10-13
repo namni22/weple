@@ -209,4 +209,5 @@ public class MeetController {
 			int result = meetService.memberLike(memberList.getMemberId(),memberList.getMemberLike());
 			return result;
 		}
+	
 }

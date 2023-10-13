@@ -45,16 +45,20 @@ public class FeedService {
 		List<FImage> delImageList = new ArrayList<FImage>();
 		String [] deleteImg = {};
 		int result = 0;
+		System.out.println(f);
 		//삭제파일 DB처리
 		if(!f.getDeleteImg().equals("")) {
+			System.out.println("gg : "+f.getDeleteImg());
 			deleteImg = f.getDeleteImg().split("/");
 			System.out.println(deleteImg);
 			delImageList = feedDao.selectFeedFile(deleteImg);
 			System.out.println(delImageList);
 			result += feedDao.deleteFeedFile(deleteImg);
+			System.out.println("result : "+result);
 		}
 		//추가한파일 처리
 		for(FImage fi : imageList) {
+			fi.setFeedNo(f.getFeedNo());
 			result += feedDao.insertFImage(fi);
 		}
 		//피드수정

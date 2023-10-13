@@ -56,6 +56,7 @@
   position: absolute;
   top: 0;
   right: 0;
+  cursor: pointer;
 }
 .modal-select {
   overflow: hidden;
@@ -68,9 +69,6 @@
   display: block;
   width: 60px;
 }
-/* .modal-select.writer .material-icons{
-  color: #3d40e5;
-} */
 .modal-select .material-icons {
   font-size: 3em;
   color: #171717;

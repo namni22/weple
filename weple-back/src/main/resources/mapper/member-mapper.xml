@@ -22,5 +22,7 @@
 		insert into member values(member_seq.nextval,#{memberId},#{memberName},#{memberPw},#{memberEmail},#{memberPhone},#{memberBirth},#{memberGender},#{memberImage},36.5,1,#{memberCategory},1)
 	</insert>
 	
-	
+	<select id="selectReportOption" resultType="reportCategory">
+		SELECT * FROM  REPORT_CATEGORY WHERE REPORT_TYPE=#{reportType}
+	</select>
 </mapper>

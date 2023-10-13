@@ -10,7 +10,7 @@ const FeedModify = (props) => {
   const location = useLocation();
   const feed = location.state.feed;
   const [feedContent, setFeedContent] = useState(feed.feedContent);
-  const [fImage, setFImage] = useState(feed.imageList);
+  const [fImage, setFImage] = useState([]);
   //DB에서 불러온 파일을 띄우기 위한 배열
   const imgArr = [];
   for (let i = 0; i < feed.imageList.length; i++) {
@@ -18,9 +18,10 @@ const FeedModify = (props) => {
   }
   const [feedBox, setFeedBox] = useState(imgArr);
   const [deleteImg, setDeleteImg] = useState([]); //삭제파일 state 추가
+  const fimageNoList = feed.imageList;
 
   const modify = () => {
-    if (feedContent !== "" && fImage.length !== 0) {
+    if (feedContent !== "" && feedBox.length !== 0) {
       const form = new FormData();
       form.append("feedContent", feedContent);
       for (let i = 0; i < fImage.length; i++) {
@@ -72,6 +73,8 @@ const FeedModify = (props) => {
         deleteImg={deleteImg}
         setDeleteImg={setDeleteImg}
         type="modify"
+        const
+        fimageNoList={fimageNoList}
       />
     </div>
   );

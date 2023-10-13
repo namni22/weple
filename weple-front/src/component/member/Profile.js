@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button1, Button2 } from "../util/Button";
 import "./profile.css";
 import { useEffect, useState } from "react";
@@ -7,7 +7,9 @@ const Profile = (props) => {
   const navigate = useNavigate();
   const member = props.member;
   const setMember = props.setMember;
+  const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
+  const setId = props.setId;
   const mainCategory = props.mainCategory;
   const setMainCategory = props.setMainCategory;
   const subCategory = props.subCategory;
@@ -16,6 +18,13 @@ const Profile = (props) => {
   const myCategory = props.myCategory;
 
   const location = useLocation();
+
+  const logout = () => {
+    window.localStorage.removeItem("token");
+    setIsLogin(false);
+    setId("");
+    navigate("/");
+  };
 
   useEffect(() => {
     // 내가 선택한 카테고리 이름 배열 만들기
@@ -56,6 +65,9 @@ const Profile = (props) => {
           ) : (
             <img src="/img/testImg_01.png" />
           )}
+        </div>
+        <div className="logout">
+          <Button2 text="로그아웃" clickEvent={logout} />
         </div>
         <div className="profile-info">
           <div className="name">{member.memberName}</div>

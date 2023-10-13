@@ -34,6 +34,7 @@ const EnrollMeetMember = (props) => {
                 <EnrollItem
                   key={"enroll" + index}
                   enroll={enroll}
+                  enrollMember={enrollMember}
                   setEnrollMember={setEnrollMember}
                 />
               );
@@ -55,13 +56,17 @@ const EnrollMeetMember = (props) => {
 const EnrollItem = (props) => {
   const enroll = props.enroll;
   const setEnrollMember = props.setEnrollMember;
-
+  const enrollMember = props.enrollMember;
   //신청자 수락 이벤트
   const changeStatus = () => {
     axios
       .post("/meet/updateEnrollMember", enroll)
       .then((res) => {
         console.log(res.data);
+        const newArr = enrollMember.filter((newEnrollMember) => {
+          return newEnrollMember.memberNo !== enroll.memberNo;
+        });
+        setEnrollMember(newArr);
       })
       .catch((res) => {
         console.log(res.response.data);

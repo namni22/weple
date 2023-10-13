@@ -72,6 +72,13 @@ public class MemberService {
 	public List subCategoryList() {
 		return memberDao.subCategoryList();
 	}
+    //신고 폼에 필요할 option
+	public Map selectReportOption(int reportType) {
+		HashMap<String , Object> map = new HashMap<String, Object>();
+		List list = memberDao.selectReportOption(reportType);
+		map.put("reportCategory",list);
+		return map;
+	}
 
 
 }
