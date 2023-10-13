@@ -54,7 +54,6 @@ const FeedList = (props) => {
           return (
             <FeedContent
               key={"feed" + index}
-              navigate={navigate}
               feed={feed}
               isLogin={isLogin}
               id={id}
@@ -73,17 +72,26 @@ const FeedContent = (props) => {
   const feed = props.feed;
   const isLogin = props.isLogin;
   const id = props.id;
-  const navigate = props.navigate;
+  const navigate = useNavigate();
   const list = feed.imageList.map((img, index) => {
     return <img src={"/feed/" + img.fimageName} />;
   });
   //more버튼
   const [isOpen, setIsOpen] = useState(false);
-  const onCancel = () => {
+  const onCancel = (e) => {
     setIsOpen(false);
+    // e.stopPropagation();
   };
   const moreModal = () => {
-    setIsOpen(true);
+    if (isLogin) {
+      setIsOpen(true);
+    } else {
+      Swal.fire({
+        icon: "warning",
+        text: "로그인이 필요한 기능입니다",
+        confirmButtonText: "확인",
+      });
+    }
   };
   const deleteEvent = () => {
     Swal.fire({
@@ -93,6 +101,7 @@ const FeedContent = (props) => {
       confirmButtonText: "삭제",
       cancelButtonText: "취소",
     }).then((res) => {
+      setIsOpen(false);
       if (res.isConfirmed) {
         axios
           .get("/feed/delete/" + feed.feedNo)
@@ -163,16 +172,16 @@ const FeedContent = (props) => {
       </div>
       <div className="feed-list-more-btn" onClick={moreModal}>
         <span className="material-icons-outlined">more_vert</span>
-        <MoreModal
-          isOpen={isOpen}
-          onCancel={onCancel}
-          modifyEvent={modifyEvent}
-          isLogin={isLogin}
-          feedWriter={feed.feedWriter}
-          deleteEvent={deleteEvent}
-          id={id}
-        />
       </div>
+      <MoreModal
+        isOpen={isOpen}
+        onCancel={onCancel}
+        modifyEvent={modifyEvent}
+        isLogin={isLogin}
+        feedWriter={feed.feedWriter}
+        deleteEvent={deleteEvent}
+        id={id}
+      />
     </div>
   );
 };

@@ -38,7 +38,6 @@ public class FeedController {
 			@ModelAttribute MultipartFile[] fImage,
 			@RequestAttribute String memberId
 			) {
-		System.out.println("설마..실행되니..?");
 		f.setFeedWriter(memberId);
 		String savepath = root+"feed/";
 		ArrayList<FImage> imageList = new ArrayList<FImage>();
@@ -68,24 +67,28 @@ public class FeedController {
 			@ModelAttribute MultipartFile[] fImage,
 			@RequestAttribute String memberId
 			) {
-
+		System.out.println(fImage);
 		String savepath = root+"feed/";
 		ArrayList<FImage> imageList = new ArrayList<FImage>();
-		for(MultipartFile file : fImage) {				
-			String filename = file.getOriginalFilename();
-			String filepath = fileUtil.getFilepath(savepath, filename, file);
-			FImage fI = new FImage();
-			fI.setFImageName(filepath);
-			imageList.add(fI);
+		if(fImage != null) {			
+			for(MultipartFile file : fImage) {				
+				String filename = file.getOriginalFilename();
+				String filepath = fileUtil.getFilepath(savepath, filename, file);
+				FImage fI = new FImage();
+				fI.setFImageName(filepath);
+				imageList.add(fI);
+			}
 		}
-		int result = feedService.insertFeed(f,imageList);
 		List<FImage> delImageList = feedService.modify(f,imageList);
 		//물리적위치 파일 삭제
-		for(FImage fi : delImageList) {
-			File deleteImg = new File(savepath+fi.getFImageName());
-			deleteImg.delete();
+		if(delImageList != null) {	
+			for(FImage fi : delImageList) {
+				File deleteImg = new File(savepath+fi.getFImageName());
+				deleteImg.delete();
+			}
+			return 1;
 		}
-		return result;
+		return 0;
 	}
 	//피드삭제
 	@GetMapping(value="/delete/{feedNo}")
