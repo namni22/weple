@@ -36,6 +36,23 @@ const ModifyInfo = (props) => {
     setMember({ ...member });
   };
 
+  // 대표 사진 바꿀 시 미리보기 변경 함수
+  const profileImgChange = (e) => {
+    const files = e.currentTarget.files;
+    if (files.length !== 0 && files[0] != 0) {
+      setProfileImg(files[0]); // 썸네일 파일 전송을 위한 state에 파일 객체 저장
+      // 화면 썸네일 미리보기
+      const reader = new FileReader();
+      reader.readAsDataURL(files[0]);
+      reader.onloadend = () => {
+        setMemberImage(reader.result);
+      };
+    } else {
+      setProfileImg({});
+      setMemberImage(null);
+    }
+  };
+
   return (
     <div className="modifyInfo-wrap">
       <div className="modifyInfo-content">
@@ -93,6 +110,7 @@ const ModifyInfo = (props) => {
                 className="join-imgUp-btn"
                 id="memberImage"
                 accept="image/*"
+                onChange={profileImgChange}
               />
             </div>
           </div>

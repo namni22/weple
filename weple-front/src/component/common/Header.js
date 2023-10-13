@@ -4,6 +4,7 @@ import "./header.css";
 const Header = (props) => {
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
+  console.log("header", isLogin, setIsLogin);
   const setId = props.setId;
   const logout = () => {
     window.localStorage.removeItem("token");
