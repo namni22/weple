@@ -20,6 +20,7 @@ import kr.co.weple.FileUtil;
 import kr.co.weple.feed.model.service.FeedService;
 import kr.co.weple.feed.model.vo.FComment;
 import kr.co.weple.feed.model.vo.FImage;
+import kr.co.weple.feed.model.vo.FLike;
 import kr.co.weple.feed.model.vo.Feed;
 
 @RestController
@@ -129,5 +130,12 @@ public class FeedController {
 	@GetMapping(value="/comment/delete/{fCommentNo}")
 	public int deletecomment(@PathVariable int fCommentNo) {
 		return feedService.deleteComment(fCommentNo);
+	}
+	
+	//좋아요조회
+	@GetMapping(value="/like/{memberNo}/{feedNo}")
+	public List like(@PathVariable int memberNo,
+			@PathVariable int feedNo) {
+		return feedService.like(memberNo,feedNo);
 	}
 }

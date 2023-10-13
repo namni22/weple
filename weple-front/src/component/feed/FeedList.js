@@ -78,6 +78,42 @@ const FeedContent = (props) => {
     return <img src={"/feed/" + img.fimageName} />;
   });
   const [isOpen, setIsOpen] = useState(false);
+  const [memberNo, setMemberNo] = useState();
+  const [userLike, setUserLike] = useState(0);
+  const token = window.localStorage.getItem("token");
+
+  //좋아요내역 불러오기
+  useEffect(() => {
+    if (isLogin) {
+      axios
+        .post("/member/getMember", null, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          setMemberNo(res.data.memberNo);
+          axios
+            .get("/feed/like/" + res.data.memberNo + "/" + feed.feedNo)
+            .then((res) => {
+              if (res.data !== null) {
+                setUserLike(1);
+                console.log(res.data);
+              } else {
+                setUserLike(0);
+                console.log(res.data);
+              }
+            })
+            .catch((res) => {
+              console.log(res.response.status);
+            });
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    }
+  }, []);
+
   //more버튼모달
   const moreModal = () => {
     if (isLogin) {
@@ -164,7 +200,11 @@ const FeedContent = (props) => {
       </div>
       <div className="feed-list-content-btn">
         <div>
-          <span className="material-icons-outlined">favorite_border</span>
+          {userLike == 1 ? (
+            <span className="material-icons-outlined">favorite</span>
+          ) : (
+            <span className="material-icons-outlined">favorite_border</span>
+          )}
           <span>0</span>
         </div>
         <div onClick={comment}>

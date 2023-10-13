@@ -67,4 +67,7 @@
 	<delete id="deleteComment">
 		delete from fcomment where fcomment_no = #{fCommentNo}
 	</delete>
+	<select id="like" resultType="fLike">
+		select * from flike where feed_no=#{feedNo} and member_no=#{memberNo}
+	</select>
 </mapper>
