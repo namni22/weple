@@ -38,8 +38,9 @@ public class BoardController {
 	}
 	//게시판 삽입
 	@PostMapping(value="/insert")
-	public int insertBoard(@ModelAttribute Board b) {	
+	public int insertBoard(@ModelAttribute Board b,@RequestAttribute String memberId) {	
 		//System.out.println("boardController" + b);
+		b.setMemberId(memberId);
 		int result = boardService.insertBoard(b);		
 		return result;
 	}
