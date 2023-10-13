@@ -1,11 +1,11 @@
-.meetViewContentD-area {
+.meetInfo-content-area {
     /* border: 1px solid #ccc; */
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     margin: 20px 0;
 }
 
-.meetViewContentD-title {
+.meetInfo-content-title {
     /* 모임 소개 선택자 */
     font-size: 30px;
     font-weight: bold;
@@ -13,8 +13,15 @@
 }
 
 .meetViewContentD {
+    /* 모임설명 선택자 */
     margin: 10px 0;
     /* height: 300px; */
     min-height: 300px;
     /* overflow: auto; */
+}
+
+.meetInfo-meetPrepare {
+    background-color: aquamarine;
+    display: inline-block;
+
 }

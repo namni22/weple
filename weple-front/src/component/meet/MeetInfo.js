@@ -43,8 +43,8 @@ const MeetInfo = (props) => {
     <div className="meetInfo-all-wrap">
       <Review meetNo={102} />
       <div className="meetInfo-content">
-        <div className="meetViewContentD-area">
-          <div className="meetViewContentD-title">모임소개</div>
+        <div className="meetInfo-content-area">
+          <div className="meetInfo-content-title">모임소개</div>
           <div
             className="meetViewContentD"
             dangerouslySetInnerHTML={{ __html: myMeet.meetContentD }}
@@ -53,14 +53,16 @@ const MeetInfo = (props) => {
         </div>
 
         <Kakao />
-        <div className="meetViewPrepare-area">
-          <div>준비물</div>
+        <div className="meetInfo-content-area">
+          <div className="meetInfo-content-title">준비물</div>
+          <div className="meetInfo-meetPrepareList">
+            {meetPrepareList.map((meetPrepare, index) => {
+              return (
+                <span key={"meetPrepare" + index} className="meetInfo-meetPrepare">{meetPrepare}</span>
+              )
+            })}
 
-          {meetPrepareList.map((meetPrepare, index) => {
-            return (
-              <div key={"meetPrepare" + index}>{meetPrepare}</div>
-            )
-          })}
+          </div>
         </div>
       </div>
       <div className="meetJoin-btn-zone">
