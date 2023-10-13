@@ -64,7 +64,7 @@
   font-size: 15px;
   font-weight: 600;
 }
-.review-wrap .star-wrap {
+/* .review-wrap .star-wrap {
   display: flex;
   align-items: center;
 }
@@ -74,7 +74,7 @@
 .review-wrap .star-rating {
   margin-left: 15px;
   font-size: 20px;
-}
+} */
 .review-wrap .review-component {
   width: 230px;
 }

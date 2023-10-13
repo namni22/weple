@@ -1,13 +1,16 @@
-.reviewlist-wrap {
+.reviewlist-top {
+  border-bottom: 1px solid gainsboro;
+  margin: 30px 0;
 }
 .reviewlist-title {
-  margin: 30px 10px;
   font-size: 20px;
   font-weight: 600;
+  margin-bottom: 10px;
 }
+
 /* ********reviewListcomponent*********** */
 .reviewlist-component {
-  margin: 30px 0;
+  margin: 50px 0;
 }
 .reviewlist-component-top {
   display: flex;
@@ -34,7 +37,7 @@
   /* padding-left: 5px; */
 }
 .review-name {
-  padding-left: 15px;
+  padding-left: 10px;
   font-weight: 600;
 }
 .review-profile-img {
@@ -52,8 +55,13 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 } */
+.reviewlist-component .review-content {
+  height: 120px;
+  overflow: hidden;
+}
 /* --------------- 별점 -------------------- */
-.reviewlist-wrap .star-rating {
+
+.star-rating {
   color: #989898;
   position: relative;
   /* unicode-bidi: bidi-override; */
@@ -62,12 +70,12 @@
   /* -webkit-text-stroke-width: 1.3px; 별 border 두께 */
   /* -webkit-text-stroke-color: #2d31fa; 별 border 색상*/
   color: #2d31fa;
-  margin-left: 30px;
+  margin-left: 15px;
 }
-.reviewlist-wrap .star-rating .material-icons:not(:first-child) {
+.star-rating .material-icons:not(:first-child) {
   margin-left: -4px;
 }
-.reviewlist-wrap .star-rating-fill {
+.star-rating-fill {
   padding: 0;
   position: absolute;
   z-index: 1;
@@ -77,17 +85,30 @@
   overflow: hidden;
   -webkit-text-fill-color: #2d31fa; /*별 속 채움*/
 }
-.reviewlist-wrap .star-rating-base {
+.star-rating-base {
   z-index: 0;
   padding: 0;
   height: 24px;
 }
-.reviewlist-wrap .star-rating-base > .material-icons {
+.star-rating-base > .material-icons {
   color: gainsboro;
 }
-.reviewlist-wrap .meet-star {
-  margin: 0;
+/********* 전체 평점(위치 바꾸면 안됨) *********/
+.meet-star-wrap {
+  display: flex;
+  align-items: center;
+  padding-bottom: 20px;
 }
-.reviewlist-wrap .meet-star .material-icons {
+.meet-star {
+  margin: 0;
+  /* 별점 감싸는 div */
+  height: 30px;
+}
+.meet-star .material-icons {
   font-size: 30px;
+}
+.meet-star-score {
+  font-size: 18px;
+  font-weight: 500;
+  padding-left: 10px;
 }
