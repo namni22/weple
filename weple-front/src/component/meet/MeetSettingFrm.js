@@ -67,7 +67,15 @@ const MeetSettingFrm = (props) => {
     //모임 인원 변경 함수
     const changeMeetTotal = (e) => {
         console.log(e.currentTarget.value);
-        setMeetTotal(e.currentTarget.value)
+        if (e.currentTarget.value < 1) {
+            setMeetTotal(1);
+        }
+        else if (e.currentTarget.value > 100) {
+            setMeetTotal(100);
+        }
+        else {
+            setMeetTotal(e.currentTarget.value)
+        }
     }
 
     // 준비물 추가버튼 눌럿을때 작동하는 함수
@@ -154,6 +162,8 @@ const MeetSettingFrm = (props) => {
                         min="1"
                         max="100"
                         onChange={changeMeetTotal}
+                        className="meetMemberLimit-input"
+                        value={meetTotal}
 
                     >
 
