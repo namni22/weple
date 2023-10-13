@@ -104,7 +104,13 @@ const MeetSettingFrm = (props) => {
         <div className="meetSettingFrm-main-wrap">
 
             <div className="meetSettingFrm-wrap">
-                <div className="meetCategoriFrm">카테고리</div>
+                <div className="meetCategoriFrm">
+                    <label>카테고리</label>
+                    <div>
+                        <div>대분류</div>
+                        <div>소분류</div>
+                    </div>
+                </div>
                 <div className="meetTitleFrm">
                     <label htmlFor="meetTitleFrm">모임 이름</label>
                     <div className="jwInput" id="jwInput">
@@ -219,7 +225,10 @@ const MeetSettingFrm = (props) => {
 
                             {meetPrepareList.map((meetPrepare, index) => {
                                 return (
-                                    <div key={"meetPrepare" + index} className="meetMaterials-one">{meetPrepare}</div>
+                                    <div key={"meetPrepare" + index} className="meetMaterials-one">
+                                        <span class="material-icons ">{meetPrepare}</span>
+                                        <span class="material-icons delete-meetPrepare">clear</span>
+                                    </div>
                                 )
                             })}
 

@@ -83,6 +83,32 @@
     margin-left: 50px;
 }
 
+.meetMaterials-one {
+    /* 준비물 div 선택자 */
+    background-color: #2d30fa1b;
+    border: 1px solid #2d30fa89;
+
+    border-radius: 20px;
+    padding: 7px 20px;
+    display: inline-block;
+    font-weight: bold;
+    margin: 3px 5px;
+
+}
+
+.meetMaterials-one>span:first-child {
+    /* 준비물의 글자 선택자 */
+    font-size: 20px;
+    font-weight: bold;
+
+
+}
+
+.meetMaterials-one>span:nth-child(2) {
+    /* 준비물 x 선택자 */
+    padding-left: 10px;
+}
+
 .meetMaterials-wrap {
     margin-top: 60px;
 
