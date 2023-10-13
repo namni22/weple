@@ -3,10 +3,11 @@ import { MeetItem } from "../meet/MeetList";
 import SwiperComponent from "../util/Swiper";
 import "./main.css";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FeedContent } from "../feed/FeedList";
-// import "../feed/feed.css";
+import ReviewList from "../review/ReviewList";
 
 const Main = () => {
   const imgList = ["./img/main_1.jpg", "./img/main_2.jpg"];
@@ -25,12 +26,12 @@ const Main = () => {
         list={list}
         delButton={false}
       />
-
       {/* 비로그인 */}
       <MeetMain meetSet={"meetPopular"} meetTitle={"주간 인기 TOP 30 👑"} />
       <MeetMain meetSet={"meetMargin"} meetTitle={"마감임박!"} />
       <FeedMain />
       <MeetMain meetSet={"meetNew"} meetTitle={"신규개설"} />
+
       {/* 로그인 */}
       {/* <MeetMain meetSet={"meetMargin"} meetTitle={"이 모임은 어때요?"} />
       <MeetMain meetSet={"meetMargin"} meetTitle={"마감임박!"} />
@@ -73,10 +74,15 @@ const MeetMain = (props) => {
 };
 
 const FeedMain = () => {
+  const navigate = useNavigate();
   const [feedList, setFeedList] = useState([]);
+  const [start, setStart] = useState(1);
+
+  const amount = 9;
   useEffect(() => {
+    const end = start + amount - 1;
     axios
-      .get("/feed/list/" + 1 + "/" + 3)
+      .get("/feed/list/" + start + "/" + end)
       .then((res) => {
         const arr = [...feedList];
         for (let i = 0; i < res.data.length; i++) {
@@ -91,15 +97,11 @@ const FeedMain = () => {
 
   return (
     <div>
-      <div className="meet-main-title">
-        피드
-        <Link to="/feed" className="meet-move-btn">
-          전체보기
-        </Link>
-      </div>
       <div className="feed-list-content-wrap">
         {feedList.map((feed, index) => {
-          return <FeedContent key={"feed" + index} feed={feed} />;
+          return (
+            <FeedContent key={"feed" + index} navigate={navigate} feed={feed} />
+          );
         })}
       </div>
     </div>

@@ -2,22 +2,18 @@ import { useEffect, useState } from "react";
 import SwiperComponent from "../util/Swiper";
 import "./review.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Review = (props) => {
   // const reviewList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; //10개의 object
   const [reviewList, setReviewList] = useState([]);
   const meetNo = props.meetNo;
-
   useEffect(() => {
-    // axios.get("/review/reviewTotal/"+meetNo)
-    // .then((res)=>{
-
-    // })
     axios
       .get("/review/reviewList/" + meetNo)
       .then((res) => {
         const arr = [...reviewList];
-        for (let i = 0; i < res.data.length; i++) {
+        for (let i = 0; i < 10; i++) {
           arr.push(res.data[i]);
         }
         console.log(res.data.length);
@@ -45,7 +41,9 @@ const Review = (props) => {
           <span className="material-icons star">star</span>
           <span className="star-rating">5.0</span>
         </div>
-        <div className="more-btn">{reviewList.length}개 후기 더보기</div>
+        <Link to="/reviewList">
+          <div className="more-btn">props.개 후기 더보기</div>
+        </Link>
       </div>
       <SwiperComponent
         spaceBetween={21}

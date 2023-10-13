@@ -19,8 +19,7 @@ const ModifyInfo = (props) => {
   return (
     <div className="joinFrm">
       <div className="joinFrm-content">
-        <JoinInputWrap label="아이디" />
-        <JoinInputWrap label="비밀번호" />
+        <JoinInputWrap label="아이디" content={member.memberId} />
         <JoinInputWrap label="이름" />
         <JoinInputWrap label="전화번호" />
         <JoinInputWrap label="생년월일" />
@@ -130,7 +129,7 @@ const JoinInputWrap = (props) => {
         <div className="label">
           <label htmlFor={content}>{label}</label>
         </div>
-        <div className="input"></div>
+        <div className="input">{content}</div>
       </div>
     </div>
   );
