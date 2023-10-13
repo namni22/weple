@@ -229,7 +229,7 @@ public class MeetService {
 		System.out.println("결과확인");
 		return result;
 	}
-
+	
 
 
 	

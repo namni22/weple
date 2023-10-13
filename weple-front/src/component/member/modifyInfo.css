@@ -1,0 +1,34 @@
+.modifyInfo-content {
+  width: 500px;
+  margin: 0 auto;
+}
+
+.modifyInfo-info {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0px;
+  border-bottom: 1px solid #ededed;
+}
+
+.modifyInfo-info > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modifyInfo-info > div > .label {
+  width: 25%;
+}
+
+.modifyInfo-info > div > .input {
+  width: 75%;
+}
+
+.input > input[readOnly] {
+  height: 40px;
+  border: none;
+  font-size: 14px;
+  line-height: 40px;
+  color: #5d8bf4;
+  padding: 10px;
+}

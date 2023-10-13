@@ -40,6 +40,8 @@ const MeetMemberList = (props) => {
                 member={member}
                 isOpen={isOpen}
                 setOpen={setOpen}
+                meetMember={meetMember}
+                setMeetMember={setMeetMember}
               />
             );
           })}
@@ -57,6 +59,8 @@ const MeetMemberList = (props) => {
 };
 const MemberList = (props) => {
   const memberList = props.member;
+  const meetMember = props.meetMember;
+  const setMeetMember = props.setMeetMember;
   const isOpen = props.isOpen;
   const setOpen = props.setOpen;
   const [disable, setDisable] = useState("");
@@ -105,7 +109,6 @@ const MemberList = (props) => {
     console.log(memberList);
     Swal.fire({
       text: `"` + memberList.memberId + `"` + "님을 추방시키시겠습니까?",
-
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
@@ -119,6 +122,10 @@ const MemberList = (props) => {
           .post("/meet/deleteMember", memberList)
           .then((res) => {
             console.log(res.data);
+            const newArr = meetMember.filter((newMeetMember) => {
+              return newMeetMember.memberNo !== memberList.memberNo;
+            });
+            setMeetMember(newArr);
           })
           .catch((res) => {
             console.log(res.response.data);

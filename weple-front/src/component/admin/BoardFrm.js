@@ -11,21 +11,27 @@ import { useNavigate } from "react-router-dom";
 const BoardFrm = (props) => {
   const [boardTitle, setBoardTitle] = useState("");
   const [boardContent, setBoardContent] = useState("");
+  var getType;
   const boardType = props.boardType;
-  const setBoardType = props.setBoardType;
+  const memberId = props.memberId;
+
 
   const navigate = useNavigate();
 
   console.log("boardContent : " + boardContent);
 
-  const insert = () => {
+  const insert = (getType) => {
+
     if (boardTitle !== "" && boardContent !== "") {
-      console.log(boardTitle);
-      console.log(boardContent);
+
+      //console.log(boardTitle);
+      //console.log(boardContent);
       const form = new FormData();
       form.append("boardTitle", boardTitle);
       form.append("boardContent", boardContent);
-      form.append("boardWriter", "admin3")
+      form.append("boardWriter", memberId);
+
+      //console.log(getBoardType);
       const token = window.localStorage.getItem("token");
       axios
         .post("/board/insert", form, {
@@ -49,7 +55,10 @@ const BoardFrm = (props) => {
 
     }
   }
-
+  // const handleChange = (event) => {
+  //   getType = event.target.value;
+  //   console.log(getType);
+  // }
 
   return (
     <div className="board-frm-wrap">
@@ -63,8 +72,8 @@ const BoardFrm = (props) => {
                   <FormControl sx={{ m: 1, minWidth: 80 }}>
                     <Select value={boardType}>
                       <MenuItem value={0}>공지사항</MenuItem>
-                      <MenuItem value={1}>FAQ</MenuItem>
-                      <MenuItem value={2}>이벤트</MenuItem>
+                      <MenuItem value={1}>이벤트</MenuItem>
+                      <MenuItem value={2}>FAQ</MenuItem>
                     </Select>
                   </FormControl>
                 </td>
@@ -94,7 +103,7 @@ const BoardFrm = (props) => {
       <div className="board-btn-box">
         <Button1 text="등록" clickEvent={insert}></Button1>
       </div>
-    </div>
+    </div >
 
 
 

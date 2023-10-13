@@ -187,17 +187,15 @@
   padding-top: 30px;
   background-color: aliceblue;
   padding-bottom: 20px;
+  box-sizing: border-box;
 }
 .meetChat-all-wrap > ul {
-  overflow: hidden;
   padding: 10px 30px;
+  box-sizing: border-box;
 }
 
 .meetChat-input-form-wrap {
-  width: 90%;
-  display: block;
-  float: left;
-  height: 80px;
+  width: 100%;
 }
 .meetChat-btn {
   width: 10%;
@@ -206,19 +204,11 @@
   padding: 0px 20px;
   box-sizing: border-box;
 }
+
 .meetChat-btn > button {
-  height: 80px;
+  width: 100px;
 }
-.meetChat-input-form {
-  width: 100%;
-  display: block;
-  resize: none;
-  padding: 0px 5px;
-  box-sizing: border-box;
-  border-radius: 5px;
-  font-size: 15px;
-  height: 100%;
-}
+
 .meetChat-span {
   padding-left: 30px;
 }
@@ -282,6 +272,12 @@
 .meetChat-chat-wrap {
   background-color: #dee4f8;
 }
+.meetChat-textEditor {
+  background-color: #fff;
+}
+.meetChat-chat-wrap {
+  overflow: hidden;
+}
 .meetChat-chat-wrap > ul {
   overflow: hidden;
   padding: 20px;
@@ -320,4 +316,11 @@
   padding: 5px 20px 5px 10px;
   background-color: #fff;
   border-radius: 5px;
+}
+.meetChat-input-form-wrap {
+  height: 170px;
+}
+.quill {
+  height: 100%;
+  box-sizing: border-box;
 }

@@ -1,0 +1,114 @@
+.reviewlist-top {
+  border-bottom: 1px solid gainsboro;
+  margin: 30px 0;
+}
+.reviewlist-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* ********reviewListcomponent*********** */
+.reviewlist-component {
+  margin: 50px 0;
+}
+.reviewlist-component-top {
+  display: flex;
+  justify-content: space-between;
+}
+.reviewlist-component-top .material-icons-outlined {
+  cursor: pointer;
+  font-size: 30px;
+  height: 30px;
+}
+.review-img > img {
+  width: 100px;
+  height: 100px;
+  background-color: gainsboro;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.review-profile {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  /* padding-left: 5px; */
+}
+.review-name {
+  padding-left: 10px;
+  font-weight: 600;
+}
+.review-profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 45px;
+  background-color: gray;
+  box-sizing: border-box;
+}
+/* .review-wrap .review-component{
+  text-overflow: ellipsis;
+  font-size: 14px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+} */
+.reviewlist-component .review-content {
+  height: 120px;
+  overflow: hidden;
+}
+/* --------------- 별점 -------------------- */
+
+.star-rating {
+  color: #989898;
+  position: relative;
+  /* unicode-bidi: bidi-override; */
+  width: max-content;
+  -webkit-text-fill-color: gainsboro;
+  /* -webkit-text-stroke-width: 1.3px; 별 border 두께 */
+  /* -webkit-text-stroke-color: #2d31fa; 별 border 색상*/
+  color: #2d31fa;
+  margin-left: 15px;
+}
+.star-rating .material-icons:not(:first-child) {
+  margin-left: -4px;
+}
+.star-rating-fill {
+  padding: 0;
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  -webkit-text-fill-color: #2d31fa; /*별 속 채움*/
+}
+.star-rating-base {
+  z-index: 0;
+  padding: 0;
+  height: 24px;
+}
+.star-rating-base > .material-icons {
+  color: gainsboro;
+}
+/********* 전체 평점(위치 바꾸면 안됨) *********/
+.meet-star-wrap {
+  display: flex;
+  align-items: center;
+  padding-bottom: 20px;
+}
+.meet-star {
+  margin: 0;
+  /* 별점 감싸는 div */
+  height: 30px;
+}
+.meet-star .material-icons {
+  font-size: 30px;
+}
+.meet-star-score {
+  font-size: 18px;
+  font-weight: 500;
+  padding-left: 10px;
+}
