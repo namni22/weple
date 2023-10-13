@@ -13,6 +13,9 @@ import kr.co.weple.PageInfo;
 import kr.co.weple.Pagination;
 import kr.co.weple.board.model.dao.BoardDao;
 import kr.co.weple.board.model.vo.Board;
+import kr.co.weple.member.model.dao.MemberDao;
+import kr.co.weple.member.model.vo.Member;
+
 
 
 @Service
@@ -21,9 +24,13 @@ public class BoardService {
 	private BoardDao boardDao;
 	@Autowired
 	private Pagination pagination;
+	@Autowired
+	private MemberDao memberDao;
 	
 	@Transactional
 	public int insertBoard(Board b) {
+		Member member = memberDao.selectOneMember(b.getMemberId());
+		b.setBoardWriter(member.getMemberId());
 		int result = boardDao.insertBoard(b);
 		return result;
 	}

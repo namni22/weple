@@ -56,6 +56,7 @@ const BoardList = () => {
     return (
         <div>
             <div className="board-tab-wrap">
+                {/* 클릭이벤트 걸어서 component 걸기 */}
                 <span className="board-active-tab">전체</span>
                 <span className="board-active-tab">공지</span>
                 <span className="board-active-tab">이벤트</span>
@@ -88,7 +89,7 @@ const BoardList = () => {
 };
 const BoardItem = (props) => {
     const board = props.board;
-
+    console.log(board.boardType);
     return (
         <div className="board-list-title-wrap" onClick={() => ToggleBoardView(board)}>
             <div className="board-list-tab">
