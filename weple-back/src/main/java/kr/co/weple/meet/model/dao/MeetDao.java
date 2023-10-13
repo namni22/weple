@@ -60,8 +60,7 @@ public interface MeetDao {
 	Member selectOneMember(String memberId);
 	//모임 가입 신청
 	int meetJoin(HashMap<String, Object> meetJoinInfo);
-	//신고유형 가져오기
-	Map reportCategory();
+	
 
 
 }

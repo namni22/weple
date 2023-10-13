@@ -229,12 +229,7 @@ public class MeetService {
 		System.out.println("결과확인");
 		return result;
 	}
-	//신고유형 가져오기
-	public Map reportCategory() {
-		Map map = meetDao.reportCategory();
-		return null;
-	}
-
+	
 
 
 	

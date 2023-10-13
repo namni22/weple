@@ -86,5 +86,10 @@ public class MemberController {
 	public Member mypage(@RequestAttribute String memberId) {
 		return memberService.selectOneMember(memberId);
 	}
-	
+	//신고 카테고리 가져오기
+	@GetMapping(value = "/selectReportOption/{reportType}")
+	public Map selectReportOption(@PathVariable int reportType) {
+		Map map = memberService.selectReportOption(reportType);
+		return map;
+	}
 }

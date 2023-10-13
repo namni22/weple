@@ -19,5 +19,7 @@ public interface MemberDao {
 	int insertMember(Member member);
 
 	List subCategoryList();
+	//신고 폼에 필요한 option
+	List selectReportOption(int reportType);
 
 }
