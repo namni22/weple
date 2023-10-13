@@ -94,6 +94,12 @@ const MeetSettingFrm = (props) => {
 
     };
 
+    const enterEvent = (e) => {
+        if (e.key === "Enter") {
+            meetPrepareAdd();
+        }
+    };
+
     return (
         <div className="meetSettingFrm-main-wrap">
 
@@ -203,17 +209,14 @@ const MeetSettingFrm = (props) => {
                                 data={meetPrepare}
                                 setData={setMeetPrepare}
                                 content="meetPrepare"
+                                enter={enterEvent}
                             ></Input>
                         </div>
                         <div className="meetMaterialsInsert-btn-box">
                             <Button2 text="추가" clickEvent={meetPrepareAdd}></Button2>
                         </div>
                         <div className="meetMaterials-wrap">
-                            <ul>
-                                <li className="meetMaterials-one">준비물1</li>
-                                <li className="meetMaterials-one">준비물2</li>
-                                <li className="meetMaterials-one">준비물3</li>
-                            </ul>
+
                             {meetPrepareList.map((meetPrepare, index) => {
                                 return (
                                     <div key={"meetPrepare" + index} className="meetMaterials-one">{meetPrepare}</div>
