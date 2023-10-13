@@ -63,6 +63,7 @@
 }
 .feed-list-info > div:first-child {
   font-weight: 600;
+  font-size: 16px;
 }
 .feed-list-info > div:last-child {
   font-size: 12px;
@@ -99,7 +100,7 @@
   align-items: center;
   margin-right: 10px;
 }
-.feed-list-content-btn > div > span:first-child {
+.feed-list-content-btn > div {
   cursor: pointer;
 }
 .feed-list-content-btn > div > span:last-child {
@@ -161,6 +162,14 @@
 }
 
 /* COMMENT */
+.commment-modal-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.commment-modal-wrap .feed-list-top {
+  align-items: flex-start;
+}
 .feed-title {
   position: relative;
 }
@@ -172,39 +181,60 @@
   cursor: pointer;
 }
 .feed-comment-wrap {
-  height: calc(100vh - 350px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  height: 445px;
+  overflow: auto;
 }
+.feed-comment {
+  margin: 10px 0;
+}
+.feed-list-info > div,
 .feed-list-info > div > span {
   font-size: 12px;
   font-weight: 400;
   margin-left: 5px;
 }
 .feed-comment-detail {
-  margin-top: 10px;
+  margin: 5px 0;
   display: flex;
   align-items: center;
+}
+.feed-list-info .feed-comment-text {
+  margin-left: -5px;
+  font-size: 14px;
+  min-width: 250px;
 }
 .feed-comment-text {
   display: inline-block;
   background-color: #f6f6f6;
   padding: 10px;
-  border-radius: 15px;
+  border-radius: 5px;
   box-sizing: border-box;
+  font-size: 14px;
 }
-.feed-comment-detail > span:last-child {
-  margin-left: 5px;
+.feed-comment-detail > .material-icons-outlined {
+  cursor: pointer;
+  font-size: 16px;
+}
+.comment-click-btn {
+  overflow: hidden;
+}
+.comment-click-btn > div {
+  float: left;
+  margin-right: 10px;
+  cursor: pointer;
 }
 .feed-comment-write {
   display: flex;
   justify-content: space-between;
   padding-top: 10px;
   border-top: 1px solid #aaa;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
 .feed-comment-write > .feed-comment-text {
-  width: 95%;
+  width: 90%;
   position: relative;
 }
 .feed-comment-text > input {
@@ -212,6 +242,7 @@
   background-color: transparent;
   border: none;
   height: 100%;
+  font-size: 16px;
 }
 .feed-comment-write > .feed-comment-text > button {
   right: 15px;
@@ -219,4 +250,8 @@
   position: absolute;
   border: none;
   cursor: pointer;
+}
+.commment-modal-wrap > .feed-title {
+  margin-top: 0;
+  margin-bottom: 20px;
 }

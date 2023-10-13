@@ -69,7 +69,6 @@ const ImgBox = (props) => {
   const fimageNoList = props.fimageNoList;
 
   const deleteImgFile = () => {
-    console.log(fimageNoList);
     if (fimageNoList.length !== 0) {
       const delArr = [...deleteImg];
       delArr.push(fimageNoList[index].fimageNo);

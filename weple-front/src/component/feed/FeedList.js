@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import SwiperComponent from "../util/Swiper";
 import { MoreModal } from "../util/Modal";
+import FeedComment from "./FeedComment";
 
 const FeedList = (props) => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const FeedList = (props) => {
       .catch((res) => {
         Swal.fire("실패");
       });
-  }, [start]);
+  }, []);
 
   const useFeedMore = (e) => {
     setStart(start + amount);
@@ -76,12 +77,8 @@ const FeedContent = (props) => {
   const list = feed.imageList.map((img, index) => {
     return <img src={"/feed/" + img.fimageName} />;
   });
-  //more버튼
   const [isOpen, setIsOpen] = useState(false);
-  const onCancel = (e) => {
-    setIsOpen(false);
-    // e.stopPropagation();
-  };
+  //more버튼모달
   const moreModal = () => {
     if (isLogin) {
       setIsOpen(true);
@@ -92,6 +89,10 @@ const FeedContent = (props) => {
         confirmButtonText: "확인",
       });
     }
+  };
+  const onCancel = (e) => {
+    setIsOpen(false);
+    // e.stopPropagation();
   };
   const deleteEvent = () => {
     Swal.fire({
@@ -126,9 +127,12 @@ const FeedContent = (props) => {
     navigate("/feed/modify", { state: { feed: feed } });
   };
   //댓글
+  const [cmtIsOpen, setCmtIsOpen] = useState(false);
   const comment = () => {
-    setIsOpen(false);
-    navigate("/feed/comment");
+    setCmtIsOpen(true);
+  };
+  const closeComent = () => {
+    setCmtIsOpen(false);
   };
   return (
     <div className="feed-list-content">
@@ -163,10 +167,8 @@ const FeedContent = (props) => {
           <span className="material-icons-outlined">favorite_border</span>
           <span>0</span>
         </div>
-        <div>
-          <span className="material-icons" onClick={comment}>
-            chat_bubble_outline
-          </span>
+        <div onClick={comment}>
+          <span className="material-icons">chat_bubble_outline</span>
           <span>0</span>
         </div>
       </div>
@@ -181,6 +183,12 @@ const FeedContent = (props) => {
         feedWriter={feed.feedWriter}
         deleteEvent={deleteEvent}
         id={id}
+      />
+      <FeedComment
+        isOpen={cmtIsOpen}
+        closeComent={closeComent}
+        isLogin={isLogin}
+        feedNo={props.feed.feedNo}
       />
     </div>
   );

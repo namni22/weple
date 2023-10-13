@@ -56,4 +56,15 @@
 	<delete id="deleteFeed">
 		delete from feed where feed_no = #{feedNo}
 	</delete>
+	
+	<!-- 댓글 -->
+	<insert id="commentInsert">
+		insert into fcomment values(fcomment_seq.nextval,#{feedNo},#{fCommentContent},to_char(sysdate,'yyyy.mm.dd'),#{fCommentWriter},#{crnNo})
+	</insert>
+	<select id="commentList" resultType="fComment">
+		select * from fcomment where feed_no=#{feedNo} order by fcomment_no
+	</select>
+	<delete id="deleteComment">
+		delete from fcomment where fcomment_no = #{fCommentNo}
+	</delete>
 </mapper>

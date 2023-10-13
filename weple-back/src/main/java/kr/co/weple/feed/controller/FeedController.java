@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.weple.FileUtil;
 import kr.co.weple.feed.model.service.FeedService;
+import kr.co.weple.feed.model.vo.FComment;
 import kr.co.weple.feed.model.vo.FImage;
 import kr.co.weple.feed.model.vo.Feed;
 
@@ -105,5 +106,28 @@ public class FeedController {
 			result++;
 		}
 		return result;
+	}
+	
+	//댓글등록
+	@PostMapping(value="/comment/insert")
+	public int commentInsert(
+			@ModelAttribute FComment f,
+			@RequestAttribute String memberId) {
+		f.setFCommentWriter(memberId);
+		f.setCrnNo(f.getFCommentRefNo()==0?null:f.getFCommentRefNo());
+		return feedService.commentInsert(f);
+	}
+	
+	//댓글출력
+	@GetMapping(value="/comment/list/{feedNo}")
+	public List commentList(
+			@PathVariable int feedNo) {
+		return feedService.commentList(feedNo);
+		
+	}
+	//댓글삭제
+	@GetMapping(value="/comment/delete/{fCommentNo}")
+	public int deletecomment(@PathVariable int fCommentNo) {
+		return feedService.deleteComment(fCommentNo);
 	}
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.weple.feed.model.dao.FeedDao;
+import kr.co.weple.feed.model.vo.FComment;
 import kr.co.weple.feed.model.vo.FImage;
 import kr.co.weple.feed.model.vo.Feed;
 
@@ -78,6 +79,22 @@ public class FeedService {
 			return list;
 		}
 		return null;
+	}
+
+	//댓글등록
+	@Transactional
+	public int commentInsert(FComment f) {
+		return feedDao.commentInsert(f);
+	}
+
+	//댓글출력
+	public List commentList(int feedNo) {
+		return  feedDao.commentList(feedNo);
+	}
+
+	//댓글삭제
+	public int deleteComment(int fCommentNo) {
+		return feedDao.deleteComment(fCommentNo);
 	}
 	
 }
