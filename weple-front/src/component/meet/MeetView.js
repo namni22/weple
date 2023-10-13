@@ -33,6 +33,7 @@ const MeetView = (props) => {
     useEffect(() => {
         setMyMeet(location.state.m);
     }, []);
+    console.log("view", myMeet)
     const [meetMenu, setMeetMenu] = useState([
         { url: "", text: "소개", active: true },
         { url: "meetChat", text: "글 작성", active: false },
