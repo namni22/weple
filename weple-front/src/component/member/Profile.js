@@ -13,17 +13,14 @@ const Profile = (props) => {
   const subCategory = props.subCategory;
   const setSubCategory = props.setSubCategory;
   const [categoryNameList, setCategoryNameList] = useState([]);
+  const myCategory = props.myCategory;
+
   const location = useLocation();
 
-  // 회원이 선택한 카테고리 번호 문자열 , 기준으로 split
-  // memberCategory가 현재 object로 생성된 string타입이어서 new String
-  const myCategoryNo = new String(member.memberCategory);
-  const myCategoryNoList = myCategoryNo.split(",");
-
-  // 내가 선택한 카테고리 이름 배열 만들기
-
   useEffect(() => {
-    myCategoryNoList.forEach((item) => {
+    // 내가 선택한 카테고리 이름 배열 만들기
+    myCategory.forEach((item) => {
+      console.log("아이템" + item);
       subCategory.forEach((ct) => {
         if (item == ct.categoryNo) {
           if (ct.categoryName === "기타") {
@@ -44,6 +41,7 @@ const Profile = (props) => {
             categoryNameList.push(ct.categoryName);
           }
           setCategoryNameList([...categoryNameList]);
+          console.log(categoryNameList);
         }
       });
     });
@@ -69,7 +67,7 @@ const Profile = (props) => {
             return (
               <span key={"ctName" + index}>
                 <img src="/img/hashtag.png" />
-                {categoryNameList[index]}
+                {ctName}
               </span>
             );
           })}
