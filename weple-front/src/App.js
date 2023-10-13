@@ -29,7 +29,7 @@ function App() {
       setIsLogin(true);
     }
   }, []);
-
+  console.log("app", setIsLogin);
   return (
     <div className="weple-wrap">
       <Header isLogin={isLogin} setIsLogin={setIsLogin} setId={setId} />
@@ -53,7 +53,6 @@ function App() {
             path="/login"
             element={<Login setIsLogin={setIsLogin} setId={setId} />}
           />
-          <Route path="/mypage" element={<Mypage />} />
           <Route path="/reviewList" element={<ReviewList />} />
           {/* <Route path="/category" element={<Category />} /> */}
 
