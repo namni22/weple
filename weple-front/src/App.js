@@ -47,7 +47,7 @@ function App() {
             element={<MeetMain isLogin={isLogin} />}
           ></Route>
           <Route path="/board/*" element={<Board />} />
-          <Route path="/admin/*" element={<Admin />} />
+          <Route path="/admin/*" element={<Admin isLogin={isLogin} id={id}/>} />
           <Route path="/join" element={<Join />} />
           <Route
             path="/login"

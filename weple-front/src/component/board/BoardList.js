@@ -88,11 +88,15 @@ const BoardList = () => {
     )
 };
 const BoardItem = (props) => {
+    // Map으로boardType :키 색깔 value
     const board = props.board;
     console.log(board.boardType);
+    const style={
+        backgroundColor: board.boardType === 0 ? "#2D31FA" : (board.boardType === 1 ? "#5D8BF4": "#ededed")
+    }
     return (
         <div className="board-list-title-wrap" onClick={() => ToggleBoardView(board)}>
-            <div className="board-list-tab">
+            <div className="board-list-tab" style={style}>
                 {board.boardType === 0 ? "공지사항" : (board.boardType === 1 ? "이벤트" : "FAQ")}
             </div>
             <div className="board-list-title">{board.boardTitle}</div>
