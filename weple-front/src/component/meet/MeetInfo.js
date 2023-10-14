@@ -15,7 +15,9 @@ const MeetInfo = (props) => {
   console.log("info2", props);
   const isLogin = props.isLogin;
   const [loginMember, setLoginMember] = useState(null);
+  //모임에 이미 가입한 상태인지 알아보는 변수
   const [isMeetMember, setIsMeetMember] = useState(null);
+  const [meetJoinWaiting, setMeetJoinWaiting] = useState(null);
   const navigate = useNavigate();
   console.log("모임", meet);
   const [meetPrepareList, setMeetPrepareList] = useState([]);
@@ -47,7 +49,6 @@ const MeetInfo = (props) => {
 
       //로그인이 되어있다면 로그인멤버가 모임멤버인지 조회해오기
       //모임멤버라면 해당 follower 리턴 아직 멤버가 아니라면 null 리턴
-      console.log("가기전", meet);
       axios
         .post("/meet/isMeetMember", meet, {
           headers: {
@@ -55,12 +56,14 @@ const MeetInfo = (props) => {
           },
         })
         .then((res) => {
-          console.log("회원인지", res.data);
           setIsMeetMember(res.data);
         })
         .catch((res) => {
           console.log(res.response.status);
         });
+      console.log("멤버인지 ? ", isMeetMember);
+      //가입 대기 상태라면 모임가입 버튼 비활성화하도록 db에서 가입상태 가져오기
+
     }
   }, [props]);
   console.log(meetPrepareList);
@@ -155,6 +158,7 @@ const MeetInfo = (props) => {
           isMeetMember ? (
             <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
           ) : (
+
             <Button1 text="모임가입하기" clickEvent={meetJoin} />
           )
 
