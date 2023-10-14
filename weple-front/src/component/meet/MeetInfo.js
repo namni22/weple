@@ -31,7 +31,7 @@ const MeetInfo = (props) => {
     //모임멤버라면 해당 정보 리턴 아직 멤버가 아니라면 null 리턴
     axios
       .post("/meet/isMeetMember")
-      .then((res) => {})
+      .then((res) => { })
       .catch((res) => {
         console.log(res.response.status);
       });
@@ -92,7 +92,10 @@ const MeetInfo = (props) => {
       </div>
       <div className="meetJoin-btn-zone">
         {/* 버튼이 보이는 조건: 로그인이 되어있고 / 아직 모임 가입을 하지 않는 경우 */}
-        <Button1 text="모임가입하기" clickEvent={meetJoin} />
+        {isLogin ? (
+          <Button1 text="모임가입하기" clickEvent={meetJoin} />
+
+        ) : ("")}
       </div>
     </div>
   );
