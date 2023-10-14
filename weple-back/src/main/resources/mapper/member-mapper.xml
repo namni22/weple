@@ -25,4 +25,8 @@
 	<select id="selectReportOption" resultType="reportCategory">
 		SELECT * FROM  REPORT_CATEGORY WHERE REPORT_TYPE=#{reportType}
 	</select>
+	
+	<update id="changePw">
+		update member set member_pw=#{memberPw} where member_id=#{memberId}
+	</update>
 </mapper>
