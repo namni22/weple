@@ -12,6 +12,7 @@ import kr.co.weple.PageInfo;
 import kr.co.weple.Pagination;
 import kr.co.weple.meet.model.dao.MeetDao;
 import kr.co.weple.meet.model.vo.Category;
+import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.meet.model.vo.Meet;
 import kr.co.weple.member.model.vo.Member;
 
@@ -228,6 +229,16 @@ public class MeetService {
 		int result = meetDao.meetJoin(meetJoinInfo);
 		System.out.println("결과확인");
 		return result;
+	}
+	//로그인한 회원이 가입승인을 받은 모임 멤버인지 조회
+	public Follower isMeetMember(int memberNo, int meetNo) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		map.put("memberNo", memberNo);
+		map.put("meetNo", meetNo);
+		Follower follower = meetDao.isMeetMember(map);
+		
+		return follower;
 	}
 	
 

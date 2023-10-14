@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.weple.PageInfo;
 import kr.co.weple.meet.model.vo.Category;
+import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.meet.model.vo.Meet;
 import kr.co.weple.member.model.vo.Member;
 
@@ -60,6 +61,8 @@ public interface MeetDao {
 	Member selectOneMember(String memberId);
 	//모임 가입 신청
 	int meetJoin(HashMap<String, Object> meetJoinInfo);
+	// 로그인한 회원이 가입승인을 받은 모임 멤버인지 조회
+	Follower isMeetMember(HashMap<String, Object> map);
 	
 
 

@@ -163,6 +163,21 @@ public class MeetController {
 		
 		return result;
 	}
+	//로그인한 회원이 가입승인을 받은 모임 멤버인지 조회
+	@PostMapping(value = "isMeetMember")
+	public Follower isMeetMember(
+			@RequestAttribute String memberId,
+			@RequestBody Meet meet
+			) {
+		
+		System.out.println("로그인 아이디 : "+memberId);
+		System.out.println("모임 : "+meet);
+		Member loginMember = memberService.selectOneMember(memberId);
+		System.out.println("로그인 회원 번호 : "+loginMember.getMemberNo());
+		Follower follower= meetService.isMeetMember(loginMember.getMemberNo(),meet.getMeetNo());
+		System.out.println("조회한 "+follower);
+		return follower;
+	}
 	
 	@GetMapping(value = "/selectOneMeet/{meetNo}")
 	public Meet meetView(@PathVariable int meetNo) {

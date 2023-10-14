@@ -13,8 +13,10 @@ const MeetInfo = (props) => {
   console.log("info1", meet);
   console.log("info2", props);
   const isLogin = props.isLogin;
-  console.log(meet);
+  const [loginMember, setLoginMember] = useState(null);
+  console.log("모임", meet);
   const [meetPrepareList, setMeetPrepareList] = useState([]);
+
   useEffect(() => {
     setMeet(props.myMeet);
     console.log("reveiwCount:" + meet.reviewCount);
@@ -22,20 +24,45 @@ const MeetInfo = (props) => {
     if (props.myMeet.meetPrepare) {
       setMeetPrepareList(props.myMeet.meetPrepare.split("/"));
     }
+
+    // 
+    if (isLogin) {
+      //로그인한 상태라면
+      //서버에서 로그인한 회원정보 가져오기
+      const token = window.localStorage.getItem("token");
+      axios
+        .post("/member/getMember", null, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+          setLoginMember(res.data);
+        })
+        .catch((res) => { });
+
+      //로그인이 되어있다면 로그인멤버가 모임멤버인지 조회해오기
+      //모임멤버라면 해당 정보 리턴 아직 멤버가 아니라면 null 리턴
+      console.log("가기전", meet);
+      axios
+        .post("/meet/isMeetMember", meet, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          console.log("회원인지", res.data);
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    }
   }, [props]);
   console.log(meetPrepareList);
   console.log(isLogin);
 
-  if (isLogin) {
-    //로그인이 되어있다면 로그인멤버가 모임멤버인지 조회해오기
-    //모임멤버라면 해당 정보 리턴 아직 멤버가 아니라면 null 리턴
-    axios
-      .post("/meet/isMeetMember")
-      .then((res) => { })
-      .catch((res) => {
-        console.log(res.response.status);
-      });
-  }
+
 
   //로그인 이후 모임가입하기 버튼 클릭시 작동하는 함수
   const meetJoin = () => {
