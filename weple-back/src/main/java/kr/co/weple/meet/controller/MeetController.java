@@ -175,7 +175,7 @@ public class MeetController {
 		Member loginMember = memberService.selectOneMember(memberId);
 		System.out.println("로그인 회원 번호 : "+loginMember.getMemberNo());
 		Follower follower= meetService.isMeetMember(loginMember.getMemberNo(),meet.getMeetNo());
-		System.out.println("조회한 "+follower);
+		System.out.println("팔로워 :  "+follower);
 		return follower;
 	}
 	

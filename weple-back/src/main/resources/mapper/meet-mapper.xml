@@ -117,7 +117,7 @@
 	</insert>
 	<!-- 로그인한 회원이 가입승인을 받은 모임 멤버인지 조회 -->
 	<select id="isMeetMember" resultType="follower">
-		select * from follower where meet_no = #{meetNo} and member_no = #{memberNo} and follower_status =1
+		select * from follower where meet_no = #{meetNo} and member_no = #{memberNo}
 	</select>
 	
 	

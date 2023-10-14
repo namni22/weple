@@ -17,7 +17,7 @@ const MeetInfo = (props) => {
   const [loginMember, setLoginMember] = useState(null);
   //모임에 이미 가입한 상태인지 알아보는 변수
   const [isMeetMember, setIsMeetMember] = useState(null);
-  const [meetJoinWaiting, setMeetJoinWaiting] = useState(null);
+  // const [meetJoinWaiting, setMeetJoinWaiting] = useState(null);
   const navigate = useNavigate();
   console.log("모임", meet);
   const [meetPrepareList, setMeetPrepareList] = useState([]);
@@ -61,13 +61,17 @@ const MeetInfo = (props) => {
         .catch((res) => {
           console.log(res.response.status);
         });
-      console.log("멤버인지 ? ", isMeetMember);
       //가입 대기 상태라면 모임가입 버튼 비활성화하도록 db에서 가입상태 가져오기
 
     }
   }, [props]);
   console.log(meetPrepareList);
   console.log(isLogin);
+  console.log("모임 : ", meet);
+  console.log("모임 번호 : ", meet.meetNo);
+  console.log("팔로워 isMeetMember :  ", isMeetMember);
+  // console.log("팔로워 객체안 : ", isMeetMember.meetNo);
+  // console.log("팔로워 스테이터스 : ", isMeetMember.followerStatus);
 
 
 
@@ -153,16 +157,17 @@ const MeetInfo = (props) => {
         </div>
       </div>
       <div className="meetJoin-btn-zone">
+
         {/* 버튼이 보이는 조건: 로그인이 되어있고 / 아직 모임 가입을 하지 않는 경우 */}
         {isLogin ? (
-          isMeetMember ? (
+          isMeetMember ? (//가입대기중이면?
             <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
           ) : (
 
             <Button1 text="모임가입하기" clickEvent={meetJoin} />
           )
 
-        ) : ("")}
+        ) : ("가입대기")}
       </div>
     </div>
   );
