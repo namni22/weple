@@ -7,6 +7,7 @@ import AdminReport from "../admin/AdminReport";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ModifyInfo from "./ModifyInfo";
+import ModifyPw from "./ModifyPw";
 
 const Mypage = (props) => {
   const isLogin = props.isLogin;
@@ -21,6 +22,7 @@ const Mypage = (props) => {
   const [menus, setMenus] = useState([
     { url: "", text: "프로필", active: true },
     { url: "modifyInfo", text: "정보 수정", active: false },
+    { url: "modifyPw", text: "비밀번호 변경", active: false },
     { url: "myCalendar", text: "캘린더", active: false },
     { url: "alarm", text: "알림", active: false },
   ]);
@@ -91,12 +93,8 @@ const Mypage = (props) => {
                 <Profile
                   member={member}
                   setMember={setMember}
-                  isLogin={isLogin}
                   setIsLogin={setIsLogin}
                   subCategory={subCategory}
-                  setSubCategory={setSubCategory}
-                  mainCategory={mainCategory}
-                  setMainCategory={setMainCategory}
                   myCategory={myCategory}
                   setId={setId}
                 />
@@ -109,9 +107,12 @@ const Mypage = (props) => {
                   member={member}
                   setMember={setMember}
                   setIsLogin={setIsLogin}
+                  subCategory={subCategory}
+                  myCategory={myCategory}
                 />
               }
             />
+            <Route path="modifyPw" element={<ModifyPw />} />
             <Route path="myCalendar" element={<AdminReport />} />
             <Route path="alarm" element={<AdminReport />} />
           </Routes>

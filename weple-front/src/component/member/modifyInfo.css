@@ -32,3 +32,11 @@
   color: #5d8bf4;
   padding: 10px;
 }
+
+.current-category > span {
+  background-color: #eee;
+  border-radius: 45px;
+  font-size: 12px;
+  padding: 3px 10px;
+  margin-right: 10px;
+}

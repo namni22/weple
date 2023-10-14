@@ -4,22 +4,24 @@ import Input from "../util/InputFrm";
 import { Button1, Button2 } from "../util/Button";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ModifyInfo = (props) => {
-  const navigate = useNavigate();
   const member = props.member;
   const setMember = props.setMember;
   const setIsLogin = props.setIsLogin;
+  const subCategory = props.subCategory;
+  const myCategory = props.myCategory;
+  const [categoryNameList, setCategoryNameList] = useState([]);
   const [mainCategory, setMainCategory] = useState([]);
-  const [subCategory, setSubCategory] = useState([]);
+  const [subCategory2, setSubCategory2] = useState([]);
   const [selected, setSelected] = useState();
   const [subInformation, setSubInformation] = useState([]);
   const [subTag, setSubTag] = useState([]);
   // 대표 사진 바꿨을 때 사용
-  const [profileImg, setProfileImg] = useState({});
+  const [profileImg, setProfileImg] = useState(null);
   // 화면용 memberImage -> 썸네일 미리보기용
-  const [memberImage, setMemberImage] = useState(member.memberImage);
+  const [memberImage, setMemberImage] = useState(null);
 
   const setMemberPhone = (data) => {
     member.memberPhone = data;
@@ -36,7 +38,118 @@ const ModifyInfo = (props) => {
     setMember({ ...member });
   };
 
-  // 대표 사진 바꿀 시 미리보기 변경 함수
+  useEffect(() => {
+    axios
+      .get("/member/categoryList")
+      .then((res) => {
+        res.data.forEach((item) => {
+          mainCategory.push(item);
+          setMainCategory([...mainCategory]);
+        });
+      })
+      .catch((res) => {
+        console.log(res.response.status);
+      });
+  }, []);
+
+  useEffect(() => {
+    // 내가 선택한 카테고리 이름 배열 만들기
+    myCategory.forEach((item) => {
+      console.log("아이템" + item);
+      subCategory.forEach((ct) => {
+        if (item == ct.categoryNo) {
+          if (ct.categoryName === "기타") {
+            if (ct.categoryRefNo === 1) {
+              categoryNameList.push("스포츠");
+            } else if (ct.categoryRefNo === 8) {
+              categoryNameList.push("공예DIY");
+            } else if (ct.categoryRefNo === 14) {
+              categoryNameList.push("요리");
+            } else if (ct.categoryRefNo === 19) {
+              categoryNameList.push("문화예술");
+            } else if (ct.categoryRefNo === 25) {
+              categoryNameList.push("자기계발");
+            } else if (ct.categoryRefNo === 30) {
+              categoryNameList.push("여행");
+            }
+          } else {
+            categoryNameList.push(ct.categoryName);
+          }
+          setCategoryNameList([...categoryNameList]);
+          console.log(categoryNameList);
+        }
+      });
+    });
+  }, [myCategory]);
+
+  // 서브 카테고리 출력 함수
+  const printSub = () => {
+    const mainKeyword = document.getElementById("main-category");
+    const categoryNo = mainKeyword.options[mainKeyword.selectedIndex].value;
+
+    axios
+      .get("/member/subcategory/" + categoryNo)
+      .then((res) => {
+        const sub = document.getElementById("sub-category");
+        sub.style.display = "inline-block";
+        res.data.forEach((item) => {
+          subCategory2.push(item);
+        });
+        setSubCategory2([...subCategory2]);
+      })
+      .catch((res) => {
+        console.log(res.response.status);
+      });
+  };
+
+  // 서브 카테고리 선택 시 텍스트 출력 함수
+  const printSelect = () => {
+    const sub = document.getElementById("sub-category");
+    const subInfo = sub.options[sub.selectedIndex];
+    const subInfoList = [...subInformation];
+    subInfoList.push(subInfo); // <option value="3">구기스포츠</option>
+
+    // 대분류 소분류 선택상태 리셋
+    const emptyArr = [];
+    setSubCategory2([...emptyArr]);
+
+    const newSubInfoList = [];
+    const newSubTagList = [];
+    const newSubValueList = [];
+
+    // 기타 선택 시 대분류 이름 출력하기 위해 필요
+    const main = document.getElementById("main-category");
+    const mainName = main.options[main.selectedIndex].innerText;
+
+    subInfoList.forEach((item) => {
+      if (newSubInfoList.length < 5) {
+        if (item.text === "기타") {
+          newSubInfoList.push(item);
+          newSubTagList.push(mainName);
+          newSubValueList.push(item.value);
+        } else {
+          newSubInfoList.push(item);
+          newSubTagList.push(item.text);
+          newSubValueList.push(item.value);
+        }
+        setSubInformation(newSubInfoList);
+        setSubTag(newSubTagList); //최종 출력되는 list
+        const cate = newSubValueList.join();
+        // setMemberCategory(cate);
+
+        main.options[0].selected = true;
+        sub.options[0].selected = true;
+        sub.style.display = "none";
+      }
+      //5개 이상 선택된 경우
+      else {
+        Swal.fire("5개까지 선택가능합니다.");
+        return;
+      }
+    });
+  };
+
+  // 프로필 사진 새로 업로드 했을 시 작동하는 함수(미리보기 변경)
   const profileImgChange = (e) => {
     const files = e.currentTarget.files;
     if (files.length !== 0 && files[0] != 0) {
@@ -96,10 +209,14 @@ const ModifyInfo = (props) => {
             </div>
             <div className="input">
               <div className="join-profileImg-pre">
-                {member.memberImage === null ? (
-                  <img src="/img/testImg_01.png" />
+                {memberImage === null ? (
+                  member.memberImage === null ? (
+                    <img src="/img/testImg_01.png" />
+                  ) : (
+                    <img src={"/member/" + member.memberImage} />
+                  )
                 ) : (
-                  <img src={"/member/" + member.memberImage} />
+                  <img src={memberImage} />
                 )}
               </div>
               <label className="join-profileImg" htmlFor="memberImage">
@@ -115,14 +232,38 @@ const ModifyInfo = (props) => {
             </div>
           </div>
         </div>
+        <div className="modifyInfo-info">
+          <div>
+            <div className="label">
+              <label>관심 카테고리</label>
+            </div>
+            <div className="input">
+              <div className="current-category">
+                {categoryNameList.map((ctName, index) => {
+                  return (
+                    <span key={"ctName" + index}>
+                      <img src="/img/hashtag.png" />
+                      {ctName}
+                    </span>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div className="modifyInfo-info">
           <div>
             <div className="label">
-              <label htmlFor="memberImage">관심 카테고리</label>
+              <label>카테고리 수정</label>
             </div>
             <div className="input">
-              <select id="main-category" defaultValue="default">
+              <select
+                id="main-category"
+                defaultValue="default"
+                onChange={printSub}
+                value={selected}
+              >
                 <option value="default" disabled>
                   대분류
                 </option>
@@ -138,11 +279,12 @@ const ModifyInfo = (props) => {
                 id="sub-category"
                 name="categoryNo"
                 defaultValue="default"
+                onChange={printSelect}
               >
                 <option value="default" disabled>
                   소분류
                 </option>
-                {subCategory.map((sub, index) => {
+                {subCategory2.map((sub, index) => {
                   return (
                     <option key={"sub" + index} value={sub.categoryNo}>
                       {sub.categoryName}

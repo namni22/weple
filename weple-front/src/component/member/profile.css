@@ -52,7 +52,7 @@
   box-sizing: border-box;
 }
 
-.profile-wrap .logout {
+.profile-wrap .modifyAndLogout {
   display: flex;
   margin-left: auto;
   margin-right: 10px;

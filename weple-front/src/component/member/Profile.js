@@ -6,14 +6,9 @@ import axios from "axios";
 const Profile = (props) => {
   const navigate = useNavigate();
   const member = props.member;
-  const setMember = props.setMember;
-  const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
   const setId = props.setId;
-  const mainCategory = props.mainCategory;
-  const setMainCategory = props.setMainCategory;
   const subCategory = props.subCategory;
-  const setSubCategory = props.setSubCategory;
   const [categoryNameList, setCategoryNameList] = useState([]);
   const myCategory = props.myCategory;
 
@@ -66,7 +61,7 @@ const Profile = (props) => {
             <img src="/img/testImg_01.png" />
           )}
         </div>
-        <div className="logout">
+        <div className="modifyAndLogout">
           <Button2 text="로그아웃" clickEvent={logout} />
         </div>
         <div className="profile-info">
