@@ -14,6 +14,7 @@ const MeetInfo = (props) => {
   console.log("info2", props);
   const isLogin = props.isLogin;
   const [loginMember, setLoginMember] = useState(null);
+  const [isMeetMember, setIsMeetMember] = useState(null);
   console.log("모임", meet);
   const [meetPrepareList, setMeetPrepareList] = useState([]);
 
@@ -43,7 +44,7 @@ const MeetInfo = (props) => {
         .catch((res) => { });
 
       //로그인이 되어있다면 로그인멤버가 모임멤버인지 조회해오기
-      //모임멤버라면 해당 정보 리턴 아직 멤버가 아니라면 null 리턴
+      //모임멤버라면 해당 follower 리턴 아직 멤버가 아니라면 null 리턴
       console.log("가기전", meet);
       axios
         .post("/meet/isMeetMember", meet, {
@@ -53,6 +54,7 @@ const MeetInfo = (props) => {
         })
         .then((res) => {
           console.log("회원인지", res.data);
+          setIsMeetMember(res.data);
         })
         .catch((res) => {
           console.log(res.response.status);
@@ -86,6 +88,9 @@ const MeetInfo = (props) => {
         console.log(res.response.status);
       });
   };
+  const deleteMember = () => {
+
+  }
 
   return (
     <div className="meetInfo-all-wrap">
@@ -120,7 +125,11 @@ const MeetInfo = (props) => {
       <div className="meetJoin-btn-zone">
         {/* 버튼이 보이는 조건: 로그인이 되어있고 / 아직 모임 가입을 하지 않는 경우 */}
         {isLogin ? (
-          <Button1 text="모임가입하기" clickEvent={meetJoin} />
+          isMeetMember ? (
+            <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
+          ) : (
+            <Button1 text="모임가입하기" clickEvent={meetJoin} />
+          )
 
         ) : ("")}
       </div>
