@@ -167,7 +167,7 @@ const MeetInfo = (props) => {
             <Button1 text="모임가입하기" clickEvent={meetJoin} />
           )
 
-        ) : ("가입대기")}
+        ) : ("로그아웃 상태")}
       </div>
     </div>
   );
