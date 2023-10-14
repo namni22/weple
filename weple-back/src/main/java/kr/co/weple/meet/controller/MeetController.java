@@ -215,6 +215,7 @@ public class MeetController {
 	//내모임회원 추방
 	@PostMapping(value = "/deleteMember")
 	public int deleteMember(@RequestBody Follower memberList) {
+		
 		int result = meetService.deleteMember(memberList.getMemberNo());
 		return result;
 	}

@@ -6,6 +6,7 @@ import Review from "../review/Review";
 import { Button1 } from "../util/Button";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const MeetInfo = (props) => {
   //console.log("info", props)
@@ -15,6 +16,7 @@ const MeetInfo = (props) => {
   const isLogin = props.isLogin;
   const [loginMember, setLoginMember] = useState(null);
   const [isMeetMember, setIsMeetMember] = useState(null);
+  const navigate = useNavigate();
   console.log("모임", meet);
   const [meetPrepareList, setMeetPrepareList] = useState([]);
 
@@ -82,6 +84,7 @@ const MeetInfo = (props) => {
         console.log(res.data);
         if (res.data === 1) {
           Swal.fire("가입신청 완료");
+          navigate("/");
         }
       })
       .catch((res) => {
@@ -89,6 +92,30 @@ const MeetInfo = (props) => {
       });
   };
   const deleteMember = () => {
+    Swal.fire({
+      text: "모임에서 탈퇴 하시겠습니까?",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "탈퇴",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      // 만약 Promise리턴을 받으면,
+      if (result.isConfirmed) {
+        // 만약 모달창에서 confirm 버튼을 눌렀다면
+        axios
+          .post("/meet/deleteMember", isMeetMember)
+          .then((res) => {
+            console.log(res.data);
+            Swal.fire("탈퇴 완료하였습니다.", "회원탈퇴 완료", "success");
+            navigate("/");
+
+          })
+          .catch((res) => {
+            console.log(res.response.data);
+          });
+      }
+    });
 
   }
 
