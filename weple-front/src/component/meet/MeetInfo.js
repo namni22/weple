@@ -161,13 +161,21 @@ const MeetInfo = (props) => {
         {/* 버튼이 보이는 조건: 로그인이 되어있고 / 아직 모임 가입을 하지 않는 경우 */}
         {isLogin ? (
           isMeetMember ? (//가입대기중이면?
-            <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
+            // <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
+            // "isMesetMember가 있을때"
+            isMeetMember.followerStatus === 1 ? (//현재 가입이 승인되어있는가?
+              //현재 followerStatus == 1 일때
+              <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />) : (
+              //현재 followerStatus == 0 일때
+              <div>가입승인 대기중</div>//div로 가입 승인대기중 띄워주기
+            )
           ) : (
-
-            <Button1 text="모임가입하기" clickEvent={meetJoin} />
+            < Button1 text="모임가입하기" clickEvent={meetJoin} />
           )
 
-        ) : ("로그아웃 상태")}
+        ) : (
+          "로그아웃 상태"//로그아웃 상태일때 공백
+        )}
       </div>
     </div>
   );
