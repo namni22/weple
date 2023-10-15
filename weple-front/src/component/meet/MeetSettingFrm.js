@@ -86,6 +86,19 @@ const MeetSettingFrm = (props) => {
         }
     };
 
+    //날짜 변경 인풋에서 포커스가 나갔을때 작동하는 함수
+    //날짜를 9999년 이상 선택하게하 하지 못하게 하기 위해서
+    const changeDate = (meetDate) => {
+        console.log("모임 날짜 타입 : " + typeof meetDate);
+        if (meetDate) {
+            console.log(meetDate.substr(3, 1));
+            if (meetDate.substr(4, 1) !== "-") {//2023-00-00 에서 5번째글자가 "-"가 아니라면
+                setMeetDate("");
+                console.log("날짜 자동 변환");
+            }
+        }
+    }
+
     //모임 인원 변경 함수
     const changeMeetTotal = (e) => {
         console.log(e.currentTarget.value);
@@ -239,6 +252,10 @@ const MeetSettingFrm = (props) => {
                         type="date"
                         data={meetDate}
                         setData={setMeetDate}
+                        blurEvent={() => {
+                            changeDate(meetDate);
+                        }}
+
                     />
                 </div>
                 <div className="meetPlaceFrm">

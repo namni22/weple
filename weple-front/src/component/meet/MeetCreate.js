@@ -8,7 +8,7 @@ const MeetCreate = () => {
   const [meetContentS, setMeetContentS] = useState("");
   const [meetContentD, setMeetContentD] = useState("");
   const [meetDate, setMeetDate] = useState("");
-  const [meetTotal, setMeetTotal] = useState("");
+  const [meetTotal, setMeetTotal] = useState(1);
   const [meetMargin, setMeetMargin] = useState(0);
   const [meetCategory, setMeetCategory] = useState(0);
   const [meetAddress1, setMeetAddress1] = useState("");
