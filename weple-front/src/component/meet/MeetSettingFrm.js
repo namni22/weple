@@ -82,7 +82,7 @@ const MeetSettingFrm = (props) => {
             };
         } else {
             // 파일이 취소됐을때
-            setMeetThumbnail({}); //썸내일 빈객체로
+            setMeetThumbnail(null); //썸내일 빈객체로
             setMeetThumbnailPreview(null); //보드이미지 빈문자열로 //빈문자열에서 null로 바꿈
         }
     };

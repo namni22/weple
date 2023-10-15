@@ -17,7 +17,7 @@ const MeetCreate = () => {
   // const [meetMaterials, setMeetMaterials] = useState("");
 
   //썸네일
-  const [meetThumbnail, setMeetThumbnail] = useState({});
+  const [meetThumbnail, setMeetThumbnail] = useState(null);
   // 썸네일 미리보기
   const [meetThumbnailPreview, setMeetThumbnailPreview] = useState(null);
   // 준비물 리스트 추가용
