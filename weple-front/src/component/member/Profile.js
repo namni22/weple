@@ -1,8 +1,15 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { Button1, Button2 } from "../util/Button";
 import "./profile.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import MyFeed from "./MyFeed";
 const Profile = (props) => {
   const navigate = useNavigate();
   const member = props.member;
@@ -51,6 +58,10 @@ const Profile = (props) => {
     });
   }, [myCategory]);
 
+  const goFeed = () => {
+    navigate("/profile/myFeed");
+  };
+
   return (
     <div className="profile-wrap">
       <div className="profile-top">
@@ -81,12 +92,24 @@ const Profile = (props) => {
         </div>
       </div>
       <div className="profile-mid">
-        <Button1 text="피드" clickEvent="/"></Button1>
-        <Button2 text="모임" clickEvent="/"></Button2>
+        <div className="profile-tab-menu">
+          <ul>
+            <li>
+              <Link to="myFeed">피드</Link>
+            </li>
+            <li>
+              <Link to="myMeet">모임</Link>
+            </li>
+          </ul>
+        </div>
       </div>
       <div className="profile-bottom">
-        {/* 피드 */}
-        {/* 모임 */}
+        <Routes>
+          <Route path="myFeed" element={<MyFeed />} />
+        </Routes>
+        <Routes>
+          <Route path="myMeet" element={<Profile />} />
+        </Routes>
       </div>
     </div>
   );

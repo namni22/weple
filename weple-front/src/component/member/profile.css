@@ -79,6 +79,15 @@
 .profile-mid {
   margin-top: 20px;
 }
-.profile-mid .btn {
+
+.profile-tab-menu {
+  text-align: center;
+}
+
+.profile-tab-menu > ul > li > a {
+  float: left;
   width: 50%;
+  height: 50px;
+  border: 1px solid #ccc;
+  line-height: 50px;
 }

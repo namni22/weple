@@ -20,7 +20,7 @@ const Mypage = (props) => {
   const [myCategory, setMyCategory] = useState([]);
 
   const [menus, setMenus] = useState([
-    { url: "", text: "프로필", active: true },
+    { url: "profile", text: "프로필", active: false },
     { url: "modifyInfo", text: "정보 수정", active: false },
     { url: "modifyPw", text: "비밀번호 변경", active: false },
     { url: "myCalendar", text: "캘린더", active: false },
@@ -88,7 +88,7 @@ const Mypage = (props) => {
         <div className="current-content">
           <Routes>
             <Route
-              path=""
+              path="profile/*"
               element={
                 <Profile
                   member={member}
