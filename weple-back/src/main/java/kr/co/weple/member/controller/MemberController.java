@@ -86,10 +86,40 @@ public class MemberController {
 	public Member mypage(@RequestAttribute String memberId) {
 		return memberService.selectOneMember(memberId);
 	}
+	
 	//신고 카테고리 가져오기
 	@GetMapping(value = "/selectReportOption/{reportType}")
 	public Map selectReportOption(@PathVariable int reportType) {
 		Map map = memberService.selectReportOption(reportType);
 		return map;
+	}
+	
+	// 비밀번호 확인
+	@PostMapping(value = "/pwCheck")
+	public int pwCheck(@RequestBody Member member, @RequestAttribute String memberId) {
+		member.setMemberId(memberId);
+		return memberService.pwCheck(member);
+	}
+	
+	// 비밀번호 변경
+	@PostMapping(value="/changePw")
+	public int pwChange(@RequestBody Member member, @RequestAttribute String memberId) {
+		member.setMemberId(memberId);
+		return memberService.pwChangeMember(member);
+	}
+	
+	// 회원정보 수정
+	@PostMapping(value="/modifyInfo")
+	public int modify(@ModelAttribute Member member, @ModelAttribute MultipartFile profileImg) {
+		System.out.println(member);
+		if(member.getMemberImage().contentEquals("null")) {
+			member.setMemberImage(null);
+		}
+		String savepath = root+"member/";
+		if(profileImg != null) {
+			String filepath = fileUtil.getFilepath(savepath, profileImg.getOriginalFilename(), profileImg);
+			member.setMemberImage(filepath);
+		}
+		return memberService.changeInfo(member);
 	}
 }

@@ -12,6 +12,8 @@ const Login = (props) => {
   const [memberId, setMemberId] = useState("");
   const [memberPw, setMemberPw] = useState("");
   const navigate = useNavigate();
+
+  // 비밀번호 입력 후 엔터 -> 로그인 클릭 함수
   const enterEvent = (e) => {
     if (e.key === "Enter") {
       login();

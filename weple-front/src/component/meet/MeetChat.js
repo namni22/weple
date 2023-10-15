@@ -9,22 +9,50 @@ const MeetChat = (props) => {
   const meet = props.myMeet;
   console.log(meet.meetNo);
   console.log(meet);
+
+  const isLogin = props.isLogin;
+  const setIsLogin = props.setIsLogin;
+
+
+  const [newChat,setNewChat]=useState([]);
   const [chat, setChat] = useState([]);
-  const [data, setData] = useState({});
+  //const [data, setData] = useState({});
+  const [chatContent,setChatContent] = useState("");
   useEffect(() => {
     axios
       .get("/meet/meetChat/" + meet.meetNo)
       .then((res) => {
         console.log(res.data);
-
         setChat(res.data.meetChat);
       })
       .catch((res) => {
         console.log(res.response.status);
       });
   }, []);
+  const token = window.localStorage.getItem("token");
   const insertChat = () => {
     console.log("전송이벤트");
+    console.log(chatContent);
+    axios.post("/meet/chat/"+meet.meetNo, chatContent,{
+      headers: {
+        Authorization : "Bearer "+ token,
+      }
+    })
+    .then((res)=>{
+      console.log(res.data)
+    setNewChat(res.data.list);
+    // console.log(chat);
+    //  const newArr = [...chat];
+     // newArr.push(res.data.list);
+    // setChat(newArr);
+    const newArr=[...chat];
+    newArr.push(newChat);
+    setChat(newArr);
+    console.log(chat);
+    })
+    .catch((res)=>{
+      console.log(res.response.status)
+    })
   };
   return (
     <>
@@ -37,7 +65,13 @@ const MeetChat = (props) => {
         <ul>
           <li className="meetChat-input-form-wrap">
             <div className="meetChat-textEditor">
-              <TextEditor data={data} setData={setData} />
+              <textarea onChange={(e)=>{
+                const changeValue = e.currentTarget.value;
+                setChatContent(changeValue);
+                
+              }}>
+                {chatContent}
+              </textarea>
             </div>
             <div className="meetChat-btn">
               <Button1 text={"전송"} clickEvent={insertChat} />
@@ -56,6 +90,7 @@ const MeetChat = (props) => {
 };
 const ChatItem = (props) => {
   const chat = props.chat;
+  
   return (
     <ul>
       <li>

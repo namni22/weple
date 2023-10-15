@@ -79,6 +79,29 @@ public class MemberService {
 		map.put("reportCategory",list);
 		return map;
 	}
+	
+	// 비밀번호 확인
+	public int pwCheck(Member member) {
+		Member m = memberDao.selectOneMember(member.getMemberId());
+		if(m != null && bCryptPasswordEncoder.matches(member.getMemberPw(), m.getMemberPw())) {
+			return 1;
+		}
+		return 0;
+	}
+
+	// 비밀번호 변경
+	@Transactional
+	public int pwChangeMember(Member member) {
+		return memberDao.changePw(member);
+	}
+	
+	// 회원 정보 수정
+	@Transactional
+	public int changeInfo(Member member) {
+		return memberDao.changeInfo(member);
+	}
+	
+	
 
 
 }

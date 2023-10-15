@@ -12,6 +12,7 @@ import axios from "axios";
 
 const MeetView = (props) => {
   const isLogin = props.isLogin;
+  const setIsLogin = props.setIsLogin;
   const location = useLocation();
   const [myMeet, setMyMeet] = useState({});
   const meetNo = myMeet.meetNo;
@@ -63,11 +64,11 @@ const MeetView = (props) => {
       <Routes>
         <Route
           path="enrollMeetMember"
-          element={<EnrollMeetMember myMeet={myMeet} />}
+          element={<EnrollMeetMember myMeet={myMeet} isLogin={isLogin} setIsLogin={setIsLogin}/>}
         />
-        <Route path="meetChat" element={<MeetChat myMeet={myMeet} />} />
+        <Route path="meetChat" element={<MeetChat myMeet={myMeet} isLogin={isLogin} setIsLogin={setIsLogin}/>} />
         <Route path="meetCalendar" element={<MeetCalendar />} />
-        <Route path="meetList" element={<MeetMemberList myMeet={myMeet} />} />
+        <Route path="meetList" element={<MeetMemberList myMeet={myMeet} isLogin={isLogin} setIsLogin={setIsLogin}/>} />
         <Route
           path="*"
           element={<MeetInfo myMeet={myMeet} isLogin={isLogin} />}

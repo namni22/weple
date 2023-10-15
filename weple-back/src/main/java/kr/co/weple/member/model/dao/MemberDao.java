@@ -22,4 +22,8 @@ public interface MemberDao {
 	//신고 폼에 필요한 option
 	List selectReportOption(int reportType);
 
+	int changePw(Member member);
+
+	int changeInfo(Member member);
+
 }

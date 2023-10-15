@@ -36,13 +36,31 @@ public class BoardService {
 	}
 
 
-	public HashMap<String, Object> boardList(int reqPage) {
+	public HashMap<String, Object> boardList(int reqPage, int boardType) {
 			int numPerPage = 10; 	//한페이지당 게시물 수 
 			int pageNaviSize = 5;	//페이지 네비게이션 길이
-			int totalCount = boardDao.totalCount();//전체 게시물 수
-			//페이징조회 및 페이지 네비 제작에 필요한 데이터를 객체로 받아옴		
+			int totalCount=0;
+			if(boardType == 99) {
+				totalCount = boardDao.totalCount();//전체 게시물 수
+			}else{
+				totalCount = boardDao.totalCountByBoardType(boardType);
+			}
+			//페이징조회 및 페이지 네비 제작에 필요한 데이터를 객체로 받아옴	
+			System.out.println("totalCount pi 전"+totalCount);
+			
 			PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
-			List boardList = boardDao.selectBoardList(pi);
+			
+			System.out.println("totalCount pi 후"+totalCount);
+			List boardList;
+			if(boardType == 99)
+			{
+				boardList = boardDao.selectAllBoardList(pi);				
+			}
+			else
+			{
+				boardList = boardDao.selectBoardList(pi, boardType);
+			}
+			
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("boardList", boardList);
 			map.put("pi", pi);

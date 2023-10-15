@@ -1,0 +1,44 @@
+.modifyPw-content-wrap {
+  margin-top: 30px;
+}
+
+.modifyPw-content {
+  width: 600px;
+  margin: 30px auto;
+}
+
+.new-pw-input-wrap {
+  padding: 20px 0px;
+}
+
+.pw-input-wrap {
+  text-align: center;
+}
+
+.pw-input-wrap > div {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px 0px;
+  justify-content: space-between;
+}
+
+.pw-input-wrap > div > label {
+  width: 25%;
+  color: #5d8bf4;
+  font-size: 18px;
+}
+
+.pw-input-wrap > div > input {
+  width: 50%;
+  margin: 0px 35px;
+}
+
+.pw-input-wrap > div > button {
+  width: 10%;
+}
+
+.change-btn-box {
+  margin-top: 30px;
+  width: 94%;
+}

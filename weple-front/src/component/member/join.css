@@ -210,14 +210,11 @@ input[type="radio"]:checked + label {
   margin-top: 20px;
 }
 .join-select-print-box > div {
-  width: 85px;
-  height: 20px;
-  text-align: center;
+  background-color: #eee;
+  border-radius: 45px;
   font-size: 12px;
+  padding: 3px 10px;
   margin-right: 10px;
-  margin-bottom: 10px;
-  background-color: #ededed;
-  border-radius: 10px;
 }
 
 .join-select-print-box > div > img {
