@@ -7,8 +7,13 @@ import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const ModifyInfo = (props) => {
+  const navigate = useNavigate();
   const member = props.member;
   const setMember = props.setMember;
+  const [memberEmail, setMemberEmail] = useState(member.memberEmail);
+  const [memberPhone, setMemberPhone] = useState(member.memberPhone);
+  const [memberBirth, setMemberBirth] = useState(member.memberBirth);
+  const [memberCategory, setMemberCategory] = useState(member.memberCateogry);
   const setIsLogin = props.setIsLogin;
   const subCategory = props.subCategory;
   const myCategory = props.myCategory;
@@ -21,8 +26,8 @@ const ModifyInfo = (props) => {
   // 대표 사진 바꿨을 때 사용
   const [profileImg, setProfileImg] = useState(null);
   // 화면용 memberImage -> 썸네일 미리보기용
-  const [memberImage, setMemberImage] = useState(null);
-
+  const [memberImage, setMemberImage] = useState(member.memberImage);
+  /*
   const setMemberPhone = (data) => {
     member.memberPhone = data;
     setMember({ ...member });
@@ -37,6 +42,7 @@ const ModifyInfo = (props) => {
     member.memberEmail = data;
     setMember({ ...member });
   };
+  */
 
   useEffect(() => {
     axios
@@ -135,7 +141,7 @@ const ModifyInfo = (props) => {
         setSubInformation(newSubInfoList);
         setSubTag(newSubTagList); //최종 출력되는 list
         const cate = newSubValueList.join();
-        // setMemberCategory(cate);
+        setMemberCategory(cate);
 
         main.options[0].selected = true;
         sub.options[0].selected = true;
@@ -159,11 +165,47 @@ const ModifyInfo = (props) => {
       reader.readAsDataURL(files[0]);
       reader.onloadend = () => {
         setMemberImage(reader.result);
+        member.memberImage = reader.result;
       };
     } else {
       setProfileImg({});
       setMemberImage(null);
     }
+  };
+
+  // 수정 버튼 클릭 시 수정 작업
+  const updateInfo = () => {
+    const token = window.localStorage.getItem("token");
+    const form = new FormData();
+    form.append("memberNo", member.memberNo);
+    form.append("memberEmail", memberEmail);
+    form.append("memberBirth", memberBirth);
+    form.append("memberPhone", memberPhone);
+    form.append("memberImage", memberImage);
+    form.append("memberCategory", memberCategory);
+    form.append("profileImg", profileImg);
+
+    axios
+      .post("/member/modifyInfo", form, {
+        headers: {
+          contentType: "multipart/form-data",
+          processData: false,
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => {
+        if (res.data === 1) {
+          Swal.fire("정보 수정이 완료되었습니다.");
+          navigate("/mypage/modifyInfo");
+        } else {
+          Swal.fire(
+            "정보 수정 중 문제가 발생했습니다. 잠시 후 다시 시도하세요."
+          );
+        }
+      })
+      .catch((res) => {
+        console.log(res.response.status);
+      });
   };
 
   return (
@@ -187,21 +229,21 @@ const ModifyInfo = (props) => {
             content="memberPhone"
             label="전화번호"
             type="text"
-            data={member.memberPhone}
+            data={memberPhone}
             setData={setMemberPhone}
           />
           <ModifyInputWrap
             content="memberBirth"
             label="생년월일"
             type="text"
-            data={member.memberBirth}
+            data={memberBirth}
             setData={setMemberBirth}
           />
           <ModifyInputWrap
             content="memberEmail"
             label="이메일"
             type="text"
-            data={member.memberEmail}
+            data={memberEmail}
             setData={setMemberEmail}
           />
           <div className="modifyInfo-info">
@@ -211,12 +253,8 @@ const ModifyInfo = (props) => {
               </div>
               <div className="input">
                 <div className="join-profileImg-pre">
-                  {memberImage === null ? (
-                    member.memberImage === null ? (
-                      <img src="/img/testImg_01.png" />
-                    ) : (
-                      <img src={"/member/" + member.memberImage} />
-                    )
+                  {profileImg === null ? (
+                    <img src={"/member/" + memberImage} />
                   ) : (
                     <img src={memberImage} />
                   )}
@@ -313,7 +351,7 @@ const ModifyInfo = (props) => {
             <Button2 text="취소" />
           </div>
           <div>
-            <Button1 text="수정" />
+            <Button1 text="수정" clickEvent={updateInfo} />
           </div>
         </div>
       </div>
@@ -327,12 +365,9 @@ const ModifyInputWrap = (props) => {
   const type = props.type;
   const content = props.content;
   const label = props.label;
-  const es = props.es;
   const blurEvent = props.blurEvent;
-  const checkMsg = props.checkMsg;
   const placeholder = props.placeholder;
   const readOnly = props.readOnly;
-  const msgClass = props.msgClass;
 
   return (
     <div className="modifyInfo-info">

@@ -29,4 +29,15 @@
 	<update id="changePw">
 		update member set member_pw=#{memberPw} where member_id=#{memberId}
 	</update>
+	
+	<update id="changeInfo">
+		update member set 
+			member_email = #{memberEmail},
+			member_phone = #{memberPhone},
+			member_birth = #{memberBirth},
+			member_image = #{memberImage},
+			member_category = #{memberCategory}
+		where member_no = #{memberNo}
+	</update>
+	
 </mapper>

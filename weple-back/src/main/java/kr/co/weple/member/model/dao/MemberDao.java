@@ -24,4 +24,6 @@ public interface MemberDao {
 
 	int changePw(Member member);
 
+	int changeInfo(Member member);
+
 }
