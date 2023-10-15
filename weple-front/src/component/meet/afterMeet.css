@@ -3,11 +3,13 @@
   margin: 0 auto;
   margin-top: 30px;
 }
+
 .afterMeet-main-wrap {
   width: 100%;
   overflow: hidden;
   margin: 0 auto;
 }
+
 .afterMeet-main-thumbnail,
 .afterMeet-main-info {
   box-sizing: border-box;
@@ -15,67 +17,89 @@
   float: left;
   width: calc(100% / 2);
 }
+
 .afterMeet-thumbnail-img {
   width: 400px;
   height: 400px;
 }
-.afterMeet-thumbnail-img > img {
+
+.afterMeet-thumbnail-img>img {
   width: 100%;
   height: 100%;
+  /* 비율맞추면서 꽉채우게 , 짤려나오지 않게*/
+  object-fit: contain;
 }
+
 .afterMeet-main-info {
   box-sizing: border-box;
   height: 400px;
 }
+
 .afterMeet-info-host {
   width: 100%;
   overflow: hidden;
   margin-bottom: 30px;
 }
-.afterMeet-info-host > .aferMeet-host-img,
+
+.afterMeet-info-host>.aferMeet-host-img,
 .aferMeet-host-name,
 .afer-host-like {
   float: left;
 }
+
 .aferMeet-host-img {
   width: 40px;
   height: 40px;
 }
-.aferMeet-host-img > img {
+
+.aferMeet-host-img>img {
   border-radius: 50%;
   width: 100%;
+
+  /* 비율맞추면서 꽉채우게 , 짤려나오지 않게*/
+  object-fit: contain;
+
 }
+
 .aferMeet-host-name {
   padding-left: 20px;
   height: 40px;
 }
-.aferMeet-host-name > a {
+
+.aferMeet-host-name>a {
   display: block;
   height: 100%;
   line-height: 35px;
 }
+
 .afer-host-like {
   float: right;
   margin-right: 30px;
 }
-.afer-host-like > span {
+
+.afer-host-like>span {
   font-size: 35px;
   color: red;
 }
+
 .afterMeet-info-title {
   margin-bottom: 10px;
 }
+
 .afterMeet-info-sub-content {
   margin-bottom: 10px;
 }
+
 .afterMeet-sub-navi {
   width: 100%;
   margin: 40px auto;
 }
-.afterMeet-sub-navi > ul {
+
+.afterMeet-sub-navi>ul {
   overflow: hidden;
 }
-.afterMeet-sub-navi > ul > li {
+
+.afterMeet-sub-navi>ul>li {
   display: block;
   float: left;
   width: 150px;
@@ -84,11 +108,13 @@
   text-align: center;
   border: 1px solid #ededed;
 }
-.afterMeet-sub-navi > ul > li > a {
+
+.afterMeet-sub-navi>ul>li>a {
   display: block;
   width: 100%;
 }
-.afterMeet-sub-navi > ul > li > a.active-side {
+
+.afterMeet-sub-navi>ul>li>a.active-side {
   background-color: rgb(78, 77, 75);
   color: #fff;
 }
@@ -104,10 +130,12 @@
   width: calc(100% / 4);
   margin-bottom: 20px;
 }
-.afterMeet-thumbnail-img > img {
+
+.afterMeet-thumbnail-img>img {
   width: 100%;
   height: 100%;
 }
+
 .meetInfo-reviewList-member {
   overflow: hidden;
 }
@@ -116,51 +144,61 @@
   overflow: hidden;
   border-bottom: 2px solid #ededed;
 }
+
 .meetInfo-reviewList-member-id {
   float: left;
   width: 90%;
   box-sizing: border-box;
   padding-left: 10px;
 }
+
 .meetInfo-reviewList-member-img {
   float: left;
   width: 10%;
   box-sizing: border-box;
 }
-.meetInfo-reviewList-member-img > img {
+
+.meetInfo-reviewList-member-img>img {
   width: 30px;
   height: 30px;
   border-radius: 50%;
 }
+
 /* 모임 소개 */
 .meetInfo-content {
   margin-bottom: 20px;
   border-bottom: 2px solid #ededed;
 }
+
 /*그룹 회원 목록*/
 .meetMemberList-all-wrap {
   width: 100%;
   margin: 0 auto;
 }
-.meetMemberList-wrap > tbody tr {
+
+.meetMemberList-wrap>tbody tr {
   border: 1px solid #ededed;
   border-collapse: collapse;
 }
+
 .meetMemberList-wrap {
   overflow: hidden;
   border: 1px solid #ededed;
   border-collapse: collapse;
 }
+
 .meetMemberList-img {
   float: left;
   width: 5%;
   padding: 10px;
 }
-.meetMemberList-img > img {
+
+.meetMemberList-img>img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
 }
+
 .meetMemberList-name {
   float: left;
 
@@ -168,20 +206,24 @@
   padding-left: 15px;
   line-height: 35px;
 }
+
 .meetMemberList-btn-wrap {
   float: left;
 
   overflow: hidden;
 }
+
 .meetMemberList-btn-wrap {
   width: 100%;
 }
-.meetMemberList-btn-wrap > button {
+
+.meetMemberList-btn-wrap>button {
   display: block;
   float: left;
   width: calc(100% / 3 - 20px);
   margin: 0px 10px;
 }
+
 /*그룹 글 작성*/
 .meetChat-all-wrap {
   padding-top: 30px;
@@ -189,7 +231,8 @@
   padding-bottom: 20px;
   box-sizing: border-box;
 }
-.meetChat-all-wrap > ul {
+
+.meetChat-all-wrap>ul {
   padding: 10px 30px;
   box-sizing: border-box;
 }
@@ -197,6 +240,7 @@
 .meetChat-input-form-wrap {
   width: 100%;
 }
+
 .meetChat-btn {
   width: 10%;
   display: block;
@@ -205,56 +249,67 @@
   box-sizing: border-box;
 }
 
-.meetChat-btn > button {
+.meetChat-btn>button {
   width: 100px;
 }
 
 .meetChat-span {
   padding-left: 30px;
 }
-.meetChat-span > span {
+
+.meetChat-span>span {
   color: #ccc;
 }
+
 .meetChat-chat-wrap {
   min-height: 300px;
 }
+
 .meetChat-chat {
   text-align: center;
   line-height: 300px;
 }
+
 /*그룹모임 캘린더*/
 .meetCalendar {
   margin-bottom: 20px;
 }
-.meetCalendar > .react-calendar {
+
+.meetCalendar>.react-calendar {
   width: 100%;
   margin: 0 auto;
 }
-.meetCalendar > .react-calendar__tile {
+
+.meetCalendar>.react-calendar__tile {
   padding: 35px 7px;
 }
+
 .meetCalendar-btn {
   width: 100%;
   margin: 0 auto;
   margin-bottom: 50px;
 }
-.meetCalendar-btn > button {
+
+.meetCalendar-btn>button {
   width: 100%;
 }
+
 /* 모임 메인 */
-.meet-navi {
-}
-.meet-navi > ul {
+.meet-navi {}
+
+.meet-navi>ul {
   overflow: hidden;
 }
-.meet-navi > ul > li {
+
+.meet-navi>ul>li {
   display: block;
 
   float: left;
   width: (100% / 3 - 20px);
   margin-right: 20px;
 }
-.meet-navi > ul > li > a {
+
+.meet-navi>ul>li>a {
   width: 100%;
   display: block;
 
@@ -265,27 +320,34 @@
   border-radius: 5px;
   box-sizing: border-box;
 }
-.meet-navi > ul > li > a.active-side {
+
+.meet-navi>ul>li>a.active-side {
   background-color: #2d31fa;
 }
+
 /*챗 CSS*/
 .meetChat-chat-wrap {
   background-color: #dee4f8;
 }
+
 .meetChat-textEditor {
   background-color: #fff;
 }
+
 .meetChat-chat-wrap {
   overflow: hidden;
 }
-.meetChat-chat-wrap > ul {
+
+.meetChat-chat-wrap>ul {
   overflow: hidden;
   padding: 20px;
 }
-.meetChat-chat-wrap > ul > li {
+
+.meetChat-chat-wrap>ul>li {
   display: block;
   float: left;
 }
+
 .meetChat-chat-img {
   width: 60px;
   height: 60px;
@@ -293,33 +355,40 @@
   overflow: hidden;
   margin-right: 20px;
 }
-.meetChat-chat-img > img {
+
+.meetChat-chat-img>img {
   width: 100%;
 }
+
 .meetChat-chat-writer {
   margin-bottom: 5px;
   overflow: hidden;
 }
-.meetChat-chat-writer > span {
+
+.meetChat-chat-writer>span {
   font-weight: 900;
   padding: 0px 20px 0px 10px;
   display: block;
   float: left;
 }
-.meetChat-chat-writer > sub {
+
+.meetChat-chat-writer>sub {
   font-size: 3px;
   display: block;
   float: left;
   padding-top: 7px;
 }
+
 .meetChat-chat-content {
   padding: 5px 20px 5px 10px;
   background-color: #fff;
   border-radius: 5px;
 }
+
 .meetChat-input-form-wrap {
   height: 170px;
 }
+
 .quill {
   height: 100%;
   box-sizing: border-box;
