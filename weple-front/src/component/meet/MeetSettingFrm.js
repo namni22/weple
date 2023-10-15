@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import Input from "../util/InputFrm";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const MeetSettingFrm = (props) => {
     // 모임만들 정보 선언 //create에서 받음 // update에서 받을예정
@@ -94,7 +95,7 @@ const MeetSettingFrm = (props) => {
             console.log(meetDate.substr(3, 1));
             if (meetDate.substr(4, 1) !== "-") {//2023-00-00 에서 5번째글자가 "-"가 아니라면
                 setMeetDate("");
-                console.log("날짜 자동 변환");
+                Swal.fire("날짜 형식은 0000-00-00 입니다.")
             }
         }
     }
