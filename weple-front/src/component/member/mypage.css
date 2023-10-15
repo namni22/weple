@@ -10,3 +10,8 @@
   display: flex;
   justify-content: space-evenly;
 }
+
+.myPage-title {
+  font-size: 25px;
+  font-weight: bold;
+}

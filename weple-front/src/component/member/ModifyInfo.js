@@ -168,150 +168,153 @@ const ModifyInfo = (props) => {
 
   return (
     <div className="modifyInfo-wrap">
-      <div className="modifyInfo-content">
-        <ModifyInputWrap
-          label="아이디"
-          type="text"
-          data={member.memberId}
-          readOnly
-        />
-        <ModifyInputWrap
-          label="이름"
-          type="text"
-          data={member.memberName}
-          readOnly
-        />
-        <ModifyInputWrap
-          content="memberPhone"
-          label="전화번호"
-          type="text"
-          data={member.memberPhone}
-          setData={setMemberPhone}
-        />
-        <ModifyInputWrap
-          content="memberBirth"
-          label="생년월일"
-          type="text"
-          data={member.memberBirth}
-          setData={setMemberBirth}
-        />
-        <ModifyInputWrap
-          content="memberEmail"
-          label="이메일"
-          type="text"
-          data={member.memberEmail}
-          setData={setMemberEmail}
-        />
-        <div className="modifyInfo-info">
-          <div>
-            <div className="label">
-              <label htmlFor="memberImage">대표 이미지</label>
-            </div>
-            <div className="input">
-              <div className="join-profileImg-pre">
-                {memberImage === null ? (
-                  member.memberImage === null ? (
-                    <img src="/img/testImg_01.png" />
+      <div className="modifyInfo-content-wrap">
+        <div className="myPage-title">정보 수정</div>
+        <div className="modifyInfo-content">
+          <ModifyInputWrap
+            label="아이디"
+            type="text"
+            data={member.memberId}
+            readOnly
+          />
+          <ModifyInputWrap
+            label="이름"
+            type="text"
+            data={member.memberName}
+            readOnly
+          />
+          <ModifyInputWrap
+            content="memberPhone"
+            label="전화번호"
+            type="text"
+            data={member.memberPhone}
+            setData={setMemberPhone}
+          />
+          <ModifyInputWrap
+            content="memberBirth"
+            label="생년월일"
+            type="text"
+            data={member.memberBirth}
+            setData={setMemberBirth}
+          />
+          <ModifyInputWrap
+            content="memberEmail"
+            label="이메일"
+            type="text"
+            data={member.memberEmail}
+            setData={setMemberEmail}
+          />
+          <div className="modifyInfo-info">
+            <div>
+              <div className="label">
+                <label htmlFor="memberImage">대표 이미지</label>
+              </div>
+              <div className="input">
+                <div className="join-profileImg-pre">
+                  {memberImage === null ? (
+                    member.memberImage === null ? (
+                      <img src="/img/testImg_01.png" />
+                    ) : (
+                      <img src={"/member/" + member.memberImage} />
+                    )
                   ) : (
-                    <img src={"/member/" + member.memberImage} />
-                  )
-                ) : (
-                  <img src={memberImage} />
-                )}
-              </div>
-              <label className="join-profileImg" htmlFor="memberImage">
-                이미지 업로드
-              </label>
-              <input
-                type="file"
-                className="join-imgUp-btn"
-                id="memberImage"
-                accept="image/*"
-                onChange={profileImgChange}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="modifyInfo-info">
-          <div>
-            <div className="label">
-              <label>관심 카테고리</label>
-            </div>
-            <div className="input">
-              <div className="current-category">
-                {categoryNameList.map((ctName, index) => {
-                  return (
-                    <span key={"ctName" + index}>
-                      <img src="/img/hashtag.png" />
-                      {ctName}
-                    </span>
-                  );
-                })}
+                    <img src={memberImage} />
+                  )}
+                </div>
+                <label className="join-profileImg" htmlFor="memberImage">
+                  이미지 업로드
+                </label>
+                <input
+                  type="file"
+                  className="join-imgUp-btn"
+                  id="memberImage"
+                  accept="image/*"
+                  onChange={profileImgChange}
+                />
               </div>
             </div>
           </div>
-        </div>
+          <div className="modifyInfo-info">
+            <div>
+              <div className="label">
+                <label>관심 카테고리</label>
+              </div>
+              <div className="input">
+                <div className="current-category">
+                  {categoryNameList.map((ctName, index) => {
+                    return (
+                      <span key={"ctName" + index}>
+                        <img src="/img/hashtag.png" />
+                        {ctName}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
 
-        <div className="modifyInfo-info">
-          <div>
-            <div className="label">
-              <label>카테고리 수정</label>
-            </div>
-            <div className="input">
-              <select
-                id="main-category"
-                defaultValue="default"
-                onChange={printSub}
-                value={selected}
-              >
-                <option value="default" disabled>
-                  대분류
-                </option>
-                {mainCategory.map((main, index) => {
-                  return (
-                    <option key={"main" + index} value={main.categoryNo}>
-                      {main.categoryName}
-                    </option>
-                  );
-                })}
-              </select>
-              <select
-                id="sub-category"
-                name="categoryNo"
-                defaultValue="default"
-                onChange={printSelect}
-              >
-                <option value="default" disabled>
-                  소분류
-                </option>
-                {subCategory2.map((sub, index) => {
-                  return (
-                    <option key={"sub" + index} value={sub.categoryNo}>
-                      {sub.categoryName}
-                    </option>
-                  );
-                })}
-              </select>
-              <div className="join-select-print-box">
-                {subTag.map((subT, index) => {
-                  return (
-                    <div key={"subT" + index}>
-                      <img src="/img/hashtag.png" />
-                      {subT}
-                    </div>
-                  );
-                })}
+          <div className="modifyInfo-info">
+            <div>
+              <div className="label">
+                <label>카테고리 수정</label>
+              </div>
+              <div className="input">
+                <select
+                  id="main-category"
+                  defaultValue="default"
+                  onChange={printSub}
+                  value={selected}
+                >
+                  <option value="default" disabled>
+                    대분류
+                  </option>
+                  {mainCategory.map((main, index) => {
+                    return (
+                      <option key={"main" + index} value={main.categoryNo}>
+                        {main.categoryName}
+                      </option>
+                    );
+                  })}
+                </select>
+                <select
+                  id="sub-category"
+                  name="categoryNo"
+                  defaultValue="default"
+                  onChange={printSelect}
+                >
+                  <option value="default" disabled>
+                    소분류
+                  </option>
+                  {subCategory2.map((sub, index) => {
+                    return (
+                      <option key={"sub" + index} value={sub.categoryNo}>
+                        {sub.categoryName}
+                      </option>
+                    );
+                  })}
+                </select>
+                <div className="join-select-print-box">
+                  {subTag.map((subT, index) => {
+                    return (
+                      <div key={"subT" + index}>
+                        <img src="/img/hashtag.png" />
+                        {subT}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="join-agree-btn">
-        <div>
-          <Button2 text="취소" />
-        </div>
-        <div>
-          <Button1 text="수정" />
+        <div className="join-agree-btn">
+          <div>
+            <Button2 text="취소" />
+          </div>
+          <div>
+            <Button1 text="수정" />
+          </div>
         </div>
       </div>
     </div>
