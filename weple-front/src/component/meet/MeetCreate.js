@@ -36,6 +36,7 @@ const MeetCreate = () => {
 
     const meet = { meetTitle, meetDate, meetTotal, meetContentS, meetContentD, meetCategory };
     if (
+      meetCategory !== 0 &&
       meetTitle !== "" &&
       meetDate !== "" &&
       meetTotal !== "" &&
@@ -70,7 +71,7 @@ const MeetCreate = () => {
         })
         .catch();
     } else {
-      Swal.fire("입력값을 확인하세요");
+      Swal.fire("입력값을 모두 입력 하세요");
     }
   };
 

@@ -171,7 +171,7 @@ const MeetSettingFrm = (props) => {
                             </ul>
                         </div>
                         <div>
-                            <ul className="meetSettingFrm-smallCategory-li">
+                            <ul className="meetSettingFrm-smallCategory-ul">
                                 {smallCategoryList.map((smallCategory, index) => {
                                     return (
                                         <li
@@ -183,8 +183,6 @@ const MeetSettingFrm = (props) => {
                                             }}
                                         >
                                             <div>{smallCategory.categoryName}</div>
-                                            <div>{smallCategory.categoryNo}</div>
-
                                         </li>
                                     );
                                 })}

@@ -49,6 +49,21 @@ const MeetList = () => {
       });
   }, [reqPage]);
 
+  //카테고리 메뉴바의 전체를 클릭하면 동작하는 함수
+  const changeCategoryAll = () => {
+    axios
+      .get("/meet/meetList/" + reqPage + "/" + bigCategoryNo)
+      .then((res) => {
+        console.log(res.data);
+        setMeetList(res.data.meetList);
+        //페이지인포 셋팅
+        setPageInfo(res.data.pi);
+      })
+      .catch((res) => {
+        console.log("catch : " + res.response.status);
+      });
+  }
+
   // 카테고리 메뉴바의 카테고리를 클릭하면 동작하는 함수
   const changeCategory = (smallCategory) => {
     const categoryNo = smallCategory.categoryNo;
@@ -75,7 +90,11 @@ const MeetList = () => {
         <div className="bigCategoryName">{bigCategoryName}</div>
         <div>
           <ul className="smallCategory-ul">
-            <li>전체</li>
+            <li
+              onClick={() => {
+                changeCategoryAll();
+              }}
+            >전체</li>
             {smallCategoryList.map((smallCategory, index) => {
               return (
                 <li
