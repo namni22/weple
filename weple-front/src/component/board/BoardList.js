@@ -7,23 +7,23 @@ import Pagination from "../common/Pagination";
 var BoardContentList = [];
 
 var BoardState = false;
-const ToggleBoardView = (props) => {
-    const boardNo = props.boardNo;
+const ToggleBoardView = ( props) => {
+    
     const boardContent = props.boardContent;
-    console.log("boardNo : " + boardNo);
-    console.log("boardContent : " + boardContent);
+    //console.log("boardNo : " + boardNo);
+    //console.log("boardContent : " + boardContent);
     //console.log("BoardContentList : " + BoardContentList[0].boardContent);
 
     BoardState = !BoardState;
     //BoardContentList.boardList[boardNo].boardContent;
     if (BoardState) {
         var innerDiv = document.createElement('div');
-        innerDiv.className = 'board-view-wrap';
-        //innerDiv.innerText = ;
+        innerDiv.className = 'board-view-wrap';        
         var innerP = document.createElement('p');
         innerP.innerHTML = boardContent;
 
         innerDiv.appendChild(innerP);
+
         document.getElementById("board-list-li-wrap").appendChild(innerDiv);
     }
     else {
@@ -66,12 +66,7 @@ const BoardAll = (props) => {
                         {boardList.map((board, index) => {
                             return <BoardItem key={"board" + index} board={board} />
                         })}
-                        {/* <div className="board-list-title-wrap" onClick={ToggleBoardView}>
-                            <div className="board-list-tab">공지</div>
-                            <div className="board-list-title">공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목v</div>
-                            <div className="board-list-date">2023-09-21</div>
-
-                        </div> */}
+                        
                     </li>
                 </ul>
                 <div className="board-page">
@@ -97,7 +92,7 @@ const BoardNotice = (props) => {
     setboardType(props.boardType);
     
     useEffect(() => {
-        console.log("BoardNotice axios : " + boardType + ", reqPage : " + reqPage);
+        //console.log("BoardNotice axios : " + boardType + ", reqPage : " + reqPage);
         axios
         .get("/board/list/"+reqPage+"/"+boardType)
             .then((res) => {
@@ -123,12 +118,7 @@ const BoardNotice = (props) => {
                         {boardList.map((board, index) => {
                             return <BoardItem key={"board" + index} board={board} />
                         })}
-                        {/* <div className="board-list-title-wrap" onClick={ToggleBoardView}>
-                            <div className="board-list-tab">공지</div>
-                            <div className="board-list-title">공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목v</div>
-                            <div className="board-list-date">2023-09-21</div>
-
-                        </div> */}
+                       
                     </li>
                 </ul>
                 <div className="board-page">
@@ -152,7 +142,7 @@ const BoardEvent = (props) => {
     var boardType = props.boardType;
     
     useEffect(() => {
-        console.log("axios : " + boardType + ", reqPage : " + reqPage);
+        //console.log("axios : " + boardType + ", reqPage : " + reqPage);
         axios
         .get("/board/list/"+reqPage+"/"+boardType)
             .then((res) => {
@@ -168,7 +158,7 @@ const BoardEvent = (props) => {
                 console.log(res.response.status);
             });
     }, [reqPage]);
-    const navigate = useNavigate();
+ 
     return (
         <div>
             
@@ -178,12 +168,7 @@ const BoardEvent = (props) => {
                         {boardList.map((board, index) => {
                             return <BoardItem key={"board" + index} board={board} />
                         })}
-                        {/* <div className="board-list-title-wrap" onClick={ToggleBoardView}>
-                            <div className="board-list-tab">공지</div>
-                            <div className="board-list-title">공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목v</div>
-                            <div className="board-list-date">2023-09-21</div>
-
-                        </div> */}
+                        
                     </li>
                 </ul>
                 <div className="board-page">
@@ -207,7 +192,7 @@ const BoardFaq = (props) => {
     var boardType = props.boardType;
     
     useEffect(() => {
-        console.log("axios : " + boardType + ", reqPage : " + reqPage);
+        //console.log("axios : " + boardType + ", reqPage : " + reqPage);
         axios
         .get("/board/list/"+reqPage+"/"+boardType)
             .then((res) => {
@@ -223,7 +208,7 @@ const BoardFaq = (props) => {
                 console.log(res.response.status);
             });
     }, [reqPage]);
-    const navigate = useNavigate();
+
     return (
         <div>
             
@@ -233,12 +218,7 @@ const BoardFaq = (props) => {
                         {boardList.map((board, index) => {
                             return <BoardItem key={"board" + index} board={board} />
                         })}
-                        {/* <div className="board-list-title-wrap" onClick={ToggleBoardView}>
-                            <div className="board-list-tab">공지</div>
-                            <div className="board-list-title">공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목v</div>
-                            <div className="board-list-date">2023-09-21</div>
-
-                        </div> */}
+                      
                     </li>
                 </ul>
                 <div className="board-page">

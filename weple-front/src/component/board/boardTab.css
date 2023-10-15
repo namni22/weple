@@ -19,28 +19,30 @@
 
 .tab-menu {
     margin-top: 50px;
-    width: 200px;
+    width: 600px;
   }
   .tab-menu > ul {
     list-style-type: none;
     box-sizing: border-box;
-    padding-top: 30px;
+    padding-bottom: 30px;
     margin: 0;
+    overflow: hidden;
+
   }
   .tab-menu > ul > li > a {
+    float: left;
     display: block;
-    padding: 10px;
-    color: #2D31FA;
+    padding: 10px;    
     font-family: ns-b;
-    position: relative;
+    /* position: relative; */
     font-size: 15px;
   }
   .tab-menu > ul > li > a > span {
-    position: absolute;
+    /* position: absolute; */
     right: 0;
   }
   .tab-menu > ul > li > a.active-side {
-    
+    font-weight: 900;
     color: #5d8bf4;
   }
   .tab-menu > ul > li > a.active-side > span {

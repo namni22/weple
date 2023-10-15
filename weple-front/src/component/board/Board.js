@@ -14,7 +14,7 @@ const Board = () => {
     { url: "boardFaq", text: "FAQ", active: false },
   ]);
 
-  tabs[0].active = true;
+  //tabs[0].active = true;
 
   return (
     <div className="board-all-wrap">
