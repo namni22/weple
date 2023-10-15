@@ -10,6 +10,7 @@ import "./profile.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import MyFeed from "./MyFeed";
+import MyMeet from "./MyMeet";
 const Profile = (props) => {
   const navigate = useNavigate();
   const member = props.member;
@@ -58,10 +59,6 @@ const Profile = (props) => {
     });
   }, [myCategory]);
 
-  const goFeed = () => {
-    navigate("/profile/myFeed");
-  };
-
   return (
     <div className="profile-wrap">
       <div className="profile-top">
@@ -91,24 +88,23 @@ const Profile = (props) => {
           })}
         </div>
       </div>
-      <div className="profile-mid">
-        <div className="profile-tab-menu">
-          <ul>
-            <li>
-              <Link to="myFeed">피드</Link>
-            </li>
-            <li>
-              <Link to="myMeet">모임</Link>
-            </li>
-          </ul>
-        </div>
+      <div className="profile-tab-menu">
+        <ul>
+          <li>
+            <Link to="myFeed">피드</Link>
+          </li>
+          <li>
+            <Link to="myMeet">모임</Link>
+          </li>
+        </ul>
       </div>
-      <div className="profile-bottom">
+
+      <div className="profile-tab-menu-content">
         <Routes>
           <Route path="myFeed" element={<MyFeed />} />
         </Routes>
         <Routes>
-          <Route path="myMeet" element={<Profile />} />
+          <Route path="myMeet" element={<MyMeet />} />
         </Routes>
       </div>
     </div>

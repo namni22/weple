@@ -3,6 +3,36 @@
   /* width: 1200px; */
 }
 
+.bigCategoryName {
+  /* 대분류 div 선택자 */
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.smallCategory-ul {
+  width: 100%;
+  overflow: hidden;
+
+}
+
+.smallCategory-ul>li {
+  /* 소분류 li 선택자 */
+  float: left;
+  width: 10%;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+
+}
+
+.smallCategory-ul *:hover {
+  /* 자식으로 선택하면 div가 선택되지않아 전체 선택자로 했음 */
+  background-color: #2d30fa0f;
+  color: #2d31fa;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
 .meetList-area {
   overflow: hidden;
 }
@@ -25,7 +55,7 @@
   background-color: #cccccc33;
 }
 
-.MeetList-meet-img-box > img {
+.MeetList-meet-img-box>img {
   width: 100%;
   height: 100%;
   border-radius: 5px;
@@ -54,6 +84,7 @@
   font-size: 24px;
   color: red;
 }
+
 /* ---------------- 별점 ---------------- */
 .meet-one .star-rating {
   color: #989898;
@@ -66,9 +97,11 @@
   color: #2d31fa;
   margin-left: -3px;
 }
+
 .meet-one .star-rating .material-icons:not(:first-child) {
   margin-left: -4px;
 }
+
 .meet-one .star-rating-fill {
   padding: 0;
   position: absolute;
@@ -77,19 +110,24 @@
   top: 0;
   left: 0;
   overflow: hidden;
-  -webkit-text-fill-color: #2d31fa; /*별 속 채움*/
+  -webkit-text-fill-color: #2d31fa;
+  /*별 속 채움*/
 }
+
 .meet-one .star-rating-base {
   z-index: 0;
   padding: 0;
 }
-.meet-one .star-rating-base > .material-icons {
+
+.meet-one .star-rating-base>.material-icons {
   color: gainsboro;
 }
+
 .star-wrap {
   display: flex;
   align-items: center;
 }
+
 .star-wrap .review-count {
   font-size: 12px;
   font-weight: 600;

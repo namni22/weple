@@ -95,6 +95,12 @@ public class MemberService {
 		return memberDao.changePw(member);
 	}
 	
+	// 회원 정보 수정
+	@Transactional
+	public int changeInfo(Member member) {
+		return memberDao.changeInfo(member);
+	}
+	
 	
 
 

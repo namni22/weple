@@ -29,6 +29,52 @@
     width: 80%;
 }
 
+.meetSettingFrm-bigCategory-ul {
+    /* 대분류 카테고리 ul 선택자 */
+
+    overflow: hidden;
+}
+
+.meetSettingFrm-bigCategory-ul>li {
+    /* 대분류 카테고리 li 선택자 */
+    float: left;
+    width: 16.6%;
+    padding: 15px 15px;
+    text-align: center;
+}
+
+.meetSettingFrm-bigCategory-ul>li:hover {
+    /* 대분류 카테고리 li 선택자 */
+    border-radius: 5px;
+    background-color: #2d30fa1b;
+    color: #2d30fadf;
+    font-weight: bold;
+}
+
+.meetSettingFrm-smallCategory-ul {
+    /* 소분류 카테고리 ul 선택자 */
+
+    border-radius: 5px;
+    background-color: #cccccc45;
+    overflow: hidden;
+}
+
+.meetSettingFrm-smallCategory-ul>li>div {
+    /* 소분류 카테고리 li 선택자 */
+    float: left;
+    width: 16.6%;
+    padding: 10px;
+    text-align: center;
+}
+
+.meetSettingFrm-smallCategory-ul>li>div:hover {
+    /* 수분류 카테고리 li 선택자 */
+    border-radius: 5px;
+    background-color: #2d30fa1b;
+    color: #2d30fadf;
+    font-weight: bold;
+}
+
 .meetMemberLimit-input {
     /* 멤버 정원 인풋 */
 
