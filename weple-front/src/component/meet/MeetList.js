@@ -72,14 +72,15 @@ const MeetList = () => {
   return (
     <div className="meetList-all-wrap">
       <div className="meetListCategori-area">
-        <div>{bigCategoryName}</div>
+        <div className="bigCategoryName">{bigCategoryName}</div>
         <div>
-          <ul>
+          <ul className="smallCategory-ul">
             <li>전체</li>
             {smallCategoryList.map((smallCategory, index) => {
               return (
                 <li
                   key={"smallCategory" + index}
+                  className="smallCategory-li"
                   onClick={() => {
                     changeCategory(smallCategory);
                   }}
