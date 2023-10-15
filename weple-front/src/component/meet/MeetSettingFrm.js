@@ -5,6 +5,7 @@ import TextEditor from "../util/TextEditor";
 import { useEffect, useState } from "react";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import Input from "../util/InputFrm";
+import axios from "axios";
 
 const MeetSettingFrm = (props) => {
     // 모임만들 정보 선언 //create에서 받음 // update에서 받을예정
@@ -29,13 +30,19 @@ const MeetSettingFrm = (props) => {
     const setMeetThumbnailPreview = props.setMeetThumbnailPreview;
 
     // 준비물 리스트 추가용
-    const meetPrepare = props.meetPrepare
-    const setMeetPrepare = props.setMeetPrepare
+    const meetPrepare = props.meetPrepare;
+    const setMeetPrepare = props.setMeetPrepare;
     const meetPrepareList = props.meetPrepareList;
     const setMeetPrepareList = props.setMeetPrepareList;
 
+    //카테고리
+    const meetCategory = props.meetCategory;
+    const setMeetCategory = props.setMeetCategory;
+
     const buttonEvent = props.buttonEvent;
 
+    //카테고리 소분류 담아두는 리스트
+    const [smallCategoryList, setSmallCategoryList] = useState([]);
 
     // 지도
     // const container = document.getElementById('map');//지도를 담을 영역의 dom 레퍼런스
@@ -43,6 +50,21 @@ const MeetSettingFrm = (props) => {
     //     center : new kakao.maps.LatLng(33.45, 126.57)
     // }
     // const map = new kakao.maps.Map(container, options);
+
+    //카테고리 소분류 불러오는 함수
+    const selectSmallCategory = (categoryNum) => {
+        //categoryNum 넘겨받은 bigCategoryNo
+        const bigCategoryNo = categoryNum;
+        axios
+            .get("/meet/selectSmallCategory/" + bigCategoryNo)
+            .then((res) => {
+                // console.log(res.data);
+                setSmallCategoryList(res.data);
+            })
+            .catch((res) => {
+                console.log("catch : " + res.response.status);
+            });
+    }
 
     //   썸네일 미리보기 함수
     const thumbnailChange = (e) => {
@@ -63,6 +85,19 @@ const MeetSettingFrm = (props) => {
             setMeetThumbnailPreview(null); //보드이미지 빈문자열로 //빈문자열에서 null로 바꿈
         }
     };
+
+    //날짜 변경 인풋에서 포커스가 나갔을때 작동하는 함수
+    //날짜를 9999년 이상 선택하게하 하지 못하게 하기 위해서
+    const changeDate = (meetDate) => {
+        console.log("모임 날짜 타입 : " + typeof meetDate);
+        if (meetDate) {
+            console.log(meetDate.substr(3, 1));
+            if (meetDate.substr(4, 1) !== "-") {//2023-00-00 에서 5번째글자가 "-"가 아니라면
+                setMeetDate("");
+                console.log("날짜 자동 변환");
+            }
+        }
+    }
 
     //모임 인원 변경 함수
     const changeMeetTotal = (e) => {
@@ -121,8 +156,52 @@ const MeetSettingFrm = (props) => {
                 <div className="meetCategoriFrm">
                     <label>카테고리</label>
                     <div>
-                        <div>대분류</div>
-                        <div>소분류</div>
+                        <div>
+                            <ul className="meetSettingFrm-bigCategory-ul">
+                                <li onClick={() => {
+                                    selectSmallCategory(1);
+                                }}>스포츠</li>
+
+                                <li onClick={() => {
+                                    selectSmallCategory(30);
+                                }}>여행</li>
+
+                                <li onClick={() => {
+                                    selectSmallCategory(14);
+                                }}>요리</li>
+
+                                <li onClick={() => {
+                                    selectSmallCategory(8);
+                                }}>공예DIY</li>
+
+                                <li onClick={() => {
+                                    selectSmallCategory(25);
+                                }}>자기개발</li>
+
+                                <li onClick={() => {
+                                    selectSmallCategory(19);
+                                }}>문화예술</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul className="meetSettingFrm-smallCategory-ul">
+                                {smallCategoryList.map((smallCategory, index) => {
+                                    return (
+                                        <li
+                                            key={"smallCategory" + index}
+                                            className="meetSettingFrm-smallCategory-li"
+                                            onClick={() => {
+                                                setMeetCategory(smallCategory.categoryNo);
+                                                console.log("선택한 카테고리번호 : " + meetCategory);
+                                            }}
+                                        >
+                                            <div>{smallCategory.categoryName}</div>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+
+                        </div>
                     </div>
                 </div>
                 <div className="meetTitleFrm">
@@ -173,6 +252,10 @@ const MeetSettingFrm = (props) => {
                         type="date"
                         data={meetDate}
                         setData={setMeetDate}
+                        blurEvent={() => {
+                            changeDate(meetDate);
+                        }}
+
                     />
                 </div>
                 <div className="meetPlaceFrm">
