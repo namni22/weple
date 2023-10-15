@@ -10,7 +10,7 @@ const MeetCreate = () => {
   const [meetDate, setMeetDate] = useState("");
   const [meetTotal, setMeetTotal] = useState("");
   const [meetMargin, setMeetMargin] = useState(0);
-  // 카테고리 자리
+  const [meetCategory, setMeetCategory] = useState(0);
   const [meetAddress1, setMeetAddress1] = useState("");
   const [meetAddress2, setMeetAddress2] = useState("");
   const [meetName, setMeetName] = useState("");
@@ -32,8 +32,9 @@ const MeetCreate = () => {
     console.log("모임인원 :" + meetTotal);
     console.log("썸네일 : " + meetThumbnail);
     console.log("준비물 : " + meetPrepareList);
+    console.log("카테고리번호 : " + meetCategory);
 
-    const meet = { meetTitle, meetDate, meetTotal, meetContentS, meetContentD };
+    const meet = { meetTitle, meetDate, meetTotal, meetContentS, meetContentD, meetCategory };
     if (
       meetTitle !== "" &&
       meetDate !== "" &&
@@ -49,6 +50,9 @@ const MeetCreate = () => {
       form.append("meetTotal", meetTotal);
       form.append("meetThumbnail", meetThumbnail);
       form.append("meetPrepareList", meetPrepareList);
+      form.append("meetCategory", meetCategory);
+      //지도 추가자리
+
       // 토큰선언자리
       const token = window.localStorage.getItem("token");
       axios
@@ -94,6 +98,8 @@ const MeetCreate = () => {
         setMeetPrepare={setMeetPrepare}
         meetPrepareList={meetPrepareList}
         setMeetPrepareList={setMeetPrepareList}
+        meetCategory={meetCategory}
+        setMeetCategory={setMeetCategory}
         buttonEvent={meetCreateBtn}
       />
     </div>

@@ -162,7 +162,7 @@ const MeetInfo = (props) => {
         {isLogin ? (
           isMeetMember ? (//가입대기중이면?
             // <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
-            // "isMesetMember가 있을때"
+            // isMesetMember가 있을때"
             isMeetMember.followerStatus === 1 ? (//현재 가입이 승인되어있는가?
               //현재 followerStatus == 1 일때
               <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
@@ -171,6 +171,7 @@ const MeetInfo = (props) => {
               <div>가입승인 대기중</div>//div로 가입 승인대기중 띄워주기 또는 공백 처리
             )
           ) : (
+            //isMeetMember가 비어있을때
             < Button1 text="모임가입하기" clickEvent={meetJoin} />
           )
 

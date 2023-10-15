@@ -52,7 +52,7 @@
 		#{meetTotal}, 
 		#{meetMargin}, 
 		#{meetPrepare},
-		2, 
+		#{meetCategory}, 
 		'주소1',
 		'주소2',
 		36,

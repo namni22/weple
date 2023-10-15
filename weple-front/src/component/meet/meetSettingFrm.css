@@ -29,6 +29,11 @@
     width: 80%;
 }
 
+.meetSettingFrm-bigCategory-ul {
+    /* 대분류 카테고리 ul 선택자 */
+    background-color: #ededed;
+}
+
 .meetMemberLimit-input {
     /* 멤버 정원 인풋 */
 
