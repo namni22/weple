@@ -9,18 +9,20 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const BoardFrm = (props) => {
+  const isLogin= props.isLogin;
+  
   const [boardTitle, setBoardTitle] = useState("");
   const [boardContent, setBoardContent] = useState("");
   var getType;
-  const boardType = props.boardType;
-  const memberId = props.memberId;
-
+  const [boardType, setBoardType] = useState();
+  const id = props.id;
+  console.log(id);
 
   const navigate = useNavigate();
 
   console.log("boardContent : " + boardContent);
 
-  const insert = (getType) => {
+  const insert = () => {
 
     if (boardTitle !== "" && boardContent !== "") {
 
@@ -29,8 +31,8 @@ const BoardFrm = (props) => {
       const form = new FormData();
       form.append("boardTitle", boardTitle);
       form.append("boardContent", boardContent);
-      form.append("boardWriter", memberId);
-
+      form.append("boardWriter", id);
+      form.append("boardType",boardType)
       //console.log(getBoardType);
       const token = window.localStorage.getItem("token");
       axios
@@ -55,10 +57,10 @@ const BoardFrm = (props) => {
 
     }
   }
-  // const handleChange = (event) => {
-  //   getType = event.target.value;
-  //   console.log(getType);
-  // }
+  const handleChange = (event) => {
+    setBoardType(event.target.value);
+    console.log(boardType);
+  }
 
   return (
     <div className="board-frm-wrap">
@@ -70,7 +72,7 @@ const BoardFrm = (props) => {
               <tr>
                 <td className="selectOption">
                   <FormControl sx={{ m: 1, minWidth: 80 }}>
-                    <Select value={boardType}>
+                    <Select onChange={handleChange}>
                       <MenuItem value={0}>공지사항</MenuItem>
                       <MenuItem value={1}>이벤트</MenuItem>
                       <MenuItem value={2}>FAQ</MenuItem>

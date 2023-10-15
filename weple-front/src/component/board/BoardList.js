@@ -32,17 +32,21 @@ const ToggleBoardView = (props) => {
     }
 }
 
+const BoardAll = (props) => {
 
-const BoardList = () => {
     const [boardList, setBoardList] = useState([]);
     const [reqPage, setReqPage] = useState(1);
     const [pageInfo, setPageInfo] = useState({});
+    let boardType = props.boardType;
+    console.log("BoardAll : " + boardType);
     useEffect(() => {
+        console.log("BoardAll axios : " + boardType + ", reqPage : " + reqPage);
         axios
-            .get("/board/list/" + reqPage)
+        .get("/board/list/"+reqPage+"/"+boardType)
             .then((res) => {
                 console.log(res.data);
                 setBoardList(res.data.boardList);
+                console.log("boardList.length : " + res.data.boardList.length);
                 setPageInfo(res.data.pi);
                 //BoardContentList = res.data.boardList;
                 //console.log("BoardList BoardContentList : " + BoardContentList);
@@ -52,16 +56,10 @@ const BoardList = () => {
                 console.log(res.response.status);
             });
     }, [reqPage]);
-    const navigate = useNavigate();
+
     return (
         <div>
-            <div className="board-tab-wrap">
-                {/* 클릭이벤트 걸어서 component 걸기 */}
-                <span className="board-active-tab">전체</span>
-                <span className="board-active-tab">공지</span>
-                <span className="board-active-tab">이벤트</span>
-                <span className="board-active-tab">자주묻는질문</span>
-            </div>
+            
             <div className="board-list-wrap">
                 <ul className="board-list">
                     <li id="board-list-li-wrap">
@@ -81,18 +79,190 @@ const BoardList = () => {
                         reqPage={reqPage}
                         setReqPage={setReqPage}
                         pageInfo={pageInfo}
+                        setData = {setBoardList}
                     />
                 </div>
             </div>
         </div>
     )
 };
+
+const BoardNotice = (props) => {
+
+    const [boardList, setBoardList] = useState([]);
+    const [reqPage, setReqPage] = useState(1);
+    const [pageInfo, setPageInfo] = useState({});
+    const [boardType, setboardType] = useState(1);
+    //var boardType = props.boardType;
+    setboardType(props.boardType);
+    
+    useEffect(() => {
+        console.log("BoardNotice axios : " + boardType + ", reqPage : " + reqPage);
+        axios
+        .get("/board/list/"+reqPage+"/"+boardType)
+            .then((res) => {
+                console.log(res.data);
+                setBoardList(res.data.boardList);
+                console.log("boardList.length : " + res.data.boardList.length);
+                setPageInfo(res.data.pi);
+                //BoardContentList = res.data.boardList;
+                //console.log("BoardList BoardContentList : " + BoardContentList);
+
+            })
+            .catch((res) => {
+                console.log(res.response.status);
+            });
+    }, [reqPage]);
+    const navigate = useNavigate();
+    return (
+        <div>
+            
+            <div className="board-list-wrap">
+                <ul className="board-list">
+                    <li id="board-list-li-wrap">
+                        {boardList.map((board, index) => {
+                            return <BoardItem key={"board" + index} board={board} />
+                        })}
+                        {/* <div className="board-list-title-wrap" onClick={ToggleBoardView}>
+                            <div className="board-list-tab">공지</div>
+                            <div className="board-list-title">공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목v</div>
+                            <div className="board-list-date">2023-09-21</div>
+
+                        </div> */}
+                    </li>
+                </ul>
+                <div className="board-page">
+                    <Pagination
+                        reqPage={reqPage}
+                        setReqPage={setReqPage}
+                        pageInfo={pageInfo}
+                        setData = {setBoardList}
+                    />
+                </div>
+            </div>
+        </div>
+    )
+};
+
+const BoardEvent = (props) => {
+
+    const [boardList, setBoardList] = useState([]);
+    const [reqPage, setReqPage] = useState(1);
+    const [pageInfo, setPageInfo] = useState({});
+    var boardType = props.boardType;
+    
+    useEffect(() => {
+        console.log("axios : " + boardType + ", reqPage : " + reqPage);
+        axios
+        .get("/board/list/"+reqPage+"/"+boardType)
+            .then((res) => {
+                console.log(res.data);
+                setBoardList(res.data.boardList);
+                console.log("boardList.length : " + res.data.boardList.length);
+                setPageInfo(res.data.pi);
+                //BoardContentList = res.data.boardList;
+                //console.log("BoardList BoardContentList : " + BoardContentList);
+
+            })
+            .catch((res) => {
+                console.log(res.response.status);
+            });
+    }, [reqPage]);
+    const navigate = useNavigate();
+    return (
+        <div>
+            
+            <div className="board-list-wrap">
+                <ul className="board-list">
+                    <li id="board-list-li-wrap">
+                        {boardList.map((board, index) => {
+                            return <BoardItem key={"board" + index} board={board} />
+                        })}
+                        {/* <div className="board-list-title-wrap" onClick={ToggleBoardView}>
+                            <div className="board-list-tab">공지</div>
+                            <div className="board-list-title">공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목v</div>
+                            <div className="board-list-date">2023-09-21</div>
+
+                        </div> */}
+                    </li>
+                </ul>
+                <div className="board-page">
+                    <Pagination
+                        reqPage={reqPage}
+                        setReqPage={setReqPage}
+                        pageInfo={pageInfo}
+                        setData = {setBoardList}
+                    />
+                </div>
+            </div>
+        </div>
+    )
+};
+
+const BoardFaq = (props) => {
+
+    const [boardList, setBoardList] = useState([]);
+    const [reqPage, setReqPage] = useState(1);
+    const [pageInfo, setPageInfo] = useState({});
+    var boardType = props.boardType;
+    
+    useEffect(() => {
+        console.log("axios : " + boardType + ", reqPage : " + reqPage);
+        axios
+        .get("/board/list/"+reqPage+"/"+boardType)
+            .then((res) => {
+                console.log(res.data);
+                setBoardList(res.data.boardList);
+                console.log("boardList.length : " + res.data.boardList.length);
+                setPageInfo(res.data.pi);
+                //BoardContentList = res.data.boardList;
+                //console.log("BoardList BoardContentList : " + BoardContentList);
+
+            })
+            .catch((res) => {
+                console.log(res.response.status);
+            });
+    }, [reqPage]);
+    const navigate = useNavigate();
+    return (
+        <div>
+            
+            <div className="board-list-wrap">
+                <ul className="board-list">
+                    <li id="board-list-li-wrap">
+                        {boardList.map((board, index) => {
+                            return <BoardItem key={"board" + index} board={board} />
+                        })}
+                        {/* <div className="board-list-title-wrap" onClick={ToggleBoardView}>
+                            <div className="board-list-tab">공지</div>
+                            <div className="board-list-title">공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목공지제목v</div>
+                            <div className="board-list-date">2023-09-21</div>
+
+                        </div> */}
+                    </li>
+                </ul>
+                <div className="board-page">
+                    <Pagination
+                        reqPage={reqPage}
+                        setReqPage={setReqPage}
+                        pageInfo={pageInfo}
+                        setData = {setBoardList}
+                    />
+                </div>
+            </div>
+        </div>
+    )
+};
+
 const BoardItem = (props) => {
+    // Map으로boardType :키 색깔 value
     const board = props.board;
-    console.log(board.boardType);
+    const style={
+        backgroundColor: board.boardType === 0 ? "#2D31FA" : (board.boardType === 1 ? "#5D8BF4": "#ededed")
+    }
     return (
         <div className="board-list-title-wrap" onClick={() => ToggleBoardView(board)}>
-            <div className="board-list-tab">
+            <div className="board-list-tab" style={style}>
                 {board.boardType === 0 ? "공지사항" : (board.boardType === 1 ? "이벤트" : "FAQ")}
             </div>
             <div className="board-list-title">{board.boardTitle}</div>
@@ -100,4 +270,5 @@ const BoardItem = (props) => {
         </div>
     );
 };
-export default BoardList;
+
+export {BoardAll, BoardNotice, BoardEvent, BoardFaq};
