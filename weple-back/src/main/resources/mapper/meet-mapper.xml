@@ -210,6 +210,22 @@
 	<update id="memberLike">
 		UPDATE MEMBER SET MEMBER_LIKE= #{changeMemberLike} WHERE MEMBER_ID = #{memberId}
 	</update>
-	
-	
+	<!-- meetChat -->
+	<update id="insertMeetChat">
+		INSERT INTO CHAT VALUES(CHAT_SEQ.NEXTVAL,#{chatContent},#{memberId},#{meetNo},TO_CHAR(SYSDATE,'YYYY-MM-DD'))
+	</update>
+	<select id="meetChatLast" resultType="chat">
+		select * from    
+	    (SELECT 
+	        CHAT_NO,
+	        CHAT_CONTENT,
+	        MEMBER_ID,
+	        MEET_NO,
+	        TO_CHAR(CHAT_DATE,'""YYYY"년"MM"월"DD"일" AMHH:mm:SS')as CHAT_DATE,
+	        MEMBER_IMAGE
+	    FROM CHAT
+	    JOIN MEMBER USING(MEMBER_ID)
+	    WHERE MEET_NO = 12)C where rownum <![CDATA[<=]]>1 order by 1 desc
+		
+	</select>
 </mapper>

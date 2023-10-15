@@ -240,6 +240,14 @@ public class MeetService {
 		
 		return follower;
 	}
+	@Transactional
+	public List insertMeetChat(String chatContent, String memberId, int meetNo) {
+		// TODO Auto-generated method stub
+		int result = meetDao.insertMeetChat(chatContent,memberId,meetNo);
+		List list = meetDao.meetChatLast(meetNo);
+		
+		return list;
+	}
 	
 
 

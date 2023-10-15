@@ -63,6 +63,10 @@ public interface MeetDao {
 	int meetJoin(HashMap<String, Object> meetJoinInfo);
 	// 로그인한 회원이 가입승인을 받은 모임 멤버인지 조회
 	Follower isMeetMember(HashMap<String, Object> map);
+	//meetChat
+	int insertMeetChat(String chatContent, String memberId, int meetNo);
+
+	List meetChatLast(int meetNo);
 	
 
 
