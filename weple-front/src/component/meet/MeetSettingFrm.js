@@ -74,13 +74,36 @@ const MeetSettingFrm = (props) => {
                 console.log("catch : " + res.response.status);
             });
     }
+    //카테고리 대분류 선택지 작동하는 함수 (탭메뉴)
+    const activeBigCategory = () => {
+        const smallTabs = document.querySelectorAll(".smallCategoryName")
+        console.log("스몰 탭 : ", smallTabs);
+        smallTabs.forEach(function (item, index) {
+            item.addEventListener("click", function () {
+                for (let i = 0; i < smallTabs.length; i++) {
+                    smallTabs[i].classList.remove("active-smallCategory")
+                }
+                // item.classList.add("active-smallCategory")
+            })
+        })
+        const bigTabs = document.querySelectorAll(".meetSettingFrm-bigCategory-ul>li")
+        bigTabs.forEach(function (item, index) {
+            item.addEventListener("click", function () {
+                for (let i = 0; i < bigTabs.length; i++) {
+                    bigTabs[i].classList.remove("active-bigCategory")
+                }
+                item.classList.add("active-bigCategory")
+            })
+        })
+
+    }
     //카테고리 선택시 작동하는 함수 (탭메뉴)
     const activeSmallCategory = () => {
-        const tabs = document.querySelectorAll(".smallCategoryName")
-        tabs.forEach(function (item, index) {
+        const smallTabs = document.querySelectorAll(".smallCategoryName")
+        smallTabs.forEach(function (item, index) {
             item.addEventListener("click", function () {
-                for (let i = 0; i < tabs.length; i++) {
-                    tabs[i].classList.remove("active-smallCategory")
+                for (let i = 0; i < smallTabs.length; i++) {
+                    smallTabs[i].classList.remove("active-smallCategory")
                 }
                 item.classList.add("active-smallCategory")
             })
@@ -183,26 +206,32 @@ const MeetSettingFrm = (props) => {
                             <ul className="meetSettingFrm-bigCategory-ul">
                                 <li onClick={() => {
                                     selectSmallCategory(1);
+                                    activeBigCategory();
                                 }}>스포츠</li>
 
                                 <li onClick={() => {
                                     selectSmallCategory(30);
+                                    activeBigCategory();
                                 }}>여행</li>
 
                                 <li onClick={() => {
                                     selectSmallCategory(14);
+                                    activeBigCategory();
                                 }}>요리</li>
 
                                 <li onClick={() => {
                                     selectSmallCategory(8);
+                                    activeBigCategory();
                                 }}>공예DIY</li>
 
                                 <li onClick={() => {
                                     selectSmallCategory(25);
+                                    activeBigCategory();
                                 }}>자기개발</li>
 
                                 <li onClick={() => {
                                     selectSmallCategory(19);
+                                    activeBigCategory();
                                 }}>문화예술</li>
                             </ul>
                         </div>

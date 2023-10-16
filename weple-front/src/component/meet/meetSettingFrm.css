@@ -77,6 +77,13 @@
 
 }
 
+.active-bigCategory {
+    background-color: #cccccc45;
+    font-weight: bold;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
 .active-smallCategory {
     border-radius: 5px;
     background-color: #2d30fa1b;
