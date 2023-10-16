@@ -76,13 +76,10 @@ const MeetMain = (props) => {
 const FeedMain = () => {
   const navigate = useNavigate();
   const [feedList, setFeedList] = useState([]);
-  const [start, setStart] = useState(1);
 
-  const amount = 9;
   useEffect(() => {
-    const end = start + amount - 1;
     axios
-      .get("/feed/list/" + start + "/" + end)
+      .get("/feed/list/" + 1 + "/" + 3)
       .then((res) => {
         const arr = [...feedList];
         for (let i = 0; i < res.data.length; i++) {
