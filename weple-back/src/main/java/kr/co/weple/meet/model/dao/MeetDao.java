@@ -70,6 +70,8 @@ public interface MeetDao {
 	List meetChatLast(int meetNo);
 
 	int addCalendar(Calendar cal);
+
+	List calendarList(int meetNo);
 	
 
 

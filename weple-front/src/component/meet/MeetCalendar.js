@@ -17,6 +17,18 @@ const MeetCalendar = (props) => {
   const [calEnd, setCalEnd] = useState("");
   const [calTitle, setCalTitle] = useState("");
   const [calContent, setCalContent] = useState("");
+  const [schedule, setSchedule] = useState([]);
+  console.log(schedule);
+  useEffect(() => {
+    axios
+      .get("/meet/calendarList/" + meetNo)
+      .then((res) => {
+        setSchedule(res.data);
+      })
+      .catch((res) => {
+        console.log(res.response.status);
+      });
+  }, []);
 
   const addModal = () => {
     setIsOpen(true);
@@ -55,6 +67,8 @@ const MeetCalendar = (props) => {
           calContent={calContent}
           setCalContent={setCalContent}
           meetNo={meetNo}
+          schedule={schedule}
+          setSchedule={setSchedule}
         />
       </div>
       <div>
@@ -94,6 +108,9 @@ const AddModal = (props) => {
   const calContent = props.calContent;
   const setCalContent = props.setCalContent;
   const meetNo = props.meetNo;
+  const schedule = props.schedule;
+  const setSchedule = props.setSchedule;
+  console.log(schedule);
 
   //오늘날짜 0000-00-00 로 등록
   const now_utc = Date.now();
@@ -116,13 +133,8 @@ const AddModal = (props) => {
     const changeValue = e.currentTarget.value;
     setCalContent(changeValue);
   };
-  console.log(calStart);
-  console.log(calEnd);
-  console.log(calTitle);
-  console.log(calContent);
 
   const token = window.localStorage.getItem("token");
-
   // useEffect(() => {
   const addSchedule = () => {
     if (

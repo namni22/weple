@@ -244,4 +244,10 @@ public class MeetController {
 			@RequestAttribute String memberId) {
 		return meetService.addcalendar(cal,memberId);
 	}
+	//캘린더 리스트 출력
+	@GetMapping(value="/calendarList/{meetNo}")
+	public List calendarList(@PathVariable int meetNo) {
+		List list = meetService.calendarList(meetNo);
+		return list;
+	}
 }

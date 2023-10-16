@@ -260,6 +260,10 @@ public class MeetService {
 		}
 		return 0;
 	}
+	//캘린더 리스트 출력
+	public List calendarList(int meetNo) {
+		return meetDao.calendarList(meetNo);
+	}
 	
 
 
