@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,9 +32,10 @@ public class BoardController {
 	private String root;
 	
 	//게시판 목록
-	@GetMapping(value="/list/{reqPage}")
-	public Map list(@PathVariable int reqPage) {
-		Map map = boardService.boardList(reqPage);
+	@GetMapping(value = "/list/{reqPage}/{boardType}")
+	public Map list(@PathVariable int reqPage, @PathVariable int boardType) {
+		System.out.println("boardType in BoardController :" + boardType);
+		Map map = boardService.boardList(reqPage, boardType);
 		return map;
 	}
 	//게시판 삽입

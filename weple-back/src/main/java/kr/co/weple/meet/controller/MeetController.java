@@ -225,5 +225,14 @@ public class MeetController {
 			int result = meetService.memberLike(memberList.getMemberId(),memberList.getMemberLike());
 			return result;
 		}
-	
+	//모임 채팅
+		@PostMapping(value = "/chat/{meetNo}")
+		public List insertMeetChat(@RequestBody String chatContent,@RequestAttribute String memberId,@PathVariable int meetNo ) {
+			System.out.println("chat : "+chatContent);
+			System.out.println("meetNo :"+ meetNo);
+			System.out.println("memberId는 : "+memberId);
+			List list = meetService.insertMeetChat(chatContent,memberId,meetNo);
+			System.out.println("list : "+list);
+			return list;
+		}
 }

@@ -7,6 +7,10 @@ import { Button1, Button2, Button3 } from "../util/Button";
 const EnrollMeetMember = (props) => {
   const myMeet = props.myMeet;
   console.log(myMeet.meetNo);
+
+  const isLogin = props.isLogin;
+  const setIsLogin = props.setIsLogin;
+
   const [enrollMember, setEnrollMember] = useState([]);
   const [reqPage, setReqPage] = useState(1);
   const [pageInfo, setPageInfo] = useState({});

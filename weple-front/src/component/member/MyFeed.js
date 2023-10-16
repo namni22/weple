@@ -1,7 +1,9 @@
 const MyFeed = () => {
   return (
     <div className="myFeed-wrap">
-      <div className="myFeed-content">안녕</div>
+      <div className="profile-sub-content">
+        <div className="myFeed-content">피드 리스트</div>
+      </div>
     </div>
   );
 };

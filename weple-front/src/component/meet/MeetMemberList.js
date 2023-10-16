@@ -10,6 +10,10 @@ import { ReportModal } from "../util/Modal";
 const MeetMemberList = (props) => {
   const [isOpen, setOpen] = useState(false);
   const myMeet = props.myMeet;
+
+  const isLogin = props.isLogin;
+  const setIsLogin = props.setIsLogin;
+
   const [meetMember, setMeetMember] = useState([]);
   const [reqPage, setReqPage] = useState(1);
   const [pageInfo, setPageInfo] = useState({});

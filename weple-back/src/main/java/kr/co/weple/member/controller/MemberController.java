@@ -107,4 +107,19 @@ public class MemberController {
 		member.setMemberId(memberId);
 		return memberService.pwChangeMember(member);
 	}
+	
+	// 회원정보 수정
+	@PostMapping(value="/modifyInfo")
+	public int modify(@ModelAttribute Member member, @ModelAttribute MultipartFile profileImg) {
+		System.out.println(member);
+		if(member.getMemberImage().contentEquals("null")) {
+			member.setMemberImage(null);
+		}
+		String savepath = root+"member/";
+		if(profileImg != null) {
+			String filepath = fileUtil.getFilepath(savepath, profileImg.getOriginalFilename(), profileImg);
+			member.setMemberImage(filepath);
+		}
+		return memberService.changeInfo(member);
+	}
 }
