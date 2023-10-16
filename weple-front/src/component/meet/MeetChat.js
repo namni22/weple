@@ -15,8 +15,14 @@ const MeetChat = (props) => {
 
   const [newChat, setNewChat] = useState([]);
   const [chat, setChat] = useState([]);
-  //const [data, setData] = useState({});
   const [chatContent, setChatContent] = useState("");
+
+  const enterInsert = (e) => {
+    if (e.keyCode == 13) {
+      insertChat();
+      e.currentTarget.value = "";
+    }
+  };
   useEffect(() => {
     axios
       .get("/meet/meetChat/" + meet.meetNo)
@@ -32,33 +38,31 @@ const MeetChat = (props) => {
   const insertChat = () => {
     console.log("전송이벤트");
     console.log(chatContent);
-    axios
-      .post(
-        "/meet/chat/" + meet.meetNo,
-        { chatContent },
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res.data);
-        //setNewChat(res.data.list);
-        // console.log(chat);
-        //  const newArr = [...chat];
-        // newArr.push(res.data.list);
-        // setChat(newArr);
-        const newArr = [...chat];
-        console.log(newArr);
-        newArr.push(res.data[0]);
-        console.log(newArr);
-        setChat(newArr);
-        console.log(chat);
-      })
-      .catch((res) => {
-        console.log(res.response.status);
-      });
+    if (chatContent !== "\n") {
+      axios
+        .post(
+          "/meet/chat/" + meet.meetNo,
+          { chatContent },
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+          const newArr = [...chat];
+          console.log(newArr);
+          newArr.push(res.data[0]);
+          console.log(newArr);
+          setChat(newArr);
+          console.log(chat);
+          setChatContent("");
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    }
   };
   return (
     <>
@@ -76,6 +80,7 @@ const MeetChat = (props) => {
                   const changeValue = e.currentTarget.value;
                   setChatContent(changeValue);
                 }}
+                onKeyUp={enterInsert}
               >
                 {chatContent}
               </textarea>
