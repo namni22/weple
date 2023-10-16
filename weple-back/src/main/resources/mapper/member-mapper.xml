@@ -23,7 +23,7 @@
 	</insert>
 	
 	<select id="selectReportOption" resultType="reportCategory">
-		SELECT * FROM  REPORT_CATEGORY WHERE REPORT_TYPE=#{reportType}
+		SELECT * FROM  REPORT_CATEGORY WHERE REPORT_TYPE=#{reportType} order by 1 
 	</select>
 	
 	<update id="changePw">
@@ -39,6 +39,9 @@
 			member_category = #{memberCategory}
 		where member_no = #{memberNo}
 	</update>
+	<insert id="insertReport">
+		INSERT INTO REPORT VALUES(REPORT_SEQ.NEXTVAL,#{reportType},#{reportItemNo},#{reportContent},#{reportedMember},1,#{reportCategoryNo},#{reportMember},TO_CHAR(SYSDATE,'YYYY-DD-MM'))
+	</insert>
 	
 	<select id="totalCount">
 		select count(*) from feed where feed_writer=#{memberId}

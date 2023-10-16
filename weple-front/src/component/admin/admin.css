@@ -70,7 +70,7 @@
   height: 40px;
 }
 
-.board-btn-box {
+/* .board-btn-box {
   padding: 20px 0px;
 }
 
@@ -82,7 +82,22 @@
   font-family: ns-eb;
   border: none;
   outline: none;
+  
+} */
+.board-btn-box {
+  text-align: center;
 }
+
+.board-btn-box > div {
+  width: 30%;
+  display: inline-block;
+  margin: 50px 0;
+}
+
+.board-btn-box> div:first-child {
+  margin-right: 30px;
+}
+
 
 /* 텍스트 에디터 높이 */
 .board-content-box .ql-container {

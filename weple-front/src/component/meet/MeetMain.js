@@ -10,6 +10,7 @@ import MeetView from "./MeetView";
 const MeetMain = (props) => {
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
+  const id = props.id;
   const [meetNavi, setMeetNavi] = useState([
     { url: "myMeet", text: "내가 개설한 모임", active: false },
     { url: "currentMeet", text: "참여하는 모임", active: false },
@@ -22,7 +23,12 @@ const MeetMain = (props) => {
         <Route path="category" element={<Category />} />
         <Route path="meetSettingFrm" element={<MeetSettingFrm />} />
         <Route path="meetCreate" element={<MeetCreate />}></Route>
-        <Route path="meetList/view/*" element={<MeetView isLogin={isLogin} setIsLogin={setIsLogin}/>} />
+        <Route
+          path="meetList/view/*"
+          element={
+            <MeetView isLogin={isLogin} setIsLogin={setIsLogin} id={id} />
+          }
+        />
       </Routes>
     </div>
   );

@@ -1,19 +1,29 @@
 import { useEffect, useState } from "react";
 import "./board.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Pagination from "../common/Pagination";
+import { Button2 } from "../util/Button";
+import Swal from "sweetalert2";
 
 var BoardContentList = [];
 
+
+
+
+
 var BoardState = false;
-const ToggleBoardView = ( props) => {
+const ToggleBoardView = (props) => {
+    //const navigate = useNavigate();
     
+    const board = props.board;
     const boardContent = props.boardContent;
     //console.log("boardNo : " + boardNo);
     //console.log("boardContent : " + boardContent);
     //console.log("BoardContentList : " + BoardContentList[0].boardContent);
-
+    // const modify = () => {
+    //     navigate("/board/modify", { state: { board: board } });
+    //   };
     BoardState = !BoardState;
     //BoardContentList.boardList[boardNo].boardContent;
     if (BoardState) {
@@ -25,6 +35,25 @@ const ToggleBoardView = ( props) => {
         innerDiv.appendChild(innerP);
 
         document.getElementById("board-list-li-wrap").appendChild(innerDiv);
+    
+        <div className="board-view-btn-zone">
+        {/* {isLogin ? (
+            member && member.memberType === 0 ? (
+                member && member.memberNo === board.boardWriter ?(
+                    <>
+                    <Button2 text="수정" clickEvent={modify} />
+                    <Button2 text="삭제"  />
+                  </>
+                ) : (
+                    ""
+                  )) : (
+            ""
+          )
+        ) : (
+          ""
+        )} */}
+        
+      </div>
     }
     else {
         var innerDivs = document.getElementsByClassName("board-view-wrap");
@@ -34,6 +63,7 @@ const ToggleBoardView = ( props) => {
 
 const BoardAll = (props) => {
 
+   
     const [boardList, setBoardList] = useState([]);
     const [reqPage, setReqPage] = useState(1);
     const [pageInfo, setPageInfo] = useState({});
@@ -64,7 +94,7 @@ const BoardAll = (props) => {
                 <ul className="board-list">
                     <li id="board-list-li-wrap">
                         {boardList.map((board, index) => {
-                            return <BoardItem key={"board" + index} board={board} />
+                            return <BoardItem key={"board" + index} board={board}  />
                         })}
                         
                     </li>
@@ -110,8 +140,7 @@ const BoardNotice = (props) => {
     }, [reqPage]);
     const navigate = useNavigate();
     return (
-        <div>
-            
+        <div>            
             <div className="board-list-wrap">
                 <ul className="board-list">
                     <li id="board-list-li-wrap">
@@ -237,6 +266,8 @@ const BoardFaq = (props) => {
 const BoardItem = (props) => {
     // Map으로boardType :키 색깔 value
     const board = props.board;
+    const isLogin=props.isLogin;
+    const id=props.id;
     const style={
         backgroundColor: board.boardType === 0 ? "#2D31FA" : (board.boardType === 1 ? "#5D8BF4": "#ededed")
     }

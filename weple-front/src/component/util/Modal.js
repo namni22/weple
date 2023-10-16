@@ -9,7 +9,12 @@ const ReportModal = (props) => {
   const onSubmit = props.onSubmit;
   const onCancel = props.onCancel;
   const memberId = props.memberId;
+  const reportItemNo = props.reportItemNo;
+  const [reportedMember, setReportedMember] = useState("");
+  const [reportContent, setReportContent] = useState("");
   const [reportTypeValue, setReportTypeValue] = useState(0);
+  const [currentVaule, setCurrentVaule] = useState();
+  const [currentCategory, setCurrentCategory] = useState("");
   const [reportType, setReportType] = useState([
     {
       value: 0,
@@ -29,15 +34,19 @@ const ReportModal = (props) => {
     },
   ]);
   const [reportCategory, setReportCategory] = useState([]);
+
   const changeValue = (e) => {
     const newValue = e.currentTarget.value;
-    //setReportTypeValue(newValue);
+    console.log("신고타입 전 : ", newValue);
+    setReportTypeValue(newValue);
+    console.log("신고타입 후 : ", reportTypeValue);
     axios
       .get("/member/selectReportOption/" + newValue)
       .then((res) => {
         console.log(res.data);
         console.log(reportType.value);
         setReportCategory(res.data.reportCategory);
+        setCurrentVaule(newValue);
       })
       .catch((res) => {
         console.log(res.response.status);
@@ -54,20 +63,64 @@ const ReportModal = (props) => {
       padding: "40px",
     },
     overlay: {
-      backgroundColor: "rgba(0,0,0,0.3)",
+      backgroundColor: "rgba(0,0,0,0.1)",
     },
   };
-  const handleClickSubmit = () => {
-    console.log("모달 확인 클릭시 이벤트발생");
-    Swal.fire({
-      title: "신고가 완료되었습니다.",
-      text: "신고 처리 완료",
-      icon: "success",
-    });
+  const handleClickSubmit = (e) => {
+    console.log(" 확인 클릭시 이벤트발생");
+    console.log("가해자 : ", reportedMember);
+    console.log("신고내용 : ", reportContent);
+    console.log("신고타입 : ", currentVaule);
+    console.log("신고자 :", memberId);
+    console.log("신고유형 : ", currentCategory);
+    console.log("신고물번호 : ", reportItemNo);
+    const token = window.localStorage.getItem("token");
+    //insert에 필요한 값 1.신고타입,2신고유형,3.가해자,4.신고내용
+    axios
+      .post(
+        "/member/report",
+        {
+          reportedMember: reportedMember,
+          reportType: currentVaule,
+          reportContent: reportContent,
+          reportCategoryNo: currentCategory,
+          reportMember: memberId,
+          reportItemNo: reportItemNo,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        if (res.data === 1) {
+          Swal.fire({
+            title: "신고가 완료되었습니다.",
+            text: "신고 처리 완료",
+            icon: "success",
+          });
+        } else {
+          Swal.fire({
+            title: "신고가 실패되었습니다.",
+            text: "신고 처리 실패",
+            icon: "error",
+          });
+        }
+      })
+      .catch((res) => {
+        console.log(res.response.status);
+      });
 
     onSubmit();
   };
   const handleClickCancel = () => {
+    const newArr2 = 0;
+    console.log("취소이벤트 : ", reportTypeValue);
+    console.log("newArr2 : ", newArr2);
+    setReportTypeValue(newArr2);
+    console.log("취소이벤트 후 : ", reportTypeValue);
     onCancel();
   };
   useEffect(() => {
@@ -81,9 +134,11 @@ const ReportModal = (props) => {
       .catch((res) => {
         console.log(res.response.status);
       });
-  }, [reportType]);
-  /*
-   */
+  }, [reportTypeValue]);
+  const changeCategory = (e) => {
+    const newCategory = e.currentTarget.value;
+    setCurrentCategory(newCategory);
+  };
   return (
     <ReactModal style={customStyles} isOpen={isOpen}>
       <div className="modal-all-wrap">
@@ -100,31 +155,22 @@ const ReportModal = (props) => {
               <tr>
                 <td>신고 타입</td>
                 <td>
-                  <select>
+                  <select onChange={changeValue}>
                     {reportType.map((type, index) => {
                       return (
-                        <option
-                          key={"type" + index}
-                          value={type.value}
-                          onChange={changeValue}
-                        >
+                        <option key={"type" + index} value={type.value}>
                           {type.text}
+                          {type.value}
                         </option>
                       );
                     })}
-                    {/*
-                    <option value={0}>후기</option>
-                    <option value={1}>피드</option>
-                    <option value={2}>모임</option>
-                    <option value={3}>후기</option>
-                     */}
                   </select>
                 </td>
               </tr>
               <tr>
                 <td>신고 유형</td>
                 <td>
-                  <select>
+                  <select onChange={changeCategory}>
                     {reportCategory.map((category, index) => {
                       return (
                         <option
@@ -132,8 +178,6 @@ const ReportModal = (props) => {
                           value={category.reportCategoryNo}
                         >
                           {category.reportCategoryContent}
-                          {/*
-                           */}
                         </option>
                       );
                     })}
@@ -143,13 +187,24 @@ const ReportModal = (props) => {
               <tr>
                 <td>가해자</td>
                 <td>
-                  <input></input>
+                  <input
+                    onChange={(e) => {
+                      const changeMemberValue = e.currentTarget.value;
+                      setReportedMember(changeMemberValue);
+                    }}
+                  ></input>
                 </td>
               </tr>
               <tr>
                 <td>신고내용</td>
                 <td>
-                  <textarea className="modal-tbl-textarea"></textarea>
+                  <textarea
+                    className="modal-tbl-textarea"
+                    onChange={(e) => {
+                      const changeContentValue = e.currentTarget.value;
+                      setReportContent(changeContentValue);
+                    }}
+                  ></textarea>
                 </td>
               </tr>
             </tbody>
