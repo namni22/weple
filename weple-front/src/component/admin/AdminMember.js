@@ -29,31 +29,13 @@ const AdminMember = () => {
         //console.log(res);
       });
   }, [reqPage]);
-  const onChangeSearch = (e) => {
-    const memberId = { memberId: e.target.value };
-    console.log(memberId);
-
-    axios
-      .get("/admin/searchId", memberId)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data === 1) {
-          setMemberId(e.target.value);
-        } else {
-          Swal.fire("변경 중 문제가 발생했습니다.");
-        }
-      })
-      .catch((res) => {
-        console.log(res);
-      });
-
-  }
+  
   const onSearch = (e) => {
     const memberIdInputValue = document.querySelector("#memberId");
     const memberId = memberIdInputValue.value;
     // console.log(e.currentTarget.value);
     axios
-      .get("/admin/searchId", memberId)
+      .post("/admin/searchId", memberId)
       .then((res) => {
         console.log(res.data);
         if (res.data === 1) {
