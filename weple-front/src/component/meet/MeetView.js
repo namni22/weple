@@ -61,7 +61,16 @@ const MeetView = (props) => {
     <div className="afterMeet-all-wrap">
       <div className="feed-title">MY GROUP</div>
       <AfterMeetMain myMeet={myMeet} meetCaptain={meetCaptain} />
-      <AfterMeetSubNavi meetMenu={meetMenu} setMeetMenu={setMeetMenu} />
+
+      {isLogin ? (
+        <AfterMeetSubNavi
+          meetMenu={meetMenu}
+          setMeetMenu={setMeetMenu}
+        ></AfterMeetSubNavi>
+      ) : (
+        ""
+      )}
+
       <Routes>
         <Route
           path="enrollMeetMember"
