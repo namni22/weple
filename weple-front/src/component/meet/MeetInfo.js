@@ -11,26 +11,22 @@ import { useNavigate } from "react-router-dom";
 const MeetInfo = (props) => {
   //console.log("info", props)
   const [meet, setMeet] = useState({});
-  console.log("info1", meet);
-  console.log("info2", props);
+  // console.log("info1", meet);
+  // console.log("info2", props);
   const isLogin = props.isLogin;
   const [loginMember, setLoginMember] = useState(null);
   //모임에 이미 가입한 상태인지 알아보는 변수
   const [isMeetMember, setIsMeetMember] = useState(null);
   // const [meetJoinWaiting, setMeetJoinWaiting] = useState(null);
   const navigate = useNavigate();
-  console.log("모임", meet);
+  // console.log("모임", meet);
   const [meetPrepareList, setMeetPrepareList] = useState([]);
 
   useEffect(() => {
     setMeet(props.myMeet);
-    console.log("reveiwCount:" + meet.reviewCount);
-    console.log("reveiwStar:" + meet.reviewStar);
     if (props.myMeet.meetPrepare) {
       setMeetPrepareList(props.myMeet.meetPrepare.split("/"));
-    }
-
-    // 
+    } 
     if (isLogin) {
       //로그인한 상태라면
       //서버에서 로그인한 회원정보 가져오기
@@ -65,11 +61,11 @@ const MeetInfo = (props) => {
 
     }
   }, [props]);
-  console.log(meetPrepareList);
-  console.log(isLogin);
-  console.log("모임 : ", meet);
-  console.log("모임 번호 : ", meet.meetNo);
-  console.log("팔로워 isMeetMember :  ", isMeetMember);
+  // console.log(meetPrepareList);
+  // console.log(isLogin);
+  // console.log("모임 : ", meet);
+  // console.log("모임 번호 : ", meet.meetNo);
+  // console.log("팔로워 isMeetMember :  ", isMeetMember);
   // console.log("팔로워 객체안 : ", isMeetMember.meetNo);
   // console.log("팔로워 스테이터스 : ", isMeetMember.followerStatus);
 
@@ -128,7 +124,13 @@ const MeetInfo = (props) => {
 
   return (
     <div className="meetInfo-all-wrap">
-      <Review meetNo={102} />
+      <Review
+      // 조회가 안됨
+        meetNo={meet.meetNo}
+        isMeetMember={isMeetMember}
+        reviewStar={meet.reviewStar}
+        reviewCount={meet.reviewCount}
+      />
       <div className="meetInfo-content">
         <div className="meetInfo-content-area">
           <div className="meetInfo-content-title">모임소개</div>
@@ -164,26 +166,24 @@ const MeetInfo = (props) => {
         </div>
       </div>
       <div className="meetJoin-btn-zone">
-
         {/* 버튼이 보이는 조건: 로그인이 되어있고 / 아직 모임 가입을 하지 않는 경우 */}
         {isLogin ? (
-          isMeetMember ? (//가입대기중이면?
+          isMeetMember ? ( //가입대기중이면?
             // <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
             // isMesetMember가 있을때"
-            isMeetMember.followerStatus === 1 ? (//현재 가입이 승인되어있는가?
+            isMeetMember.followerStatus === 1 ? ( //현재 가입이 승인되어있는가?
               //현재 followerStatus == 1 일때
               <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
             ) : (
               //현재 followerStatus == 0 일때
-              <div>가입승인 대기중</div>//div로 가입 승인대기중 띄워주기 또는 공백 처리
+              <div>가입승인 대기중</div> //div로 가입 승인대기중 띄워주기 또는 공백 처리
             )
           ) : (
             //isMeetMember가 비어있을때
-            < Button1 text="모임가입하기" clickEvent={meetJoin} />
+            <Button1 text="모임가입하기" clickEvent={meetJoin} />
           )
-
         ) : (
-          "로그아웃 상태"//로그아웃 상태일때 공백
+          "로그아웃 상태" //로그아웃 상태일때 공백
         )}
       </div>
     </div>

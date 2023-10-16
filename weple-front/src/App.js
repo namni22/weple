@@ -54,6 +54,7 @@ function App() {
             path="/board/*"
             element={<Board isLogin={isLogin} id={id} />}
           />
+
           <Route
             path="/admin/*"
             element={<Admin isLogin={isLogin} id={id} />}
@@ -63,9 +64,8 @@ function App() {
             path="/login"
             element={<Login setIsLogin={setIsLogin} setId={setId} />}
           />
-          <Route path="/reviewList" element={<ReviewList />} />
           {/* <Route path="/category" element={<Category />} /> */}
-
+          <Route path="/reviewList" element={<ReviewList />} />
           <Route path="*" element={<Main />} />
         </Routes>
       </div>
