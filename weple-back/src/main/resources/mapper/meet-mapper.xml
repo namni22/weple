@@ -228,4 +228,9 @@
 	    WHERE MEET_NO = 12)C where rownum <![CDATA[<=]]>1 order by 1 desc
 		
 	</select>
+	
+	<!-- 캘린더 -->
+	<insert id="addCalendar">
+		insert into calendar values(calendar_seq.nextval,#{meetNo},#{calTitle},#{calContent},#{calStart},#{calEnd})
+	</insert>
 </mapper>

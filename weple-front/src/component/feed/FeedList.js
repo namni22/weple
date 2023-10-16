@@ -29,7 +29,7 @@ const FeedList = (props) => {
       .catch((res) => {
         Swal.fire("실패");
       });
-  }, []);
+  }, [start]);
 
   const useFeedMore = (e) => {
     setStart(start + amount);

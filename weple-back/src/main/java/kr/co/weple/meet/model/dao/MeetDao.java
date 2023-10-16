@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.weple.PageInfo;
+import kr.co.weple.meet.model.vo.Calendar;
 import kr.co.weple.meet.model.vo.Category;
 import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.meet.model.vo.Meet;
@@ -67,6 +68,8 @@ public interface MeetDao {
 	int insertMeetChat(String chatContent, String memberId, int meetNo);
 
 	List meetChatLast(int meetNo);
+
+	int addCalendar(Calendar cal);
 	
 
 

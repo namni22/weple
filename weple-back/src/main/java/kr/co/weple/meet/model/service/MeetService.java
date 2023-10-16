@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.weple.PageInfo;
 import kr.co.weple.Pagination;
 import kr.co.weple.meet.model.dao.MeetDao;
+import kr.co.weple.meet.model.vo.Calendar;
 import kr.co.weple.meet.model.vo.Category;
 import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.meet.model.vo.Meet;
@@ -247,6 +248,17 @@ public class MeetService {
 		List list = meetDao.meetChatLast(meetNo);
 		
 		return list;
+	}
+
+	//캘린더일정추가
+	@Transactional
+	public int addcalendar(Calendar cal, String memberId) {
+		//모임번호로 정보조회하기
+		Meet m = meetDao.selectOneMeet(cal.getMeetNo());
+		if(m.getMeetCaptain().equals(memberId)) {
+			return  meetDao.addCalendar(cal);
+		}
+		return 0;
 	}
 	
 

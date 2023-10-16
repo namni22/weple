@@ -64,11 +64,38 @@ const MeetView = (props) => {
       <Routes>
         <Route
           path="enrollMeetMember"
-          element={<EnrollMeetMember myMeet={myMeet} isLogin={isLogin} setIsLogin={setIsLogin}/>}
+          element={
+            <EnrollMeetMember
+              myMeet={myMeet}
+              isLogin={isLogin}
+              setIsLogin={setIsLogin}
+            />
+          }
         />
-        <Route path="meetChat" element={<MeetChat myMeet={myMeet} isLogin={isLogin} setIsLogin={setIsLogin}/>} />
-        <Route path="meetCalendar" element={<MeetCalendar />} />
-        <Route path="meetList" element={<MeetMemberList myMeet={myMeet} isLogin={isLogin} setIsLogin={setIsLogin}/>} />
+        <Route
+          path="meetChat"
+          element={
+            <MeetChat
+              myMeet={myMeet}
+              isLogin={isLogin}
+              setIsLogin={setIsLogin}
+            />
+          }
+        />
+        <Route
+          path="meetCalendar"
+          element={<MeetCalendar meetNo={myMeet.meetNo} />}
+        />
+        <Route
+          path="meetList"
+          element={
+            <MeetMemberList
+              myMeet={myMeet}
+              isLogin={isLogin}
+              setIsLogin={setIsLogin}
+            />
+          }
+        />
         <Route
           path="*"
           element={<MeetInfo myMeet={myMeet} isLogin={isLogin} />}
