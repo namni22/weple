@@ -22,6 +22,8 @@ const MeetSettingFrm = (props) => {
     const setMeetDate = props.setMeetDate;
     const meetAddress1 = props.meetAddress1;
     const setMeetAddress1 = props.setMeetAddress1;
+    const meetAddress2 = props.meetAddress2;
+    const setMeetAddress2 = props.setMeetAddress2;
     const meetTotal = props.meetTotal;
     const setMeetTotal = props.setMeetTotal;
 
@@ -266,7 +268,11 @@ const MeetSettingFrm = (props) => {
                     {/* <div id="map" style={{ width: '500px', height: '500px' }}>
                     </div> */}
                     <div>
-                        <Postcode meetAddress1={meetAddress1} setMeetAddress1={setMeetAddress1} />
+                        <Postcode
+                            meetAddress1={meetAddress1}
+                            setMeetAddress1={setMeetAddress1}
+                            meetAddress2={meetAddress2}
+                            setMeetAddress2={setMeetAddress2} />
                         {/* <Kakao2></Kakao2> */}
                     </div>
                 </div>
@@ -325,7 +331,7 @@ const MeetSettingFrm = (props) => {
                             <Button2 text="추가" clickEvent={meetPrepareAdd}></Button2>
                         </div>
                         <div className="meetMaterials-wrap">
-
+                            {/* 준비물 미리보기 */}
                             {meetPrepareList.map((meetPrepare, index) => {
                                 return (
                                     <div key={"meetPrepare" + index} className="meetMaterials-one">
@@ -405,6 +411,8 @@ const { daum } = window;
 const Postcode = (props) => {
     const meetAddress1 = props.meetAddress1;
     const setMeetAddress1 = props.setMeetAddress1;
+    const meetAddress2 = props.meetAddress2;
+    const setMeetAddress2 = props.setMeetAddress2;
 
     //처음 진행할때는 map이라는 아이디를가진 div가 존재하지 않기때문에 useEffect 안에 넣음
     useEffect(() => {
@@ -418,6 +426,15 @@ const Postcode = (props) => {
         console.log("맵 옵션 : ", mapOption);
         console.log(mapContainer);
         var map = new daum.maps.Map(mapContainer, mapOption);
+        //지오코더 선언 자리
+        //주소-좌표 변환 객체를 생성
+        // var geocoder = new daum.maps.services.Geocoder();
+        //마커를 미리 생성
+        var marker = new daum.maps.Marker({
+            position: new daum.maps.LatLng(37.537187, 127.005476),
+            map: map
+        });
+
     }, [])
 
     function sample5_execDaumPostcode() {
@@ -445,6 +462,8 @@ const Postcode = (props) => {
             {/* <input type="text" id="sample5_address" placeholder="주소" /> */}
             <Button2 text="주소검색" clickEvent={sample5_execDaumPostcode} />
             <Input type="text" data={meetAddress1} content="sample5_address" placeholder="주소" />
+            <Input type="text" data={meetAddress2} setData={setMeetAddress2} content="meetAddress2" placeholder="상세주소" />
+
             <div id="map" style={{
                 width: "500px",
                 height: "500px"
