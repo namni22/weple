@@ -89,6 +89,8 @@ const MeetCreate = () => {
         setMeetContentD={setMeetContentD}
         meetDate={meetDate}
         setMeetDate={setMeetDate}
+        meetAddress1={meetAddress1}
+        setMeetAddress1={setMeetAddress1}
         meetTotal={meetTotal}
         setMeetTotal={setMeetTotal}
         meetThumbnail={meetThumbnail}

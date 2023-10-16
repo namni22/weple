@@ -20,6 +20,8 @@ const MeetSettingFrm = (props) => {
     const setMeetContentD = props.setMeetContentD;
     const meetDate = props.meetDate;
     const setMeetDate = props.setMeetDate;
+    const meetAddress1 = props.meetAddress1;
+    const setMeetAddress1 = props.setMeetAddress1;
     const meetTotal = props.meetTotal;
     const setMeetTotal = props.setMeetTotal;
 
@@ -261,8 +263,11 @@ const MeetSettingFrm = (props) => {
                 </div>
                 <div className="meetPlaceFrm">
                     <label>모임위치</label>
-                    <div id="map" style={{ width: '500px', height: '500px' }}>
-                        <Kakao2></Kakao2>
+                    {/* <div id="map" style={{ width: '500px', height: '500px' }}>
+                    </div> */}
+                    <div>
+                        <Postcode meetAddress1={meetAddress1} setMeetAddress1={setMeetAddress1} />
+                        {/* <Kakao2></Kakao2> */}
                     </div>
                 </div>
                 <div className="meetMemberLimitFrm">
@@ -358,13 +363,95 @@ const Kakao2 = () => {
             level: 3 //지도의 레벨(확대, 축소 정도)
         };
         const map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+        // 지도를 클릭한 위치에 표출할 마커입니다
+        var marker = new kakao.maps.Marker({
+            // 지도 중심좌표에 마커를 생성합니다 
+            position: map.getCenter()
+        });
+        // 지도에 마커를 표시합니다
+        marker.setMap(map);
+        // 지도에 클릭 이벤트를 등록합니다
+        // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+        kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
+
+            // 클릭한 위도, 경도 정보를 가져옵니다 
+            var latlng = mouseEvent.latLng;
+
+            // 마커 위치를 클릭한 위치로 옮깁니다
+            marker.setPosition(latlng);
+
+            var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+            message += '경도는 ' + latlng.getLng() + ' 입니다';
+            // var resultDiv = document.getElementById('clickLatlng');
+            // resultDiv.innerHTML = message;
+
+            console.log(message, latlng);
+        });
+
+
     }, [])
     return (
-        <div id="map" style={{
-            width: "500px",
-            height: "500px"
-        }}></div>
+        <>
+            <div id="map" style={{
+                width: "500px",
+                height: "500px"
+            }}></div>
+
+        </>
     )
+}
+
+const { daum } = window;
+const Postcode = (props) => {
+    const meetAddress1 = props.meetAddress1;
+    const setMeetAddress1 = props.setMeetAddress1;
+
+    //처음 진행할때는 map이라는 아이디를가진 div가 존재하지 않기때문에 useEffect 안에 넣음
+    useEffect(() => {
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+            mapOption = {
+                center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+                level: 5 // 지도의 확대 레벨
+            };
+
+        //지도를 미리 생성
+        console.log("맵 옵션 : ", mapOption);
+        console.log(mapContainer);
+        var map = new daum.maps.Map(mapContainer, mapOption);
+    }, [])
+
+    function sample5_execDaumPostcode() {
+
+
+        new daum.Postcode({
+            oncomplete: function (data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+                // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+                var addr = data.address; // 최종 주소 변수
+
+                // 주소 정보를 해당 필드에 넣는다.
+                document.getElementById("sample5_address").value = addr;
+                setMeetAddress1(addr);
+                console.log("검색 결과 : ", data);
+
+
+            }
+        }).open();
+
+    }
+
+    return (
+        <div>
+            {/* <input type="text" id="sample5_address" placeholder="주소" /> */}
+            <Button2 text="주소검색" clickEvent={sample5_execDaumPostcode} />
+            <Input type="text" data={meetAddress1} content="sample5_address" placeholder="주소" />
+            <div id="map" style={{
+                width: "500px",
+                height: "500px"
+            }}></div>
+        </div>
+
+    );
 }
 
 
