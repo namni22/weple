@@ -27,22 +27,6 @@ const ModifyInfo = (props) => {
   const [profileImg, setProfileImg] = useState(null);
   // 화면용 memberImage -> 썸네일 미리보기용
   const [memberImage, setMemberImage] = useState(member.memberImage);
-  /*
-  const setMemberPhone = (data) => {
-    member.memberPhone = data;
-    setMember({ ...member });
-  };
-
-  const setMemberBirth = (data) => {
-    member.memberBirth = data;
-    setMember({ ...member });
-  };
-
-  const setMemberEmail = (data) => {
-    member.memberEmail = data;
-    setMember({ ...member });
-  };
-  */
 
   useEffect(() => {
     axios
@@ -196,7 +180,7 @@ const ModifyInfo = (props) => {
       .then((res) => {
         if (res.data === 1) {
           Swal.fire("정보 수정이 완료되었습니다.");
-          navigate("/mypage/modifyInfo");
+          navigate("/mypage");
         } else {
           Swal.fire(
             "정보 수정 중 문제가 발생했습니다. 잠시 후 다시 시도하세요."
