@@ -20,10 +20,14 @@ public interface AdminDao {
 	List meetList(PageInfo pi);
 
 	int meetListCount();
-
+	
 	int changeMeetType(Meet meet);
 
-	Member selectOneMember(String memberId);
+	int memberListCountbySubId(String memberId);
+	
+	List memberListBySubId(PageInfo pi, String memberId);	
+	
+	List selectMemberbySubId(String memberId);
 
 	int boardListCount();
 

@@ -61,9 +61,22 @@ public class AdminService {
 			return adminDao.changeMeetType(meet);
 		}
 		//회원 검색 조회
-		public Member selectOneMember(String memberId) {
+		public Map selectMemberbySubId(String memberId, int reqPage) {
+			int totalCount = adminDao.memberListCountbySubId(memberId);
+			int numPerPage = 10;
+			int pageNaviSize = 5;
+			PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
+			List memberListBySubId = adminDao.memberListBySubId(pi, memberId);
+			System.out.println("memberListBySubId.size() : " + memberListBySubId.size());
+			for(int i=0 ; i<memberListBySubId.size() ; i++)
+			{
+				//System.out.println(memberListBySubId[i]);
+			}
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("list", memberListBySubId);
+			map.put("pi", pi);
+			return map;
 			
-			return adminDao.selectOneMember(memberId);
 		}
 		//공지사항 리스트 조회
 		public Map boardList(int reqPage) {
