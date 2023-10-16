@@ -20,6 +20,7 @@ const MyFeed = (props) => {
           setMyFeedList([...myFeedList]);
         });
         console.log(myFeedList);
+        console.log(myFeedList.imageList[0]);
       })
       .catch((res) => {
         Swal.fire("실패");
@@ -45,14 +46,15 @@ const MyFeed = (props) => {
 
 const MyFeedItem = (props) => {
   const myFeed = props.myFeed;
+  const myFeedImg = myFeed.imageList;
 
   return (
     <div>
       <div className="myFeed-item">
         {myFeed.imageList === null ? (
-          <img src="/img/test_img01.png" />
+          <img src="/img/testImg_01.png" />
         ) : (
-          <img src={"/feed/" + myFeed.imageList[0]} />
+          <img src={"/feed/" + myFeedImg[0].fimageName} />
         )}
       </div>
     </div>

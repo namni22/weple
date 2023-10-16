@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.weple.admin.model.service.AdminService;
@@ -34,16 +35,10 @@ public class AdminController {
 		return adminService.changeMemberGrade(member);
 	}
 	//회원 검색 조회
-	@PostMapping(value="/searchId")
-	public int searchId(@RequestBody String memberId) {
+	@GetMapping(value="/searchId/{memberId}/{reqPage}")
+	public Map searchId(@PathVariable("memberId") String memberId, @PathVariable int reqPage) {
 		System.out.println("memberId :" + memberId);
-		Member m = adminService.selectOneMember(memberId);
-		System.out.println("memberId :" + memberId);
-		if(m == null) {
-			return 0;
-		}else {
-			return 1;
-		}
+		return adminService.selectMemberbySubId(memberId, reqPage);
 	}
 	
 	//모임조회
