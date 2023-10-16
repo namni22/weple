@@ -25,5 +25,9 @@ public interface AdminDao {
 
 	Member selectOneMember(String memberId);
 
+	int boardListCount();
+
+	List boardList(PageInfo pi);
+
 	
 }

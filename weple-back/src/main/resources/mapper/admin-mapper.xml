@@ -33,4 +33,15 @@
 		select * from member where member_id=#{memberId}
 
 	</select>
+	
+	<select id="boardListCount" resultType="int">
+		select count(*) from board 
+	</select>
+	<select id="boardList" resultType="board">
+		select * from
+			(select rownum as rnum, b.* from
+				(select * from board order by board_no desc)b
+			)
+		where rnum between #{start} and #{end}	
+	</select>
 </mapper>

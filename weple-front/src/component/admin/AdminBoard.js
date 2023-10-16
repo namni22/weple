@@ -32,7 +32,7 @@ const AdminBoard = () => {
             <thead>
               <tr>
                 <td width={"10%"}>글번호</td>
-                <td width={"50%"} className="title-td">
+                <td width={"60%"} className="title-td">
                   제목
                 </td>
                 <td width={"20%"}>작성자</td>
@@ -68,9 +68,9 @@ const BoardItem = (props) => {
     <tr>
       <td>{board.boardNo}</td>
       <td className="title-td" onClick={boardContent}>
-        <div>{board.boardTitle}</div>
+        {board.boardTitle}
       </td>
-      <td>{board.memberId}</td>
+      <td>{board.boardWriter}</td>
       <td>{board.boardDate}</td>
     </tr>
   )
