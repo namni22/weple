@@ -36,6 +36,8 @@ const MeetCreate = () => {
     console.log("준비물 : " + meetPrepareList);
     console.log("카테고리번호 : " + meetCategory);
     console.log("모임주소1  : " + meetAddress1);
+    console.log("위도 : ", meetLatitude);
+    console.log("경도 : ", meetLongitude);
 
     const meet = { meetTitle, meetDate, meetTotal, meetContentS, meetContentD, meetCategory, meetAddress1, meetAddress2 };
     if (
