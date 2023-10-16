@@ -29,11 +29,19 @@
 	<update id="changeMeetType">
 		update meet set meet_type=#{meetType} where meet_no = #{meetNo}
 	</update>
-	<select id="selectOneMember" resultType="member">
-		select * from member where member_id=#{memberId}
-
+	<select id="memberListBySubId" resultType="member">
+		select * from
+			(select rownum as rnum, m.* from
+				(select * from member where member_id  like '%'||#{memberId}||'%' order by member_grade)m
+			)
+		where rnum between #{pi.start} and #{pi.end}	
+	</select> 
+	<select id="selectMemberbySubId" resultType="member">
+		select * from member where member_id like '%'||#{memberId}||'%'
 	</select>
-	
+	<select id="memberListCountbySubId" resultType="int">
+		select count(*) from member where member_id like '%'||#{memberId}||'%'
+	</select>
 	<select id="boardListCount" resultType="int">
 		select count(*) from board 
 	</select>

@@ -16,40 +16,47 @@ const AdminMember = () => {
   const [reqPage, setReqPage] = useState(1);
 
   const [memberId, setMemberId] = useState("");
-  const [search, setSearch] = useState("");
+  const [confirmedMemberId, setConfirmedMemberId] = useState("");
+
   useEffect(() => {
-    axios
-      .get("/admin/memberList/" + reqPage)
-      .then((res) => {
-        //console.log(res.data);
-        setMemberList(res.data.list);
-        setPageInfo(res.data.pi);
-      })
-      .catch((res) => {
-        //console.log(res);
-      });
-  }, [reqPage]);
+    if(memberId === ""){
+      console.log("first useEffect reqPage : " + reqPage);
+      axios
+        .get("/admin/memberList/" + reqPage)
+        .then((res) => {
+          console.log("admin/memberList : " + res.data.list);
+          setMemberList(res.data.list);
+          setPageInfo(res.data.pi);
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+      }
+    }, [reqPage]);
+    
+    useEffect(() =>{
+      if(memberId !== ""){
+        console.log("second useEffect memberId : " + memberId + ", reqPage : " + reqPage);
+        axios
+        .get("/admin/searchId/"+ memberId + "/" + reqPage)
+        .then((res) => {
+          console.log("admin/searchId : " + res.data.list);
+          setMemberList(res.data.list);
+          setPageInfo(res.data.pi);
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+      }
+    },[confirmedMemberId, reqPage])
+ 
   
   const onSearch = (e) => {
     const memberIdInputValue = document.querySelector("#memberId");
-    const memberId = memberIdInputValue.value;
-    // console.log(e.currentTarget.value);
-    axios
-      .post("/admin/searchId", memberId)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data === 1) {
-          setMemberId(e.target.value);
-
-        } else {
-          Swal.fire("변경 중 문제가 발생했습니다.");
-        }
-      })
-      .catch((res) => {
-        console.log(res);
-      });
-
+    setReqPage(1);
+    setConfirmedMemberId(memberIdInputValue.value);
   }
+
   return (
     <div className="admin-member-wrap">
       <div className="admin-member-top">
@@ -93,6 +100,7 @@ const AdminMember = () => {
     </div>
   );
 };
+
 const MemberItem = (props) => {
   const member = props.member;
   const [memberGrade, setMemberGrade] = useState(member.memberGrade);
