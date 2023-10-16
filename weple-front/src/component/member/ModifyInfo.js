@@ -196,7 +196,7 @@ const ModifyInfo = (props) => {
       .then((res) => {
         if (res.data === 1) {
           Swal.fire("정보 수정이 완료되었습니다.");
-          navigate("/mypage/modifyInfo");
+          navigate("/mypage");
         } else {
           Swal.fire(
             "정보 수정 중 문제가 발생했습니다. 잠시 후 다시 시도하세요."
