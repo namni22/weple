@@ -10,7 +10,7 @@ import { ReportModal } from "../util/Modal";
 const MeetMemberList = (props) => {
   const [isOpen, setOpen] = useState(false);
   const myMeet = props.myMeet;
-
+  const id = props.id;
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
 
@@ -46,6 +46,8 @@ const MeetMemberList = (props) => {
                 setOpen={setOpen}
                 meetMember={meetMember}
                 setMeetMember={setMeetMember}
+                id={id}
+                meetNo={myMeet.meetNo}
               />
             );
           })}
@@ -67,6 +69,8 @@ const MemberList = (props) => {
   const setMeetMember = props.setMeetMember;
   const isOpen = props.isOpen;
   const setOpen = props.setOpen;
+  const id = props.id;
+  const reportItemNo = props.meetNo;
   const [disable, setDisable] = useState("");
   const handleClick = () => setOpen(true);
 
@@ -169,7 +173,8 @@ const MemberList = (props) => {
                   isOpen={isOpen}
                   onSubmit={handleClickSubmit}
                   onCancel={handleClickCancel}
-                  memberId={memberList.memberId}
+                  memberId={id}
+                  reportItemNo={reportItemNo}
                 />
               </div>
             </td>

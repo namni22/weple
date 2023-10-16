@@ -75,3 +75,9 @@
   margin-bottom: 10px;
   /* color: #3d40e5; */
 }
+#report-td {
+  height: 400px;
+}
+.report-textEditor {
+  height: 100%;
+}

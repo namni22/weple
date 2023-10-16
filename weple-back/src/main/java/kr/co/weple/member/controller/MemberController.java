@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.co.weple.FileUtil;
 import kr.co.weple.member.model.service.MemberService;
 import kr.co.weple.member.model.vo.Member;
+import kr.co.weple.review.model.vo.Report;
 
 @RestController
 @RequestMapping(value="/member")
@@ -122,5 +123,12 @@ public class MemberController {
 			member.setMemberImage(filepath);
 		}
 		return memberService.changeInfo(member);
+	}
+	//신고내용 insert
+	@PostMapping(value = "/report")
+	public int insertReport(@RequestBody Report report) {
+		System.out.println("report :" +report);
+		int result = memberService.insertReport(report);
+		return result;
 	}
 }

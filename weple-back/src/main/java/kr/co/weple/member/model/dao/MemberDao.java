@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.weple.PageInfo;
 import kr.co.weple.member.model.vo.Member;
+import kr.co.weple.review.model.vo.Report;
 
 @Mapper
 public interface MemberDao {
@@ -25,5 +26,7 @@ public interface MemberDao {
 	int changePw(Member member);
 
 	int changeInfo(Member member);
+
+	int insertReport(Report report);
 
 }
