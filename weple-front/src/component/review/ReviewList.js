@@ -1,7 +1,9 @@
-import { useLocation } from "react-router-dom";
+import {Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import "./reviewList.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Button1 } from "../util/Button";
+import ReviewWrite from "./ReviewWrite";
 const starRating = () => {
   const result = [];
   for (let i = 0; i < 5; i++) {
@@ -15,10 +17,11 @@ const starRating = () => {
 };
 const ReviewList = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const meetNo = location.state.meetNo;
+  const meetStar = location.state.meetStar;
   const [reviewList, setReviewList] = useState([]);
   const [reviewCount,setReviewCount] = useState(0);
-  const meetStar = 3.2;
   //리뷰 조회
   useEffect(() => {
     axios
@@ -35,27 +38,35 @@ const ReviewList = () => {
         console.log(res.data);
       });
   }, [meetNo]);
+  const write = () => {
+    navigate("write");
+  };
   return (
     <div className="reviewlist-wrap">
       <div className="reviewlist-top">
         <div className="reviewlist-title">후기 {reviewCount}개</div>
-        <div className="meet-star-wrap">
-          <div className="star-rating meet-star">
-            <div
-              className="star-rating-fill"
-              style={{ width: (meetStar / 5) * 100 + "%" }}
-            >
-              {starRating()}
+        <div className="flex">
+          <div className="meet-star-wrap">
+            <div className="star-rating meet-star">
+              <div
+                className="star-rating-fill"
+                style={{ width: (meetStar / 5) * 100 + "%" }}
+              >
+                {starRating()}
+              </div>
+              <div className="star-rating-base">{starRating()}</div>
             </div>
-            <div className="star-rating-base">{starRating()}</div>
+            <div className="meet-star-score">{meetStar}</div>
           </div>
-          <div className="meet-star-score">{meetStar}</div>
+          <div className="review-write-btn">
+            <Button1 text="후기작성" clickEvent={write} />
+          </div>
         </div>
       </div>
       {reviewList.map((item, index) => {
         return (
           <>
-            <ReviewListComponent item={item}/>
+            <ReviewListComponent item={item} />
           </>
         );
       })}
@@ -94,6 +105,7 @@ const ReviewListComponent = (props) => {
         <img></img>
       </div>
       <div className="review-content">{review.reviewContent}</div>
+      
     </div>
   );
 };

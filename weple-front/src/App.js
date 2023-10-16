@@ -65,7 +65,7 @@ function App() {
             element={<Login setIsLogin={setIsLogin} setId={setId} />}
           />
           {/* <Route path="/category" element={<Category />} /> */}
-          <Route path="/reviewList" element={<ReviewList />} />
+          <Route path="/review/*" element={<ReviewList />} />
           <Route path="*" element={<Main />} />
         </Routes>
       </div>

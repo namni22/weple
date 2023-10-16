@@ -3,8 +3,8 @@ import SwiperComponent from "../util/Swiper";
 import "./review.css";
 import "./reviewList.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import ReviewList from "./ReviewList";
+import { Link, Route, Routes } from "react-router-dom";
+import ReviewWrite from "./ReviewWrite";
 const starRating = () => {
   const result = [];
   for (let i = 0; i < 5; i++) {
@@ -21,10 +21,8 @@ const Review = (props) => {
   const meetNo = props.meetNo;
   const meetStar = props.reviewStar;
   const reviewCount = props.reviewCount;
-  const isMeetMember = props.isMeetMember; //해당 멤버인지 확인하는 함수
+  const isMeetMember = props.isMeetMember; //해당 멤버인지 확인하는 함수(undefined)
   console.log("isMeetMember: "+isMeetMember);
-  // console.log("reveiwCount:" + reviewCount);
-  // console.log("reveiwStar:" + meetStar);
   //리뷰 조회
   useEffect(() => {
     axios
@@ -57,47 +55,44 @@ const Review = (props) => {
   });
   return (
     <>
-    {/* 리뷰가 있으면 보임 */}
-    {reviewCount<1?(<></>):(<div className="review-wrap">
-        <div className="review-top">
-          <div className="meet-star-wrap">
-            <div className="star-rating meet-star">
-              <div
-                className="star-rating-fill"
-                style={{ width: (meetStar / 5) * 100 + "%" }}
-              >
-                {starRating()}
+      {/* 리뷰가 있으면 보임 */}
+      {reviewCount < 1 ? (
+        <></>
+      ) : (
+        <div className="review-wrap">
+          <div className="review-top">
+            <div className="meet-star-wrap">
+              <div className="star-rating meet-star">
+                <div
+                  className="star-rating-fill"
+                  style={{ width: (meetStar / 5) * 100 + "%" }}
+                >
+                  {starRating()}
+                </div>
+                <div className="star-rating-base">{starRating()}</div>
               </div>
-              <div className="star-rating-base">{starRating()}</div>
+              <div className="meet-star-score">{meetStar}</div>
             </div>
-            <div className="meet-star-score">{meetStar}</div>
+            <Link to="/review" state={{ meetNo: meetNo, meetStar: meetStar }}>
+              <div className="more-btn">{reviewCount}개 후기 더보기</div>
+            </Link>
           </div>
-          {/* <div className="star-wrap">
-          <span className="material-icons star">star</span>
-          <span className="material-icons star">star</span>
-          <span className="material-icons star">star</span>
-          <span className="material-icons star">star</span>
-          <span className="material-icons star">star</span>
-          <span className="star-rating">5.0</span>
-        </div> */}
-          <Link to="/reviewList" state={{ meetNo: meetNo }}>
-            <div className="more-btn">{reviewCount}개 후기 더보기</div>
-          </Link>
+          <SwiperComponent
+            spaceBetween={21}
+            slidesPerView={4.7}
+            navigation={true}
+            loop={false}
+            autoplay={false}
+            list={list}
+          />
+          {/* <Routes>
+            <Route path="/write" element={<ReviewWrite />} />
+          </Routes> */}
         </div>
-        <SwiperComponent
-          spaceBetween={21}
-          slidesPerView={4.7}
-          navigation={true}
-          loop={false}
-          autoplay={false}
-          list={list}
-        />
-      </div>)}
-      
+      )}
     </>
   );
 };
-
 const ReviewComponent = (props) => {
   // 옵셔널 : props가 존재하지 않을 경우 null이나 undefined를 리턴함
   const reviewContent = props.review?.reviewContent;

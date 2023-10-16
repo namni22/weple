@@ -28,7 +28,6 @@
   margin-right: 10px;
   cursor: pointer;
 }
-
 .review-profile {
   width: 100%;
   height: 50px;
@@ -58,6 +57,13 @@
 .reviewlist-component .review-content {
   max-height: 120px;
   overflow: hidden;
+}
+.review-write-btn{
+  width: 100px;
+}
+.flex{
+  display: flex;
+  justify-content: space-between;
 }
 /* --------------- 별점 -------------------- */
 

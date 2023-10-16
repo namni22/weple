@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FeedContent } from "../feed/FeedList";
 import ReviewList from "../review/ReviewList";
+import Payment from "../payment/Payment";
 
 const Main = () => {
   const imgList = ["./img/main_1.jpg", "./img/main_2.jpg"];
@@ -26,12 +27,12 @@ const Main = () => {
         list={list}
         delButton={false}
       />
+      <Payment/>
       {/* 비로그인 */}
       <MeetMain meetSet={"meetPopular"} meetTitle={"주간 인기 TOP 30 👑"} />
       <MeetMain meetSet={"meetMargin"} meetTitle={"마감임박!"} />
       <FeedMain />
       <MeetMain meetSet={"meetNew"} meetTitle={"신규개설"} />
-
       {/* 로그인 */}
       {/* <MeetMain meetSet={"meetMargin"} meetTitle={"이 모임은 어때요?"} />
       <MeetMain meetSet={"meetMargin"} meetTitle={"마감임박!"} />
