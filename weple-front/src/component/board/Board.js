@@ -6,7 +6,9 @@ import BoardTab from "./BoardTab";
 
 
 
-const Board = () => {
+const Board = (props) => {
+  const isLogin=props.isLogin;
+  const id=props.id;
   const [tabs, setTabs] = useState([
     { url: "boardAll", text: "전체", active: false },
     { url: "boardNotice", text: "공지", active: false },
@@ -21,7 +23,7 @@ const Board = () => {
       <div className="board-title"><h1>공지사항</h1></div>
       <BoardTab tabs={tabs} setTabs={setTabs}/>
       <Routes>
-        <Route path="boardAll" element={<BoardAll boardType = {99} tabs = {tabs}/>} />
+        <Route path="boardAll" element={<BoardAll boardType = {99} tabs = {tabs} isLogin={isLogin} id={id} />} />
         <Route path="boardNotice" element={<BoardEvent boardType = {0} tabs = {tabs}/>} />
         <Route path="boardEvent" element={<BoardFaq boardType = {1} tabs = {tabs}/>} />
         {/* <Route path="boardFaq" element={<BoardNotice boardType = {2} tabs = {tabs}/>} /> */}
