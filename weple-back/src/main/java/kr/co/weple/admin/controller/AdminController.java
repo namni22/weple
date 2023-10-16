@@ -35,7 +35,7 @@ public class AdminController {
 	}
 	//회원 검색 조회
 	@PostMapping(value="/searchId")
-	public int searchId(@PathVariable String memberId) {
+	public int searchId(@RequestBody String memberId) {
 		System.out.println("memberId :" + memberId);
 		Member m = adminService.selectOneMember(memberId);
 		System.out.println("memberId :" + memberId);

@@ -1,33 +1,41 @@
 import { Route, Routes } from "react-router-dom";
 import "./board.css";
-import { BoardAll, BoardEvent, BoardFaq, BoardNotice } from "./BoardList";
-import { useState } from "react";
-import BoardTab from "./BoardTab";
+import { BoardAll } from "./BoardList";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 
 
 const Board = (props) => {
-  const isLogin=props.isLogin;
-  const id=props.id;
-  const [tabs, setTabs] = useState([
-    { url: "boardAll", text: "전체", active: false },
-    { url: "boardNotice", text: "공지", active: false },
-    { url: "boardEvent", text: "이벤트", active: false },
-    { url: "boardFaq", text: "FAQ", active: false },
-  ]);
+  const token = window.localStorage.getItem("token");
+
+  const [member, setMember] = useState({});
+
+  useEffect(() => {
+    axios
+      .post("/member/getMember", null, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => {
+        console.log("getmember : " + res.data);
+        setMember(res.data);
+        
+      })
+      .catch((res) => {
+        console.log("fail get member : " + res.response.status);
+        setMember(null);
+      });
+  }, []);
 
   //tabs[0].active = true;
 
   return (
     <div className="board-all-wrap">
       <div className="board-title"><h1>공지사항</h1></div>
-      <BoardTab tabs={tabs} setTabs={setTabs}/>
       <Routes>
-        <Route path="boardAll" element={<BoardAll boardType = {99} tabs = {tabs} isLogin={isLogin} id={id} />} />
-        <Route path="boardNotice" element={<BoardEvent boardType = {0} tabs = {tabs}/>} />
-        <Route path="boardEvent" element={<BoardFaq boardType = {1} tabs = {tabs}/>} />
-        {/* <Route path="boardFaq" element={<BoardNotice boardType = {2} tabs = {tabs}/>} /> */}
-        <Route path="*" element={<BoardAll boardType = {99} tabs = {tabs}/>}/>
+        <Route path="*" element={<BoardAll member={member}/>}/>
       </Routes>
     </div>
   );
