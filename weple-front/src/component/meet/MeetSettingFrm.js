@@ -242,7 +242,7 @@ const MeetSettingFrm = (props) => {
                             {/* <img src={meetThumbnail2}></img> */}
                             {meetThumbnailPreview === null ? ( //""에서 null로 바꿈
                                 // 기본이미지 넣어야함
-                                <img src="/img/main_1.jpg"></img>
+                                <img src="/img/no_image.jpg"></img>
                             ) : (
                                 <img src={meetThumbnailPreview}></img>
                             )}
@@ -408,6 +408,7 @@ const Kakao2 = () => {
 }
 
 const { daum } = window;
+
 const Postcode = (props) => {
     const meetAddress1 = props.meetAddress1;
     const setMeetAddress1 = props.setMeetAddress1;
@@ -423,8 +424,6 @@ const Postcode = (props) => {
             };
 
         //지도를 미리 생성
-        console.log("맵 옵션 : ", mapOption);
-        console.log(mapContainer);
         var map = new daum.maps.Map(mapContainer, mapOption);
         //지오코더 선언 자리
         //주소-좌표 변환 객체를 생성
