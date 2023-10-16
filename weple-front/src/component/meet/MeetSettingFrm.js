@@ -75,7 +75,7 @@ const MeetSettingFrm = (props) => {
             });
     }
     //카테고리 선택시 작동하는 함수 (탭메뉴)
-    const activSmallCategory = () => {
+    const activeSmallCategory = () => {
         const tabs = document.querySelectorAll(".smallCategoryName")
         tabs.forEach(function (item, index) {
             item.addEventListener("click", function () {
@@ -218,7 +218,7 @@ const MeetSettingFrm = (props) => {
                                                 console.log("선택한 카테고리번호 : " + meetCategory);
                                             }}
                                         >
-                                            <div className="smallCategoryName" onClick={activSmallCategory}>{smallCategory.categoryName}</div>
+                                            <div className="smallCategoryName" onClick={activeSmallCategory}>{smallCategory.categoryName}</div>
                                         </li>
                                     );
                                 })}
