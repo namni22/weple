@@ -19,16 +19,17 @@ const MeetView = (props) => {
 
   console.log("모임 번호 ", meetNo);
   // const [meet, setMeet] = useState({});
-  useEffect(() => {
-    axios
-      .get("/meet/selectOneMeet/" + meetNo)
-      .then((res) => {
-        setMyMeet(res.data);
-      })
-      .catch((res) => {
-        console.log("catch : " + res.response.status);
-      });
-  }, []);
+  // 사용안함!!!!!!!!!!!!!!
+  // useEffect(() => {
+  //   axios
+  //     .get("/meet/selectOneMeet/" + meetNo)
+  //     .then((res) => {
+  //       setMyMeet(res.data);
+  //     })
+  //     .catch((res) => {
+  //       console.log("catch : " + res.response.status);
+  //     });
+  // }, []);
 
   //모임장 id 전송 이후 DB에서 모임장 정보 불러오기
   const [meetCaptain, setMeetCaptain] = useState({});
@@ -64,11 +65,35 @@ const MeetView = (props) => {
       <Routes>
         <Route
           path="enrollMeetMember"
-          element={<EnrollMeetMember myMeet={myMeet} isLogin={isLogin} setIsLogin={setIsLogin}/>}
+          element={
+            <EnrollMeetMember
+              myMeet={myMeet}
+              isLogin={isLogin}
+              setIsLogin={setIsLogin}
+            />
+          }
         />
-        <Route path="meetChat" element={<MeetChat myMeet={myMeet} isLogin={isLogin} setIsLogin={setIsLogin}/>} />
+        <Route
+          path="meetChat"
+          element={
+            <MeetChat
+              myMeet={myMeet}
+              isLogin={isLogin}
+              setIsLogin={setIsLogin}
+            />
+          }
+        />
         <Route path="meetCalendar" element={<MeetCalendar />} />
-        <Route path="meetList" element={<MeetMemberList myMeet={myMeet} isLogin={isLogin} setIsLogin={setIsLogin}/>} />
+        <Route
+          path="meetList"
+          element={
+            <MeetMemberList
+              myMeet={myMeet}
+              isLogin={isLogin}
+              setIsLogin={setIsLogin}
+            />
+          }
+        />
         <Route
           path="*"
           element={<MeetInfo myMeet={myMeet} isLogin={isLogin} />}

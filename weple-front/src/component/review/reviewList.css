@@ -56,7 +56,7 @@
   -webkit-line-clamp: 3;
 } */
 .reviewlist-component .review-content {
-  height: 120px;
+  max-height: 120px;
   overflow: hidden;
 }
 /* --------------- 별점 -------------------- */

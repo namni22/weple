@@ -44,18 +44,20 @@ function App() {
           <Route path="/feed/*" element={<Feed isLogin={isLogin} id={id} />} />
           <Route
             path="/meet/*"
-            element={<MeetMain isLogin={isLogin} setIsLogin={setIsLogin}/>}
+            element={<MeetMain isLogin={isLogin} setIsLogin={setIsLogin} />}
           ></Route>
           <Route path="/board/*" element={<Board />} />
-          <Route path="/admin/*" element={<Admin isLogin={isLogin} id={id}/>} />
+          <Route
+            path="/admin/*"
+            element={<Admin isLogin={isLogin} id={id} />}
+          />
           <Route path="/join" element={<Join />} />
           <Route
             path="/login"
             element={<Login setIsLogin={setIsLogin} setId={setId} />}
           />
-          <Route path="/reviewList" element={<ReviewList />} />
           {/* <Route path="/category" element={<Category />} /> */}
-
+          <Route path="/reviewList" element={<ReviewList />} />
           <Route path="*" element={<Main />} />
         </Routes>
       </div>
