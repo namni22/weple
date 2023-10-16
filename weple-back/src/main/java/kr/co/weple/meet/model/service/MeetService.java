@@ -217,6 +217,7 @@ public class MeetService {
 	}
 
 	//모임가입신청
+	@Transactional
 	public int meetJoin(Member joinMember, Meet meet) {
 		// TODO Auto-generated method stub
 		// 가입신청한 멤버번호와 가입할 모임번호를 모임가입정보로 묶어서 전달

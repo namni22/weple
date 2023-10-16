@@ -23,7 +23,7 @@ public class Meet {
 	private String meetPrepare;
 	private int meetCategory;
 	private String meetAddress1;
-	private String meetAddrsee2;
+	private String meetAddress2;
 	private int meetLatitude;
 	private int meetLongitude;
 	private String meetThumbNail;

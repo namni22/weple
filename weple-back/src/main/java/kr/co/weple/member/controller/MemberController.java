@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.co.weple.FileUtil;
 import kr.co.weple.member.model.service.MemberService;
 import kr.co.weple.member.model.vo.Member;
+import kr.co.weple.review.model.vo.Report;
 
 @RestController
 @RequestMapping(value="/member")
@@ -88,9 +89,10 @@ public class MemberController {
 	}
 	
 	//신고 카테고리 가져오기
-	@GetMapping(value = "/selectReportOption/{reportType}")
-	public Map selectReportOption(@PathVariable int reportType) {
-		Map map = memberService.selectReportOption(reportType);
+	@GetMapping(value = "/selectReportOption/{reportTypeValue}")
+	public Map selectReportOption(@PathVariable int reportTypeValue) {
+		System.out.println("카테고리 : "+reportTypeValue);
+		Map map = memberService.selectReportOption(reportTypeValue);
 		return map;
 	}
 	
@@ -122,4 +124,18 @@ public class MemberController {
 		}
 		return memberService.changeInfo(member);
 	}
+	//신고내용 insert
+	@PostMapping(value = "/report")
+	public int insertReport(@RequestBody Report report) {
+		System.out.println("report :" +report);
+		int result = memberService.insertReport(report);
+		return result;
+	}
+	
+	// 프로필 내 피드 가져오기
+	@GetMapping(value="/myFeedList/{start}/{end}/{memberId}")
+	public List list(@PathVariable int start, @PathVariable int end, @PathVariable String memberId) {
+		return memberService.myFeedList(start, end, memberId);
+	}
+	
 }

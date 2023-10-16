@@ -35,7 +35,7 @@ public class AdminController {
 	}
 	//회원 검색 조회
 	@PostMapping(value="/searchId")
-	public int searchId(@PathVariable String memberId) {
+	public int searchId(@RequestBody String memberId) {
 		System.out.println("memberId :" + memberId);
 		Member m = adminService.selectOneMember(memberId);
 		System.out.println("memberId :" + memberId);
@@ -56,6 +56,10 @@ public class AdminController {
 	public int changeMeetType(@RequestBody Meet meet) {
 		return adminService.changeMeetType(meet);
 	}
-	
+	//공지사항 리스트 조회
+	@GetMapping(value="/boardList/{reqPage}")
+	public Map boardList(@PathVariable int reqPage) {
+		return adminService.boardList(reqPage);
+	}
 	
 }

@@ -57,6 +57,9 @@ const BoardFrm = (props) => {
 
     }
   }
+  const reset=()=>{
+    
+  }
   const handleChange = (event) => {
     setBoardType(event.target.value);
     console.log(boardType);
@@ -103,8 +106,14 @@ const BoardFrm = (props) => {
         />
       </div>
       <div className="board-btn-box">
-        <Button1 text="등록" clickEvent={insert}></Button1>
+        <div>
+        <Button2 text="취소" clickEvent={reset}></Button2>
+        </div>
+        <div>
+        <Button1 text="등록" clickEvent={insert}></Button1>        
       </div>
+      </div>
+      
     </div >
 
 

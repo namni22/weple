@@ -39,16 +39,17 @@
 
 .meet-one {
   float: left;
-  width: calc(100% / 4- 10px);
+  /* width: calc(100% / 4- 10px); */
   height: 400px;
   box-sizing: border-box;
   position: relative;
-  margin: 5px;
-  border-radius: 5px;
+  margin: 5px 15px;
+
 }
 
+
 .MeetList-meet-img-box {
-  width: 260px;
+  width: 270px;
   height: 300px;
   border-radius: 5px;
   /*  */

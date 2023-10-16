@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.weple.member.model.dao.MemberDao;
 import kr.co.weple.member.model.vo.Member;
+import kr.co.weple.review.model.vo.Report;
 import kr.co.weple.JwtUtil;
 import kr.co.weple.PageInfo;
 import kr.co.weple.Pagination;
@@ -53,7 +54,8 @@ public class MemberService {
 	public List subCategory(int categoryNo) {
 		return memberDao.subCategory(categoryNo);
 	}
-
+	
+	// 회원가입
 	@Transactional
 	public int insertMember(Member member) {
 		return memberDao.insertMember(member);
@@ -100,6 +102,24 @@ public class MemberService {
 	public int changeInfo(Member member) {
 		return memberDao.changeInfo(member);
 	}
+	@Transactional
+	public int insertReport(Report report) {
+		// TODO Auto-generated method stub
+		return memberDao.insertReport(report);
+	}
+
+	// 프로필 내 피드 가져오기
+	public List myFeedList(int start, int end, String memberId) {
+		int totalCount = memberDao.totalCount(memberId);
+		if(start <= totalCount) {
+			List myFeedList = memberDao.selectMyFeedList(start, end, memberId);
+			return myFeedList;
+		}
+		return null;
+	}
+
+
+
 	
 	
 

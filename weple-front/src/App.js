@@ -25,8 +25,10 @@ function App() {
     if (token === null) {
       setIsLogin(false);
       setId("");
+      console.log("id : ", id);
     } else {
       setIsLogin(true);
+      console.log("id : ", id);
     }
   }, []);
   console.log("app", setIsLogin);
@@ -44,9 +46,15 @@ function App() {
           <Route path="/feed/*" element={<Feed isLogin={isLogin} id={id} />} />
           <Route
             path="/meet/*"
-            element={<MeetMain isLogin={isLogin} setIsLogin={setIsLogin} />}
+            element={
+              <MeetMain isLogin={isLogin} setIsLogin={setIsLogin} id={id} />
+            }
           ></Route>
-          <Route path="/board/*" element={<Board />} />
+          <Route
+            path="/board/*"
+            element={<Board isLogin={isLogin} id={id} />}
+          />
+
           <Route
             path="/admin/*"
             element={<Admin isLogin={isLogin} id={id} />}

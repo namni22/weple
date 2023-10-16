@@ -13,11 +13,13 @@ const MeetCreate = () => {
   const [meetCategory, setMeetCategory] = useState(0);
   const [meetAddress1, setMeetAddress1] = useState("");
   const [meetAddress2, setMeetAddress2] = useState("");
+  const [meetLatitude, setMeetLatitude] = useState(37.5642135);
+  const [meetLongitude, setMeetLongitude] = useState(127.0016985);
   const [meetName, setMeetName] = useState("");
   // const [meetMaterials, setMeetMaterials] = useState("");
 
   //썸네일
-  const [meetThumbnail, setMeetThumbnail] = useState({});
+  const [meetThumbnail, setMeetThumbnail] = useState(null);
   // 썸네일 미리보기
   const [meetThumbnailPreview, setMeetThumbnailPreview] = useState(null);
   // 준비물 리스트 추가용
@@ -33,15 +35,19 @@ const MeetCreate = () => {
     console.log("썸네일 : " + meetThumbnail);
     console.log("준비물 : " + meetPrepareList);
     console.log("카테고리번호 : " + meetCategory);
+    console.log("모임주소1  : " + meetAddress1);
+    console.log("위도 : ", meetLatitude);
+    console.log("경도 : ", meetLongitude);
 
-    const meet = { meetTitle, meetDate, meetTotal, meetContentS, meetContentD, meetCategory };
+    const meet = { meetTitle, meetDate, meetTotal, meetContentS, meetContentD, meetCategory, meetAddress1, meetAddress2 };
     if (
       meetCategory !== 0 &&
       meetTitle !== "" &&
       meetDate !== "" &&
       meetTotal !== "" &&
       meetContentS !== "" &&
-      meetThumbnail !== null
+      meetThumbnail !== null &&
+      meetAddress1 !== ""
     ) {
       const form = new FormData();
       form.append("meetTitle", meetTitle);
@@ -52,6 +58,10 @@ const MeetCreate = () => {
       form.append("meetThumbnail", meetThumbnail);
       form.append("meetPrepareList", meetPrepareList);
       form.append("meetCategory", meetCategory);
+      form.append("meetAddress1", meetAddress1);
+      form.append("meetAddress2", meetAddress2);
+      form.append("meetLatitude", meetLatitude);
+      form.append("meetLongitude", meetLongitude);
       //지도 추가자리
 
       // 토큰선언자리
@@ -89,6 +99,15 @@ const MeetCreate = () => {
         setMeetContentD={setMeetContentD}
         meetDate={meetDate}
         setMeetDate={setMeetDate}
+        meetAddress1={meetAddress1}
+        setMeetAddress1={setMeetAddress1}
+        meetAddress2={meetAddress2}
+        setMeetAddress2={setMeetAddress2}
+        meetLatitude={meetLatitude}
+        setMeetLatitude={setMeetLatitude}
+        meetLongitude={meetLongitude}
+        setMeetLongitude={setMeetLongitude}
+
         meetTotal={meetTotal}
         setMeetTotal={setMeetTotal}
         meetThumbnail={meetThumbnail}

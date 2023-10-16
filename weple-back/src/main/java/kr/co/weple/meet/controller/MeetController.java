@@ -89,6 +89,8 @@ public class MeetController {
 		//meetMargin set 남은인원 셋팅
 		meet.setMeetMargin(meet.getMeetTotal()-1);		
 		
+		System.out.println("생성 모임 : "+meet);
+		
 		int result = meetService.createMeet(meet);
 		//리턴 리절트로 변경
 		return result;
@@ -179,6 +181,7 @@ public class MeetController {
 		return follower;
 	}
 	
+	//모임번호를 입력받아 해당 모임을 select
 	@GetMapping(value = "/selectOneMeet/{meetNo}")
 	public Meet meetView(@PathVariable int meetNo) {
 		System.out.println("모임 번호 : "+meetNo);
@@ -227,11 +230,11 @@ public class MeetController {
 		}
 	//모임 채팅
 		@PostMapping(value = "/chat/{meetNo}")
-		public List insertMeetChat(@RequestBody String chatContent,@RequestAttribute String memberId,@PathVariable int meetNo ) {
-			System.out.println("chat : "+chatContent);
+		public List insertMeetChat(@RequestBody Chat chat,@RequestAttribute String memberId,@PathVariable int meetNo ) {
+			System.out.println("chat : "+chat.getChatContent());
 			System.out.println("meetNo :"+ meetNo);
 			System.out.println("memberId는 : "+memberId);
-			List list = meetService.insertMeetChat(chatContent,memberId,meetNo);
+			List list = meetService.insertMeetChat(chat.getChatContent(),memberId,meetNo);
 			System.out.println("list : "+list);
 			return list;
 		}

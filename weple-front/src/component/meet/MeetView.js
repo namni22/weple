@@ -13,6 +13,7 @@ import axios from "axios";
 const MeetView = (props) => {
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
+  const id = props.id;
   const location = useLocation();
   const [myMeet, setMyMeet] = useState({});
   const meetNo = myMeet.meetNo;
@@ -61,7 +62,16 @@ const MeetView = (props) => {
     <div className="afterMeet-all-wrap">
       <div className="feed-title">MY GROUP</div>
       <AfterMeetMain myMeet={myMeet} meetCaptain={meetCaptain} />
-      <AfterMeetSubNavi meetMenu={meetMenu} setMeetMenu={setMeetMenu} />
+
+      {isLogin ? (
+        <AfterMeetSubNavi
+          meetMenu={meetMenu}
+          setMeetMenu={setMeetMenu}
+        ></AfterMeetSubNavi>
+      ) : (
+        ""
+      )}
+
       <Routes>
         <Route
           path="enrollMeetMember"
@@ -70,6 +80,7 @@ const MeetView = (props) => {
               myMeet={myMeet}
               isLogin={isLogin}
               setIsLogin={setIsLogin}
+              id={id}
             />
           }
         />
@@ -80,6 +91,7 @@ const MeetView = (props) => {
               myMeet={myMeet}
               isLogin={isLogin}
               setIsLogin={setIsLogin}
+              id={id}
             />
           }
         />
@@ -91,6 +103,8 @@ const MeetView = (props) => {
               myMeet={myMeet}
               isLogin={isLogin}
               setIsLogin={setIsLogin}
+              id={id}
+
             />
           }
         />
