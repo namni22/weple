@@ -23,7 +23,7 @@
 	</insert>
 	
 	<select id="selectReportOption" resultType="reportCategory">
-		SELECT * FROM  REPORT_CATEGORY WHERE REPORT_TYPE=#{reportType}
+		SELECT * FROM  REPORT_CATEGORY WHERE REPORT_TYPE=#{reportType} order by 1 
 	</select>
 	
 	<update id="changePw">

@@ -31,7 +31,9 @@ const ReportModal = (props) => {
   const [reportCategory, setReportCategory] = useState([]);
   const changeValue = (e) => {
     const newValue = e.currentTarget.value;
-    //setReportTypeValue(newValue);
+    console.log("신고타입 전 : ", newValue);
+    setReportTypeValue(newValue);
+    console.log("신고타입 후 : ", reportTypeValue);
     axios
       .get("/member/selectReportOption/" + newValue)
       .then((res) => {
@@ -54,7 +56,7 @@ const ReportModal = (props) => {
       padding: "40px",
     },
     overlay: {
-      backgroundColor: "rgba(0,0,0,0.3)",
+      backgroundColor: "rgba(0,0,0,0.1)",
     },
   };
   const handleClickSubmit = () => {
@@ -68,6 +70,11 @@ const ReportModal = (props) => {
     onSubmit();
   };
   const handleClickCancel = () => {
+    const newArr2 = 0;
+    console.log("취소이벤트 : ", reportTypeValue);
+    console.log("newArr2 : ", newArr2);
+    setReportTypeValue(newArr2);
+    console.log("취소이벤트 후 : ", reportTypeValue);
     onCancel();
   };
   useEffect(() => {
@@ -81,7 +88,7 @@ const ReportModal = (props) => {
       .catch((res) => {
         console.log(res.response.status);
       });
-  }, [reportType]);
+  }, [reportTypeValue]);
   /*
    */
   return (
@@ -100,15 +107,12 @@ const ReportModal = (props) => {
               <tr>
                 <td>신고 타입</td>
                 <td>
-                  <select>
+                  <select onChange={changeValue}>
                     {reportType.map((type, index) => {
                       return (
-                        <option
-                          key={"type" + index}
-                          value={type.value}
-                          onChange={changeValue}
-                        >
+                        <option key={"type" + index} value={type.value}>
                           {type.text}
+                          {type.value}
                         </option>
                       );
                     })}

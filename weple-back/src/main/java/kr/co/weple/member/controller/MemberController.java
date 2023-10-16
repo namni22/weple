@@ -88,9 +88,10 @@ public class MemberController {
 	}
 	
 	//신고 카테고리 가져오기
-	@GetMapping(value = "/selectReportOption/{reportType}")
-	public Map selectReportOption(@PathVariable int reportType) {
-		Map map = memberService.selectReportOption(reportType);
+	@GetMapping(value = "/selectReportOption/{reportTypeValue}")
+	public Map selectReportOption(@PathVariable int reportTypeValue) {
+		System.out.println("카테고리 : "+reportTypeValue);
+		Map map = memberService.selectReportOption(reportTypeValue);
 		return map;
 	}
 	

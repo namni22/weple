@@ -262,7 +262,7 @@
 
 .meetChat-chat-wrap {
   min-height: 300px;
-  max-height: 600px;
+  max-height: 500px;
   overflow: auto;
 }
 
