@@ -14,13 +14,12 @@ import MyMeet from "./MyMeet";
 const Profile = (props) => {
   const navigate = useNavigate();
   const member = props.member;
+  const memberId = member.memberId;
   const setIsLogin = props.setIsLogin;
   const setId = props.setId;
   const subCategory = props.subCategory;
   const [categoryNameList, setCategoryNameList] = useState([]);
   const myCategory = props.myCategory;
-
-  const location = useLocation();
 
   const logout = () => {
     window.localStorage.removeItem("token");
@@ -101,7 +100,7 @@ const Profile = (props) => {
 
       <div className="profile-tab-menu-content">
         <Routes>
-          <Route path="myFeed" element={<MyFeed />} />
+          <Route path="myFeed" element={<MyFeed memberId={memberId} />} />
         </Routes>
         <Routes>
           <Route path="myMeet" element={<MyMeet />} />

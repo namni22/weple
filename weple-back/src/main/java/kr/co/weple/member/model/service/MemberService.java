@@ -54,7 +54,8 @@ public class MemberService {
 	public List subCategory(int categoryNo) {
 		return memberDao.subCategory(categoryNo);
 	}
-
+	
+	// 회원가입
 	@Transactional
 	public int insertMember(Member member) {
 		return memberDao.insertMember(member);
@@ -106,6 +107,19 @@ public class MemberService {
 		// TODO Auto-generated method stub
 		return memberDao.insertReport(report);
 	}
+
+	// 프로필 내 피드 가져오기
+	public List myFeedList(int start, int end, String memberId) {
+		int totalCount = memberDao.totalCount(memberId);
+		if(start <= totalCount) {
+			List myFeedList = memberDao.selectMyFeedList(start, end, memberId);
+			return myFeedList;
+		}
+		return null;
+	}
+
+
+
 	
 	
 

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.weple.PageInfo;
+import kr.co.weple.feed.model.vo.FImage;
 import kr.co.weple.member.model.vo.Member;
 import kr.co.weple.review.model.vo.Report;
 
@@ -28,5 +29,12 @@ public interface MemberDao {
 	int changeInfo(Member member);
 
 	int insertReport(Report report);
+	int totalCount(String memberId);
+
+	List selectMyFeedList(int start, int end, String memberId);
+	
+	List<FImage> selectImageList(int feedNo);
+
+
 
 }

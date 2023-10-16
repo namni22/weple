@@ -65,6 +65,18 @@ public class AdminService {
 			
 			return adminDao.selectOneMember(memberId);
 		}
+		//공지사항 리스트 조회
+		public Map boardList(int reqPage) {
+			int totalCount = adminDao.boardListCount();
+			int numPerPage = 10;
+			int pageNaviSize = 5;
+			PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
+			List boardList = adminDao.boardList(pi);
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("list", boardList);
+			map.put("pi", pi);
+			return map;
+		}
 		
 		
 }

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import Input from "../util/InputFrm";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const MeetSettingFrm = (props) => {
     // 모임만들 정보 선언 //create에서 받음 // update에서 받을예정
@@ -19,6 +20,10 @@ const MeetSettingFrm = (props) => {
     const setMeetContentD = props.setMeetContentD;
     const meetDate = props.meetDate;
     const setMeetDate = props.setMeetDate;
+    const meetAddress1 = props.meetAddress1;
+    const setMeetAddress1 = props.setMeetAddress1;
+    const meetAddress2 = props.meetAddress2;
+    const setMeetAddress2 = props.setMeetAddress2;
     const meetTotal = props.meetTotal;
     const setMeetTotal = props.setMeetTotal;
 
@@ -81,7 +86,7 @@ const MeetSettingFrm = (props) => {
             };
         } else {
             // 파일이 취소됐을때
-            setMeetThumbnail({}); //썸내일 빈객체로
+            setMeetThumbnail(null); //썸내일 빈객체로
             setMeetThumbnailPreview(null); //보드이미지 빈문자열로 //빈문자열에서 null로 바꿈
         }
     };
@@ -94,7 +99,7 @@ const MeetSettingFrm = (props) => {
             console.log(meetDate.substr(3, 1));
             if (meetDate.substr(4, 1) !== "-") {//2023-00-00 에서 5번째글자가 "-"가 아니라면
                 setMeetDate("");
-                console.log("날짜 자동 변환");
+                Swal.fire("날짜 형식은 0000-00-00 입니다.")
             }
         }
     }
@@ -237,7 +242,7 @@ const MeetSettingFrm = (props) => {
                             {/* <img src={meetThumbnail2}></img> */}
                             {meetThumbnailPreview === null ? ( //""에서 null로 바꿈
                                 // 기본이미지 넣어야함
-                                <img src="/img/main_1.jpg"></img>
+                                <img src="/img/no_image.jpg"></img>
                             ) : (
                                 <img src={meetThumbnailPreview}></img>
                             )}
@@ -260,8 +265,15 @@ const MeetSettingFrm = (props) => {
                 </div>
                 <div className="meetPlaceFrm">
                     <label>모임위치</label>
-                    <div id="map" style={{ width: '500px', height: '500px' }}>
-                        <Kakao2></Kakao2>
+                    {/* <div id="map" style={{ width: '500px', height: '500px' }}>
+                    </div> */}
+                    <div>
+                        <Postcode
+                            meetAddress1={meetAddress1}
+                            setMeetAddress1={setMeetAddress1}
+                            meetAddress2={meetAddress2}
+                            setMeetAddress2={setMeetAddress2} />
+                        {/* <Kakao2></Kakao2> */}
                     </div>
                 </div>
                 <div className="meetMemberLimitFrm">
@@ -319,7 +331,7 @@ const MeetSettingFrm = (props) => {
                             <Button2 text="추가" clickEvent={meetPrepareAdd}></Button2>
                         </div>
                         <div className="meetMaterials-wrap">
-
+                            {/* 준비물 미리보기 */}
                             {meetPrepareList.map((meetPrepare, index) => {
                                 return (
                                     <div key={"meetPrepare" + index} className="meetMaterials-one">
@@ -357,13 +369,107 @@ const Kakao2 = () => {
             level: 3 //지도의 레벨(확대, 축소 정도)
         };
         const map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+        // 지도를 클릭한 위치에 표출할 마커입니다
+        var marker = new kakao.maps.Marker({
+            // 지도 중심좌표에 마커를 생성합니다 
+            position: map.getCenter()
+        });
+        // 지도에 마커를 표시합니다
+        marker.setMap(map);
+        // 지도에 클릭 이벤트를 등록합니다
+        // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+        kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
+
+            // 클릭한 위도, 경도 정보를 가져옵니다 
+            var latlng = mouseEvent.latLng;
+
+            // 마커 위치를 클릭한 위치로 옮깁니다
+            marker.setPosition(latlng);
+
+            var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+            message += '경도는 ' + latlng.getLng() + ' 입니다';
+            // var resultDiv = document.getElementById('clickLatlng');
+            // resultDiv.innerHTML = message;
+
+            console.log(message, latlng);
+        });
+
+
     }, [])
     return (
-        <div id="map" style={{
-            width: "500px",
-            height: "500px"
-        }}></div>
+        <>
+            <div id="map" style={{
+                width: "500px",
+                height: "500px"
+            }}></div>
+
+        </>
     )
+}
+
+const { daum } = window;
+
+const Postcode = (props) => {
+    const meetAddress1 = props.meetAddress1;
+    const setMeetAddress1 = props.setMeetAddress1;
+    const meetAddress2 = props.meetAddress2;
+    const setMeetAddress2 = props.setMeetAddress2;
+
+    //처음 진행할때는 map이라는 아이디를가진 div가 존재하지 않기때문에 useEffect 안에 넣음
+    useEffect(() => {
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+            mapOption = {
+                center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+                level: 5 // 지도의 확대 레벨
+            };
+
+        //지도를 미리 생성
+        var map = new daum.maps.Map(mapContainer, mapOption);
+        //지오코더 선언 자리
+        //주소-좌표 변환 객체를 생성
+        // var geocoder = new daum.maps.services.Geocoder();
+        //마커를 미리 생성
+        var marker = new daum.maps.Marker({
+            position: new daum.maps.LatLng(37.537187, 127.005476),
+            map: map
+        });
+
+    }, [])
+
+    function sample5_execDaumPostcode() {
+
+
+        new daum.Postcode({
+            oncomplete: function (data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+                // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+                var addr = data.address; // 최종 주소 변수
+
+                // 주소 정보를 해당 필드에 넣는다.
+                document.getElementById("sample5_address").value = addr;
+                setMeetAddress1(addr);
+                console.log("검색 결과 : ", data);
+
+
+            }
+        }).open();
+
+    }
+
+    return (
+        <div>
+            {/* <input type="text" id="sample5_address" placeholder="주소" /> */}
+            <Button2 text="주소검색" clickEvent={sample5_execDaumPostcode} />
+            <Input type="text" data={meetAddress1} content="sample5_address" placeholder="주소" />
+            <Input type="text" data={meetAddress2} setData={setMeetAddress2} content="meetAddress2" placeholder="상세주소" />
+
+            <div id="map" style={{
+                width: "500px",
+                height: "500px"
+            }}></div>
+        </div>
+
+    );
 }
 
 

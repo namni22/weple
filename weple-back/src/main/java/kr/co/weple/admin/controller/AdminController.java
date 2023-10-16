@@ -56,6 +56,10 @@ public class AdminController {
 	public int changeMeetType(@RequestBody Meet meet) {
 		return adminService.changeMeetType(meet);
 	}
-	
+	//공지사항 리스트 조회
+	@GetMapping(value="/boardList/{reqPage}")
+	public Map boardList(@PathVariable int reqPage) {
+		return adminService.boardList(reqPage);
+	}
 	
 }
