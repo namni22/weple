@@ -33,7 +33,27 @@ const MyFeed = (props) => {
   return (
     <div className="myFeed-wrap">
       <div className="profile-sub-content">
-        <div className="myFeed-content">피드 리스트</div>
+        <div className="myFeed-content">
+          {myFeedList.map((myFeed, index) => {
+            return <MyFeedItem key={"myFeed" + index} myFeed={myFeed} />;
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const MyFeedItem = (props) => {
+  const myFeed = props.myFeed;
+
+  return (
+    <div>
+      <div className="myFeed-item">
+        {myFeed.imageList === null ? (
+          <img src="/img/test_img01.png" />
+        ) : (
+          <img src={"/feed/" + myFeed.imageList[0]} />
+        )}
       </div>
     </div>
   );
