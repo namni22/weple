@@ -27,22 +27,6 @@ const ModifyInfo = (props) => {
   const [profileImg, setProfileImg] = useState(null);
   // 화면용 memberImage -> 썸네일 미리보기용
   const [memberImage, setMemberImage] = useState(member.memberImage);
-  /*
-  const setMemberPhone = (data) => {
-    member.memberPhone = data;
-    setMember({ ...member });
-  };
-
-  const setMemberBirth = (data) => {
-    member.memberBirth = data;
-    setMember({ ...member });
-  };
-
-  const setMemberEmail = (data) => {
-    member.memberEmail = data;
-    setMember({ ...member });
-  };
-  */
 
   useEffect(() => {
     axios
