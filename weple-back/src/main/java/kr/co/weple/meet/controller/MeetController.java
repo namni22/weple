@@ -227,11 +227,11 @@ public class MeetController {
 		}
 	//모임 채팅
 		@PostMapping(value = "/chat/{meetNo}")
-		public List insertMeetChat(@RequestBody String chatContent,@RequestAttribute String memberId,@PathVariable int meetNo ) {
-			System.out.println("chat : "+chatContent);
+		public List insertMeetChat(@RequestBody Chat chat,@RequestAttribute String memberId,@PathVariable int meetNo ) {
+			System.out.println("chat : "+chat.getChatContent());
 			System.out.println("meetNo :"+ meetNo);
 			System.out.println("memberId는 : "+memberId);
-			List list = meetService.insertMeetChat(chatContent,memberId,meetNo);
+			List list = meetService.insertMeetChat(chat.getChatContent(),memberId,meetNo);
 			System.out.println("list : "+list);
 			return list;
 		}

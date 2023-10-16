@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import FeedComment from "../feed/FeedComment";
 import { Button1 } from "../util/Button";
 import "./afterMeet.css";
@@ -13,11 +13,10 @@ const MeetChat = (props) => {
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
 
-
-  const [newChat,setNewChat]=useState([]);
+  const [newChat, setNewChat] = useState([]);
   const [chat, setChat] = useState([]);
   //const [data, setData] = useState({});
-  const [chatContent,setChatContent] = useState("");
+  const [chatContent, setChatContent] = useState("");
   useEffect(() => {
     axios
       .get("/meet/meetChat/" + meet.meetNo)
@@ -33,26 +32,33 @@ const MeetChat = (props) => {
   const insertChat = () => {
     console.log("전송이벤트");
     console.log(chatContent);
-    axios.post("/meet/chat/"+meet.meetNo, chatContent,{
-      headers: {
-        Authorization : "Bearer "+ token,
-      }
-    })
-    .then((res)=>{
-      console.log(res.data)
-    setNewChat(res.data.list);
-    // console.log(chat);
-    //  const newArr = [...chat];
-     // newArr.push(res.data.list);
-    // setChat(newArr);
-    const newArr=[...chat];
-    newArr.push(newChat);
-    setChat(newArr);
-    console.log(chat);
-    })
-    .catch((res)=>{
-      console.log(res.response.status)
-    })
+    axios
+      .post(
+        "/meet/chat/" + meet.meetNo,
+        { chatContent },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        //setNewChat(res.data.list);
+        // console.log(chat);
+        //  const newArr = [...chat];
+        // newArr.push(res.data.list);
+        // setChat(newArr);
+        const newArr = [...chat];
+        console.log(newArr);
+        newArr.push(res.data[0]);
+        console.log(newArr);
+        setChat(newArr);
+        console.log(chat);
+      })
+      .catch((res) => {
+        console.log(res.response.status);
+      });
   };
   return (
     <>
@@ -65,11 +71,12 @@ const MeetChat = (props) => {
         <ul>
           <li className="meetChat-input-form-wrap">
             <div className="meetChat-textEditor">
-              <textarea onChange={(e)=>{
-                const changeValue = e.currentTarget.value;
-                setChatContent(changeValue);
-                
-              }}>
+              <textarea
+                onChange={(e) => {
+                  const changeValue = e.currentTarget.value;
+                  setChatContent(changeValue);
+                }}
+              >
                 {chatContent}
               </textarea>
             </div>
@@ -90,7 +97,14 @@ const MeetChat = (props) => {
 };
 const ChatItem = (props) => {
   const chat = props.chat;
-  
+  const messages = useRef(HTMLUListElement);
+  const scrollToBottom = () => {
+    messages.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  useEffect(() => {
+    scrollToBottom();
+  }, [chat]);
+
   return (
     <ul>
       <li>
@@ -104,6 +118,9 @@ const ChatItem = (props) => {
           <sub>{chat.chatDate}</sub>
         </div>
         <div className="meetChat-chat-content">{chat.chatContent}</div>
+      </li>
+      <li>
+        <div ref={messages}></div>
       </li>
     </ul>
   );
