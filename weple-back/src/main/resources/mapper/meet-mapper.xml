@@ -55,8 +55,8 @@
 		#{meetCategory}, 
 		#{meetAddress1},
 		#{meetAddress2},
-		36,
-		126, 
+		#{meetLatitude},
+		#{meetLongitude}, 
 		#{meetThumbNail},
 		1,
 		#{meetCaptain}

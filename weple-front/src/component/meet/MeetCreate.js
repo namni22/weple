@@ -13,6 +13,8 @@ const MeetCreate = () => {
   const [meetCategory, setMeetCategory] = useState(0);
   const [meetAddress1, setMeetAddress1] = useState("");
   const [meetAddress2, setMeetAddress2] = useState("");
+  const [meetLatitude, setMeetLatitude] = useState(37.5642135);
+  const [meetLongitude, setMeetLongitude] = useState(127.0016985);
   const [meetName, setMeetName] = useState("");
   // const [meetMaterials, setMeetMaterials] = useState("");
 
@@ -56,6 +58,8 @@ const MeetCreate = () => {
       form.append("meetCategory", meetCategory);
       form.append("meetAddress1", meetAddress1);
       form.append("meetAddress2", meetAddress2);
+      form.append("meetLatitude", meetLatitude);
+      form.append("meetLongitude", meetLongitude);
       //지도 추가자리
 
       // 토큰선언자리
@@ -97,6 +101,11 @@ const MeetCreate = () => {
         setMeetAddress1={setMeetAddress1}
         meetAddress2={meetAddress2}
         setMeetAddress2={setMeetAddress2}
+        meetLatitude={meetLatitude}
+        setMeetLatitude={setMeetLatitude}
+        meetLongitude={meetLongitude}
+        setMeetLongitude={setMeetLongitude}
+
         meetTotal={meetTotal}
         setMeetTotal={setMeetTotal}
         meetThumbnail={meetThumbnail}

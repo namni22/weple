@@ -24,6 +24,10 @@ const MeetSettingFrm = (props) => {
     const setMeetAddress1 = props.setMeetAddress1;
     const meetAddress2 = props.meetAddress2;
     const setMeetAddress2 = props.setMeetAddress2;
+    const meetLatitude = props.meetLatitude;
+    const setMeetLatitude = props.setMeetLatitude;
+    const meetLongitude = props.meetLongitude;
+    const setMeetLongitude = props.setMeetLongitude;
     const meetTotal = props.meetTotal;
     const setMeetTotal = props.setMeetTotal;
 
@@ -69,6 +73,20 @@ const MeetSettingFrm = (props) => {
             .catch((res) => {
                 console.log("catch : " + res.response.status);
             });
+    }
+    //카테고리 선택시 작동하는 함수 (탭메뉴)
+    const activSmallCategory = () => {
+        const tabs = document.querySelectorAll(".smallCategoryName")
+        tabs.forEach(function (item, index) {
+            item.addEventListener("click", function () {
+                for (let i = 0; i < tabs.length; i++) {
+                    tabs[i].classList.remove("active-smallCategory")
+                }
+                item.classList.add("active-smallCategory")
+            })
+        })
+
+
     }
 
     //   썸네일 미리보기 함수
@@ -194,13 +212,13 @@ const MeetSettingFrm = (props) => {
                                     return (
                                         <li
                                             key={"smallCategory" + index}
-                                            className="meetSettingFrm-smallCategory-li"
+                                            className="meetSettingFrm-smallCategory-li "
                                             onClick={() => {
                                                 setMeetCategory(smallCategory.categoryNo);
                                                 console.log("선택한 카테고리번호 : " + meetCategory);
                                             }}
                                         >
-                                            <div>{smallCategory.categoryName}</div>
+                                            <div className="smallCategoryName" onClick={activSmallCategory}>{smallCategory.categoryName}</div>
                                         </li>
                                     );
                                 })}
@@ -265,14 +283,18 @@ const MeetSettingFrm = (props) => {
                 </div>
                 <div className="meetPlaceFrm">
                     <label>모임위치</label>
-                    {/* <div id="map" style={{ width: '500px', height: '500px' }}>
-                    </div> */}
                     <div>
                         <Postcode
                             meetAddress1={meetAddress1}
                             setMeetAddress1={setMeetAddress1}
                             meetAddress2={meetAddress2}
-                            setMeetAddress2={setMeetAddress2} />
+                            setMeetAddress2={setMeetAddress2}
+                            meetLatitude={meetLatitude}
+                            setMeetLatitude={setMeetLatitude}
+                            meetLongitude={meetLongitude}
+                            setMeetLongitude={setMeetLongitude}
+                        />
+
                         {/* <Kakao2></Kakao2> */}
                     </div>
                 </div>
@@ -414,31 +436,39 @@ const Postcode = (props) => {
     const setMeetAddress1 = props.setMeetAddress1;
     const meetAddress2 = props.meetAddress2;
     const setMeetAddress2 = props.setMeetAddress2;
+    const meetLongitude = props.meetLongitude;
+    const setMeetLongitude = props.setMeetLongitude;
+    const meetLatitude = props.meetLatitude;
+    const setMeetLatitude = props.setMeetLatitude;
 
+    let lat = 37.541; //위도
+    let lng = 126.986; //경도
+
+    //주소-좌표 변환 객체를 생성
+    var geocoder = new daum.maps.services.Geocoder();
+
+    let mapContainer;
+    let map;
+    let marker;
+    var mapOption;
     //처음 진행할때는 map이라는 아이디를가진 div가 존재하지 않기때문에 useEffect 안에 넣음
     useEffect(() => {
-        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-            mapOption = {
-                center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
-                level: 5 // 지도의 확대 레벨
-            };
-
+        mapContainer = document.getElementById('map'); // 지도를 표시할 div
+        mapOption = {
+            center: new daum.maps.LatLng(meetLatitude, meetLongitude), // 지도의 중심좌표
+            level: 5 // 지도의 확대 레벨
+        };
         //지도를 미리 생성
-        var map = new daum.maps.Map(mapContainer, mapOption);
-        //지오코더 선언 자리
-        //주소-좌표 변환 객체를 생성
-        // var geocoder = new daum.maps.services.Geocoder();
+        map = new daum.maps.Map(mapContainer, mapOption);
+        //지오코더 선언 자리 이동
         //마커를 미리 생성
-        var marker = new daum.maps.Marker({
-            position: new daum.maps.LatLng(37.537187, 127.005476),
+        marker = new daum.maps.Marker({
+            position: new daum.maps.LatLng(meetLatitude, meetLongitude),
             map: map
         });
 
     }, [])
-
     function sample5_execDaumPostcode() {
-
-
         new daum.Postcode({
             oncomplete: function (data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
@@ -448,24 +478,48 @@ const Postcode = (props) => {
                 // 주소 정보를 해당 필드에 넣는다.
                 document.getElementById("sample5_address").value = addr;
                 setMeetAddress1(addr);
-                console.log("검색 결과 : ", data);
+                console.log("검색 결과 : ");
 
+                // 주소로 상세 정보를 검색
+                geocoder.addressSearch(data.address, function (results, status) {
+                    // 정상적으로 검색이 완료됐으면
+                    if (status === daum.maps.services.Status.OK) {
 
+                        var result = results[0]; //첫번째 결과의 값을 활용
+
+                        // 해당 주소에 대한 좌표를 받아서
+                        var coords = new daum.maps.LatLng(result.y, result.x);
+                        // 지도를 보여준다.
+                        console.log("맵 컨테이너", mapContainer);
+                        mapContainer.style.display = "block";
+                        map.relayout();
+                        // 지도 중심을 변경한다.
+                        map.setCenter(coords);
+                        // 마커를 결과값으로 받은 위치로 옮긴다.
+                        marker.setPosition(coords)
+                        console.log("코더 : ", coords);
+                        console.log("코더 위도: ", coords.Ma);
+                        setMeetLatitude(coords.Ma);
+                        console.log("코더 경도 : ", coords.La);
+                        setMeetLongitude(coords.La)
+                    }
+                });
             }
         }).open();
-
     }
 
     return (
         <div>
             {/* <input type="text" id="sample5_address" placeholder="주소" /> */}
+
             <Button2 text="주소검색" clickEvent={sample5_execDaumPostcode} />
-            <Input type="text" data={meetAddress1} content="sample5_address" placeholder="주소" />
+            <Input type="text" data={meetAddress1} setData={setMeetAddress1} content="sample5_address" placeholder="주소" />
             <Input type="text" data={meetAddress2} setData={setMeetAddress2} content="meetAddress2" placeholder="상세주소" />
 
             <div id="map" style={{
                 width: "500px",
-                height: "500px"
+                height: "500px",
+
             }}></div>
         </div>
 

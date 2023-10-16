@@ -53,10 +53,10 @@
 
 .meetSettingFrm-smallCategory-ul {
     /* 소분류 카테고리 ul 선택자 */
-
     border-radius: 5px;
     background-color: #cccccc45;
     overflow: hidden;
+
 }
 
 .meetSettingFrm-smallCategory-ul>li>div {
@@ -68,10 +68,20 @@
 }
 
 .meetSettingFrm-smallCategory-ul>li>div:hover {
-    /* 수분류 카테고리 li 선택자 */
+    /* 수분류 카테고리 선택자 */
+    /* smallCategoryName */
+    /* border: 1px solid #2d30fa1b; */
+    color: #2d30fadf;
+    font-weight: bold;
+    font-weight: bold;
+
+}
+
+.active-smallCategory {
     border-radius: 5px;
     background-color: #2d30fa1b;
     color: #2d30fadf;
+    font-weight: bold;
     font-weight: bold;
 }
 
