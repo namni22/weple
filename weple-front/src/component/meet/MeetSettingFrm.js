@@ -81,15 +81,17 @@ const MeetSettingFrm = (props) => {
         smallTabs.forEach(function (item, index) {
             item.addEventListener("click", function () {
                 for (let i = 0; i < smallTabs.length; i++) {
+
                     smallTabs[i].classList.remove("active-smallCategory")
                 }
-                // item.classList.add("active-smallCategory")
+
             })
         })
         const bigTabs = document.querySelectorAll(".meetSettingFrm-bigCategory-ul>li")
         bigTabs.forEach(function (item, index) {
             item.addEventListener("click", function () {
                 for (let i = 0; i < bigTabs.length; i++) {
+
                     bigTabs[i].classList.remove("active-bigCategory")
                 }
                 item.classList.add("active-bigCategory")
@@ -135,9 +137,9 @@ const MeetSettingFrm = (props) => {
     //날짜 변경 인풋에서 포커스가 나갔을때 작동하는 함수
     //날짜를 9999년 이상 선택하게하 하지 못하게 하기 위해서
     const changeDate = (meetDate) => {
-        console.log("모임 날짜 타입 : " + typeof meetDate);
+
         if (meetDate) {
-            console.log(meetDate.substr(3, 1));
+
             if (meetDate.substr(4, 1) !== "-") {//2023-00-00 에서 5번째글자가 "-"가 아니라면
                 setMeetDate("");
                 Swal.fire("날짜 형식은 0000-00-00 입니다.")
