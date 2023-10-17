@@ -174,7 +174,11 @@ const FeedContent = (props) => {
     <div className="feed-list-content">
       <div className="feed-list-top">
         <div className="feed-list-profile">
-          <span className="material-icons-outlined">person</span>
+          {feed.memberImage ? (
+            <img src={"/member/" + feed.memberImage} />
+          ) : (
+            <img src="/img/testImg_01.png" />
+          )}
         </div>
         <div className="feed-list-info">
           <div>{feed.feedWriter}</div>
