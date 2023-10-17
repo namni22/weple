@@ -1,8 +1,10 @@
-.login-wrap {
+.login-wrap,
+.findId-wrap {
   margin-top: 50px;
 }
 
-.login-title > h3 {
+.login-title > h3,
+.findId-title > h3 {
   position: relative;
   padding: 0 0 10px 0;
   font-size: 50px;
@@ -63,4 +65,21 @@
   margin: 50px auto;
   padding: 50px;
   border-top: 1px solid #ededed;
+}
+
+.findId-content {
+  width: 40%;
+  margin: 50px auto 0 auto;
+}
+
+.findId-content-item {
+  margin-bottom: 30px;
+}
+
+.findId-content-item > input {
+  margin-top: 10px;
+}
+
+.findId-content-btn > button {
+  margin-top: 30px;
 }
