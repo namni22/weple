@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.weple.FileUtil;
+import kr.co.weple.feed.model.vo.FComment;
 import kr.co.weple.meet.model.service.MeetService;
+import kr.co.weple.meet.model.vo.Calendar;
 import kr.co.weple.meet.model.vo.Category;
 import kr.co.weple.meet.model.vo.Chat;
 import kr.co.weple.meet.model.vo.Follower;
@@ -238,4 +240,23 @@ public class MeetController {
 			System.out.println("list : "+list);
 			return list;
 		}
+		
+	//캘린더 일정추가
+	@PostMapping(value="/addCalendar")
+	public int addCalendar(@ModelAttribute Calendar cal,
+			@RequestAttribute String memberId) {
+		return meetService.addcalendar(cal,memberId);
+	}
+	//캘린더 리스트 출력
+	@GetMapping(value="/calendarList/{meetNo}")
+	public List calendarList(@PathVariable int meetNo) {
+		List list = meetService.calendarList(meetNo);
+		return list;
+	}
+	//캘린더 일정삭제
+	@GetMapping(value="/removeCalendar/{calNo}/{meetNo}")
+	public int removeCalendar(@PathVariable int calNo,@PathVariable int meetNo,
+			@RequestAttribute String memberId) {
+		return meetService.removeCalendar(calNo, meetNo,memberId);
+	}
 }

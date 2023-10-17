@@ -26,7 +26,7 @@ const MeetInfo = (props) => {
     setMeet(props.myMeet);
     if (props.myMeet.meetPrepare) {
       setMeetPrepareList(props.myMeet.meetPrepare.split("/"));
-    } 
+    }
     if (isLogin) {
       //로그인한 상태라면
       //서버에서 로그인한 회원정보 가져오기
@@ -41,7 +41,7 @@ const MeetInfo = (props) => {
           console.log(res.data);
           setLoginMember(res.data);
         })
-        .catch((res) => { });
+        .catch((res) => {});
 
       //로그인이 되어있다면 로그인멤버가 모임멤버인지 조회해오기
       //모임멤버라면 해당 follower 리턴 아직 멤버가 아니라면 null 리턴
@@ -58,7 +58,6 @@ const MeetInfo = (props) => {
           console.log(res.response.status);
         });
       //가입 대기 상태라면 모임가입 버튼 비활성화하도록 db에서 가입상태 가져오기
-
     }
   }, [props]);
   // console.log(meetPrepareList);
@@ -68,8 +67,6 @@ const MeetInfo = (props) => {
   // console.log("팔로워 isMeetMember :  ", isMeetMember);
   // console.log("팔로워 객체안 : ", isMeetMember.meetNo);
   // console.log("팔로워 스테이터스 : ", isMeetMember.followerStatus);
-
-
 
   //로그인 이후 모임가입하기 버튼 클릭시 작동하는 함수
   const meetJoin = () => {
@@ -112,20 +109,18 @@ const MeetInfo = (props) => {
             console.log(res.data);
             Swal.fire("탈퇴 완료하였습니다.", "회원탈퇴 완료", "success");
             navigate("/");
-
           })
           .catch((res) => {
             console.log(res.response.data);
           });
       }
     });
-
-  }
+  };
 
   return (
     <div className="meetInfo-all-wrap">
       <Review
-      // 조회가 안됨
+        // 조회가 안됨
         meetNo={meet.meetNo}
         isMeetMember={isMeetMember}
         reviewStar={meet.reviewStar}
@@ -202,23 +197,22 @@ const Kakao = () => {
     const map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
     // 지도를 클릭한 위치에 표출할 마커입니다
     var marker = new kakao.maps.Marker({
-      // 지도 중심좌표에 마커를 생성합니다 
-      position: map.getCenter()
+      // 지도 중심좌표에 마커를 생성합니다
+      position: map.getCenter(),
     });
     // 지도에 마커를 표시합니다
     marker.setMap(map);
     // 지도에 클릭 이벤트를 등록합니다
     // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-    kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
-
-      // 클릭한 위도, 경도 정보를 가져옵니다 
+    kakao.maps.event.addListener(map, "click", function (mouseEvent) {
+      // 클릭한 위도, 경도 정보를 가져옵니다
       var latlng = mouseEvent.latLng;
 
       // 마커 위치를 클릭한 위치로 옮깁니다
       marker.setPosition(latlng);
 
-      var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-      message += '경도는 ' + latlng.getLng() + ' 입니다';
+      var message = "클릭한 위치의 위도는 " + latlng.getLat() + " 이고, ";
+      message += "경도는 " + latlng.getLng() + " 입니다";
       // var resultDiv = document.getElementById('clickLatlng');
       // resultDiv.innerHTML = message;
 

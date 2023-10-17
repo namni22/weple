@@ -104,7 +104,20 @@ const MeetView = (props) => {
               isLogin={isLogin}
               setIsLogin={setIsLogin}
               id={id}
-
+            />
+          }
+        />
+        <Route
+          path="meetCalendar"
+          element={<MeetCalendar meetNo={myMeet.meetNo} />}
+        />
+        <Route
+          path="meetList"
+          element={
+            <MeetMemberList
+              myMeet={myMeet}
+              isLogin={isLogin}
+              setIsLogin={setIsLogin}
             />
           }
         />

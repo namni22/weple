@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.weple.PageInfo;
 import kr.co.weple.Pagination;
 import kr.co.weple.meet.model.dao.MeetDao;
+import kr.co.weple.meet.model.vo.Calendar;
 import kr.co.weple.meet.model.vo.Category;
 import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.meet.model.vo.Meet;
@@ -248,6 +249,30 @@ public class MeetService {
 		List list = meetDao.meetChatLast(meetNo);
 		
 		return list;
+	}
+
+
+	//------------------캘린더---------------------
+	@Transactional
+	public int addcalendar(Calendar cal, String memberId) {
+		Meet m = meetDao.selectOneMeet(cal.getMeetNo());
+		if(m.getMeetCaptain().equals(memberId)) {
+			return  meetDao.addCalendar(cal);
+		}
+		return 0;
+	}
+
+	public List calendarList(int meetNo) {
+		return meetDao.calendarList(meetNo);
+	}
+	
+	@Transactional
+	public int removeCalendar(int calNo, int meetNo, String memberId) {
+		Meet m = meetDao.selectOneMeet(meetNo);
+		if(m.getMeetCaptain().equals( memberId)) {
+		return meetDao.removeCalendar(calNo);
+		}
+		return 0;
 	}
 	
 

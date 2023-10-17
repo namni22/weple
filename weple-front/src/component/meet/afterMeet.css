@@ -274,25 +274,87 @@
 /*그룹모임 캘린더*/
 .meetCalendar {
   margin-bottom: 20px;
+  position: relative;
 }
-
 .meetCalendar > .react-calendar {
   width: 100%;
   margin: 0 auto;
 }
-
 .meetCalendar > .react-calendar__tile {
   padding: 35px 7px;
 }
-
-.meetCalendar-btn {
-  width: 100%;
-  margin: 0 auto;
-  margin-bottom: 50px;
+.meetCalendar-add-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  cursor: pointer;
 }
-
-.meetCalendar-btn > button {
+.meetCalendar-add-btn > span {
+  border-radius: 100px;
+  background-color: #2d30faa6;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.2);
+}
+.meetCalendar-modal {
+  text-align: center;
+}
+.meetCalendar-modal-title {
+  font-size: 22px;
+  font-weight: 600;
+}
+.meetCalendar-modal > .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.meetCalendar-modal-date {
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+.meetCalendar-modal-date > div {
+  width: 48%;
+  text-align: left;
+}
+input[type="date"] {
+  border: none;
+  position: relative;
   width: 100%;
+  padding: 5px;
+  background-color: #2d30fa0e;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 100%;
+  margin: 5px 0;
+}
+.meetCalendar-calTitle > input {
+  width: 100%;
+  border: none;
+  background-color: #2d30fa0e;
+  border-radius: 5px;
+  padding: 10px;
+  overflow: auto;
+  margin-top: 40px;
+}
+.meetCalendar-modal textarea {
+  width: 100%;
+  border: none;
+  background-color: #2d30fa0e;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+  height: 150px;
+  overflow: auto;
+  resize: none;
+}
+.meetCalendar-modal .close {
+  cursor: pointer;
 }
 
 /* 모임 메인 */
@@ -335,7 +397,9 @@
 .meetChat-textEditor {
   background-color: #fff;
 }
-
+.meetChat-chat-wrap {
+  overflow: hidden;
+}
 .meetChat-chat-wrap > ul {
   overflow: hidden;
   padding: 20px;

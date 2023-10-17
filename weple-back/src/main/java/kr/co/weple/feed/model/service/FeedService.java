@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.weple.feed.model.dao.FeedDao;
 import kr.co.weple.feed.model.vo.FComment;
 import kr.co.weple.feed.model.vo.FImage;
+import kr.co.weple.feed.model.vo.FLike;
 import kr.co.weple.feed.model.vo.Feed;
 
 @Service
@@ -95,6 +96,11 @@ public class FeedService {
 	//댓글삭제
 	public int deleteComment(int fCommentNo) {
 		return feedDao.deleteComment(fCommentNo);
+	}
+
+	//좋아요조회
+	public List like(int memberNo, int feedNo) {
+		return feedDao.like(memberNo,feedNo);
 	}
 	
 }
