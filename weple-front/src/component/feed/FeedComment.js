@@ -77,11 +77,10 @@ const FeedComment = (props) => {
         <div className="feed-comment-wrap">
           {commentList.map((comment, index) => {
             return (
-              <>
+              <div key={"comment" + index}>
                 {comment.fcommentRefNo == 0 ? (
                   <div key={"comment" + index}>
                     <CommentList
-                      key={"comment" + index}
                       comment={comment}
                       isLogin={isLogin}
                       fCommentRefNo={fCommentRefNo}
@@ -95,10 +94,9 @@ const FeedComment = (props) => {
                     <div className="feed-comment-re-wrap">
                       {commentList.map((reComment, index) => {
                         return (
-                          <>
+                          <div key={"recomment" + index}>
                             {comment.fcommentNo == reComment.fcommentRefNo ? (
                               <CommentList
-                                key={"recomment" + index}
                                 comment={reComment}
                                 isLogin={isLogin}
                                 fCommentRefNo={fCommentRefNo}
@@ -112,7 +110,7 @@ const FeedComment = (props) => {
                             ) : (
                               ""
                             )}
-                          </>
+                          </div>
                         );
                       })}
                     </div>
@@ -120,7 +118,7 @@ const FeedComment = (props) => {
                 ) : (
                   ""
                 )}
-              </>
+              </div>
             );
           })}
         </div>

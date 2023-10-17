@@ -12,7 +12,7 @@ const FeedWriteFrm = (props) => {
   const deleteImg = props.deleteImg;
   const setDeleteImg = props.setDeleteImg;
   const fimageNoList = props.fimageNoList;
-  console.log(fimageNoList);
+  const type = props.type;
 
   const changeFile = (e) => {
     const Imgs = e.currentTarget.files;
@@ -75,6 +75,7 @@ const FeedWriteFrm = (props) => {
             deleteImg={deleteImg}
             setDeleteImg={setDeleteImg}
             fimageNoList={fimageNoList}
+            type={type}
           />
         )}
       </div>
