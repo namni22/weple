@@ -250,19 +250,28 @@ public class MeetService {
 		return list;
 	}
 
-	//캘린더일정추가
+
+	//------------------캘린더---------------------
 	@Transactional
 	public int addcalendar(Calendar cal, String memberId) {
-		//모임번호로 정보조회하기
 		Meet m = meetDao.selectOneMeet(cal.getMeetNo());
 		if(m.getMeetCaptain().equals(memberId)) {
 			return  meetDao.addCalendar(cal);
 		}
 		return 0;
 	}
-	//캘린더 리스트 출력
+
 	public List calendarList(int meetNo) {
 		return meetDao.calendarList(meetNo);
+	}
+	
+	@Transactional
+	public int removeCalendar(int calNo, int meetNo, String memberId) {
+		Meet m = meetDao.selectOneMeet(meetNo);
+		if(m.getMeetCaptain().equals( memberId)) {
+		return meetDao.removeCalendar(calNo);
+		}
+		return 0;
 	}
 	
 

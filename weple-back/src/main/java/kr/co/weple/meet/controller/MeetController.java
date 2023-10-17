@@ -250,4 +250,10 @@ public class MeetController {
 		List list = meetService.calendarList(meetNo);
 		return list;
 	}
+	//캘린더 일정삭제
+	@GetMapping(value="/removeCalendar/{calNo}/{meetNo}")
+	public int removeCalendar(@PathVariable int calNo,@PathVariable int meetNo,
+			@RequestAttribute String memberId) {
+		return meetService.removeCalendar(calNo, meetNo,memberId);
+	}
 }

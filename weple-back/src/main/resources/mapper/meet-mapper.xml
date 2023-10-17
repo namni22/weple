@@ -236,4 +236,7 @@
 	<select id="calendarList" resultType="calendar">
 		select * from calendar where meet_no = #{meetNo}
 	</select>
+	<delete id="removeCalendar">
+		delete from calendar where cal_no=#{calNo}
+	</delete>
 </mapper>
