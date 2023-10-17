@@ -9,29 +9,34 @@ import { useEffect } from "react";
 
 import EnrollMeetMember from "./EnrollMeetMember";
 import axios from "axios";
+import { isEmpty } from "lodash";
 
 const MeetView = (props) => {
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
+
   const id = props.id;
   const location = useLocation();
+
   const [myMeet, setMyMeet] = useState({});
   const meetNo = myMeet.meetNo;
 
   console.log("모임 번호 ", meetNo);
-  // const [meet, setMeet] = useState({});
-  // 사용안함!!!!!!!!!!!!!!
-  // useEffect(() => {
-  //   axios
-  //     .get("/meet/selectOneMeet/" + meetNo)
-  //     .then((res) => {
-  //       setMyMeet(res.data);
-  //     })
-  //     .catch((res) => {
-  //       console.log("catch : " + res.response.status);
-  //     });
-  // }, []);
-
+  const token = window.localStorage.getItem("token");
+  const [followerStatus, setFollowerStatus] = useState({});
+  axios
+    .get("/meet/memberStatus/" + meetNo, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((res) => {
+      console.log("팔로워 status : ", res.data);
+      setFollowerStatus(res.data.followerStatus);
+    })
+    .catch((res) => {
+      console.log(res.response.status);
+    });
   //모임장 id 전송 이후 DB에서 모임장 정보 불러오기
   const [meetCaptain, setMeetCaptain] = useState({});
   useEffect(() => {
@@ -58,12 +63,13 @@ const MeetView = (props) => {
     { url: "enrollMeetMember", text: "신청자목록", active: false },
   ]);
   // const [meetInfo, setMeetInfo] = useState("");
+
   return (
     <div className="afterMeet-all-wrap">
       <div className="feed-title">MY GROUP</div>
       <AfterMeetMain myMeet={myMeet} meetCaptain={meetCaptain} />
 
-      {isLogin ? (
+      {isLogin && followerStatus ? (
         <AfterMeetSubNavi
           meetMenu={meetMenu}
           setMeetMenu={setMeetMenu}

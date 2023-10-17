@@ -168,7 +168,7 @@ public class MeetController {
 		return result;
 	}
 	//로그인한 회원이 가입승인을 받은 모임 멤버인지 조회
-	@PostMapping(value = "isMeetMember")
+	@PostMapping(value = "/isMeetMember")
 	public Follower isMeetMember(
 			@RequestAttribute String memberId,
 			@RequestBody Meet meet
@@ -258,5 +258,13 @@ public class MeetController {
 	public int removeCalendar(@PathVariable int calNo,@PathVariable int meetNo,
 			@RequestAttribute String memberId) {
 		return meetService.removeCalendar(calNo, meetNo,memberId);
+	}
+	//사이드바 유무에 필요한 회원상태 정보
+	@GetMapping(value = "/memberStatus/{meetNo}")
+	public Follower memberStatus(@PathVariable int meetNo,@RequestAttribute String memberId) {
+		System.out.println("멤버정보 필요한 모임번호 : "+meetNo);
+		System.out.println("멤버정보 필요한 멤버번호 : "+memberId);
+		Follower followerStatus = meetService.status(meetNo,memberId);
+		return followerStatus;
 	}
 }
