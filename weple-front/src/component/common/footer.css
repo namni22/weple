@@ -1,18 +1,28 @@
-.footer{
-    padding: 50px 0;
-    background-color: gainsboro;
+.footer {
+  padding: 50px 0;
+  background-color: gainsboro;
 }
-.footer-inner{
-    margin: 0 auto;
-    width: 1200px;
+.footer-inner {
+  margin: 0 auto;
+  width: 1200px;
 }
-.footer .title{
-    font-size: 16px;
-    font-weight: 700;
+.footer .title {
+  font-size: 16px;
+  font-weight: 700;
 }
-.footer-inner>div{
-margin: 10px 0;
+.footer-inner > div {
+  margin: 10px 0;
 }
-.footer span{
-    display: block;
+.footer span {
+  display: block;
+}
+.kakao-btn {
+  border: 1px solid gray;
+  border-radius: 15px;
+  width: 150px;
+  text-align: center;
+  margin-left: 10px;
+}
+.kakao-chat {
+  display: flex;
 }

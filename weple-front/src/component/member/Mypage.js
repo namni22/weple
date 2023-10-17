@@ -8,6 +8,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ModifyInfo from "./ModifyInfo";
 import ModifyPw from "./ModifyPw";
+import Payment from "../payment/Payment";
 
 const Mypage = (props) => {
   const isLogin = props.isLogin;
@@ -25,6 +26,7 @@ const Mypage = (props) => {
     { url: "modifyPw", text: "비밀번호 변경", active: false },
     { url: "myCalendar", text: "캘린더", active: false },
     { url: "alarm", text: "알림", active: false },
+    { url: "payment", text: "결제", active: false },
   ]);
 
   useEffect(() => {
@@ -115,6 +117,7 @@ const Mypage = (props) => {
             <Route path="modifyPw" element={<ModifyPw />} />
             <Route path="myCalendar" element={<AdminReport />} />
             <Route path="alarm" element={<AdminReport />} />
+            <Route path="payment" element={<Payment member={member} />} />
           </Routes>
         </div>
       </div>
