@@ -9,9 +9,10 @@ const FindPw = () => {
   const [memberName, setMemberName] = useState("");
   const [memberEmail, setMemberEmail] = useState("");
   const [memberPw, setMemberPw] = useState("");
+  const member = { memberId, memberName, memberEmail, memberPw };
 
+  // 입력한 정보 조회해서 회원 존재 시 랜덤 문자열 메일링
   const findPw = () => {
-    const member = { memberId, memberName, memberEmail, memberPw };
     axios
       .post("member/findPw", member)
       .then((res) => {
@@ -19,8 +20,8 @@ const FindPw = () => {
           axios
             .post("member/sendMail", member)
             .then((res) => {
-              console.log(res.data);
               setMemberPw(res.data);
+              Swal.fire("임시 비밀번호를 메일로 발송했습니다.");
             })
             .catch((res) => {
               console.log(res.response.status);
@@ -33,6 +34,16 @@ const FindPw = () => {
         console.log(res.response.status);
       });
   };
+
+  // 메일로 받은 랜덤 문자열을 해당 아이디 비밀번호로 바꿔주는 작업
+  axios
+    .post("member/changeTemporaryPw", member)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((res) => {
+      console.log(res.response.status);
+    });
 
   return (
     <div className="findPw-wrap">

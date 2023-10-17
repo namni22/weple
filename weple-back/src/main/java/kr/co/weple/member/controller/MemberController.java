@@ -173,6 +173,7 @@ public class MemberController {
 		return authCode;
 	}
 	
+	// 임시 비밀번호로 비밀번호 변경
 	@PostMapping(value="/changeTemporaryPw")
 	public int pwChange(@RequestBody Member member) {
 		return memberService.pwChangeMember(member);
