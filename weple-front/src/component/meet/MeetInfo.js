@@ -139,6 +139,7 @@ const MeetInfo = (props) => {
         <div className="meetInfo-content-area meetInfo-meetAddr-wrap">
           <div className="meetInfo-content-title">모임 장소</div>
           <div className="">
+
             <div>{meet.meetLatitude}</div>
             <div>{meet.meetLongitude}</div>
             <Kakao
@@ -189,7 +190,6 @@ const MeetInfo = (props) => {
                 //isMeetMember가 비어있을때
                 <div>
                   <Button1 text="모임가입하기" clickEvent={meetJoin} />
-                  {meetCaptain.memberNo}
                 </div>
               )
             )

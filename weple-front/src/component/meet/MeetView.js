@@ -18,7 +18,7 @@ const MeetView = (props) => {
   const [myMeet, setMyMeet] = useState({});
   const meetNo = myMeet.meetNo;
 
-  console.log("모임 번호 ", meetNo);
+  console.log("전달받은 로케이션 m ", meetNo);
   // const [meet, setMeet] = useState({});
   // 사용안함!!!!!!!!!!!!!!
   // useEffect(() => {
