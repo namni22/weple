@@ -225,11 +225,11 @@ const FeedContent = (props) => {
               favorite_border
             </span>
           )}
-          <span>0</span>
+          <span>{feed.totalLike}</span>
         </div>
         <div onClick={comment}>
           <span className="material-icons">chat_bubble_outline</span>
-          <span>0</span>
+          <span>{feed.totalComment}</span>
         </div>
       </div>
       <div className="feed-list-more-btn" onClick={moreModal}>

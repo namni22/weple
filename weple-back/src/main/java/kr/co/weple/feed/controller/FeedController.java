@@ -109,30 +109,6 @@ public class FeedController {
 		}
 		return result;
 	}
-	
-	//댓글등록
-	@PostMapping(value="/comment/insert")
-	public int commentInsert(
-			@ModelAttribute FComment f,
-			@RequestAttribute String memberId) {
-		f.setFCommentWriter(memberId);
-		f.setCrnNo(f.getFCommentRefNo()==0?null:f.getFCommentRefNo());
-		return feedService.commentInsert(f);
-	}
-	
-	//댓글출력
-	@GetMapping(value="/comment/list/{feedNo}")
-	public List commentList(
-			@PathVariable int feedNo) {
-		return feedService.commentList(feedNo);
-		
-	}
-	//댓글삭제
-	@GetMapping(value="/comment/delete/{fCommentNo}")
-	public int deletecomment(@PathVariable int fCommentNo) {
-		return feedService.deleteComment(fCommentNo);
-	}
-	
 	//좋아요조회
 	@PostMapping(value="/like")
 	public int like(
@@ -146,4 +122,40 @@ public class FeedController {
 			@RequestAttribute String memberId) {
 		return feedService.updateLike(memberId,f.getFeedNo());
 	}
+	
+	//댓글등록
+	@PostMapping(value="/comment/insert")
+	public int commentInsert(
+			@ModelAttribute FComment f,
+			@RequestAttribute String memberId) {
+		f.setFCommentWriter(memberId);
+		f.setCrnNo(f.getFCommentRefNo()==0?null:f.getFCommentRefNo());
+		return feedService.commentInsert(f);
+	}
+	//댓글출력
+	@GetMapping(value="/comment/list/{feedNo}")
+	public List commentList(
+			@PathVariable int feedNo) {
+		return feedService.commentList(feedNo);
+		
+	}
+	//댓글삭제
+	@GetMapping(value="/comment/delete/{fCommentNo}")
+	public int deletecomment(@PathVariable int fCommentNo) {
+		return feedService.deleteComment(fCommentNo);
+	}
+	//댓글좋아요조회
+	@PostMapping(value="/commentLike")
+	public int commentLike(
+			@RequestBody FComment fc,
+			@RequestAttribute String memberId) {
+		return feedService.commentLike(memberId,fc.getFCommentNo());
+	}
+	//좋아요클릭이벤트
+	@PostMapping (value="/updateCommentLike")
+	public int updateCommentLike(@RequestBody FComment fc,
+			@RequestAttribute String memberId) {
+		return feedService.updateCommentLike(memberId,fc.getFCommentNo());
+	}
+	
 }

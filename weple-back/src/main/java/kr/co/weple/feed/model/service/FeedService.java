@@ -124,5 +124,30 @@ public class FeedService {
 		}
 		return 0;
 	}
+
+	//댓글 좋아요 조회
+	public int commentLike(String memberId, int fCommentNo) {
+		Member m = memberDao.selectOneMember(memberId);
+		List list = feedDao.commentLike(m.getMemberNo(),fCommentNo);
+		if(list.size()!=0) {
+			return 1;
+		}
+		return 0;
+	}
+	//댓글 좋아요 클릭이벤트
+	@Transactional
+	public int updateCommentLike(String memberId, int fCommentNo) {
+		Member m = memberDao.selectOneMember(memberId);
+		List list = feedDao.commentLike(m.getMemberNo(),fCommentNo);
+		if(list.size()==0) {
+			return feedDao.commentInsertLike(m.getMemberNo(),fCommentNo);
+		}else {
+			int result = feedDao.commentDeleteLike(m.getMemberNo(),fCommentNo);
+			if(result>0) {				
+				return 2;
+			}
+		}
+		return 0;
+	}
 	
 }
