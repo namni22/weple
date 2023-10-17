@@ -277,8 +277,6 @@ const MeetSettingFrm = (props) => {
                     <label>썸네일</label>
                     <div>
                         {/* accept = image/* : 이미지파일만 올릴수 있도록 */}
-
-
                         <input
                             className="meetThumbnail-input"
                             type="file"
@@ -288,11 +286,7 @@ const MeetSettingFrm = (props) => {
                             //썸네일 미리보기 함수
                             onChange={thumbnailChange}
                         ></input>
-
-
-
                         <div className="meetThumbnailPreview">
-                            {/* <img src={meetThumbnail2}></img> */}
                             {meetThumbnailPreview === null ? ( //""에서 null로 바꿈
                                 // 기본이미지 넣어야함
                                 <img src="/img/no_image.jpg"></img>
@@ -450,7 +444,7 @@ const Postcode = (props) => {
     useEffect(() => {
         mapContainer = document.getElementById('map'); // 지도를 표시할 div
         mapOption = {
-            center: new daum.maps.LatLng(meetLatitude, meetLongitude), // 지도의 중심좌표
+            center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
             level: 5 // 지도의 확대 레벨
         };
         //지도를 미리 생성
