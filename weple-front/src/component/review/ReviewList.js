@@ -1,4 +1,4 @@
-import {Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import "./reviewList.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -21,7 +21,7 @@ const ReviewList = () => {
   const meetNo = location.state.meetNo;
   const meetStar = location.state.meetStar;
   const [reviewList, setReviewList] = useState([]);
-  const [reviewCount,setReviewCount] = useState(0);
+  const [reviewCount, setReviewCount] = useState(0);
   //리뷰 조회
   useEffect(() => {
     axios
@@ -105,7 +105,6 @@ const ReviewListComponent = (props) => {
         <img></img>
       </div>
       <div className="review-content">{review.reviewContent}</div>
-      
     </div>
   );
 };

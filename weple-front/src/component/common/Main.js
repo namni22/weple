@@ -27,7 +27,6 @@ const Main = () => {
         list={list}
         delButton={false}
       />
-      <Payment/>
       {/* 비로그인 */}
       <MeetMain meetSet={"meetPopular"} meetTitle={"주간 인기 TOP 30 👑"} />
       <MeetMain meetSet={"meetMargin"} meetTitle={"마감임박!"} />
