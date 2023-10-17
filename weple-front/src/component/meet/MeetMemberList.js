@@ -17,19 +17,14 @@ const MeetMemberList = (props) => {
   const [meetMember, setMeetMember] = useState([]);
   const [reqPage, setReqPage] = useState(1);
   const [pageInfo, setPageInfo] = useState({});
-
-  console.log(myMeet.meetNo);
   useEffect(() => {
     axios
       .get("/meet/meetMember/" + reqPage + "?meetNo=" + myMeet.meetNo)
       .then((res) => {
-        console.log(res.data);
         setMeetMember(res.data.selectMeetMemberList);
         setPageInfo(res.data.pi);
       })
-      .catch((res) => {
-        console.log(res.response.status);
-      });
+      .catch((res) => {});
   }, [reqPage]);
   return (
     <div className="meetMemberList-all-wrap">
@@ -80,7 +75,6 @@ const MemberList = (props) => {
   const handleClickCancel = () => setOpen(false);
   const buttonDisable = () => setDisable("");
   const likeEvent = () => {
-    console.log("호감도 이벤트");
     Swal.fire({
       text: `"` + memberList.memberId + `"` + "님의 호감도를 올리시겠습니까?",
 
@@ -94,12 +88,8 @@ const MemberList = (props) => {
       if (result.isConfirmed) {
         axios
           .post("/meet/memberLike", memberList)
-          .then((res) => {
-            console.log(res.data);
-          })
-          .catch((res) => {
-            console.log(res.response.data);
-          });
+          .then((res) => {})
+          .catch((res) => {});
         Swal.fire({
           text: `"` + memberList.memberId + `"` + "님의 호감도를 올렸습니다.",
           icon: "success",
@@ -109,12 +99,9 @@ const MemberList = (props) => {
     });
   };
   const reportEvent = () => {
-    console.log("신고 이벤트");
     setOpen(true);
   };
   const deleteEvent = () => {
-    console.log("추방 이벤트");
-    console.log(memberList);
     Swal.fire({
       text: `"` + memberList.memberId + `"` + "님을 추방시키시겠습니까?",
       showCancelButton: true,
@@ -129,15 +116,12 @@ const MemberList = (props) => {
         axios
           .post("/meet/deleteMember", memberList)
           .then((res) => {
-            console.log(res.data);
             const newArr = meetMember.filter((newMeetMember) => {
               return newMeetMember.memberNo !== memberList.memberNo;
             });
             setMeetMember(newArr);
           })
-          .catch((res) => {
-            console.log(res.response.data);
-          });
+          .catch((res) => {});
         Swal.fire("탈퇴 완료하였습니다.", "회원탈퇴 완료", "success");
       }
     });
