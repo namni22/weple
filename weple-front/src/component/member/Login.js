@@ -71,7 +71,7 @@ const Login = (props) => {
             <Link to="#">비밀번호 찾기</Link>
           </li>
           <li>
-            <Link to="#">아이디 찾기</Link>
+            <Link to="/findId">아이디 찾기</Link>
           </li>
         </ul>
       </div>
