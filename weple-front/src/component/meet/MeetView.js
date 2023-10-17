@@ -20,7 +20,7 @@ const MeetView = (props) => {
   console.log("모임 번호 ", meetNo);
   const token = window.localStorage.getItem("token");
   const [followerStatus, setFollowerStatus] = useState({});
-  const [captainCheck, setCaptainCheck] = useState({});
+
   axios
     .get("/meet/memberStatus/" + meetNo, {
       headers: {
@@ -80,20 +80,26 @@ const MeetView = (props) => {
     { url: "meetCalendar", text: "캘린더", active: false },
     { url: "meetList", text: "멤버목록", active: false },
   ]);
+  const captainId = meetCaptain.memberId;
   return (
     <div className="afterMeet-all-wrap">
       <div className="feed-title">MY GROUP</div>
       <AfterMeetMain myMeet={myMeet} meetCaptain={meetCaptain} />
-
-      {isLogin && followerStatus ? (
+      {isLogin && captainId === id ? (
         <AfterMeetSubNavi
           meetMenu={meetMenu}
           setMeetMenu={setMeetMenu}
           meetMenu2={meetMenu2}
           setMeetMenu2={setMeetMenu2}
           meetNo={meetNo}
-          captainCheck={captainCheck}
-          setCaptainCheck={captainCheck}
+        ></AfterMeetSubNavi>
+      ) : followerStatus ? (
+        <AfterMeetSubNavi
+          meetMenu={meetMenu}
+          setMeetMenu={setMeetMenu}
+          meetMenu2={meetMenu2}
+          setMeetMenu2={setMeetMenu2}
+          meetNo={meetNo}
         ></AfterMeetSubNavi>
       ) : (
         ""
@@ -210,8 +216,7 @@ const AfterMeetSubNavi = (props) => {
   const meetMenu2 = props.meetMenu2;
   const setMeetMenu2 = props.setMeetMenu2;
   const meetNo = props.meetNo;
-  const captainCheck = props.captainCheck;
-  const setCaptainCheck = props.setCaptainCheck;
+  const [captainCheck, setCaptainCheck] = useState({});
   const token = window.localStorage.getItem("token");
   axios
     .get("/meet/meetCapCheck/" + meetNo, {
@@ -221,7 +226,8 @@ const AfterMeetSubNavi = (props) => {
     })
     .then((res) => {
       console.log("방장체크 : ", res.data);
-      setCaptainCheck(res.data.meetCapCheck);
+      setCaptainCheck(res.data);
+      console.log("방장체크 captainCheck : ", captainCheck);
     })
     .catch((res) => {
       //console.log(res.response.status);
@@ -233,12 +239,19 @@ const AfterMeetSubNavi = (props) => {
     meetMenu[index].active = true;
     setMeetMenu([...meetMenu]);
   };
+  const activeTab2 = (index) => {
+    meetMenu2.forEach((item) => {
+      item.active = false;
+    });
+    meetMenu2[index].active = true;
+    setMeetMenu2([...meetMenu2]);
+  };
   return (
     <>
       {captainCheck ? (
         <div className="afterMeet-sub-navi">
           <ul>
-            {meetMenu2.map((meetMenu, index) => {
+            {meetMenu.map((meetMenu, index) => {
               return (
                 <li key={"meetMenu" + index}>
                   {meetMenu.active ? (
@@ -269,27 +282,27 @@ const AfterMeetSubNavi = (props) => {
       ) : (
         <div className="afterMeet-sub-navi">
           <ul>
-            {meetMenu.map((meetMenu, index) => {
+            {meetMenu2.map((meetMenu2, index) => {
               return (
                 <li key={"meetMenu" + index}>
-                  {meetMenu.active ? (
+                  {meetMenu2.active ? (
                     <Link
-                      to={meetMenu.url}
+                      to={meetMenu2.url}
                       className="active-side"
                       onClick={() => {
-                        activeTab(index);
+                        activeTab2(index);
                       }}
                     >
-                      {meetMenu.text}
+                      {meetMenu2.text}
                     </Link>
                   ) : (
                     <Link
-                      to={meetMenu.url}
+                      to={meetMenu2.url}
                       onClick={() => {
-                        activeTab(index);
+                        activeTab2(index);
                       }}
                     >
-                      {meetMenu.text}
+                      {meetMenu2.text}
                     </Link>
                   )}
                 </li>
