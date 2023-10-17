@@ -195,6 +195,11 @@ const MeetSettingFrm = (props) => {
         }
     };
 
+    useEffect(() => {
+        // 처음 렌더링할때 준비물 input값을 비워주기위해
+        setMeetPrepare("");
+    }, [])
+
     return (
         <div className="meetSettingFrm-main-wrap">
 
