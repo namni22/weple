@@ -22,18 +22,18 @@ const Review = (props) => {
   const meetStar = props.reviewStar;
   const reviewCount = props.reviewCount;
   const isMeetMember = props.isMeetMember; //해당 멤버인지 확인하는 함수(undefined)
-  console.log("isMeetMember: "+isMeetMember);
+  console.log("isMeetMember: " + isMeetMember);
   //리뷰 조회
   useEffect(() => {
     axios
       .get("/review/reviewList/" + meetNo)
       .then((res) => {
         const arr = [...reviewList];
-        if(res.data.length<11){
-          for(let i=0;i<res.data.length;i++){
+        if (res.data.length < 11) {
+          for (let i = 0; i < res.data.length; i++) {
             arr.push(res.data[i]);
           }
-        } else{
+        } else {
           for (let i = 0; i < 10; i++) {
             arr.push(res.data[i]);
           }
@@ -85,9 +85,6 @@ const Review = (props) => {
             autoplay={false}
             list={list}
           />
-          {/* <Routes>
-            <Route path="/write" element={<ReviewWrite />} />
-          </Routes> */}
         </div>
       )}
     </>
