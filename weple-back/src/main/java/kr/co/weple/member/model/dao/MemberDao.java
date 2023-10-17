@@ -35,6 +35,11 @@ public interface MemberDao {
 	
 	List<FImage> selectImageList(int feedNo);
 
+	Member findId(Member member);
+
+
+	
+
 
 
 }

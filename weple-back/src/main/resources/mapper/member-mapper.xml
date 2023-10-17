@@ -70,5 +70,10 @@
 		/>
 	</resultMap>
 	
+	<!-- 아이디 찾기 -->
+	<select id="findId" resultType="member">
+		select * from member where member_name=#{memberName} and member_email=#{memberEmail}
+	</select>
+	
 	
 </mapper>
