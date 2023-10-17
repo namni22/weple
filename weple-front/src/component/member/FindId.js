@@ -1,10 +1,29 @@
 import { useState } from "react";
 import Input from "../util/InputFrm";
 import { Button2 } from "../util/Button";
+import axios from "axios";
+import Swal from "sweetalert2";
+import ReactModal from "react-modal";
 
 const FindId = () => {
   const [memberName, setMemberName] = useState("");
   const [memberEmail, setMemberEmail] = useState("");
+
+  const findId = () => {
+    const member = { memberName, memberEmail };
+    axios
+      .post("member/findId", member)
+      .then((res) => {
+        if (res.data === "not found") {
+          Swal.fire("회원을 조회할 수 없습니다.");
+        } else {
+          Swal.fire("회원님의 아이디는 " + "'" + res.data + "'입니다.");
+        }
+      })
+      .catch((res) => {
+        console.log(res.response.status);
+      });
+  };
 
   return (
     <div className="findId-wrap">
@@ -33,7 +52,7 @@ const FindId = () => {
           />
         </div>
         <div className="findId-content-btn">
-          <Button2 text="아이디 찾기"></Button2>
+          <Button2 text="아이디 찾기" clickEvent={findId}></Button2>
         </div>
       </div>
     </div>
