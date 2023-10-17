@@ -9,21 +9,18 @@ import { useEffect } from "react";
 
 import EnrollMeetMember from "./EnrollMeetMember";
 import axios from "axios";
-import { isEmpty } from "lodash";
 
 const MeetView = (props) => {
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
-
   const id = props.id;
   const location = useLocation();
-
   const [myMeet, setMyMeet] = useState({});
   const meetNo = myMeet.meetNo;
-
   console.log("모임 번호 ", meetNo);
   const token = window.localStorage.getItem("token");
   const [followerStatus, setFollowerStatus] = useState({});
+  const [captainCheck, setCaptainCheck] = useState({});
   axios
     .get("/meet/memberStatus/" + meetNo, {
       headers: {
@@ -62,8 +59,12 @@ const MeetView = (props) => {
     { url: "meetList", text: "멤버목록", active: false },
     { url: "enrollMeetMember", text: "신청자목록", active: false },
   ]);
-  // const [meetInfo, setMeetInfo] = useState("");
-
+  const [meetMenu2, setMeetMenu2] = useState([
+    { url: "", text: "소개", active: true },
+    { url: "meetChat", text: "글 작성", active: false },
+    { url: "meetCalendar", text: "캘린더", active: false },
+    { url: "meetList", text: "멤버목록", active: false },
+  ]);
   return (
     <div className="afterMeet-all-wrap">
       <div className="feed-title">MY GROUP</div>
@@ -73,6 +74,11 @@ const MeetView = (props) => {
         <AfterMeetSubNavi
           meetMenu={meetMenu}
           setMeetMenu={setMeetMenu}
+          meetMenu2={meetMenu2}
+          setMeetMenu2={setMeetMenu2}
+          meetNo={meetNo}
+          captainCheck={captainCheck}
+          setCaptainCheck={captainCheck}
         ></AfterMeetSubNavi>
       ) : (
         ""
@@ -151,7 +157,6 @@ const AfterMeetMain = (props) => {
       <div className="afterMeet-main-info">
         <div className="afterMeet-info-host">
           <div className="aferMeet-host-img">
-            {/* <img src="/img/testImg_01.png"></img> */}
             {meetCaptain.memberImage ? (
               <img src={"/member/" + meetCaptain.memberImage}></img>
             ) : (
@@ -181,6 +186,25 @@ const AfterMeetMain = (props) => {
 const AfterMeetSubNavi = (props) => {
   const meetMenu = props.meetMenu;
   const setMeetMenu = props.setMeetMenu;
+  const meetMenu2 = props.meetMenu2;
+  const setMeetMenu2 = props.setMeetMenu2;
+  const meetNo = props.meetNo;
+  const captainCheck = props.captainCheck;
+  const setCaptainCheck = props.setCaptainCheck;
+  const token = window.localStorage.getItem("token");
+  axios
+    .get("/meet/meetCapCheck/" + meetNo, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((res) => {
+      console.log("방장체크 : ", res.data);
+      setCaptainCheck(res.data.meetCapCheck);
+    })
+    .catch((res) => {
+      //console.log(res.response.status);
+    });
   const activeTab = (index) => {
     meetMenu.forEach((item) => {
       item.active = false;
@@ -189,36 +213,71 @@ const AfterMeetSubNavi = (props) => {
     setMeetMenu([...meetMenu]);
   };
   return (
-    <div className="afterMeet-sub-navi">
-      <ul>
-        {meetMenu.map((meetMenu, index) => {
-          return (
-            <li key={"meetMenu" + index}>
-              {meetMenu.active ? (
-                <Link
-                  to={meetMenu.url}
-                  className="active-side"
-                  onClick={() => {
-                    activeTab(index);
-                  }}
-                >
-                  {meetMenu.text}
-                </Link>
-              ) : (
-                <Link
-                  to={meetMenu.url}
-                  onClick={() => {
-                    activeTab(index);
-                  }}
-                >
-                  {meetMenu.text}
-                </Link>
-              )}
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+    <>
+      {captainCheck ? (
+        <div className="afterMeet-sub-navi">
+          <ul>
+            {meetMenu2.map((meetMenu, index) => {
+              return (
+                <li key={"meetMenu" + index}>
+                  {meetMenu.active ? (
+                    <Link
+                      to={meetMenu.url}
+                      className="active-side"
+                      onClick={() => {
+                        activeTab(index);
+                      }}
+                    >
+                      {meetMenu.text}
+                    </Link>
+                  ) : (
+                    <Link
+                      to={meetMenu.url}
+                      onClick={() => {
+                        activeTab(index);
+                      }}
+                    >
+                      {meetMenu.text}
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ) : (
+        <div className="afterMeet-sub-navi">
+          <ul>
+            {meetMenu.map((meetMenu, index) => {
+              return (
+                <li key={"meetMenu" + index}>
+                  {meetMenu.active ? (
+                    <Link
+                      to={meetMenu.url}
+                      className="active-side"
+                      onClick={() => {
+                        activeTab(index);
+                      }}
+                    >
+                      {meetMenu.text}
+                    </Link>
+                  ) : (
+                    <Link
+                      to={meetMenu.url}
+                      onClick={() => {
+                        activeTab(index);
+                      }}
+                    >
+                      {meetMenu.text}
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+    </>
   );
 };
 export default MeetView;

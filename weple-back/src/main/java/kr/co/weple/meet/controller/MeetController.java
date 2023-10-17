@@ -267,4 +267,12 @@ public class MeetController {
 		Follower followerStatus = meetService.status(meetNo,memberId);
 		return followerStatus;
 	}
+	//방장임에 따라 바뀌는 사이드바에 필요한 정보
+	@GetMapping(value = "/meetCapCheck/{meetNo}")
+	public Meet meetCapCheck(@PathVariable int meetNo,@RequestAttribute String memberId) {
+		System.out.println("방장체크meetNo : "+meetNo+"방장체크meetCaptain : "+memberId);
+		Meet meetCapCheck = meetService.meetCapCheck(meetNo,memberId);
+		System.out.println("meetCapcheck : "+meetCapCheck);
+		return meetCapCheck;
+	}
 }

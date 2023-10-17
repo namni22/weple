@@ -280,6 +280,11 @@ public class MeetService {
 		Follower followStatus = meetDao.status(meetNo,selectMemberNo);
 		return followStatus;
 	}
+
+	public Meet meetCapCheck(int meetNo, String memberId) {
+		
+		return meetDao.meetCapCheck(meetNo,memberId);
+	}
 	
 
 
