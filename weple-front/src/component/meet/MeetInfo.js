@@ -15,6 +15,7 @@ const MeetInfo = (props) => {
   // console.log("info2", props);
   const isLogin = props.isLogin;
   const [loginMember, setLoginMember] = useState(null);
+  const meetCaptain = props.meetCaptain;
   //모임에 이미 가입한 상태인지 알아보는 변수
   const [isMeetMember, setIsMeetMember] = useState(null);
   // const [meetJoinWaiting, setMeetJoinWaiting] = useState(null);
@@ -162,10 +163,13 @@ const MeetInfo = (props) => {
             })}
           </div>
         </div>
+        <div>{meetCaptain.memberId}</div>
+        <div>{loginMember.memberId}</div>
       </div>
       <div className="meetJoin-btn-zone">
         {/* 버튼이 보이는 조건: 로그인이 되어있고 / 아직 모임 가입을 하지 않는 경우 */}
         {isLogin ? (
+
           isMeetMember ? ( //가입대기중이면?
             // <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
             // isMesetMember가 있을때"

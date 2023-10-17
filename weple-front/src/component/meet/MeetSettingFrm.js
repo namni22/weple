@@ -509,7 +509,7 @@ const Postcode = (props) => {
                 // 주소 정보를 해당 필드에 넣는다.
                 document.getElementById("sample5_address").value = addr;
                 setMeetAddress1(addr);
-                console.log("검색 결과 : ");
+                console.log("검색 결과 : ", addr);
 
                 // 주소로 상세 정보를 검색
                 geocoder.addressSearch(data.address, function (results, status) {
@@ -551,7 +551,7 @@ const Postcode = (props) => {
             <div id="map" style={{
                 width: "500px",
                 height: "500px",
-                display: "none"
+                // display: "none"
             }}></div>
         </div>
 

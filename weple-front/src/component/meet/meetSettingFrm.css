@@ -23,6 +23,8 @@
 .meetSettingFrm-wrap>div>label {
     width: 20%;
     text-align: center;
+    font-weight: bold;
+    font-size: 20px;
 }
 
 .meetSettingFrm-wrap>div>div {
@@ -150,6 +152,7 @@
 
 .meetMaterials-content-wrap {
     overflow: hidden;
+    padding-top: 15px;
 }
 
 .meetMaterials-input-box {

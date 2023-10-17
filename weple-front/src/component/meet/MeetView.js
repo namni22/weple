@@ -123,7 +123,7 @@ const MeetView = (props) => {
         />
         <Route
           path="*"
-          element={<MeetInfo myMeet={myMeet} isLogin={isLogin} />}
+          element={<MeetInfo myMeet={myMeet} isLogin={isLogin} meetCaptain={meetCaptain} />}
         />
       </Routes>
     </div>
