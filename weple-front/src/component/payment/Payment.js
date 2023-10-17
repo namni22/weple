@@ -26,9 +26,9 @@ const Payment = (props) => {
     setPayPrice(10000 * count);
   }, [count]);
 
-  IMP.init("imp62626506");
+  // IMP.init("imp62626506");
   function doPayment() {
-    IMP.request_pay({});
+    // IMP.request_pay({});
   }
   return (
     <div className="payment-wrap">
