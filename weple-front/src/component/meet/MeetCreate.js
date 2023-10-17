@@ -13,8 +13,8 @@ const MeetCreate = () => {
   const [meetCategory, setMeetCategory] = useState(0);
   const [meetAddress1, setMeetAddress1] = useState("");
   const [meetAddress2, setMeetAddress2] = useState("");
-  const [meetLatitude, setMeetLatitude] = useState(37.5642135);
-  const [meetLongitude, setMeetLongitude] = useState(127.0016985);
+  const [meetLatitude, setMeetLatitude] = useState(12);
+  const [meetLongitude, setMeetLongitude] = useState(124);
   const [meetCaptain, setMeetCaptain] = useState("");
   // const [meetMaterials, setMeetMaterials] = useState("");
 
@@ -60,8 +60,8 @@ const MeetCreate = () => {
       form.append("meetCategory", meetCategory);
       form.append("meetAddress1", meetAddress1);
       form.append("meetAddress2", meetAddress2);
-      // form.append("meetLatitude", meetLatitude);
-      // form.append("meetLongitude", meetLongitude);
+      form.append("meetLatitude", meetLatitude);
+      form.append("meetLongitude", meetLongitude);
       //지도 추가자리
       console.log("meetCreate form : ", form);
 
