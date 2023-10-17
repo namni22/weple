@@ -15,6 +15,7 @@ const MeetInfo = (props) => {
   // console.log("info2", props);
   const isLogin = props.isLogin;
   const [loginMember, setLoginMember] = useState(null);
+  const meetCaptain = props.meetCaptain;
   //모임에 이미 가입한 상태인지 알아보는 변수
   const [isMeetMember, setIsMeetMember] = useState(null);
   // const [meetJoinWaiting, setMeetJoinWaiting] = useState(null);
@@ -41,7 +42,7 @@ const MeetInfo = (props) => {
           console.log(res.data);
           setLoginMember(res.data);
         })
-        .catch((res) => {});
+        .catch((res) => { });
 
       //로그인이 되어있다면 로그인멤버가 모임멤버인지 조회해오기
       //모임멤버라면 해당 follower 리턴 아직 멤버가 아니라면 null 리턴
@@ -137,7 +138,10 @@ const MeetInfo = (props) => {
         <div className="meetInfo-content-area meetInfo-meetAddr-wrap">
           <div className="meetInfo-content-title">모임 장소</div>
           <div className="">
-            <Kakao />
+            <Kakao
+              meetLatitude={meet.meetLatitude}
+              meetLongitude={meet.meetLongitude}
+            />
             <div>
               <div className="meetInfo-meetAddress1">{meet.meetAddress1}</div>
               <div className="meetInfo-meetAddress2">{meet.meetAddress2}</div>
@@ -159,24 +163,37 @@ const MeetInfo = (props) => {
             })}
           </div>
         </div>
+
       </div>
       <div className="meetJoin-btn-zone">
         {/* 버튼이 보이는 조건: 로그인이 되어있고 / 아직 모임 가입을 하지 않는 경우 */}
         {isLogin ? (
-          isMeetMember ? ( //가입대기중이면?
-            // <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
-            // isMesetMember가 있을때"
-            isMeetMember.followerStatus === 1 ? ( //현재 가입이 승인되어있는가?
-              //현재 followerStatus == 1 일때
-              <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
+          meetCaptain && loginMember ? (//객체 가져와져있는지부터 확인
+            meetCaptain.memberNo === loginMember.memberNo ? (//로그인한 멤버가 모임장이라면?
+              <div>모임장이면 출력안함</div>
             ) : (
-              //현재 followerStatus == 0 일때
-              <div>가입승인 대기중</div> //div로 가입 승인대기중 띄워주기 또는 공백 처리
+              isMeetMember ? ( //객체 가져와져있는지부터 확인
+                // <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
+                // isMesetMember가 있을때"
+                isMeetMember.followerStatus === 1 ? ( //현재 가입이 승인되어있는가?
+                  //현재 followerStatus == 1 일때
+                  <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
+                ) : (
+                  //현재 followerStatus == 0 일때
+                  <div>가입승인 대기중</div> //div로 가입 승인대기중 띄워주기 또는 공백 처리
+                )
+              ) : (
+                //isMeetMember가 비어있을때
+                <div>
+                  <Button1 text="모임가입하기" clickEvent={meetJoin} />
+                  {meetCaptain.memberNo}
+                </div>
+              )
             )
-          ) : (
-            //isMeetMember가 비어있을때
-            <Button1 text="모임가입하기" clickEvent={meetJoin} />
-          )
+
+
+          ) : ("")
+
         ) : (
           "로그아웃 상태" //로그아웃 상태일때 공백
         )}
@@ -186,12 +203,17 @@ const MeetInfo = (props) => {
 };
 
 const { kakao } = window;
-const Kakao = () => {
+const Kakao = (props) => {
+  console.log("props : ", props);
+  const meetLatitude = props.meetLatitude;
+  const meetLongitude = props.meetLongitude;
+  console.log("카카오맵 위도 : ", meetLatitude);
+  console.log("카카오맵 경도 : ", meetLongitude);
   useEffect(() => {
     const container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
     const options = {
       //지도를 생성할 때 필요한 기본 옵션
-      center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+      center: new kakao.maps.LatLng(37, 127), //지도의 중심좌표.
       level: 3, //지도의 레벨(확대, 축소 정도)
     };
     const map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴

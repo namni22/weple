@@ -18,5 +18,6 @@ public class Feed {
 	private String feedContent;
 	private String feedDate;
 	private List imageList;
-	private String deleteImg;
+	private String deleteImg; //피드이미지삭제번호
+	private String memberImage;//작성자 프로필이미지
 }
