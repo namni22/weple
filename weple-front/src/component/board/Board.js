@@ -3,6 +3,7 @@ import "./board.css";
 import { BoardAll } from "./BoardList";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import BoardModify from "./BoardModify";
 
 
 
@@ -21,7 +22,7 @@ const Board = (props) => {
       .then((res) => {
         console.log("getmember : " + res.data);
         setMember(res.data);
-        
+
       })
       .catch((res) => {
         console.log("fail get member : " + res.response.status);
@@ -35,7 +36,8 @@ const Board = (props) => {
     <div className="board-all-wrap">
       <div className="board-title"><h1>공지사항</h1></div>
       <Routes>
-        <Route path="*" element={<BoardAll member={member}/>}/>
+        <Route path="modify" element={<BoardModify />} />
+        <Route path="*" element={<BoardAll member={member} />} />
       </Routes>
     </div>
   );
