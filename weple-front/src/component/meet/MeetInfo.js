@@ -163,8 +163,7 @@ const MeetInfo = (props) => {
             })}
           </div>
         </div>
-        <div>{meetCaptain.memberId}</div>
-        <div>{loginMember.memberId}</div>
+
       </div>
       <div className="meetJoin-btn-zone">
         {/* 버튼이 보이는 조건: 로그인이 되어있고 / 아직 모임 가입을 하지 않는 경우 */}

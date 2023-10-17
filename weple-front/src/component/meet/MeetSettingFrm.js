@@ -510,31 +510,32 @@ const Postcode = (props) => {
                 document.getElementById("sample5_address").value = addr;
                 setMeetAddress1(addr);
                 console.log("검색 결과 : ", addr);
+                if (mapContainer) {
+                    // 주소로 상세 정보를 검색
+                    geocoder.addressSearch(data.address, function (results, status) {
+                        // 정상적으로 검색이 완료됐으면
+                        if (status === daum.maps.services.Status.OK) {
 
-                // 주소로 상세 정보를 검색
-                geocoder.addressSearch(data.address, function (results, status) {
-                    // 정상적으로 검색이 완료됐으면
-                    if (status === daum.maps.services.Status.OK) {
+                            var result = results[0]; //첫번째 결과의 값을 활용
 
-                        var result = results[0]; //첫번째 결과의 값을 활용
-
-                        // 해당 주소에 대한 좌표를 받아서
-                        var coords = new daum.maps.LatLng(result.y, result.x);
-                        // 지도를 보여준다.
-                        console.log("맵 컨테이너", mapContainer);
-                        mapContainer.style.display = "block";
-                        map.relayout();
-                        // 지도 중심을 변경한다.
-                        map.setCenter(coords);
-                        // 마커를 결과값으로 받은 위치로 옮긴다.
-                        marker.setPosition(coords)
-                        console.log("코더 : ", coords);
-                        console.log("코더 위도: ", coords.Ma);
-                        setMeetLatitude(coords.Ma);
-                        console.log("코더 경도 : ", coords.La);
-                        setMeetLongitude(coords.La)
-                    }
-                });
+                            // 해당 주소에 대한 좌표를 받아서
+                            var coords = new daum.maps.LatLng(result.y, result.x);
+                            // 지도를 보여준다.
+                            console.log("맵 컨테이너", mapContainer);
+                            mapContainer.style.display = "block";
+                            map.relayout();
+                            // 지도 중심을 변경한다.
+                            map.setCenter(coords);
+                            // 마커를 결과값으로 받은 위치로 옮긴다.
+                            marker.setPosition(coords)
+                            console.log("코더 : ", coords);
+                            console.log("코더 위도: ", coords.Ma);
+                            setMeetLatitude(coords.Ma);
+                            console.log("코더 경도 : ", coords.La);
+                            setMeetLongitude(coords.La)
+                        }
+                    });
+                }
             }
         }).open();
     }
