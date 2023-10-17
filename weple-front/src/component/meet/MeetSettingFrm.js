@@ -40,6 +40,7 @@ const MeetSettingFrm = (props) => {
     const setMeetThumbnailPreview = props.setMeetThumbnailPreview;
 
 
+
     // 준비물 리스트 추가용
     const meetPrepare = props.meetPrepare;
     const setMeetPrepare = props.setMeetPrepare;

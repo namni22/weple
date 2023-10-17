@@ -121,7 +121,7 @@ const MeetInfo = (props) => {
 
   //모임장이 모임수정 버튼 클릭시
   const meetModify = () => {
-    console.log("meetModyfy버튼 클릭시 meet : ", meet);
+    console.log("meetModyfy버튼 클릭시 전달되는 meet : ", meet);
     navigate("/meet/meetModify", { state: { meet: meet } });
   }
 
