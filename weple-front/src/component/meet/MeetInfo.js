@@ -168,21 +168,32 @@ const MeetInfo = (props) => {
       <div className="meetJoin-btn-zone">
         {/* 버튼이 보이는 조건: 로그인이 되어있고 / 아직 모임 가입을 하지 않는 경우 */}
         {isLogin ? (
-
-          isMeetMember ? ( //가입대기중이면?
-            // <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
-            // isMesetMember가 있을때"
-            isMeetMember.followerStatus === 1 ? ( //현재 가입이 승인되어있는가?
-              //현재 followerStatus == 1 일때
-              <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
+          meetCaptain && loginMember ? (//객체 가져와져있는지부터 확인
+            meetCaptain.memberNo === loginMember.memberNo ? (//로그인한 멤버가 모임장이라면?
+              <div>모임장이면 출력안함</div>
             ) : (
-              //현재 followerStatus == 0 일때
-              <div>가입승인 대기중</div> //div로 가입 승인대기중 띄워주기 또는 공백 처리
+              isMeetMember ? ( //객체 가져와져있는지부터 확인
+                // <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
+                // isMesetMember가 있을때"
+                isMeetMember.followerStatus === 1 ? ( //현재 가입이 승인되어있는가?
+                  //현재 followerStatus == 1 일때
+                  <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
+                ) : (
+                  //현재 followerStatus == 0 일때
+                  <div>가입승인 대기중</div> //div로 가입 승인대기중 띄워주기 또는 공백 처리
+                )
+              ) : (
+                //isMeetMember가 비어있을때
+                <div>
+                  <Button1 text="모임가입하기" clickEvent={meetJoin} />
+                  {meetCaptain.memberNo}
+                </div>
+              )
             )
-          ) : (
-            //isMeetMember가 비어있을때
-            <Button1 text="모임가입하기" clickEvent={meetJoin} />
-          )
+
+
+          ) : ("")
+
         ) : (
           "로그아웃 상태" //로그아웃 상태일때 공백
         )}
