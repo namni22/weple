@@ -56,5 +56,10 @@ public class AdminController {
 	public Map boardList(@PathVariable int reqPage) {
 		return adminService.boardList(reqPage);
 	}
+	//신고내역 리스트 조회
+	@GetMapping(value="/reportList/{reqPage}")
+	public Map reportList(@PathVariable int reqPage) {
+		return adminService.reportList(reqPage);
+	}
 	
 }

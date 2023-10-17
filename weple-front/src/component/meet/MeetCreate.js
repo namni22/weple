@@ -13,9 +13,9 @@ const MeetCreate = () => {
   const [meetCategory, setMeetCategory] = useState(0);
   const [meetAddress1, setMeetAddress1] = useState("");
   const [meetAddress2, setMeetAddress2] = useState("");
-  const [meetLatitude, setMeetLatitude] = useState(37.5642135);
-  const [meetLongitude, setMeetLongitude] = useState(127.0016985);
-  const [meetName, setMeetName] = useState("");
+  const [meetLatitude, setMeetLatitude] = useState(12);
+  const [meetLongitude, setMeetLongitude] = useState(124);
+  const [meetCaptain, setMeetCaptain] = useState("");
   // const [meetMaterials, setMeetMaterials] = useState("");
 
   //썸네일
@@ -31,6 +31,7 @@ const MeetCreate = () => {
     console.log("모임제목 : " + meetTitle);
     console.log("모임 날짜 : " + meetDate);
     console.log("모임한줄설명 : " + meetContentS);
+    console.log("모임디테일설명 : " + meetContentD);
     console.log("모임인원 :" + meetTotal);
     console.log("썸네일 : " + meetThumbnail);
     console.log("준비물 : " + meetPrepareList);
@@ -60,9 +61,10 @@ const MeetCreate = () => {
       form.append("meetCategory", meetCategory);
       form.append("meetAddress1", meetAddress1);
       form.append("meetAddress2", meetAddress2);
-      // form.append("meetLatitude", meetLatitude);
-      // form.append("meetLongitude", meetLongitude);
+      form.append("meetLatitude", meetLatitude);
+      form.append("meetLongitude", meetLongitude);
       //지도 추가자리
+      console.log("meetCreate form : ", form);
 
       // 토큰선언자리
       const token = window.localStorage.getItem("token");
@@ -120,7 +122,9 @@ const MeetCreate = () => {
         setMeetPrepareList={setMeetPrepareList}
         meetCategory={meetCategory}
         setMeetCategory={setMeetCategory}
+
         buttonEvent={meetCreateBtn}
+        type="create"
       />
     </div>
   );

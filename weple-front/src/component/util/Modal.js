@@ -1,5 +1,5 @@
 import ReactModal from "react-modal";
-import { Button2, Button3 } from "./Button";
+import { Button1, Button2, Button3 } from "./Button";
 import "./modal.css";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -202,6 +202,7 @@ const ReportModal = (props) => {
                       setReportedMember(changeMemberValue);
                     }}
                   ></input>
+                  <Button1 text={"확인"} />
 
                   <p>1.신고 타입이 회원일 경우: 신고할 회원 아이디</p>
                   <p>2.신고 타입이 모임일 경우: 모임장 회원 아이디</p>

@@ -60,6 +60,12 @@
 	<delete id="deleteFeed">
 		delete from feed where feed_no = #{feedNo}
 	</delete>
+	<insert id="insertLike">
+		insert into flike values(#{feedNo},#{memberNo})
+	</insert>
+	<delete id="deleteLike">
+		delete from flike where feed_no=#{feedNo} and member_no=#{memberNo}
+	</delete>
 	
 	<!-- 댓글 -->
 	<insert id="commentInsert">

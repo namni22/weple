@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -133,9 +134,16 @@ public class FeedController {
 	}
 	
 	//좋아요조회
-	@GetMapping(value="/like/{memberNo}/{feedNo}")
-	public List like(@PathVariable int memberNo,
-			@PathVariable int feedNo) {
-		return feedService.like(memberNo,feedNo);
+	@PostMapping(value="/like")
+	public int like(
+			@RequestBody Feed f,
+			@RequestAttribute String memberId) {
+		return feedService.like(memberId,f.getFeedNo());
+	}
+	//좋아요클릭이벤트
+	@PostMapping (value="/updateLike")
+	public int updateLike(@RequestBody Feed f,
+			@RequestAttribute String memberId) {
+		return feedService.updateLike(memberId,f.getFeedNo());
 	}
 }

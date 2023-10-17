@@ -63,6 +63,23 @@
 
 		)
 	</insert>
+	<!-- 모임수정 -->
+	<update id="modifyMeet">
+		update meet set
+		    MEET_CATEGORY = #{meetCategory},
+		    meet_title = #{meetTitle},
+		    MEET_THUMBNAIL = #{meetThumbNail},
+		    MEET_DATE = #{meetDate},
+		    MEET_ADDRESS1 = #{meetAddress1},
+		    MEET_ADDRESS2 = #{meetAddress2},
+		    MEET_LATITUDE = #{meetLatitude},
+		    MEET_LONGITUDE = #{meetLongitude},
+		    MEET_TOTAL = #{meetTotal},
+		    MEET_CONTENT_S = #{meetContentS},
+		    MEET_CONTENT_D = #{meetContentD},
+		    MEET_PREPARE = #{meetPrepare}
+		where meet_no = #{meetNo}
+	</update>
 	<!-- 모임 카테고리 메뉴 조회 -->
 	<select id="smallCategoryList" resultType="category">
 		select * from category where CATEGORY_REF_NO=#{categoryNo}
@@ -225,7 +242,7 @@
 	        MEMBER_IMAGE
 	    FROM CHAT
 	    JOIN MEMBER USING(MEMBER_ID)
-	    WHERE MEET_NO = 12)C where rownum <![CDATA[<=]]>1 order by 1 desc
+	    WHERE MEET_NO = #{meetNo})C where rownum <![CDATA[<=]]>1 order by 1 desc
 		
 	</select>
 	
