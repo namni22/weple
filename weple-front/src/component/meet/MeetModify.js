@@ -41,6 +41,7 @@ const MeetModify = () => {
     //수정완료 버튼 눌럿을때 동작할 함수
     const meetModifyBtn = () => {
         console.log("수정완료버튼 눌럿을때");
+        console.log("모임번호 : " + meet.meetNo);
         console.log("모임제목 : " + meetTitle);
         console.log("모임 날짜 : " + meetDate);
         console.log("모임한줄설명 : " + meetContentS);
@@ -62,6 +63,7 @@ const MeetModify = () => {
             meetAddress1 !== ""
         ) {
             const form = new FormData();
+            form.append("meetNo", meet.meetNo);
             form.append("meetTitle", meetTitle);
             form.append("meetDate", meetDate);
             form.append("meetContentS", meetContentS);

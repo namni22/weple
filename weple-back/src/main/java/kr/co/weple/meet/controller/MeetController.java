@@ -132,7 +132,9 @@ public class MeetController {
 		System.out.println("수정 썸네일 : "+meetThumbnail);
 		System.out.println("수정 멤버아이디 : "+memberId);
 		
-		return 0;
+		int result = meetService.modifyMeet(meet);
+		
+		return result;
 	}
 	
 	//모임생성 에디터 사진 추가

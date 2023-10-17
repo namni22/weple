@@ -66,7 +66,7 @@ const MeetSettingFrm = (props) => {
         axios
             .get("/meet/selectSmallCategory/" + bigCategoryNo)
             .then((res) => {
-                // console.log(res.data);
+                console.log(res.data);
                 setSmallCategoryList(res.data);
             })
             .catch((res) => {

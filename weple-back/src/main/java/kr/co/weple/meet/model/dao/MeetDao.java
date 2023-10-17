@@ -75,6 +75,8 @@ public interface MeetDao {
 	Follower status(int meetNo, int selectMemberNo);
 
 	Meet meetCapCheck(int meetNo, String memberId);
+
+	int modifyMeet(Meet meet);
 	
 
 
