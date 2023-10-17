@@ -38,4 +38,8 @@ public interface FeedDao {
 
 	List like(int memberNo, int feedNo);
 
+	int deleteLike(int memberNo, int feedNo);
+
+	int insertLike(int memberNo, int feedNo);
+
 }

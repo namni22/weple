@@ -75,4 +75,12 @@ public class BoardService {
 		return b;
 	}
 
+	@Transactional
+	public int modify(Board b) {
+		
+		int result = boardDao.modify(b);
+		return result;
+		
+	}
+
 }

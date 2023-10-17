@@ -90,6 +90,17 @@ public class AdminService {
 			map.put("pi", pi);
 			return map;
 		}
+		public Map reportList(int reqPage) {
+			int totalCount = adminDao.reportListCount();
+			int numPerPage = 10;
+			int pageNaviSize = 5;
+			PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
+			List reportList = adminDao.reportList(pi);
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("list", reportList);
+			map.put("pi", pi);
+			return map;
+		}
 		
 		
 }

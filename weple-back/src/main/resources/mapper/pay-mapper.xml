@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "kr.co.weple.pay.model.dao.PayDao">
+	<insert id="paySuccess">
+	insert into pay values(pay_seq.nextval, #{memberNo}, #{payCount}, #{payPrice}, #{payDate})
+	</insert>
+	<update id="meetCountUp">
+	update member set member_meet = member_meet+#{payCount} where member_no = #{memberNo}
+	</update>
+</mapper>

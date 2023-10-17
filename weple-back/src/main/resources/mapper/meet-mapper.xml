@@ -225,7 +225,7 @@
 	        MEMBER_IMAGE
 	    FROM CHAT
 	    JOIN MEMBER USING(MEMBER_ID)
-	    WHERE MEET_NO = 12)C where rownum <![CDATA[<=]]>1 order by 1 desc
+	    WHERE MEET_NO = #{meetNo})C where rownum <![CDATA[<=]]>1 order by 1 desc
 		
 	</select>
 	

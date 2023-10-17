@@ -18,13 +18,10 @@ const EnrollMeetMember = (props) => {
     axios
       .get("/meet/enrollMember/" + reqPage + "?meetNo=" + myMeet.meetNo)
       .then((res) => {
-        console.log(res.data);
         setEnrollMember(res.data.enrollMemberList);
         setPageInfo(res.data.pi);
       })
-      .catch((res) => {
-        console.log(res.response.status);
-      });
+      .catch((res) => {});
   }, []);
   return (
     <div>
@@ -66,15 +63,12 @@ const EnrollItem = (props) => {
     axios
       .post("/meet/updateEnrollMember", enroll)
       .then((res) => {
-        console.log(res.data);
         const newArr = enrollMember.filter((newEnrollMember) => {
           return newEnrollMember.memberNo !== enroll.memberNo;
         });
         setEnrollMember(newArr);
       })
-      .catch((res) => {
-        console.log(res.response.data);
-      });
+      .catch((res) => {});
   };
   return (
     <table className="meetMemberList-wrap">

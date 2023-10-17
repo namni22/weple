@@ -1,6 +1,7 @@
 package kr.co.weple.board.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.co.weple.FileUtil;
 import kr.co.weple.board.model.service.BoardService;
 import kr.co.weple.board.model.vo.Board;
+
 
 
 @RestController
@@ -59,5 +61,17 @@ public class BoardController {
 	@GetMapping(value="/view/{boardNo}")
 	public Board view(@PathVariable int boardNo) {
 		return boardService.selectOneBoard(boardNo);
+	}
+	//게시판 수정
+	@PostMapping(value="/modfiy")
+	public int modify(@ModelAttribute Board b) {
+		System.out.println("boardModify");
+		int result = boardService.modify(b);
+		if(result > 0) {
+			return 1;
+		}else {
+			
+			return 0;
+		}
 	}
 }

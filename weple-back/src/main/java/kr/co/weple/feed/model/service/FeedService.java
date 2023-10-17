@@ -14,11 +14,15 @@ import kr.co.weple.feed.model.vo.FComment;
 import kr.co.weple.feed.model.vo.FImage;
 import kr.co.weple.feed.model.vo.FLike;
 import kr.co.weple.feed.model.vo.Feed;
+import kr.co.weple.member.model.dao.MemberDao;
+import kr.co.weple.member.model.vo.Member;
 
 @Service
 public class FeedService {
 	@Autowired
 	private FeedDao feedDao;
+	@Autowired
+	private MemberDao memberDao;
 	
 	//피드작성
 	@Transactional
@@ -50,13 +54,9 @@ public class FeedService {
 		System.out.println(f);
 		//삭제파일 DB처리
 		if(!f.getDeleteImg().equals("")) {
-			System.out.println("gg : "+f.getDeleteImg());
 			deleteImg = f.getDeleteImg().split("/");
-			System.out.println(deleteImg);
 			delImageList = feedDao.selectFeedFile(deleteImg);
-			System.out.println(delImageList);
 			result += feedDao.deleteFeedFile(deleteImg);
-			System.out.println("result : "+result);
 		}
 		//추가한파일 처리
 		for(FImage fi : imageList) {
@@ -94,13 +94,35 @@ public class FeedService {
 	}
 
 	//댓글삭제
+	@Transactional
 	public int deleteComment(int fCommentNo) {
 		return feedDao.deleteComment(fCommentNo);
 	}
 
 	//좋아요조회
-	public List like(int memberNo, int feedNo) {
-		return feedDao.like(memberNo,feedNo);
+	public int like(String memberId, int feedNo) {
+		Member m = memberDao.selectOneMember(memberId);
+		List list = feedDao.like(m.getMemberNo(),feedNo);
+		if(list.size()!=0) {
+			return 1;
+		}
+		return 0;
+	}
+
+	//좋아요 클릭이벤트
+	@Transactional
+	public int updateLike(String memberId, int feedNo) {
+		Member m = memberDao.selectOneMember(memberId);
+		List list = feedDao.like(m.getMemberNo(),feedNo);
+		if(list.size()==0) {
+			return feedDao.insertLike(m.getMemberNo(),feedNo);
+		}else {
+			int result = feedDao.deleteLike(m.getMemberNo(),feedNo);
+			if(result>0) {				
+				return 2;
+			}
+		}
+		return 0;
 	}
 	
 }
