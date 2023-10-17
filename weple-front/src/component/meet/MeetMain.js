@@ -6,6 +6,7 @@ import { MeetList } from "./MeetList";
 import { useState } from "react";
 import Category from "../common/Category";
 import MeetView from "./MeetView";
+import MeetModify from "./MeetModify";
 
 const MeetMain = (props) => {
   const isLogin = props.isLogin;
@@ -23,6 +24,7 @@ const MeetMain = (props) => {
         <Route path="category" element={<Category />} />
         <Route path="meetSettingFrm" element={<MeetSettingFrm />} />
         <Route path="meetCreate" element={<MeetCreate />}></Route>
+        <Route path="meetModify" element={<MeetModify />} ></Route>
         <Route
           path="meetList/view/*"
           element={
