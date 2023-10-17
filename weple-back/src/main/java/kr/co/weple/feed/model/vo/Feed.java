@@ -21,4 +21,5 @@ public class Feed {
 	private String deleteImg; //피드이미지삭제번호
 	private String memberImage;//작성자 프로필이미지
 	private int totalLike;//좋아요개수
+	private int totalComment;//댓글개수
 }

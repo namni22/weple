@@ -19,4 +19,5 @@ public class FComment {
 	private int fCommentRefNo;
 	private Object crnNo;
 	private String memberImage;
+	private int totalCommentLike;
 }

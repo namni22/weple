@@ -90,6 +90,7 @@ const FeedComment = (props) => {
                       load={load}
                       setLoad={setLoad}
                       memberId={memberId}
+                      feedNo={feedNo}
                     />
                     <div className="feed-comment-re-wrap">
                       {commentList.map((reComment, index) => {
@@ -106,6 +107,7 @@ const FeedComment = (props) => {
                                 load={load}
                                 setLoad={setLoad}
                                 memberId={memberId}
+                                type="reCmt"
                               />
                             ) : (
                               ""
@@ -155,6 +157,58 @@ const CommentList = (props) => {
   const setRcmId = props.setRcmId;
   const load = props.load;
   const setLoad = props.setLoad;
+  const type = props.type;
+
+  //좋아요내역 불러오기
+  const [userLike, setUserLike] = useState();
+  const fcommentNo = comment.fcommentNo;
+  const fc = { fcommentNo };
+  const token = window.localStorage.getItem("token");
+  useEffect(() => {
+    if (isLogin) {
+      axios
+        .post("/feed/commentLike", fc, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          setUserLike(res.data);
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    }
+  }, []);
+  //좋아요클릭이벤트
+  const likeEvent = () => {
+    if (isLogin) {
+      axios
+        .post("/feed/updateCommentLike", fc, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          if (res.data == 1) {
+            setUserLike(res.data);
+            setLoad(load + 1);
+          } else if (res.data == 2) {
+            setUserLike(0);
+            setLoad(load + 1);
+          }
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    } else {
+      Swal.fire({
+        icon: "error",
+        text: "로그인이 필요한 기능입니다",
+        confirmButtonText: "확인",
+      });
+    }
+  };
 
   const deleteComment = () => {
     Swal.fire({
@@ -211,11 +265,25 @@ const CommentList = (props) => {
               <span className="feed-comment-text">
                 {comment.fcommentContent}
               </span>
-              <span className="material-icons-outlined">favorite_border</span>
+              {userLike === 1 ? (
+                <span className="material-icons-outlined" onClick={likeEvent}>
+                  favorite
+                </span>
+              ) : (
+                <span className="material-icons-outlined" onClick={likeEvent}>
+                  favorite_border
+                </span>
+              )}
             </div>
             <div className="comment-click-btn">
-              <div>좋아요 0개</div>
-              {isLogin ? <div onClick={reComemtEvent}>답글달기</div> : ""}
+              <div>
+                좋아요 <span>{comment.totalCommentLike}</span>개
+              </div>
+              {isLogin && type !== "reCmt" ? (
+                <div onClick={reComemtEvent}>답글달기</div>
+              ) : (
+                ""
+              )}
               {isLogin && memberId == comment.fcommentWriter ? (
                 <div onClick={deleteComment}>삭제</div>
               ) : (

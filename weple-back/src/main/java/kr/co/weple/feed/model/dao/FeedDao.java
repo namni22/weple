@@ -42,4 +42,10 @@ public interface FeedDao {
 
 	int insertLike(int memberNo, int feedNo);
 
+	List commentLike(int memberNo, int fCommentNo);
+
+	int commentInsertLike(int memberNo, int fCommentNo);
+
+	int commentDeleteLike(int memberNo, int fCommentNo);
+
 }
