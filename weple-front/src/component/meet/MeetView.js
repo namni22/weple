@@ -17,7 +17,7 @@ const MeetView = (props) => {
   const location = useLocation();
   const [myMeet, setMyMeet] = useState({});
   const meetNo = myMeet.meetNo;
-  console.log("모임 번호 ", meetNo);
+
   const token = window.localStorage.getItem("token");
   const [followerStatus, setFollowerStatus] = useState({});
 

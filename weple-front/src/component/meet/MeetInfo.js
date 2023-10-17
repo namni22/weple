@@ -23,7 +23,7 @@ const MeetInfo = (props) => {
   // console.log("모임", meet);
   const [meetPrepareList, setMeetPrepareList] = useState([]);
 
-  console.log("모임", meet);
+
   useEffect(() => {
     setMeet(props.myMeet);
     if (props.myMeet.meetPrepare) {
@@ -119,6 +119,12 @@ const MeetInfo = (props) => {
     });
   };
 
+  //모임장이 모임수정 버튼 클릭시
+  const meetModify = () => {
+    console.log("meetModyfy버튼 클릭시 meet : ", meet);
+    navigate("/meet/meetModify", { state: { meet: meet } });
+  }
+
   return (
     <div className="meetInfo-all-wrap">
       <Review
@@ -174,7 +180,7 @@ const MeetInfo = (props) => {
         {isLogin ? (
           meetCaptain && loginMember ? (//객체 가져와져있는지부터 확인
             meetCaptain.memberNo === loginMember.memberNo ? (//로그인한 멤버가 모임장이라면?
-              <div>모임장이면 출력안함</div>
+              <div onClick={meetModify}>모임장이면 출력안함</div>
             ) : (
               isMeetMember ? ( //객체 가져와져있는지부터 확인
                 // <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
@@ -207,7 +213,7 @@ const MeetInfo = (props) => {
 
 const { kakao } = window;
 const Kakao = (props) => {
-  console.log("props : ", props);
+
   const meetLatitude = props.meetLatitude;
   const meetLongitude = props.meetLongitude;
   console.log("카카오맵 위도 : ", meetLatitude);
