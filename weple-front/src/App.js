@@ -23,13 +23,11 @@ function App() {
     if (token === null) {
       setIsLogin(false);
       setId("");
-      console.log("id : ", id);
     } else {
       setIsLogin(true);
-      console.log("id : ", id);
     }
   }, []);
-  console.log("app", setIsLogin);
+
   return (
     <div className="weple-wrap">
       <Header isLogin={isLogin} setIsLogin={setIsLogin} setId={setId} />

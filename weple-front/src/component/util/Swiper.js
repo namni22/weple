@@ -24,6 +24,7 @@ const SwiperComponent = (props) => {
   const deleteImg = props.deleteImg;
   const setDeleteImg = props.setDeleteImg;
   const fimageNoList = props.fimageNoList;
+  const type = props.type;
 
   return (
     <Swiper
@@ -48,6 +49,7 @@ const SwiperComponent = (props) => {
               deleteImg={deleteImg}
               setDeleteImg={setDeleteImg}
               fimageNoList={fimageNoList}
+              type={type}
             />
           </SwiperSlide>
         );
@@ -67,9 +69,10 @@ const ImgBox = (props) => {
   const deleteImg = props.deleteImg;
   const setDeleteImg = props.setDeleteImg;
   const fimageNoList = props.fimageNoList;
+  const type = props.type;
 
   const deleteImgFile = () => {
-    if (fimageNoList.length !== 0) {
+    if (type === "modify") {
       const delArr = [...deleteImg];
       delArr.push(fimageNoList[index].fimageNo);
       setDeleteImg([...delArr]);

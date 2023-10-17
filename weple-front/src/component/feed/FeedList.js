@@ -12,7 +12,6 @@ const FeedList = (props) => {
   const [feedList, setFeedList] = useState([]);
   const [start, setStart] = useState(1);
   const isLogin = props.isLogin;
-  const id = props.id;
 
   const amount = 9;
   useEffect(() => {
@@ -53,12 +52,7 @@ const FeedList = (props) => {
       <div className="feed-list-content-wrap">
         {feedList.map((feed, index) => {
           return (
-            <FeedContent
-              key={"feed" + index}
-              feed={feed}
-              isLogin={isLogin}
-              id={id}
-            />
+            <FeedContent key={"feed" + index} feed={feed} isLogin={isLogin} />
           );
         })}
       </div>
@@ -72,47 +66,63 @@ const FeedList = (props) => {
 const FeedContent = (props) => {
   const feed = props.feed;
   const isLogin = props.isLogin;
-  const id = props.id;
   const navigate = useNavigate();
   const list = feed.imageList.map((img, index) => {
     return <img src={"/feed/" + img.fimageName} />;
   });
   const [isOpen, setIsOpen] = useState(false);
   const [memberNo, setMemberNo] = useState();
-  const [userLike, setUserLike] = useState(0);
+  const [userLike, setUserLike] = useState();
+  const [rcmId, setRcmId] = useState(""); //답글남길 아이디 띄우기
+  const [fCommentRefNo, setFCommentRefNo] = useState(null);
   const token = window.localStorage.getItem("token");
 
   //좋아요내역 불러오기
+  const feedNo = feed.feedNo;
+  const f = { feedNo };
   useEffect(() => {
     if (isLogin) {
       axios
-        .post("/member/getMember", null, {
+        .post("/feed/like", f, {
           headers: {
             Authorization: "Bearer " + token,
           },
         })
         .then((res) => {
-          setMemberNo(res.data.memberNo);
-          axios
-            .get("/feed/like/" + res.data.memberNo + "/" + feed.feedNo)
-            .then((res) => {
-              if (res.data !== null) {
-                setUserLike(1);
-                console.log(res.data);
-              } else {
-                setUserLike(0);
-                console.log(res.data);
-              }
-            })
-            .catch((res) => {
-              console.log(res.response.status);
-            });
+          setUserLike(res.data);
         })
         .catch((res) => {
           console.log(res.response.status);
         });
     }
   }, []);
+  //좋아요클릭이벤트
+  const likeEvent = () => {
+    if (isLogin) {
+      axios
+        .post("/feed/updateLike", f, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          if (res.data == 1) {
+            setUserLike(res.data);
+          } else if (res.data == 2) {
+            setUserLike(0);
+          }
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    } else {
+      Swal.fire({
+        icon: "error",
+        text: "로그인이 필요한 기능입니다",
+        confirmButtonText: "확인",
+      });
+    }
+  };
 
   //more버튼모달
   const moreModal = () => {
@@ -162,14 +172,16 @@ const FeedContent = (props) => {
   const modifyEvent = () => {
     navigate("/feed/modify", { state: { feed: feed } });
   };
-  //댓글
   const [cmtIsOpen, setCmtIsOpen] = useState(false);
   const comment = () => {
     setCmtIsOpen(true);
+    setRcmId("");
+    setFCommentRefNo(null);
   };
   const closeComent = () => {
     setCmtIsOpen(false);
   };
+
   return (
     <div className="feed-list-content">
       <div className="feed-list-top">
@@ -204,10 +216,14 @@ const FeedContent = (props) => {
       </div>
       <div className="feed-list-content-btn">
         <div>
-          {userLike == 1 ? (
-            <span className="material-icons-outlined">favorite</span>
+          {userLike === 1 ? (
+            <span className="material-icons-outlined" onClick={likeEvent}>
+              favorite
+            </span>
           ) : (
-            <span className="material-icons-outlined">favorite_border</span>
+            <span className="material-icons-outlined" onClick={likeEvent}>
+              favorite_border
+            </span>
           )}
           <span>0</span>
         </div>
@@ -226,13 +242,16 @@ const FeedContent = (props) => {
         isLogin={isLogin}
         feedWriter={feed.feedWriter}
         deleteEvent={deleteEvent}
-        id={id}
       />
       <FeedComment
         isOpen={cmtIsOpen}
         closeComent={closeComent}
         isLogin={isLogin}
         feedNo={props.feed.feedNo}
+        fCommentRefNo={fCommentRefNo}
+        setFCommentRefNo={setFCommentRefNo}
+        rcmId={rcmId}
+        setRcmId={setRcmId}
       />
     </div>
   );

@@ -86,31 +86,65 @@
 .tab-menu {
     margin-top: 50px;
     width: 600px;
-  }
-  .tab-menu > ul {
+}
+
+.tab-menu>ul {
     list-style-type: none;
     box-sizing: border-box;
     padding-bottom: 30px;
     margin: 0;
     overflow: hidden;
 
-  }
-  .tab-menu > ul > li > a {
+}
+
+.tab-menu>ul>li>a {
     float: left;
     display: block;
-    padding: 10px;    
+    padding: 10px;
     font-family: ns-b;
     /* position: relative; */
     font-size: 15px;
-  }
-  .tab-menu > ul > li > a > span {
+}
+
+.tab-menu>ul>li>a>span {
     /* position: absolute; */
     right: 0;
-  }
-  .tab-menu > ul > li > a.active-side {
+}
+
+.tab-menu>ul>li>a.active-side {
     font-weight: 900;
     color: #5d8bf4;
-  }
-  .tab-menu > ul > li > a.active-side > span {
+}
+
+.tab-menu>ul>li>a.active-side>span {
     color: #fff;
-  }
+}
+
+/* 공지사항 수정 */
+.board-btn-box {
+    text-align: center;
+}
+
+.board-btn-box>div {
+    width: 30%;
+    display: inline-block;
+    margin: 50px 0;
+}
+
+.board-btn-box>div:first-child {
+    margin-right: 30px;
+}
+
+
+.board-frm-wrap {
+    width: 900px;
+}
+
+.board-content-box .ql-container {
+    height: 400px;
+
+}
+
+.board-content-box {
+    margin: 10px 0px;
+}
