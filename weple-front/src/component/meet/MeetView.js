@@ -34,6 +34,21 @@ const MeetView = (props) => {
     .catch((res) => {
       console.log(res.response.status);
     });
+
+  console.log("전달받은 로케이션 m ", meetNo);
+  // const [meet, setMeet] = useState({});
+  // 사용안함!!!!!!!!!!!!!!
+  // useEffect(() => {
+  //   axios
+  //     .get("/meet/selectOneMeet/" + meetNo)
+  //     .then((res) => {
+  //       setMyMeet(res.data);
+  //     })
+  //     .catch((res) => {
+  //       console.log("catch : " + res.response.status);
+  //     });
+  // }, []);
+
   //모임장 id 전송 이후 DB에서 모임장 정보 불러오기
   const [meetCaptain, setMeetCaptain] = useState({});
   useEffect(() => {
@@ -135,7 +150,13 @@ const MeetView = (props) => {
         />
         <Route
           path="*"
-          element={<MeetInfo myMeet={myMeet} isLogin={isLogin} />}
+          element={
+            <MeetInfo
+              myMeet={myMeet}
+              isLogin={isLogin}
+              meetCaptain={meetCaptain}
+            />
+          }
         />
       </Routes>
     </div>

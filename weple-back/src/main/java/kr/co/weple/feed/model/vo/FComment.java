@@ -18,4 +18,5 @@ public class FComment {
 	private String fCommentWriter;
 	private int fCommentRefNo;
 	private Object crnNo;
+	private String memberImage;
 }

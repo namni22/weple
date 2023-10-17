@@ -46,7 +46,7 @@ const Header = (props) => {
           </div>
           {isLogin ? (
             <div className="icon-wrap">
-              <Link to="/mypage">
+              <Link to="/mypage/profile/myFeed">
                 <div className="material-icons mypage">contact_page</div>
                 <div className="icon-explain">마이</div>
               </Link>

@@ -27,7 +27,7 @@ public class JwtConfig {
 				.csrf().disable().cors()		
 				.and()							
 				.authorizeHttpRequests()		
-				.antMatchers(HttpMethod.POST,"/member/login","/member/join").permitAll() 
+				.antMatchers(HttpMethod.POST,"/member/login","/member/join","/member/findId").permitAll() 
 				.antMatchers(HttpMethod.POST,"/member/**","/board/insert","/board/contentImg","/meet/chat").authenticated()
 				.and()
 				.sessionManagement()			

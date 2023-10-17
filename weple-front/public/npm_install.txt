@@ -19,7 +19,6 @@ npm i react-modal
 npm i @types/react-modal
 
 2023-10-16
-npm install react-daum-postcode
 npm install react-kakao-maps-sdk
 
 2023-10-17

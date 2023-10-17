@@ -138,4 +138,16 @@ public class MemberController {
 		return memberService.myFeedList(start, end, memberId);
 	}
 	
+	// 아이디 찾기
+	@PostMapping(value="/findId")
+	public String findId(@RequestBody Member member) {
+		Member m = memberService.findId(member);
+		if(m == null) {
+			return "not found";
+		}else {
+			return m.getMemberId();
+		}
+	}
+	
+	
 }
