@@ -41,7 +41,7 @@ const MeetInfo = (props) => {
           console.log(res.data);
           setLoginMember(res.data);
         })
-        .catch((res) => {});
+        .catch((res) => { });
 
       //로그인이 되어있다면 로그인멤버가 모임멤버인지 조회해오기
       //모임멤버라면 해당 follower 리턴 아직 멤버가 아니라면 null 리턴
@@ -137,7 +137,10 @@ const MeetInfo = (props) => {
         <div className="meetInfo-content-area meetInfo-meetAddr-wrap">
           <div className="meetInfo-content-title">모임 장소</div>
           <div className="">
-            <Kakao />
+            <Kakao
+              meetLatitude={meet.meetLatitude}
+              meetLongitude={meet.meetLongitude}
+            />
             <div>
               <div className="meetInfo-meetAddress1">{meet.meetAddress1}</div>
               <div className="meetInfo-meetAddress2">{meet.meetAddress2}</div>
@@ -186,12 +189,17 @@ const MeetInfo = (props) => {
 };
 
 const { kakao } = window;
-const Kakao = () => {
+const Kakao = (props) => {
+  console.log("props : ", props);
+  const meetLatitude = props.meetLatitude;
+  const meetLongitude = props.meetLongitude;
+  console.log("카카오맵 위도 : ", meetLatitude);
+  console.log("카카오맵 경도 : ", meetLongitude);
   useEffect(() => {
     const container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
     const options = {
       //지도를 생성할 때 필요한 기본 옵션
-      center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+      center: new kakao.maps.LatLng(37, 127), //지도의 중심좌표.
       level: 3, //지도의 레벨(확대, 축소 정도)
     };
     const map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
