@@ -58,4 +58,10 @@
 		JOIN MEMBER ON (BOARD_WRITER = MEMBER_ID)
 		where board_no = #{boardNo}
 	</select>
+	<update id="modify">
+		update board set 
+			board_title = #{boardTitle},
+			board_Content = #{boardContent}
+		where board_no = #{boardNo}
+	</update>
 </mapper>

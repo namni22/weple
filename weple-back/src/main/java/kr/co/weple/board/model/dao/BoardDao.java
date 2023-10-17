@@ -19,5 +19,7 @@ public interface BoardDao {
 	Board selectOneBoard(int boardNo);
 
 	int totalCountByBoardType(int boardType);
+
+	int modify(Board b);
 	
 }
