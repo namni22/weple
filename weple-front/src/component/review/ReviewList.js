@@ -1,9 +1,9 @@
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./reviewList.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Button1 } from "../util/Button";
-import ReviewWrite from "./ReviewWrite";
+
 const starRating = () => {
   const result = [];
   for (let i = 0; i < 5; i++) {

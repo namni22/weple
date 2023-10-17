@@ -14,13 +14,13 @@ const SwiperComponent = (props) => {
   const spaceBetween = props.spaceBetween;
   const slidesPerView = props.slidesPerView;
   const navigation = props.navigation;
-  const list = props.list; //src속성값 배열
+  const list = props.list;
   const autoplay = props.autoplay;
   const loop = props.loop;
   const setFeedBox = props.setFeedBox;
   const fImage = props.fImage;
   const setFImage = props.setFImage;
-  const delButton = props.delButton; //삭제버튼 생성 ture/false
+  const delButton = props.delButton; //삭제버튼 생성 true/false
   const deleteImg = props.deleteImg;
   const setDeleteImg = props.setDeleteImg;
   const fimageNoList = props.fimageNoList;

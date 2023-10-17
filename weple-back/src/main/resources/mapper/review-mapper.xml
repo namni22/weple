@@ -4,4 +4,13 @@
 	<select id="reviewList" resultType="review">
 		select * from review where meet_no= #{meetNo} order by 4 desc
 	</select>
+	<insert id="insertReview">
+		insert into review values(review_seq.nextval,#{reviewContent},5, to_char(sysdate,'yyyy.mm.dd'),#{memberId},#{meetNo})
+		<selectKey resultType="int" keyProperty="reviewNo" order="AFTER">
+	 		select max(review_no) from review
+	 	</selectKey>
+	</insert>
+	<insert id="insertRImage">
+		insert into rimage values (rimage_seq.nextval,#{reviewNo},#{rImageName})
+	</insert>
 </mapper>
