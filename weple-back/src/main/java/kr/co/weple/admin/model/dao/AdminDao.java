@@ -33,5 +33,9 @@ public interface AdminDao {
 
 	List boardList(PageInfo pi);
 
+	int reportListCount();
+
+	List reportList(PageInfo pi);
+
 	
 }

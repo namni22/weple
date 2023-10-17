@@ -4,15 +4,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Pagination from "../common/Pagination";
-const AdminReport = (props) => {
-
+const AdminReport = () => {
 
   const [reportList, setReportList] = useState([]);
   const [pageInfo, setPageInfo] = useState({});
   const [reqPage, setReqPage] = useState(1);
   // const handleChange = (event) => {
   //   const obj = { reportNo: report.reportNo, reportType: event.target.value };
-
   // }
   useEffect(() => {
     axios
@@ -70,6 +68,7 @@ const AdminReport = (props) => {
 };
 const ReportItem = (props) => {
   const report = props.report;
+
   const [reportType, setReportType] = useState(report.reportType);
   console.log("신고번호 : " + report.reportNo);
   console.log("신고타입" + report.reportType);
@@ -81,10 +80,8 @@ const ReportItem = (props) => {
     <tr>
       <td>{report.reportType}</td>
       <td>{report.reportedMember}</td>
-      <td></td>
-      <td>
-
-      </td>
+      <td>{report.reportCategoryContent}</td>
+      <td>{report.reportStatus}</td>
     </tr>
   );
 }
