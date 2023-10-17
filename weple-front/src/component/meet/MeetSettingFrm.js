@@ -386,7 +386,7 @@ const MeetSettingFrm = (props) => {
                             {meetPrepareList && meetPrepareList.map((meetPrepare, index) => {
                                 return (
                                     <div key={"meetPrepare" + index} className="meetMaterials-one">
-                                        <span class="material-icons ">{meetPrepare}</span>
+                                        <span>{meetPrepare}</span>
                                         <span
                                             class="material-icons delete-meetPrepare"
                                             onClick={() => {
