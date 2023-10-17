@@ -60,8 +60,8 @@ const MeetCreate = () => {
       form.append("meetCategory", meetCategory);
       form.append("meetAddress1", meetAddress1);
       form.append("meetAddress2", meetAddress2);
-      form.append("meetLatitude", meetLatitude);
-      form.append("meetLongitude", meetLongitude);
+      // form.append("meetLatitude", meetLatitude);
+      // form.append("meetLongitude", meetLongitude);
       //지도 추가자리
 
       // 토큰선언자리

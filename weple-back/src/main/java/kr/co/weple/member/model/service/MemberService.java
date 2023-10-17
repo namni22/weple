@@ -118,6 +118,11 @@ public class MemberService {
 		return null;
 	}
 
+	public Member findId(Member member) {
+		Member m = memberDao.findId(member);
+		return m;
+	}
+
 
 
 	

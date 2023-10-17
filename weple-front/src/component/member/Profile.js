@@ -88,14 +88,7 @@ const Profile = (props) => {
         </div>
       </div>
       <div className="profile-tab-menu">
-        <ul>
-          <li>
-            <Link to="myFeed">피드</Link>
-          </li>
-          <li>
-            <Link to="myMeet">모임</Link>
-          </li>
-        </ul>
+        <ProfileTab />
       </div>
 
       <div className="profile-tab-menu-content">
@@ -109,4 +102,35 @@ const Profile = (props) => {
     </div>
   );
 };
+
+const ProfileTab = () => {
+  // Tab Menu 중 현재 어떤 Tab이 선택되어 있는지 확인하기 위한 currentTab 상태와 currentTab을 갱신하는 함수가 존재해야 하고, 초기값은 0.
+  const [currentTab, setCurrentTab] = useState(0);
+  const tabArr = [
+    { name: "피드", content: "myFeed" },
+    { name: "모임", content: "myMeet" },
+  ];
+
+  const selectMenuHandler = (index) => {
+    // 해당 함수가 실행되면 현재 선택된 Tab Menu 가 갱신.
+    setCurrentTab(index);
+  };
+
+  return (
+    <ul>
+      {tabArr.map((tab, index) => {
+        return (
+          <li
+            key={"tab" + index}
+            className={index === currentTab ? "tabMenu clicked" : "tabMenu"}
+            onClick={() => selectMenuHandler(index)}
+          >
+            <Link to={tab.content}>{tab.name}</Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
+
 export default Profile;

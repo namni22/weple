@@ -16,6 +16,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Mypage from "./component/member/Mypage";
 import ReviewList from "./component/review/ReviewList";
+import FindId from "./component/member/FindId";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -62,6 +63,7 @@ function App() {
             path="/login"
             element={<Login setIsLogin={setIsLogin} setId={setId} />}
           />
+          <Route path="/findId" element={<FindId />} />
           {/* <Route path="/category" element={<Category />} /> */}
           <Route path="/review/*" element={<ReviewList />} />
           <Route path="*" element={<Main />} />

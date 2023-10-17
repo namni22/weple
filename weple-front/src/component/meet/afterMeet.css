@@ -397,9 +397,7 @@ input[type="date"] {
 .meetChat-textEditor {
   background-color: #fff;
 }
-.meetChat-chat-wrap {
-  overflow: hidden;
-}
+
 .meetChat-chat-wrap > ul {
   overflow: hidden;
   padding: 20px;

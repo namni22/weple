@@ -239,4 +239,13 @@
 	<delete id="removeCalendar">
 		delete from calendar where cal_no=#{calNo}
 	</delete>
+	<select id="selectMemberNo" resultType="int">
+		SELECT MEMBER_NO FROM MEMBER WHERE MEMBER_ID = #{memberId}
+	</select>
+	<select id="status" resultType="follower">
+		SELECT FOLLOWER_STATUS FROM FOLLOWER WHERE MEET_NO=#{meetNo} AND MEMBER_NO=#{selectMemberNo}
+	</select>
+	<select id="meetCapCheck" resultType="meet">
+		SELECT * FROM MEET WHERE MEET_CAPTAIN = #{memberId} AND MEET_NO=#{meetNo}
+	</select>
 </mapper>
