@@ -68,7 +68,7 @@ const Login = (props) => {
       <div className="login-search-box">
         <ul>
           <li>
-            <Link to="#">비밀번호 찾기</Link>
+            <Link to="/findPw">비밀번호 찾기</Link>
           </li>
           <li>
             <Link to="/findId">아이디 찾기</Link>

@@ -17,6 +17,7 @@ import { useEffect } from "react";
 import Mypage from "./component/member/Mypage";
 import ReviewList from "./component/review/ReviewList";
 import FindId from "./component/member/FindId";
+import FindPw from "./component/member/FindPw";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -26,13 +27,11 @@ function App() {
     if (token === null) {
       setIsLogin(false);
       setId("");
-      console.log("id : ", id);
     } else {
       setIsLogin(true);
-      console.log("id : ", id);
     }
   }, []);
-  console.log("app", setIsLogin);
+
   return (
     <div className="weple-wrap">
       <Header isLogin={isLogin} setIsLogin={setIsLogin} setId={setId} />
@@ -66,6 +65,7 @@ function App() {
             element={<Login setIsLogin={setIsLogin} setId={setId} />}
           />
           <Route path="/findId" element={<FindId />} />
+          <Route path="/findPw" element={<FindPw />} />
           {/* <Route path="/category" element={<Category />} /> */}
           <Route path="/review/*" element={<ReviewList />} />
           <Route path="*" element={<Main />} />

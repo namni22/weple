@@ -38,6 +38,7 @@ public class JwtFilter extends OncePerRequestFilter {
 		// token값만 꺼냄
 		String token = auth.split(" ")[1];
 		System.out.println("filter/token : " + token);
+		
 		// 2. 정상이나 만료된 경우
 		if(jwtUtil.isExpired(token, secretKey)) {
 			System.out.println("인증 시간 만료");

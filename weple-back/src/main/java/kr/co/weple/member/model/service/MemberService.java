@@ -38,7 +38,7 @@ public class MemberService {
 
 	public MemberService() {
 		super();
-		expiredMs = 1000*60*60l;
+		expiredMs = 1000*60l;
 	}
 
 	public Member selectOneMember(String memberId) {
@@ -120,6 +120,11 @@ public class MemberService {
 
 	public Member findId(Member member) {
 		Member m = memberDao.findId(member);
+		return m;
+	}
+
+	public Member findPw(Member member) {
+		Member m = memberDao.findPw(member);
 		return m;
 	}
 

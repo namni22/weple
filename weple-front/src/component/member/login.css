@@ -1,10 +1,12 @@
 .login-wrap,
-.findId-wrap {
+.findId-wrap,
+.findPw-wrap {
   margin-top: 50px;
 }
 
 .login-title > h3,
-.findId-title > h3 {
+.findId-title > h3,
+.findPw-title > h3 {
   position: relative;
   padding: 0 0 10px 0;
   font-size: 50px;
@@ -67,19 +69,23 @@
   border-top: 1px solid #ededed;
 }
 
-.findId-content {
+.findId-content,
+.findPw-content {
   width: 40%;
   margin: 50px auto 0 auto;
 }
 
-.findId-content-item {
+.findId-content-item,
+.findPw-content-item {
   margin-bottom: 30px;
 }
 
-.findId-content-item > input {
+.findId-content-item,
+.findPw-content-item > input {
   margin-top: 10px;
 }
 
-.findId-content-btn > button {
-  margin-top: 30px;
+.findId-content-btn,
+.findPw-content-btn > button {
+  margin: 30px 0;
 }
