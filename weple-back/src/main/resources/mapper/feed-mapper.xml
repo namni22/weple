@@ -17,17 +17,21 @@
 	<select id="selectFeedList" resultMap="getImage">
 		select *
 		from (select rownum as rnum, f.*
-			from (select * from feed order by 1 desc)f)
+				from (
+				select feed_no,feed_writer,feed_content,feed_date,m.member_image
+				from feed f join member m on(f.feed_writer=m.member_id)
+				order by feed_no desc)f)
 		where rnum between #{start} and #{end}
 	</select>
 	<select id="selectImageList" resultType="fImage">
 		select * from fImage where feed_no = #{feedNo}
 	</select>
-	<resultMap id="getImage" type="Feed">
+	<resultMap id="getImage" type="feed">
 		<result column="feed_no" property="feedNo" />
 		<result column="feed_writer" property="feedWriter" />
 		<result column="feed_content" property="feedContent" />
 		<result column="feed_date" property="feedDate" />
+		<result column="member_image" property="memberImage" />
 		<collection
 			property="imageList"
 			select="selectImageList"
@@ -62,7 +66,13 @@
 		insert into fcomment values(fcomment_seq.nextval,#{feedNo},#{fCommentContent},to_char(sysdate,'yyyy.mm.dd'),#{fCommentWriter},#{crnNo})
 	</insert>
 	<select id="commentList" resultType="fComment">
-		select * from fcomment where feed_no=#{feedNo} order by fcomment_no
+		select 
+			fcomment_no,feed_no,fcomment_content,fcomment_date,fcomment_writer,fcomment_ref_no,member_image
+		from fcomment f 
+		join member m 
+		on(f.fcomment_writer=m.member_id)
+		where feed_no=#{feedNo} 
+		order by fcomment_no
 	</select>
 	<delete id="deleteComment">
 		delete from fcomment where fcomment_no = #{fCommentNo}

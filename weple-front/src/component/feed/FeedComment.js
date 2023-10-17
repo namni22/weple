@@ -30,6 +30,28 @@ const FeedComment = (props) => {
   const [fCommentContent, setFCommentContent] = useState("");
   const [fCommentRefNo, setFCommentRefNo] = useState(null);
   const [rcmId, setRcmId] = useState(""); //답글남길 아이디 띄우기
+  const [memberId, setMemberId] = useState();
+  const [memberImage, setMemberImage] = useState("");
+  const [load, setLoad] = useState(0);
+
+  const token = window.localStorage.getItem("token");
+  useEffect(() => {
+    if (isLogin) {
+      axios
+        .post("/member/getMember", null, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          setMemberId(res.data.memberId);
+          setMemberImage(res.data.memberImage);
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    }
+  }, []);
 
   useEffect(() => {
     axios
@@ -40,7 +62,7 @@ const FeedComment = (props) => {
       .catch((res) => {
         console.log(res.response.status);
       });
-  }, []);
+  }, [load]);
 
   return (
     <ReactModal style={customStyles} isOpen={isOpen}>
@@ -62,6 +84,10 @@ const FeedComment = (props) => {
                 setFCommentRefNo={setFCommentRefNo}
                 rcmId={rcmId}
                 setRcmId={setRcmId}
+                load={load}
+                setLoad={setLoad}
+                memberId={memberId}
+                memberImage={memberImage}
               />
             );
           })}
@@ -76,6 +102,10 @@ const FeedComment = (props) => {
             setFCommentRefNo={setFCommentRefNo}
             rcmId={rcmId}
             setRcmId={setRcmId}
+            load={load}
+            setLoad={setLoad}
+            memberId={memberId}
+            memberImage={memberImage}
           />
         ) : (
           ""
@@ -88,29 +118,14 @@ const FeedComment = (props) => {
 const CommentList = (props) => {
   const comment = props.comment;
   const isLogin = props.isLogin;
+  const memberId = props.memberId;
+  const memberImage = props.memberImage;
   const fCommentRefNo = props.fCommentRefNo;
   const setFCommentRefNo = props.setFCommentRefNo;
-  const [memberId, setMemberId] = useState();
-  const token = window.localStorage.getItem("token");
   const rcmId = props.rcmId;
   const setRcmId = props.setRcmId;
-
-  useEffect(() => {
-    if (isLogin) {
-      axios
-        .post("/member/getMember", null, {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        })
-        .then((res) => {
-          setMemberId(res.data.memberId);
-        })
-        .catch((res) => {
-          console.log(res.response.status);
-        });
-    }
-  }, []);
+  const load = props.load;
+  const setLoad = props.setLoad;
 
   const deleteComment = () => {
     Swal.fire({
@@ -125,6 +140,7 @@ const CommentList = (props) => {
           .get("/feed/comment/delete/" + comment.fcommentNo)
           .then((res) => {
             if (res.data !== 0) {
+              setLoad(load + 1);
               Swal.fire({
                 icon: "success",
                 text: "댓글이 삭제되었습니다",
@@ -143,12 +159,15 @@ const CommentList = (props) => {
     setFCommentRefNo(comment.fcommentNo);
     setRcmId(comment.fcommentWriter);
   };
-
   return (
     <div className="feed-comment">
       <div className="feed-list-top">
         <div className="feed-list-profile">
-          <span className="material-icons-outlined">person</span>
+          {comment.memberImage !== "" ? (
+            <img src={"/member/" + comment.memberImage} />
+          ) : (
+            <img src="/img/testImg_01.png" />
+          )}
         </div>
         <div className="feed-list-info">
           <div>
@@ -161,11 +180,7 @@ const CommentList = (props) => {
           </div>
           <div className="comment-click-btn">
             <div>좋아요 0개</div>
-            {isLogin && memberId == comment.fcommentWriter ? (
-              <div onclick={reComemtEvent}>답글달기</div>
-            ) : (
-              ""
-            )}
+            {isLogin ? <div onclick={reComemtEvent}>답글달기</div> : ""}
             {isLogin && memberId == comment.fcommentWriter ? (
               <div onClick={deleteComment}>삭제</div>
             ) : (
@@ -179,6 +194,8 @@ const CommentList = (props) => {
 };
 
 const CommentFrm = (props) => {
+  const memberId = props.memberId;
+  const memberImage = props.memberImage;
   const fCommentContent = props.fCommentContent;
   const setFCommentContent = props.setFCommentContent;
   const fCommentRefNo = props.fCommentRefNo;
@@ -187,6 +204,8 @@ const CommentFrm = (props) => {
   const closeComent = props.closeComent;
   const rcmId = props.rcmId;
   const setRcmId = props.setRcmId;
+  const load = props.load;
+  const setLoad = props.setLoad;
   const navigate = useNavigate();
 
   const changeContent = (e) => {
@@ -216,8 +235,7 @@ const CommentFrm = (props) => {
         })
         .then((res) => {
           if (res.data == 1) {
-            closeComent();
-            navigate("/feed");
+            setLoad(load + 1);
           }
         })
         .catch((res) => {
@@ -228,12 +246,18 @@ const CommentFrm = (props) => {
       Swal.fire("댓글 내용을 입력하세요");
     }
   };
+  const enterCheck = (e) => {
+    if (e.keyCode === 13) {
+      comment();
+    }
+  };
 
   return (
     <div className="feed-comment-write">
       {fCommentRefNo !== null ? (
         <div>
-          <span>{rcmId}님께 답글 남기는 중 ...</span>
+          <span>{rcmId}</span>
+          <span>님께 답글 남기는 중 ...</span>
           <span onClick={rcmCancel}>답글취소</span>
         </div>
       ) : (
@@ -241,11 +265,15 @@ const CommentFrm = (props) => {
       )}
       <div className="feed-comment-left">
         <div className="feed-list-profile">
-          <span className="material-icons-outlined">person</span>
+          {memberImage !== "" ? (
+            <img src={"/member/" + memberImage} />
+          ) : (
+            <img src="/img/testImg_01.png" />
+          )}
         </div>
       </div>
       <div className="feed-comment-text">
-        <input type="text" onChange={changeContent} />
+        <input type="text" onChange={changeContent} onKeyUp={enterCheck} />
         <button onClick={comment}>등록</button>
       </div>
     </div>

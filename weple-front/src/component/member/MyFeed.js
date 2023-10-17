@@ -19,13 +19,11 @@ const MyFeed = (props) => {
           myFeedList.push(item);
           setMyFeedList([...myFeedList]);
         });
-        console.log(myFeedList);
-        console.log(myFeedList.imageList[0]);
       })
       .catch((res) => {
         Swal.fire("실패");
       });
-  }, []);
+  }, [memberId]);
 
   const useFeedMore = (e) => {
     setStart(start + amount);
