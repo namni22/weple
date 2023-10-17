@@ -274,6 +274,17 @@ public class MeetService {
 		}
 		return 0;
 	}
+
+	public Follower status(int meetNo, String memberId) {
+		int selectMemberNo = meetDao.selectMemberNo(memberId);
+		Follower followStatus = meetDao.status(meetNo,selectMemberNo);
+		return followStatus;
+	}
+
+	public Meet meetCapCheck(int meetNo, String memberId) {
+		
+		return meetDao.meetCapCheck(meetNo,memberId);
+	}
 	
 
 

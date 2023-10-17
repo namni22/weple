@@ -77,44 +77,50 @@ const ReportModal = (props) => {
     console.log("신고물번호 : ", reportItemNo);
     const token = window.localStorage.getItem("token");
     //insert에 필요한 값 1.신고타입,2신고유형,3.가해자,4.신고내용
-    axios
-      .post(
-        "/member/report",
-        {
-          reportedMember: reportedMember,
-          reportType: currentVaule,
-          reportContent: reportContent,
-          reportCategoryNo: currentCategory,
-          reportMember: memberId,
-          reportItemNo: reportItemNo,
-        },
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res.data);
-        if (res.data === 1) {
-          Swal.fire({
-            title: "신고가 완료되었습니다.",
-            text: "신고 처리 완료",
-            icon: "success",
-          });
-        } else {
-          Swal.fire({
-            title: "신고가 실패되었습니다.",
-            text: "신고 처리 실패",
-            icon: "error",
-          });
-        }
-      })
-      .catch((res) => {
-        console.log(res.response.status);
+    if (reportContent === "") {
+      Swal.fire({
+        text: "신고 항목을 모두 작성해주세요",
       });
+    } else {
+      axios
+        .post(
+          "/member/report",
+          {
+            reportedMember: reportedMember,
+            reportType: currentVaule,
+            reportContent: reportContent,
+            reportCategoryNo: currentCategory,
+            reportMember: memberId,
+            reportItemNo: reportItemNo,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+          if (res.data === 1) {
+            Swal.fire({
+              title: "신고가 완료되었습니다.",
+              text: "신고 처리 완료",
+              icon: "success",
+            });
+          } else {
+            Swal.fire({
+              title: "신고가 실패되었습니다.",
+              text: "신고 처리 실패",
+              icon: "error",
+            });
+          }
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
 
-    onSubmit();
+      onSubmit();
+    }
   };
   const handleClickCancel = () => {
     const newArr2 = 0;
@@ -186,7 +192,9 @@ const ReportModal = (props) => {
                 </td>
               </tr>
               <tr>
-                <td>가해자</td>
+                <td>
+                  신고 할 회원<sup>*</sup>
+                </td>
                 <td>
                   <input
                     onChange={(e) => {
@@ -194,10 +202,17 @@ const ReportModal = (props) => {
                       setReportedMember(changeMemberValue);
                     }}
                   ></input>
+
+                  <p>1.신고 타입이 회원일 경우: 신고할 회원 아이디</p>
+                  <p>2.신고 타입이 모임일 경우: 모임장 회원 아이디</p>
+                  <p>3.신고 타입이 피드일 경우: 피드를 작성한 회원 아이디</p>
+                  <p>4.신고 타입이 후기일 경우: 후기를 작성한 회원 아이디</p>
                 </td>
               </tr>
               <tr>
-                <td>신고내용</td>
+                <td>
+                  신고내용<sup>*</sup>
+                </td>
                 <td>
                   <textarea
                     className="modal-tbl-textarea"

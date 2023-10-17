@@ -134,6 +134,7 @@ const MeetItem = (props) => {
   const meet = props.meet;
   const navigate = useNavigate();
 
+
   // 상세보기로 이동하는 함수
   const meetView = () => {
     navigate("/meet/meetList/View", {

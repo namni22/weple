@@ -24,8 +24,8 @@ public class Meet {
 	private int meetCategory;
 	private String meetAddress1;
 	private String meetAddress2;
-	private int meetLatitude;
-	private int meetLongitude;
+	private double meetLatitude;
+	private double meetLongitude;
 	private String meetThumbNail;
 	private int meetType;
 	private String meetCaptain;

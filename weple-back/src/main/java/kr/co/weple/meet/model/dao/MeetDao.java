@@ -69,6 +69,12 @@ public interface MeetDao {
 	List calendarList(int meetNo);
 
 	int removeCalendar(int calNo);
+
+	int selectMemberNo(String memberId);
+
+	Follower status(int meetNo, int selectMemberNo);
+
+	Meet meetCapCheck(int meetNo, String memberId);
 	
 
 
