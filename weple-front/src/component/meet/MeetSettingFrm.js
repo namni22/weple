@@ -39,6 +39,7 @@ const MeetSettingFrm = (props) => {
     const meetThumbnailPreview = props.meetThumbnailPreview;
     const setMeetThumbnailPreview = props.setMeetThumbnailPreview;
 
+
     // 준비물 리스트 추가용
     const meetPrepare = props.meetPrepare;
     const setMeetPrepare = props.setMeetPrepare;
@@ -401,7 +402,11 @@ const MeetSettingFrm = (props) => {
                     </div>
                 </div>
                 <div className="meet-btn-box">
-                    <Button1 text="모임생성" clickEvent={buttonEvent}></Button1>
+                    {type === "modify" ? (
+                        <Button1 text="모임수정" clickEvent={buttonEvent}></Button1>
+                    ) : (
+                        <Button1 text="모임생성" clickEvent={buttonEvent}></Button1>
+                    )}
                 </div>
 
             </div>
@@ -505,7 +510,7 @@ const Postcode = (props) => {
             <div id="map" style={{
                 width: "500px",
                 height: "500px",
-                display: "none"
+                // display: "none"
             }}></div>
         </div>
 
