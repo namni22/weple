@@ -12,6 +12,7 @@ const FeedList = (props) => {
   const [feedList, setFeedList] = useState([]);
   const [start, setStart] = useState(1);
   const isLogin = props.isLogin;
+  const [load, setLoad] = useState(0); //useEffect용
 
   const amount = 9;
   useEffect(() => {
@@ -28,7 +29,7 @@ const FeedList = (props) => {
       .catch((res) => {
         Swal.fire("실패");
       });
-  }, [start]);
+  }, [start, load]);
 
   const useFeedMore = (e) => {
     setStart(start + amount);
@@ -52,7 +53,13 @@ const FeedList = (props) => {
       <div className="feed-list-content-wrap">
         {feedList.map((feed, index) => {
           return (
-            <FeedContent key={"feed" + index} feed={feed} isLogin={isLogin} />
+            <FeedContent
+              key={"feed" + index}
+              feed={feed}
+              isLogin={isLogin}
+              load={load}
+              setLoad={setLoad}
+            />
           );
         })}
       </div>
@@ -66,16 +73,20 @@ const FeedList = (props) => {
 const FeedContent = (props) => {
   const feed = props.feed;
   const isLogin = props.isLogin;
+  const load = props.load;
+  const setLoad = props.setLoad;
   const navigate = useNavigate();
   const list = feed.imageList.map((img, index) => {
     return <img src={"/feed/" + img.fimageName} />;
   });
-  const [isOpen, setIsOpen] = useState(false);
-  const [memberNo, setMemberNo] = useState();
+  const [isOpen, setIsOpen] = useState(false); //더보기모달
+  const [cmtIsOpen, setCmtIsOpen] = useState(false); //댓글모달
+  const [viewOpen, setViewOpen] = useState(false); //상세보기 모달
   const [userLike, setUserLike] = useState();
   const [rcmId, setRcmId] = useState(""); //답글남길 아이디 띄우기
   const [fCommentRefNo, setFCommentRefNo] = useState(null);
   const token = window.localStorage.getItem("token");
+  const feedContent = feed.feedContent.replaceAll("<br>", "\r\n"); //엔터처리
 
   //좋아요내역 불러오기
   const feedNo = feed.feedNo;
@@ -95,7 +106,7 @@ const FeedContent = (props) => {
           console.log(res.response.status);
         });
     }
-  }, []);
+  }, [load]);
   //좋아요클릭이벤트
   const likeEvent = () => {
     if (isLogin) {
@@ -111,6 +122,7 @@ const FeedContent = (props) => {
           } else if (res.data == 2) {
             setUserLike(0);
           }
+          setLoad(load + 1);
         })
         .catch((res) => {
           console.log(res.response.status);
@@ -158,8 +170,8 @@ const FeedContent = (props) => {
                 icon: "success",
                 text: "피드가 삭제되었습니다",
                 confirmButtonText: "확인",
-              }).then((res) => {
-                navigate("/feed");
+              }).then(() => {
+                setLoad(load + 1);
               });
             }
           })
@@ -172,7 +184,7 @@ const FeedContent = (props) => {
   const modifyEvent = () => {
     navigate("/feed/modify", { state: { feed: feed } });
   };
-  const [cmtIsOpen, setCmtIsOpen] = useState(false);
+
   const comment = () => {
     setCmtIsOpen(true);
     setRcmId("");
@@ -212,7 +224,7 @@ const FeedContent = (props) => {
         )}
       </div>
       <div className="feed-list-text">
-        <span>{feed.feedContent}</span>
+        <div>{feedContent}</div>
       </div>
       <div className="feed-list-content-btn">
         <div>

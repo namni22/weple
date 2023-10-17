@@ -92,6 +92,10 @@
 .feed-list-more-btn > span {
   font-size: 30px;
 }
+.feed-list-text > div {
+  white-space: pre-wrap;
+  cursor: pointer;
+}
 .feed-list-content-btn {
   display: flex;
   align-items: center;
@@ -102,7 +106,8 @@
   align-items: center;
   margin-right: 10px;
 }
-.feed-list-content-btn > div {
+.feed-list-content-btn > div > .material-icons-outlined,
+.feed-list-content-btn > div > .material-icons {
   cursor: pointer;
 }
 .feed-list-content-btn > div > span:last-child {

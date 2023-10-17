@@ -317,6 +317,7 @@ const CommentFrm = (props) => {
 
   const changeContent = (e) => {
     const changeValue = e.currentTarget.value;
+    // changeValue = changeValue.replace(/(?:\r\n|\r|\n)/g, "<br>");
     setFCommentContent(changeValue);
   };
 
