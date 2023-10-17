@@ -14,6 +14,7 @@ public interface BoardDao {
 	int totalCount();
 
 	List selectBoardList(PageInfo pi, int boardType);
+	
 	List selectAllBoardList(PageInfo pi);
 
 	Board selectOneBoard(int boardNo);
