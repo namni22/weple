@@ -7,18 +7,26 @@ import TextEditor from "../util/TextEditor";
 
 const MeetChat = (props) => {
   const meet = props.myMeet;
-  console.log(meet.meetNo);
-  console.log(meet);
-
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
 
   const [newChat, setNewChat] = useState([]);
   const [chat, setChat] = useState([]);
   const [chatContent, setChatContent] = useState("");
+  const messages = useRef(null);
+  let bool = true;
+  useEffect(() => {
+    messages.current.scrollIntoView();
+    if (bool) {
+      window.scrollTo(0, 0);
+      bool = false;
+    }
+  }, [chat]);
 
   const enterInsert = (e) => {
-    if (e.keyCode == 13) {
+    if (e.key === "Enter" && e.shiftKey) {
+      return;
+    } else if (e.key === "Enter") {
       insertChat();
       e.currentTarget.value = "";
     }
@@ -27,12 +35,9 @@ const MeetChat = (props) => {
     axios
       .get("/meet/meetChat/" + meet.meetNo)
       .then((res) => {
-        console.log(res.data);
         setChat(res.data.meetChat);
       })
-      .catch((res) => {
-        console.log(res.response.status);
-      });
+      .catch((res) => {});
   }, []);
   const token = window.localStorage.getItem("token");
   const insertChat = () => {
@@ -50,18 +55,12 @@ const MeetChat = (props) => {
           }
         )
         .then((res) => {
-          console.log(res.data);
           const newArr = [...chat];
-          console.log(newArr);
           newArr.push(res.data[0]);
-          console.log(newArr);
           setChat(newArr);
-          console.log(chat);
           setChatContent("");
         })
-        .catch((res) => {
-          console.log(res.response.status);
-        });
+        .catch((res) => {});
     }
   };
   return (
@@ -70,6 +69,7 @@ const MeetChat = (props) => {
         {chat.map((chat, index) => {
           return <ChatItem key={"chat" + index} chat={chat} />;
         })}
+        <div ref={messages}></div>
       </div>
       <div className="meetChat-all-wrap">
         <ul>
@@ -80,7 +80,7 @@ const MeetChat = (props) => {
                   const changeValue = e.currentTarget.value;
                   setChatContent(changeValue);
                 }}
-                onKeyUp={enterInsert}
+                onKeyPress={enterInsert}
               >
                 {chatContent}
               </textarea>
@@ -102,13 +102,21 @@ const MeetChat = (props) => {
 };
 const ChatItem = (props) => {
   const chat = props.chat;
-  const messages = useRef(HTMLUListElement);
-  const scrollToBottom = () => {
-    messages.current?.scrollIntoView({ behavior: "smooth" });
-  };
+
+  /*
   useEffect(() => {
-    scrollToBottom();
-  }, [chat]);
+    document.body.style.cssText = `
+      position: fixed; 
+      top: -${window.scrollY}px;
+      overflow-y: scroll;
+      width: 100%;`;
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = "";
+      window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+    };
+  }, []);  
+  */
 
   return (
     <ul>
@@ -124,9 +132,7 @@ const ChatItem = (props) => {
         </div>
         <div className="meetChat-chat-content">{chat.chatContent}</div>
       </li>
-      <li>
-        <div ref={messages}></div>
-      </li>
+      <li></li>
     </ul>
   );
 };

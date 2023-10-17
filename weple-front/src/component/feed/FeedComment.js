@@ -15,7 +15,6 @@ const FeedComment = (props) => {
       transform: "translate(-50%, -50%)",
       padding: "10px",
       width: "600px",
-      height: "600px",
       overflow: "inherit",
     },
     overlay: {
@@ -26,13 +25,15 @@ const FeedComment = (props) => {
   const isOpen = props.isOpen;
   const closeComent = props.closeComent;
   const isLogin = props.isLogin;
+  const rcmId = props.rcmId;
+  const setRcmId = props.setRcmId;
+  const fCommentRefNo = props.fCommentRefNo;
+  const setFCommentRefNo = props.setFCommentRefNo;
   const [commentList, setCommentList] = useState([]);
   const [fCommentContent, setFCommentContent] = useState("");
-  const [fCommentRefNo, setFCommentRefNo] = useState(null);
-  const [rcmId, setRcmId] = useState(""); //답글남길 아이디 띄우기
   const [memberId, setMemberId] = useState();
   const [memberImage, setMemberImage] = useState("");
-  const [load, setLoad] = useState(0);
+  const [load, setLoad] = useState(0); //useEffect용
 
   const token = window.localStorage.getItem("token");
   useEffect(() => {
@@ -76,19 +77,50 @@ const FeedComment = (props) => {
         <div className="feed-comment-wrap">
           {commentList.map((comment, index) => {
             return (
-              <CommentList
-                key={"comment" + index}
-                comment={comment}
-                isLogin={isLogin}
-                fCommentRefNo={fCommentRefNo}
-                setFCommentRefNo={setFCommentRefNo}
-                rcmId={rcmId}
-                setRcmId={setRcmId}
-                load={load}
-                setLoad={setLoad}
-                memberId={memberId}
-                memberImage={memberImage}
-              />
+              <>
+                {comment.fcommentRefNo == 0 ? (
+                  <div key={"comment" + index}>
+                    <CommentList
+                      key={"comment" + index}
+                      comment={comment}
+                      isLogin={isLogin}
+                      fCommentRefNo={fCommentRefNo}
+                      setFCommentRefNo={setFCommentRefNo}
+                      rcmId={rcmId}
+                      setRcmId={setRcmId}
+                      load={load}
+                      setLoad={setLoad}
+                      memberId={memberId}
+                    />
+                    <div className="feed-comment-re-wrap">
+                      {commentList.map((reComment, index) => {
+                        return (
+                          <>
+                            {comment.fcommentNo == reComment.fcommentRefNo ? (
+                              <CommentList
+                                key={"recomment" + index}
+                                comment={reComment}
+                                isLogin={isLogin}
+                                fCommentRefNo={fCommentRefNo}
+                                setFCommentRefNo={setFCommentRefNo}
+                                rcmId={rcmId}
+                                setRcmId={setRcmId}
+                                load={load}
+                                setLoad={setLoad}
+                                memberId={memberId}
+                              />
+                            ) : (
+                              ""
+                            )}
+                          </>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </>
             );
           })}
         </div>
@@ -119,7 +151,6 @@ const CommentList = (props) => {
   const comment = props.comment;
   const isLogin = props.isLogin;
   const memberId = props.memberId;
-  const memberImage = props.memberImage;
   const fCommentRefNo = props.fCommentRefNo;
   const setFCommentRefNo = props.setFCommentRefNo;
   const rcmId = props.rcmId;
@@ -158,38 +189,48 @@ const CommentList = (props) => {
   const reComemtEvent = () => {
     setFCommentRefNo(comment.fcommentNo);
     setRcmId(comment.fcommentWriter);
+    setLoad(load + 1);
   };
+
   return (
-    <div className="feed-comment">
-      <div className="feed-list-top">
-        <div className="feed-list-profile">
-          {comment.memberImage !== "" ? (
-            <img src={"/member/" + comment.memberImage} />
-          ) : (
-            <img src="/img/testImg_01.png" />
-          )}
-        </div>
-        <div className="feed-list-info">
-          <div>
-            {comment.fcommentWriter}
-            <span>{comment.fcommentDate}</span>
-          </div>
-          <div className="feed-comment-detail">
-            <span className="feed-comment-text">{comment.fcommentContent}</span>
-            <span className="material-icons-outlined">favorite_border</span>
-          </div>
-          <div className="comment-click-btn">
-            <div>좋아요 0개</div>
-            {isLogin ? <div onclick={reComemtEvent}>답글달기</div> : ""}
-            {isLogin && memberId == comment.fcommentWriter ? (
-              <div onClick={deleteComment}>삭제</div>
+    <>
+      {/* {comment.fcommentRefNo === 0 ? ( */}
+      <div className="feed-comment">
+        <div className="feed-list-top">
+          <div className="feed-list-profile">
+            {comment.memberImage !== "" ? (
+              <img src={"/member/" + comment.memberImage} />
             ) : (
-              ""
+              <img src="/img/testImg_01.png" />
             )}
+          </div>
+          <div className="feed-list-info">
+            <div>
+              {comment.fcommentWriter}
+              <span>{comment.fcommentDate}</span>
+            </div>
+            <div className="feed-comment-detail">
+              <span className="feed-comment-text">
+                {comment.fcommentContent}
+              </span>
+              <span className="material-icons-outlined">favorite_border</span>
+            </div>
+            <div className="comment-click-btn">
+              <div>좋아요 0개</div>
+              {isLogin ? <div onClick={reComemtEvent}>답글달기</div> : ""}
+              {isLogin && memberId == comment.fcommentWriter ? (
+                <div onClick={deleteComment}>삭제</div>
+              ) : (
+                ""
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      {/* ) : (
+        ""
+      )} */}
+    </>
   );
 };
 
@@ -235,6 +276,8 @@ const CommentFrm = (props) => {
         })
         .then((res) => {
           if (res.data == 1) {
+            setFCommentContent("");
+            rcmCancel();
             setLoad(load + 1);
           }
         })
@@ -253,30 +296,39 @@ const CommentFrm = (props) => {
   };
 
   return (
-    <div className="feed-comment-write">
+    <>
       {fCommentRefNo !== null ? (
-        <div>
+        <div className="feed-comment-re">
           <span>{rcmId}</span>
           <span>님께 답글 남기는 중 ...</span>
-          <span onClick={rcmCancel}>답글취소</span>
+          <span onClick={rcmCancel} class="material-icons">
+            close
+          </span>
         </div>
       ) : (
         ""
       )}
-      <div className="feed-comment-left">
-        <div className="feed-list-profile">
-          {memberImage !== "" ? (
-            <img src={"/member/" + memberImage} />
-          ) : (
-            <img src="/img/testImg_01.png" />
-          )}
+      <div className="feed-comment-write">
+        <div className="feed-comment-left">
+          <div className="feed-list-profile">
+            {memberImage !== "" ? (
+              <img src={"/member/" + memberImage} />
+            ) : (
+              <img src="/img/testImg_01.png" />
+            )}
+          </div>
+        </div>
+        <div className="feed-comment-text">
+          <input
+            type="text"
+            onChange={changeContent}
+            onKeyUp={enterCheck}
+            value={fCommentContent}
+          />
+          <button onClick={comment}>등록</button>
         </div>
       </div>
-      <div className="feed-comment-text">
-        <input type="text" onChange={changeContent} onKeyUp={enterCheck} />
-        <button onClick={comment}>등록</button>
-      </div>
-    </div>
+    </>
   );
 };
 

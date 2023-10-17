@@ -1,5 +1,5 @@
 import ReactModal from "react-modal";
-import { Button2, Button3 } from "./Button";
+import { Button1, Button2, Button3 } from "./Button";
 import "./modal.css";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -202,6 +202,7 @@ const ReportModal = (props) => {
                       setReportedMember(changeMemberValue);
                     }}
                   ></input>
+                  <Button1 text={"확인"} />
 
                   <p>1.신고 타입이 회원일 경우: 신고할 회원 아이디</p>
                   <p>2.신고 타입이 모임일 경우: 모임장 회원 아이디</p>
@@ -241,8 +242,26 @@ const MoreModal = (props) => {
   const deleteEvent = props.deleteEvent;
   const modifyEvent = props.modifyEvent;
   const isLogin = props.isLogin;
-  const id = props.id;
   const feedWriter = props.feedWriter;
+  const [memberId, setMemberId] = useState("");
+  const token = window.localStorage.getItem("token");
+
+  useEffect(() => {
+    if (isLogin) {
+      axios
+        .post("/member/getMember", null, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          setMemberId(res.data.memberId);
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    }
+  }, []);
 
   const [reportIsOpen, setReportIsOpen] = useState(false);
   const reportCancel = () => {
@@ -276,7 +295,7 @@ const MoreModal = (props) => {
       shouldCloseOnOverlayClick={true}
     >
       <div className="more-modal-wrap">
-        {id === feedWriter ? (
+        {memberId === feedWriter ? (
           <div className="modal-select writer">
             <div>
               <span className="material-icons">drive_file_rename_outline</span>

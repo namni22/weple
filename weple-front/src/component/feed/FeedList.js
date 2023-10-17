@@ -12,7 +12,6 @@ const FeedList = (props) => {
   const [feedList, setFeedList] = useState([]);
   const [start, setStart] = useState(1);
   const isLogin = props.isLogin;
-  const id = props.id;
 
   const amount = 9;
   useEffect(() => {
@@ -53,12 +52,7 @@ const FeedList = (props) => {
       <div className="feed-list-content-wrap">
         {feedList.map((feed, index) => {
           return (
-            <FeedContent
-              key={"feed" + index}
-              feed={feed}
-              isLogin={isLogin}
-              id={id}
-            />
+            <FeedContent key={"feed" + index} feed={feed} isLogin={isLogin} />
           );
         })}
       </div>
@@ -72,7 +66,6 @@ const FeedList = (props) => {
 const FeedContent = (props) => {
   const feed = props.feed;
   const isLogin = props.isLogin;
-  const id = props.id;
   const navigate = useNavigate();
   const list = feed.imageList.map((img, index) => {
     return <img src={"/feed/" + img.fimageName} />;
@@ -80,6 +73,8 @@ const FeedContent = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [memberNo, setMemberNo] = useState();
   const [userLike, setUserLike] = useState(0);
+  const [rcmId, setRcmId] = useState(""); //답글남길 아이디 띄우기
+  const [fCommentRefNo, setFCommentRefNo] = useState(null);
   const token = window.localStorage.getItem("token");
 
   //좋아요내역 불러오기
@@ -98,7 +93,7 @@ const FeedContent = (props) => {
             .then((res) => {
               if (res.data !== null) {
                 setUserLike(1);
-                console.log(res.data);
+                // console.log(res.data); - 좋아요내역 불러오기.. 근데 배열이 뜸
               } else {
                 setUserLike(0);
                 console.log(res.data);
@@ -162,10 +157,11 @@ const FeedContent = (props) => {
   const modifyEvent = () => {
     navigate("/feed/modify", { state: { feed: feed } });
   };
-  //댓글
   const [cmtIsOpen, setCmtIsOpen] = useState(false);
   const comment = () => {
     setCmtIsOpen(true);
+    setRcmId("");
+    setFCommentRefNo(null);
   };
   const closeComent = () => {
     setCmtIsOpen(false);
@@ -226,13 +222,16 @@ const FeedContent = (props) => {
         isLogin={isLogin}
         feedWriter={feed.feedWriter}
         deleteEvent={deleteEvent}
-        id={id}
       />
       <FeedComment
         isOpen={cmtIsOpen}
         closeComent={closeComent}
         isLogin={isLogin}
         feedNo={props.feed.feedNo}
+        fCommentRefNo={fCommentRefNo}
+        setFCommentRefNo={setFCommentRefNo}
+        rcmId={rcmId}
+        setRcmId={setRcmId}
       />
     </div>
   );
