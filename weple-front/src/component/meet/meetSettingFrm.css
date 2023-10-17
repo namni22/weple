@@ -124,10 +124,22 @@
     width: 80%;
 }
 
+.addrSearch-btn-box {
+    /* 주소검색 버튼 박스 선택자 */
+    width: 100px;
+    padding: 10px 0;
+}
+
+#meetAddress2 {
+    /* 상세주소 input 선택자 */
+    margin-bottom: 10px;
+}
+
 .meetContentD-box .ql-container {
     /* 텍스트에디터 박스 ,텍스트 에디터 선택자 */
     min-height: 200px;
     /* height: 200px; */
+
 }
 
 .meetContentD-box .ql-editor {

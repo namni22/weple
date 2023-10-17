@@ -542,15 +542,16 @@ const Postcode = (props) => {
     return (
         <div>
             {/* <input type="text" id="sample5_address" placeholder="주소" /> */}
-
-            <Button2 text="주소검색" clickEvent={sample5_execDaumPostcode} />
+            <div className="addrSearch-btn-box">
+                <Button2 text="주소검색" clickEvent={sample5_execDaumPostcode} />
+            </div>
             <Input type="text" data={meetAddress1} setData={setMeetAddress1} content="sample5_address" placeholder="주소" />
             <Input type="text" data={meetAddress2} setData={setMeetAddress2} content="meetAddress2" placeholder="상세주소" />
 
             <div id="map" style={{
                 width: "500px",
                 height: "500px",
-
+                display: "none"
             }}></div>
         </div>
 
