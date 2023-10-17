@@ -87,13 +87,18 @@
   height: 50px;
 }
 
-.profile-tab-menu > ul > li > a {
+.tabMenu > a {
   float: left;
   width: 50%;
   height: 50px;
   border: 1px solid #2d31fa;
   color: #2d31fa;
   line-height: 50px;
+}
+
+.clicked > a {
+  background-color: #2d31fa;
+  color: white;
 }
 
 .profile-sub-content {

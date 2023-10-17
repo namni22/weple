@@ -4,6 +4,7 @@ import "./modal.css";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
+
 const ReportModal = (props) => {
   const isOpen = props.isOpen;
   const onSubmit = props.onSubmit;
