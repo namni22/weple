@@ -3,12 +3,14 @@ import "./payment.css";
 import { useState } from "react";
 import moment from "moment/moment";
 import { Button1 } from "../util/Button";
+import axios from "axios";
 
 const Payment = (props) => {
   const [count, setCount] = useState(1);
   const [payPrice, setPayPrice] = useState(10000);
   const formatDate = moment().format("YYYY-MM-DD HH:mm");
   const id = props.id;
+  const IMP = window.IMP;
   const minus = () => {
     if (count <= 1) {
       return;
@@ -26,10 +28,41 @@ const Payment = (props) => {
     setPayPrice(10000 * count);
   }, [count]);
 
-  // IMP.init("imp62626506");
-  function doPayment() {
-    // IMP.request_pay({});
-  }
+  IMP.init("imp62626506");
+  const doPayment = () => {
+    IMP.request_pay(
+      {
+        pg: "html5_inicis",
+        pay_method: "card",
+        merchant_uid: "상품번호_" + formatDate,
+        name: "결제테스트",
+        amount: 1,
+        buyer_name: "ㅇ",
+        buyer_tel: "010-1111-1111",
+        buyer_postcode: "12345",
+      },
+      function (rsp) {
+        if (rsp.success) {
+          axios
+            .post("/payment/paySuccess", {
+              memberNo: props.member.memberNo,
+              payCount: count,
+              payPrice: payPrice,
+              payDate: formatDate.toString(),
+            })
+            .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+          alert("결제성공");
+        } else {
+          alert("결제실패");
+        }
+      }
+    );
+  };
   return (
     <div className="payment-wrap">
       <div className="payment-top">결제</div>
