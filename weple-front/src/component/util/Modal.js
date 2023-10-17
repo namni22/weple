@@ -225,8 +225,26 @@ const MoreModal = (props) => {
   const deleteEvent = props.deleteEvent;
   const modifyEvent = props.modifyEvent;
   const isLogin = props.isLogin;
-  const id = props.id;
   const feedWriter = props.feedWriter;
+  const [memberId, setMemberId] = useState("");
+  const token = window.localStorage.getItem("token");
+
+  useEffect(() => {
+    if (isLogin) {
+      axios
+        .post("/member/getMember", null, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          setMemberId(res.data.memberId);
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    }
+  }, []);
 
   const [reportIsOpen, setReportIsOpen] = useState(false);
   const reportCancel = () => {
@@ -260,7 +278,7 @@ const MoreModal = (props) => {
       shouldCloseOnOverlayClick={true}
     >
       <div className="more-modal-wrap">
-        {id === feedWriter ? (
+        {memberId === feedWriter ? (
           <div className="modal-select writer">
             <div>
               <span className="material-icons">drive_file_rename_outline</span>
