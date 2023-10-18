@@ -2,17 +2,9 @@ import Swal from "sweetalert2";
 import { Button2 } from "../util/Button";
 import SwiperComponent from "../util/Swiper";
 import "./review.css";
-const starRating = () => {
-  const result = [];
-  for (let i = 0; i < 5; i++) {
-    result.push(
-      <span className="material-icons" key={"starRating" + i}>
-        grade
-      </span>
-    );
-  }
-  return result;
-};
+import Rating from "@mui/material/Rating";
+import { useEffect, useState } from "react";
+
 const ReviewWriteFrm = (props) => {
   const reviewContent = props.reviewContent;
   const setReviewContent = props.setReviewContent;
@@ -24,8 +16,11 @@ const ReviewWriteFrm = (props) => {
   const deleteImg = props.deleteImg;
   const setDeleteImg = props.setDeleteImg;
   const rimageNoList = props.rimageNoList;
+  const setReviewStar = props.setReviewStar;
+  const reviewStar = props.reviewStar;
   console.log(rimageNoList);
 
+  //이미지파일변경
   const changeFile = (e) => {
     const Imgs = e.currentTarget.files;
     if (Imgs.length !== 0 && Imgs[0] !== 0) {
@@ -72,13 +67,16 @@ const ReviewWriteFrm = (props) => {
           <img src="./img/profile_default.png"></img>
         </div>
         <div className="star-rating">
-          {/* <div
-            className="star-rating-fill"
-            style={{ width: (3 / 5) * 100 + "%" }}
-          >
-            {starRating()}
-          </div> */}
-          <div className="star-rating-base">{starRating()}</div>
+          <Rating
+            name="half-rating"
+            defaultValue={5}
+            precision={0.5}
+            value={reviewStar}
+            onChange={(event, newValue) => {
+              setReviewStar(newValue);
+              // console.log(value);?
+            }}
+          />
         </div>
       </div>
       <div className="file-box">

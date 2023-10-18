@@ -40,7 +40,7 @@
 	<!-- 
 	-->
 	<insert id="insertReview">
-		insert into review values(review_seq.nextval,#{reviewContent},5, to_char(sysdate,'yyyy-mm-dd'),#{memberId},#{meetNo})
+		insert into review values(review_seq.nextval,#{reviewContent},#{reviewStar}, to_char(sysdate,'yyyy-mm-dd'),#{memberId},#{meetNo})
 		<selectKey resultType="int" keyProperty="reviewNo" order="AFTER">
 	 		select max(review_no) from review
 	 	</selectKey>
