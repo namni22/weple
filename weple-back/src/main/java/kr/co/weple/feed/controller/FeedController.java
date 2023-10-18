@@ -75,7 +75,6 @@ public class FeedController {
 			@ModelAttribute MultipartFile[] fImage,
 			@RequestAttribute String memberId
 			) {
-		System.out.println(fImage);
 		String savepath = root+"feed/";
 		ArrayList<FImage> imageList = new ArrayList<FImage>();
 		if(fImage != null) {			

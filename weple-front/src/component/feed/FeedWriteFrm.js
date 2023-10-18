@@ -42,8 +42,8 @@ const FeedWriteFrm = (props) => {
       setFeedBox([]);
       setFImage([]);
     }
+    e.currentTarget.value = null; //input value 초기화
   };
-
   const changeContent = (e) => {
     const changeValue = e.currentTarget.value;
     const changeEnter = changeValue.replace(/(?:\r\n|\r|\n)/g, "<br>");
