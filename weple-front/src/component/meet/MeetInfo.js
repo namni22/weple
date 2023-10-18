@@ -23,7 +23,6 @@ const MeetInfo = (props) => {
   // console.log("모임", meet);
   const [meetPrepareList, setMeetPrepareList] = useState([]);
 
-
   useEffect(() => {
     console.log("useEffect isMeetMember  작동");
     setMeet(props.myMeet);
@@ -44,7 +43,7 @@ const MeetInfo = (props) => {
           console.log(res.data);
           setLoginMember(res.data);
         })
-        .catch((res) => { });
+        .catch((res) => {});
 
       //로그인이 되어있다면 로그인멤버가 모임멤버인지 조회해오기
       //모임멤버라면 해당 follower 리턴 아직 멤버가 아니라면 null 리턴
@@ -126,7 +125,7 @@ const MeetInfo = (props) => {
   const meetModify = () => {
     // console.log("meetModyfy버튼 클릭시 전달되는 meet : ", meet);
     navigate("/meet/meetModify", { state: { meet: meet } });
-  }
+  };
   console.log("리턴바로위 isMeetMember : ", isMeetMember);
   return (
     <div className="meetInfo-all-wrap">
@@ -148,7 +147,6 @@ const MeetInfo = (props) => {
         <div className="meetInfo-content-area meetInfo-meetAddr-wrap">
           <div className="meetInfo-content-title">모임 장소</div>
           <div className="">
-
             <div>{meet.meetLatitude}</div>
             <div>{meet.meetLongitude}</div>
             <Kakao
@@ -176,40 +174,40 @@ const MeetInfo = (props) => {
             })}
           </div>
         </div>
-
       </div>
       <div className="meetJoin-btn-zone">
         {/* 버튼이 보이는 조건: 로그인이 되어있고 / 아직 모임 가입을 하지 않는 경우 */}
         {isLogin ? (
-          meetCaptain && loginMember ? (//객체 가져와져있는지부터 확인
-            meetCaptain.memberNo === loginMember.memberNo ? (//로그인한 멤버가 모임장이라면?
+          meetCaptain && loginMember ? ( //객체 가져와져있는지부터 확인
+            meetCaptain.memberNo === loginMember.memberNo ? ( //로그인한 멤버가 모임장이라면?
               <div onClick={meetModify}>모임장이면 출력안함</div>
-            ) : (
-              isMeetMember ? ( //객체 가져와져있는지부터 확인
-                // <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
-                // isMesetMember가 있을때"
-                isMeetMember.followerStatus === 1 ? ( //현재 가입이 승인되어있는가?
-                  //현재 followerStatus == 1 일때
-                  <div>
-                    <div>{isMeetMember.followerStatus}</div>
-                    <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
-                  </div>
-                ) : (
-                  //현재 followerStatus == 0 일때
-                  <div>가입승인 대기중</div> //div로 가입 승인대기중 띄워주기 또는 공백 처리
-                )
-              ) : (
-                //isMeetMember가 비어있을때
+            ) : isMeetMember ? ( //객체 가져와져있는지부터 확인
+              // <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
+              // isMesetMember가 있을때"
+              isMeetMember.followerStatus === 1 ? ( //현재 가입이 승인되어있는가?
+                //현재 followerStatus == 1 일때
                 <div>
                   <div>{isMeetMember.followerStatus}</div>
-                  <Button1 text="모임가입하기" clickEvent={meetJoin} />
+                  <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
                 </div>
+              ) : (
+                //현재 followerStatus == 0 일때
+                <div>가입승인 대기중</div> //div로 가입 승인대기중 띄워주기 또는 공백 처리
               )
+            ) : (
+              //isMeetMember가 비어있을때
+              <div>
+                {/**
+                  * 
+                <div>{isMeetMember.followerStatus}</div>
+                */}
+
+                <Button1 text="모임가입하기" clickEvent={meetJoin} />
+              </div>
             )
-
-
-          ) : ("")
-
+          ) : (
+            ""
+          )
         ) : (
           "로그아웃 상태" //로그아웃 상태일때 공백
         )}
@@ -220,7 +218,6 @@ const MeetInfo = (props) => {
 
 const { kakao } = window;
 const Kakao = (props) => {
-
   const meetLatitude = props.meetLatitude;
   const meetLongitude = props.meetLongitude;
   // console.log("카카오맵 위도 : ", meetLatitude);
@@ -240,10 +237,6 @@ const Kakao = (props) => {
     });
     // 지도에 마커를 표시합니다
     marker.setMap(map);
-
-
-
-
   }, []);
   return (
     <div

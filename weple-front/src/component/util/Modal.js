@@ -19,6 +19,7 @@ const ReportModal = (props) => {
   const [currentCategory, setCurrentCategory] = useState("");
   const [checkIdMsg, setCheckIdMsg] = useState("");
   console.log("props.reportMemberId : ", reportMemberId);
+  console.log("모달 memberId : ", memberId);
   const [reportType, setReportType] = useState([
     {
       value: 0,
