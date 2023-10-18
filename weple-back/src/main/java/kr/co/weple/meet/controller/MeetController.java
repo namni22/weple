@@ -213,12 +213,12 @@ public class MeetController {
 			@RequestBody Meet meet
 			) {
 		
-		System.out.println("로그인 아이디 : "+memberId);
-		System.out.println("모임 : "+meet);
+//		System.out.println("로그인 아이디 : "+memberId);
+//		System.out.println("모임 : "+meet);
 		Member loginMember = memberService.selectOneMember(memberId);
 		System.out.println("로그인 회원 번호 : "+loginMember.getMemberNo());
 		Follower follower= meetService.isMeetMember(loginMember.getMemberNo(),meet.getMeetNo());
-		System.out.println("팔로워 :  "+follower);
+		System.out.println("isMeetMember 컨트롤 동작 팔로워 :  "+follower);
 		return follower;
 	}
 	

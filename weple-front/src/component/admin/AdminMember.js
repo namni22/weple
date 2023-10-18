@@ -19,7 +19,7 @@ const AdminMember = () => {
   const [confirmedMemberId, setConfirmedMemberId] = useState("");
 
   useEffect(() => {
-    if(memberId === ""){
+    if (memberId === "") {
       console.log("first useEffect reqPage : " + reqPage);
       axios
         .get("/admin/memberList/" + reqPage)
@@ -31,14 +31,14 @@ const AdminMember = () => {
         .catch((res) => {
           console.log(res);
         });
-      }
-    }, [reqPage]);
-    
-    useEffect(() =>{
-      if(memberId !== ""){
-        console.log("second useEffect memberId : " + memberId + ", reqPage : " + reqPage);
-        axios
-        .get("/admin/searchId/"+ memberId + "/" + reqPage)
+    }
+  }, [reqPage]);
+
+  useEffect(() => {
+    if (memberId !== "") {
+      console.log("second useEffect memberId : " + memberId + ", reqPage : " + reqPage);
+      axios
+        .get("/admin/searchId/" + memberId + "/" + reqPage)
         .then((res) => {
           console.log("admin/searchId : " + res.data.list);
           setMemberList(res.data.list);
@@ -47,10 +47,10 @@ const AdminMember = () => {
         .catch((res) => {
           console.log(res);
         });
-      }
-    },[confirmedMemberId, reqPage])
- 
-  
+    }
+  }, [confirmedMemberId, reqPage])
+
+
   const onSearch = (e) => {
     const memberIdInputValue = document.querySelector("#memberId");
     setReqPage(1);
@@ -104,41 +104,57 @@ const AdminMember = () => {
 const MemberItem = (props) => {
   const member = props.member;
   const [memberGrade, setMemberGrade] = useState(member.memberGrade);
-
+  const [printOption, setPrintOption] = useState("");
+  console.log("" + printOption)
+  //const options = [{ value: 0, name: "관리자" }, { value: 1, namee: "정회원" }, { value: 2, value: "블랙리스트" }];
   const handleChange = (event) => {
-    const obj = { memberNo: member.memberNo, memberGrade: event.target.value };
-    const token = window.localStorage.getItem("token");
-    axios
-      .post("/admin/changeMemberGrade", obj, {
-        headers: {
-          Authorization: "Bearer" + token,
-        }
-      })
-      .then((res) => {
-        console.log(res.data);
-        if (res.data === 1) {
-          setMemberGrade(event.target.value);
-        } else {
-          Swal.fire("변경 중 문제가 발생했습니다.");
-        }
-      })
-      .catch((res) => {
-        console.log(res);
-      });
+    //const obj = { memberNo: member.memberNo, memberGrade: event.target.value };
+    // const token = window.localStorage.getItem("token");
+    // axios
+    //   .post("/admin/changeMemberGrade", obj, {
+    //     headers: {
+    //       Authorization: "Bearer" + token,
+    //     }
+    //   })
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     if (res.data === 1) {
+    //       setMemberGrade(event.target.value);
+    //     } else {
+    //       Swal.fire("변경 중 문제가 발생했습니다.");
+    //     }
+    //   })
+    //   .catch((res) => {
+    //     console.log(res);
+    //   });
   };
+  const printOptions = () => {
+    if (memberGrade === 0) {
+      setPrintOption("관리자")
+    } else if (memberGrade === 1) {
+      setPrintOption("정회원")
+    } else if (memberGrade === 2) {
+      setPrintOption("블랙리스트")
+    }
+  }
+  printOptions();
   return (
     <tr>
       <td>{member.memberId}</td>
       <td>{member.memberName}</td>
       <td>{member.memberEmail}</td>
       <td>
-        <FormControl sx={{ m: 1, minWidth: 80 }}>
-          <Select value={memberGrade} onChange={handleChange}>
-            <MenuItem value={0}>관리자</MenuItem>
-            <MenuItem value={1}>정회원</MenuItem>
-            <MenuItem value={2}>블랙리스트</MenuItem>
-          </Select>
-        </FormControl>
+        <select>
+
+          {/* {member.memberGrade.map((memberGrade, index) => {
+
+            <option value={memberGrade} key={options.value}>
+              {options.name}
+            </option>
+          })} */}
+
+        </select>
+
       </td>
     </tr>
   );
