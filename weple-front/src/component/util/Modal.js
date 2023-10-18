@@ -18,8 +18,8 @@ const ReportModal = (props) => {
   const [currentVaule, setCurrentVaule] = useState();
   const [currentCategory, setCurrentCategory] = useState("");
   const [checkIdMsg, setCheckIdMsg] = useState("");
-  console.log("props.reportMemberId : ", reportMemberId);
-  console.log("모달 memberId : ", memberId);
+  //console.log("props.reportMemberId : ", reportMemberId);
+  //console.log("모달 memberId : ", memberId);
   const [reportType, setReportType] = useState([
     {
       value: 0,
@@ -42,9 +42,9 @@ const ReportModal = (props) => {
 
   const changeValue = (e) => {
     const newValue = e.currentTarget.value;
-    console.log("신고타입 전 : ", newValue);
+    //   console.log("신고타입 전 : ", newValue);
     setReportTypeValue(newValue);
-    console.log("신고타입 후 : ", reportTypeValue);
+    //   console.log("신고타입 후 : ", reportTypeValue);
     axios
       .get("/member/selectReportOption/" + newValue)
       .then((res) => {
@@ -128,10 +128,10 @@ const ReportModal = (props) => {
   };
   const handleClickCancel = () => {
     const newArr2 = 0;
-    console.log("취소이벤트 : ", reportTypeValue);
-    console.log("newArr2 : ", newArr2);
+    //    console.log("취소이벤트 : ", reportTypeValue);
+    //   console.log("newArr2 : ", newArr2);
     setReportTypeValue(newArr2);
-    console.log("취소이벤트 후 : ", reportTypeValue);
+    //   console.log("취소이벤트 후 : ", reportTypeValue);
     onCancel();
   };
   useEffect(() => {
@@ -139,7 +139,7 @@ const ReportModal = (props) => {
       .get("/member/selectReportOption/" + reportTypeValue)
       .then((res) => {
         console.log(res.data);
-        console.log(reportType.value);
+        //       console.log(reportType.value);
         setReportCategory(res.data.reportCategory);
       })
       .catch((res) => {
@@ -150,7 +150,7 @@ const ReportModal = (props) => {
     const newCategory = e.currentTarget.value;
     setCurrentCategory(newCategory);
   };
-  console.log("reportMemberId : ", reportMemberId);
+  //  console.log("reportMemberId : ", reportMemberId);
   return (
     <ReactModal style={customStyles} isOpen={isOpen}>
       <div className="modal-all-wrap">

@@ -18,6 +18,7 @@ const MeetMemberList = (props) => {
   const [meetMember, setMeetMember] = useState([]);
   const [reqPage, setReqPage] = useState(1);
   const [pageInfo, setPageInfo] = useState({});
+  console.log("모임회원리스트 : ", meetMember);
   useEffect(() => {
     axios
       .get("/meet/meetMember/" + reqPage + "?meetNo=" + myMeet.meetNo)
@@ -33,21 +34,25 @@ const MeetMemberList = (props) => {
         <>모임회원이 없습니다.</>
       ) : (
         <>
-          {meetMember.map((member, index) => {
-            return (
-              <MemberList
-                key={"member" + index}
-                member={member}
-                isOpen={isOpen}
-                setOpen={setOpen}
-                meetMember={meetMember}
-                setMeetMember={setMeetMember}
-                id={id}
-                meetNo={myMeet.meetNo}
-                captainCheck={captainCheck}
-              />
-            );
-          })}
+          <table className="meetMemberList-wrap">
+            <tbody>
+              {meetMember.map((member, index) => {
+                return (
+                  <MemberList
+                    key={"member" + index}
+                    member={member}
+                    isOpen={isOpen}
+                    setOpen={setOpen}
+                    meetMember={meetMember}
+                    setMeetMember={setMeetMember}
+                    id={id}
+                    meetNo={myMeet.meetNo}
+                    captainCheck={captainCheck}
+                  />
+                );
+              })}
+            </tbody>
+          </table>
         </>
       )}
       <div>
@@ -68,10 +73,12 @@ const MemberList = (props) => {
   const isOpen = props.isOpen;
   const setOpen = props.setOpen;
   const id = props.id;
+  const meetNo = props.meetNo;
   const reportItemNo = props.meetNo;
   const [disable, setDisable] = useState("");
   const handleClick = () => setOpen(true);
-  console.log("모달 전달 전 id : ", id);
+
+  // console.log("모달 전달 전 memberList.memberId : ", memberList);
 
   const handleClickSubmit = () => {
     setOpen(false);
@@ -118,64 +125,57 @@ const MemberList = (props) => {
       if (result.isConfirmed) {
         // 만약 모달창에서 confirm 버튼을 눌렀다면
         axios
-          .post("/meet/deleteMember", memberList)
+          .post("/meet/deleteMember/" + meetNo, memberList)
           .then((res) => {
-            const newArr = meetMember.filter((newMeetMember) => {
-              return newMeetMember.memberNo !== memberList.memberNo;
-            });
-            setMeetMember(newArr);
+            if (res.data === 1) {
+              const newArr = meetMember.filter((newMeetMember) => {
+                return newMeetMember.memberNo !== memberList.memberNo;
+              });
+              setMeetMember(newArr);
+              Swal.fire("탈퇴 완료하였습니다.", "회원탈퇴 완료", "success");
+            }
+            Swal.fire("탈퇴 실패하였습니다.", "회원탈퇴 실패", "error");
           })
           .catch((res) => {});
-        Swal.fire("탈퇴 완료하였습니다.", "회원탈퇴 완료", "success");
       }
     });
   };
-  console.log("모달 전달 전 memberId : ", memberList.memberId);
+  // console.log("모달 전달 전 memberId : ", memberList.memberId);
   return (
-    <>
-      <table className="meetMemberList-wrap">
-        <tbody>
-          <tr>
-            <td width="5%">
-              <div className="meetMemberList-img">
-                {memberList.memberImage === null ? (
-                  <img src="/img/testImg_01.png" />
-                ) : (
-                  ""
-                )}
-              </div>
-            </td>
-            <td width="60%">
-              <div className="meetMemberList-name">{memberList.memberId}</div>
-            </td>
-            <td width="35%">
-              <div className="meetMemberList-btn-wrap">
-                <Button2
-                  text={"호감도"}
-                  clickEvent={likeEvent}
-                  disable={disable}
-                />
-                <Button2 text={"신고"} clickEvent={reportEvent} />
-                {captainCheck ? (
-                  <Button2 text={"추방"} clickEvent={deleteEvent} />
-                ) : (
-                  ""
-                )}
+    <tr>
+      <td width="5%">
+        <div className="meetMemberList-img">
+          {memberList.memberImage === null ? (
+            <img src="/img/testImg_01.png" />
+          ) : (
+            <img src={memberList.memberImage} />
+          )}
+        </div>
+      </td>
+      <td width="60%">
+        <div className="meetMemberList-name">{memberList.memberId}</div>
+      </td>
+      <td width="35%">
+        <div className="meetMemberList-btn-wrap">
+          <Button2 text={"호감도"} clickEvent={likeEvent} disable={disable} />
+          <Button2 text={"신고"} clickEvent={reportEvent} />
 
-                <ReportModal
-                  isOpen={isOpen}
-                  onSubmit={handleClickSubmit}
-                  onCancel={handleClickCancel}
-                  memberId={id}
-                  reportItemNo={reportItemNo}
-                  reportMemberId={memberList.memberId}
-                />
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </>
+          {captainCheck ? (
+            <Button2 text={"추방"} clickEvent={deleteEvent} />
+          ) : (
+            ""
+          )}
+        </div>
+      </td>
+      <ReportModal
+        isOpen={isOpen}
+        onSubmit={handleClickSubmit}
+        onCancel={handleClickCancel}
+        memberId={id}
+        reportItemNo={reportItemNo}
+        reportMemberId={memberList.memberId}
+      />
+    </tr>
   );
 };
 

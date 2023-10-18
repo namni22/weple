@@ -77,6 +77,8 @@ public interface MeetDao {
 	Meet meetCapCheck(int meetNo, String memberId);
 
 	int modifyMeet(Meet meet);
+
+	
 	
 
 

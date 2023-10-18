@@ -106,31 +106,6 @@ const MeetView = (props) => {
         ""
       )}
 
-      {/* 
-      {isLogin && captainCheck === id ? (
-        <AfterMeetSubNavi
-          meetMenu={meetMenu}
-          setMeetMenu={setMeetMenu}
-          meetMenu2={meetMenu2}
-          setMeetMenu2={setMeetMenu2}
-          meetNo={meetNo}
-          captainCheck={captainCheck}
-          setCaptainCheck={setCaptainCheck}
-        />
-      ) : isLogin && followerStatus ? (
-        <AfterMeetSubNavi
-          meetMenu={meetMenu}
-          setMeetMenu={setMeetMenu}
-          meetMenu2={meetMenu2}
-          setMeetMenu2={setMeetMenu2}
-          meetNo={meetNo}
-          captainCheck={captainCheck}
-          setCaptainCheck={setCaptainCheck}
-        ></AfterMeetSubNavi>
-      ) : (
-        ""
-      )} */}
-
       <Routes>
         <Route
           path="enrollMeetMember"
@@ -221,7 +196,7 @@ const AfterMeetMain = (props) => {
           <p>{myMeet.meetContentS}</p>
         </div>
         <div className="afterMeet-member-count">
-          {myMeet.meetMargin}/{myMeet.meetTotal}명
+          {myMeet.meetTotal - myMeet.meetMargin}/{myMeet.meetTotal}명
         </div>
       </div>
     </div>
