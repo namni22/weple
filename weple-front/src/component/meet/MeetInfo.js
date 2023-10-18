@@ -126,6 +126,7 @@ const MeetInfo = (props) => {
     navigate("/meet/meetModify", { state: { meet: meet } });
   };
   // console.log("리턴바로위 isMeetMember : ", isMeetMember);
+
   return (
     <div className="meetInfo-all-wrap">
       <Review
@@ -183,10 +184,12 @@ const MeetInfo = (props) => {
             ) : isMeetMember ? ( //객체 가져와져있는지부터 확인
               // <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
               // isMesetMember가 있을때"
+
               isMeetMember?.followerStatus === 1 ? ( //현재 가입이 승인되어있는가?
                 //현재 followerStatus == 1 일때
                 <div>
                   <div>{isMeetMember?.followerStatus}</div>
+
                   <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
                 </div>
               ) : (
@@ -197,6 +200,7 @@ const MeetInfo = (props) => {
               //isMeetMember가 비어있을때
               <div>
                 <div>{isMeetMember?.followerStatus}</div>
+
                 <Button1 text="모임가입하기" clickEvent={meetJoin} />
               </div>
             )

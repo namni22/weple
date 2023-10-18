@@ -128,6 +128,10 @@ public class MemberService {
 		return m;
 	}
 
+	public List meetJoined(int memberNo) {
+		return memberDao.meetJoined(memberNo);
+	}
+
 
 
 	

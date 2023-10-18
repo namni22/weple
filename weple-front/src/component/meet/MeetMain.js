@@ -20,11 +20,14 @@ const MeetMain = (props) => {
   return (
     <div className="meet-all-wrap">
       <Routes>
-        <Route path="meetList" element={<MeetList />}></Route>
+        <Route
+          path="meetList"
+          element={<MeetList isLogin={isLogin} id={id} />}
+        ></Route>
         <Route path="category" element={<Category />} />
         <Route path="meetSettingFrm" element={<MeetSettingFrm />} />
         <Route path="meetCreate" element={<MeetCreate />}></Route>
-        <Route path="meetModify" element={<MeetModify />} ></Route>
+        <Route path="meetModify" element={<MeetModify />}></Route>
         <Route
           path="meetList/view/*"
           element={

@@ -289,11 +289,13 @@ public class MeetService {
 	public Follower status(int meetNo, String memberId) {
 		int selectMemberNo = meetDao.selectMemberNo(memberId);
 		Follower followStatus = meetDao.status(meetNo,selectMemberNo);
+		System.out.println("1111111111"+followStatus);
 		return followStatus;
 	}
 
 	public Map meetCapCheck(int meetNo, String memberId) {
 		Meet meetCapCheck= meetDao.meetCapCheck(meetNo,memberId);
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("meetCapCheck",meetCapCheck);		
 		return map;

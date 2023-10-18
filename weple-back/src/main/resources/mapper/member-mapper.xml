@@ -79,5 +79,9 @@
 		select * from member where member_id=#{memberId} and member_name=#{memberName} and member_email=#{memberEmail}
 	</select>
 	
+	<select id="meetJoined" resultType="meet">
+		select meet_title from meet where meet.meet_no in(select meet_no from follower where member_no=#{memberNo} and follower_status=1)
+	</select>
+	
 	
 </mapper>

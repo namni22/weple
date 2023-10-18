@@ -1,4 +1,17 @@
-const MyMeet = () => {
+import axios from "axios";
+
+const MyMeet = (props) => {
+  const memberId = props.memberId;
+  const memberNo = props.memberNo;
+
+  axios
+    .get("/member/meetJoined/" + memberNo)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((res) => {
+      console.log(res.response.status);
+    });
   return (
     <div className="myMeet-wrap">
       <div className="profile-sub-content">
