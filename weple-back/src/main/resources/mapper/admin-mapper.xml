@@ -58,10 +58,14 @@
 	<select id="reportList" resultType="report">
 		SELECT * FROM
 			(SELECT ROWNUM AS RNUM, R.* FROM
-    			(SELECT *
+    			(SELECT 
+    				*
     				FROM REPORT R
     			JOIN REPORT_CATEGORY RC ON (R.REPORT_CATEGORY_NO = RC.REPORT_CATEGORY_NO)
    				ORDER BY 1 DESC)R)
 			WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
+	<update id="changeReportStatus">
+		update report set report_type=#{reportType} where report_no = #{reportNo}
+	</update>
 </mapper>

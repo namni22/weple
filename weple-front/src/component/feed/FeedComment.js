@@ -70,80 +70,117 @@ const FeedComment = (props) => {
       <div className="commment-modal-wrap">
         <div className="feed-title">
           COMMENT
-          <span class="material-icons" onClick={closeComent}>
+          <span className="material-icons" onClick={closeComent}>
             close
           </span>
         </div>
-        <div className="feed-comment-wrap">
-          {commentList.map((comment, index) => {
-            return (
-              <div key={"comment" + index}>
-                {comment.fcommentRefNo == 0 ? (
-                  <div key={"comment" + index}>
-                    <CommentList
-                      comment={comment}
-                      isLogin={isLogin}
-                      fCommentRefNo={fCommentRefNo}
-                      setFCommentRefNo={setFCommentRefNo}
-                      rcmId={rcmId}
-                      setRcmId={setRcmId}
-                      load={load}
-                      setLoad={setLoad}
-                      memberId={memberId}
-                      feedNo={feedNo}
-                    />
-                    <div className="feed-comment-re-wrap">
-                      {commentList.map((reComment, index) => {
-                        return (
-                          <div key={"recomment" + index}>
-                            {comment.fcommentNo == reComment.fcommentRefNo ? (
-                              <CommentList
-                                comment={reComment}
-                                isLogin={isLogin}
-                                fCommentRefNo={fCommentRefNo}
-                                setFCommentRefNo={setFCommentRefNo}
-                                rcmId={rcmId}
-                                setRcmId={setRcmId}
-                                load={load}
-                                setLoad={setLoad}
-                                memberId={memberId}
-                                type="reCmt"
-                              />
-                            ) : (
-                              ""
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ) : (
-                  ""
-                )}
-              </div>
-            );
-          })}
+        <div>
+          {commentList.length !== 0 ? (
+            <CommentWrap
+              isLogin={isLogin}
+              feedNo={feedNo}
+              commentList={commentList}
+              fCommentContent={fCommentContent}
+              setFCommentContent={setFCommentContent}
+              fCommentRefNo={fCommentRefNo}
+              setFCommentRefNo={setFCommentRefNo}
+              rcmId={rcmId}
+              setRcmId={setRcmId}
+              load={load}
+              setLoad={setLoad}
+              memberId={memberId}
+              memberImage={memberImage}
+            />
+          ) : (
+            <div>댓글이 없습니다</div>
+          )}
         </div>
-        {isLogin ? (
-          <CommentFrm
-            feedNo={feedNo}
-            closeComent={closeComent}
-            fCommentContent={fCommentContent}
-            setFCommentContent={setFCommentContent}
-            fCommentRefNo={fCommentRefNo}
-            setFCommentRefNo={setFCommentRefNo}
-            rcmId={rcmId}
-            setRcmId={setRcmId}
-            load={load}
-            setLoad={setLoad}
-            memberId={memberId}
-            memberImage={memberImage}
-          />
-        ) : (
-          ""
-        )}
       </div>
     </ReactModal>
+  );
+};
+
+const CommentWrap = (props) => {
+  const isLogin = props.isLogin;
+  const feedNo = props.feedNo;
+  const commentList = props.commentList;
+  const fCommentContent = props.fCommentContent;
+  const setFCommentContent = props.setFCommentContent;
+  const fCommentRefNo = props.fCommentRefNo;
+  const setFCommentRefNo = props.setFCommentRefNo;
+  const rcmId = props.rcmId;
+  const setRcmId = props.setRcmId;
+  const load = props.load;
+  const setLoad = props.setLoad;
+  const memberId = props.memberId;
+  const memberImage = props.memberImage;
+
+  return (
+    <>
+      <div className="feed-comment-wrap">
+        {commentList.map((comment, index) => {
+          return (
+            <div key={"comment" + index}>
+              {comment.fcommentRefNo == 0 ? (
+                <div key={"comment" + index}>
+                  <CommentList
+                    comment={comment}
+                    isLogin={isLogin}
+                    setFCommentRefNo={setFCommentRefNo}
+                    setRcmId={setRcmId}
+                    load={load}
+                    setLoad={setLoad}
+                    memberId={memberId}
+                    feedNo={feedNo}
+                  />
+                  <div className="feed-comment-re-wrap">
+                    {commentList.map((reComment, index) => {
+                      return (
+                        <div key={"recomment" + index}>
+                          {comment.fcommentNo == reComment.fcommentRefNo ? (
+                            <CommentList
+                              comment={reComment}
+                              isLogin={isLogin}
+                              setFCommentRefNo={setFCommentRefNo}
+                              setRcmId={setRcmId}
+                              load={load}
+                              setLoad={setLoad}
+                              memberId={memberId}
+                              type="reCmt"
+                            />
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+          );
+        })}
+      </div>
+      {isLogin ? (
+        <CommentFrm
+          feedNo={feedNo}
+          fCommentContent={fCommentContent}
+          setFCommentContent={setFCommentContent}
+          fCommentRefNo={fCommentRefNo}
+          setFCommentRefNo={setFCommentRefNo}
+          rcmId={rcmId}
+          setRcmId={setRcmId}
+          load={load}
+          setLoad={setLoad}
+          memberId={memberId}
+          memberImage={memberImage}
+        />
+      ) : (
+        ""
+      )}
+    </>
   );
 };
 
@@ -151,9 +188,7 @@ const CommentList = (props) => {
   const comment = props.comment;
   const isLogin = props.isLogin;
   const memberId = props.memberId;
-  const fCommentRefNo = props.fCommentRefNo;
   const setFCommentRefNo = props.setFCommentRefNo;
-  const rcmId = props.rcmId;
   const setRcmId = props.setRcmId;
   const load = props.load;
   const setLoad = props.setLoad;
@@ -308,7 +343,6 @@ const CommentFrm = (props) => {
   const fCommentRefNo = props.fCommentRefNo;
   const setFCommentRefNo = props.setFCommentRefNo;
   const feedNo = props.feedNo;
-  const closeComent = props.closeComent;
   const rcmId = props.rcmId;
   const setRcmId = props.setRcmId;
   const load = props.load;
@@ -399,4 +433,4 @@ const CommentFrm = (props) => {
   );
 };
 
-export default FeedComment;
+export { FeedComment, CommentWrap };

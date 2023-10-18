@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import SwiperComponent from "../util/Swiper";
 import { MoreModal } from "../util/Modal";
-import FeedComment from "./FeedComment";
+import { FeedComment } from "./FeedComment";
+import FeedView from "./FeedView";
 
 const FeedList = (props) => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const FeedList = (props) => {
     axios
       .get("/feed/list/" + start + "/" + end)
       .then((res) => {
-        const arr = [...feedList];
+        const arr = [];
         for (let i = 0; i < res.data.length; i++) {
           arr.push(res.data[i]);
         }
@@ -185,6 +186,7 @@ const FeedContent = (props) => {
     navigate("/feed/modify", { state: { feed: feed } });
   };
 
+  //댓글모달
   const comment = () => {
     setCmtIsOpen(true);
     setRcmId("");
@@ -192,6 +194,14 @@ const FeedContent = (props) => {
   };
   const closeComent = () => {
     setCmtIsOpen(false);
+  };
+
+  //상세보기모달
+  const view = () => {
+    setViewOpen(true);
+  };
+  const closeView = () => {
+    setViewOpen(false);
   };
 
   return (
@@ -224,7 +234,7 @@ const FeedContent = (props) => {
         )}
       </div>
       <div className="feed-list-text">
-        <div>{feedContent}</div>
+        <div onClick={view}>{feedContent}</div>
       </div>
       <div className="feed-list-content-btn">
         <div>
@@ -264,6 +274,12 @@ const FeedContent = (props) => {
         setFCommentRefNo={setFCommentRefNo}
         rcmId={rcmId}
         setRcmId={setRcmId}
+      />
+      <FeedView
+        isOpen={viewOpen}
+        closeview={closeView}
+        feedNo={feed.feedNo}
+        isLogin={isLogin}
       />
     </div>
   );
