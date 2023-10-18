@@ -26,7 +26,7 @@ const Review = (props) => {
   //리뷰 조회
   useEffect(() => {
     axios
-      .get("/review/reviewList/" + meetNo)
+      .get("/review/previewList/" + meetNo)
       .then((res) => {
         const arr = [...reviewList];
         if (res.data.length < 11) {
@@ -73,7 +73,14 @@ const Review = (props) => {
               </div>
               <div className="meet-star-score">{meetStar}</div>
             </div>
-            <Link to="/review" state={{ meetNo: meetNo, meetStar: meetStar }}>
+            <Link
+              to="/review"
+              state={{
+                meetNo: meetNo,
+                meetStar: meetStar,
+                reviewCount: reviewCount,
+              }}
+            >
               <div className="more-btn">{reviewCount}개 후기 더보기</div>
             </Link>
           </div>

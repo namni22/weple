@@ -88,7 +88,8 @@ const FeedMain = () => {
         setFeedList([...arr]);
       })
       .catch((res) => {
-        Swal.fire("실패");
+        Swal.fire("Main실패");
+        console.log(res.data.status);
       });
   }, []);
 

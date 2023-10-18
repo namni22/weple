@@ -118,50 +118,58 @@ const CommentWrap = (props) => {
   return (
     <>
       <div className="feed-comment-wrap">
-        {commentList.map((comment, index) => {
-          return (
-            <div key={"comment" + index}>
-              {comment.fcommentRefNo == 0 ? (
+        {commentList.length !== 0 ? (
+          <>
+            {commentList.map((comment, index) => {
+              return (
                 <div key={"comment" + index}>
-                  <CommentList
-                    comment={comment}
-                    isLogin={isLogin}
-                    setFCommentRefNo={setFCommentRefNo}
-                    setRcmId={setRcmId}
-                    load={load}
-                    setLoad={setLoad}
-                    memberId={memberId}
-                    feedNo={feedNo}
-                  />
-                  <div className="feed-comment-re-wrap">
-                    {commentList.map((reComment, index) => {
-                      return (
-                        <div key={"recomment" + index}>
-                          {comment.fcommentNo == reComment.fcommentRefNo ? (
-                            <CommentList
-                              comment={reComment}
-                              isLogin={isLogin}
-                              setFCommentRefNo={setFCommentRefNo}
-                              setRcmId={setRcmId}
-                              load={load}
-                              setLoad={setLoad}
-                              memberId={memberId}
-                              type="reCmt"
-                            />
-                          ) : (
-                            ""
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
+                  {comment.fcommentRefNo == 0 ? (
+                    <div key={"comment" + index}>
+                      <CommentList
+                        comment={comment}
+                        isLogin={isLogin}
+                        setFCommentRefNo={setFCommentRefNo}
+                        setRcmId={setRcmId}
+                        load={load}
+                        setLoad={setLoad}
+                        memberId={memberId}
+                        feedNo={feedNo}
+                      />
+                      <div className="feed-comment-re-wrap">
+                        {commentList.map((reComment, index) => {
+                          return (
+                            <div key={"recomment" + index}>
+                              {comment.fcommentNo == reComment.fcommentRefNo ? (
+                                <CommentList
+                                  comment={reComment}
+                                  isLogin={isLogin}
+                                  setFCommentRefNo={setFCommentRefNo}
+                                  setRcmId={setRcmId}
+                                  load={load}
+                                  setLoad={setLoad}
+                                  memberId={memberId}
+                                  type="reCmt"
+                                />
+                              ) : (
+                                ""
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
-              ) : (
-                ""
-              )}
-            </div>
-          );
-        })}
+              );
+            })}
+          </>
+        ) : (
+          <div className="feed-comment-noco feed-comment-wrap">
+            댓글이 없습니다
+          </div>
+        )}
       </div>
       {isLogin ? (
         <CommentFrm
@@ -244,7 +252,7 @@ const CommentList = (props) => {
       });
     }
   };
-
+  //댓글삭제
   const deleteComment = () => {
     Swal.fire({
       icon: "warning",
@@ -258,6 +266,8 @@ const CommentList = (props) => {
           .get("/feed/comment/delete/" + comment.fcommentNo)
           .then((res) => {
             if (res.data !== 0) {
+              setRcmId("");
+              setFCommentRefNo(null);
               setLoad(load + 1);
               Swal.fire({
                 icon: "success",
@@ -384,7 +394,7 @@ const CommentFrm = (props) => {
         })
         .catch((res) => {
           console.log(res.response.status);
-          Swal.fire("실패");
+          Swal.fire("Feed실패");
         });
     } else {
       Swal.fire("댓글 내용을 입력하세요");

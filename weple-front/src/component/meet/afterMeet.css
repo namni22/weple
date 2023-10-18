@@ -396,7 +396,9 @@ input[type="date"] {
 
 .meetChat-textEditor {
   background-color: #fff;
-  white-space: pre-line;
+}
+.meetChat-textEditor > textarea {
+  white-space: pre;
 }
 
 .meetChat-chat-wrap > ul {
@@ -444,6 +446,7 @@ input[type="date"] {
   padding: 5px 20px 5px 10px;
   background-color: #fff;
   border-radius: 5px;
+  white-space: pre;
 }
 
 .meetChat-input-form-wrap {
