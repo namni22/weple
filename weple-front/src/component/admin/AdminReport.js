@@ -4,14 +4,17 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Pagination from "../common/Pagination";
+import { Button1, Button2 } from "../util/Button";
 const AdminReport = () => {
 
   const [reportList, setReportList] = useState([]);
   const [pageInfo, setPageInfo] = useState({});
   const [reqPage, setReqPage] = useState(1);
+
   // const handleChange = (event) => {
   //   const obj = { reportNo: report.reportNo, reportType: event.target.value };
   // }
+
   useEffect(() => {
     axios
       .get("/admin/reportList/" + reqPage)
@@ -24,6 +27,8 @@ const AdminReport = () => {
         console.log(res);
       });
   }, [reqPage]);
+
+
   return (
     <div className="admin-report-wrap">
       <div className="admin-report-top">
@@ -70,18 +75,41 @@ const ReportItem = (props) => {
   const report = props.report;
 
   const [reportType, setReportType] = useState(report.reportType);
-  console.log("신고번호 : " + report.reportNo);
-  console.log("신고타입" + report.reportType);
+  const [reportStatus, setReportStatus] = useState();
+
+  console.log("신고전체 : ", report);
+
   const handleChange = (event) => {
 
 
   };
+  const changeStatus = () => {
+    console.log(report.reportStatus);
+    if (report.reportStatus === 1) {
+      axios
+        .post("/admin/changeReportStatus", report.reportStatus)
+        .then((res) => {
+          if (res.data === 1) {
+            setReportStatus(0);
+          } else {
+            Swal.fire("변경 중 문제가 발생했습니다.");
+          }
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+    }
+  }
   return (
     <tr>
-      <td>{report.reportType}</td>
+      <td>
+        {report.reportType === 0 ? "후기" : (report.reportType === 1 ? "피드" : "모임")}
+      </td>
       <td>{report.reportedMember}</td>
       <td>{report.reportCategoryContent}</td>
-      <td>{report.reportStatus}</td>
+      <td>
+        {report.reportStatus === 1 ? <Button2 text="확인 중" clickEvent={changeStatus} /> : <Button1 text="확인완료" />}
+      </td>
     </tr>
   );
 }
