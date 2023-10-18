@@ -20,4 +20,5 @@ public class Report {
 	private int reportCategoryNo;
 	private int reportType;
 	private String reportDate;
+	private String reportCategoryContent;
 }
