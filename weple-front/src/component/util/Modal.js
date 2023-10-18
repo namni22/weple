@@ -11,11 +11,14 @@ const ReportModal = (props) => {
   const onCancel = props.onCancel;
   const memberId = props.memberId;
   const reportItemNo = props.reportItemNo;
+  const reportMemberId = props.reportMemberId;
   const [reportedMember, setReportedMember] = useState("");
   const [reportContent, setReportContent] = useState("");
   const [reportTypeValue, setReportTypeValue] = useState(0);
   const [currentVaule, setCurrentVaule] = useState();
   const [currentCategory, setCurrentCategory] = useState("");
+  const [checkIdMsg, setCheckIdMsg] = useState("");
+  console.log("props.reportMemberId : ", reportMemberId);
   const [reportType, setReportType] = useState([
     {
       value: 0,
@@ -86,7 +89,7 @@ const ReportModal = (props) => {
         .post(
           "/member/report",
           {
-            reportedMember: reportedMember,
+            reportedMember: reportMemberId,
             reportType: currentVaule,
             reportContent: reportContent,
             reportCategoryNo: currentCategory,
@@ -146,6 +149,7 @@ const ReportModal = (props) => {
     const newCategory = e.currentTarget.value;
     setCurrentCategory(newCategory);
   };
+  console.log("reportMemberId : ", reportMemberId);
   return (
     <ReactModal style={customStyles} isOpen={isOpen}>
       <div className="modal-all-wrap">
@@ -194,28 +198,7 @@ const ReportModal = (props) => {
                 <td>
                   신고 할 회원<sup>*</sup>
                 </td>
-                <td>
-                  <input
-                    onChange={(e) => {
-                      const changeMemberValue = e.currentTarget.value;
-                      setReportedMember(changeMemberValue);
-                    }}
-                  ></input>
-                  <Button1 text={"확인"} />
-
-                  <p id="report-p">
-                    1.신고 타입이 회원일 경우: 신고할 회원 아이디
-                  </p>
-                  <p id="report-p">
-                    2.신고 타입이 모임일 경우: 모임장 회원 아이디
-                  </p>
-                  <p id="report-p">
-                    3.신고 타입이 피드일 경우: 피드를 작성한 회원 아이디
-                  </p>
-                  <p id="report-p">
-                    4.신고 타입이 후기일 경우: 후기를 작성한 회원 아이디
-                  </p>
-                </td>
+                <td>{reportMemberId}</td>
               </tr>
               <tr>
                 <td>
