@@ -25,6 +25,7 @@ const MeetInfo = (props) => {
 
 
   useEffect(() => {
+    console.log("useEffect isMeetMember  작동");
     setMeet(props.myMeet);
     if (props.myMeet.meetPrepare) {
       setMeetPrepareList(props.myMeet.meetPrepare.split("/"));
@@ -54,11 +55,13 @@ const MeetInfo = (props) => {
           },
         })
         .then((res) => {
+          console.log("isMeetMember res.data : ", res.data);
           setIsMeetMember(res.data);
         })
         .catch((res) => {
           console.log(res.response.status);
         });
+
       //가입 대기 상태라면 모임가입 버튼 비활성화하도록 db에서 가입상태 가져오기
     }
   }, [props]);
@@ -121,10 +124,10 @@ const MeetInfo = (props) => {
 
   //모임장이 모임수정 버튼 클릭시
   const meetModify = () => {
-    console.log("meetModyfy버튼 클릭시 전달되는 meet : ", meet);
+    // console.log("meetModyfy버튼 클릭시 전달되는 meet : ", meet);
     navigate("/meet/meetModify", { state: { meet: meet } });
   }
-
+  console.log("리턴바로위 isMeetMember : ", isMeetMember);
   return (
     <div className="meetInfo-all-wrap">
       <Review
@@ -187,7 +190,10 @@ const MeetInfo = (props) => {
                 // isMesetMember가 있을때"
                 isMeetMember.followerStatus === 1 ? ( //현재 가입이 승인되어있는가?
                   //현재 followerStatus == 1 일때
-                  <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
+                  <div>
+                    <div>{isMeetMember.followerStatus}</div>
+                    <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
+                  </div>
                 ) : (
                   //현재 followerStatus == 0 일때
                   <div>가입승인 대기중</div> //div로 가입 승인대기중 띄워주기 또는 공백 처리
@@ -195,6 +201,7 @@ const MeetInfo = (props) => {
               ) : (
                 //isMeetMember가 비어있을때
                 <div>
+                  <div>{isMeetMember.followerStatus}</div>
                   <Button1 text="모임가입하기" clickEvent={meetJoin} />
                 </div>
               )
@@ -216,8 +223,8 @@ const Kakao = (props) => {
 
   const meetLatitude = props.meetLatitude;
   const meetLongitude = props.meetLongitude;
-  console.log("카카오맵 위도 : ", meetLatitude);
-  console.log("카카오맵 경도 : ", meetLongitude);
+  // console.log("카카오맵 위도 : ", meetLatitude);
+  // console.log("카카오맵 경도 : ", meetLongitude);
   useEffect(() => {
     const container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
     const options = {
