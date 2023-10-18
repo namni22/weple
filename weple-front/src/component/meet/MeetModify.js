@@ -26,7 +26,8 @@ const MeetModify = () => {
     //썸네일
     const [meetThumbnail, setMeetThumbnail] = useState(null);
     // 썸네일 미리보기
-    const [meetThumbnailPreview, setMeetThumbnailPreview] = useState(meet.meetThumbnailPreview);
+    const [meetThumbnailPreview, setMeetThumbnailPreview] = useState(meet.meetThumbNail);
+
     // 준비물 리스트 추가용
     const [meetPrepare, setMeetPrepare] = useState(meet.meetPrepare);
     const [meetPrepareList, setMeetPrepareList] = useState(meet.meetPrepareList);

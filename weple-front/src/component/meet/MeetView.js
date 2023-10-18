@@ -27,9 +27,9 @@ const MeetView = (props) => {
   const token = window.localStorage.getItem("token");
   const [followerStatus, setFollowerStatus] = useState({});
   const meetNo = myMeet.meetNo;
-  //console.log("멤버스테이트에 필요한 meetNo : ", meetNo);
+
   useEffect(() => {
-    console.log("asdf", myMeet);
+
     axios
       .get("/meet/memberStatus/" + myMeet.meetNo, {
         headers: {
@@ -37,7 +37,7 @@ const MeetView = (props) => {
         },
       })
       .then((res) => {
-        console.log("팔로워 status : ", res);
+        // console.log("팔로워 status : ", res);
         setFollowerStatus(res.data.followerStatus);
       })
       .catch((res) => {
