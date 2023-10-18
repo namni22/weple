@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { Button2 } from "../util/Button";
 import SwiperComponent from "../util/Swiper";
 import "./review.css";
@@ -30,26 +31,39 @@ const ReviewWriteFrm = (props) => {
     if (Imgs.length !== 0 && Imgs[0] !== 0) {
       const arr = [...rImage]; //파일객체 더해주기
       const arrBox = [...reviewBox]; //화면객체 더해주기
-
-      for (let i = 0; i < Imgs.length; i++) {
-        arr.push(Imgs[i]);
-        const reader = new FileReader();
-        reader.readAsDataURL(Imgs[i]);
-        reader.onload = () => {
-          arrBox.push(<img src={reader.result}></img>);
-          setReviewBox([...arrBox]);
-        };
-        setRImage([...arr]);
+      if (Imgs.length > 10 || Imgs.length + arr.length > 10) {
+        Swal.fire({
+          icon: "error",
+          text: "최대 10장까지 업로드 가능합니다",
+          confirmButtonText: "확인",
+        });
+      } else {
+        for (let i = 0; i < Imgs.length; i++) {
+          arr.push(Imgs[i]);
+          const reader = new FileReader();
+          reader.readAsDataURL(Imgs[i]);
+          reader.onload = () => {
+            arrBox.push(<img src={reader.result}></img>);
+            setReviewBox([...arrBox]);
+          };
+          setRImage([...arr]);
+        }
       }
     } else {
       setReviewBox([]);
       setRImage([]);
     }
+    e.currentTarget.value = null;
   };
 
   const changeContent = (e) => {
     const changeValue = e.currentTarget.value;
-    setReviewContent(changeValue);
+    const changeEnter = changeValue.replace(/(?:\r\n|\r|\n)/g, "<br>");
+    const changeSpace = changeEnter.replace(/\s{2,}/gi, " ");
+    setReviewContent(changeSpace);
+    if (changeSpace === " ") {
+      setReviewContent(reviewContent.replace(/\s/gi, ""));
+    }
   };
   return (
     <div className="review-write-wrap">

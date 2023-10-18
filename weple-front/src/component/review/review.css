@@ -27,7 +27,16 @@
 .review-write-wrap .profileImg > img {
   width: 100%;
 }
-
+.review-write-wrap textarea {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 30px;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  padding: 10px;
+  box-sizing: border-box;
+  resize: none;
+}
 .review-write {
   width: 100%;
   height: 300px;
@@ -51,11 +60,15 @@
   width: 100px;
   height: 100px;
 }
-.review-write-wrap button {
-  margin-top: 30px;
+.review-write-wrap .swiper-pagination {
+  display: none;
+}
+.review-write-wrap .feed-write-img img {
   width: 100%;
-
-  box-sizing: border-box;
+  height: 327px;
+  background-color: #eee;
+  margin-right: 30px;
+  object-fit: cover;
 }
 /* ******************************* */
 .review-wrap .review-top {
@@ -108,6 +121,7 @@
   /* display: block; */
 }
 .review-wrap .review-component .simple {
+  white-space: pre-wrap;
   text-overflow: ellipsis;
   font-size: 14px;
   overflow: hidden;

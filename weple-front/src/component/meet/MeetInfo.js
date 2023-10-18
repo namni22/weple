@@ -24,7 +24,6 @@ const MeetInfo = (props) => {
   const [meetPrepareList, setMeetPrepareList] = useState([]);
 
   useEffect(() => {
-
     setMeet(props.myMeet);
     if (props.myMeet.meetPrepare) {
       setMeetPrepareList(props.myMeet.meetPrepare.split("/"));
@@ -179,10 +178,12 @@ const MeetInfo = (props) => {
             ) : isMeetMember ? ( //객체 가져와져있는지부터 확인
               // <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
               // isMesetMember가 있을때"
-              isMeetMember.followerStatus === 1 ? ( //현재 가입이 승인되어있는가?
+
+              isMeetMember?.followerStatus === 1 ? ( //현재 가입이 승인되어있는가?
                 //현재 followerStatus == 1 일때
                 <div>
-                  <div>{isMeetMember.followerStatus}</div>
+                  <div>{isMeetMember?.followerStatus}</div>
+
                   <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
                 </div>
               ) : (
@@ -193,7 +194,7 @@ const MeetInfo = (props) => {
               //isMeetMember가 비어있을때
               <div>
                 <Button1 text="모임가입하기" clickEvent={meetJoin} />
-              </div>
+              </div >
             )
           ) : (
             ""
@@ -201,8 +202,8 @@ const MeetInfo = (props) => {
         ) : (
           "로그아웃 상태" //로그아웃 상태일때 공백
         )}
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };
 

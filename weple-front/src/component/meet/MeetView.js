@@ -50,7 +50,7 @@ const MeetView = (props) => {
     axios
       .post("/meet/selectOneMember", { memberId: location.state.m.meetCaptain })
       .then((res) => {
-        console.log("캡틴체크", res.data);
+        // console.log("캡틴체크", res.data);
         setMeetCaptain(res.data);
       })
       .catch((res) => {
@@ -190,7 +190,6 @@ const AfterMeetMain = (props) => {
   const myMeet = props.myMeet;
   const meetCaptain = props.meetCaptain;
 
-  //console.log(myMeet);
   return (
     <div className="afterMeet-main-wrap">
       <div className="afterMeet-main-thumbnail">
@@ -255,7 +254,8 @@ const AfterMeetSubNavi = (props) => {
         //    console.log(res.response.status);
       });
   }, [props]);
-  console.log("사이드 렌더링", captainCheck);
+  // console.log("렌더링", captainCheck);
+
   const activeTab = (index) => {
     meetMenu.forEach((item) => {
       item.active = false;
