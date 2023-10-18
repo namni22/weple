@@ -62,7 +62,7 @@ function App() {
           />
           <Route path="/findId" element={<FindId />} />
           {/* <Route path="/category" element={<Category />} /> */}
-          <Route path="/review/*" element={<ReviewMain />} />
+          <Route path="/review/*" element={<ReviewMain isLogin={isLogin} />} />
           <Route path="*" element={<Main />} />
         </Routes>
       </div>
