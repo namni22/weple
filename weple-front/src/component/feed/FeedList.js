@@ -21,7 +21,7 @@ const FeedList = (props) => {
     axios
       .get("/feed/list/" + start + "/" + end)
       .then((res) => {
-        const arr = [];
+        const arr = [...feedList];
         for (let i = 0; i < res.data.length; i++) {
           arr.push(res.data[i]);
         }
