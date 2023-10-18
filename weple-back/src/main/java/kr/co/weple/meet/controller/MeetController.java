@@ -172,7 +172,7 @@ public class MeetController {
 		System.out.println("모임 카테고리 번호 : "+meetCategory);
 		//이미 meetList를 쓰고 있어서 바꿈
 		Map map = meetService.circleList(reqPage,meetCategory);
-
+		System.out.println("전체 조회 별점확인 맵 : "+ map);
 		return map;
 	}
 	//모임 카테고리 메뉴바 눌럿을때 모임 리스트 조회
@@ -180,7 +180,7 @@ public class MeetController {
 	public Map categoryMeetList(@PathVariable int reqPage,@PathVariable int meetCategory) {
 		
 		Map map = meetService.categoryMeetList(reqPage, meetCategory);
-		
+		System.out.println("별점확인 맵 : "+map);
 		return map;
 	}
 	//아이디 받아서 멤버 조회
