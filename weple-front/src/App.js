@@ -19,6 +19,7 @@ import FindPw from "./component/member/FindPw";
 function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [id, setId] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
     const token = window.localStorage.getItem("token");
     if (token === null) {
@@ -31,7 +32,12 @@ function App() {
 
   return (
     <div className="weple-wrap">
-      <Header isLogin={isLogin} setIsLogin={setIsLogin} setId={setId} />
+      <Header
+        isLogin={isLogin}
+        setIsLogin={setIsLogin}
+        setId={setId}
+        isAdmin={isAdmin}
+      />
       <div className="weple-content">
         <Routes>
           <Route
@@ -59,7 +65,13 @@ function App() {
           <Route path="/join" element={<Join />} />
           <Route
             path="/login"
-            element={<Login setIsLogin={setIsLogin} setId={setId} />}
+            element={
+              <Login
+                setIsLogin={setIsLogin}
+                setId={setId}
+                setIsAdmin={setIsAdmin}
+              />
+            }
           />
           <Route path="/findId" element={<FindId />} />
           <Route path="/findPw" element={<FindPw />} />

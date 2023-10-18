@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 
 const Login = (props) => {
   const setIsLogin = props.setIsLogin;
+  const setIsAdmin = props.setIsAdmin;
   const setId = props.setId;
   const [memberId, setMemberId] = useState("");
   const [memberPw, setMemberPw] = useState("");

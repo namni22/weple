@@ -71,7 +71,7 @@ const FeedView = (props) => {
         setFeedBox(imgArr);
       })
       .catch((res) => {
-        console.log(res.response.status);
+        console.log("feedview" + res.response.status);
         Swal.fire("실패");
       });
   }, [feedNo]);

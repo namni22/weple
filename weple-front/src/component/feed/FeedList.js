@@ -28,6 +28,7 @@ const FeedList = (props) => {
         setFeedList([...arr]);
       })
       .catch((res) => {
+        console.log("feedlist" + res.data.status);
         Swal.fire("실패");
       });
   }, [start, load]);

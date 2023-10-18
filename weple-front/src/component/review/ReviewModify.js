@@ -48,7 +48,7 @@ const ReviewModify = (props) => {
           }
         })
         .catch((res) => {
-          console.log(res.response.status);
+          console.log("reviewmodify" + res.response.status);
           Swal.fire("실패");
         });
     } else {

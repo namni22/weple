@@ -4,6 +4,7 @@ import "./header.css";
 const Header = (props) => {
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
+  const isAdmin = props.isAdmin;
   console.log("header", isLogin, setIsLogin);
   const setId = props.setId;
   const logout = () => {
@@ -45,12 +46,23 @@ const Header = (props) => {
             </Link>
           </div>
           {isLogin ? (
-            <div className="icon-wrap">
-              <Link to="/mypage/profile/myFeed">
-                <div className="material-icons mypage">contact_page</div>
-                <div className="icon-explain">마이</div>
-              </Link>
-            </div>
+            isAdmin ? (
+              <div className="icon-wrap">
+                <Link to="/admin">
+                  <div className="material-icons admin">
+                    admin_panel_settings
+                  </div>
+                  <div className="icon-explain">관리자</div>
+                </Link>
+              </div>
+            ) : (
+              <div className="icon-wrap">
+                <Link to="/mypage/profile/myFeed">
+                  <div className="material-icons mypage">contact_page</div>
+                  <div className="icon-explain">마이</div>
+                </Link>
+              </div>
+            )
           ) : (
             <div className="icon-wrap">
               <Link to="/login">

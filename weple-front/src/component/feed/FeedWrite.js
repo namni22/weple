@@ -35,7 +35,7 @@ const FeedWrite = (props) => {
           }
         })
         .catch((res) => {
-          console.log(res.response.status);
+          console.log("feedwrite" + res.response.status);
           Swal.fire("실패");
         });
     } else {
