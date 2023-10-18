@@ -28,14 +28,14 @@ const MeetView = (props) => {
       },
     })
     .then((res) => {
-      console.log("팔로워 status : ", res.data);
+      // console.log("팔로워 status : ", res.data);
       setFollowerStatus(res.data.followerStatus);
     })
     .catch((res) => {
       console.log(res.response.status);
     });
 
-  console.log("전달받은 로케이션 m ", meetNo);
+
   // const [meet, setMeet] = useState({});
   // 사용안함!!!!!!!!!!!!!!
   // useEffect(() => {
@@ -225,9 +225,9 @@ const AfterMeetSubNavi = (props) => {
       },
     })
     .then((res) => {
-      console.log("방장체크 : ", res.data);
+      // console.log("방장체크 : ", res.data);
       setCaptainCheck(res.data);
-      console.log("방장체크 captainCheck : ", captainCheck);
+      // console.log("방장체크 captainCheck : ", captainCheck);
     })
     .catch((res) => {
       //console.log(res.response.status);
