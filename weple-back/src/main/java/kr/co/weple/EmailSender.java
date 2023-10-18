@@ -49,7 +49,7 @@ public class EmailSender {
 		}
 		try {
 			helper.setSentDate(new Date());
-			helper.setFrom(new InternetAddress("chaeynee5@gmail.com", "WEPLE"));
+			helper.setFrom(new InternetAddress("weplayer@weple.co.kr", "WEPLE"));
 			helper.setTo(memberEmail);
 			helper.setSubject("WEPLE 인증 메일입니다.");
 			helper.setText("<h1>안녕하세요 WEPLE입니다.</h1>"
