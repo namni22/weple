@@ -123,6 +123,11 @@ public class MemberService {
 		return m;
 	}
 
+	public Member findPw(Member member) {
+		Member m = memberDao.findPw(member);
+		return m;
+	}
+
 
 
 	

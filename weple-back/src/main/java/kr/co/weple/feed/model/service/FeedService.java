@@ -45,6 +45,16 @@ public class FeedService {
 		return null;
 	}
 
+	//피드하나출력
+	public Feed one(int feedNo) {
+		List list = feedDao.one(feedNo);
+		Feed feed = (Feed)list.get(0);
+		List fComment =  feedDao.commentList(feedNo);
+		feed.setFComment(fComment);
+		System.out.println(feed);
+		return feed;
+	}
+	
 	//피드수정
 	@Transactional
 	public List<FImage> modify(Feed f, ArrayList<FImage> imageList) {
@@ -124,5 +134,32 @@ public class FeedService {
 		}
 		return 0;
 	}
+
+	//댓글 좋아요 조회
+	public int commentLike(String memberId, int fCommentNo) {
+		Member m = memberDao.selectOneMember(memberId);
+		List list = feedDao.commentLike(m.getMemberNo(),fCommentNo);
+		if(list.size()!=0) {
+			return 1;
+		}
+		return 0;
+	}
+	//댓글 좋아요 클릭이벤트
+	@Transactional
+	public int updateCommentLike(String memberId, int fCommentNo) {
+		Member m = memberDao.selectOneMember(memberId);
+		List list = feedDao.commentLike(m.getMemberNo(),fCommentNo);
+		if(list.size()==0) {
+			return feedDao.commentInsertLike(m.getMemberNo(),fCommentNo);
+		}else {
+			int result = feedDao.commentDeleteLike(m.getMemberNo(),fCommentNo);
+			if(result>0) {				
+				return 2;
+			}
+		}
+		return 0;
+	}
+
+
 	
 }

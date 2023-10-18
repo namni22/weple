@@ -52,4 +52,20 @@
 			)
 		where rnum between #{start} and #{end}	
 	</select>
+	<select id="reportListCount" resultType="int">
+		select count(*) from report 
+	</select>
+	<select id="reportList" resultType="report">
+		SELECT * FROM
+			(SELECT ROWNUM AS RNUM, R.* FROM
+    			(SELECT 
+    				*
+    				FROM REPORT R
+    			JOIN REPORT_CATEGORY RC ON (R.REPORT_CATEGORY_NO = RC.REPORT_CATEGORY_NO)
+   				ORDER BY 1 DESC)R)
+			WHERE RNUM BETWEEN #{start} AND #{end}
+	</select>
+	<update id="changeReportStatus">
+		update report set report_type=#{reportType} where report_no = #{reportNo}
+	</update>
 </mapper>

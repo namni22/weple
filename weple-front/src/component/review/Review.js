@@ -22,7 +22,7 @@ const Review = (props) => {
   const meetStar = props.reviewStar;
   const reviewCount = props.reviewCount;
   const isMeetMember = props.isMeetMember; //해당 멤버인지 확인하는 함수(undefined)
-  console.log("isMeetMember: " + isMeetMember);
+  // console.log("isMeetMember: " + isMeetMember);
   //리뷰 조회
   useEffect(() => {
     axios

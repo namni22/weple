@@ -37,6 +37,8 @@ public interface MemberDao {
 
 	Member findId(Member member);
 
+	Member findPw(Member member);
+
 
 	
 

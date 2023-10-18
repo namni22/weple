@@ -1,7 +1,7 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
 import "./feed.css";
 import { FeedList } from "./FeedList";
-import FeedComment from "./FeedComment";
+import { FeedComment } from "./FeedComment";
 import FeedWrite from "./FeedWrite";
 import FeedModify from "./FeedModify";
 

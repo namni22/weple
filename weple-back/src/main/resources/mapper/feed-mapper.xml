@@ -15,13 +15,19 @@
 	</select>
 	<!-- feed 리스트 조회 resultMap -->
 	<select id="selectFeedList" resultMap="getImage">
-		select *
-		from (select rownum as rnum, f.*
-				from (
-				select feed_no,feed_writer,feed_content,feed_date,m.member_image
-				from feed f join member m on(f.feed_writer=m.member_id)
-				order by feed_no desc)f)
-		where rnum between #{start} and #{end}
+	select *
+	from (
+		select rownum as rnum, f.*
+		from (
+			select feed_no, feed_writer, feed_content, feed_date,
+		        (select member_image from member m where m.member_id = f.feed_writer) member_image,
+		        nvl((select count(feed_no) from flike l where l.feed_no = f.feed_no),0) total_like,
+       			nvl((select count(feed_no) from fcomment c where c.feed_no = f.feed_no),0) total_comment
+			from feed f 
+			order by feed_no desc
+		    ) f
+	)
+	where rnum between #{start} and #{end}
 	</select>
 	<select id="selectImageList" resultType="fImage">
 		select * from fImage where feed_no = #{feedNo}
@@ -40,6 +46,9 @@
 			ofType="fImage"
 		/>
 	</resultMap>
+	<select id="one" resultMap="getImage">
+		select * from feed where feed_no=#{feedNo} 
+	</select>
 	<select id="selectFeedFile" resultType="fImage">
 		select * from fimage
 			where fimage_no in
@@ -60,6 +69,9 @@
 	<delete id="deleteFeed">
 		delete from feed where feed_no = #{feedNo}
 	</delete>
+	<select id="like" resultType="fLike">
+		select * from flike where feed_no=#{feedNo} and member_no=#{memberNo}
+	</select>
 	<insert id="insertLike">
 		insert into flike values(#{feedNo},#{memberNo})
 	</insert>
@@ -73,17 +85,23 @@
 	</insert>
 	<select id="commentList" resultType="fComment">
 		select 
-			fcomment_no,feed_no,fcomment_content,fcomment_date,fcomment_writer,fcomment_ref_no,member_image
-		from fcomment f 
-		join member m 
-		on(f.fcomment_writer=m.member_id)
-		where feed_no=#{feedNo} 
-		order by fcomment_no
+	        fcomment_no, feed_no, fcomment_content, fcomment_date, fcomment_writer, fcomment_ref_no,
+	        (select member_image from member m where m.member_id = f.fcomment_writer) member_image,
+	        nvl((select count(fcomment_no) from fcomment_like l where l.fcomment_no = f.fcomment_no),0) total_comment_like
+		from fcomment f
+		where feed_no=#{feedNo}
+		order by feed_no desc
 	</select>
 	<delete id="deleteComment">
 		delete from fcomment where fcomment_no = #{fCommentNo}
 	</delete>
-	<select id="like" resultType="fLike">
-		select * from flike where feed_no=#{feedNo} and member_no=#{memberNo}
+	<select id="commentLike" resultType="fLike">
+		select * from fcomment_like where fcomment_no=#{fCommentNo} and member_no=#{memberNo}
 	</select>
+	<insert id="commentInsertLike">
+		insert into fcomment_like values(#{fCommentNo},#{memberNo})
+	</insert>
+	<delete id="commentDeleteLike">
+		delete from fcomment_like where fcomment_no=#{fCommentNo} and member_no=#{memberNo}
+	</delete>
 </mapper>

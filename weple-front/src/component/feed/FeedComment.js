@@ -70,78 +70,117 @@ const FeedComment = (props) => {
       <div className="commment-modal-wrap">
         <div className="feed-title">
           COMMENT
-          <span class="material-icons" onClick={closeComent}>
+          <span className="material-icons" onClick={closeComent}>
             close
           </span>
         </div>
-        <div className="feed-comment-wrap">
-          {commentList.map((comment, index) => {
-            return (
-              <div key={"comment" + index}>
-                {comment.fcommentRefNo == 0 ? (
-                  <div key={"comment" + index}>
-                    <CommentList
-                      comment={comment}
-                      isLogin={isLogin}
-                      fCommentRefNo={fCommentRefNo}
-                      setFCommentRefNo={setFCommentRefNo}
-                      rcmId={rcmId}
-                      setRcmId={setRcmId}
-                      load={load}
-                      setLoad={setLoad}
-                      memberId={memberId}
-                    />
-                    <div className="feed-comment-re-wrap">
-                      {commentList.map((reComment, index) => {
-                        return (
-                          <div key={"recomment" + index}>
-                            {comment.fcommentNo == reComment.fcommentRefNo ? (
-                              <CommentList
-                                comment={reComment}
-                                isLogin={isLogin}
-                                fCommentRefNo={fCommentRefNo}
-                                setFCommentRefNo={setFCommentRefNo}
-                                rcmId={rcmId}
-                                setRcmId={setRcmId}
-                                load={load}
-                                setLoad={setLoad}
-                                memberId={memberId}
-                              />
-                            ) : (
-                              ""
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ) : (
-                  ""
-                )}
-              </div>
-            );
-          })}
+        <div>
+          {commentList.length !== 0 ? (
+            <CommentWrap
+              isLogin={isLogin}
+              feedNo={feedNo}
+              commentList={commentList}
+              fCommentContent={fCommentContent}
+              setFCommentContent={setFCommentContent}
+              fCommentRefNo={fCommentRefNo}
+              setFCommentRefNo={setFCommentRefNo}
+              rcmId={rcmId}
+              setRcmId={setRcmId}
+              load={load}
+              setLoad={setLoad}
+              memberId={memberId}
+              memberImage={memberImage}
+            />
+          ) : (
+            <div>댓글이 없습니다</div>
+          )}
         </div>
-        {isLogin ? (
-          <CommentFrm
-            feedNo={feedNo}
-            closeComent={closeComent}
-            fCommentContent={fCommentContent}
-            setFCommentContent={setFCommentContent}
-            fCommentRefNo={fCommentRefNo}
-            setFCommentRefNo={setFCommentRefNo}
-            rcmId={rcmId}
-            setRcmId={setRcmId}
-            load={load}
-            setLoad={setLoad}
-            memberId={memberId}
-            memberImage={memberImage}
-          />
-        ) : (
-          ""
-        )}
       </div>
     </ReactModal>
+  );
+};
+
+const CommentWrap = (props) => {
+  const isLogin = props.isLogin;
+  const feedNo = props.feedNo;
+  const commentList = props.commentList;
+  const fCommentContent = props.fCommentContent;
+  const setFCommentContent = props.setFCommentContent;
+  const fCommentRefNo = props.fCommentRefNo;
+  const setFCommentRefNo = props.setFCommentRefNo;
+  const rcmId = props.rcmId;
+  const setRcmId = props.setRcmId;
+  const load = props.load;
+  const setLoad = props.setLoad;
+  const memberId = props.memberId;
+  const memberImage = props.memberImage;
+
+  return (
+    <>
+      <div className="feed-comment-wrap">
+        {commentList.map((comment, index) => {
+          return (
+            <div key={"comment" + index}>
+              {comment.fcommentRefNo == 0 ? (
+                <div key={"comment" + index}>
+                  <CommentList
+                    comment={comment}
+                    isLogin={isLogin}
+                    setFCommentRefNo={setFCommentRefNo}
+                    setRcmId={setRcmId}
+                    load={load}
+                    setLoad={setLoad}
+                    memberId={memberId}
+                    feedNo={feedNo}
+                  />
+                  <div className="feed-comment-re-wrap">
+                    {commentList.map((reComment, index) => {
+                      return (
+                        <div key={"recomment" + index}>
+                          {comment.fcommentNo == reComment.fcommentRefNo ? (
+                            <CommentList
+                              comment={reComment}
+                              isLogin={isLogin}
+                              setFCommentRefNo={setFCommentRefNo}
+                              setRcmId={setRcmId}
+                              load={load}
+                              setLoad={setLoad}
+                              memberId={memberId}
+                              type="reCmt"
+                            />
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+          );
+        })}
+      </div>
+      {isLogin ? (
+        <CommentFrm
+          feedNo={feedNo}
+          fCommentContent={fCommentContent}
+          setFCommentContent={setFCommentContent}
+          fCommentRefNo={fCommentRefNo}
+          setFCommentRefNo={setFCommentRefNo}
+          rcmId={rcmId}
+          setRcmId={setRcmId}
+          load={load}
+          setLoad={setLoad}
+          memberId={memberId}
+          memberImage={memberImage}
+        />
+      ) : (
+        ""
+      )}
+    </>
   );
 };
 
@@ -149,12 +188,62 @@ const CommentList = (props) => {
   const comment = props.comment;
   const isLogin = props.isLogin;
   const memberId = props.memberId;
-  const fCommentRefNo = props.fCommentRefNo;
   const setFCommentRefNo = props.setFCommentRefNo;
-  const rcmId = props.rcmId;
   const setRcmId = props.setRcmId;
   const load = props.load;
   const setLoad = props.setLoad;
+  const type = props.type;
+
+  //좋아요내역 불러오기
+  const [userLike, setUserLike] = useState();
+  const fcommentNo = comment.fcommentNo;
+  const fc = { fcommentNo };
+  const token = window.localStorage.getItem("token");
+  useEffect(() => {
+    if (isLogin) {
+      axios
+        .post("/feed/commentLike", fc, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          setUserLike(res.data);
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    }
+  }, []);
+  //좋아요클릭이벤트
+  const likeEvent = () => {
+    if (isLogin) {
+      axios
+        .post("/feed/updateCommentLike", fc, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          if (res.data == 1) {
+            setUserLike(res.data);
+            setLoad(load + 1);
+          } else if (res.data == 2) {
+            setUserLike(0);
+            setLoad(load + 1);
+          }
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    } else {
+      Swal.fire({
+        icon: "error",
+        text: "로그인이 필요한 기능입니다",
+        confirmButtonText: "확인",
+      });
+    }
+  };
 
   const deleteComment = () => {
     Swal.fire({
@@ -211,11 +300,25 @@ const CommentList = (props) => {
               <span className="feed-comment-text">
                 {comment.fcommentContent}
               </span>
-              <span className="material-icons-outlined">favorite_border</span>
+              {userLike === 1 ? (
+                <span className="material-icons-outlined" onClick={likeEvent}>
+                  favorite
+                </span>
+              ) : (
+                <span className="material-icons-outlined" onClick={likeEvent}>
+                  favorite_border
+                </span>
+              )}
             </div>
             <div className="comment-click-btn">
-              <div>좋아요 0개</div>
-              {isLogin ? <div onClick={reComemtEvent}>답글달기</div> : ""}
+              <div>
+                좋아요 <span>{comment.totalCommentLike}</span>개
+              </div>
+              {isLogin && type !== "reCmt" ? (
+                <div onClick={reComemtEvent}>답글달기</div>
+              ) : (
+                ""
+              )}
               {isLogin && memberId == comment.fcommentWriter ? (
                 <div onClick={deleteComment}>삭제</div>
               ) : (
@@ -240,7 +343,6 @@ const CommentFrm = (props) => {
   const fCommentRefNo = props.fCommentRefNo;
   const setFCommentRefNo = props.setFCommentRefNo;
   const feedNo = props.feedNo;
-  const closeComent = props.closeComent;
   const rcmId = props.rcmId;
   const setRcmId = props.setRcmId;
   const load = props.load;
@@ -249,6 +351,7 @@ const CommentFrm = (props) => {
 
   const changeContent = (e) => {
     const changeValue = e.currentTarget.value;
+    // changeValue = changeValue.replace(/(?:\r\n|\r|\n)/g, "<br>");
     setFCommentContent(changeValue);
   };
 
@@ -330,4 +433,4 @@ const CommentFrm = (props) => {
   );
 };
 
-export default FeedComment;
+export { FeedComment, CommentWrap };
