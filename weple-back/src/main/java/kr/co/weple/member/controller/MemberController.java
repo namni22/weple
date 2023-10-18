@@ -139,7 +139,10 @@ public class MemberController {
 	// 프로필 내 피드 가져오기
 	@GetMapping(value="/myFeedList/{start}/{end}/{memberId}")
 	public List list(@PathVariable int start, @PathVariable int end, @PathVariable String memberId) {
-		return memberService.myFeedList(start, end, memberId);
+		List myFeedList = memberService.myFeedList(start, end, memberId);
+		System.out.println("내 피드 리스트 : " + myFeedList);
+		return myFeedList;
+		
 	}
 	
 	// 아이디 찾기
