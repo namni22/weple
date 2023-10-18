@@ -182,6 +182,12 @@ public class MemberController {
 		return memberService.pwChangeMember(member);
 	}
 	
+	// 내가 가입한 모임 리스트 가져오기
+	@GetMapping(value="/meetJoined/{memberNo}")
+	public List meetJoined(@PathVariable int memberNo) {
+		return memberService.meetJoined(memberNo);
+	}
+	
 	
 	
 }
