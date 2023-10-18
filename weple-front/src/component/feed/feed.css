@@ -249,7 +249,7 @@
 .feed-comment-noco {
   width: 100%;
   display: flex;
-  background-color: #f6f6f6;
+  color: #aaa;
   flex-wrap: wrap;
   justify-content: center;
   align-content: center;
@@ -312,8 +312,17 @@
 .feed-view .close {
   position: absolute;
   right: 0;
+  cursor: pointer;
 }
 .feed-list-text {
-  max-height: 120px;
+  max-height: 250px;
   overflow: auto;
+}
+.feed-view .feed-title {
+  margin: 20px 0 0 0;
+  text-align: left;
+  font-size: 20px;
+}
+.feed-view .feed-write-img > .swiper {
+  height: 500px;
 }

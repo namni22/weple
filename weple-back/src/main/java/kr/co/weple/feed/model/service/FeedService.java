@@ -47,11 +47,11 @@ public class FeedService {
 
 	//피드하나출력
 	public Feed one(int feedNo) {
+		System.out.println("많이 나오나요");
 		List list = feedDao.one(feedNo);
 		Feed feed = (Feed)list.get(0);
 		List fComment =  feedDao.commentList(feedNo);
 		feed.setFComment(fComment);
-		System.out.println(feed);
 		return feed;
 	}
 	
@@ -61,7 +61,6 @@ public class FeedService {
 		List<FImage> delImageList = new ArrayList<FImage>();
 		String [] deleteImg = {};
 		int result = 0;
-		System.out.println(f);
 		//삭제파일 DB처리
 		if(!f.getDeleteImg().equals("")) {
 			deleteImg = f.getDeleteImg().split("/");
