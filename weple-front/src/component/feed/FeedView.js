@@ -79,6 +79,22 @@ const FeedView = (props) => {
   return (
     <ReactModal style={customStyles} isOpen={isOpen}>
       <div className="feed-view">
+        <span className="material-icons close" onClick={closeView}>
+          close
+        </span>
+        <div className="feed-list-top">
+          <div className="feed-list-profile">
+            {feed.memberImage ? (
+              <img src={"/member/" + feed.memberImage} />
+            ) : (
+              <img src="/img/testImg_01.png" />
+            )}
+          </div>
+          <div className="feed-list-info">
+            <div>{feed.feedWriter}</div>
+            <div>{feed.feedDate}</div>
+          </div>
+        </div>
         <FeedviewContent
           feedContent={feed.feedContent}
           feedBox={feedBox}
@@ -125,9 +141,6 @@ const FeedviewContent = (props) => {
       <div className="feed-list-text">
         <div>{feedContent}</div>
       </div>
-      <span className="material-icons" onClick={closeView}>
-        close
-      </span>
     </div>
   );
 };

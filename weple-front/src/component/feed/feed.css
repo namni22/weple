@@ -246,6 +246,20 @@
   background-color: #eee;
   border-radius: 5px;
 }
+.feed-comment-noco {
+  width: 100%;
+  display: flex;
+  background-color: #f6f6f6;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  flex-direction: row;
+  margin: 10px 0;
+}
+.feed-comment-noco > div {
+  width: 100%;
+  height: calc(100% - 20px);
+}
 .feed-comment-re-wrap .feed-comment {
   padding: 10px;
 }
@@ -288,4 +302,18 @@
 /* View */
 .feed-view .feed-comment-wrap {
   height: 200px;
+}
+.feed-view .feed-write-img {
+  margin: 10px 0;
+}
+.feed-view {
+  position: relative;
+}
+.feed-view .close {
+  position: absolute;
+  right: 0;
+}
+.feed-list-text {
+  max-height: 120px;
+  overflow: auto;
 }

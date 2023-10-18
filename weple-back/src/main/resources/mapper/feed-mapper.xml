@@ -47,7 +47,10 @@
 		/>
 	</resultMap>
 	<select id="one" resultMap="getImage">
-		select * from feed where feed_no=#{feedNo} 
+		select 
+			feed_no, feed_writer, feed_content, feed_date,
+		    (select member_image from member m where m.member_id = f.feed_writer) member_image
+		from feed f where feed_no=#{feedNo} 
 	</select>
 	<select id="selectFeedFile" resultType="fImage">
 		select * from fimage
