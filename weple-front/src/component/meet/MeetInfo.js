@@ -43,7 +43,7 @@ const MeetInfo = (props) => {
           console.log(res.data);
           setLoginMember(res.data);
         })
-        .catch((res) => {});
+        .catch((res) => { });
 
       //로그인이 되어있다면 로그인멤버가 모임멤버인지 조회해오기
       //모임멤버라면 해당 follower 리턴 아직 멤버가 아니라면 null 리턴
@@ -197,10 +197,9 @@ const MeetInfo = (props) => {
             ) : (
               //isMeetMember가 비어있을때
               <div>
-                {/**
-                  * 
+
                 <div>{isMeetMember.followerStatus}</div>
-                */}
+
 
                 <Button1 text="모임가입하기" clickEvent={meetJoin} />
               </div>
