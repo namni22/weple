@@ -115,6 +115,7 @@ const MeetList = () => {
         {/* meetList db에서 받아온후 map으로 반복출력 예정 */}
         {/* props로 meet 정보 줄예정 */}
         {meetList.map((meet, index) => {
+          console.log("별점확인 모임 : ", meet);
           return <MeetItem key={"meet" + index} meet={meet} />;
         })}
       </div>
