@@ -6,17 +6,14 @@ import Footer from "./component/common/Footer";
 import MeetMain from "./component/meet/MeetMain";
 import Board from "./component/board/Board";
 import Admin from "./component/admin/Admin";
-
 import Header from "./component/common/Header";
-import Category from "./component/common/Category";
 import Join from "./component/member/Join";
-import Review from "./component/review/Review";
 import Login from "./component/member/Login";
 import { useState } from "react";
 import { useEffect } from "react";
 import Mypage from "./component/member/Mypage";
-import ReviewList from "./component/review/ReviewList";
 import FindId from "./component/member/FindId";
+import ReviewMain from "./component/review/ReviewMain";
 import FindPw from "./component/member/FindPw";
 
 function App() {
@@ -67,7 +64,7 @@ function App() {
           <Route path="/findId" element={<FindId />} />
           <Route path="/findPw" element={<FindPw />} />
           {/* <Route path="/category" element={<Category />} /> */}
-          <Route path="/review/*" element={<ReviewList />} />
+          <Route path="/review/*" element={<ReviewMain isLogin={isLogin} />} />
           <Route path="*" element={<Main />} />
         </Routes>
       </div>

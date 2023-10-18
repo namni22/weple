@@ -129,7 +129,7 @@ const BoardItem = (props) => {
     const modify = () => {
         navigate("/board/modify", { state: { board: board } });
     }
-
+    console.log("boardList 1018 : ", board)
     if (index === toggleIdx) {
         return (
             <div>

@@ -13,6 +13,7 @@ import kr.co.weple.Pagination;
 import kr.co.weple.admin.model.dao.AdminDao;
 import kr.co.weple.meet.model.vo.Meet;
 import kr.co.weple.member.model.vo.Member;
+import kr.co.weple.review.model.vo.Report;
 
 @Service
 public class AdminService {
@@ -100,6 +101,9 @@ public class AdminService {
 			map.put("list", reportList);
 			map.put("pi", pi);
 			return map;
+		}
+		public int changeReportStatus(Report report) {
+			return adminDao.changeReportStatus(report);
 		}
 		
 		

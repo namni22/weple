@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import kr.co.weple.admin.model.service.AdminService;
 import kr.co.weple.meet.model.vo.Meet;
 import kr.co.weple.member.model.vo.Member;
+import kr.co.weple.review.model.vo.Report;
 
 
 @RestController
@@ -61,5 +62,9 @@ public class AdminController {
 	public Map reportList(@PathVariable int reqPage) {
 		return adminService.reportList(reqPage);
 	}
-	
+	//신고 상태 변경
+	@PostMapping(value="/changeReportStatus")
+	public int changeReportStatus(@RequestBody Report report) {
+		return adminService.changeReportStatus(report);
+	}
 }

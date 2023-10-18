@@ -1,31 +1,40 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import ReviewWriteFrm from "./ReviewWriteFrm";
-import "./review.css";
 import { useState } from "react";
-import Swal from "sweetalert2";
 import axios from "axios";
-const ReviewWrite = (props) => {
+import Swal from "sweetalert2";
+
+const ReviewModify = (props) => {
   const prev = props.prev;
-  const [reviewContent, setReviewContent] = useState("");
-  const [rImage, setRImage] = useState([]);
-  const [reviewBox, setReviewBox] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
-  const meetNo = location.state.meetNo;
-  const [reviewStar, setReviewStar] = useState(0.5);
-  const write = () => {
-    if (reviewContent !== "" && rImage.length !== 0) {
+  const review = location.state.review;
+  const [reviewContent, setReviewContent] = useState(review.reviewContent);
+  const [reviewStar, setReviewStar] = useState(review.reviewStar);
+  const [rImage, setRImage] = useState([]);
+  //DB에서 불러온 파일을 띄우기 위한 배열
+  const imgArr = [];
+  for (let i = 0; i < review.imageList.length; i++) {
+    imgArr.push(<img src={review.imageList[i].rimageName} />);
+  }
+  const [reviewBox, setReviewBox] = useState(imgArr);
+  const [deleteImg, setDeleteImg] = useState([]); //삭제파일 state 추가
+  const rimageNoList = review.imageList;
+
+  const modify = () => {
+    if (reviewContent !== "" && reviewBox.length !== 0) {
       const form = new FormData();
       form.append("reviewContent", reviewContent);
-      form.append("meetNo", meetNo);
       form.append("reviewStar", reviewStar);
       for (let i = 0; i < rImage.length; i++) {
         form.append("rImage", rImage[i]);
       }
+      form.append("reviewNo", review.reviewNo); //수정할 피드 번호
+      form.append("deleteImg", deleteImg.join("/")); //삭제할 파일
 
       const token = window.localStorage.getItem("token");
       axios
-        .post("/review/insert", form, {
+        .post("/review/modify", form, {
           headers: {
             contentType: "multipart/form-data",
             processData: false,
@@ -33,9 +42,9 @@ const ReviewWrite = (props) => {
           },
         })
         .then((res) => {
-          if (res.data > 0) {
+          if (res.data == 1) {
             Swal.fire("성공");
-            prev();
+            navigate(-1);
           }
         })
         .catch((res) => {
@@ -46,10 +55,11 @@ const ReviewWrite = (props) => {
       Swal.fire("이미지 1개이상, 내용 입력 필수입니다");
     }
   };
+
   return (
     <div>
-      <div className="review-title">
-        REVIEW UPLOAD
+      <div className="feed-title">
+        REVIEW MODIFY
         <span className="material-icons" onClick={prev}>
           close
         </span>
@@ -61,9 +71,14 @@ const ReviewWrite = (props) => {
         setRImage={setRImage}
         reviewBox={reviewBox}
         setReviewBox={setReviewBox}
-        uploadEvent={write}
+        uploadEvent={modify}
+        deleteImg={deleteImg}
+        setDeleteImg={setDeleteImg}
+        type="modify"
+        const
+        rimageNoList={rimageNoList}
       />
     </div>
   );
 };
-export default ReviewWrite;
+export default ReviewModify;

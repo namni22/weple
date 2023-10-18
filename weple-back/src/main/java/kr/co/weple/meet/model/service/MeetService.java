@@ -292,9 +292,11 @@ public class MeetService {
 		return followStatus;
 	}
 
-	public Meet meetCapCheck(int meetNo, String memberId) {
-		
-		return meetDao.meetCapCheck(meetNo,memberId);
+	public Map meetCapCheck(int meetNo, String memberId) {
+		Meet meetCapCheck= meetDao.meetCapCheck(meetNo,memberId);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("meetCapCheck",meetCapCheck);		
+		return map;
 	}
 
 

@@ -452,7 +452,7 @@ const Postcode = (props) => {
         //지오코더 선언 자리 이동
         //마커를 미리 생성
         marker = new daum.maps.Marker({
-            position: new daum.maps.LatLng(meetLatitude, meetLongitude),
+            position: new daum.maps.LatLng(33.450701, 126.570667),
             map: map
         });
 

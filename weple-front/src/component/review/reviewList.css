@@ -6,6 +6,7 @@
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 10px;
+  margin-left: 5px;
 }
 
 /* ********reviewListcomponent*********** */
@@ -58,16 +59,15 @@
   max-height: 120px;
   overflow: hidden;
 }
-.review-write-btn{
+.review-write-btn {
   width: 100px;
 }
-.flex{
+.flex {
   display: flex;
   justify-content: space-between;
 }
 /* --------------- 별점 -------------------- */
-
-.star-rating {
+.reviewlist-component .star-rating {
   color: #989898;
   position: relative;
   /* unicode-bidi: bidi-override; */
@@ -78,10 +78,10 @@
   color: #2d31fa;
   margin-left: 15px;
 }
-.star-rating .material-icons:not(:first-child) {
+.reviewlist-component .star-rating .material-icons:not(:first-child) {
   margin-left: -4px;
 }
-.star-rating-fill {
+.reviewlist-component .star-rating-fill {
   padding: 0;
   position: absolute;
   z-index: 1;
@@ -91,30 +91,82 @@
   overflow: hidden;
   -webkit-text-fill-color: #2d31fa; /*별 속 채움*/
 }
-.star-rating-base {
+.reviewlist-component .star-rating-base {
   z-index: 0;
   padding: 0;
   height: 24px;
 }
-.star-rating-base > .material-icons {
+.reviewlist-component .star-rating-base > .material-icons {
   color: gainsboro;
 }
-/********* 전체 평점(위치 바꾸면 안됨) *********/
 .meet-star-wrap {
   display: flex;
   align-items: center;
   padding-bottom: 20px;
 }
-.meet-star {
+.reviewlist-component .meet-star {
   margin: 0;
   /* 별점 감싸는 div */
   height: 30px;
 }
-.meet-star .material-icons {
+.reviewlist-component .meet-star .material-icons {
   font-size: 30px;
 }
-.meet-star-score {
+.reviewlist-component .meet-star-score {
   font-size: 18px;
   font-weight: 500;
   padding-left: 10px;
 }
+
+/* --------------- 전체평점 -------------------- */
+.meet-star-wrap .star-rating {
+  color: #989898;
+  position: relative;
+  /* unicode-bidi: bidi-override; */
+  width: max-content;
+  -webkit-text-fill-color: gainsboro;
+  /* -webkit-text-stroke-width: 1.3px; 별 border 두께 */
+  /* -webkit-text-stroke-color: #2d31fa; 별 border 색상*/
+  color: #2d31fa;
+  margin-left: 15px;
+}
+.meet-star-wrap .star-rating .material-icons:not(:first-child) {
+  margin-left: -4px;
+}
+.meet-star-wrap .star-rating-fill {
+  padding: 0;
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  -webkit-text-fill-color: #2d31fa; /*별 속 채움*/
+}
+.meet-star-wrap .star-rating-base {
+  z-index: 0;
+  padding: 0;
+  height: 24px;
+}
+.meet-star-wrap .star-rating-base > .material-icons {
+  color: gainsboro;
+}
+.meet-star-wrap {
+  display: flex;
+  align-items: center;
+  padding-bottom: 20px;
+}
+.meet-star-wrap .meet-star {
+  margin: 0;
+  /* 별점 감싸는 div */
+  height: 30px;
+}
+.meet-star-wrap .meet-star .material-icons {
+  font-size: 30px;
+}
+.meet-star-wrap .meet-star-score {
+  font-size: 18px;
+  font-weight: 500;
+  padding-left: 10px;
+}
+/* *************************************** */

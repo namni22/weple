@@ -1,5 +1,7 @@
 package kr.co.weple.review.model.vo;
 
+import java.util.List;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.AllArgsConstructor;
@@ -19,4 +21,8 @@ public class Review {
 	private int meetNo;
 	//별점평균
 	private double avgStar;
+	//삭제번호
+	private String deleteImg;
+	private List imageList;
+	private String memberImage;//작성자 프로필이미지
 }

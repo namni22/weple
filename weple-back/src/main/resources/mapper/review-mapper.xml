@@ -1,7 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace = "kr.co.weple.review.model.dao.ReviewDao">
-	<select id="reviewList" resultType="review">
-		select * from review where meet_no= #{meetNo} order by 4 desc
+	<select id="previewList" resultType="review">
+		select review_no,member_id, review_content, review_star, review_date, m.member_image
+				from review r join member m using (member_id) where meet_no= #{meetNo}
+				order by review_no desc
 	</select>
+	<!--리스트조회 resultMap  -->
+	<select id="reviewList" resultMap="getImage">
+		select *
+		from (select rownum as rnum, r.*
+				from (
+				select review_no,member_id, review_content, review_star, review_date, m.member_image
+				from review r join member m using (member_id) where meet_no= #{meetNo}
+				order by review_no desc)r)
+		where rnum between 1 and 10
+	</select>
+	<select id="selectImageList" resultType="rImage">
+		select * from rImage where review_no = #{reviewNo}
+	</select>
+	<resultMap id="getImage" type="review">
+		<result column="review_no" property="reviewNo" />
+		<result column="member_id" property="memberId" />
+		<result column="review_star" property="reviewStar" />
+		<result column="review_content" property="reviewContent" />
+		<result column="review_date" property="reviewDate" />
+		<!-- <result column="member_no" property="memberNo" />-->
+		<result column="member_image" property="memberImage" />
+		<collection
+			property="imageList"
+			select="selectImageList"
+			column="review_no"
+			javaType="java.util.List"
+			ofType="rImage"
+		/>
+	</resultMap>
+	<!-- 
+	-->
+	<insert id="insertReview">
+		insert into review values(review_seq.nextval,#{reviewContent},5, to_char(sysdate,'yyyy-mm-dd'),#{memberId},#{meetNo})
+		<selectKey resultType="int" keyProperty="reviewNo" order="AFTER">
+	 		select max(review_no) from review
+	 	</selectKey>
+	</insert>
+	<insert id="insertRImage">
+		insert into rimage values (rimage_seq.nextval,#{reviewNo},#{rImageName})
+	</insert>
+	<select id="selectReviewFile" resultType="rImage">
+		select * from rimage
+			where rimage_no in
+			<foreach collection="array" open="(" close=")" separator="," item="rImageNo">
+				#{rImageNo}
+			</foreach>
+	</select>
+	<delete id="deleteReviewFile">
+		delete from rimage
+			where rimage_no in
+			<foreach collection="array" open="(" close=")" separator="," item="rImageNo">
+				#{rImageNo}
+			</foreach>
+	</delete>
+	<update id="updateReview">
+		update review set review_content = #{reviewContent}, review_star=#{reviewStar} where review_no = #{reviewNo}			
+	</update>
 </mapper>
