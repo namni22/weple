@@ -1,5 +1,6 @@
 package kr.co.weple.board.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.co.weple.FileUtil;
 import kr.co.weple.board.model.service.BoardService;
 import kr.co.weple.board.model.vo.Board;
+
 
 
 
@@ -63,10 +65,22 @@ public class BoardController {
 		return boardService.selectOneBoard(boardNo);
 	}
 	//게시판 수정
-	@PostMapping(value="/modfiy")
+	@PostMapping(value="/modify")
 	public int modify(@ModelAttribute Board b) {
-		System.out.println("boardModify");
+		
 		int result = boardService.modify(b);
+		if(result > 0) {
+			return 1;
+		}else {
+			
+			return 0;
+		}
+	}
+	//게시판 삭제
+	@GetMapping(value="/delete/{boardNo}")
+	public int deleteBoard(@PathVariable int boardNo) {
+		
+		int result = boardService.deleteBoard(boardNo);
 		if(result > 0) {
 			return 1;
 		}else {

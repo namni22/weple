@@ -7,11 +7,11 @@ const Header = (props) => {
   const isAdmin = props.isAdmin;
   console.log("header", isLogin, setIsLogin);
   const setId = props.setId;
-  const logout = () => {
-    window.localStorage.removeItem("token");
-    setIsLogin(false);
-    setId("");
-  };
+  // const logout = () => {
+  //   window.localStorage.removeItem("token");
+  //   setIsLogin(false);
+  //   setId("");
+  // };
   return (
     <div className="header">
       <div className="header-inner">
@@ -24,9 +24,7 @@ const Header = (props) => {
         </Link>
         {/* <span class="material-icons bar">maximize</span> */}
         <div className="logo">
-          <Link to="/" onClick={logout}>
-            Weple
-          </Link>
+          <Link to="/">Weple</Link>
         </div>
         <input
           className="searchFrm"

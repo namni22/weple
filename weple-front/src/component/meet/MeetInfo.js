@@ -42,7 +42,7 @@ const MeetInfo = (props) => {
           // console.log(res.data);
           setLoginMember(res.data);
         })
-        .catch((res) => { });
+        .catch((res) => {});
 
       //로그인이 되어있다면 로그인멤버가 모임멤버인지 조회해오기
       //모임멤버라면 해당 follower 리턴 아직 멤버가 아니라면 null 리턴
@@ -63,8 +63,6 @@ const MeetInfo = (props) => {
       //가입 대기 상태라면 모임가입 버튼 비활성화하도록 db에서 가입상태 가져오기
     }
   }, [props]);
-
-
 
   //로그인 이후 모임가입하기 버튼 클릭시 작동하는 함수
   const meetJoin = () => {
@@ -130,6 +128,8 @@ const MeetInfo = (props) => {
         reviewStar={meet.reviewStar}
         reviewCount={meet.reviewCount}
       />
+      {console.log("리뷰 전 isMeetmeme")}
+      {console.log(isMeetMember)}
       <div className="meetInfo-content">
         <div className="meetInfo-content-area">
           <div className="meetInfo-content-title">모임소개</div>
@@ -194,7 +194,7 @@ const MeetInfo = (props) => {
               //isMeetMember가 비어있을때
               <div>
                 <Button1 text="모임가입하기" clickEvent={meetJoin} />
-              </div >
+              </div>
             )
           ) : (
             ""
@@ -202,8 +202,8 @@ const MeetInfo = (props) => {
         ) : (
           "로그아웃 상태" //로그아웃 상태일때 공백
         )}
-      </div >
-    </div >
+      </div>
+    </div>
   );
 };
 

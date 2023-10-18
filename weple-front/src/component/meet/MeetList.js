@@ -134,7 +134,6 @@ const MeetList = (props) => {
           setReqPage={setReqPage}
           pageInfo={pagenfo}
           setData={setMeetList}
-
         />
       </div>
     </div>
@@ -148,7 +147,7 @@ const MeetItem = (props) => {
   const isLogin = props.isLogin;
   // 상세보기로 이동하는 함수
   const meetView = () => {
-    console.log("클릭하기 전 값 : ", meet, meet.meetNo);
+    // console.log("클릭하기 전 값 : ", meet, meet.meetNo);
     navigate("/meet/meetList/View", {
       state: { m: meet },
     }); //이동할곳 state로 데이터 전송

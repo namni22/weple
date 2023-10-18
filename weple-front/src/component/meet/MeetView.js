@@ -11,7 +11,7 @@ import EnrollMeetMember from "./EnrollMeetMember";
 import axios from "axios";
 
 const MeetView = (props) => {
-  console.log("view 렌더링");
+  // console.log("view 렌더링");
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
   const id = props.id;
@@ -19,7 +19,7 @@ const MeetView = (props) => {
   const location = useLocation();
   useEffect(() => {
     //   console.log(location.state.m);
-    console.log("myMeet set");
+    // console.log("myMeet set");
     setMyMeet(location.state.m);
   }, [props]);
   const [myMeet, setMyMeet] = useState({});
@@ -29,7 +29,6 @@ const MeetView = (props) => {
   const meetNo = myMeet.meetNo;
 
   useEffect(() => {
-
     axios
       .get("/meet/memberStatus/" + myMeet.meetNo, {
         headers: {
