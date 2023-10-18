@@ -23,10 +23,10 @@ const JoinFrm = (props) => {
   const [checkPwMsg, setCheckPwMsg] = useState("");
   const [checkPwReMsg, setCheckPwReMsg] = useState("");
   const [checkEmailMsg, setCheckEmailMsg] = useState("");
+  // 유효성검사 메세지 색 변경위한 클래스 추가할 때 씀
   const [useId, setUseId] = useState(false);
   const [mainCategory, setMainCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
-  const [categoryNo, setCategoryNo] = useState(null);
   const [selected, setSelected] = useState();
   const [subInformation, setSubInformation] = useState([]);
   const [subTag, setSubTag] = useState([]);

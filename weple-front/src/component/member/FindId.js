@@ -3,7 +3,6 @@ import Input from "../util/InputFrm";
 import { Button2 } from "../util/Button";
 import axios from "axios";
 import Swal from "sweetalert2";
-import ReactModal from "react-modal";
 
 const FindId = () => {
   const [memberName, setMemberName] = useState("");

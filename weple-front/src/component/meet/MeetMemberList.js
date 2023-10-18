@@ -11,9 +11,10 @@ const MeetMemberList = (props) => {
   const [isOpen, setOpen] = useState(false);
   const myMeet = props.myMeet;
   const id = props.id;
+  const captainCheck = props.captainCheck;
+  console.log("captainCheck : ", captainCheck);
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
-
   const [meetMember, setMeetMember] = useState([]);
   const [reqPage, setReqPage] = useState(1);
   const [pageInfo, setPageInfo] = useState({});
@@ -43,6 +44,7 @@ const MeetMemberList = (props) => {
                 setMeetMember={setMeetMember}
                 id={id}
                 meetNo={myMeet.meetNo}
+                captainCheck={captainCheck}
               />
             );
           })}
@@ -62,6 +64,7 @@ const MemberList = (props) => {
   const memberList = props.member;
   const meetMember = props.meetMember;
   const setMeetMember = props.setMeetMember;
+  const captainCheck = props.captainCheck;
   const isOpen = props.isOpen;
   const setOpen = props.setOpen;
   const id = props.id;
@@ -151,7 +154,11 @@ const MemberList = (props) => {
                   disable={disable}
                 />
                 <Button2 text={"신고"} clickEvent={reportEvent} />
-                <Button2 text={"추방"} clickEvent={deleteEvent} />
+                {captainCheck ? (
+                  <Button2 text={"추방"} clickEvent={deleteEvent} />
+                ) : (
+                  ""
+                )}
 
                 <ReportModal
                   isOpen={isOpen}
@@ -159,6 +166,7 @@ const MemberList = (props) => {
                   onCancel={handleClickCancel}
                   memberId={id}
                   reportItemNo={reportItemNo}
+                  reportMemberId={memberList.memberId}
                 />
               </div>
             </td>

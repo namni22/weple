@@ -59,6 +59,7 @@ public class MeetService {
 		return map;
 	}
 
+	//모임생성
 	@Transactional
 	public int createMeet(Meet meet) {
 		// TODO Auto-generated method stub
@@ -67,6 +68,16 @@ public class MeetService {
 		
 		int result = meetDao.createMeet(meet);
 		
+		
+		return result;
+	}
+	
+	//모임수정
+	@Transactional
+	public int modifyMeet(Meet meet) {
+		// TODO Auto-generated method stub
+		
+		int result = meetDao.modifyMeet(meet);
 		
 		return result;
 	}
@@ -281,10 +292,14 @@ public class MeetService {
 		return followStatus;
 	}
 
-	public Meet meetCapCheck(int meetNo, String memberId) {
-		
-		return meetDao.meetCapCheck(meetNo,memberId);
+	public Map meetCapCheck(int meetNo, String memberId) {
+		Meet meetCapCheck= meetDao.meetCapCheck(meetNo,memberId);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("meetCapCheck",meetCapCheck);		
+		return map;
 	}
+
+
 	
 
 

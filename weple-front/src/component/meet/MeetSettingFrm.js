@@ -9,6 +9,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 const MeetSettingFrm = (props) => {
+
     // 모임만들 정보 선언 //create에서 받음 // update에서 받을예정
     const meetTitle = props.meetTitle;
     const setMeetTitle = props.setMeetTitle;
@@ -38,6 +39,8 @@ const MeetSettingFrm = (props) => {
     const meetThumbnailPreview = props.meetThumbnailPreview;
     const setMeetThumbnailPreview = props.setMeetThumbnailPreview;
 
+
+
     // 준비물 리스트 추가용
     const meetPrepare = props.meetPrepare;
     const setMeetPrepare = props.setMeetPrepare;
@@ -49,16 +52,12 @@ const MeetSettingFrm = (props) => {
     const setMeetCategory = props.setMeetCategory;
 
     const buttonEvent = props.buttonEvent;
+    const type = props.type;
 
     //카테고리 소분류 담아두는 리스트
     const [smallCategoryList, setSmallCategoryList] = useState([]);
 
-    // 지도
-    // const container = document.getElementById('map');//지도를 담을 영역의 dom 레퍼런스
-    // const options ={
-    //     center : new kakao.maps.LatLng(33.45, 126.57)
-    // }
-    // const map = new kakao.maps.Map(container, options);
+
 
     //카테고리 소분류 불러오는 함수
     const selectSmallCategory = (categoryNum) => {
@@ -67,7 +66,7 @@ const MeetSettingFrm = (props) => {
         axios
             .get("/meet/selectSmallCategory/" + bigCategoryNo)
             .then((res) => {
-                // console.log(res.data);
+                console.log(res.data);
                 setSmallCategoryList(res.data);
             })
             .catch((res) => {
@@ -197,6 +196,11 @@ const MeetSettingFrm = (props) => {
         }
     };
 
+    useEffect(() => {
+        // 처음 렌더링할때 준비물 input값을 비워주기위해
+        setMeetPrepare("");
+    }, [])
+
     return (
         <div className="meetSettingFrm-main-wrap">
 
@@ -273,8 +277,6 @@ const MeetSettingFrm = (props) => {
                     <label>썸네일</label>
                     <div>
                         {/* accept = image/* : 이미지파일만 올릴수 있도록 */}
-
-
                         <input
                             className="meetThumbnail-input"
                             type="file"
@@ -284,11 +286,7 @@ const MeetSettingFrm = (props) => {
                             //썸네일 미리보기 함수
                             onChange={thumbnailChange}
                         ></input>
-
-
-
                         <div className="meetThumbnailPreview">
-                            {/* <img src={meetThumbnail2}></img> */}
                             {meetThumbnailPreview === null ? ( //""에서 null로 바꿈
                                 // 기본이미지 넣어야함
                                 <img src="/img/no_image.jpg"></img>
@@ -385,10 +383,11 @@ const MeetSettingFrm = (props) => {
                         </div>
                         <div className="meetMaterials-wrap">
                             {/* 준비물 미리보기 */}
-                            {meetPrepareList.map((meetPrepare, index) => {
+                            {/* meetPrepareList가 비어있을경우가 있기때문에 meetPrepareList && 추가 */}
+                            {meetPrepareList && meetPrepareList.map((meetPrepare, index) => {
                                 return (
                                     <div key={"meetPrepare" + index} className="meetMaterials-one">
-                                        <span class="material-icons ">{meetPrepare}</span>
+                                        <span>{meetPrepare}</span>
                                         <span
                                             class="material-icons delete-meetPrepare"
                                             onClick={() => {
@@ -403,7 +402,11 @@ const MeetSettingFrm = (props) => {
                     </div>
                 </div>
                 <div className="meet-btn-box">
-                    <Button1 text="모임생성" clickEvent={buttonEvent}></Button1>
+                    {type === "modify" ? (
+                        <Button1 text="모임수정" clickEvent={buttonEvent}></Button1>
+                    ) : (
+                        <Button1 text="모임생성" clickEvent={buttonEvent}></Button1>
+                    )}
                 </div>
 
             </div>
@@ -413,52 +416,7 @@ const MeetSettingFrm = (props) => {
 
 }
 
-const { kakao } = window;
-const Kakao2 = () => {
-    useEffect(() => {
-        const container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-        const options = { //지도를 생성할 때 필요한 기본 옵션
-            center: new kakao.maps.LatLng(37.566826, 126.9786567), //지도의 중심좌표.
-            level: 3 //지도의 레벨(확대, 축소 정도)
-        };
-        const map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-        // 지도를 클릭한 위치에 표출할 마커입니다
-        var marker = new kakao.maps.Marker({
-            // 지도 중심좌표에 마커를 생성합니다 
-            position: map.getCenter()
-        });
-        // 지도에 마커를 표시합니다
-        marker.setMap(map);
-        // 지도에 클릭 이벤트를 등록합니다
-        // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-        kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
 
-            // 클릭한 위도, 경도 정보를 가져옵니다 
-            var latlng = mouseEvent.latLng;
-
-            // 마커 위치를 클릭한 위치로 옮깁니다
-            marker.setPosition(latlng);
-
-            var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-            message += '경도는 ' + latlng.getLng() + ' 입니다';
-            // var resultDiv = document.getElementById('clickLatlng');
-            // resultDiv.innerHTML = message;
-
-            console.log(message, latlng);
-        });
-
-
-    }, [])
-    return (
-        <>
-            <div id="map" style={{
-                width: "500px",
-                height: "500px"
-            }}></div>
-
-        </>
-    )
-}
 
 const { daum } = window;
 
@@ -486,7 +444,7 @@ const Postcode = (props) => {
     useEffect(() => {
         mapContainer = document.getElementById('map'); // 지도를 표시할 div
         mapOption = {
-            center: new daum.maps.LatLng(meetLatitude, meetLongitude), // 지도의 중심좌표
+            center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
             level: 5 // 지도의 확대 레벨
         };
         //지도를 미리 생성
@@ -494,7 +452,7 @@ const Postcode = (props) => {
         //지오코더 선언 자리 이동
         //마커를 미리 생성
         marker = new daum.maps.Marker({
-            position: new daum.maps.LatLng(meetLatitude, meetLongitude),
+            position: new daum.maps.LatLng(33.450701, 126.570667),
             map: map
         });
 

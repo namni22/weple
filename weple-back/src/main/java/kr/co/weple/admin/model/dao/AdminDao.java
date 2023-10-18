@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import kr.co.weple.PageInfo;
 import kr.co.weple.meet.model.vo.Meet;
 import kr.co.weple.member.model.vo.Member;
+import kr.co.weple.review.model.vo.Report;
 
 @Mapper
 public interface AdminDao {
@@ -32,6 +33,12 @@ public interface AdminDao {
 	int boardListCount();
 
 	List boardList(PageInfo pi);
+
+	int reportListCount();
+
+	List reportList(PageInfo pi);
+
+	int changeReportStatus(Report report);
 
 	
 }

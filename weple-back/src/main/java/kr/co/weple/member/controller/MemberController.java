@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.weple.EmailSender;
 import kr.co.weple.FileUtil;
 import kr.co.weple.member.model.service.MemberService;
 import kr.co.weple.member.model.vo.Member;
@@ -27,6 +29,8 @@ public class MemberController {
 	private MemberService memberService;
 	@Autowired
 	private FileUtil fileUtil;
+	@Autowired
+	private EmailSender emailSender;
 	@Value("${file.root}")
 	private String root;
 	
@@ -148,6 +152,33 @@ public class MemberController {
 			return m.getMemberId();
 		}
 	}
+	
+	// 비밀번호 찾기 시 회원 정보 일치하는지 조회
+	@PostMapping(value="/findPw")
+	public String findPw(@RequestBody Member member) {
+		Member m = memberService.findPw(member);
+		if(m == null) {
+			return "not found";
+		}else {
+			return "password";
+		}
+		
+	}
+	
+	// 비밀번호 찾기 시 회원 정보 일치하면 임시 비밀번호 메일링
+	@PostMapping(value="/sendMail")
+	public String sendPwMail(@RequestBody Member member) {
+		String memberEmail = member.getMemberEmail();
+		String authCode = emailSender.sendPwMail(memberEmail);
+		return authCode;
+	}
+	
+	// 임시 비밀번호로 비밀번호 변경
+	@PostMapping(value="/changeTemporaryPw")
+	public int pwChange(@RequestBody Member member) {
+		return memberService.pwChangeMember(member);
+	}
+	
 	
 	
 }

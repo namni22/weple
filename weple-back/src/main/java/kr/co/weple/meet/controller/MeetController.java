@@ -97,6 +97,45 @@ public class MeetController {
 		//리턴 리절트로 변경
 		return result;
 	}
+	//모임수정
+	@PostMapping(value = "/meetModify")
+	public int meetModify (
+			@ModelAttribute Meet meet,
+			@ModelAttribute MultipartFile meetThumbnail,
+			@RequestAttribute String memberId
+			) {
+		
+		// @RequestAttribute String memberId 로 아이디 받아서 meet에 방장으로 추가 (토큰필요)
+		meet.setMeetCaptain(memberId);
+		//구분자로 준비물 String으로 이어서 set
+		if(!meet.getMeetPrepareList().isEmpty()) {//준비물이 있다면
+			String newPrepare = "";
+			for(int i = 0 ; i<meet.getMeetPrepareList().size(); i++) {
+				//마지막 준비물 추가면
+				if(i==meet.getMeetPrepareList().size()-1) {
+					newPrepare += (String) meet.getMeetPrepareList().get(i);
+					break;
+				}
+				newPrepare += (String) meet.getMeetPrepareList().get(i)+"/";
+			}
+			meet.setMeetPrepare(newPrepare);			
+		}		
+		String savepath = root + "meet/";
+		if(meetThumbnail != null) {//썸네일이 있다면 meet에 set
+			meet.setMeetThumbNail(meetThumbnail.getOriginalFilename());
+			String filename = meetThumbnail.getOriginalFilename();
+			String filepath = fileUtil.getFilepath(savepath, filename, meetThumbnail) ;//물리적으로 업로드
+			meet.setMeetThumbNail(filepath);
+		}
+		
+		System.out.println("수정 모임 : "+meet);
+		System.out.println("수정 썸네일 : "+meetThumbnail);
+		System.out.println("수정 멤버아이디 : "+memberId);
+		
+		int result = meetService.modifyMeet(meet);
+		
+		return result;
+	}
 	
 	//모임생성 에디터 사진 추가
 	@PostMapping(value = "/meetContentDImg")
@@ -269,9 +308,9 @@ public class MeetController {
 	}
 	//방장임에 따라 바뀌는 사이드바에 필요한 정보
 	@GetMapping(value = "/meetCapCheck/{meetNo}")
-	public Meet meetCapCheck(@PathVariable int meetNo,@RequestAttribute String memberId) {
+	public Map meetCapCheck(@PathVariable int meetNo,@RequestAttribute String memberId) {
 		System.out.println("방장체크meetNo : "+meetNo+"방장체크meetCaptain : "+memberId);
-		Meet meetCapCheck = meetService.meetCapCheck(meetNo,memberId);
+		Map meetCapCheck = meetService.meetCapCheck(meetNo,memberId);
 		System.out.println("meetCapcheck : "+meetCapCheck);
 		return meetCapCheck;
 	}

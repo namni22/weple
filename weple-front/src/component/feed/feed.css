@@ -92,6 +92,10 @@
 .feed-list-more-btn > span {
   font-size: 30px;
 }
+.feed-list-text > div {
+  white-space: pre-wrap;
+  cursor: pointer;
+}
 .feed-list-content-btn {
   display: flex;
   align-items: center;
@@ -102,7 +106,8 @@
   align-items: center;
   margin-right: 10px;
 }
-.feed-list-content-btn > div {
+.feed-list-content-btn > div > .material-icons-outlined,
+.feed-list-content-btn > div > .material-icons {
   cursor: pointer;
 }
 .feed-list-content-btn > div > span:last-child {
@@ -133,6 +138,7 @@
   border-radius: 5px;
   padding: 10px;
   box-sizing: border-box;
+  resize: none;
 }
 .file-box > .feed-label {
   display: block;
@@ -277,4 +283,9 @@
 .commment-modal-wrap > .feed-title {
   margin-top: 0;
   margin-bottom: 20px;
+}
+
+/* View */
+.feed-view .feed-comment-wrap {
+  height: 200px;
 }
