@@ -55,7 +55,8 @@ public class ReviewController {
 			@ModelAttribute Review r,
 			@ModelAttribute MultipartFile[] rImage,
 			@RequestAttribute String memberId) {
-		System.out.println(r.getMeetNo());
+		System.out.println(r.getReviewContent());
+		System.out.println(r.getReviewNo());
 		r.setMemberId(memberId);
 		String savepath = root+"review/";
 		ArrayList<RImage> imageList = new ArrayList<RImage>();

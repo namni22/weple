@@ -44,6 +44,7 @@ const ReviewList = (props) => {
         console.log(res.data);
       });
   }, [start]);
+
   const useMore = (e) => {
     setStart(start + amount);
   };
@@ -149,10 +150,13 @@ const ReviewListComponent = (props) => {
       <div className="reviewlist-component-top">
         <div className="review-profile">
           <img
-            src="\img\profile_default.png"
+            src={"/member/" + review.memberImage}
             className="review-profile-img"
           ></img>
-          <span className="review-name">{review.memberId}</span>
+          <div>
+            <div className="review-name">{review.memberId}</div>
+            <div className="review-date">{review.reviewDate}</div>
+          </div>
           <div className="star-rating">
             <div
               className="star-rating-fill"
@@ -177,8 +181,6 @@ const ReviewListComponent = (props) => {
       </div>
       <div className="review-img">
         {review.imageList.map((img, index) => {
-          console.log("이미지");
-          console.log(img.rimageName);
           return <img src={"/review/" + img.rimageName} />;
         })}
       </div>

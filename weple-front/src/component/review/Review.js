@@ -22,7 +22,8 @@ const Review = (props) => {
   const meetStar = props.reviewStar;
   const reviewCount = props.reviewCount;
   const isMeetMember = props.isMeetMember; //해당 멤버인지 확인하는 함수(undefined)
-
+  console.log("isMeetMem" + isMeetMember);
+  console.log(isMeetMember);
   //리뷰 조회
   useEffect(() => {
     axios
@@ -63,7 +64,7 @@ const Review = (props) => {
     <>
       {/* 리뷰가 있으면 보임 */}
       {reviewCount < 1 ? (
-        <></>
+        <div className="review-wrap">첫 번째 리뷰를 작성해 보세요!</div>
       ) : (
         <div className="review-wrap">
           <div className="review-top">
