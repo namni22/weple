@@ -83,7 +83,6 @@ const ImgBox = (props) => {
     fImage.splice(index, 1);
     setFImage([...fImage]);
   };
-
   return (
     <div className="swiper-img-box">
       {object}

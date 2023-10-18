@@ -1,6 +1,8 @@
+import { Button } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { Button1 } from "../util/Button";
 
 const MyFeed = (props) => {
   const memberId = props.memberId;
@@ -14,17 +16,21 @@ const MyFeed = (props) => {
     axios
       .get("/member/myFeedList/" + start + "/" + end + "/" + memberId)
       .then((res) => {
-        console.log(res.data);
-        res.data.forEach((item) => {
-          myFeedList.push(item);
-          setMyFeedList([...myFeedList]);
-        });
+        console.log("데이터 :  " + res.data);
+        if (res.data !== null) {
+          res.data.forEach((item) => {
+            myFeedList.push(item);
+            setMyFeedList([...myFeedList]);
+          });
+        } else {
+          console.log("얘는 왜 안 찍혀");
+          Swal.fire("내 피드가 없습니다. 피드를 작성해보세요.");
+        }
       })
       .catch((res) => {
-        console.log("myfeed" + res.data.status);
-        Swal.fire("실패");
+        console.log("오류");
       });
-  }, [memberId]);
+  }, [memberId, start]);
 
   const useFeedMore = (e) => {
     setStart(start + amount);
@@ -37,6 +43,9 @@ const MyFeed = (props) => {
           {myFeedList.map((myFeed, index) => {
             return <MyFeedItem key={"myFeed" + index} myFeed={myFeed} />;
           })}
+        </div>
+        <div className="myfeed-content-more-btn">
+          <Button1 text="더보기" dValue={1} clickEvent={useFeedMore} />
         </div>
       </div>
     </div>
