@@ -191,6 +191,7 @@ const FeedContent = (props) => {
     setCmtIsOpen(true);
     setRcmId("");
     setFCommentRefNo(null);
+    setLoad(load + 1);
   };
   const closeComent = () => {
     setCmtIsOpen(false);
