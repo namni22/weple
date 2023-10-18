@@ -46,6 +46,9 @@
 			ofType="fImage"
 		/>
 	</resultMap>
+	<select id="one" resultMap="getImage">
+		select * from feed where feed_no=#{feedNo} 
+	</select>
 	<select id="selectFeedFile" resultType="fImage">
 		select * from fimage
 			where fimage_no in
@@ -86,6 +89,7 @@
 	        (select member_image from member m where m.member_id = f.fcomment_writer) member_image,
 	        nvl((select count(fcomment_no) from fcomment_like l where l.fcomment_no = f.fcomment_no),0) total_comment_like
 		from fcomment f
+		where feed_no=#{feedNo}
 		order by feed_no desc
 	</select>
 	<delete id="deleteComment">

@@ -62,6 +62,11 @@ public class FeedController {
 			) {
 		return feedService.feedList(start, end);
 	}
+	//피드하나출력
+		@GetMapping(value="/one/{feedNo}")
+		public Feed one(@PathVariable int feedNo) {
+			return feedService.one(feedNo);
+		}
 
 	//피드수정
 	@PostMapping(value="/modify")
