@@ -166,7 +166,7 @@
 	<select id="meetMargin" resultType="meet">
 	<![CDATA[ 
 	select * 
-	from (select Meet_no, MEET_THUMBNAIL, meet_title, meet_total, meet_margin,
+	from (select meet_no, meet_date, meet_title, meet_content_s, meet_content_d, meet_total, meet_margin, meet_prepare, meet_category, meet_address1, meet_address2, meet_latitude, meet_longitude, meet_thumbnail, meet_captain,
 	    ROUND(NVL((select avg(NVL(review_star, 0)) 
 	        from review r 
 	        where r.meet_no = m.meet_no),0),1) review_star,
@@ -193,7 +193,7 @@
 	<select id="meetPopular" resultType="meet">
 	<![CDATA[ 
 	select * 
-	from (select meet_no, meet_thumbnail, meet_title, meet_total, meet_margin,
+	from (select meet_no, meet_date, meet_title, meet_content_s, meet_content_d, meet_total, meet_margin, meet_prepare, meet_category, meet_address1, meet_address2, meet_latitude, meet_longitude, meet_thumbnail, meet_captain,
 	    ROUND(NVL((select avg(NVL(review_star, 0))
 	        from review r
 	        where r.meet_no = m.meet_no),0),1) review_star,
@@ -208,7 +208,7 @@
 	<select id="meetNew" resultType="meet">
 	<![CDATA[ 
 	select * 
-	from (select meet_no, meet_thumbnail, meet_title, meet_total, meet_margin,
+	from (select meet_no, meet_date, meet_title, meet_content_s, meet_content_d, meet_total, meet_margin, meet_prepare, meet_category, meet_address1, meet_address2, meet_latitude, meet_longitude, meet_thumbnail, meet_captain,
 	    ROUND(NVL((select avg(NVL(review_star, 0))
 	        from review r
 	        where r.meet_no = m.meet_no),0),1) review_star,

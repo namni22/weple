@@ -55,7 +55,6 @@ const MeetView = (props) => {
     axios
       .post("/meet/selectOneMember", { memberId: location.state.m.meetCaptain })
       .then((res) => {
-        console.log(res.data);
         setMeetCaptain(res.data);
       })
       .catch((res) => {
@@ -66,7 +65,7 @@ const MeetView = (props) => {
   useEffect(() => {
     setMyMeet(location.state.m);
   }, []);
-  console.log("view", myMeet);
+  // console.log("view", myMeet);
   const [meetMenu, setMeetMenu] = useState([
     { url: "", text: "소개", active: true },
     { url: "meetChat", text: "글 작성", active: false },
@@ -168,7 +167,7 @@ const AfterMeetMain = (props) => {
   const myMeet = props.myMeet;
   const meetCaptain = props.meetCaptain;
 
-  console.log(myMeet);
+  // console.log(myMeet);
   return (
     <div className="afterMeet-main-wrap">
       <div className="afterMeet-main-thumbnail">
@@ -230,7 +229,7 @@ const AfterMeetSubNavi = (props) => {
         //    console.log(res.response.status);
       });
   }, [props]);
-  console.log("렌더링", captainCheck);
+  // console.log("렌더링", captainCheck);
   const activeTab = (index) => {
     meetMenu.forEach((item) => {
       item.active = false;
@@ -245,7 +244,7 @@ const AfterMeetSubNavi = (props) => {
     meetMenu2[index].active = true;
     setMeetMenu2([...meetMenu2]);
   };
-  console.log("meetView의 capTainCheck : ", captainCheck);
+  // console.log("meetView의 capTainCheck : ", captainCheck);
   return (
     <>
       {captainCheck ? (

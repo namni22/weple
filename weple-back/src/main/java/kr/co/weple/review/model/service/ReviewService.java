@@ -65,4 +65,14 @@ public class ReviewService {
 			}	
 			return null;
 		}
+	//deleteReview
+		@Transactional
+		public List<RImage> delete(int reviewNo) {
+			List<RImage> list = reviewDao.selectImageList(reviewNo);
+			int result = reviewDao.deleteReview(reviewNo);
+			if(result >0) {
+				return list;
+			}
+			return null;
+		}
 }

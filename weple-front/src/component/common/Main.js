@@ -95,6 +95,7 @@ const FeedMain = () => {
 
   return (
     <div>
+      <div className="meet-main-title">피드</div>
       <div className="feed-list-content-wrap">
         {feedList.map((feed, index) => {
           return (
