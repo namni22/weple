@@ -45,6 +45,16 @@ public class FeedService {
 		return null;
 	}
 
+	//피드하나출력
+	public Feed one(int feedNo) {
+		List list = feedDao.one(feedNo);
+		Feed feed = (Feed)list.get(0);
+		List fComment =  feedDao.commentList(feedNo);
+		feed.setFComment(fComment);
+		System.out.println(feed);
+		return feed;
+	}
+	
 	//피드수정
 	@Transactional
 	public List<FImage> modify(Feed f, ArrayList<FImage> imageList) {
@@ -149,5 +159,7 @@ public class FeedService {
 		}
 		return 0;
 	}
+
+
 	
 }

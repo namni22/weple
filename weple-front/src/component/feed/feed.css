@@ -284,3 +284,8 @@
   margin-top: 0;
   margin-bottom: 20px;
 }
+
+/* View */
+.feed-view .feed-comment-wrap {
+  height: 200px;
+}

@@ -49,7 +49,7 @@ const FeedWriteFrm = (props) => {
     const changeEnter = changeValue.replace(/(?:\r\n|\r|\n)/g, "<br>");
     const changeSpace = changeEnter.replace(/\s{2,}/gi, " ");
     setFeedContent(changeSpace);
-    if (feedContent === " ") {
+    if (changeSpace === " ") {
       setFeedContent(feedContent.replace(/\s/gi, ""));
     }
   };

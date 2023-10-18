@@ -22,4 +22,5 @@ public class Feed {
 	private String memberImage;//작성자 프로필이미지
 	private int totalLike;//좋아요개수
 	private int totalComment;//댓글개수
+	private List fComment;//댓글목록
 }

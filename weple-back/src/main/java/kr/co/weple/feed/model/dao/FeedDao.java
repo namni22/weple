@@ -1,5 +1,6 @@
 package kr.co.weple.feed.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -47,5 +48,7 @@ public interface FeedDao {
 	int commentInsertLike(int memberNo, int fCommentNo);
 
 	int commentDeleteLike(int memberNo, int fCommentNo);
+
+	List one(int feedNo);
 
 }
