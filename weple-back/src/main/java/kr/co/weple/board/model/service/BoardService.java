@@ -83,4 +83,11 @@ public class BoardService {
 		
 	}
 
+
+	public int deleteBoard(int boardNo) {
+		// TODO Auto-generated method stub
+		return boardDao.deleteBoard(boardNo);
+
+	}
+
 }

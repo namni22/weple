@@ -120,6 +120,10 @@ const BoardItem = (props) => {
     const style = {
         backgroundColor: board.boardType === 0 ? "#2D31FA" : (board.boardType === 1 ? "#5D8BF4" : "#ededed")
     }
+    const titlestyle = {
+        color: "#2D31FA",
+        fontWeight: "900"
+    }
 
     const changeToggle = (e) => {
         setToggleIdx(index);
@@ -128,6 +132,33 @@ const BoardItem = (props) => {
     }
     const modify = () => {
         navigate("/board/modify", { state: { board: board } });
+    }
+    const deleteBoard = () => {
+        Swal.fire({
+            icon: "warning",
+            text: "게시글을 삭제하시겠습니까?",
+            showCancelButton: true,
+            confirmButtonText: "삭제",
+            cancelButtonText: "취소",
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+
+        }).then((res) => {
+            if (res.isConfirmed) {
+
+                axios
+                    .get("/board/delete/" + board.boardNo)
+                    .then((res) => {
+                        console.log(res.data);
+                        if (res.data === 1) {
+                            navigate("/");
+                        }
+                    })
+                    .catch((res) => {
+                        console.log(res.response.status);
+                    });
+            }
+        });
     }
     console.log("boardList 1018 : ", board)
     if (index === toggleIdx) {
@@ -148,7 +179,7 @@ const BoardItem = (props) => {
                             <Button2 text="수정" clickEvent={modify}></Button2>
                         </div>
                         <div>
-                            <Button1 text="삭제"></Button1>
+                            <Button1 text="삭제" clickEvent={deleteBoard}></Button1>
                         </div>
                     </div>
                 </div>
@@ -157,7 +188,7 @@ const BoardItem = (props) => {
     }
     else {
         return (
-            <div className="board-list-title-wrap" onClick={changeToggle}>
+            <div className="board-list-title-wrap" onClick={changeToggle} >
                 <div className="board-list-tab" style={style}>
                     {board.boardType === 0 ? "공지사항" : (board.boardType === 1 ? "이벤트" : "FAQ")}
                 </div>
