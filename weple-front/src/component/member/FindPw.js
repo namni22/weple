@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../util/InputFrm";
 import { Button2 } from "../util/Button";
 import axios from "axios";
@@ -42,7 +42,6 @@ const FindPw = () => {
     .post("member/changeTemporaryPw", member)
     .then((res) => {
       console.log(res.data);
-      navigate("/login");
     })
     .catch((res) => {
       console.log(res.response.status);
