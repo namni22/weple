@@ -384,7 +384,7 @@ const CommentFrm = (props) => {
         })
         .catch((res) => {
           console.log(res.response.status);
-          Swal.fire("실패");
+          Swal.fire("Feed실패");
         });
     } else {
       Swal.fire("댓글 내용을 입력하세요");

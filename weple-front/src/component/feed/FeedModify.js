@@ -46,7 +46,7 @@ const FeedModify = (props) => {
           }
         })
         .catch((res) => {
-          console.log(res.response.status);
+          console.log("feedmodify" + res.response.status);
           Swal.fire("실패");
         });
     } else {

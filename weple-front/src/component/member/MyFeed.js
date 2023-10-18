@@ -21,6 +21,7 @@ const MyFeed = (props) => {
         });
       })
       .catch((res) => {
+        console.log("myfeed" + res.data.status);
         Swal.fire("실패");
       });
   }, [memberId]);
