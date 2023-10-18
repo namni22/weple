@@ -167,7 +167,6 @@ const ReportModal = (props) => {
                       return (
                         <option key={"type" + index} value={type.value}>
                           {type.text}
-                          {type.value}
                         </option>
                       );
                     })}
@@ -204,10 +203,18 @@ const ReportModal = (props) => {
                   ></input>
                   <Button1 text={"확인"} />
 
-                  <p>1.신고 타입이 회원일 경우: 신고할 회원 아이디</p>
-                  <p>2.신고 타입이 모임일 경우: 모임장 회원 아이디</p>
-                  <p>3.신고 타입이 피드일 경우: 피드를 작성한 회원 아이디</p>
-                  <p>4.신고 타입이 후기일 경우: 후기를 작성한 회원 아이디</p>
+                  <p id="report-p">
+                    1.신고 타입이 회원일 경우: 신고할 회원 아이디
+                  </p>
+                  <p id="report-p">
+                    2.신고 타입이 모임일 경우: 모임장 회원 아이디
+                  </p>
+                  <p id="report-p">
+                    3.신고 타입이 피드일 경우: 피드를 작성한 회원 아이디
+                  </p>
+                  <p id="report-p">
+                    4.신고 타입이 후기일 경우: 후기를 작성한 회원 아이디
+                  </p>
                 </td>
               </tr>
               <tr>

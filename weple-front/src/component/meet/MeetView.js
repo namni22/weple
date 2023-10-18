@@ -93,7 +93,7 @@ const MeetView = (props) => {
           setMeetMenu2={setMeetMenu2}
           meetNo={meetNo}
         ></AfterMeetSubNavi>
-      ) : followerStatus ? (
+      ) : isLogin && followerStatus ? (
         <AfterMeetSubNavi
           meetMenu={meetMenu}
           setMeetMenu={setMeetMenu}
@@ -218,20 +218,22 @@ const AfterMeetSubNavi = (props) => {
   const meetNo = props.meetNo;
   const [captainCheck, setCaptainCheck] = useState({});
   const token = window.localStorage.getItem("token");
-  axios
-    .get("/meet/meetCapCheck/" + meetNo, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    })
-    .then((res) => {
-      console.log("방장체크 : ", res.data);
-      setCaptainCheck(res.data);
-      console.log("방장체크 captainCheck : ", captainCheck);
-    })
-    .catch((res) => {
-      //console.log(res.response.status);
-    });
+  useEffect(() => {
+    axios
+      .get("/meet/meetCapCheck/" + meetNo, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => {
+        console.log("방장체크 : ", res.data);
+        setCaptainCheck(res.data);
+        console.log("방장체크 captainCheck : ", captainCheck);
+      })
+      .catch((res) => {
+        //console.log(res.response.status);
+      });
+  }, []);
   const activeTab = (index) => {
     meetMenu.forEach((item) => {
       item.active = false;
