@@ -3,8 +3,10 @@ import Input from "../util/InputFrm";
 import { Button2 } from "../util/Button";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const FindPw = () => {
+  const navigate = useNavigate();
   const [memberId, setMemberId] = useState("");
   const [memberName, setMemberName] = useState("");
   const [memberEmail, setMemberEmail] = useState("");
@@ -35,11 +37,12 @@ const FindPw = () => {
       });
   };
 
-  // 메일로 받은 랜덤 문자열을 해당 아이디 비밀번호로 바꿔주는 작업
+  // 메일로 받은 랜덤 문자열을 해당 계정 비밀번호로 바꿔주는 작업
   axios
     .post("member/changeTemporaryPw", member)
     .then((res) => {
       console.log(res.data);
+      navigate("/login");
     })
     .catch((res) => {
       console.log(res.response.status);
