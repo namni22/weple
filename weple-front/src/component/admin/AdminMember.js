@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
-import MenuItem from "@mui/material/MenuItem";
 import "./admin.css";
 import axios from "axios";
-import { FormControl, Select } from "@mui/material";
 import Swal from "sweetalert2";
 import Pagination from "../common/Pagination";
 import Input from "../util/InputFrm";
 import { Button1 } from "../util/Button";
-import { useNavigate } from "react-router-dom";
 
 
 const AdminMember = () => {
@@ -24,7 +21,7 @@ const AdminMember = () => {
       axios
         .get("/admin/memberList/" + reqPage)
         .then((res) => {
-          console.log("admin/memberList : " + res.data.list);
+          //console.log("admin/memberList : " + res.data.list);
           setMemberList(res.data.list);
           setPageInfo(res.data.pi);
         })
@@ -40,7 +37,7 @@ const AdminMember = () => {
       axios
         .get("/admin/searchId/" + memberId + "/" + reqPage)
         .then((res) => {
-          console.log("admin/searchId : " + res.data.list);
+          //console.log("admin/searchId : " + res.data.list);
           setMemberList(res.data.list);
           setPageInfo(res.data.pi);
         })
@@ -104,57 +101,53 @@ const AdminMember = () => {
 const MemberItem = (props) => {
   const member = props.member;
   const [memberGrade, setMemberGrade] = useState(member.memberGrade);
-  const [printOption, setPrintOption] = useState("");
-  console.log("" + printOption)
-  //const options = [{ value: 0, name: "관리자" }, { value: 1, namee: "정회원" }, { value: 2, value: "블랙리스트" }];
-  const handleChange = (event) => {
-    //const obj = { memberNo: member.memberNo, memberGrade: event.target.value };
-    // const token = window.localStorage.getItem("token");
-    // axios
-    //   .post("/admin/changeMemberGrade", obj, {
-    //     headers: {
-    //       Authorization: "Bearer" + token,
-    //     }
-    //   })
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     if (res.data === 1) {
-    //       setMemberGrade(event.target.value);
-    //     } else {
-    //       Swal.fire("변경 중 문제가 발생했습니다.");
-    //     }
-    //   })
-    //   .catch((res) => {
-    //     console.log(res);
-    //   });
+  
+  //const options = [{ grade: 0, name: "관리자" }, { grade: 1, name: "정회원" }, { grade: 2, name: "블랙리스트" }];
+  // index 0 : 관리자, 1 : 정회원, 2 : 블랙리스트
+  const options = ["관리자", "정회원", "블랙리스트"];
+  
+  const clickChange = (event) => {
+    setMemberGrade(event.target.value);
+    
   };
-  const printOptions = () => {
-    if (memberGrade === 0) {
-      setPrintOption("관리자")
-    } else if (memberGrade === 1) {
-      setPrintOption("정회원")
-    } else if (memberGrade === 2) {
-      setPrintOption("블랙리스트")
-    }
+
+  const clickConfirm = (event) => {
+    const obj = { memberNo: member.memberNo, memberGrade: event.target.value };
+    const token = window.localStorage.getItem("token");
+    axios
+      .post("/admin/changeMemberGrade", obj, {
+        headers: {
+          Authorization: "Bearer" + token,
+        }
+      })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data === 1) {
+          setMemberGrade(memberGrade);
+          Swal.fire("변경 성공하셨습니다.")
+        } else {
+          Swal.fire("변경 중 문제가 발생했습니다.");
+        }
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+      
   }
-  printOptions();
+  
   return (
     <tr>
       <td>{member.memberId}</td>
       <td>{member.memberName}</td>
       <td>{member.memberEmail}</td>
       <td>
-        <select>
+        <select value={memberGrade} onChange={clickChange}>
 
-          {/* {member.memberGrade.map((memberGrade, index) => {
-
-            <option value={memberGrade} key={options.value}>
-              {options.name}
-            </option>
-          })} */}
-
+          {options.map((option, index) => {
+            return <option value={index} key={"option" + index}> {option} </option>
+          })}
         </select>
-
+        <Button1 text="변경" clickEvent={clickConfirm}/>
       </td>
     </tr>
   );
