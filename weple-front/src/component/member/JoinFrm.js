@@ -373,7 +373,7 @@ const JoinFrm = (props) => {
             </div>
             <div className="input">
               <div className="join-profileImg-pre">
-                {profileImg === null ? (
+                {memberImage === null ? (
                   <img src="/img/testImg_01.png" />
                 ) : (
                   <img src={memberImage} />
