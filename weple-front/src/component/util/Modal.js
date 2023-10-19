@@ -12,14 +12,21 @@ const ReportModal = (props) => {
   const memberId = props.memberId;
   const reportItemNo = props.reportItemNo;
   const reportMemberId = props.reportMemberId;
-  const [reportedMember, setReportedMember] = useState("");
+  const setReportTypeValue = props.setReportTypeValue;
+  const reportTypeValue = props.reportTypeValue;
+  const reportType = props.reportType;
+  const setReportType = props.setReportType;
+  //const [reportedMember, setReportedMember] = useState("");
   const [reportContent, setReportContent] = useState("");
-  const [reportTypeValue, setReportTypeValue] = useState(0);
-  const [currentVaule, setCurrentVaule] = useState();
-  const [currentCategory, setCurrentCategory] = useState("");
+  //const [reportTypeValue, setReportTypeValue] = useState("");
+  const [currentVaule, setCurrentVaule] = useState("");
+  const [currentCategory, setCurrentCategory] = useState();
   const [checkIdMsg, setCheckIdMsg] = useState("");
-  console.log("props.reportMemberId : ", reportMemberId);
-  console.log("모달 memberId : ", memberId);
+  // console.log("신고자 : ", reportType);
+  //console.log("props.reportMemberId : ", reportMemberId);
+  //console.log("모달 memberId : ", memberId);
+  /**
+   
   const [reportType, setReportType] = useState([
     {
       value: 0,
@@ -38,25 +45,27 @@ const ReportModal = (props) => {
       text: "후기",
     },
   ]);
+   */
   const [reportCategory, setReportCategory] = useState([]);
-
-  const changeValue = (e) => {
-    const newValue = e.currentTarget.value;
-    console.log("신고타입 전 : ", newValue);
-    setReportTypeValue(newValue);
-    console.log("신고타입 후 : ", reportTypeValue);
-    axios
-      .get("/member/selectReportOption/" + newValue)
-      .then((res) => {
-        console.log(res.data);
-        console.log(reportType.value);
-        setReportCategory(res.data.reportCategory);
-        setCurrentVaule(newValue);
-      })
-      .catch((res) => {
-        console.log(res.response.status);
-      });
-  };
+  /*
+const changeValue = (e) => {
+  const newValue = e.currentTarget.value;
+  console.log("신고타입 전 : ", newValue);
+  setReportTypeValue(newValue);
+  console.log("신고타입 후 : ", reportTypeValue);
+  axios
+    .get("/member/selectReportOption/" + newValue)
+    .then((res) => {
+      console.log(res.data);
+      console.log(reportType.value);
+      setReportCategory(res.data.reportCategory);
+      setCurrentVaule(newValue);
+    })
+    .catch((res) => {
+      console.log(res.response.status);
+    });
+};
+ */
   const customStyles = {
     content: {
       top: "50%",
@@ -73,9 +82,9 @@ const ReportModal = (props) => {
   };
   const handleClickSubmit = (e) => {
     console.log(" 확인 클릭시 이벤트발생");
-    console.log("가해자 : ", reportedMember);
+    console.log("가해자 : ", reportMemberId);
     console.log("신고내용 : ", reportContent);
-    console.log("신고타입 : ", currentVaule);
+    console.log("신고타입 : ", reportTypeValue);
     console.log("신고자 :", memberId);
     console.log("신고유형 : ", currentCategory);
     console.log("신고물번호 : ", reportItemNo);
@@ -91,7 +100,7 @@ const ReportModal = (props) => {
           "/member/report",
           {
             reportedMember: reportMemberId,
-            reportType: currentVaule,
+            reportType: reportTypeValue,
             reportContent: reportContent,
             reportCategoryNo: currentCategory,
             reportMember: memberId,
@@ -104,7 +113,7 @@ const ReportModal = (props) => {
           }
         )
         .then((res) => {
-          console.log(res.data);
+          //  console.log(res.data);
           if (res.data === 1) {
             Swal.fire({
               title: "신고가 완료되었습니다.",
@@ -127,30 +136,27 @@ const ReportModal = (props) => {
     }
   };
   const handleClickCancel = () => {
-    const newArr2 = 0;
-    console.log("취소이벤트 : ", reportTypeValue);
-    console.log("newArr2 : ", newArr2);
-    setReportTypeValue(newArr2);
-    console.log("취소이벤트 후 : ", reportTypeValue);
+    setReportType(reportType);
+    setReportTypeValue();
     onCancel();
   };
   useEffect(() => {
     axios
       .get("/member/selectReportOption/" + reportTypeValue)
       .then((res) => {
-        console.log(res.data);
-        console.log(reportType.value);
+        //  console.log(res.data);
+        //       console.log(reportType.value);
         setReportCategory(res.data.reportCategory);
       })
       .catch((res) => {
         console.log(res.response.status);
       });
-  }, [reportTypeValue]);
+  }, []);
   const changeCategory = (e) => {
     const newCategory = e.currentTarget.value;
     setCurrentCategory(newCategory);
   };
-  console.log("reportMemberId : ", reportMemberId);
+  //  console.log("reportMemberId : ", reportMemberId);
   return (
     <ReactModal style={customStyles} isOpen={isOpen}>
       <div className="modal-all-wrap">
@@ -167,15 +173,15 @@ const ReportModal = (props) => {
               <tr>
                 <td>신고 타입</td>
                 <td>
-                  <select onChange={changeValue}>
-                    {reportType.map((type, index) => {
-                      return (
-                        <option key={"type" + index} value={type.value}>
-                          {type.text}
-                        </option>
-                      );
-                    })}
-                  </select>
+                  {reportType === 0
+                    ? "회원"
+                    : reportType === 1
+                    ? "모임"
+                    : reportType === 2
+                    ? "피드"
+                    : reportType === 3
+                    ? "후기"
+                    : ""}
                 </td>
               </tr>
               <tr>

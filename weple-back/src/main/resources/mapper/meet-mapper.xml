@@ -201,7 +201,7 @@
 	        MEMBER_IMAGE
 	    FROM CHAT
 	    JOIN MEMBER USING(MEMBER_ID)
-	    WHERE MEET_NO = #{meetNo}
+	    WHERE MEET_NO = #{meetNo} order by 1
 	</select>
 	<!--메인페이지에 인기순 모임조회 -->
 	<select id="meetPopular" resultType="meet">

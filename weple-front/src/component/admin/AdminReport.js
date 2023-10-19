@@ -79,26 +79,26 @@ const ReportItem = (props) => {
 
   console.log("신고전체 : ", report);
 
-  const handleChange = (event) => {
+  const Change = (event) => {
 
 
   };
-  const changeStatus = () => {
+  const clickConfirm = () => {
     console.log(report.reportStatus);
-    if (report.reportStatus === 1) {
-      axios
-        .post("/admin/changeReportStatus", report.reportStatus)
-        .then((res) => {
-          if (res.data === 1) {
-            setReportStatus(0);
-          } else {
-            Swal.fire("변경 중 문제가 발생했습니다.");
-          }
-        })
-        .catch((res) => {
-          console.log(res);
-        });
-    }
+    // if (report.reportStatus === 1) {
+    //   axios
+    //     .post("/admin/changeReportStatus", report.reportStatus)
+    //     .then((res) => {
+    //       if (res.data === 1) {
+    //         setReportStatus(0);
+    //       } else {
+    //         Swal.fire("변경 중 문제가 발생했습니다.");
+    //       }
+    //     })
+    //     .catch((res) => {
+    //       console.log(res);
+    //     });
+    // }
   }
   return (
     <tr>
@@ -108,7 +108,7 @@ const ReportItem = (props) => {
       <td>{report.reportedMember}</td>
       <td>{report.reportCategoryContent}</td>
       <td>
-        {report.reportStatus === 1 ? <Button2 text="확인 중" clickEvent={changeStatus} /> : <Button1 text="확인완료" />}
+        {report.reportStatus === 1 ? <Button2 text="확인 중" clickEvent={clickConfirm} /> : <Button1 text="확인완료" />}
       </td>
     </tr>
   );

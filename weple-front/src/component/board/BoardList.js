@@ -6,8 +6,8 @@ import Pagination from "../common/Pagination";
 import { Button1, Button2 } from "../util/Button";
 import Swal from "sweetalert2";
 
-const tabTypeList = [{ boardType : 99, name : "전체"}, { boardType : 0, name : "관리자"}, { boardType : 1, name : "정회원"}, { boardType : 2, name : "블랙리스트"}];
-const testmap = { name : "dongmin", age : 33, name : "yeojung"};
+const tabTypeList = [{ boardType: 99, name: "전체" }, { boardType: 0, name: "관리자" }, { boardType: 1, name: "정회원" }, { boardType: 2, name: "블랙리스트" }];
+//const testmap = { name : "dongmin", age : 33, name : "yeojung"};
 
 const BoardAll = (props) => {
     const member = props.member;
@@ -74,12 +74,12 @@ const BoardItem = (props) => {
     const style = {
         backgroundColor: board.boardType === 0 ? "#2D31FA" : (board.boardType === 1 ? "#5D8BF4" : "#ededed")
     }
-    
+
 
     const changeToggle = (e) => {
-        if(index === toggleIdx){
+        if (index === toggleIdx) {
             setToggleIdx(-1);
-        }else{
+        } else {
             setToggleIdx(index);
         }
         console.log("board key : " + index);
@@ -171,15 +171,13 @@ const BoardTab = (props) => {
         <div className="board-tab-wrap">
             {/* 클릭이벤트 걸어서 component 걸기 */}
             {tabTypeList.map((tabData, index) => {
-                if(tabData.boardType === props.boardType)
-                {
+                if (tabData.boardType === props.boardType) {
                     return <span className="board-active-tab" style={titlestyle} onClick={() => { OnClickBoardTab(tabData.boardType) }}> {tabData.name} </span>
                 }
-                else
-                {
+                else {
                     return <span className="board-active-tab" onClick={() => { OnClickBoardTab(tabData.boardType) }}> {tabData.name} </span>
-                }            
-          })}
+                }
+            })}
         </div>
     )
 }
