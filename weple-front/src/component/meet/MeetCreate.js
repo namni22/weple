@@ -2,6 +2,7 @@ import { useState } from "react";
 import MeetSettingFrm from "./MeetSettingFrm";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const MeetCreate = () => {
   const [meetTitle, setMeetTitle] = useState("");
@@ -25,6 +26,8 @@ const MeetCreate = () => {
   // 준비물 리스트 추가용
   const [meetPrepare, setMeetPrepare] = useState("");
   const [meetPrepareList, setMeetPrepareList] = useState([]);
+
+  const navigate = useNavigate();
 
   //write역할
   const meetCreateBtn = () => {
@@ -80,6 +83,8 @@ const MeetCreate = () => {
         .then((res) => {
           console.log("결과 : " + res.data);
           Swal.fire("모임생성 완료");
+          navigate("/");
+
         })
         .catch();
     } else {

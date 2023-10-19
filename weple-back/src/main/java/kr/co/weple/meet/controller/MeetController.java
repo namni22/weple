@@ -107,6 +107,7 @@ public class MeetController {
 			) {
 		
 		// @RequestAttribute String memberId 로 아이디 받아서 meet에 방장으로 추가 (토큰필요)
+		System.out.println("넘어온직후 meet : "+meet);
 		meet.setMeetCaptain(memberId);
 		//구분자로 준비물 String으로 이어서 set
 		if(!meet.getMeetPrepareList().isEmpty()) {//준비물이 있다면
