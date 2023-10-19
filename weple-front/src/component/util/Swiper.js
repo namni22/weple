@@ -25,7 +25,6 @@ const SwiperComponent = (props) => {
   const setDeleteImg = props.setDeleteImg;
   const fimageNoList = props.fimageNoList;
   const type = props.type;
-  console.log("fimageNoList", fimageNoList);
   return (
     <Swiper
       spaceBetween={spaceBetween} //SwiperSlide간 간격
