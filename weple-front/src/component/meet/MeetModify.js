@@ -75,7 +75,7 @@ const MeetModify = () => {
             form.append("meetContentS", meetContentS);
             form.append("meetContentD", meetContentD);
             form.append("meetTotal", meetTotal);
-            form.append("meetThumbNail", meetThumbnail)
+            form.append("meetThumbNail", meetThumbnail);
             form.append("meetThumbNailPreview", meetThumbnailPreview);
             form.append("meetPrepareList", meetPrepareList);
             form.append("meetCategory", meetCategory);
