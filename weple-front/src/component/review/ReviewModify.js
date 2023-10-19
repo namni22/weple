@@ -27,7 +27,7 @@ const ReviewModify = (props) => {
   //이미지를 db에서 불러오는 작업
   useEffect(() => {
     for (let i = 0; i < rimageList.length; i++) {
-      const arr = [];
+      const arr = rimageList;
       arr.push(rimageList[i].rimageNo);
       console.log("arr", arr);
       setRimageNoList([...arr]);
