@@ -3,7 +3,6 @@ package kr.co.weple.feed.controller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +20,6 @@ import kr.co.weple.FileUtil;
 import kr.co.weple.feed.model.service.FeedService;
 import kr.co.weple.feed.model.vo.FComment;
 import kr.co.weple.feed.model.vo.FImage;
-import kr.co.weple.feed.model.vo.FLike;
 import kr.co.weple.feed.model.vo.Feed;
 
 @RestController
@@ -119,6 +117,11 @@ public class FeedController {
 			@RequestBody Feed f,
 			@RequestAttribute String memberId) {
 		return feedService.like(memberId,f.getFeedNo());
+	}
+	//좋아요개수, 댓글개수 불러오기
+	@GetMapping(value="/totalCount/{feedNo}")
+	public Feed totalCount(@PathVariable int feedNo) {
+		return feedService.totalCount(feedNo);
 	}
 	//좋아요클릭이벤트
 	@PostMapping (value="/updateLike")

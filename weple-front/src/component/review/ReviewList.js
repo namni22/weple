@@ -92,6 +92,7 @@ const ReviewListComponent = (props) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const reviewContent = review.reviewContent.replaceAll("<br>", "\r\n");
+  const [viewOpen, setViewOpen] = useState(false); //상세보기 모달
   //더보기 버튼모달
   const moreModal = () => {
     if (isLogin) {
@@ -177,6 +178,12 @@ const ReviewListComponent = (props) => {
           feedWriter={review.memberId}
           deleteEvent={deleteEvent}
         />
+        {/* <FeedView
+          isOpen={viewOpen}
+          closeView={closeView}
+          feedNo={feed.feedNo}
+          isLogin={isLogin}
+        /> */}
       </div>
       <div className="review-img">
         {review.imageList.map((img, index) => {

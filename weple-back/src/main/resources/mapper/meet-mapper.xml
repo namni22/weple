@@ -233,6 +233,24 @@
 	where rownum<=12
 	]]>
 	</select>
+	<!--메인페이지에 선호카테고리순 모임조회 -->
+	<select id="getMemberCategory" resultType="String">
+		select member_category from member where member_id = #{memberId}
+	</select>
+	<select id="meetCategory" resultType="meet">
+	<![CDATA[ 
+	select * 
+	from (select meet_no, meet_date, meet_title, meet_content_s, meet_content_d, meet_total, meet_margin, meet_prepare, meet_category, meet_address1, meet_address2, meet_latitude, meet_longitude, meet_thumbnail, meet_captain,
+	    ROUND(NVL((select avg(NVL(review_star, 0))
+	        from review r
+	        where r.meet_no = m.meet_no),0),1) review_star,
+	     (select count(meet_no)
+	        from review r
+	        where r.meet_no = m.meet_no) review_count 
+	    from meet m where meet_type = 1 and meet_category in(5,4,3) order by review_star desc, review_count desc) 
+	where rownum<=12
+	]]>
+	</select>
 	<!-- 내모임 추방 -->
 	<delete id="deleteMember">
 		 DELETE FROM FOLLOWER WHERE MEMBER_NO = #{memberNo} and meet_no = #{meetNo}

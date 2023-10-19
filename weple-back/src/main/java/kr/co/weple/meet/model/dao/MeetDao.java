@@ -47,6 +47,8 @@ public interface MeetDao {
 	List meetPopular();
 
 	List meetNew();
+	
+	List meetCategory();
 
 	List smallCategoryList(Category category);
 
@@ -81,6 +83,12 @@ public interface MeetDao {
 	int selectMeetMargin(int meetNo);
 
 	int disCount(int meetNo, int newMargin);
+
+	String getMemberCategory(String memberId);
+
+	List meetCategory(List memberCategoryArr);
+
+
 
 	
 	
