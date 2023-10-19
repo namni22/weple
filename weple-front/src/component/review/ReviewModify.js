@@ -30,6 +30,9 @@ const ReviewModify = (props) => {
         form.append("rImage", rImage[i]);
       }
       form.append("reviewNo", review.reviewNo); //수정할 피드 번호
+      {
+        console.log("deleteImg", deleteImg);
+      }
       form.append("deleteImg", deleteImg.join("/")); //삭제할 파일
 
       const token = window.localStorage.getItem("token");

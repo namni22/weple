@@ -42,7 +42,7 @@ const AdminMember = () => {
           setPageInfo(res.data.pi);
         })
         .catch((res) => {
-          console.log(res);
+          //console.log(res);
         });
     }
   }, [confirmedMemberId, reqPage])
@@ -101,18 +101,22 @@ const AdminMember = () => {
 const MemberItem = (props) => {
   const member = props.member;
   const [memberGrade, setMemberGrade] = useState(member.memberGrade);
-  
+  const memberNo = member.memberNo;
+  //console.log("MemberItem : ", member)
   //const options = [{ grade: 0, name: "관리자" }, { grade: 1, name: "정회원" }, { grade: 2, name: "블랙리스트" }];
   // index 0 : 관리자, 1 : 정회원, 2 : 블랙리스트
   const options = ["관리자", "정회원", "블랙리스트"];
-  
+
   const clickChange = (event) => {
     setMemberGrade(event.target.value);
-    
+    //console.log(event.target.value);
+    //console 먼저 찍고 set함수 작용
   };
 
   const clickConfirm = (event) => {
-    const obj = { memberNo: member.memberNo, memberGrade: event.target.value };
+    const obj = { memberNo: memberNo, memberGrade: memberGrade };
+    //console.log(memberNo);
+    //console.log(memberGrade);
     const token = window.localStorage.getItem("token");
     axios
       .post("/admin/changeMemberGrade", obj, {
@@ -132,9 +136,9 @@ const MemberItem = (props) => {
       .catch((res) => {
         console.log(res);
       });
-      
+
   }
-  
+
   return (
     <tr>
       <td>{member.memberId}</td>
@@ -142,12 +146,11 @@ const MemberItem = (props) => {
       <td>{member.memberEmail}</td>
       <td>
         <select value={memberGrade} onChange={clickChange}>
-
           {options.map((option, index) => {
             return <option value={index} key={"option" + index}> {option} </option>
           })}
         </select>
-        <Button1 text="변경" clickEvent={clickConfirm}/>
+        <Button1 text="변경" clickEvent={clickConfirm} />
       </td>
     </tr>
   );

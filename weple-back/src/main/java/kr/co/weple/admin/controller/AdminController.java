@@ -33,6 +33,8 @@ public class AdminController {
 	//멤버 등급 변경
 	@PostMapping(value="/changeMemberGrade")
 	public int changeMemberGrade(@RequestBody Member member) {
+		System.out.println("AdminController : "+member);
+		
 		return adminService.changeMemberGrade(member);
 	}
 	//회원 검색 조회
