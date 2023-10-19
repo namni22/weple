@@ -127,8 +127,26 @@ public class MeetService {
 			return 0;
 		}
 	}
-	
-	
+	/*
+	 	@Transactional
+	public int deleteMember(int memberNo, int meetNo) {
+		//필요한 값 
+		//모임 번호 : meetNo, 모임번호로 조회된 meetMargin 
+		//meetMargin +1 
+		int meetMargin = meetDao.selectMeetMargin(meetNo);
+		int newMargin = meetMargin + 1;
+		int meetTotalCount = meetDao.disCount(meetNo,newMargin);//업데이트 meetMargin
+		int deleteResult = meetDao.deleteMember(memberNo,meetNo);//모임회원 삭제
+		System.out.println("서비스 deleteResult : "+deleteResult);
+		System.out.println("서비스meetTotalCount : "+meetTotalCount);
+		if(meetTotalCount == 1 && deleteResult == 1) {
+			return 1;
+		}else {
+			
+			return 0;
+		}
+	}
+	 * */
 
 	public Map circleList(int reqPage, int meetCategory) {
 		// TODO Auto-generated method stub

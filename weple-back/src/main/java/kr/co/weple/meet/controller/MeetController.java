@@ -319,5 +319,12 @@ public class MeetController {
 		System.out.println("meetCapcheck : "+meetCapCheck);
 		return meetCapCheck;
 	}
+	//회원 호감도 저장
+	@GetMapping(value = "/memberLike/{memberId}?{takerId}")
+	public int memberLike(@PathVariable int memberId, int takerId) {
+		System.out.println("좋아요 누른 사람 : "+memberId);
+		System.out.println("좋아요 받은 사람 : "+takerId);
+		return 22;
+	}
 
 }

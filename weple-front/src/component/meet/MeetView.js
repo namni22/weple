@@ -9,6 +9,9 @@ import { useEffect } from "react";
 
 import EnrollMeetMember from "./EnrollMeetMember";
 import axios from "axios";
+import { Button1 } from "../util/Button";
+import ReactModal from "react-modal";
+import { ReportModal } from "../util/Modal";
 
 const MeetView = (props) => {
   // console.log("view 렌더링");
@@ -60,7 +63,6 @@ const MeetView = (props) => {
       });
 
     if (isLogin) {
-
       //로그인이 되어있다면 로그인멤버가 모임멤버인지 조회해오기
       //모임멤버라면 해당 follower 리턴 아직 멤버가 아니라면 null 리턴
       const meet = location.state.m;
@@ -80,7 +82,6 @@ const MeetView = (props) => {
 
       //가입 대기 상태라면 모임가입 버튼 비활성화하도록 db에서 가입상태 가져오기
     }
-
   }, []);
 
   //  console.log("view", myMeet);
@@ -102,7 +103,11 @@ const MeetView = (props) => {
   return (
     <div className="afterMeet-all-wrap">
       <div className="feed-title">MY GROUP</div>
-      <AfterMeetMain myMeet={myMeet} meetCaptain={meetCaptain} />
+      <AfterMeetMain
+        myMeet={myMeet}
+        meetCaptain={meetCaptain}
+        isLogin={isLogin}
+      />
       {isLogin ? (
         myMeet.meetCaptain === id ? (
           <AfterMeetSubNavi
@@ -180,7 +185,6 @@ const MeetView = (props) => {
               myMeet={myMeet}
               isLogin={isLogin}
               meetCaptain={meetCaptain}
-
               isMeetMember={isMeetMember}
               setIsMeetMember={setIsMeetMember}
             />
@@ -192,9 +196,38 @@ const MeetView = (props) => {
 };
 
 const AfterMeetMain = (props) => {
+  const isLogin = props.isLogin;
   const myMeet = props.myMeet;
   const meetCaptain = props.meetCaptain;
-
+  const [isOpen, setOpen] = useState(false);
+  const handleClick = () => setOpen(true);
+  const handleClickSubmit = () => {
+    setOpen(false);
+  };
+  const handleClickCancel = () => setOpen(false);
+  const [reportTypeValue, setReportTypeValue] = useState(1);
+  const [reportType, setReportType] = useState(1);
+  const reportModal = () => {
+    setOpen(true);
+  };
+  const [memberId, setMemberId] = useState("");
+  const token = window.localStorage.getItem("token");
+  useEffect(() => {
+    if (isLogin) {
+      axios
+        .post("/member/getMember", null, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          setMemberId(res.data.memberId);
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    }
+  }, []);
   return (
     <div className="afterMeet-main-wrap">
       <div className="afterMeet-main-thumbnail">
@@ -226,6 +259,25 @@ const AfterMeetMain = (props) => {
         </div>
         <div className="afterMeet-member-count">
           {myMeet.meetTotal - myMeet.meetMargin}/{myMeet.meetTotal}명
+        </div>
+        <div className="afterMeet-report-btn">
+          {myMeet.meetCaptain === memberId ? (
+            ""
+          ) : (
+            <Button1 text={"신고"} clickEvent={reportModal} />
+          )}
+          <ReportModal
+            isOpen={isOpen}
+            onSubmit={handleClickSubmit}
+            onCancel={handleClickCancel}
+            isLogin={true}
+            reportItemNo={myMeet.meetNo}
+            reportMemberId={myMeet.meetCaptain}
+            reportTypeValue={reportTypeValue}
+            setReportTypeValue={setReportTypeValue}
+            reportType={reportType}
+            setReportType={setReportType}
+          />
         </div>
       </div>
     </div>

@@ -162,8 +162,8 @@ const changeValue = (e) => {
     }
   };
   const handleClickCancel = () => {
-    setReportType(reportType);
-    setReportTypeValue();
+    //setReportType(reportType);
+    // setReportTypeValue();
     onCancel();
   };
   useEffect(() => {
