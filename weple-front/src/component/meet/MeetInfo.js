@@ -9,6 +9,8 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 const MeetInfo = (props) => {
+  const isMeetMember = props.isMeetMember;
+  const setIsMeetMember = props.setIsMeetMember;
   //console.log("info", props)
   const [meet, setMeet] = useState({});
   // console.log("info1", meet);
@@ -16,8 +18,8 @@ const MeetInfo = (props) => {
   const isLogin = props.isLogin;
   const [loginMember, setLoginMember] = useState(null);
   const meetCaptain = props.meetCaptain;
-  //모임에 이미 가입한 상태인지 알아보는 변수
-  const [isMeetMember, setIsMeetMember] = useState(null);
+  // //모임에 이미 가입한 상태인지 알아보는 변수
+  // const [isMeetMember, setIsMeetMember] = useState(null);
   // const [meetJoinWaiting, setMeetJoinWaiting] = useState(null);
   const navigate = useNavigate();
   // console.log("모임", meet);
@@ -42,25 +44,9 @@ const MeetInfo = (props) => {
           // console.log(res.data);
           setLoginMember(res.data);
         })
-        .catch((res) => {});
+        .catch((res) => { });
 
-      //로그인이 되어있다면 로그인멤버가 모임멤버인지 조회해오기
-      //모임멤버라면 해당 follower 리턴 아직 멤버가 아니라면 null 리턴
-      axios
-        .post("/meet/isMeetMember", meet, {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        })
-        .then((res) => {
-          // console.log("isMeetMember res.data : ", res.data);
-          setIsMeetMember(res.data);
-        })
-        .catch((res) => {
-          console.log(res.response.status);
-        });
 
-      //가입 대기 상태라면 모임가입 버튼 비활성화하도록 db에서 가입상태 가져오기
     }
   }, [props]);
 
