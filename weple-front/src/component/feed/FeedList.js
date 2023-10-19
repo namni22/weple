@@ -265,6 +265,7 @@ const FeedContent = (props) => {
         isLogin={isLogin}
         feedWriter={feed.feedWriter}
         deleteEvent={deleteEvent}
+        reportType={2}
       />
       <FeedComment
         isOpen={cmtIsOpen}
@@ -278,7 +279,7 @@ const FeedContent = (props) => {
       />
       <FeedView
         isOpen={viewOpen}
-        closeview={closeView}
+        closeView={closeView}
         feedNo={feed.feedNo}
         isLogin={isLogin}
       />
