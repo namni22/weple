@@ -231,7 +231,7 @@
   box-sizing: border-box;
 }
 
-.meetChat-all-wrap > ul {
+.meetChat-all-wrap {
   padding: 10px 30px;
   box-sizing: border-box;
 }
@@ -264,6 +264,7 @@
   min-height: 300px;
   max-height: 500px;
   overflow: auto;
+  background-color: #dee4f8;
 }
 
 .meetChat-chat {
@@ -390,10 +391,6 @@ input[type="date"] {
 }
 
 /*챗 CSS*/
-.meetChat-chat-wrap {
-  background-color: #dee4f8;
-}
-
 .meetChat-textEditor {
   background-color: #fff;
 }
