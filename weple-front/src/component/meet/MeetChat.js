@@ -14,12 +14,12 @@ const MeetChat = (props) => {
   const [chat, setChat] = useState([]);
   const [chatContent, setChatContent] = useState("");
   const messages = useRef(null);
-  let bool = true;
+  const [bool, setBool] = useState(true);
   useEffect(() => {
     messages.current.scrollIntoView();
     if (bool) {
       window.scrollTo(0, 0);
-      bool = false;
+      setBool(false);
     }
   }, [chat]);
 
@@ -107,21 +107,21 @@ const ChatItem = (props) => {
   const chat = props.chat;
 
   return (
-    <div className="meetChat-chatList-wrap">
-      <div className="meetChat-chat-img">
-        {chat.memberImage === null ? (
-          <img src="/img/testImg_01.png" />
-        ) : (
-          <img src={chat.memberImage} />
-        )}
-      </div>
-
-      <div className="meetChat-chat-writer">
-        <span>{chat.memberId}</span>
-        <sub>{chat.chatDate}</sub>
-      </div>
-      <div className="meetChat-chat-content">{chat.chatContent}</div>
-    </div>
+    <ul>
+      <li>
+        <div className="meetChat-chat-img">
+          {chat.memberImage === null ? <img src="/img/testImg_01.png" /> : ""}
+        </div>
+      </li>
+      <li>
+        <div className="meetChat-chat-writer">
+          <span>{chat.memberId}</span>
+          <sub>{chat.chatDate}</sub>
+        </div>
+        <div className="meetChat-chat-content">{chat.chatContent}</div>
+      </li>
+      <li></li>
+    </ul>
   );
 };
 export default MeetChat;

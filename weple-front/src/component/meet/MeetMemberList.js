@@ -148,7 +148,6 @@ const MemberList = (props) => {
         axios
           .post("/meet/deleteMember/" + meetNo, memberList)
           .then((res) => {
-            console.log(res.data);
             if (res.data === 1) {
               const newArr = meetMember.filter((newMeetMember) => {
                 return newMeetMember.memberNo !== memberList.memberNo;
@@ -158,7 +157,6 @@ const MemberList = (props) => {
               axios
                 .get("/meet/selectOneMeet/" + meetNo)
                 .then((res) => {
-                  console.log(res.data);
                   setMyMeet(res.data);
                 })
                 .catch((res) => {
@@ -210,7 +208,8 @@ const MemberList = (props) => {
         isOpen={isOpen}
         onSubmit={handleClickSubmit}
         onCancel={handleClickCancel}
-        memberId={id}
+        isLogin={true}
+        // memberId={id}
         reportItemNo={reportItemNo}
         reportMemberId={memberList.memberId}
         reportTypeValue={reportTypeValue}

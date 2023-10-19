@@ -78,7 +78,6 @@ const EnrollItem = (props) => {
           axios
             .get("/meet/selectOneMeet/" + meetNo)
             .then((res) => {
-              console.log(res.data);
               setMyMeet(res.data);
             })
             .catch((res) => {
