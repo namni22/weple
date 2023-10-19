@@ -77,7 +77,7 @@ function App() {
           <Route path="/findPw" element={<FindPw />} />
           {/* <Route path="/category" element={<Category />} /> */}
           <Route path="/review/*" element={<ReviewMain isLogin={isLogin} />} />
-          <Route path="*" element={<Main />} />
+          <Route path="*" element={<Main isLogin={isLogin} />} />
         </Routes>
       </div>
       <Footer />
