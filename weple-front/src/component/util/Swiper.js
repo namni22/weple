@@ -25,7 +25,7 @@ const SwiperComponent = (props) => {
   const setDeleteImg = props.setDeleteImg;
   const fimageNoList = props.fimageNoList;
   const type = props.type;
-
+  console.log("fimageNoList", fimageNoList);
   return (
     <Swiper
       spaceBetween={spaceBetween} //SwiperSlide간 간격
@@ -72,14 +72,14 @@ const ImgBox = (props) => {
   const type = props.type;
 
   const deleteImgFile = () => {
-    console.log(fimageNoList[index]);
     if (type === "modify") {
+      console.log("swiper에 dlTsms fimageNoList", fimageNoList[index]);
       const delArr = [...deleteImg];
       delArr.push(fimageNoList[index]);
       setDeleteImg([...delArr]);
       fimageNoList.splice(index, 1);
+      console.log(delArr);
     }
-    console.log(fimageNoList[index]);
     list.splice(index, 1);
     setFeedBox([...list]);
     fImage.splice(index, 1);

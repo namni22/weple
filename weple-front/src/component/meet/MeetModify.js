@@ -24,13 +24,15 @@ const MeetModify = () => {
     // const [meetMaterials, setMeetMaterials] = useState("");
 
     //썸네일
-    const [meetThumbnail, setMeetThumbnail] = useState(null);
+    const [meetThumbnail, setMeetThumbnail] = useState(meet.meetThumbNail);
     // 썸네일 미리보기
-    const [meetThumbnailPreview, setMeetThumbnailPreview] = useState(meet.meetThumbNail);
+    const [meetThumbnailPreview, setMeetThumbnailPreview] = useState(null);
 
     // 준비물 리스트 추가용
     const [meetPrepare, setMeetPrepare] = useState(meet.meetPrepare);
     const [meetPrepareList, setMeetPrepareList] = useState(meet.meetPrepareList);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (meetPrepare) {
@@ -74,7 +76,7 @@ const MeetModify = () => {
             form.append("meetContentD", meetContentD);
             form.append("meetTotal", meetTotal);
             form.append("meetThumbNail", meetThumbnail);
-            form.append("meetThumbNailPreview", meetThumbnailPreview)
+            form.append("meetThumbNailPreview", meetThumbnailPreview);
             form.append("meetPrepareList", meetPrepareList);
             form.append("meetCategory", meetCategory);
             form.append("meetAddress1", meetAddress1);
@@ -99,8 +101,12 @@ const MeetModify = () => {
                 .then((res) => {
                     console.log("결과 : " + res.data);
                     Swal.fire("모임수정 완료");
+                    navigate("/");
+
                 })
-                .catch();
+                .catch((res) => {
+                    console.log(res.response.status);
+                });
         } else {
             Swal.fire("입력값을 모두 입력 하세요");
         }

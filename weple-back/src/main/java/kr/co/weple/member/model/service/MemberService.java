@@ -136,6 +136,11 @@ public class MemberService {
 		return memberDao.myMeet(memberId);
 	}
 
+	@Transactional
+	public int delete(String memberId) {
+		return memberDao.delete(memberId);
+	}
+
 
 
 	
