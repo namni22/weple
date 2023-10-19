@@ -46,7 +46,6 @@ public class ReviewService {
 			List<RImage> delImageList = new ArrayList<RImage>();
 			String [] deleteImg = {};
 			int result = 0;
-			System.out.println(r);
 			//삭제파일 DB처리
 			if(!r.getDeleteImg().equals("")) {
 				deleteImg = r.getDeleteImg().split("/");

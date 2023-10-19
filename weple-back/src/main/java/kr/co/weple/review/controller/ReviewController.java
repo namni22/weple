@@ -75,10 +75,9 @@ public class ReviewController {
 			@ModelAttribute Review r, @ModelAttribute MultipartFile[] rImage, @RequestAttribute String memberId) {
 		System.out.println(rImage);
 		String savepath = root+"review/";
-		System.out.println("modify 도찯ㄱ");
 		ArrayList<RImage> imageList = new ArrayList<RImage>();
 		if(rImage != null) {			
-			for(MultipartFile file : rImage) {				
+			for(MultipartFile file : rImage) {		
 				String filename = file.getOriginalFilename();
 				String filepath = fileUtil.getFilepath(savepath, filename, file);
 				RImage rI = new RImage();

@@ -89,5 +89,10 @@
 		select * from meet where meet_captain=#{memberId}
 	</select>
 	
+	<!-- 회원 탈퇴 -->
+	<delete id="delete">
+		delete from member where member_id=#{memberId}
+	</delete>
+	
 	
 </mapper>
