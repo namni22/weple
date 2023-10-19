@@ -116,10 +116,19 @@ public class MeetService {
 		return map;
 	}
 	@Transactional
-	public int updateEnrollMember(int memberNo) {
-		// TODO Auto-generated method stub
-		return meetDao.updateEnrollMember(memberNo);
+	public int updateEnrollMember(int memberNo, int meetNo) {	
+		int meetMargin = meetDao.selectMeetMargin(meetNo);
+		int newMargin = meetMargin - 1;
+		int meetTotalCount = meetDao.disCount(meetNo,newMargin);//업데이트 meetMargin
+		int updateResult = meetDao.updateEnrollMember(memberNo,meetNo);
+		if(meetTotalCount == 1 && updateResult == 1) {
+			return 1;
+		}else {			
+			return 0;
+		}
 	}
+	
+	
 
 	public Map circleList(int reqPage, int meetCategory) {
 		// TODO Auto-generated method stub
@@ -210,12 +219,21 @@ public class MeetService {
 	//내모임회원 추방
 	@Transactional
 	public int deleteMember(int memberNo, int meetNo) {
-		int deleteResult = meetDao.deleteMember(memberNo);
 		//필요한 값 
 		//모임 번호 : meetNo, 모임번호로 조회된 meetMargin 
-		//meetMargin -1 
-		//int meetTotalCount = meetDao.disCount(meetNo);
-		return 0;
+		//meetMargin +1 
+		int meetMargin = meetDao.selectMeetMargin(meetNo);
+		int newMargin = meetMargin + 1;
+		int meetTotalCount = meetDao.disCount(meetNo,newMargin);//업데이트 meetMargin
+		int deleteResult = meetDao.deleteMember(memberNo,meetNo);//모임회원 삭제
+		System.out.println("서비스 deleteResult : "+deleteResult);
+		System.out.println("서비스meetTotalCount : "+meetTotalCount);
+		if(meetTotalCount == 1 && deleteResult == 1) {
+			return 1;
+		}else {
+			
+			return 0;
+		}
 	}
 	//모임 내 회원 호감도
 	@Transactional

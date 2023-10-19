@@ -304,6 +304,10 @@
 }
 .meetChat-textEditor > textarea {
   white-space: pre;
+  width: 1000px;
+  height: 125px;
+  resize: none;
+  padding: 10px;
 }
 
 .meetChat-chat-writer {
@@ -315,8 +319,9 @@
   padding: 5px 20px 5px 10px;
   background-color: #fff;
   border-radius: 5px;
-  white-space: pre;
+  white-space: pre-line;
   width: 50%;
+  word-break: break-all;
 }
 .meetChat-chat-content > #text {
 }

@@ -11,6 +11,7 @@ const ReviewModify = (props) => {
   const review = location.state.review;
   const [reviewContent, setReviewContent] = useState(review.reviewContent);
   const [reviewStar, setReviewStar] = useState(review.reviewStar);
+  //새로 추가된 애들
   const [rImage, setRImage] = useState([]);
   //DB에서 불러온 파일을 띄우기 위한 배열
   const imgArr = [];
@@ -18,19 +19,20 @@ const ReviewModify = (props) => {
     imgArr.push(<img src={review.imageList[i].rimageName} />);
   }
   const [reviewBox, setReviewBox] = useState(imgArr);
-  const [deleteImg, setDeleteImg] = useState([]); //삭제파일 state 추가
+  //삭제파일 state 추가 서버에 보내줌
+  const [deleteImg, setDeleteImg] = useState([]);
+  const [rimageNoList, setRimageNoList] = useState([]); //DB에서 불러온 이미지배열에서 fimageNo(pk)정보만 담을 state
   const rimageList = review.imageList; //수정 전 이미지 리스트
-  const [rimageNoList, setRimageList] = useState([]); //DB에서 불러온 이미지배열에서 fimageNo(pk)정보만 담을 state
+
+  //이미지를 db에서 불러오는 작업
   useEffect(() => {
     for (let i = 0; i < rimageList.length; i++) {
-      const arr = [...rimageNoList];
-      console.log("rimageList", rimageList);
-      console.log("rimageList[i].rimageNo", rimageList[i].rimageNo);
+      const arr = rimageNoList;
       arr.push(rimageList[i].rimageNo);
       console.log("arr", arr);
-      setRimageList([...arr]);
+      setRimageNoList([...arr]);
     }
-  }, [rimageList]);
+  }, []);
 
   const modify = () => {
     if (reviewContent !== "" && reviewBox.length !== 0) {

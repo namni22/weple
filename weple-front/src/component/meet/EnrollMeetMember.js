@@ -3,11 +3,12 @@ import "./afterMeet.css";
 import axios from "axios";
 import Pagination from "../common/Pagination";
 import { Button1, Button2, Button3 } from "../util/Button";
+import Swal from "sweetalert2";
 
 const EnrollMeetMember = (props) => {
   const myMeet = props.myMeet;
   console.log(myMeet.meetNo);
-
+  const setMyMeet = props.setMyMeet;
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
 
@@ -38,6 +39,8 @@ const EnrollMeetMember = (props) => {
                     enroll={enroll}
                     enrollMember={enrollMember}
                     setEnrollMember={setEnrollMember}
+                    meetNo={myMeet.meetNo}
+                    setMyMeet={setMyMeet}
                   />
                 );
               })}
@@ -60,17 +63,34 @@ const EnrollItem = (props) => {
   const enroll = props.enroll;
   const setEnrollMember = props.setEnrollMember;
   const enrollMember = props.enrollMember;
+  const meetNo = props.meetNo;
+  const setMyMeet = props.setMyMeet;
   //신청자 수락 이벤트
   const changeStatus = () => {
     axios
-      .post("/meet/updateEnrollMember", enroll)
+      .post("/meet/updateEnrollMember/" + meetNo, enroll)
       .then((res) => {
-        const newArr = enrollMember.filter((newEnrollMember) => {
-          return newEnrollMember.memberNo !== enroll.memberNo;
-        });
-        setEnrollMember(newArr);
+        if (res.data === 1) {
+          const newArr = enrollMember.filter((newEnrollMember) => {
+            return newEnrollMember.memberNo !== enroll.memberNo;
+          });
+          setEnrollMember(newArr);
+          axios
+            .get("/meet/selectOneMeet/" + meetNo)
+            .then((res) => {
+              setMyMeet(res.data);
+            })
+            .catch((res) => {
+              console.log(res.response.status);
+            });
+          Swal.fire("회원 수락 완료하였습니다.", "회원수락 완료", "success");
+        } else {
+          Swal.fire("회원 수락에 실패하였습니다.", "회원수락 실패", "error");
+        }
       })
-      .catch((res) => {});
+      .catch((res) => {
+        console.log(res.response.status);
+      });
   };
   return (
     <tr>

@@ -137,6 +137,7 @@ const MeetView = (props) => {
           element={
             <EnrollMeetMember
               myMeet={myMeet}
+              setMyMeet={setMyMeet}
               isLogin={isLogin}
               setIsLogin={setIsLogin}
               id={id}
@@ -164,6 +165,7 @@ const MeetView = (props) => {
           element={
             <MeetMemberList
               myMeet={myMeet}
+              setMyMeet={setMyMeet}
               isLogin={isLogin}
               setIsLogin={setIsLogin}
               captainCheck={captainCheck}
