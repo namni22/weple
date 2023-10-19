@@ -24,7 +24,7 @@ const MeetModify = () => {
     // const [meetMaterials, setMeetMaterials] = useState("");
 
     //썸네일
-    const [meetThumbnail, setMeetThumbnail] = useState(null);
+    const [meetThumbnail, setMeetThumbnail] = useState(meet.meetThumbNail);
     // 썸네일 미리보기
     const [meetThumbnailPreview, setMeetThumbnailPreview] = useState(meet.meetThumbNail);
 
@@ -74,7 +74,7 @@ const MeetModify = () => {
             form.append("meetContentD", meetContentD);
             form.append("meetTotal", meetTotal);
             form.append("meetThumbNail", meetThumbnail);
-            form.append("meetThumbNailPreview", meetThumbnailPreview)
+            // form.append("meetThumbNailPreview", meetThumbnailPreview)
             form.append("meetPrepareList", meetPrepareList);
             form.append("meetCategory", meetCategory);
             form.append("meetAddress1", meetAddress1);
