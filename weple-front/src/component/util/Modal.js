@@ -22,11 +22,16 @@ const ReportModal = (props) => {
   const [currentVaule, setCurrentVaule] = useState("");
   const [currentCategory, setCurrentCategory] = useState();
   const [checkIdMsg, setCheckIdMsg] = useState("");
+
+  // console.log("props.reportMemberId : ", reportMemberId);
+  // console.log("모달 memberId : ", memberId);
+
   // console.log("신고자 : ", reportType);
   //console.log("props.reportMemberId : ", reportMemberId);
   //console.log("모달 memberId : ", memberId);
   /**
    
+
   const [reportType, setReportType] = useState([
     {
       value: 0,
@@ -144,8 +149,9 @@ const changeValue = (e) => {
     axios
       .get("/member/selectReportOption/" + reportTypeValue)
       .then((res) => {
-        //  console.log(res.data);
-        //       console.log(reportType.value);
+        // console.log(res.data);
+        // console.log(reportType.value);
+
         setReportCategory(res.data.reportCategory);
       })
       .catch((res) => {
@@ -156,7 +162,9 @@ const changeValue = (e) => {
     const newCategory = e.currentTarget.value;
     setCurrentCategory(newCategory);
   };
-  //  console.log("reportMemberId : ", reportMemberId);
+
+  // console.log("reportMemberId : ", reportMemberId);
+
   return (
     <ReactModal style={customStyles} isOpen={isOpen}>
       <div className="modal-all-wrap">
