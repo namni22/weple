@@ -97,6 +97,7 @@ const ReportItem = (props) => {
         });
     }
   };
+
   return (
     <tr>
       <td>

@@ -118,19 +118,19 @@ const MeetSettingFrm = (props) => {
         const files = e.currentTarget.files;
         if (files.length !== 0 && files[0] != 0) {
             // 파일이 들어왔을때
-            setMeetThumbnail(files[0]); //썸네일 파일 전송을 위한 state에 값 파일객체 저장
+            setMeetThumbnailPreview(files[0]); //썸네일 파일 전송을 위한 state에 값 파일객체 저장
             //화면에 썸네일 미리보기
             const reader = new FileReader(); //객체만들고
             reader.readAsDataURL(files[0]); //파일 읽어와
             reader.onloadend = () => {
-                setMeetThumbnailPreview(reader.result);
-                console.log("썸네일 바꼇을때 : " + meetThumbnailPreview);
+                setMeetThumbnail(reader.result);
             };
         } else {
             // 파일이 취소됐을때
             setMeetThumbnail(null); //썸내일 빈객체로
             setMeetThumbnailPreview(null); //보드이미지 빈문자열로 //빈문자열에서 null로 바꿈
         }
+
     };
 
     //날짜 변경 인풋에서 포커스가 나갔을때 작동하는 함수
@@ -287,11 +287,11 @@ const MeetSettingFrm = (props) => {
                             onChange={thumbnailChange}
                         ></input>
                         <div className="meetThumbnailPreview">
-                            {meetThumbnailPreview === null ? ( //""에서 null로 바꿈
+                            {meetThumbnail === null ? ( //""에서 null로 바꿈
                                 // 기본이미지 넣어야함
                                 <img src="/img/no_image.jpg"></img>
                             ) : (
-                                <img src={meetThumbnailPreview}></img>
+                                <img src={meetThumbnail}></img>
                             )}
                         </div>
 
