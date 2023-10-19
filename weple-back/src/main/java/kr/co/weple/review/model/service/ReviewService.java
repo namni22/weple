@@ -47,13 +47,14 @@ public class ReviewService {
 			String [] deleteImg = {};
 			int result = 0;
 			System.out.println(r);
-			//�궘�젣�뙆�씪 DB泥섎━
+			//삭제파일 DB처리
 			if(!r.getDeleteImg().equals("")) {
 				deleteImg = r.getDeleteImg().split("/");
 				delImageList = reviewDao.selectReviewFile(deleteImg);
+				System.out.println("delImageList"+delImageList);
 				result += reviewDao.deleteReviewFile(deleteImg);
 			}
-			//異붽��븳�뙆�씪 泥섎━
+			//추가한파일 처리
 			for(RImage ri : imageList) {
 				ri.setReviewNo(r.getReviewNo());
 				result += reviewDao.insertRImage(ri);

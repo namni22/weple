@@ -41,6 +41,8 @@ public interface MemberDao {
 	
 	List meetJoined(int memberNo);
 
+	List myMeet(String memberId);
+
 
 	
 

@@ -149,10 +149,9 @@ const ReviewListComponent = (props) => {
     <div className="reviewlist-component">
       <div className="reviewlist-component-top">
         <div className="review-profile">
-          <img
-            src={"/member/" + review.memberImage}
-            className="review-profile-img"
-          ></img>
+          <div className="review-profile-img">
+            <img src={"/member/" + review.memberImage}></img>
+          </div>
           <div>
             <div className="review-name">{review.memberId}</div>
             <div className="review-date">{review.reviewDate}</div>

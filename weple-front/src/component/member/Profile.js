@@ -1,14 +1,8 @@
-import {
-  Link,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
-import { Button1, Button2 } from "../util/Button";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
+import { Button2 } from "../util/Button";
 import "./profile.css";
 import { useEffect, useState } from "react";
-import axios from "axios";
+
 import MyFeed from "./MyFeed";
 import MyMeet from "./MyMeet";
 const Profile = (props) => {

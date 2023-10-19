@@ -84,5 +84,10 @@
 		select * from meet where meet.meet_no in(select meet_no from follower where member_no=#{memberNo} and follower_status=1)
 	</select>
 	
+	<!-- 내가 개설한 모임 가져오기 -->
+	<select id="myMeet" resultType="meet">
+		select * from meet where meet_captain=#{memberId}
+	</select>
+	
 	
 </mapper>

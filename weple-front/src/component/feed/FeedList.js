@@ -79,7 +79,7 @@ const FeedContent = (props) => {
   const setLoad = props.setLoad;
   const navigate = useNavigate();
   const list = feed.imageList.map((img, index) => {
-    return <img src={"/feed/" + img.fimageName} />;
+    return <img src={"/feed/" + img?.fimageName} />;
   });
   const [isOpen, setIsOpen] = useState(false); //더보기모달
   const [cmtIsOpen, setCmtIsOpen] = useState(false); //댓글모달
@@ -240,7 +240,7 @@ const FeedContent = (props) => {
               delButton={false}
             />
           ) : (
-            <img src={"/feed/" + feed.imageList[0].fimageName} />
+            <img src={"/feed/" + feed.imageList[0]?.fimageName} />
           )}
         </div>
         <div className="feed-list-text">
