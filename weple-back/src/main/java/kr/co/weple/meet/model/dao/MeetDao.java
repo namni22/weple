@@ -32,7 +32,7 @@ public interface MeetDao {
 
 	List meetList(PageInfo pi);
 
-	int updateEnrollMember(int memberNo);
+	int updateEnrollMember(int memberNo, int meetNo);
 
 	List selectCircleList(HashMap<String, Object> map);
 
@@ -50,7 +50,7 @@ public interface MeetDao {
 
 	List smallCategoryList(Category category);
 
-	int deleteMember(int memberNo);
+	int deleteMember(int memberNo, int meetNo);
 
 	int memberLike(String memberId, double changeMemberLike);
 
@@ -77,6 +77,10 @@ public interface MeetDao {
 	Meet meetCapCheck(int meetNo, String memberId);
 
 	int modifyMeet(Meet meet);
+
+	int selectMeetMargin(int meetNo);
+
+	int disCount(int meetNo, int newMargin);
 
 	
 	

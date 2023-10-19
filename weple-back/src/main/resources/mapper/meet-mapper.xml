@@ -173,7 +173,7 @@
 		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
 	<update id="updateEnrollMember">
-		update follower set follower_status=1 where member_NO=#{memberId}
+		update follower set follower_status=1 where member_No=#{memberNo} and meet_no=#{meetNo}
 	</update>
 	
 	<!-- 마감임박 모임 조회 -->
@@ -235,7 +235,7 @@
 	</select>
 	<!-- 내모임 추방 -->
 	<delete id="deleteMember">
-		 DELETE FROM FOLLOWER WHERE MEMBER_NO = #{memberNo}
+		 DELETE FROM FOLLOWER WHERE MEMBER_NO = #{memberNo} and meet_no = #{meetNo}
 	</delete>
 	<!-- 모임 내 회원 호감도 -->
 	<update id="memberLike">
@@ -279,4 +279,10 @@
 	<select id="meetCapCheck" resultType="meet">
 		SELECT * FROM MEET WHERE MEET_CAPTAIN = #{memberId} AND MEET_NO=#{meetNo}
 	</select>
+	<select id="selectMeetMargin" resultType="int">
+		SELECT MEET_MARGIN FROM MEET WHERE MEET_NO = #{meetNo}
+	</select>
+	<update id="disCount">
+		update meet set meet_margin = #{newMargin} where meet_no = #{meetNo}
+	</update>
 </mapper>
