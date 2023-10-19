@@ -13,13 +13,13 @@ const FeedList = (props) => {
   const [feedList, setFeedList] = useState([]);
   const [start, setStart] = useState(1);
   const isLogin = props.isLogin;
-  const [load, setLoad] = useState(0); //useEffect용
+  const [loadList, setLoadList] = useState(0); //useEffect용
 
   const amount = 9;
   useEffect(() => {
     const end = start + amount - 1;
     axios
-      .get("/feed/list/" + start + "/" + end)
+      .get("/feed/list/" + start + "/" + end + "/")
       .then((res) => {
         const arr = [...feedList];
         for (let i = 0; i < res.data.length; i++) {
@@ -31,7 +31,7 @@ const FeedList = (props) => {
         console.log(res.data.status);
         Swal.fire("실패");
       });
-  }, [start, load]);
+  }, [start]);
 
   const useFeedMore = (e) => {
     setStart(start + amount);
@@ -59,8 +59,8 @@ const FeedList = (props) => {
               key={"feed" + index}
               feed={feed}
               isLogin={isLogin}
-              load={load}
-              setLoad={setLoad}
+              loadList={loadList}
+              setLoadList={setLoadList}
             />
           );
         })}
@@ -75,8 +75,8 @@ const FeedList = (props) => {
 const FeedContent = (props) => {
   const feed = props.feed;
   const isLogin = props.isLogin;
-  const load = props.load;
-  const setLoad = props.setLoad;
+  const loadList = props.loadList;
+  const setLoadList = props.setLoadList;
   const navigate = useNavigate();
   const list = feed.imageList.map((img, index) => {
     return <img src={"/feed/" + img?.fimageName} />;
@@ -87,6 +87,8 @@ const FeedContent = (props) => {
   const [userLike, setUserLike] = useState();
   const [rcmId, setRcmId] = useState(""); //답글남길 아이디 띄우기
   const [fCommentRefNo, setFCommentRefNo] = useState(null);
+  const [totalLike, setTotalLike] = useState(feed.totalLike);
+  const [totalComment, setTotalComment] = useState(feed.totalComment);
   const token = window.localStorage.getItem("token");
   //엔터처리
   let feedContent = feed.feedContent;
@@ -115,7 +117,22 @@ const FeedContent = (props) => {
           console.log(res.response.status);
         });
     }
-  }, [load]);
+  }, [loadList]);
+
+  //좋아요개수, 댓글개수
+  useEffect(() => {
+    axios
+      .get("/feed/totalCount/" + feedNo)
+      .then((res) => {
+        console.log(res.data);
+        setTotalLike(res.data.totalLike);
+        setTotalComment(res.data.totalComment);
+      })
+      .catch((res) => {
+        console.log(res.response.status);
+      });
+  }, [loadList]);
+
   //좋아요클릭이벤트
   const likeEvent = () => {
     if (isLogin) {
@@ -131,7 +148,7 @@ const FeedContent = (props) => {
           } else if (res.data == 2) {
             setUserLike(0);
           }
-          setLoad(load + 1);
+          setLoadList(loadList + 1);
         })
         .catch((res) => {
           console.log(res.response.status);
@@ -180,7 +197,7 @@ const FeedContent = (props) => {
                 text: "피드가 삭제되었습니다",
                 confirmButtonText: "확인",
               }).then(() => {
-                setLoad(load + 1);
+                setLoadList(loadList + 1);
               });
             }
           })
@@ -199,7 +216,7 @@ const FeedContent = (props) => {
     setCmtIsOpen(true);
     setRcmId("");
     setFCommentRefNo(null);
-    setLoad(load + 1);
+    // setLoadList(loadList + 1);
   };
   const closeComent = () => {
     setCmtIsOpen(false);
@@ -258,11 +275,11 @@ const FeedContent = (props) => {
               favorite_border
             </span>
           )}
-          <span>{feed.totalLike}</span>
+          <span>{totalLike}</span>
         </div>
         <div onClick={comment}>
           <span className="material-icons">chat_bubble_outline</span>
-          <span>{feed.totalComment}</span>
+          <span>{totalComment}</span>
         </div>
       </div>
       <div className="feed-list-more-btn" onClick={moreModal}>
@@ -285,6 +302,8 @@ const FeedContent = (props) => {
         setFCommentRefNo={setFCommentRefNo}
         rcmId={rcmId}
         setRcmId={setRcmId}
+        loadList={loadList}
+        setLoadList={setLoadList}
       />
       <FeedView
         isOpen={viewOpen}

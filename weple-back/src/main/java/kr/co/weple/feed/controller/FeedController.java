@@ -120,6 +120,11 @@ public class FeedController {
 			@RequestAttribute String memberId) {
 		return feedService.like(memberId,f.getFeedNo());
 	}
+	//좋아요개수, 댓글개수 불러오기
+	@GetMapping(value="/totalCount/{feedNo}")
+	public Feed totalCount(@PathVariable int feedNo) {
+		return feedService.totalCount(feedNo);
+	}
 	//좋아요클릭이벤트
 	@PostMapping (value="/updateLike")
 	public int updateLike(@RequestBody Feed f,

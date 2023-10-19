@@ -47,7 +47,6 @@ public class FeedService {
 
 	//피드하나출력
 	public Feed one(int feedNo) {
-		System.out.println("많이 나오나요");
 		List list = feedDao.one(feedNo);
 		Feed feed = (Feed)list.get(0);
 		List fComment =  feedDao.commentList(feedNo);
@@ -62,7 +61,10 @@ public class FeedService {
 		String [] deleteImg = {};
 		int result = 0;
 		//삭제파일 DB처리
+		System.out.println("f.getDeleteImg"+f.getDeleteImg());
+		
 		if(!f.getDeleteImg().equals("")) {
+			System.out.println("if문 : f.getDeleteImg"+f.getDeleteImg());
 			deleteImg = f.getDeleteImg().split("/");
 			delImageList = feedDao.selectFeedFile(deleteImg);
 			result += feedDao.deleteFeedFile(deleteImg);
@@ -157,6 +159,13 @@ public class FeedService {
 			}
 		}
 		return 0;
+	}
+	//좋아요개수, 댓글개수 불러오기
+	public Feed totalCount(int feedNo) {
+		List total = feedDao.totalCountLC(feedNo);
+		Feed feed = (Feed)total.get(0);
+		System.out.println("feeeeeeeeeeeeedddd "+feed);
+		return feed;
 	}
 
 
