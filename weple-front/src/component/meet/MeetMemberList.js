@@ -8,7 +8,6 @@ import Swal from "sweetalert2";
 import { ReportModal } from "../util/Modal";
 
 const MeetMemberList = (props) => {
-  const [isOpen, setOpen] = useState(false);
   const myMeet = props.myMeet;
   const id = props.id;
   const captainCheck = props.captainCheck;
@@ -41,8 +40,8 @@ const MeetMemberList = (props) => {
                   <MemberList
                     key={"member" + index}
                     member={member}
-                    isOpen={isOpen}
-                    setOpen={setOpen}
+                    //isOpen={isOpen}
+                    // setOpen={setOpen}
                     meetMember={meetMember}
                     setMeetMember={setMeetMember}
                     id={id}
@@ -70,14 +69,16 @@ const MemberList = (props) => {
   const meetMember = props.meetMember;
   const setMeetMember = props.setMeetMember;
   const captainCheck = props.captainCheck;
-  const isOpen = props.isOpen;
-  const setOpen = props.setOpen;
+  //const isOpen = props.isOpen;
+  //const setOpen = props.setOpen;
   const id = props.id;
   const meetNo = props.meetNo;
   const reportItemNo = props.meetNo;
   const [disable, setDisable] = useState("");
+  const [reportTypeValue, setReportTypeValue] = useState(1);
+  const [reportType, setReportType] = useState(1);
   const handleClick = () => setOpen(true);
-
+  const [isOpen, setOpen] = useState(false);
   // console.log("모달 전달 전 memberList.memberId : ", memberList);
 
   const handleClickSubmit = () => {
@@ -86,31 +87,43 @@ const MemberList = (props) => {
   const handleClickCancel = () => setOpen(false);
   const buttonDisable = () => setDisable("");
   const likeEvent = () => {
-    Swal.fire({
-      text: `"` + memberList.memberId + `"` + "님의 호감도를 올리시겠습니까?",
+    if (memberList.memberId === id) {
+      Swal.fire({
+        text: "본인의 호감도는 올릴 수 없습니다",
+      });
+    } else {
+      Swal.fire({
+        text: `"` + memberList.memberId + `"` + "님의 호감도를 올리시겠습니까?",
 
-      showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
-      confirmButtonColor: "#3085d6", // confrim 버튼 색깔 지정
-      cancelButtonColor: "#d33", // cancel 버튼 색깔 지정
-      confirmButtonText: "확인", // confirm 버튼 텍스트 지정
-      cancelButtonText: "취소", // cancel 버튼 텍스트 지정
-      //reverseButtons: true,  버튼 순서 거꾸로
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .post("/meet/memberLike", memberList)
-          .then((res) => {})
-          .catch((res) => {});
-        Swal.fire({
-          text: `"` + memberList.memberId + `"` + "님의 호감도를 올렸습니다.",
-          icon: "success",
-        });
-        setDisable(true);
-      }
-    });
+        showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+        confirmButtonColor: "#3085d6", // confrim 버튼 색깔 지정
+        cancelButtonColor: "#d33", // cancel 버튼 색깔 지정
+        confirmButtonText: "확인", // confirm 버튼 텍스트 지정
+        cancelButtonText: "취소", // cancel 버튼 텍스트 지정
+        //reverseButtons: true,  버튼 순서 거꾸로
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios
+            .post("/meet/memberLike", memberList)
+            .then((res) => {})
+            .catch((res) => {});
+          Swal.fire({
+            text: `"` + memberList.memberId + `"` + "님의 호감도를 올렸습니다.",
+            icon: "success",
+          });
+          setDisable(true);
+        }
+      });
+    }
   };
   const reportEvent = () => {
-    setOpen(true);
+    if (memberList.memberId === id) {
+      Swal.fire({
+        text: "본인은 신고할 수 없습니다",
+      });
+    } else {
+      setOpen(true);
+    }
   };
   const deleteEvent = () => {
     Swal.fire({
@@ -140,7 +153,7 @@ const MemberList = (props) => {
       }
     });
   };
-  // console.log("모달 전달 전 memberId : ", memberList.memberId);
+  // console.log("모달 전달 전 memberId : ", memberList);
   return (
     <tr>
       <td width="5%">
@@ -174,6 +187,10 @@ const MemberList = (props) => {
         memberId={id}
         reportItemNo={reportItemNo}
         reportMemberId={memberList.memberId}
+        reportTypeValue={reportTypeValue}
+        setReportTypeValue={setReportTypeValue}
+        reportType={reportType}
+        setReportType={setReportType}
       />
     </tr>
   );

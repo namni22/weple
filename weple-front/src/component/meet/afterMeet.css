@@ -266,12 +266,64 @@
   overflow: auto;
   background-color: #dee4f8;
 }
-
+.meetChat-chatList-wrap {
+  overflow: hidden;
+  padding: 20px;
+}
 .meetChat-chat {
   text-align: center;
   line-height: 300px;
 }
+.meetChat-chat-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50px;
+  overflow: hidden;
+  margin-right: 20px;
+  float: left;
+}
+.meetChat-chat-img > img {
+  width: 100%;
+}
+/*챗 CSS*/
+.meetChat-textEditor {
+  background-color: #fff;
+  float: left;
+}
+.meetChat-chat-writer > span {
+  font-weight: 900;
+  padding: 0px 20px 0px 10px;
+  display: block;
+  float: left;
+}
+.meetChat-chat-writer > sub {
+  font-size: 9px;
+  display: block;
+  float: left;
+  padding-top: 7px;
+}
+.meetChat-textEditor > textarea {
+  white-space: pre;
+}
 
+.meetChat-chat-writer {
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+
+.meetChat-chat-content {
+  padding: 5px 20px 5px 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  white-space: pre;
+  width: 50%;
+}
+.meetChat-chat-content > #text {
+}
+
+.meetChat-input-form-wrap {
+  height: 170px;
+}
 /*그룹모임 캘린더*/
 .meetCalendar {
   margin-bottom: 20px;
@@ -388,66 +440,6 @@ input[type="date"] {
 
 .meet-navi > ul > li > a.active-side {
   background-color: #2d31fa;
-}
-
-/*챗 CSS*/
-.meetChat-textEditor {
-  background-color: #fff;
-}
-.meetChat-textEditor > textarea {
-  white-space: pre;
-}
-
-.meetChat-chat-wrap > ul {
-  overflow: hidden;
-  padding: 20px;
-}
-
-.meetChat-chat-wrap > ul > li {
-  display: block;
-  float: left;
-}
-
-.meetChat-chat-img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50px;
-  overflow: hidden;
-  margin-right: 20px;
-}
-
-.meetChat-chat-img > img {
-  width: 100%;
-}
-
-.meetChat-chat-writer {
-  margin-bottom: 5px;
-  overflow: hidden;
-}
-
-.meetChat-chat-writer > span {
-  font-weight: 900;
-  padding: 0px 20px 0px 10px;
-  display: block;
-  float: left;
-}
-
-.meetChat-chat-writer > sub {
-  font-size: 3px;
-  display: block;
-  float: left;
-  padding-top: 7px;
-}
-
-.meetChat-chat-content {
-  padding: 5px 20px 5px 10px;
-  background-color: #fff;
-  border-radius: 5px;
-  white-space: pre;
-}
-
-.meetChat-input-form-wrap {
-  height: 170px;
 }
 
 .quill {
