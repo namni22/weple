@@ -118,12 +118,12 @@ const MeetSettingFrm = (props) => {
         const files = e.currentTarget.files;
         if (files.length !== 0 && files[0] != 0) {
             // 파일이 들어왔을때
-            setMeetThumbnail(files[0]); //썸네일 파일 전송을 위한 state에 값 파일객체 저장
+            setMeetThumbnailPreview(files[0]); //썸네일 파일 전송을 위한 state에 값 파일객체 저장
             //화면에 썸네일 미리보기
             const reader = new FileReader(); //객체만들고
             reader.readAsDataURL(files[0]); //파일 읽어와
             reader.onloadend = () => {
-                setMeetThumbnailPreview(reader.result);
+                setMeetThumbnail(reader.result);
             };
         } else {
             // 파일이 취소됐을때
