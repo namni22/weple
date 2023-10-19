@@ -18,7 +18,16 @@ const FeedModify = (props) => {
   }
   const [feedBox, setFeedBox] = useState(imgArr);
   const [deleteImg, setDeleteImg] = useState([]); //삭제파일 state 추가
-  const fimageNoList = feed.imageList;
+  const fimageList = feed.imageList;
+  const [fimageNoList, setFimageList] = useState([]); //DB에서 불러온 이미지배열에서 fimageNo(pk)정보만 담을 state
+
+  useEffect(() => {
+    for (let i = 0; i < fimageList.length; i++) {
+      const arr = [];
+      arr.push(fimageList[i].fimageNo);
+      setFimageList([...arr]);
+    }
+  }, [fimageList]);
 
   const modify = () => {
     if (feedContent !== "" && feedBox.length !== 0) {
@@ -73,7 +82,6 @@ const FeedModify = (props) => {
         deleteImg={deleteImg}
         setDeleteImg={setDeleteImg}
         type="modify"
-        const
         fimageNoList={fimageNoList}
       />
     </div>

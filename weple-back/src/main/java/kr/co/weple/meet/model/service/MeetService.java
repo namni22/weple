@@ -209,9 +209,13 @@ public class MeetService {
 	}
 	//내모임회원 추방
 	@Transactional
-	public int deleteMember(int memberNo) {
-		// TODO Auto-generated method stub
-		return meetDao.deleteMember(memberNo);
+	public int deleteMember(int memberNo, int meetNo) {
+		int deleteResult = meetDao.deleteMember(memberNo);
+		//필요한 값 
+		//모임 번호 : meetNo, 모임번호로 조회된 meetMargin 
+		//meetMargin -1 
+		//int meetTotalCount = meetDao.disCount(meetNo);
+		return 0;
 	}
 	//모임 내 회원 호감도
 	@Transactional

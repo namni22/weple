@@ -24,25 +24,27 @@ const EnrollMeetMember = (props) => {
       .catch((res) => {});
   }, []);
   return (
-    <div>
-      <div>
-        {enrollMember.length === 0 ? (
-          <>신청내역이 없습니다.</>
-        ) : (
-          <>
-            {enrollMember.map((enroll, index) => {
-              return (
-                <EnrollItem
-                  key={"enroll" + index}
-                  enroll={enroll}
-                  enrollMember={enrollMember}
-                  setEnrollMember={setEnrollMember}
-                />
-              );
-            })}
-          </>
-        )}
-      </div>
+    <div className="meetMemberList-all-wrap">
+      {enrollMember.length === 0 ? (
+        <>신청내역이 없습니다.</>
+      ) : (
+        <>
+          <table className="meetMemberList-wrap">
+            <tbody>
+              {enrollMember.map((enroll, index) => {
+                return (
+                  <EnrollItem
+                    key={"enroll" + index}
+                    enroll={enroll}
+                    enrollMember={enrollMember}
+                    setEnrollMember={setEnrollMember}
+                  />
+                );
+              })}
+            </tbody>
+          </table>
+        </>
+      )}
       <div>
         <Pagination
           reqPage={reqPage}
@@ -71,29 +73,25 @@ const EnrollItem = (props) => {
       .catch((res) => {});
   };
   return (
-    <table className="meetMemberList-wrap">
-      <tbody>
-        <tr>
-          <td width="5%">
-            <div className="meetMemberList-img">
-              {enroll.memberImage === null ? (
-                <img src="/img/testImg_01.png" />
-              ) : (
-                ""
-              )}
-            </div>
-          </td>
-          <td width="60%">
-            <div className="meetMemberList-name">{enroll.memberId}</div>
-          </td>
-          <td width="35%">
-            <div className="meetMemberList-btn-wrap">
-              <Button2 text={"수락"} clickEvent={changeStatus} />
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <tr>
+      <td width="5%">
+        <div className="meetMemberList-img">
+          {enroll.memberImage === null ? (
+            <img src="/img/testImg_01.png" />
+          ) : (
+            <img src={enroll.memberImage} />
+          )}
+        </div>
+      </td>
+      <td width="60%">
+        <div className="meetMemberList-name">{enroll.memberId}</div>
+      </td>
+      <td width="35%">
+        <div className="meetMemberList-btn-wrap">
+          <Button2 text={"수락"} clickEvent={changeStatus} />
+        </div>
+      </td>
+    </tr>
   );
 };
 export default EnrollMeetMember;

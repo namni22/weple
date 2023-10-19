@@ -261,11 +261,11 @@ public class MeetController {
 		return meetChat;
 	}	
 	//내모임회원 추방
-	@PostMapping(value = "/deleteMember")
-	public int deleteMember(@RequestBody Follower memberList) {
-		
-		int result = meetService.deleteMember(memberList.getMemberNo());
-		return result;
+	@PostMapping(value = "/deleteMember/{meetNo}")
+	public int deleteMember(@PathVariable int meetNo,@RequestBody Follower memberList) {
+		System.out.println("11111111111111111111111111111 : "+meetNo);
+		int result = meetService.deleteMember(memberList.getMemberNo(),meetNo);
+		return 0;
 	}
 	//모임 내 맴버 호감도 올리기
 		@PostMapping(value = "/memberLike")
