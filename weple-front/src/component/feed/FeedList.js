@@ -124,7 +124,6 @@ const FeedContent = (props) => {
     axios
       .get("/feed/totalCount/" + feedNo)
       .then((res) => {
-        console.log(res.data);
         setTotalLike(res.data.totalLike);
         setTotalComment(res.data.totalComment);
       })
@@ -310,6 +309,8 @@ const FeedContent = (props) => {
         closeView={closeView}
         feedNo={feed.feedNo}
         isLogin={isLogin}
+        loadList={loadList}
+        setLoadList={setLoadList}
       />
     </div>
   );

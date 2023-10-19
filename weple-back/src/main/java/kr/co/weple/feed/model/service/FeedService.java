@@ -1,9 +1,7 @@
 package kr.co.weple.feed.model.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.weple.feed.model.dao.FeedDao;
 import kr.co.weple.feed.model.vo.FComment;
 import kr.co.weple.feed.model.vo.FImage;
-import kr.co.weple.feed.model.vo.FLike;
 import kr.co.weple.feed.model.vo.Feed;
 import kr.co.weple.member.model.dao.MemberDao;
 import kr.co.weple.member.model.vo.Member;
@@ -61,7 +58,6 @@ public class FeedService {
 		String [] deleteImg = {};
 		int result = 0;
 		//삭제파일 DB처리
-		System.out.println("f.getDeleteImg"+f.getDeleteImg());
 		
 		if(!f.getDeleteImg().equals("")) {
 			System.out.println("if문 : f.getDeleteImg"+f.getDeleteImg());
@@ -164,7 +160,6 @@ public class FeedService {
 	public Feed totalCount(int feedNo) {
 		List total = feedDao.totalCountLC(feedNo);
 		Feed feed = (Feed)total.get(0);
-		System.out.println("feeeeeeeeeeeeedddd "+feed);
 		return feed;
 	}
 

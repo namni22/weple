@@ -309,11 +309,7 @@
 .feed-view {
   position: relative;
 }
-.feed-view .close {
-  position: absolute;
-  right: 0;
-  cursor: pointer;
-}
+
 .feed-list-text {
   max-height: 250px;
   overflow: auto;
@@ -325,4 +321,10 @@
 }
 .feed-view .feed-write-img > .swiper {
   height: 500px;
+}
+.feed-view .feed-list-more-btn {
+  top: 10px;
+}
+.feed-view-wrap {
+  margin-bottom: 20px;
 }

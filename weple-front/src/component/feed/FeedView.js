@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import ReactModal from "react-modal";
 import SwiperComponent from "../util/Swiper";
-import { Button1 } from "../util/Button";
+import { Button1, Button2 } from "../util/Button";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { CommentWrap } from "./FeedComment";
+import { MoreModal } from "../util/Modal";
 
 const FeedView = (props) => {
   const customStyles = {
@@ -76,23 +77,86 @@ const FeedView = (props) => {
       });
   }, [feedNo]);
 
+  //more버튼모달
+  const loadList = props.loadList;
+  const setLoadList = props.setLoadList;
+  const [isOpenMore, setIsOpenMore] = useState(false); //더보기모달
+  const navigate = useNavigate();
+  const moreModal = () => {
+    if (isLogin) {
+      setIsOpenMore(true);
+    } else {
+      Swal.fire({
+        icon: "warning",
+        text: "로그인이 필요한 기능입니다",
+        confirmButtonText: "확인",
+      });
+    }
+  };
+  const onCancel = (e) => {
+    setIsOpenMore(false);
+    // e.stopPropagation();
+  };
+  const deleteEvent = () => {
+    Swal.fire({
+      icon: "warning",
+      text: "피드를 삭제하시겠습니까?",
+      showCancelButton: true,
+      confirmButtonText: "삭제",
+      cancelButtonText: "취소",
+    }).then((res) => {
+      setIsOpenMore(false);
+      if (res.isConfirmed) {
+        axios
+          .get("/feed/delete/" + feed.feedNo)
+          .then((res) => {
+            if (res.data !== 0) {
+              Swal.fire({
+                icon: "success",
+                text: "피드가 삭제되었습니다",
+                confirmButtonText: "확인",
+              }).then(() => {
+                setLoadList(loadList + 1);
+              });
+            }
+          })
+          .catch((res) => {
+            console.log(res.response.status);
+          });
+      }
+    });
+  };
+  const modifyEvent = () => {
+    navigate("/feed/modify", { state: { feed: feed } });
+  };
+
   return (
     <ReactModal style={customStyles} isOpen={isOpen}>
+      <MoreModal
+        isOpen={isOpenMore}
+        onCancel={onCancel}
+        modifyEvent={modifyEvent}
+        isLogin={isLogin}
+        feedWriter={feed.feedWriter}
+        deleteEvent={deleteEvent}
+      />
       <div className="feed-view">
-        <span className="material-icons close" onClick={closeView}>
-          close
-        </span>
-        <div className="feed-list-top">
-          <div className="feed-list-profile">
-            {feed.memberImage ? (
-              <img src={"/member/" + feed.memberImage} />
-            ) : (
-              <img src="/img/testImg_01.png" />
-            )}
+        <div className="feed-view-top">
+          <div className="feed-list-more-btn" onClick={moreModal}>
+            <span className="material-icons-outlined">more_vert</span>
           </div>
-          <div className="feed-list-info">
-            <div>{feed.feedWriter}</div>
-            <div>{feed.feedDate}</div>
+          <div className="feed-list-top">
+            <div className="feed-list-profile">
+              {feed.memberImage ? (
+                <img src={"/member/" + feed.memberImage} />
+              ) : (
+                <img src="/img/testImg_01.png" />
+              )}
+            </div>
+            <div className="feed-list-info">
+              <div>{feed.feedWriter}</div>
+              <div>{feed.feedDate}</div>
+            </div>
           </div>
         </div>
         <FeedViewContent
@@ -116,6 +180,7 @@ const FeedView = (props) => {
           memberId={memberId}
           memberImage={memberImage}
         /> */}
+        <Button1 text="닫기" clickEvent={closeView} />
       </div>
     </ReactModal>
   );
