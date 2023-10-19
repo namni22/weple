@@ -35,8 +35,8 @@ const MeetCreate = () => {
     console.log("모임 날짜 : " + meetDate);
     console.log("모임한줄설명 : " + meetContentS);
     console.log("모임디테일설명 : " + meetContentD);
-    console.log("모임인원 :" + meetTotal);
-    console.log("썸네일프리뷰 : " + meetThumbnailPreview);
+    console.log("모임인원 :", meetTotal);
+    console.log("썸네일프리뷰 : ", meetThumbnailPreview);
     console.log("준비물 : " + meetPrepareList);
     console.log("카테고리번호 : " + meetCategory);
     console.log("모임주소1  : " + meetAddress1);
