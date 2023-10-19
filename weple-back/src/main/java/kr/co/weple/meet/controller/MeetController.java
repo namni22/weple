@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -268,6 +269,14 @@ public class MeetController {
 		System.out.println("컨트롤러 : "+ result);
 		return result;
 	}
+	//멤버 탈퇴
+	@PostMapping(value = "/selfDeleteMember")
+	public int selfDeleteMember ( @RequestBody Follower isMeetMember) {
+		int result = meetService.deleteMember(isMeetMember.getMemberNo(), isMeetMember.getMeetNo());
+		
+		return result;
+	}
+	
 	//모임 내 맴버 호감도 올리기
 		@PostMapping(value = "/memberLike")
 		public int memberLike(@RequestBody Member memberList) {
