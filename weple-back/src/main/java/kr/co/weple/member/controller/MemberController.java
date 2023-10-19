@@ -188,6 +188,11 @@ public class MemberController {
 		return memberService.meetJoined(memberNo);
 	}
 	
+	// 내가 개설한 모임 리스트 가져오기
+	@GetMapping(value="/myMeet/{memberId}")
+	public List myMeet(@PathVariable String memberId) {
+		return memberService.myMeet(memberId);
+	}
 	
 	
 }

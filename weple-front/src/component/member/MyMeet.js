@@ -5,6 +5,7 @@ const MyMeet = (props) => {
   const memberId = props.memberId;
   const memberNo = props.memberNo;
   const [myMeetJoinedList, setMyMeetJoinedList] = useState([]);
+  const [myMeetList, setMyMeetList] = useState([]);
 
   useEffect(() => {
     axios
@@ -15,8 +16,17 @@ const MyMeet = (props) => {
       .catch((res) => {
         console.log(res.response.status);
       });
+
+    axios
+      .get("/member/myMeet/" + memberId)
+      .then((res) => {
+        setMyMeetList(res.data);
+      })
+      .catch((res) => {
+        console.log(res.response.status);
+      });
   }, [memberId]);
-  console.log(myMeetJoinedList);
+
   return (
     <div className="myMeet-wrap">
       <div className="profile-sub-content">
@@ -25,6 +35,13 @@ const MyMeet = (props) => {
             <img src="/img/bar.png" />
             내가 개설한 모임
           </div>
+          <div className="myMeet-content-item">
+            {myMeetList.map((myMeet, index) => {
+              return <MyMeetItem key={"myMeet" + index} myMeet={myMeet} />;
+            })}
+          </div>
+        </div>
+        <div className="myMeet-content">
           <div className="myMeet-content-title">
             <img src="/img/bar.png" />
             내가 가입한 모임
@@ -32,7 +49,7 @@ const MyMeet = (props) => {
           <div className="myMeet-content-item">
             {myMeetJoinedList.map((myMeetJoined, index) => {
               return (
-                <MyMeetItem
+                <MyMeetJoinedItem
                   key={"myMeetJoined" + index}
                   myMeetJoined={myMeetJoined}
                 />
@@ -46,6 +63,34 @@ const MyMeet = (props) => {
 };
 
 const MyMeetItem = (props) => {
+  const myMeet = props.myMeet;
+  return (
+    <div className="myMeetJoined-item">
+      <div className="myMeetJoined-img">
+        {myMeet.meetThumbNail === null ? (
+          <img src="/img/testImg_01.png" />
+        ) : (
+          <img src={"/meet/" + myMeet.meetThumbNail} />
+        )}
+      </div>
+      <div className="myMeetJoined-info">
+        <div className="myMeetJoined-title">{myMeet.meetTitle}</div>
+        <div>
+          <div className="myMeetJoined-captain">
+            <img src="/img/captain.png" />
+            {myMeet.meetCaptain}
+          </div>
+          <div className="myMeetJoined-total">
+            <img src="/img/meetTotal.png" />
+            {myMeet.meetTotal - myMeet.meetMargin}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const MyMeetJoinedItem = (props) => {
   const myMeetJoined = props.myMeetJoined;
   return (
     <div className="myMeetJoined-item">
