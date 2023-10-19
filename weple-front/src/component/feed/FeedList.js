@@ -19,7 +19,7 @@ const FeedList = (props) => {
   useEffect(() => {
     const end = start + amount - 1;
     axios
-      .get("/feed/list/" + start + "/" + end)
+      .get("/feed/list/" + start + "/" + end + "/")
       .then((res) => {
         const arr = [...feedList];
         for (let i = 0; i < res.data.length; i++) {
@@ -31,7 +31,7 @@ const FeedList = (props) => {
         console.log(res.data.status);
         Swal.fire("실패");
       });
-  }, [start, load]);
+  }, [start]);
 
   const useFeedMore = (e) => {
     setStart(start + amount);
