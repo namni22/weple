@@ -18,7 +18,7 @@ const ReviewWriteFrm = (props) => {
   const rimageNoList = props.rimageNoList;
   const setReviewStar = props.setReviewStar;
   const reviewStar = props.reviewStar;
-  console.log(rimageNoList);
+  const type = props.type;
 
   //이미지파일변경
   const changeFile = (e) => {
@@ -111,6 +111,7 @@ const ReviewWriteFrm = (props) => {
             deleteImg={deleteImg}
             setDeleteImg={setDeleteImg}
             fimageNoList={rimageNoList}
+            type={type}
           />
         )}
       </div>

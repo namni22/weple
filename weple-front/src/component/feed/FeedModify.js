@@ -82,7 +82,6 @@ const FeedModify = (props) => {
         deleteImg={deleteImg}
         setDeleteImg={setDeleteImg}
         type="modify"
-        const
         fimageNoList={fimageNoList}
       />
     </div>
