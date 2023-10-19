@@ -194,5 +194,11 @@ public class MemberController {
 		return memberService.myMeet(memberId);
 	}
 	
+	// 회원 탈퇴
+	@PostMapping(value="/delete")
+	public int delete(@RequestAttribute String memberId) {
+		return memberService.delete(memberId);
+	}
+	
 	
 }

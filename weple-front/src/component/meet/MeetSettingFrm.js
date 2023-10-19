@@ -457,7 +457,7 @@ const Postcode = (props) => {
         });
 
     }, [])
-    function sample5_execDaumPostcode() {
+    function postcodeFunction() {
         new daum.Postcode({
             oncomplete: function (data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
@@ -468,6 +468,7 @@ const Postcode = (props) => {
                 document.getElementById("sample5_address").value = addr;
                 setMeetAddress1(addr);
                 console.log("검색 결과 : ", addr);
+
                 if (mapContainer) {
                     // 주소로 상세 정보를 검색
                     geocoder.addressSearch(data.address, function (results, status) {
@@ -502,7 +503,7 @@ const Postcode = (props) => {
         <div>
             {/* <input type="text" id="sample5_address" placeholder="주소" /> */}
             <div className="addrSearch-btn-box">
-                <Button2 text="주소검색" clickEvent={sample5_execDaumPostcode} />
+                <Button2 text="주소검색" clickEvent={postcodeFunction} />
             </div>
             <Input type="text" data={meetAddress1} setData={setMeetAddress1} content="sample5_address" placeholder="주소" />
             <Input type="text" data={meetAddress2} setData={setMeetAddress2} content="meetAddress2" placeholder="상세주소" />

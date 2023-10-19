@@ -44,3 +44,12 @@
   padding: 3px 10px;
   margin-right: 10px;
 }
+
+.leave-btn {
+  width: 15%;
+  margin: 20px 0;
+}
+
+.modify-btn {
+  margin: 50px 0;
+}

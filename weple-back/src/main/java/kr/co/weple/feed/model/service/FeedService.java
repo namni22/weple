@@ -62,7 +62,10 @@ public class FeedService {
 		String [] deleteImg = {};
 		int result = 0;
 		//삭제파일 DB처리
+		System.out.println("f.getDeleteImg"+f.getDeleteImg());
+		
 		if(!f.getDeleteImg().equals("")) {
+			System.out.println("if문 : f.getDeleteImg"+f.getDeleteImg());
 			deleteImg = f.getDeleteImg().split("/");
 			delImageList = feedDao.selectFeedFile(deleteImg);
 			result += feedDao.deleteFeedFile(deleteImg);

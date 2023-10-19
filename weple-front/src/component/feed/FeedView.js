@@ -136,7 +136,6 @@ const FeedViewContent = (props) => {
           slidesPerView={1}
           list={feedBox}
           loop={false}
-          s
           autoplay={false}
           delButton={false}
         />
