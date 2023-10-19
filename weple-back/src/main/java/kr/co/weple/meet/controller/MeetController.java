@@ -101,7 +101,7 @@ public class MeetController {
 	@PostMapping(value = "/meetModify")
 	public int meetModify (
 			@ModelAttribute Meet meet,
-			@ModelAttribute MultipartFile meetThumbnail,
+			@ModelAttribute MultipartFile meetThumbNail,
 			@RequestAttribute String memberId
 			) {
 		
@@ -121,15 +121,16 @@ public class MeetController {
 			meet.setMeetPrepare(newPrepare);			
 		}		
 		String savepath = root + "meet/";
-		if(meetThumbnail != null) {//썸네일이 있다면 meet에 set
-			meet.setMeetThumbNail(meetThumbnail.getOriginalFilename());
-			String filename = meetThumbnail.getOriginalFilename();
-			String filepath = fileUtil.getFilepath(savepath, filename, meetThumbnail) ;//물리적으로 업로드
+		if(meetThumbNail != null) {//썸네일이 있다면 meet에 set
+			meet.setMeetThumbNail(meetThumbNail.getOriginalFilename());
+			String filename = meetThumbNail.getOriginalFilename();
+			String filepath = fileUtil.getFilepath(savepath, filename, meetThumbNail) ;//물리적으로 업로드
 			meet.setMeetThumbNail(filepath);
 		}
 		
 		System.out.println("수정 모임 : "+meet);
-		System.out.println("수정 썸네일 : "+meetThumbnail);
+		System.out.println("수정 모임 안의 썸네일 : "+meet.getMeetThumbNail());
+		System.out.println("수정 썸네일 : "+meetThumbNail);
 		System.out.println("수정 멤버아이디 : "+memberId);
 		
 //		int result = meetService.modifyMeet(meet);

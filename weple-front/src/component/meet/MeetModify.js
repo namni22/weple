@@ -100,7 +100,9 @@ const MeetModify = () => {
                     console.log("결과 : " + res.data);
                     Swal.fire("모임수정 완료");
                 })
-                .catch();
+                .catch((res) => {
+                    console.log(res.response.status);
+                });
         } else {
             Swal.fire("입력값을 모두 입력 하세요");
         }
