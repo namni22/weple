@@ -75,25 +75,21 @@ const FeedComment = (props) => {
           </span>
         </div>
         <div>
-          {commentList.length !== 0 ? (
-            <CommentWrap
-              isLogin={isLogin}
-              feedNo={feedNo}
-              commentList={commentList}
-              fCommentContent={fCommentContent}
-              setFCommentContent={setFCommentContent}
-              fCommentRefNo={fCommentRefNo}
-              setFCommentRefNo={setFCommentRefNo}
-              rcmId={rcmId}
-              setRcmId={setRcmId}
-              load={load}
-              setLoad={setLoad}
-              memberId={memberId}
-              memberImage={memberImage}
-            />
-          ) : (
-            <div>댓글이 없습니다</div>
-          )}
+          <CommentWrap
+            isLogin={isLogin}
+            feedNo={feedNo}
+            commentList={commentList}
+            fCommentContent={fCommentContent}
+            setFCommentContent={setFCommentContent}
+            fCommentRefNo={fCommentRefNo}
+            setFCommentRefNo={setFCommentRefNo}
+            rcmId={rcmId}
+            setRcmId={setRcmId}
+            load={load}
+            setLoad={setLoad}
+            memberId={memberId}
+            memberImage={memberImage}
+          />
         </div>
       </div>
     </ReactModal>
@@ -167,7 +163,7 @@ const CommentWrap = (props) => {
           </>
         ) : (
           <div className="feed-comment-noco feed-comment-wrap">
-            댓글이 없습니다
+            아직 등록된 댓글이 없습니다
           </div>
         )}
       </div>
@@ -394,7 +390,7 @@ const CommentFrm = (props) => {
         })
         .catch((res) => {
           console.log(res.response.status);
-          Swal.fire("실패");
+          Swal.fire("Feed실패");
         });
     } else {
       Swal.fire("댓글 내용을 입력하세요");

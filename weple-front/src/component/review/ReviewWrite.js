@@ -12,7 +12,7 @@ const ReviewWrite = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
   const meetNo = location.state.meetNo;
-  const [reviewStar, setReviewStar] = useState(0.5);
+  const [reviewStar, setReviewStar] = useState();
   const write = () => {
     if (reviewContent !== "" && rImage.length !== 0) {
       const form = new FormData();
@@ -39,7 +39,7 @@ const ReviewWrite = (props) => {
           }
         })
         .catch((res) => {
-          console.log(res.response.status);
+          console.log("reviewrite" + res.response.status);
           Swal.fire("실패");
         });
     } else {
@@ -62,6 +62,7 @@ const ReviewWrite = (props) => {
         reviewBox={reviewBox}
         setReviewBox={setReviewBox}
         uploadEvent={write}
+        setReviewStar={setReviewStar}
       />
     </div>
   );

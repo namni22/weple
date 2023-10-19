@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
-import MenuItem from "@mui/material/MenuItem";
 import "./admin.css";
 import axios from "axios";
-import { FormControl, Select } from "@mui/material";
 import Swal from "sweetalert2";
 import Pagination from "../common/Pagination";
 import Input from "../util/InputFrm";
 import { Button1 } from "../util/Button";
-import { useNavigate } from "react-router-dom";
 
 
 const AdminMember = () => {
@@ -19,38 +16,38 @@ const AdminMember = () => {
   const [confirmedMemberId, setConfirmedMemberId] = useState("");
 
   useEffect(() => {
-    if(memberId === ""){
+    if (memberId === "") {
       console.log("first useEffect reqPage : " + reqPage);
       axios
         .get("/admin/memberList/" + reqPage)
         .then((res) => {
-          console.log("admin/memberList : " + res.data.list);
+          //console.log("admin/memberList : " + res.data.list);
           setMemberList(res.data.list);
           setPageInfo(res.data.pi);
         })
         .catch((res) => {
           console.log(res);
         });
-      }
-    }, [reqPage]);
-    
-    useEffect(() =>{
-      if(memberId !== ""){
-        console.log("second useEffect memberId : " + memberId + ", reqPage : " + reqPage);
-        axios
-        .get("/admin/searchId/"+ memberId + "/" + reqPage)
+    }
+  }, [reqPage]);
+
+  useEffect(() => {
+    if (memberId !== "") {
+      console.log("second useEffect memberId : " + memberId + ", reqPage : " + reqPage);
+      axios
+        .get("/admin/searchId/" + memberId + "/" + reqPage)
         .then((res) => {
-          console.log("admin/searchId : " + res.data.list);
+          //console.log("admin/searchId : " + res.data.list);
           setMemberList(res.data.list);
           setPageInfo(res.data.pi);
         })
         .catch((res) => {
           console.log(res);
         });
-      }
-    },[confirmedMemberId, reqPage])
- 
-  
+    }
+  }, [confirmedMemberId, reqPage])
+
+
   const onSearch = (e) => {
     const memberIdInputValue = document.querySelector("#memberId");
     setReqPage(1);
@@ -104,8 +101,17 @@ const AdminMember = () => {
 const MemberItem = (props) => {
   const member = props.member;
   const [memberGrade, setMemberGrade] = useState(member.memberGrade);
+  
+  //const options = [{ grade: 0, name: "관리자" }, { grade: 1, name: "정회원" }, { grade: 2, name: "블랙리스트" }];
+  // index 0 : 관리자, 1 : 정회원, 2 : 블랙리스트
+  const options = ["관리자", "정회원", "블랙리스트"];
+  
+  const clickChange = (event) => {
+    setMemberGrade(event.target.value);
+    
+  };
 
-  const handleChange = (event) => {
+  const clickConfirm = (event) => {
     const obj = { memberNo: member.memberNo, memberGrade: event.target.value };
     const token = window.localStorage.getItem("token");
     axios
@@ -117,7 +123,8 @@ const MemberItem = (props) => {
       .then((res) => {
         console.log(res.data);
         if (res.data === 1) {
-          setMemberGrade(event.target.value);
+          setMemberGrade(memberGrade);
+          Swal.fire("변경 성공하셨습니다.")
         } else {
           Swal.fire("변경 중 문제가 발생했습니다.");
         }
@@ -125,20 +132,22 @@ const MemberItem = (props) => {
       .catch((res) => {
         console.log(res);
       });
-  };
+      
+  }
+  
   return (
     <tr>
       <td>{member.memberId}</td>
       <td>{member.memberName}</td>
       <td>{member.memberEmail}</td>
       <td>
-        <FormControl sx={{ m: 1, minWidth: 80 }}>
-          <Select value={memberGrade} onChange={handleChange}>
-            <MenuItem value={0}>관리자</MenuItem>
-            <MenuItem value={1}>정회원</MenuItem>
-            <MenuItem value={2}>블랙리스트</MenuItem>
-          </Select>
-        </FormControl>
+        <select value={memberGrade} onChange={clickChange}>
+
+          {options.map((option, index) => {
+            return <option value={index} key={"option" + index}> {option} </option>
+          })}
+        </select>
+        <Button1 text="변경" clickEvent={clickConfirm}/>
       </td>
     </tr>
   );

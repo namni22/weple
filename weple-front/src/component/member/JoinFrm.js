@@ -16,13 +16,15 @@ const JoinFrm = (props) => {
   const [memberPhone, setMemberPhone] = useState("");
   const [memberBirth, setMemberBirth] = useState("");
   const [memberGender, setMemberGender] = useState("");
-  const [memberImage, setMemberImage] = useState("");
+  const [memberImage, setMemberImage] = useState(null);
   const [memberCategory, setMemberCategory] = useState([]);
   const [profileImg, setProfileImg] = useState(null);
   const [checkIdMsg, setCheckIdMsg] = useState("");
   const [checkPwMsg, setCheckPwMsg] = useState("");
   const [checkPwReMsg, setCheckPwReMsg] = useState("");
   const [checkEmailMsg, setCheckEmailMsg] = useState("");
+  const [checkPhoneMsg, setCheckPhoneMsg] = useState("");
+  const [checkBirthMsg, setCheckBirthMsg] = useState("");
   // 유효성검사 메세지 색 변경위한 클래스 추가할 때 씀
   const [useId, setUseId] = useState(false);
   const [mainCategory, setMainCategory] = useState([]);
@@ -87,9 +89,31 @@ const JoinFrm = (props) => {
     subInfoList.forEach((item) => {
       if (newSubInfoList.length < 5) {
         if (item.text === "기타") {
-          newSubInfoList.push(item);
-          newSubTagList.push(mainName);
-          newSubValueList.push(item.value);
+          if (item.value == 7) {
+            newSubInfoList.push(item);
+            newSubTagList.push("스포츠");
+            newSubValueList.push(item.value);
+          } else if (item.value == 13) {
+            newSubInfoList.push(item);
+            newSubTagList.push("공예DIY");
+            newSubValueList.push(item.value);
+          } else if (item.value == 18) {
+            newSubInfoList.push(item);
+            newSubTagList.push("요리");
+            newSubValueList.push(item.value);
+          } else if (item.value == 24) {
+            newSubInfoList.push(item);
+            newSubTagList.push("문화예술");
+            newSubValueList.push(item.value);
+          } else if (item.value == 29) {
+            newSubInfoList.push(item);
+            newSubTagList.push("자기계발");
+            newSubValueList.push(item.value);
+          } else if (item.value == 34) {
+            newSubInfoList.push(item);
+            newSubTagList.push("여행");
+            newSubValueList.push(item.value);
+          }
         } else {
           newSubInfoList.push(item);
           newSubTagList.push(item.text);
@@ -125,6 +149,24 @@ const JoinFrm = (props) => {
     } else {
       setProfileImg({});
       setMemberImage(null);
+    }
+  };
+
+  const birthCheck = () => {
+    const birthReg = /^[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+    if (!birthReg.test(memberBirth)) {
+      setCheckBirthMsg("ex) 1990-01-01 형식으로 입력해주세요.");
+    } else {
+      setCheckBirthMsg("");
+    }
+  };
+
+  const phoneCheck = () => {
+    const phoneReg = /^[0-9]{3}-[0-9]{3,4}-[0-9]{4}/;
+    if (!phoneReg.test(memberPhone)) {
+      setCheckPhoneMsg("ex) 010-123(4)-1234 형식으로 입력해주세요.");
+    } else {
+      setCheckPhoneMsg("");
     }
   };
 
@@ -189,15 +231,6 @@ const JoinFrm = (props) => {
 
   // 회원가입 insert
   const join = () => {
-    console.log(memberId);
-    console.log(memberPw);
-    console.log(memberName);
-    console.log(memberPhone);
-    console.log(memberGender);
-    console.log(memberBirth);
-    console.log(memberEmail);
-    console.log(memberCategory);
-    console.log(profileImg);
     const member = {
       memberId,
       memberPw,
@@ -311,6 +344,10 @@ const JoinFrm = (props) => {
           content="memberPhone"
           label="전화번호"
           es=" *"
+          checkMsg={checkPhoneMsg}
+          placeholder="ex) 010-1234-1234"
+          blurEvent={phoneCheck}
+          msgClass="check-msg"
         />
 
         <div className="join-input-wrap">
@@ -351,7 +388,10 @@ const JoinFrm = (props) => {
           content="memberBirth"
           label="생년월일"
           es=" *"
-          placeholder="ex) 900101"
+          checkMsg={checkBirthMsg}
+          placeholder="ex) 1990-01-01"
+          blurEvent={birthCheck}
+          msgClass="check-msg"
         />
         <JoinInputWrap
           data={memberEmail}
@@ -373,7 +413,7 @@ const JoinFrm = (props) => {
             </div>
             <div className="input">
               <div className="join-profileImg-pre">
-                {profileImg === null ? (
+                {memberImage === null ? (
                   <img src="/img/testImg_01.png" />
                 ) : (
                   <img src={memberImage} />

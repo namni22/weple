@@ -48,7 +48,7 @@ const ReviewModify = (props) => {
           }
         })
         .catch((res) => {
-          console.log(res.response.status);
+          console.log("reviewmodify" + res.response.status);
           Swal.fire("실패");
         });
     } else {
@@ -75,7 +75,8 @@ const ReviewModify = (props) => {
         deleteImg={deleteImg}
         setDeleteImg={setDeleteImg}
         type="modify"
-        const
+        setReviewStar={setReviewStar}
+        reviewStar={reviewStar}
         rimageNoList={rimageNoList}
       />
     </div>

@@ -15,6 +15,7 @@ const Profile = (props) => {
   const navigate = useNavigate();
   const member = props.member;
   const memberId = member.memberId;
+  const memberNo = member.memberNo;
   const setIsLogin = props.setIsLogin;
   const setId = props.setId;
   const subCategory = props.subCategory;
@@ -96,7 +97,10 @@ const Profile = (props) => {
           <Route path="myFeed" element={<MyFeed memberId={memberId} />} />
         </Routes>
         <Routes>
-          <Route path="myMeet" element={<MyMeet />} />
+          <Route
+            path="myMeet"
+            element={<MyMeet memberId={memberId} memberNo={memberNo} />}
+          />
         </Routes>
       </div>
     </div>

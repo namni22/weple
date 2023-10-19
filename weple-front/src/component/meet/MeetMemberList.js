@@ -71,6 +71,7 @@ const MemberList = (props) => {
   const reportItemNo = props.meetNo;
   const [disable, setDisable] = useState("");
   const handleClick = () => setOpen(true);
+  console.log("모달 전달 전 id : ", id);
 
   const handleClickSubmit = () => {
     setOpen(false);
@@ -129,6 +130,7 @@ const MemberList = (props) => {
       }
     });
   };
+  console.log("모달 전달 전 memberId : ", memberList.memberId);
   return (
     <>
       <table className="meetMemberList-wrap">

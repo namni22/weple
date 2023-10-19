@@ -132,9 +132,10 @@ public class MeetController {
 		System.out.println("수정 썸네일 : "+meetThumbnail);
 		System.out.println("수정 멤버아이디 : "+memberId);
 		
-		int result = meetService.modifyMeet(meet);
+//		int result = meetService.modifyMeet(meet);
+//		return result;
+		return 0;
 		
-		return result;
 	}
 	
 	//모임생성 에디터 사진 추가
@@ -172,7 +173,7 @@ public class MeetController {
 		System.out.println("모임 카테고리 번호 : "+meetCategory);
 		//이미 meetList를 쓰고 있어서 바꿈
 		Map map = meetService.circleList(reqPage,meetCategory);
-
+		System.out.println("전체 조회 별점확인 맵 : "+ map);
 		return map;
 	}
 	//모임 카테고리 메뉴바 눌럿을때 모임 리스트 조회
@@ -180,7 +181,7 @@ public class MeetController {
 	public Map categoryMeetList(@PathVariable int reqPage,@PathVariable int meetCategory) {
 		
 		Map map = meetService.categoryMeetList(reqPage, meetCategory);
-		
+		System.out.println("별점확인 맵 : "+map);
 		return map;
 	}
 	//아이디 받아서 멤버 조회
@@ -218,7 +219,7 @@ public class MeetController {
 		Member loginMember = memberService.selectOneMember(memberId);
 		System.out.println("로그인 회원 번호 : "+loginMember.getMemberNo());
 		Follower follower= meetService.isMeetMember(loginMember.getMemberNo(),meet.getMeetNo());
-		System.out.println("팔로워 :  "+follower);
+		System.out.println("isMeetMember 컨트롤 동작 팔로워 :  "+follower);
 		return follower;
 	}
 	
@@ -301,8 +302,8 @@ public class MeetController {
 	//사이드바 유무에 필요한 회원상태 정보
 	@GetMapping(value = "/memberStatus/{meetNo}")
 	public Follower memberStatus(@PathVariable int meetNo,@RequestAttribute String memberId) {
-		System.out.println("멤버정보 필요한 모임번호 : "+meetNo);
-		System.out.println("멤버정보 필요한 멤버번호 : "+memberId);
+//		System.out.println("멤버정보 필요한 모임번호 : "+meetNo);
+//		System.out.println("멤버정보 필요한 멤버번호 : "+memberId);
 		Follower followerStatus = meetService.status(meetNo,memberId);
 		return followerStatus;
 	}

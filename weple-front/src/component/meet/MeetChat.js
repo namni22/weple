@@ -60,7 +60,9 @@ const MeetChat = (props) => {
           setChat(newArr);
           setChatContent("");
         })
-        .catch((res) => {});
+        .catch((res) => {
+          console.log(res.response.status);
+        });
     }
   };
   return (
@@ -78,15 +80,7 @@ const MeetChat = (props) => {
               <textarea
                 onChange={(e) => {
                   const changeValue = e.currentTarget.value;
-                  {
-                    /**
 
-                  .replace(
-                    /(?:\r\n|\r|\n)/,
-                    "<br/>"
-                  );
-                 */
-                  }
                   setChatContent(changeValue);
                 }}
                 onKeyPress={enterInsert}

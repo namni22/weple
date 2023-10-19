@@ -26,7 +26,7 @@ const ModifyInfo = (props) => {
   // 대표 사진 바꿨을 때 사용
   const [profileImg, setProfileImg] = useState(null);
   // 화면용 memberImage -> 썸네일 미리보기용
-  const [memberImage, setMemberImage] = useState(member.memberImage);
+  const [memberImage, setMemberImage] = useState(null);
 
   useEffect(() => {
     axios
@@ -237,8 +237,8 @@ const ModifyInfo = (props) => {
               </div>
               <div className="input">
                 <div className="join-profileImg-pre">
-                  {profileImg === null ? (
-                    <img src={"/member/" + memberImage} />
+                  {memberImage === null ? (
+                    <img src={"/member/" + member.memberImage} />
                   ) : (
                     <img src={memberImage} />
                   )}

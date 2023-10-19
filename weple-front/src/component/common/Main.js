@@ -88,12 +88,14 @@ const FeedMain = () => {
         setFeedList([...arr]);
       })
       .catch((res) => {
-        Swal.fire("실패");
+        Swal.fire("Main실패");
+        console.log(res.data.status);
       });
   }, []);
 
   return (
     <div>
+      <div className="meet-main-title">피드</div>
       <div className="feed-list-content-wrap">
         {feedList.map((feed, index) => {
           return (

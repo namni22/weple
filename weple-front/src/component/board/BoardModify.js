@@ -25,32 +25,38 @@ const BoardModify = () => {
 
         console.log("modify in : " + boardTitle); //수정한 게시글 제목
         console.log("modify in : " + boardContent);
+        if (boardContent !== "" && boardTitle !== 0) {
+            const form = new FormData();
+            form.append("boardTitle", boardTitle);
+            form.append("boardContent", boardContent);
+            form.append("boardNo", board.boardNo);
 
-        const form = new FormData();
-        form.append("boardNo", board.boardNo);
-        form.append("boardTitle", boardTitle);
-        form.append("boardContent", boardContent);
-        console.log("modify in : ", form)
-        // form.append("delFileNo", delFileNo.join("/"));
-        const token = window.localStorage.getItem("token");
-        axios
-            .post("/board/modify", form, {
-                headers: {
-                    contentType: "multipart/form-data",
-                    processData: false,
-                    Authorization: "Bearer " + token,
-                },
-            })
-            .then((res) => {
-                if (res.data === 1) {
-                    navigate("/board");
-                } else {
-                    Swal.fire("수정 중 문제가 발생했습니다. 잠시후 다시 시도해주세요");
-                }
-            })
-            .catch((res) => {
-                //console.log(res.response.status);
-            });
+            //form.append("deleteImg", deleteImg.join("/")); //삭제할 파일
+
+            //const token = window.localStorage.getItem("token");
+            axios
+                .post("/board/modify", form, {
+                    headers: {
+                        contentType: "multipart/form-data",
+                        processData: false,
+                        //Authorization: "Bearer " + token,
+                    },
+                })
+                .then((res) => {
+                    if (res.data === 1) {
+                        Swal.fire("성공");
+                        navigate("/board");
+                    }
+                })
+                .catch((res) => {
+                    console.log("boardmodify" + res.response.status);
+                    Swal.fire("실패");
+                });
+        } else {
+            Swal.fire("제목, 내용 입력 필수입니다");
+        }
+
+
     };
     const handleChange = () => {
         // setBoardType(event.target.value);

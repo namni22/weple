@@ -21,13 +21,14 @@ const FeedList = (props) => {
     axios
       .get("/feed/list/" + start + "/" + end)
       .then((res) => {
-        const arr = [];
+        const arr = [...feedList];
         for (let i = 0; i < res.data.length; i++) {
           arr.push(res.data[i]);
         }
         setFeedList([...arr]);
       })
       .catch((res) => {
+        console.log(res.data.status);
         Swal.fire("실패");
       });
   }, [start, load]);
@@ -87,7 +88,14 @@ const FeedContent = (props) => {
   const [rcmId, setRcmId] = useState(""); //답글남길 아이디 띄우기
   const [fCommentRefNo, setFCommentRefNo] = useState(null);
   const token = window.localStorage.getItem("token");
-  const feedContent = feed.feedContent.replaceAll("<br>", "\r\n"); //엔터처리
+  //엔터처리
+  let feedContent = feed.feedContent;
+  const text = feed.feedContent.replaceAll("<br>", "\r\n");
+  if (text.length >= 15) {
+    feedContent = text.substr(0, 14) + " ...더보기";
+  } else {
+    feedContent = text;
+  }
 
   //좋아요내역 불러오기
   const feedNo = feed.feedNo;
@@ -201,10 +209,10 @@ const FeedContent = (props) => {
   const view = () => {
     setViewOpen(true);
   };
-  const closeView = () => {
+  const closeView = (e) => {
     setViewOpen(false);
+    e.stopPropagation();
   };
-
   return (
     <div className="feed-list-content">
       <div className="feed-list-top">
@@ -220,22 +228,24 @@ const FeedContent = (props) => {
           <div>{feed.feedDate}</div>
         </div>
       </div>
-      <div className="feed-list-img">
-        {feed.imageList.length > 1 ? (
-          <SwiperComponent
-            spaceBetween={21}
-            slidesPerView={1}
-            list={list}
-            loop={false}
-            autoplay={false}
-            delButton={false}
-          />
-        ) : (
-          <img src={"/feed/" + feed.imageList[0].fimageName} />
-        )}
-      </div>
-      <div className="feed-list-text">
-        <div onClick={view}>{feedContent}</div>
+      <div onClick={view}>
+        <div className="feed-list-img">
+          {feed.imageList.length > 1 ? (
+            <SwiperComponent
+              spaceBetween={21}
+              slidesPerView={1}
+              list={list}
+              loop={false}
+              autoplay={false}
+              delButton={false}
+            />
+          ) : (
+            <img src={"/feed/" + feed.imageList[0].fimageName} />
+          )}
+        </div>
+        <div className="feed-list-text">
+          <div>{feedContent}</div>
+        </div>
       </div>
       <div className="feed-list-content-btn">
         <div>

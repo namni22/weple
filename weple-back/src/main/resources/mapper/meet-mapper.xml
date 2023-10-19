@@ -96,24 +96,38 @@
 	</select> -->
 	<!-- 모임리스트 대분류로 조회 -->
 	<select id="selectCircleList" resultType="meet">
-		SELECT * FROM
-		    (SELECT ROWNUM AS RNUM, M.* FROM
-		        (SELECT * 
-		        FROM MEET
-		        JOIN CATEGORY ON ( MEET_CATEGORY = CATEGORY_NO)
-		        WHERE MEET_TYPE = 1 AND CATEGORY_REF_NO = #{meetCategory}
-		        ORDER BY 1 DESC)M)
+		SELECT * 
+		FROM
+		    (select ROWNUM AS RNUM , M2.* from (
+		    select meet_no, meet_date, meet_title, meet_content_s, meet_content_d, meet_total, meet_margin, meet_prepare, meet_category, meet_address1, meet_address2, meet_latitude, meet_longitude, meet_thumbnail, meet_captain, category_no, category_name, category_ref_no,
+		        ROUND(NVL((select avg(NVL(review_star, 0))
+		            from review r
+		            where r.meet_no = m.meet_no),0),1) review_star,
+		         (select count(meet_no)
+		            from review r
+		            where r.meet_no = m.meet_no) review_count 
+		    from meet m
+		    JOIN CATEGORY ON ( MEET_CATEGORY = CATEGORY_NO)
+		    where meet_type = 1 AND CATEGORY_REF_NO = #{meetCategory}
+		    order by 1 desc, review_count desc) m2)
 		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
 	<!-- 모임리스트 소분류로 조회 -->
 	<select id="categoryMeetList" resultType="meet">
-		SELECT * FROM
-		    (SELECT ROWNUM AS RNUM, M.* FROM
-		        (SELECT * 
-		        FROM MEET
-		        JOIN CATEGORY ON ( MEET_CATEGORY = CATEGORY_NO)
-		        WHERE MEET_TYPE = 1 AND CATEGORY_NO = #{meetCategory}
-		        ORDER BY 1 DESC)M)
+		SELECT * 
+		FROM
+		    (select ROWNUM AS RNUM , M2.* from (
+		    select meet_no, meet_date, meet_title, meet_content_s, meet_content_d, meet_total, meet_margin, meet_prepare, meet_category, meet_address1, meet_address2, meet_latitude, meet_longitude, meet_thumbnail, meet_captain, category_no, category_name, category_ref_no,
+		        ROUND(NVL((select avg(NVL(review_star, 0))
+		            from review r
+		            where r.meet_no = m.meet_no),0),1) review_star,
+		         (select count(meet_no)
+		            from review r
+		            where r.meet_no = m.meet_no) review_count 
+		    from meet m
+		    JOIN CATEGORY ON ( MEET_CATEGORY = CATEGORY_NO)
+		    where meet_type = 1 AND CATEGORY_NO = #{meetCategory}
+		    order by 1 desc, review_count desc) m2)
 		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
 	<!-- 모임번호를 받아 모임을 select -->
@@ -166,7 +180,7 @@
 	<select id="meetMargin" resultType="meet">
 	<![CDATA[ 
 	select * 
-	from (select Meet_no, MEET_THUMBNAIL, meet_title, meet_total, meet_margin,
+	from (select meet_no, meet_date, meet_title, meet_content_s, meet_content_d, meet_total, meet_margin, meet_prepare, meet_category, meet_address1, meet_address2, meet_latitude, meet_longitude, meet_thumbnail, meet_captain,
 	    ROUND(NVL((select avg(NVL(review_star, 0)) 
 	        from review r 
 	        where r.meet_no = m.meet_no),0),1) review_star,
@@ -193,7 +207,7 @@
 	<select id="meetPopular" resultType="meet">
 	<![CDATA[ 
 	select * 
-	from (select meet_no, meet_thumbnail, meet_title, meet_total, meet_margin,
+	from (select meet_no, meet_date, meet_title, meet_content_s, meet_content_d, meet_total, meet_margin, meet_prepare, meet_category, meet_address1, meet_address2, meet_latitude, meet_longitude, meet_thumbnail, meet_captain,
 	    ROUND(NVL((select avg(NVL(review_star, 0))
 	        from review r
 	        where r.meet_no = m.meet_no),0),1) review_star,
@@ -208,7 +222,7 @@
 	<select id="meetNew" resultType="meet">
 	<![CDATA[ 
 	select * 
-	from (select meet_no, meet_thumbnail, meet_title, meet_total, meet_margin,
+	from (select meet_no, meet_date, meet_title, meet_content_s, meet_content_d, meet_total, meet_margin, meet_prepare, meet_category, meet_address1, meet_address2, meet_latitude, meet_longitude, meet_thumbnail, meet_captain,
 	    ROUND(NVL((select avg(NVL(review_star, 0))
 	        from review r
 	        where r.meet_no = m.meet_no),0),1) review_star,

@@ -38,8 +38,7 @@ public class AdminService {
 		//멤버 등급 변경
 		@Transactional
 		public int changeMemberGrade(Member member) {
-			return adminDao.changeMemberGrade(member);
-			
+			return adminDao.changeMemberGrade(member);			
 		}
 		//모임 리스트 조회
 		public Map meetList(int reqPage) {

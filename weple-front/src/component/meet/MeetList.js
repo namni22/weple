@@ -4,8 +4,11 @@ import axios from "axios";
 // import { Pagination } from "@mui/material";
 import Pagination from "../common/Pagination";
 import { useLocation, useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import MeetMemberList from "./MeetMemberList";
 
-const MeetList = () => {
+const MeetList = (props) => {
   //로그인상태 불러올곳 ( 모임생성버튼이 이곳에 있다면 버튼을 위해서 )
   //const isLogin = props.isLogin;
 
@@ -19,6 +22,9 @@ const MeetList = () => {
   const location = useLocation();
   let bigCategoryNo = location.state.bigCategoryNo; //카테고리에서 넘어온거
   let bigCategoryName = location.state.bigCategoryName;
+
+  const isLogin = props.isLogin;
+  const id = props.id;
 
   //카테고리 메뉴 조회해오기
   useEffect(() => {
@@ -62,7 +68,7 @@ const MeetList = () => {
       .catch((res) => {
         console.log("catch : " + res.response.status);
       });
-  }
+  };
 
   // 카테고리 메뉴바의 카테고리를 클릭하면 동작하는 함수
   const changeCategory = (smallCategory) => {
@@ -94,7 +100,9 @@ const MeetList = () => {
               onClick={() => {
                 changeCategoryAll();
               }}
-            >전체</li>
+            >
+              전체
+            </li>
             {smallCategoryList.map((smallCategory, index) => {
               return (
                 <li
@@ -115,7 +123,9 @@ const MeetList = () => {
         {/* meetList db에서 받아온후 map으로 반복출력 예정 */}
         {/* props로 meet 정보 줄예정 */}
         {meetList.map((meet, index) => {
-          return <MeetItem key={"meet" + index} meet={meet} />;
+          return (
+            <MeetItem key={"meet" + index} meet={meet} isLogin={isLogin} />
+          );
         })}
       </div>
       <div className="meetList-page-area">
@@ -123,6 +133,7 @@ const MeetList = () => {
           reqPage={reqPage}
           setReqPage={setReqPage}
           pageInfo={pagenfo}
+          setData={setMeetList}
         />
       </div>
     </div>
@@ -133,14 +144,15 @@ const MeetItem = (props) => {
   // 연주님께~  meet props로 전달해주시고 meetList 따로 select 해와서 map으로 반복 출력해주세요
   const meet = props.meet;
   const navigate = useNavigate();
-
-
+  const isLogin = props.isLogin;
   // 상세보기로 이동하는 함수
   const meetView = () => {
+    // console.log("클릭하기 전 값 : ", meet, meet.meetNo);
     navigate("/meet/meetList/View", {
-      state: { m: meet, meetNo: meet.meetNo },
+      state: { m: meet },
     }); //이동할곳 state로 데이터 전송
   };
+
   const starRating = () => {
     const result = [];
     for (let i = 0; i < 5; i++) {
@@ -154,11 +166,12 @@ const MeetItem = (props) => {
   };
 
   return (
-    <div className="meet-one" onClick={meetView}>
-      <div className="MeetList-meet-img-box">
+    <div className="meet-one">
+      <div className="MeetList-meet-img-box" onClick={meetView}>
         {/* <img src="/img/main_1.jpg"></img> */}
         <img src={"/meet/" + meet.meetThumbNail}></img>
       </div>
+
       <div className="MeetList-meetTitle">
         <span>{meet.meetTitle}</span>
       </div>

@@ -11,51 +11,45 @@ import EnrollMeetMember from "./EnrollMeetMember";
 import axios from "axios";
 
 const MeetView = (props) => {
+  // console.log("view 렌더링");
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
   const id = props.id;
+  // console.log("모임메인 id : ", id);
   const location = useLocation();
+  useEffect(() => {
+    //   console.log(location.state.m);
+    // console.log("myMeet set");
+    setMyMeet(location.state.m);
+  }, [props]);
   const [myMeet, setMyMeet] = useState({});
-  const meetNo = myMeet.meetNo;
   const [captainCheck, setCaptainCheck] = useState({});
   const token = window.localStorage.getItem("token");
   const [followerStatus, setFollowerStatus] = useState({});
+  const meetNo = myMeet.meetNo;
+
   useEffect(() => {
     axios
-      .get("/meet/memberStatus/" + meetNo, {
+      .get("/meet/memberStatus/" + myMeet.meetNo, {
         headers: {
           Authorization: "Bearer " + token,
         },
       })
       .then((res) => {
-        //      console.log("팔로워 status : ", res.data);
+        // console.log("팔로워 status : ", res);
         setFollowerStatus(res.data.followerStatus);
       })
       .catch((res) => {
-        //      console.log(res.response.status);
+        console.log(res.response.status);
       });
-  }, [props]);
-
-  // const [meet, setMeet] = useState({});
-  // 사용안함!!!!!!!!!!!!!!
-  // useEffect(() => {
-  //   axios
-  //     .get("/meet/selectOneMeet/" + meetNo)
-  //     .then((res) => {
-  //       setMyMeet(res.data);
-  //     })
-  //     .catch((res) => {
-  //       console.log("catch : " + res.response.status);
-  //     });
-  // }, []);
-
+  }, [myMeet]);
   //모임장 id 전송 이후 DB에서 모임장 정보 불러오기
   const [meetCaptain, setMeetCaptain] = useState({});
   useEffect(() => {
     axios
       .post("/meet/selectOneMember", { memberId: location.state.m.meetCaptain })
       .then((res) => {
-        console.log(res.data);
+        // console.log("캡틴체크", res.data);
         setMeetCaptain(res.data);
       })
       .catch((res) => {
@@ -63,10 +57,7 @@ const MeetView = (props) => {
       });
   }, []);
 
-  useEffect(() => {
-    setMyMeet(location.state.m);
-  }, []);
-  console.log("view", myMeet);
+  //  console.log("view", myMeet);
   const [meetMenu, setMeetMenu] = useState([
     { url: "", text: "소개", active: true },
     { url: "meetChat", text: "글 작성", active: false },
@@ -80,12 +71,42 @@ const MeetView = (props) => {
     { url: "meetCalendar", text: "캘린더", active: false },
     { url: "meetList", text: "멤버목록", active: false },
   ]);
-  const captainId = meetCaptain.memberId;
+
+  // console.log("meetCapttain 아이디 : ", captainId);
   return (
     <div className="afterMeet-all-wrap">
       <div className="feed-title">MY GROUP</div>
       <AfterMeetMain myMeet={myMeet} meetCaptain={meetCaptain} />
-      {isLogin && captainId === id ? (
+      {isLogin ? (
+        myMeet.meetCaptain === id ? (
+          <AfterMeetSubNavi
+            meetMenu={meetMenu}
+            setMeetMenu={setMeetMenu}
+            meetMenu2={meetMenu2}
+            setMeetMenu2={setMeetMenu2}
+            meetNo={meetNo}
+            captainCheck={captainCheck}
+            setCaptainCheck={setCaptainCheck}
+          />
+        ) : followerStatus ? (
+          <AfterMeetSubNavi
+            meetMenu={meetMenu}
+            setMeetMenu={setMeetMenu}
+            meetMenu2={meetMenu2}
+            setMeetMenu2={setMeetMenu2}
+            meetNo={meetNo}
+            captainCheck={captainCheck}
+            setCaptainCheck={setCaptainCheck}
+          ></AfterMeetSubNavi>
+        ) : (
+          ""
+        )
+      ) : (
+        ""
+      )}
+
+      {/* 
+      {isLogin && captainCheck === id ? (
         <AfterMeetSubNavi
           meetMenu={meetMenu}
           setMeetMenu={setMeetMenu}
@@ -94,7 +115,7 @@ const MeetView = (props) => {
           meetNo={meetNo}
           captainCheck={captainCheck}
           setCaptainCheck={setCaptainCheck}
-        ></AfterMeetSubNavi>
+        />
       ) : isLogin && followerStatus ? (
         <AfterMeetSubNavi
           meetMenu={meetMenu}
@@ -107,7 +128,7 @@ const MeetView = (props) => {
         ></AfterMeetSubNavi>
       ) : (
         ""
-      )}
+      )} */}
 
       <Routes>
         <Route
@@ -132,7 +153,6 @@ const MeetView = (props) => {
             />
           }
         />
-        <Route path="meetCalendar" element={<MeetCalendar />} />
 
         <Route
           path="meetCalendar"
@@ -146,6 +166,7 @@ const MeetView = (props) => {
               isLogin={isLogin}
               setIsLogin={setIsLogin}
               captainCheck={captainCheck}
+              id={id}
             />
           }
         />
@@ -168,7 +189,6 @@ const AfterMeetMain = (props) => {
   const myMeet = props.myMeet;
   const meetCaptain = props.meetCaptain;
 
-  console.log(myMeet);
   return (
     <div className="afterMeet-main-wrap">
       <div className="afterMeet-main-thumbnail">
@@ -211,9 +231,12 @@ const AfterMeetSubNavi = (props) => {
   const meetMenu2 = props.meetMenu2;
   const setMeetMenu2 = props.setMeetMenu2;
   const meetNo = props.meetNo;
-  const captainCheck = props.captainCheck;
-  const setCaptainCheck = props.setCaptainCheck;
+  const [captainCheck, setCaptainCheck] = useState(null);
+  // const captainCheck = props.captainCheck;
+  // const setCaptainCheck = props.setCaptainCheck;
   const token = window.localStorage.getItem("token");
+  // console.log("방장체크에 필요한 meetNo :", meetNo);
+
   useEffect(() => {
     axios
       .get("/meet/meetCapCheck/" + meetNo, {
@@ -222,7 +245,7 @@ const AfterMeetSubNavi = (props) => {
         },
       })
       .then((res) => {
-        //   console.log("방장체크 : ", res.data);
+        console.log("방장체크 : ", res.data);
         setCaptainCheck(res.data.meetCapCheck);
         //   console.log("방장체크 captainCheck : ", captainCheck);
       })
@@ -230,7 +253,8 @@ const AfterMeetSubNavi = (props) => {
         //    console.log(res.response.status);
       });
   }, [props]);
-  console.log("렌더링", captainCheck);
+  // console.log("렌더링", captainCheck);
+
   const activeTab = (index) => {
     meetMenu.forEach((item) => {
       item.active = false;
@@ -245,7 +269,7 @@ const AfterMeetSubNavi = (props) => {
     meetMenu2[index].active = true;
     setMeetMenu2([...meetMenu2]);
   };
-  console.log("meetView의 capTainCheck : ", captainCheck);
+  // console.log("meetView의 capTainCheck : ", captainCheck);
   return (
     <>
       {captainCheck ? (

@@ -22,7 +22,7 @@
 	<select id="meetList" resultType="meet">
 		select * from
 			(select rownum as rnum, m.* from
-				(select * from meet order by meet_type)m
+				(select * from meet order by meet_no desc)m
 			)
 		where rnum between #{start} and #{end}	
 	</select>

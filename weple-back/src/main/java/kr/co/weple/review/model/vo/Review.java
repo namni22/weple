@@ -25,4 +25,5 @@ public class Review {
 	private String deleteImg;
 	private List imageList;
 	private String memberImage;//작성자 프로필이미지
+	private String rimageName;	//리뷰 썸네일
 }

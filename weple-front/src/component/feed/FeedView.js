@@ -17,7 +17,7 @@ const FeedView = (props) => {
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
       padding: "10px",
-      width: "600px",
+      width: "520px",
       overflow: "inherit",
     },
     overlay: {
@@ -55,7 +55,7 @@ const FeedView = (props) => {
           console.log(res.response.status);
         });
     }
-  }, []);
+  }, [load]);
 
   useEffect(() => {
     axios
@@ -95,11 +95,12 @@ const FeedView = (props) => {
             <div>{feed.feedDate}</div>
           </div>
         </div>
-        <FeedviewContent
+        <FeedViewContent
           feedContent={feed.feedContent}
           feedBox={feedBox}
           closeView={closeView}
         />
+        {/* <div className="feed-title">comment</div>
         <CommentWrap
           feedNo={feedNo}
           commentList={feed.fcomment}
@@ -114,17 +115,18 @@ const FeedView = (props) => {
           setLoad={setLoad}
           memberId={memberId}
           memberImage={memberImage}
-        />
+        /> */}
       </div>
     </ReactModal>
   );
 };
 
-const FeedviewContent = (props) => {
+const FeedViewContent = (props) => {
   const fc = props.feedContent;
   const feedContent = fc.replaceAll("<br>", "\r\n"); //엔터처리
+  //   const [feedContent, setFeedContent] = useState("");
+  //   setFeedContent(fc.replaceAll("<br>", "\r\n")); //엔터처리
   const feedBox = props.feedBox;
-  const closeView = props.closeView;
 
   return (
     <div className="feed-view-wrap">
@@ -134,6 +136,7 @@ const FeedviewContent = (props) => {
           slidesPerView={1}
           list={feedBox}
           loop={false}
+          s
           autoplay={false}
           delButton={false}
         />

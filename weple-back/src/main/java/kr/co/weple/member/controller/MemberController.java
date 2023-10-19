@@ -139,7 +139,10 @@ public class MemberController {
 	// 프로필 내 피드 가져오기
 	@GetMapping(value="/myFeedList/{start}/{end}/{memberId}")
 	public List list(@PathVariable int start, @PathVariable int end, @PathVariable String memberId) {
-		return memberService.myFeedList(start, end, memberId);
+		List myFeedList = memberService.myFeedList(start, end, memberId);
+		System.out.println("내 피드 리스트 : " + myFeedList);
+		return myFeedList;
+		
 	}
 	
 	// 아이디 찾기
@@ -179,6 +182,17 @@ public class MemberController {
 		return memberService.pwChangeMember(member);
 	}
 	
+	// 내가 가입한 모임 리스트 가져오기
+	@GetMapping(value="/meetJoined/{memberNo}")
+	public List meetJoined(@PathVariable int memberNo) {
+		return memberService.meetJoined(memberNo);
+	}
+	
+	// 내가 개설한 모임 리스트 가져오기
+	@GetMapping(value="/myMeet/{memberId}")
+	public List myMeet(@PathVariable String memberId) {
+		return memberService.myMeet(memberId);
+	}
 	
 	
 }

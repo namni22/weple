@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.weple.FileUtil;
+import kr.co.weple.feed.model.vo.FImage;
 import kr.co.weple.review.model.service.ReviewService;
 import kr.co.weple.review.model.vo.RImage;
 import kr.co.weple.review.model.vo.Review;
@@ -54,7 +55,8 @@ public class ReviewController {
 			@ModelAttribute Review r,
 			@ModelAttribute MultipartFile[] rImage,
 			@RequestAttribute String memberId) {
-		System.out.println(r.getMeetNo());
+		System.out.println(r.getReviewContent());
+		System.out.println(r.getReviewNo());
 		r.setMemberId(memberId);
 		String savepath = root+"review/";
 		ArrayList<RImage> imageList = new ArrayList<RImage>();
@@ -70,10 +72,7 @@ public class ReviewController {
 	//reviewModify
 	@PostMapping(value="/modify")
 	public int modify(
-			@ModelAttribute Review r,
-			@ModelAttribute MultipartFile[] rImage,
-			@RequestAttribute String memberId
-			) {
+			@ModelAttribute Review r, @ModelAttribute MultipartFile[] rImage, @RequestAttribute String memberId) {
 		System.out.println(rImage);
 		String savepath = root+"review/";
 		ArrayList<RImage> imageList = new ArrayList<RImage>();
@@ -87,7 +86,7 @@ public class ReviewController {
 			}
 		}
 		List<RImage> delImageList = reviewService.modify(r,imageList);
-		//臾쇰━�쟻�쐞移� �뙆�씪 �궘�젣
+		//delete physical fileImage
 		if(delImageList != null) {	
 			for(RImage ri : delImageList) {
 				File deleteImg = new File(savepath+ri.getRImageName());
@@ -97,5 +96,20 @@ public class ReviewController {
 		}
 		return 0;
 	}
-		
+	//deleteReview
+	@GetMapping(value="/delete/{reviewNo}")
+	public int delete(@PathVariable int reviewNo) {
+		int result = 0;
+		//해당게시물 첨부파일 삭제를 위해 파일목록을 결과로 받음
+		List<RImage> imageList = reviewService.delete(reviewNo);
+		//물리적위치 파일 삭제
+		String savepath = root+"review/";
+		//파일길이만큼 파일삭제
+		for(RImage ri : imageList) {
+			File file = new File (savepath+ri.getRImageName());
+			file.delete();
+			result++;
+		}
+		return result;
+	}	
 }

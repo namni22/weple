@@ -4,6 +4,7 @@ const Button1 = (props) => {
   const clickEvent = props.clickEvent;
   const text = props.text;
   const disable = props.disable;
+  const dValue = props.dValue;
   return (
     <>
       <button
@@ -11,6 +12,7 @@ const Button1 = (props) => {
         type="button"
         onClick={clickEvent}
         disabled={disable}
+        defaultValue={dValue}
       >
         {text}
       </button>
