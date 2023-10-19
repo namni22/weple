@@ -476,9 +476,12 @@ const JoinFrm = (props) => {
               <div className="join-select-print-box">
                 {subTag.map((subT, index) => {
                   return (
-                    <div key={"subT" + index}>
-                      <img src="/img/hashtag.png" />
-                      {subT}
+                    <div className="print-box-item">
+                      <div key={"subT" + index}>
+                        <img src="/img/hashtag.png" />
+                        {subT}
+                      </div>
+                      <img src="/img/delete.png" />
                     </div>
                   );
                 })}

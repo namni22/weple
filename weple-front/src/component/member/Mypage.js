@@ -14,6 +14,7 @@ const Mypage = (props) => {
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
   const setId = props.setId;
+  const isAdmin = props.isAdmin;
   const token = window.localStorage.getItem("token");
   const [member, setMember] = useState({});
   const [mainCategory, setMainCategory] = useState([]);
@@ -95,10 +96,12 @@ const Mypage = (props) => {
                 <Profile
                   member={member}
                   setMember={setMember}
+                  isLogin={isLogin}
                   setIsLogin={setIsLogin}
                   subCategory={subCategory}
                   myCategory={myCategory}
                   setId={setId}
+                  isAdmin={isAdmin}
                 />
               }
             />
