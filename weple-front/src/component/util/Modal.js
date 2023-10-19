@@ -9,7 +9,8 @@ const ReportModal = (props) => {
   const isOpen = props.isOpen;
   const onSubmit = props.onSubmit;
   const onCancel = props.onCancel;
-  const memberId = props.memberId;
+  const isLogin = props.isLogin;
+  // const memberId = props.memberId;
   const reportItemNo = props.reportItemNo;
   const reportMemberId = props.reportMemberId;
   const setReportTypeValue = props.setReportTypeValue;
@@ -22,6 +23,26 @@ const ReportModal = (props) => {
   const [currentVaule, setCurrentVaule] = useState("");
   const [currentCategory, setCurrentCategory] = useState();
   const [checkIdMsg, setCheckIdMsg] = useState("");
+
+  const [memberId, setMemberId] = useState("");
+
+  const token = window.localStorage.getItem("token");
+  useEffect(() => {
+    if (isLogin) {
+      axios
+        .post("/member/getMember", null, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          setMemberId(res.data.memberId);
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    }
+  }, []);
 
   // console.log("props.reportMemberId : ", reportMemberId);
   // console.log("모달 memberId : ", memberId);
@@ -141,8 +162,6 @@ const changeValue = (e) => {
     }
   };
   const handleClickCancel = () => {
-    setReportType(reportType);
-    setReportTypeValue();
     onCancel();
   };
   useEffect(() => {
@@ -248,6 +267,10 @@ const MoreModal = (props) => {
   const modifyEvent = props.modifyEvent;
   const isLogin = props.isLogin;
   const feedWriter = props.feedWriter;
+  const isAdmin = props.isAdmin;
+  const feedNo = props.feedNo;
+  const reportTypeValue = props.reportTypeValue;
+  const reportType = props.reportType;
   const [memberId, setMemberId] = useState("");
   const token = window.localStorage.getItem("token");
 
@@ -311,6 +334,13 @@ const MoreModal = (props) => {
               <Button3 text="삭제" clickEvent={deleteEvent} />
             </div>
           </div>
+        ) : isAdmin ? (
+          <div className="modal-select">
+            <div>
+              <span className="material-icons">delete</span>
+              <Button3 text="삭제" clickEvent={deleteEvent} />
+            </div>
+          </div>
         ) : (
           <div className="modal-select">
             <div>
@@ -328,6 +358,11 @@ const MoreModal = (props) => {
         isOpen={reportIsOpen}
         onCancel={reportCancel}
         onSubmit={reportSubmit}
+        isLogin={isLogin}
+        reportItemNo={feedNo}
+        reportMemberId={feedWriter}
+        reportTypeValue={reportTypeValue}
+        reportType={reportType}
       />
     </ReactModal>
   );

@@ -38,6 +38,8 @@
 		<result column="feed_content" property="feedContent" />
 		<result column="feed_date" property="feedDate" />
 		<result column="member_image" property="memberImage" />
+		<result column="total_like" property="totalLike" />
+		<result column="total_comment" property="totalComment" />
 		<collection
 			property="imageList"
 			select="selectImageList"
@@ -107,4 +109,11 @@
 	<delete id="commentDeleteLike">
 		delete from fcomment_like where fcomment_no=#{fCommentNo} and member_no=#{memberNo}
 	</delete>
+	<select id="totalCountLC" resultType="feed">
+		select f.*,
+		    nvl((select count(feed_no) from flike l where l.feed_no = f.feed_no),0) total_like,
+		    nvl((select count(feed_no) from fcomment c where c.feed_no = f.feed_no),0) total_comment
+		from feed f
+		where feed_no=#{feedNo}
+	</select>
 </mapper>

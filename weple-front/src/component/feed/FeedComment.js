@@ -34,6 +34,8 @@ const FeedComment = (props) => {
   const [memberId, setMemberId] = useState();
   const [memberImage, setMemberImage] = useState("");
   const [load, setLoad] = useState(0); //useEffect용
+  const loadList = props.loadList;
+  const setLoadList = props.setLoadList;
 
   const token = window.localStorage.getItem("token");
   useEffect(() => {
@@ -89,6 +91,8 @@ const FeedComment = (props) => {
             setLoad={setLoad}
             memberId={memberId}
             memberImage={memberImage}
+            loadList={loadList}
+            setLoadList={setLoadList}
           />
         </div>
       </div>
@@ -110,6 +114,8 @@ const CommentWrap = (props) => {
   const setLoad = props.setLoad;
   const memberId = props.memberId;
   const memberImage = props.memberImage;
+  const loadList = props.loadList;
+  const setLoadList = props.setLoadList;
 
   return (
     <>
@@ -130,6 +136,8 @@ const CommentWrap = (props) => {
                         setLoad={setLoad}
                         memberId={memberId}
                         feedNo={feedNo}
+                        loadList={loadList}
+                        setLoadList={setLoadList}
                       />
                       <div className="feed-comment-re-wrap">
                         {commentList.map((reComment, index) => {
@@ -145,6 +153,8 @@ const CommentWrap = (props) => {
                                   setLoad={setLoad}
                                   memberId={memberId}
                                   type="reCmt"
+                                  loadList={loadList}
+                                  setLoadList={setLoadList}
                                 />
                               ) : (
                                 ""
@@ -180,6 +190,8 @@ const CommentWrap = (props) => {
           setLoad={setLoad}
           memberId={memberId}
           memberImage={memberImage}
+          loadList={loadList}
+          setLoadList={setLoadList}
         />
       ) : (
         ""
@@ -197,6 +209,8 @@ const CommentList = (props) => {
   const load = props.load;
   const setLoad = props.setLoad;
   const type = props.type;
+  const loadList = props.loadList;
+  const setLoadList = props.setLoadList;
 
   //좋아요내역 불러오기
   const [userLike, setUserLike] = useState();
@@ -265,6 +279,7 @@ const CommentList = (props) => {
               setRcmId("");
               setFCommentRefNo(null);
               setLoad(load + 1);
+              setLoadList(loadList + 1);
               Swal.fire({
                 icon: "success",
                 text: "댓글이 삭제되었습니다",
@@ -353,6 +368,8 @@ const CommentFrm = (props) => {
   const setRcmId = props.setRcmId;
   const load = props.load;
   const setLoad = props.setLoad;
+  const loadList = props.loadList;
+  const setLoadList = props.setLoadList;
   const navigate = useNavigate();
 
   const changeContent = (e) => {
@@ -386,6 +403,7 @@ const CommentFrm = (props) => {
             setFCommentContent("");
             rcmCancel();
             setLoad(load + 1);
+            setLoadList(loadList + 1);
           }
         })
         .catch((res) => {
