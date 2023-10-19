@@ -43,6 +43,8 @@ public interface MemberDao {
 
 	List myMeet(String memberId);
 
+	int delete(String memberId);
+
 
 	
 

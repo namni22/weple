@@ -157,6 +157,43 @@ const ModifyInfo = (props) => {
     }
   };
 
+  const deleteMember = () => {
+    Swal.fire({
+      icon: "warning",
+      title: "회원 탈퇴",
+      text: "[WEPLE]을 탈퇴하시겠습니까?",
+      showCancelButton: true,
+      confirmButtonText: "회원 탈퇴",
+      cancelButtonText: "취소",
+    }).then((res) => {
+      // 회원 탈퇴 누른 경우
+      if (res.isConfirmed) {
+        const token = window.localStorage.getItem("token");
+        axios
+          .post("/member/delete", null, {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          })
+          .then((res) => {
+            window.localStorage.removeItem("token");
+            setIsLogin(false);
+            Swal.fire({
+              icon: "success",
+              title: "[WEPLE]탈퇴가 완료되었습니다.",
+            });
+            navigate("/");
+          })
+          .catch((res) => {
+            if (res.response.status === 403) {
+              console.log("로그인이 풀린 상황");
+              setIsLogin(false);
+            }
+          });
+      }
+    });
+  };
+
   // 수정 버튼 클릭 시 수정 작업
   const updateInfo = () => {
     const token = window.localStorage.getItem("token");
@@ -238,7 +275,11 @@ const ModifyInfo = (props) => {
               <div className="input">
                 <div className="join-profileImg-pre">
                   {memberImage === null ? (
-                    <img src={"/member/" + member.memberImage} />
+                    member.memberImage === null ? (
+                      <img src="/img/testImg_01.png" />
+                    ) : (
+                      <img src={"/member/" + member.memberImage} />
+                    )
                   ) : (
                     <img src={memberImage} />
                   )}
@@ -329,13 +370,13 @@ const ModifyInfo = (props) => {
               </div>
             </div>
           </div>
-        </div>
-        <div className="join-agree-btn">
-          <div>
-            <Button2 text="취소" />
+          <div className="leave-btn">
+            <Button2 text="회원탈퇴" clickEvent={deleteMember} />
           </div>
-          <div>
-            <Button1 text="수정" clickEvent={updateInfo} />
+          <div className="modify-btn">
+            <div>
+              <Button1 text="수정" clickEvent={updateInfo} />
+            </div>
           </div>
         </div>
       </div>
