@@ -10,7 +10,9 @@ const Profile = (props) => {
   const member = props.member;
   const memberId = member.memberId;
   const memberNo = member.memberNo;
+  const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
+  const isAdmin = props.isAdmin;
   const setId = props.setId;
   const subCategory = props.subCategory;
   const [categoryNameList, setCategoryNameList] = useState([]);
@@ -88,7 +90,12 @@ const Profile = (props) => {
 
       <div className="profile-tab-menu-content">
         <Routes>
-          <Route path="myFeed" element={<MyFeed memberId={memberId} />} />
+          <Route
+            path="myFeed"
+            element={
+              <MyFeed memberId={memberId} isLogin={isLogin} isAdmin={isAdmin} />
+            }
+          />
         </Routes>
         <Routes>
           <Route

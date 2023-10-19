@@ -43,7 +43,12 @@ function App() {
           <Route
             path="/mypage/*"
             element={
-              <Mypage isLogin={isLogin} setIsLogin={setIsLogin} setId={setId} />
+              <Mypage
+                isLogin={isLogin}
+                setIsLogin={setIsLogin}
+                setId={setId}
+                isAdmin={isAdmin}
+              />
             }
           />
           <Route
