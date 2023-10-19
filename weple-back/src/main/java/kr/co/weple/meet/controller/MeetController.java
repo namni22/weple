@@ -233,7 +233,7 @@ public class MeetController {
 		System.out.println("모임 번호 : "+meetNo);
 		return meetService.selectOneMeet(meetNo);
 	}
-	
+/*********************************메인페이지 모임조회*********************************************/	
 	//메인페이지에 참여인원 순 모임 조회
 	@GetMapping(value = "/meetMargin")
 	public List meetMargin() {
@@ -252,7 +252,15 @@ public class MeetController {
 	public List meetNew() {
 		List list = meetService.meetNew();
 		return list;
-	}		
+	}	
+	//메인페이지에 선호카테고리순 모임조회
+	@GetMapping(value = "/meetCategory")
+	public List meetCategory() {
+		String memberId = "user01";
+		List list = meetService.meetCategory(memberId);
+		return list;
+	}
+/********************************************************************************************/			
 	//meet챗팅 조회
 	@GetMapping(value = "/meetChat/{meetNo}")
 	public Map meetChat(@PathVariable int meetNo) {
@@ -327,6 +335,13 @@ public class MeetController {
 		Map meetCapCheck = meetService.meetCapCheck(meetNo,memberId);
 		System.out.println("meetCapcheck : "+meetCapCheck);
 		return meetCapCheck;
+	}
+	//회원 호감도 저장
+	@GetMapping(value = "/memberLike/{memberId}?{takerId}")
+	public int memberLike(@PathVariable int memberId, int takerId) {
+		System.out.println("좋아요 누른 사람 : "+memberId);
+		System.out.println("좋아요 받은 사람 : "+takerId);
+		return 22;
 	}
 
 }

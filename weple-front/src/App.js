@@ -46,7 +46,10 @@ function App() {
               <Mypage isLogin={isLogin} setIsLogin={setIsLogin} setId={setId} />
             }
           />
-          <Route path="/feed/*" element={<Feed isLogin={isLogin} id={id} />} />
+          <Route
+            path="/feed/*"
+            element={<Feed isLogin={isLogin} isAdmin={isAdmin} />}
+          />
           <Route
             path="/meet/*"
             element={
@@ -77,7 +80,7 @@ function App() {
           <Route path="/findPw" element={<FindPw />} />
           {/* <Route path="/category" element={<Category />} /> */}
           <Route path="/review/*" element={<ReviewMain isLogin={isLogin} />} />
-          <Route path="*" element={<Main />} />
+          <Route path="*" element={<Main isLogin={isLogin} />} />
         </Routes>
       </div>
       <Footer />

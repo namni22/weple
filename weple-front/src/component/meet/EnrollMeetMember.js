@@ -46,15 +46,15 @@ const EnrollMeetMember = (props) => {
               })}
             </tbody>
           </table>
+          <div>
+            <Pagination
+              reqPage={reqPage}
+              setReqPage={setReqPage}
+              pageInfo={pageInfo}
+            />
+          </div>
         </>
       )}
-      <div>
-        <Pagination
-          reqPage={reqPage}
-          setReqPage={setReqPage}
-          pageInfo={pageInfo}
-        />
-      </div>
     </div>
   );
 };

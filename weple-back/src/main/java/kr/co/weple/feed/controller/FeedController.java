@@ -3,7 +3,6 @@ package kr.co.weple.feed.controller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +20,6 @@ import kr.co.weple.FileUtil;
 import kr.co.weple.feed.model.service.FeedService;
 import kr.co.weple.feed.model.vo.FComment;
 import kr.co.weple.feed.model.vo.FImage;
-import kr.co.weple.feed.model.vo.FLike;
 import kr.co.weple.feed.model.vo.Feed;
 
 @RestController

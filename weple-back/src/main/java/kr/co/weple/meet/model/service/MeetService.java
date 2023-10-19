@@ -1,5 +1,6 @@
 package kr.co.weple.meet.model.service;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -127,8 +128,26 @@ public class MeetService {
 			return 0;
 		}
 	}
-	
-	
+	/*
+	 	@Transactional
+	public int deleteMember(int memberNo, int meetNo) {
+		//필요한 값 
+		//모임 번호 : meetNo, 모임번호로 조회된 meetMargin 
+		//meetMargin +1 
+		int meetMargin = meetDao.selectMeetMargin(meetNo);
+		int newMargin = meetMargin + 1;
+		int meetTotalCount = meetDao.disCount(meetNo,newMargin);//업데이트 meetMargin
+		int deleteResult = meetDao.deleteMember(memberNo,meetNo);//모임회원 삭제
+		System.out.println("서비스 deleteResult : "+deleteResult);
+		System.out.println("서비스meetTotalCount : "+meetTotalCount);
+		if(meetTotalCount == 1 && deleteResult == 1) {
+			return 1;
+		}else {
+			
+			return 0;
+		}
+	}
+	 * */
 
 	public Map circleList(int reqPage, int meetCategory) {
 		// TODO Auto-generated method stub
@@ -185,12 +204,7 @@ public class MeetService {
 		
 		return meetDao.selectOneMeet(meetNo);
 	}
-	//메인페이지에 참여인원 순 모임 조회
-	public List meetMargin() {
-		// TODO Auto-generated method stub
-		List list = meetDao.meetMargin();
-		return list;
-	}
+	
 
 	public Map meetChatList(int meetNo) {
 		List meetChat = meetDao.meetChatList(meetNo);
@@ -198,6 +212,7 @@ public class MeetService {
 		map.put("meetChat", meetChat);
 		return map;
 	}
+/*********************************메인페이지 모임조회*********************************************/
 	//메인페이지에 인기순 모임조회
 	public List meetPopular() {
 		// TODO Auto-generated method stub
@@ -210,11 +225,27 @@ public class MeetService {
 		List list = meetDao.meetNew();
 		return list;
 	}
-	//모임 카테고리 메뉴 조회
-	public List selectSmallCategory(Category category) {
+	//메인페이지에 참여인원 순 모임 조회
+		public List meetMargin() {
+			// TODO Auto-generated method stub
+			List list = meetDao.meetMargin();
+			return list;
+		}
+	
+	//메인페이지에 선호카테고리순 모임조회
+	public List meetCategory(String memberId) {
 		// TODO Auto-generated method stub
-		List smallCategoryList = meetDao.smallCategoryList(category);
-		return smallCategoryList;
+		String getMemberCategory = meetDao.getMemberCategory(memberId);
+		List memberCategoryArr = Arrays.asList(getMemberCategory.split(","));
+		List list = meetDao.meetCategory(memberCategoryArr);
+		return list;
+	}	
+/********************************************************************************************/	
+	//모임 카테고리 메뉴 조회
+		public List selectSmallCategory(Category category) {
+			// TODO Auto-generated method stub
+			List smallCategoryList = meetDao.smallCategoryList(category);
+			return smallCategoryList;
 	}
 	//내모임회원 추방
 	@Transactional
@@ -322,6 +353,9 @@ public class MeetService {
 		map.put("meetCapCheck",meetCapCheck);		
 		return map;
 	}
+
+
+	
 
 
 	
