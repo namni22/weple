@@ -14,6 +14,7 @@ const FeedList = (props) => {
   const [start, setStart] = useState(1);
   const isLogin = props.isLogin;
   const [loadList, setLoadList] = useState(0); //useEffect용
+  const isAdmin = props.isAdmin;
 
   const amount = 9;
   useEffect(() => {
@@ -61,6 +62,7 @@ const FeedList = (props) => {
               isLogin={isLogin}
               loadList={loadList}
               setLoadList={setLoadList}
+              isAdmin={isAdmin}
             />
           );
         })}
@@ -77,6 +79,7 @@ const FeedContent = (props) => {
   const isLogin = props.isLogin;
   const loadList = props.loadList;
   const setLoadList = props.setLoadList;
+  const isAdmin = props.isAdmin;
   const navigate = useNavigate();
   const list = feed.imageList.map((img, index) => {
     return <img src={"/feed/" + img?.fimageName} />;
@@ -291,6 +294,10 @@ const FeedContent = (props) => {
         isLogin={isLogin}
         feedWriter={feed.feedWriter}
         deleteEvent={deleteEvent}
+        isAdmin={isAdmin}
+        feedNo={feed.feedNo}
+        reportTypeValue={2}
+        reportType={2}
       />
       <FeedComment
         isOpen={cmtIsOpen}
@@ -311,6 +318,7 @@ const FeedContent = (props) => {
         isLogin={isLogin}
         loadList={loadList}
         setLoadList={setLoadList}
+        isAdmin={isAdmin}
       />
     </div>
   );

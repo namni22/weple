@@ -46,7 +46,10 @@ function App() {
               <Mypage isLogin={isLogin} setIsLogin={setIsLogin} setId={setId} />
             }
           />
-          <Route path="/feed/*" element={<Feed isLogin={isLogin} id={id} />} />
+          <Route
+            path="/feed/*"
+            element={<Feed isLogin={isLogin} isAdmin={isAdmin} />}
+          />
           <Route
             path="/meet/*"
             element={

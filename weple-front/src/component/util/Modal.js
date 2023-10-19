@@ -162,8 +162,6 @@ const changeValue = (e) => {
     }
   };
   const handleClickCancel = () => {
-    setReportType(reportType);
-    setReportTypeValue();
     onCancel();
   };
   useEffect(() => {
@@ -269,6 +267,10 @@ const MoreModal = (props) => {
   const modifyEvent = props.modifyEvent;
   const isLogin = props.isLogin;
   const feedWriter = props.feedWriter;
+  const isAdmin = props.isAdmin;
+  const feedNo = props.feedNo;
+  const reportTypeValue = props.reportTypeValue;
+  const reportType = props.reportType;
   const [memberId, setMemberId] = useState("");
   const token = window.localStorage.getItem("token");
 
@@ -332,6 +334,13 @@ const MoreModal = (props) => {
               <Button3 text="삭제" clickEvent={deleteEvent} />
             </div>
           </div>
+        ) : isAdmin ? (
+          <div className="modal-select">
+            <div>
+              <span className="material-icons">delete</span>
+              <Button3 text="삭제" clickEvent={deleteEvent} />
+            </div>
+          </div>
         ) : (
           <div className="modal-select">
             <div>
@@ -349,6 +358,11 @@ const MoreModal = (props) => {
         isOpen={reportIsOpen}
         onCancel={reportCancel}
         onSubmit={reportSubmit}
+        isLogin={isLogin}
+        reportItemNo={feedNo}
+        reportMemberId={feedWriter}
+        reportTypeValue={reportTypeValue}
+        reportType={reportType}
       />
     </ReactModal>
   );

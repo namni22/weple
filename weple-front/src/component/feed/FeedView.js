@@ -30,6 +30,7 @@ const FeedView = (props) => {
   const isLogin = props.isLogin;
   const closeView = props.closeView;
   const feedNo = props.feedNo;
+  const isAdmin = props.isAdmin;
   const [feed, setFeed] = useState({});
   const [feedBox, setFeedBox] = useState([]);
   const [memberId, setMemberId] = useState();
@@ -139,6 +140,10 @@ const FeedView = (props) => {
         isLogin={isLogin}
         feedWriter={feed.feedWriter}
         deleteEvent={deleteEvent}
+        isAdmin={isAdmin}
+        feedNo={feed.feedNo}
+        reportTypeValue={2}
+        reportType={2}
       />
       <div className="feed-view">
         <div className="feed-view-top">
@@ -164,22 +169,6 @@ const FeedView = (props) => {
           feedBox={feedBox}
           closeView={closeView}
         />
-        {/* <div className="feed-title">comment</div>
-        <CommentWrap
-          feedNo={feedNo}
-          commentList={feed.fcomment}
-          isLogin={isLogin}
-          fCommentContent={fCommentContent}
-          setFCommentContent={setFCommentContent}
-          fCommentRefNo={fCommentRefNo}
-          setFCommentRefNo={setFCommentRefNo}
-          rcmId={rcmId}
-          setRcmId={setRcmId}
-          load={load}
-          setLoad={setLoad}
-          memberId={memberId}
-          memberImage={memberImage}
-        /> */}
         <Button1 text="닫기" clickEvent={closeView} />
       </div>
     </ReactModal>
