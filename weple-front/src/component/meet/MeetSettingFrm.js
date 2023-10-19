@@ -389,7 +389,7 @@ const MeetSettingFrm = (props) => {
                                     <div key={"meetPrepare" + index} className="meetMaterials-one">
                                         <span>{meetPrepare}</span>
                                         <span
-                                            class="material-icons delete-meetPrepare"
+                                            className="material-icons delete-meetPrepare"
                                             onClick={() => {
                                                 deleteMeetPrepare(meetPrepareList, index);
                                             }}
@@ -461,8 +461,8 @@ const Postcode = (props) => {
 
         //지도를 미리 생성
         // map2 = new daum.maps.Map(mapContainer, mapOption);
-        const test = new daum.maps.Map(document.getElementById('map'), mapOption);
-        setWorldMap(test);
+        const newMap = new daum.maps.Map(document.getElementById('map'), mapOption);
+        setWorldMap(newMap);
         //지오코더 선언 자리 이동
         //마커를 미리 생성
         // marker = new daum.maps.Marker({
@@ -472,7 +472,7 @@ const Postcode = (props) => {
         setMarker(
             new daum.maps.Marker({
                 position: new daum.maps.LatLng(33.450701, 126.570667),
-                map: test
+                map: newMap
             })
         );
 
@@ -532,9 +532,9 @@ const Postcode = (props) => {
             <Input type="text" data={meetAddress2} setData={setMeetAddress2} content="meetAddress2" placeholder="상세주소" />
 
             <div id="map" style={{
-                width: "500px",
+                width: "640px",
                 height: "500px",
-                // display: "none"
+                display: "none"
             }}></div>
         </div>
 
