@@ -62,7 +62,7 @@ const MyFeedItem = (props) => {
         {myFeed.imageList === null ? (
           <img src="/img/testImg_01.png" />
         ) : (
-          <img src={"/feed/" + myFeedImg[0].fimageName} />
+          <img src={"/feed/" + myFeedImg[0]?.fimageName} />
         )}
       </div>
     </div>

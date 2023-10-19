@@ -14,7 +14,7 @@ const FeedModify = (props) => {
   //DB에서 불러온 파일을 띄우기 위한 배열
   const imgArr = [];
   for (let i = 0; i < feed.imageList.length; i++) {
-    imgArr.push(<img src={feed.imageList[i].fimageName} />);
+    imgArr.push(<img src={feed.imageList[i]?.fimageName} />);
   }
   const [feedBox, setFeedBox] = useState(imgArr);
   const [deleteImg, setDeleteImg] = useState([]); //삭제파일 state 추가

@@ -4,7 +4,7 @@ import "./review.css";
 import "./reviewList.css";
 import axios from "axios";
 import { Link, Route, Routes } from "react-router-dom";
-import ReviewWrite from "./ReviewWrite";
+
 const starRating = () => {
   const result = [];
   for (let i = 0; i < 5; i++) {
@@ -109,6 +109,7 @@ const ReviewComponent = (props) => {
   const reviewContent = props.review?.reviewContent.replaceAll("<br>", "\r\n");
   const memberId = props.review?.memberId;
   const rimageName = "/review/" + props.review?.rimageName;
+  const memberImage = "/review/" + props.review?.memberImage;
   // console.log("리뷰에서~" + props.review);
   // console.log(props.review);
   return (
@@ -117,7 +118,7 @@ const ReviewComponent = (props) => {
         <img src={rimageName}></img>
       </div>
       <div className="review-profile">
-        <img src="\img\profile_default.png" className="review-img"></img>
+        <img src={memberImage} className="review-img"></img>
         <span className="review-name">{memberId}</span>
       </div>
       <div className="review-content simple">{reviewContent}</div>

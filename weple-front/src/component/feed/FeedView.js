@@ -65,7 +65,7 @@ const FeedView = (props) => {
         const imgArr = [];
         for (let i = 0; i < res.data.imageList.length; i++) {
           imgArr.push(
-            <img src={"/feed/" + res.data.imageList[i].fimageName} />
+            <img src={"/feed/" + res.data.imageList[i]?.fimageName} />
           );
         }
         setFeedBox(imgArr);
