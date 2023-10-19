@@ -39,6 +39,9 @@ const FeedView = (props) => {
   const [fCommentRefNo, setFCommentRefNo] = useState(null);
   const [rcmId, setRcmId] = useState(""); //답글남길 아이디 띄우기
   const [load, setLoad] = useState(0); //useEffect용
+  ///////////////////////////////////////////////////////////////////////
+  const reviewNo = props.reviewNo;
+  const [review, setReview] = useState({});
 
   const token = window.localStorage.getItem("token");
   useEffect(() => {

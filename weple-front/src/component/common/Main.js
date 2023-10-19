@@ -3,15 +3,13 @@ import { MeetItem } from "../meet/MeetList";
 import SwiperComponent from "../util/Swiper";
 import "./main.css";
 import { useEffect, useState } from "react";
-
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FeedContent } from "../feed/FeedList";
-import ReviewList from "../review/ReviewList";
-import Payment from "../payment/Payment";
 
 const Main = () => {
   const imgList = ["./img/main_1.jpg", "./img/main_2.jpg"];
+
   const list = imgList.map((item, index) => {
     return <img src={item} key={"mainSwiper" + index}></img>;
   });
@@ -28,13 +26,13 @@ const Main = () => {
         delButton={false}
       />
       {/* 비로그인 */}
+      <MeetMain meetSet={"meetCategory"} meetTitle={"이 모임은 어때요?"} />
       <MeetMain meetSet={"meetPopular"} meetTitle={"주간 인기 TOP 30 👑"} />
       <MeetMain meetSet={"meetMargin"} meetTitle={"마감임박!"} />
-      <FeedMain />
+      {/* <FeedMain /> */}
       <MeetMain meetSet={"meetNew"} meetTitle={"신규개설"} />
       {/* 로그인 */}
-      {/* <MeetMain meetSet={"meetMargin"} meetTitle={"이 모임은 어때요?"} />
-      <MeetMain meetSet={"meetMargin"} meetTitle={"마감임박!"} />
+      {/*<MeetMain meetSet={"meetMargin"} meetTitle={"마감임박!"} />
       <MeetMain meetSet={"meetMargin"} meetTitle={"신규개설"} /> */}
     </div>
   );
@@ -49,10 +47,10 @@ const MeetMain = (props) => {
     axios
       .get("/meet/" + meetSet)
       .then((res) => {
-        setMeetMain(res.data.slice(0, 4));
+        setMeetMain(res.data?.slice(0, 4));
       })
       .catch((res) => {
-        console.log(res.data.status);
+        console.log(res.data?.status);
       });
   }, []);
   return (
