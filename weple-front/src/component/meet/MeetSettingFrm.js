@@ -436,25 +436,45 @@ const Postcode = (props) => {
     //주소-좌표 변환 객체를 생성
     var geocoder = new daum.maps.services.Geocoder();
 
-    let mapContainer;
-    let map;
-    let marker;
-    var mapOption;
+    // let mapContainer;
+    // let map;
+    // let marker;
+    // var mapOption;
+
+    const [mapContainer, setMapContainer] = useState({});
+    const [worldMap, setWorldMap] = useState({});
+    const [marker, setMarker] = useState({});
+    const [mapOption, setMapOption] = useState({
+        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 5 // 지도의 확대 레벨
+    });
+
+
     //처음 진행할때는 map이라는 아이디를가진 div가 존재하지 않기때문에 useEffect 안에 넣음
     useEffect(() => {
-        mapContainer = document.getElementById('map'); // 지도를 표시할 div
-        mapOption = {
-            center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-            level: 5 // 지도의 확대 레벨
-        };
+        // mapContainer = document.getElementById('map'); // 지도를 표시할 div
+        setMapContainer(document.getElementById('map'))
+        // mapOption = {
+        //     center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        //     level: 5 // 지도의 확대 레벨
+        // };
+
         //지도를 미리 생성
-        map = new daum.maps.Map(mapContainer, mapOption);
+        // map2 = new daum.maps.Map(mapContainer, mapOption);
+        const test = new daum.maps.Map(document.getElementById('map'), mapOption);
+        setWorldMap(test);
         //지오코더 선언 자리 이동
         //마커를 미리 생성
-        marker = new daum.maps.Marker({
-            position: new daum.maps.LatLng(33.450701, 126.570667),
-            map: map
-        });
+        // marker = new daum.maps.Marker({
+        //     position: new daum.maps.LatLng(33.450701, 126.570667),
+        //     map: map2
+        // });
+        setMarker(
+            new daum.maps.Marker({
+                position: new daum.maps.LatLng(33.450701, 126.570667),
+                map: test
+            })
+        );
 
     }, [])
     function postcodeFunction() {
@@ -468,7 +488,11 @@ const Postcode = (props) => {
                 document.getElementById("sample5_address").value = addr;
                 setMeetAddress1(addr);
                 console.log("검색 결과 : ", addr);
+                console.log("if문 동작확인을위한 맵컨테이너", mapContainer);
+                // mapContainer = document.getElementById('map'); // 지도를 표시할 div
+                setMapContainer(document.getElementById('map'));
 
+                console.log(worldMap);
                 if (mapContainer) {
                     // 주소로 상세 정보를 검색
                     geocoder.addressSearch(data.address, function (results, status) {
@@ -480,11 +504,10 @@ const Postcode = (props) => {
                             // 해당 주소에 대한 좌표를 받아서
                             var coords = new daum.maps.LatLng(result.y, result.x);
                             // 지도를 보여준다.
-                            console.log("맵 컨테이너", mapContainer);
                             mapContainer.style.display = "block";
-                            map.relayout();
+                            worldMap.relayout();
                             // 지도 중심을 변경한다.
-                            map.setCenter(coords);
+                            worldMap.setCenter(coords);
                             // 마커를 결과값으로 받은 위치로 옮긴다.
                             marker.setPosition(coords)
                             console.log("코더 : ", coords);
