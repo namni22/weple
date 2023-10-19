@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 const AdminReport = () => {
 
   const [toggleIdx, setToggleIdx] = useState(-1);
-
   const [reportList, setReportList] = useState([]);
   const [pageInfo, setPageInfo] = useState({});
   const [reqPage, setReqPage] = useState(1);
@@ -136,7 +135,7 @@ const ReportItem = (props) => {
           </div>
           <div className="boardlist-btn-box">
             <div>
-              <Button2 text="이동" ></Button2>
+              <Button2 text="이동"></Button2>
             </div>
             <div>
               <Button1 text="점수 깎기"></Button1>
