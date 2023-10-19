@@ -28,6 +28,9 @@ const MeetView = (props) => {
   const [followerStatus, setFollowerStatus] = useState({});
   const meetNo = myMeet.meetNo;
 
+  //모임에 이미 가입한 상태인지 알아보는 변수
+  const [isMeetMember, setIsMeetMember] = useState(null);
+
   useEffect(() => {
     axios
       .get("/meet/memberStatus/" + myMeet.meetNo, {
@@ -55,6 +58,29 @@ const MeetView = (props) => {
       .catch((res) => {
         console.log("catch : " + res.response.status);
       });
+
+    if (isLogin) {
+
+      //로그인이 되어있다면 로그인멤버가 모임멤버인지 조회해오기
+      //모임멤버라면 해당 follower 리턴 아직 멤버가 아니라면 null 리턴
+      const meet = location.state.m;
+      axios
+        .post("/meet/isMeetMember", meet, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          // console.log("isMeetMember res.data : ", res.data);
+          setIsMeetMember(res.data);
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+
+      //가입 대기 상태라면 모임가입 버튼 비활성화하도록 db에서 가입상태 가져오기
+    }
+
   }, []);
 
   //  console.log("view", myMeet);
@@ -105,31 +131,6 @@ const MeetView = (props) => {
         ""
       )}
 
-      {/* 
-      {isLogin && captainCheck === id ? (
-        <AfterMeetSubNavi
-          meetMenu={meetMenu}
-          setMeetMenu={setMeetMenu}
-          meetMenu2={meetMenu2}
-          setMeetMenu2={setMeetMenu2}
-          meetNo={meetNo}
-          captainCheck={captainCheck}
-          setCaptainCheck={setCaptainCheck}
-        />
-      ) : isLogin && followerStatus ? (
-        <AfterMeetSubNavi
-          meetMenu={meetMenu}
-          setMeetMenu={setMeetMenu}
-          meetMenu2={meetMenu2}
-          setMeetMenu2={setMeetMenu2}
-          meetNo={meetNo}
-          captainCheck={captainCheck}
-          setCaptainCheck={setCaptainCheck}
-        ></AfterMeetSubNavi>
-      ) : (
-        ""
-      )} */}
-
       <Routes>
         <Route
           path="enrollMeetMember"
@@ -177,6 +178,9 @@ const MeetView = (props) => {
               myMeet={myMeet}
               isLogin={isLogin}
               meetCaptain={meetCaptain}
+
+              isMeetMember={isMeetMember}
+              setIsMeetMember={setIsMeetMember}
             />
           }
         />
@@ -219,7 +223,7 @@ const AfterMeetMain = (props) => {
           <p>{myMeet.meetContentS}</p>
         </div>
         <div className="afterMeet-member-count">
-          {myMeet.meetMargin}/{myMeet.meetTotal}명
+          {myMeet.meetTotal - myMeet.meetMargin}/{myMeet.meetTotal}명
         </div>
       </div>
     </div>
