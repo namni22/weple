@@ -151,10 +151,10 @@ public class MeetController {
 	}
 	
 	//updateEnrollMember
-	@PostMapping(value = "/updateEnrollMember")
-	public int updateEnrollMember(@RequestBody Follower enroll) {
+	@PostMapping(value = "/updateEnrollMember/{meetNo}")
+	public int updateEnrollMember(@RequestBody Follower enroll,@PathVariable int meetNo) {
 		System.out.println(enroll);
-		int result = meetService.updateEnrollMember(enroll.getMemberNo());
+		int result = meetService.updateEnrollMember(enroll.getMemberNo(),meetNo);
 		return result;
 	}
 	//모임 카테고리 조회
@@ -262,7 +262,8 @@ public class MeetController {
 	public int deleteMember(@PathVariable int meetNo,@RequestBody Follower memberList) {
 		System.out.println("11111111111111111111111111111 : "+meetNo);
 		int result = meetService.deleteMember(memberList.getMemberNo(),meetNo);
-		return 0;
+		System.out.println("컨트롤러 : "+ result);
+		return result;
 	}
 	//모임 내 맴버 호감도 올리기
 		@PostMapping(value = "/memberLike")
@@ -315,4 +316,5 @@ public class MeetController {
 		System.out.println("meetCapcheck : "+meetCapCheck);
 		return meetCapCheck;
 	}
+
 }

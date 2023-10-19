@@ -9,12 +9,16 @@ import { ReportModal } from "../util/Modal";
 
 const MeetMemberList = (props) => {
   const myMeet = props.myMeet;
+  const setMyMeet = props.setMyMeet;
+  console.log("props로 받은 미팅 리스트 myMeet : ", myMeet);
+  console.log("props로 받은 미팅 리스트 setmyMeet : ", setMyMeet);
   const id = props.id;
   const captainCheck = props.captainCheck;
   console.log("captainCheck : ", captainCheck);
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
   const [meetMember, setMeetMember] = useState([]);
+
   const [reqPage, setReqPage] = useState(1);
   const [pageInfo, setPageInfo] = useState({});
   console.log("모임회원리스트 : ", meetMember);
@@ -47,6 +51,8 @@ const MeetMemberList = (props) => {
                     id={id}
                     meetNo={myMeet.meetNo}
                     captainCheck={captainCheck}
+                    myMeet={myMeet}
+                    setMyMeet={setMyMeet}
                   />
                 );
               })}
@@ -69,14 +75,16 @@ const MemberList = (props) => {
   const meetMember = props.meetMember;
   const setMeetMember = props.setMeetMember;
   const captainCheck = props.captainCheck;
+  const setMyMeet = props.setMyMeet;
+  const myMeet = props.myMeet;
   //const isOpen = props.isOpen;
   //const setOpen = props.setOpen;
   const id = props.id;
   const meetNo = props.meetNo;
   const reportItemNo = props.meetNo;
   const [disable, setDisable] = useState("");
-  const [reportTypeValue, setReportTypeValue] = useState(1);
-  const [reportType, setReportType] = useState(1);
+  const [reportTypeValue, setReportTypeValue] = useState(0);
+  const [reportType, setReportType] = useState(0);
   const handleClick = () => setOpen(true);
   const [isOpen, setOpen] = useState(false);
   // console.log("모달 전달 전 memberList.memberId : ", memberList);
@@ -140,16 +148,34 @@ const MemberList = (props) => {
         axios
           .post("/meet/deleteMember/" + meetNo, memberList)
           .then((res) => {
+            console.log(res.data);
             if (res.data === 1) {
               const newArr = meetMember.filter((newMeetMember) => {
                 return newMeetMember.memberNo !== memberList.memberNo;
               });
               setMeetMember(newArr);
+
+              axios
+                .get("/meet/selectOneMeet/" + meetNo)
+                .then((res) => {
+                  console.log(res.data);
+                  setMyMeet(res.data);
+                })
+                .catch((res) => {
+                  console.log(res.response.status);
+                });
+              //console.log("onMeet : ", oneMeet);
+              //setMyMeet(oneMeet);
+
               Swal.fire("탈퇴 완료하였습니다.", "회원탈퇴 완료", "success");
+              //setMyMeet(newMargin);
+            } else {
+              Swal.fire("탈퇴 실패하였습니다.", "회원탈퇴 실패", "error");
             }
-            Swal.fire("탈퇴 실패하였습니다.", "회원탈퇴 실패", "error");
           })
-          .catch((res) => {});
+          .catch((res) => {
+            console.log(res.response.status);
+          });
       }
     });
   };
