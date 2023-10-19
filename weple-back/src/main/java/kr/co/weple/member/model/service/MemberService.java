@@ -132,6 +132,10 @@ public class MemberService {
 		return memberDao.meetJoined(memberNo);
 	}
 
+	public List myMeet(String memberId) {
+		return memberDao.myMeet(memberId);
+	}
+
 
 
 	
