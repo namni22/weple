@@ -11,7 +11,7 @@ import EnrollMeetMember from "./EnrollMeetMember";
 import axios from "axios";
 
 const MeetView = (props) => {
-  console.log("view 렌더링");
+  // console.log("view 렌더링");
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
   const id = props.id;
@@ -19,7 +19,7 @@ const MeetView = (props) => {
   const location = useLocation();
   useEffect(() => {
     //   console.log(location.state.m);
-    console.log("myMeet set");
+    // console.log("myMeet set");
     setMyMeet(location.state.m);
   }, [props]);
   const [myMeet, setMyMeet] = useState({});
@@ -27,9 +27,8 @@ const MeetView = (props) => {
   const token = window.localStorage.getItem("token");
   const [followerStatus, setFollowerStatus] = useState({});
   const meetNo = myMeet.meetNo;
-  //console.log("멤버스테이트에 필요한 meetNo : ", meetNo);
+
   useEffect(() => {
-    console.log("asdf", myMeet);
     axios
       .get("/meet/memberStatus/" + myMeet.meetNo, {
         headers: {
@@ -37,7 +36,7 @@ const MeetView = (props) => {
         },
       })
       .then((res) => {
-        console.log("팔로워 status : ", res);
+        // console.log("팔로워 status : ", res);
         setFollowerStatus(res.data.followerStatus);
       })
       .catch((res) => {
@@ -50,7 +49,7 @@ const MeetView = (props) => {
     axios
       .post("/meet/selectOneMember", { memberId: location.state.m.meetCaptain })
       .then((res) => {
-        console.log("캡틴체크", res.data);
+        // console.log("캡틴체크", res.data);
         setMeetCaptain(res.data);
       })
       .catch((res) => {
@@ -165,7 +164,6 @@ const AfterMeetMain = (props) => {
   const myMeet = props.myMeet;
   const meetCaptain = props.meetCaptain;
 
-  //console.log(myMeet);
   return (
     <div className="afterMeet-main-wrap">
       <div className="afterMeet-main-thumbnail">
@@ -230,7 +228,8 @@ const AfterMeetSubNavi = (props) => {
         //    console.log(res.response.status);
       });
   }, [props]);
-  console.log("사이드 렌더링", captainCheck);
+  // console.log("렌더링", captainCheck);
+
   const activeTab = (index) => {
     meetMenu.forEach((item) => {
       item.active = false;

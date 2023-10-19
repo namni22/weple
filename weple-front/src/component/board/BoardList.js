@@ -6,52 +6,8 @@ import Pagination from "../common/Pagination";
 import { Button1, Button2 } from "../util/Button";
 import Swal from "sweetalert2";
 
-// var BoardState = false;
-// const ToggleBoardView = (props) => {
-//     // const navigate = useNavigate();
-
-//     const board = props.board;
-//     const boardContent = props.boardContent;
-//     const member = props.member;
-
-//     const modify = () => {
-//         // navigate("/board/modify", { state: { board: board } });
-//       };
-//     BoardState = !BoardState;
-
-//     console.log("ToggleBoardView member", member !== null + " _ " + member);
-
-//     if (BoardState) {
-//         var innerDiv = document.createElement('div');
-//         innerDiv.className = 'board-view-wrap';        
-//         var innerP = document.createElement('p');
-//         innerP.innerHTML = boardContent;
-
-//         innerDiv.appendChild(innerP);
-
-//         document.getElementById("board-list-li-wrap").appendChild(innerDiv);
-
-//         <div className="board-view-btn-zone">
-//         {
-//           member && member.memberNo === board.boardWriter ? (
-//             <>
-//               <Button2 text="수정" />
-//               <Button2 text="삭제" />
-//             </>
-//           ) : (
-//             <>
-//               <Button2 text="ff" />
-//               <Button2 text="dd" />
-//             </>
-//           )
-//         }        
-//         </div>
-//     }
-//     else {
-//         var innerDivs = document.getElementsByClassName("board-view-wrap");
-//         document.getElementById("board-list-li-wrap").removeChild(innerDivs[0]);
-//     }
-// }
+const tabTypeList = [{ boardType : 99, name : "전체"}, { boardType : 0, name : "관리자"}, { boardType : 1, name : "정회원"}, { boardType : 2, name : "블랙리스트"}];
+const testmap = { name : "dongmin", age : 33, name : "yeojung"};
 
 const BoardAll = (props) => {
     const member = props.member;
@@ -61,8 +17,6 @@ const BoardAll = (props) => {
     const [reqPage, setReqPage] = useState(1);
     const [pageInfo, setPageInfo] = useState({});
     const [boardType, setBoardType] = useState(99);
-
-    console.log("BoardAll : " + boardType);
 
     useEffect(() => {
         console.log("BoardAll axios : " + boardType + ", reqPage : " + reqPage);
@@ -80,7 +34,7 @@ const BoardAll = (props) => {
 
     return (
         <div>
-            <BoardTab setBoardType={setBoardType} setReqPage={setReqPage} />
+            <BoardTab boardType={boardType} setBoardType={setBoardType} setReqPage={setReqPage} setToggleIdx={setToggleIdx} />
             <div className="board-list-wrap">
                 <ul className="board-list">
                     <li id="board-list-li-wrap">
@@ -120,16 +74,46 @@ const BoardItem = (props) => {
     const style = {
         backgroundColor: board.boardType === 0 ? "#2D31FA" : (board.boardType === 1 ? "#5D8BF4" : "#ededed")
     }
+    
 
     const changeToggle = (e) => {
-        setToggleIdx(index);
-
+        if(index === toggleIdx){
+            setToggleIdx(-1);
+        }else{
+            setToggleIdx(index);
+        }
         console.log("board key : " + index);
     }
     const modify = () => {
         navigate("/board/modify", { state: { board: board } });
     }
-    console.log("boardList 1018 : ", board)
+    const deleteBoard = () => {
+        Swal.fire({
+            icon: "warning",
+            text: "게시글을 삭제하시겠습니까?",
+            showCancelButton: true,
+            confirmButtonText: "삭제",
+            cancelButtonText: "취소",
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+
+        }).then((res) => {
+            if (res.isConfirmed) {
+
+                axios
+                    .get("/board/delete/" + board.boardNo)
+                    .then((res) => {
+                        console.log(res.data);
+                        if (res.data === 1) {
+                            navigate("/");
+                        }
+                    })
+                    .catch((res) => {
+                        console.log(res.response.status);
+                    });
+            }
+        });
+    }
     if (index === toggleIdx) {
         return (
             <div>
@@ -148,7 +132,7 @@ const BoardItem = (props) => {
                             <Button2 text="수정" clickEvent={modify}></Button2>
                         </div>
                         <div>
-                            <Button1 text="삭제"></Button1>
+                            <Button1 text="삭제" clickEvent={deleteBoard}></Button1>
                         </div>
                     </div>
                 </div>
@@ -157,7 +141,7 @@ const BoardItem = (props) => {
     }
     else {
         return (
-            <div className="board-list-title-wrap" onClick={changeToggle}>
+            <div className="board-list-title-wrap" onClick={changeToggle} >
                 <div className="board-list-tab" style={style}>
                     {board.boardType === 0 ? "공지사항" : (board.boardType === 1 ? "이벤트" : "FAQ")}
                 </div>
@@ -169,19 +153,33 @@ const BoardItem = (props) => {
 };
 
 const BoardTab = (props) => {
+    const titlestyle = {
+        color: "#2D31FA",
+        fontWeight: "900"
+    }
+
     const OnClickBoardTab = (inBoardType) => {
+        console.log("OnClickBoardTab : " + inBoardType);
         props.setBoardType(inBoardType);
         props.setReqPage(1);
+        props.setToggleIdx(-1);
     }
+
+    console.log("props.boardType : " + props.boardType);
 
     return (
         <div className="board-tab-wrap">
             {/* 클릭이벤트 걸어서 component 걸기 */}
-
-            <span className="board-active-tab" onClick={() => { OnClickBoardTab(99) }}>전체</span>
-            <span className="board-active-tab" onClick={() => { OnClickBoardTab(0) }}>공지</span>
-            <span className="board-active-tab" onClick={() => { OnClickBoardTab(1) }}>이벤트</span>
-            <span className="board-active-tab" onClick={() => { OnClickBoardTab(2) }}>자주묻는질문</span>
+            {tabTypeList.map((tabData, index) => {
+                if(tabData.boardType === props.boardType)
+                {
+                    return <span className="board-active-tab" style={titlestyle} onClick={() => { OnClickBoardTab(tabData.boardType) }}> {tabData.name} </span>
+                }
+                else
+                {
+                    return <span className="board-active-tab" onClick={() => { OnClickBoardTab(tabData.boardType) }}> {tabData.name} </span>
+                }            
+          })}
         </div>
     )
 }

@@ -24,7 +24,6 @@ const MeetInfo = (props) => {
   const [meetPrepareList, setMeetPrepareList] = useState([]);
 
   useEffect(() => {
-    console.log("useEffect isMeetMember  작동");
     setMeet(props.myMeet);
     if (props.myMeet.meetPrepare) {
       setMeetPrepareList(props.myMeet.meetPrepare.split("/"));
@@ -40,7 +39,7 @@ const MeetInfo = (props) => {
           },
         })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           setLoginMember(res.data);
         })
         .catch((res) => {});
@@ -54,7 +53,7 @@ const MeetInfo = (props) => {
           },
         })
         .then((res) => {
-          console.log("isMeetMember res.data : ", res.data);
+          // console.log("isMeetMember res.data : ", res.data);
           setIsMeetMember(res.data);
         })
         .catch((res) => {
@@ -64,13 +63,6 @@ const MeetInfo = (props) => {
       //가입 대기 상태라면 모임가입 버튼 비활성화하도록 db에서 가입상태 가져오기
     }
   }, [props]);
-  // console.log(meetPrepareList);
-  // console.log(isLogin);
-  // console.log("모임 : ", meet);
-  // console.log("모임 번호 : ", meet.meetNo);
-  // console.log("팔로워 isMeetMember :  ", isMeetMember);
-  // console.log("팔로워 객체안 : ", isMeetMember.meetNo);
-  // console.log("팔로워 스테이터스 : ", isMeetMember.followerStatus);
 
   //로그인 이후 모임가입하기 버튼 클릭시 작동하는 함수
   const meetJoin = () => {
@@ -126,7 +118,7 @@ const MeetInfo = (props) => {
     // console.log("meetModyfy버튼 클릭시 전달되는 meet : ", meet);
     navigate("/meet/meetModify", { state: { meet: meet } });
   };
-  console.log("리턴바로위 isMeetMember : ", isMeetMember);
+
   return (
     <div className="meetInfo-all-wrap">
       <Review
@@ -136,6 +128,8 @@ const MeetInfo = (props) => {
         reviewStar={meet.reviewStar}
         reviewCount={meet.reviewCount}
       />
+      {console.log("리뷰 전 isMeetmeme")}
+      {console.log(isMeetMember)}
       <div className="meetInfo-content">
         <div className="meetInfo-content-area">
           <div className="meetInfo-content-title">모임소개</div>
@@ -184,10 +178,12 @@ const MeetInfo = (props) => {
             ) : isMeetMember ? ( //객체 가져와져있는지부터 확인
               // <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
               // isMesetMember가 있을때"
-              isMeetMember.followerStatus === 1 ? ( //현재 가입이 승인되어있는가?
+
+              isMeetMember?.followerStatus === 1 ? ( //현재 가입이 승인되어있는가?
                 //현재 followerStatus == 1 일때
                 <div>
-                  <div>{isMeetMember.followerStatus}</div>
+                  <div>{isMeetMember?.followerStatus}</div>
+
                   <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
                 </div>
               ) : (
@@ -197,11 +193,6 @@ const MeetInfo = (props) => {
             ) : (
               //isMeetMember가 비어있을때
               <div>
-                {/**
-                  * 
-                <div>{isMeetMember.followerStatus}</div>
-                */}
-
                 <Button1 text="모임가입하기" clickEvent={meetJoin} />
               </div>
             )

@@ -1,17 +1,10 @@
+import Swal from "sweetalert2";
 import { Button2 } from "../util/Button";
 import SwiperComponent from "../util/Swiper";
 import "./review.css";
-const starRating = () => {
-  const result = [];
-  for (let i = 0; i < 5; i++) {
-    result.push(
-      <span className="material-icons" key={"starRating" + i}>
-        grade
-      </span>
-    );
-  }
-  return result;
-};
+import Rating from "@mui/material/Rating";
+import { useEffect, useState } from "react";
+
 const ReviewWriteFrm = (props) => {
   const reviewContent = props.reviewContent;
   const setReviewContent = props.setReviewContent;
@@ -23,33 +16,49 @@ const ReviewWriteFrm = (props) => {
   const deleteImg = props.deleteImg;
   const setDeleteImg = props.setDeleteImg;
   const rimageNoList = props.rimageNoList;
+  const setReviewStar = props.setReviewStar;
+  const reviewStar = props.reviewStar;
   console.log(rimageNoList);
 
+  //이미지파일변경
   const changeFile = (e) => {
     const Imgs = e.currentTarget.files;
     if (Imgs.length !== 0 && Imgs[0] !== 0) {
       const arr = [...rImage]; //파일객체 더해주기
       const arrBox = [...reviewBox]; //화면객체 더해주기
-
-      for (let i = 0; i < Imgs.length; i++) {
-        arr.push(Imgs[i]);
-        const reader = new FileReader();
-        reader.readAsDataURL(Imgs[i]);
-        reader.onload = () => {
-          arrBox.push(<img src={reader.result}></img>);
-          setReviewBox([...arrBox]);
-        };
-        setRImage([...arr]);
+      if (Imgs.length > 10 || Imgs.length + arr.length > 10) {
+        Swal.fire({
+          icon: "error",
+          text: "최대 10장까지 업로드 가능합니다",
+          confirmButtonText: "확인",
+        });
+      } else {
+        for (let i = 0; i < Imgs.length; i++) {
+          arr.push(Imgs[i]);
+          const reader = new FileReader();
+          reader.readAsDataURL(Imgs[i]);
+          reader.onload = () => {
+            arrBox.push(<img src={reader.result}></img>);
+            setReviewBox([...arrBox]);
+          };
+          setRImage([...arr]);
+        }
       }
     } else {
       setReviewBox([]);
       setRImage([]);
     }
+    e.currentTarget.value = null;
   };
 
   const changeContent = (e) => {
     const changeValue = e.currentTarget.value;
-    setReviewContent(changeValue);
+    const changeEnter = changeValue.replace(/(?:\r\n|\r|\n)/g, "<br>");
+    const changeSpace = changeEnter.replace(/\s{2,}/gi, " ");
+    setReviewContent(changeSpace);
+    if (changeSpace === " ") {
+      setReviewContent(reviewContent.replace(/\s/gi, ""));
+    }
   };
   return (
     <div className="review-write-wrap">
@@ -58,13 +67,16 @@ const ReviewWriteFrm = (props) => {
           <img src="./img/profile_default.png"></img>
         </div>
         <div className="star-rating">
-          {/* <div
-            className="star-rating-fill"
-            style={{ width: (3 / 5) * 100 + "%" }}
-          >
-            {starRating()}
-          </div> */}
-          <div className="star-rating-base">{starRating()}</div>
+          <Rating
+            name="half-rating"
+            defaultValue={5}
+            precision={0.5}
+            value={reviewStar}
+            onChange={(event, newValue) => {
+              setReviewStar(newValue);
+              // console.log(value);?
+            }}
+          />
         </div>
       </div>
       <div className="file-box">

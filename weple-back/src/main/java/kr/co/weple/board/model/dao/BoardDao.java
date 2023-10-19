@@ -22,5 +22,7 @@ public interface BoardDao {
 	int totalCountByBoardType(int boardType);
 
 	int modify(Board b);
+
+	int deleteBoard(int boardNo);
 	
 }

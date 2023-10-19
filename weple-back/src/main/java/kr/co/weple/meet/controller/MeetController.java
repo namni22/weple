@@ -132,9 +132,10 @@ public class MeetController {
 		System.out.println("수정 썸네일 : "+meetThumbnail);
 		System.out.println("수정 멤버아이디 : "+memberId);
 		
-		int result = meetService.modifyMeet(meet);
+//		int result = meetService.modifyMeet(meet);
+//		return result;
+		return 0;
 		
-		return result;
 	}
 	
 	//모임생성 에디터 사진 추가
@@ -218,7 +219,7 @@ public class MeetController {
 		Member loginMember = memberService.selectOneMember(memberId);
 		System.out.println("로그인 회원 번호 : "+loginMember.getMemberNo());
 		Follower follower= meetService.isMeetMember(loginMember.getMemberNo(),meet.getMeetNo());
-		System.out.println("팔로워 :  "+follower);
+		System.out.println("isMeetMember 컨트롤 동작 팔로워 :  "+follower);
 		return follower;
 	}
 	
@@ -301,8 +302,8 @@ public class MeetController {
 	//사이드바 유무에 필요한 회원상태 정보
 	@GetMapping(value = "/memberStatus/{meetNo}")
 	public Follower memberStatus(@PathVariable int meetNo,@RequestAttribute String memberId) {
-		System.out.println("멤버정보 필요한 모임번호 : "+meetNo);
-		System.out.println("멤버정보 필요한 멤버번호 : "+memberId);
+//		System.out.println("멤버정보 필요한 모임번호 : "+meetNo);
+//		System.out.println("멤버정보 필요한 멤버번호 : "+memberId);
 		Follower followerStatus = meetService.status(meetNo,memberId);
 		return followerStatus;
 	}

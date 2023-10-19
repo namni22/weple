@@ -40,3 +40,8 @@
   height: 370px;
   object-fit: cover;
 }
+.main-wrap .feed-list-more-btn,
+.main-wrap .feed-list-top,
+.main-wrap .feed-list-content-btn {
+  display: none;
+}

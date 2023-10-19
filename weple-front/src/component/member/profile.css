@@ -106,7 +106,10 @@
   margin: 0 auto;
 }
 
-.myFeed-content {
+/* MyFeed */
+
+.myFeed-content,
+.myMeet-content {
   width: 100%;
 }
 
@@ -125,4 +128,74 @@
 
 .myfeed-content-more-btn > button {
   margin: 30px 0;
+}
+
+/* MyMeet */
+
+.myMeet-content-title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #2d31fa;
+  margin-bottom: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.myMeet-content-title > img {
+  transform: rotate(90deg);
+  height: 28px;
+}
+
+.myMeet-content-item {
+  overflow: hidden;
+}
+
+.myMeetJoined-item {
+  float: left;
+  display: flex;
+  width: calc(100% / 2);
+  align-items: center;
+}
+
+.myMeetJoined-img {
+  width: 25%;
+}
+
+.myMeetJoined-img > img {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+}
+
+.myMeetJoined-info {
+  width: 75%;
+  padding: 0 30px 0 10px;
+}
+
+.myMeetJoined-info > div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.myMeetJoined-title {
+  font-weight: bold;
+  margin-bottom: 30px;
+  font-size: 18px;
+}
+
+.myMeetJoined-captain {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+}
+
+.myMeetJoined-total {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+}
+
+.myMeetJoined-captain > img,
+.myMeetJoined-total > img {
+  margin-right: 5px;
 }

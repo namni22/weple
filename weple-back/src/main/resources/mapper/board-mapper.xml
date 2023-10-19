@@ -64,4 +64,7 @@
 			board_Content = #{boardContent}
 		where board_no = #{boardNo}
 	</update>
+	<delete id="deleteBoard">
+		delete from board where board_no = #{boardNo}
+	</delete>
 </mapper>

@@ -43,7 +43,8 @@ const ReviewList = (props) => {
       .catch((res) => {
         console.log(res.data);
       });
-  }, [meetNo]);
+  }, [start]);
+
   const useMore = (e) => {
     setStart(start + amount);
   };
@@ -90,6 +91,7 @@ const ReviewListComponent = (props) => {
   const isLogin = props.isLogin;
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const reviewContent = review.reviewContent.replaceAll("<br>", "\r\n");
   //더보기 버튼모달
   const moreModal = () => {
     if (isLogin) {
@@ -118,6 +120,7 @@ const ReviewListComponent = (props) => {
     }).then((res) => {
       setIsOpen(false);
       if (res.isConfirmed) {
+        console.log("isconfirmed" + review.reviewNo);
         axios
           .get("/review/delete/" + review.reviewNo)
           .then((res) => {
@@ -147,10 +150,13 @@ const ReviewListComponent = (props) => {
       <div className="reviewlist-component-top">
         <div className="review-profile">
           <img
-            src="\img\profile_default.png"
+            src={"/member/" + review.memberImage}
             className="review-profile-img"
           ></img>
-          <span className="review-name">{review.memberId}</span>
+          <div>
+            <div className="review-name">{review.memberId}</div>
+            <div className="review-date">{review.reviewDate}</div>
+          </div>
           <div className="star-rating">
             <div
               className="star-rating-fill"
@@ -174,14 +180,11 @@ const ReviewListComponent = (props) => {
         />
       </div>
       <div className="review-img">
-        <img></img>
-
-        <img></img>
-        <img></img>
-        <img></img>
-        <img></img>
+        {review.imageList.map((img, index) => {
+          return <img src={"/review/" + img.rimageName} />;
+        })}
       </div>
-      <div className="review-content">{review.reviewContent}</div>
+      <div className="review-content">{reviewContent}</div>
     </div>
   );
 };

@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 const MeetModify = () => {
     const location = useLocation();
     const meet = location.state.meet;
-    console.log("meet 수정", meet);
+
 
     const [meetTitle, setMeetTitle] = useState(meet.meetTitle);
     const [meetContentS, setMeetContentS] = useState(meet.meetContentS);
@@ -26,7 +26,8 @@ const MeetModify = () => {
     //썸네일
     const [meetThumbnail, setMeetThumbnail] = useState(null);
     // 썸네일 미리보기
-    const [meetThumbnailPreview, setMeetThumbnailPreview] = useState(meet.meetThumbnailPreview);
+    const [meetThumbnailPreview, setMeetThumbnailPreview] = useState(meet.meetThumbNail);
+
     // 준비물 리스트 추가용
     const [meetPrepare, setMeetPrepare] = useState(meet.meetPrepare);
     const [meetPrepareList, setMeetPrepareList] = useState(meet.meetPrepareList);
@@ -40,6 +41,8 @@ const MeetModify = () => {
 
     //수정완료 버튼 눌럿을때 동작할 함수
     const meetModifyBtn = () => {
+        console.log("meet 수정전체", meet);
+
         console.log("수정완료버튼 눌럿을때");
         console.log("모임번호 : " + meet.meetNo);
         console.log("모임제목 : " + meetTitle);
@@ -47,7 +50,8 @@ const MeetModify = () => {
         console.log("모임한줄설명 : " + meetContentS);
         console.log("모임디테일설명 : " + meetContentD);
         console.log("모임인원 :" + meetTotal);
-        console.log("썸네일 : " + meetThumbnail);
+        console.log("썸네일 : ", meetThumbnail);
+        console.log("썸네일 미리보기 : ", meetThumbnailPreview);
         console.log("준비물 : " + meetPrepareList);
         console.log("카테고리번호 : " + meetCategory);
         console.log("모임주소1  : " + meetAddress1);
@@ -59,7 +63,7 @@ const MeetModify = () => {
             meetDate !== "" &&
             meetTotal !== "" &&
             meetContentS !== "" &&
-            meetThumbnail !== null &&
+            // meetThumbnail !== null &&
             meetAddress1 !== ""
         ) {
             const form = new FormData();
@@ -69,7 +73,8 @@ const MeetModify = () => {
             form.append("meetContentS", meetContentS);
             form.append("meetContentD", meetContentD);
             form.append("meetTotal", meetTotal);
-            form.append("meetThumbnail", meetThumbnail);
+            form.append("meetThumbNail", meetThumbnail);
+            form.append("meetThumbNailPreview", meetThumbnailPreview)
             form.append("meetPrepareList", meetPrepareList);
             form.append("meetCategory", meetCategory);
             form.append("meetAddress1", meetAddress1);

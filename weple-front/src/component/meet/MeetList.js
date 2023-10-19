@@ -6,6 +6,7 @@ import Pagination from "../common/Pagination";
 import { useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import MeetMemberList from "./MeetMemberList";
 
 const MeetList = (props) => {
   //로그인상태 불러올곳 ( 모임생성버튼이 이곳에 있다면 버튼을 위해서 )
@@ -132,6 +133,7 @@ const MeetList = (props) => {
           reqPage={reqPage}
           setReqPage={setReqPage}
           pageInfo={pagenfo}
+          setData={setMeetList}
         />
       </div>
     </div>
@@ -145,7 +147,7 @@ const MeetItem = (props) => {
   const isLogin = props.isLogin;
   // 상세보기로 이동하는 함수
   const meetView = () => {
-    console.log("클릭하기 전 값 : ", meet, meet.meetNo);
+    // console.log("클릭하기 전 값 : ", meet, meet.meetNo);
     navigate("/meet/meetList/View", {
       state: { m: meet },
     }); //이동할곳 state로 데이터 전송

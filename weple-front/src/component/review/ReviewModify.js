@@ -75,7 +75,8 @@ const ReviewModify = (props) => {
         deleteImg={deleteImg}
         setDeleteImg={setDeleteImg}
         type="modify"
-        const
+        setReviewStar={setReviewStar}
+        reviewStar={reviewStar}
         rimageNoList={rimageNoList}
       />
     </div>
