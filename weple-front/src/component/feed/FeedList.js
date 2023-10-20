@@ -67,9 +67,7 @@ const FeedList = (props) => {
           );
         })}
       </div>
-      <button defaultValue={1} onClick={useFeedMore}>
-        더보기
-      </button>
+      <Button1 defaultValue={1} clickEvent={useFeedMore} text="더보기" />
     </div>
   );
 };
