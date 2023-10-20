@@ -36,6 +36,7 @@ const FeedComment = (props) => {
   const [load, setLoad] = useState(0); //useEffect용
   const loadList = props.loadList;
   const setLoadList = props.setLoadList;
+  const memberGrade = props.memberGrade;
 
   const token = window.localStorage.getItem("token");
   useEffect(() => {
@@ -93,6 +94,7 @@ const FeedComment = (props) => {
             memberImage={memberImage}
             loadList={loadList}
             setLoadList={setLoadList}
+            memberGrade={memberGrade}
           />
         </div>
       </div>
@@ -116,6 +118,7 @@ const CommentWrap = (props) => {
   const memberImage = props.memberImage;
   const loadList = props.loadList;
   const setLoadList = props.setLoadList;
+  const memberGrade = props.memberGrade;
 
   return (
     <>
@@ -138,6 +141,7 @@ const CommentWrap = (props) => {
                         feedNo={feedNo}
                         loadList={loadList}
                         setLoadList={setLoadList}
+                        memberGrade={memberGrade}
                       />
                       <div className="feed-comment-re-wrap">
                         {commentList.map((reComment, index) => {
@@ -155,6 +159,7 @@ const CommentWrap = (props) => {
                                   type="reCmt"
                                   loadList={loadList}
                                   setLoadList={setLoadList}
+                                  memberGrade={memberGrade}
                                 />
                               ) : (
                                 ""
@@ -177,7 +182,7 @@ const CommentWrap = (props) => {
           </div>
         )}
       </div>
-      {isLogin ? (
+      {isLogin && memberGrade !== 2 ? (
         <CommentFrm
           feedNo={feedNo}
           fCommentContent={fCommentContent}
@@ -211,6 +216,7 @@ const CommentList = (props) => {
   const type = props.type;
   const loadList = props.loadList;
   const setLoadList = props.setLoadList;
+  const memberGrade = props.memberGrade;
 
   //좋아요내역 불러오기
   const [userLike, setUserLike] = useState();
@@ -335,12 +341,14 @@ const CommentList = (props) => {
               <div>
                 좋아요 <span>{comment.totalCommentLike}</span>개
               </div>
-              {isLogin && type !== "reCmt" ? (
+              {isLogin && type !== "reCmt" && memberGrade != 2 ? (
                 <div onClick={reComemtEvent}>답글달기</div>
               ) : (
                 ""
               )}
-              {isLogin && memberId == comment.fcommentWriter ? (
+              {isLogin &&
+              memberId == comment.fcommentWriter &&
+              memberGrade !== memberGrade ? (
                 <div onClick={deleteComment}>삭제</div>
               ) : (
                 ""

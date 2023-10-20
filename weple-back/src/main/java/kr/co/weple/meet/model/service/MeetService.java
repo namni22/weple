@@ -18,6 +18,7 @@ import kr.co.weple.meet.model.vo.Category;
 import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.meet.model.vo.Meet;
 import kr.co.weple.meet.model.vo.WishList;
+import kr.co.weple.member.model.dao.MemberDao;
 import kr.co.weple.member.model.vo.Member;
 
 @Service
@@ -26,6 +27,8 @@ public class MeetService {
 	private MeetDao meetDao;
 	@Autowired
 	private Pagination pagination;
+	@Autowired
+	private MemberDao memberDao;
 	
 	public Map myMeetList(int reqPage) {
 		//내가 창설한 모임 리스트 조회, 페이징에 필요한 데이터 취합
@@ -291,7 +294,6 @@ public class MeetService {
 
 	public Map meetCapCheck(int meetNo, String memberId) {
 		Meet meetCapCheck= meetDao.meetCapCheck(meetNo,memberId);
-		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("meetCapCheck",meetCapCheck);		
 		return map;
@@ -350,7 +352,6 @@ public class MeetService {
 
 
 	//------------------캘린더---------------------
-	//		Meet m = meetDao.selectOneMeet(cal.getMeetNo());
 	@Transactional
 	public int addcalendar(Calendar cal) {
 			return  meetDao.addCalendar(cal);
@@ -370,6 +371,13 @@ public class MeetService {
 	@Transactional
 	public int modifyCalendar(Calendar cal) {
 		return meetDao.modifyCalendar(cal);
+	}
+	public boolean captainCk(int meetNo, String memberId) {
+		Meet meet = meetDao.selectOneMeet(meetNo);
+		if(meet.getMeetCaptain().equals(memberId)) {
+			return true;
+		}
+		return false;
 	}
 
 
