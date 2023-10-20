@@ -40,18 +40,19 @@ public class MeetService {
 		
 	}
 
-	public Map enrollMember(int reqPage,int meetNo) {
-		int numPerPage	= 10;
+	public Map enrollMember(int reqPage,int meetNo, String memberId) {
+		int numPerPage	= 5;
 		int pageNaviSize = 5;
 		int totalCount = meetDao.enrollMemberList(meetNo);
 		//System.out.println("totalCount : "+totalCount);
 		
 		PageInfo pi = pagination.getPageInfo(reqPage,numPerPage,pageNaviSize,totalCount);
 		//System.out.println("pi : "+pi);
-		HashMap<String, Integer> param = new HashMap<String, Integer>();
+		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("start", pi.getStart());
 		param.put("end", pi.getEnd());
 		param.put("meetNo",meetNo);
+		param.put("memberId",memberId);
 		List enrollMemberList = meetDao.selectEnrollMemberList(param);
 		//System.out.println("enrollMemberList : "+enrollMemberList);
 		HashMap<String, Object> map = new HashMap<String,Object>();
@@ -83,18 +84,19 @@ public class MeetService {
 		return result;
 	}
 
-	public Map meetMemberList(int reqPage, int meetNo) {
-		int numPerPage	= 12;
+	public Map meetMemberList(int reqPage, int meetNo, String memberId) {
+		int numPerPage	= 5;
 		int pageNaviSize = 5;
 		int totalCount = meetDao.meetMemberList(meetNo);
 		System.out.println("totalCount : "+totalCount);
 		
 		PageInfo pi = pagination.getPageInfo(reqPage,numPerPage,pageNaviSize,totalCount);
 		System.out.println("pi : "+pi);
-		HashMap<String, Integer> param = new HashMap<String, Integer>();
+		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("start", pi.getStart());
 		param.put("end", pi.getEnd());
 		param.put("meetNo",meetNo);
+		param.put("memberId",memberId);
 		List selectMeetMemberList = meetDao.selectMeetMemberList(param);
 		System.out.println("selectMeetMemberList : "+selectMeetMemberList);
 		HashMap<String, Object> map = new HashMap<String,Object>();
@@ -352,6 +354,40 @@ public class MeetService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("meetCapCheck",meetCapCheck);		
 		return map;
+	}
+	@Transactional
+	public Map memberLikeStatus(String memberId, int takerNo, int meetNo, int reqPage) {
+		int giverNo = meetDao.selectMemberNo(memberId);
+		int result = meetDao.insertMemberLike(giverNo,takerNo,meetNo);
+		if(result >0) {
+			int numPerPage	= 5;
+			int pageNaviSize = 5;
+			int totalCount = meetDao.meetMemberList(meetNo);
+			System.out.println("totalCount : "+totalCount);
+			PageInfo pi = pagination.getPageInfo(reqPage,numPerPage,pageNaviSize,totalCount);
+			System.out.println("pi : "+pi);
+			HashMap<String, Object> param = new HashMap<String, Object>();
+			param.put("start", pi.getStart());
+			param.put("end", pi.getEnd());
+			param.put("meetNo",meetNo);
+			param.put("memberId",memberId);
+			List selectMeetMemberList = meetDao.selectMeetMemberList(param);
+			System.out.println("selectMeetMemberList : "+selectMeetMemberList);
+			HashMap<String, Object> map = new HashMap<String,Object>();
+			map.put("selectMeetMemberList",selectMeetMemberList);
+			map.put("pi",pi);
+			return map;
+		}
+		return null;
+	}
+
+	public String Like(String memberId, int meetNo) {
+		int memberNo = meetDao.selectMemberNo(memberId);
+		List list = meetDao.like(memberNo,meetNo);
+		if(list.size()!=0) {
+			return "true";
+		}
+		return "";
 	}
 
 

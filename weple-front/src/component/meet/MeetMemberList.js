@@ -16,13 +16,18 @@ const MeetMemberList = (props) => {
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
   const [meetMember, setMeetMember] = useState([]);
-
+  const [userLike, setUserLike] = useState();
   const [reqPage, setReqPage] = useState(1);
   const [pageInfo, setPageInfo] = useState({});
+  const token = window.localStorage.getItem("token");
   console.log("모임회원리스트 : ", meetMember);
   useEffect(() => {
     axios
-      .get("/meet/meetMember/" + reqPage + "?meetNo=" + myMeet.meetNo)
+      .get("/meet/meetMember/" + reqPage + "?meetNo=" + myMeet.meetNo, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
       .then((res) => {
         setMeetMember(res.data.selectMeetMemberList);
         setPageInfo(res.data.pi);
@@ -46,11 +51,15 @@ const MeetMemberList = (props) => {
                     // setOpen={setOpen}
                     meetMember={meetMember}
                     setMeetMember={setMeetMember}
-                    id={id}
+                    //id={id}
                     meetNo={myMeet.meetNo}
                     myMeet={myMeet}
                     setMyMeet={setMyMeet}
                     isLogin={isLogin}
+                    userLike={userLike}
+                    setUserLike={setUserLike}
+                    reqPage={reqPage}
+                    setPageInfo={setPageInfo}
                   />
                 );
               })}
@@ -61,6 +70,7 @@ const MeetMemberList = (props) => {
               reqPage={reqPage}
               setReqPage={setReqPage}
               pageInfo={pageInfo}
+              setData={setMeetMember}
             />
           </div>
         </>
@@ -75,9 +85,9 @@ const MemberList = (props) => {
 
   const setMyMeet = props.setMyMeet;
   const myMeet = props.myMeet;
-  //const isOpen = props.isOpen;
-  //const setOpen = props.setOpen;
-  const id = props.id;
+  const reqPage = props.reqPage;
+  const setPageInfo = props.setPageInfo;
+
   const meetNo = props.meetNo;
   const reportItemNo = props.meetNo;
   const [disable, setDisable] = useState("");
@@ -85,10 +95,11 @@ const MemberList = (props) => {
   const [reportType, setReportType] = useState(0);
   const handleClick = () => setOpen(true);
   const [isOpen, setOpen] = useState(false);
-  // console.log("모달 전달 전 memberList.memberId : ", memberList);
+
   const isLogin = props.isLogin;
   const [memberId, setMemberId] = useState("");
   const token = window.localStorage.getItem("token");
+
   useEffect(() => {
     if (isLogin) {
       axios
@@ -133,16 +144,27 @@ const MemberList = (props) => {
               console.log("호감도를 누르고 성공한 data : ", res.data);
               if (res.data === 1) {
                 console.log("memberId : ", memberId);
-                console.log("memeberList.Id : ", memberList.memberId);
+                console.log("memeberList.Id : ", memberList.memberNo);
+                const token = window.localStorage.getItem("token");
                 axios
                   .get(
-                    "/meet/memberLike/" +
-                      memberId +
-                      "?takerId=" +
-                      memberList.memberId
+                    "/meet/memberLikeStatus/" +
+                      reqPage +
+                      "?meetNo=" +
+                      meetNo +
+                      "?takerNo=" +
+                      memberList.memberNo,
+                    {
+                      headers: {
+                        Authorization: "Bearer " + token,
+                      },
+                    }
                   )
                   .then((res) => {
                     console.log(res.data);
+                    setMeetMember(res.data.selectMeetMemberList);
+                    setPageInfo(res.data.pi);
+                    setDisable(true);
                   })
                   .catch((res) => {
                     console.log(res.response.status);
@@ -155,7 +177,6 @@ const MemberList = (props) => {
                     "님의 호감도를 올렸습니다.",
                   icon: "success",
                 });
-                setDisable(true);
               } else {
                 Swal.fire({
                   text: "실패하였습니다.",
@@ -236,11 +257,18 @@ const MemberList = (props) => {
         </div>
       </td>
       <td width="60%">
-        <div className="meetMemberList-name">{memberList.memberId}</div>
+        <div className="meetMemberList-name">
+          {memberList.memberId}
+          <span>님</span>
+        </div>
       </td>
       <td width="35%">
         <div className="meetMemberList-btn-wrap">
-          <Button2 text={"호감도"} clickEvent={likeEvent} disable={disable} />
+          {memberList.isLike === 0 ? (
+            <Button2 text={"호감도"} clickEvent={likeEvent} disable={disable} />
+          ) : (
+            <Button2 text={"호감도"} clickEvent={likeEvent} disable={true} />
+          )}
           <Button2 text={"신고"} clickEvent={reportEvent} />
 
           {myMeet.meetCaptain === memberId ? (
