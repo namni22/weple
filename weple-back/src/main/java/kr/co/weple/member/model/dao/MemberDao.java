@@ -45,6 +45,8 @@ public interface MemberDao {
 
 	int delete(String memberId);
 
+	String getMemberCategory(String memberId);
+
 
 	
 
