@@ -1,6 +1,5 @@
 package kr.co.weple.member.model.service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.weple.JwtUtil;
 import kr.co.weple.Pagination;
+import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.member.model.dao.MemberDao;
 import kr.co.weple.member.model.vo.Member;
 import kr.co.weple.review.model.vo.Report;
@@ -149,6 +149,14 @@ public class MemberService {
 		String getMemberCategory = memberDao.getMemberCategory(memberId);
 		List list = Arrays.asList(getMemberCategory.split(","));
 		return list;
+	}
+
+	public boolean isMember(String memberId,int meetNo) {
+		// TODO Auto-generated method stub
+		Follower follower = memberDao.isMember(memberId,meetNo);
+		System.out.println("follower 맞는지? :"+follower);
+		boolean result = false;
+		return result;
 	}
 
 

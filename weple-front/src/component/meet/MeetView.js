@@ -99,7 +99,7 @@ const MeetView = (props) => {
     { url: "meetList", text: "멤버목록", active: false },
   ]);
 
-  console.log("meetCapttain 아이디 : ", myMeet.meetCaptain);
+  // console.log("meetCapttain 아이디 : ", myMeet.meetCaptain);
   const [memberId, setMemberId] = useState("");
 
   useEffect(() => {
@@ -321,7 +321,7 @@ const AfterMeetSubNavi = (props) => {
         },
       })
       .then((res) => {
-        console.log("방장체크 : ", res.data);
+        // console.log("방장체크 : ", res.data);
         setCaptainCheck(res.data.meetCapCheck);
         //   console.log("방장체크 captainCheck : ", captainCheck);
       })

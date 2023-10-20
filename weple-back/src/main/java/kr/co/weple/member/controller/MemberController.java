@@ -204,5 +204,10 @@ public class MemberController {
 		List list = memberService.getMemberCategory(memberId);
 		return list;
 	}
-	
+	@PostMapping(value="isMember")
+	public boolean isMember(@RequestBody int meetNo,@RequestAttribute String memberId) {
+		System.out.println("controller 도착");
+		boolean result = memberService.isMember(memberId,meetNo);
+		return result;
+	}
 }
