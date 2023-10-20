@@ -3,15 +3,9 @@ import "./header.css";
 
 const Header = (props) => {
   const isLogin = props.isLogin;
-  const setIsLogin = props.setIsLogin;
   const isAdmin = props.isAdmin;
-  console.log("header", isLogin, setIsLogin);
+  console.log("isLogin : ", isLogin, "isAdmin : ", isAdmin);
   const setId = props.setId;
-  // const logout = () => {
-  //   window.localStorage.removeItem("token");
-  //   setIsLogin(false);
-  //   setId("");
-  // };
   return (
     <div className="header">
       <div className="header-inner">
@@ -46,7 +40,7 @@ const Header = (props) => {
           {isLogin ? (
             isAdmin ? (
               <div className="icon-wrap">
-                <Link to="/admin">
+                <Link to="/admin/boardList">
                   <div className="material-icons admin">
                     admin_panel_settings
                   </div>

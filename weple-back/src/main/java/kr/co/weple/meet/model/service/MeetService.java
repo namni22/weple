@@ -1,5 +1,6 @@
 package kr.co.weple.meet.model.service;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.weple.PageInfo;
 import kr.co.weple.Pagination;
+import kr.co.weple.feed.model.vo.Feed;
 import kr.co.weple.meet.model.dao.MeetDao;
 import kr.co.weple.meet.model.vo.Calendar;
 import kr.co.weple.meet.model.vo.Category;
@@ -39,18 +41,19 @@ public class MeetService {
 		
 	}
 
-	public Map enrollMember(int reqPage,int meetNo) {
-		int numPerPage	= 10;
+	public Map enrollMember(int reqPage,int meetNo, String memberId) {
+		int numPerPage	= 5;
 		int pageNaviSize = 5;
 		int totalCount = meetDao.enrollMemberList(meetNo);
 		//System.out.println("totalCount : "+totalCount);
 		
 		PageInfo pi = pagination.getPageInfo(reqPage,numPerPage,pageNaviSize,totalCount);
 		//System.out.println("pi : "+pi);
-		HashMap<String, Integer> param = new HashMap<String, Integer>();
+		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("start", pi.getStart());
 		param.put("end", pi.getEnd());
 		param.put("meetNo",meetNo);
+		param.put("memberId",memberId);
 		List enrollMemberList = meetDao.selectEnrollMemberList(param);
 		//System.out.println("enrollMemberList : "+enrollMemberList);
 		HashMap<String, Object> map = new HashMap<String,Object>();
@@ -74,26 +77,28 @@ public class MeetService {
 	
 	//모임수정
 	@Transactional
-	public int modifyMeet(Meet meet) {
+	public Meet modifyMeet(Meet meet) {
 		// TODO Auto-generated method stub
 		
 		int result = meetDao.modifyMeet(meet);
+		Meet newMeet= meetDao.selectOneMeet(meet.getMeetNo());
 		
-		return result;
+		return newMeet;
 	}
 
-	public Map meetMemberList(int reqPage, int meetNo) {
-		int numPerPage	= 12;
+	public Map meetMemberList(int reqPage, int meetNo, String memberId) {
+		int numPerPage	= 5;
 		int pageNaviSize = 5;
 		int totalCount = meetDao.meetMemberList(meetNo);
 		System.out.println("totalCount : "+totalCount);
 		
 		PageInfo pi = pagination.getPageInfo(reqPage,numPerPage,pageNaviSize,totalCount);
 		System.out.println("pi : "+pi);
-		HashMap<String, Integer> param = new HashMap<String, Integer>();
+		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("start", pi.getStart());
 		param.put("end", pi.getEnd());
 		param.put("meetNo",meetNo);
+		param.put("memberId",memberId);
 		List selectMeetMemberList = meetDao.selectMeetMemberList(param);
 		System.out.println("selectMeetMemberList : "+selectMeetMemberList);
 		HashMap<String, Object> map = new HashMap<String,Object>();
@@ -116,10 +121,37 @@ public class MeetService {
 		return map;
 	}
 	@Transactional
-	public int updateEnrollMember(int memberNo) {
-		// TODO Auto-generated method stub
-		return meetDao.updateEnrollMember(memberNo);
+	public int updateEnrollMember(int memberNo, int meetNo) {	
+		int meetMargin = meetDao.selectMeetMargin(meetNo);
+		int newMargin = meetMargin - 1;
+		int meetTotalCount = meetDao.disCount(meetNo,newMargin);//업데이트 meetMargin
+		int updateResult = meetDao.updateEnrollMember(memberNo,meetNo);
+		if(meetTotalCount == 1 && updateResult == 1) {
+			return 1;
+		}else {			
+			return 0;
+		}
 	}
+	/*
+	 	@Transactional
+	public int deleteMember(int memberNo, int meetNo) {
+		//필요한 값 
+		//모임 번호 : meetNo, 모임번호로 조회된 meetMargin 
+		//meetMargin +1 
+		int meetMargin = meetDao.selectMeetMargin(meetNo);
+		int newMargin = meetMargin + 1;
+		int meetTotalCount = meetDao.disCount(meetNo,newMargin);//업데이트 meetMargin
+		int deleteResult = meetDao.deleteMember(memberNo,meetNo);//모임회원 삭제
+		System.out.println("서비스 deleteResult : "+deleteResult);
+		System.out.println("서비스meetTotalCount : "+meetTotalCount);
+		if(meetTotalCount == 1 && deleteResult == 1) {
+			return 1;
+		}else {
+			
+			return 0;
+		}
+	}
+	 * */
 
 	public Map circleList(int reqPage, int meetCategory) {
 		// TODO Auto-generated method stub
@@ -176,12 +208,7 @@ public class MeetService {
 		
 		return meetDao.selectOneMeet(meetNo);
 	}
-	//메인페이지에 참여인원 순 모임 조회
-	public List meetMargin() {
-		// TODO Auto-generated method stub
-		List list = meetDao.meetMargin();
-		return list;
-	}
+	
 
 	public Map meetChatList(int meetNo) {
 		List meetChat = meetDao.meetChatList(meetNo);
@@ -189,6 +216,7 @@ public class MeetService {
 		map.put("meetChat", meetChat);
 		return map;
 	}
+/*********************************메인페이지 모임조회*********************************************/
 	//메인페이지에 인기순 모임조회
 	public List meetPopular() {
 		// TODO Auto-generated method stub
@@ -201,17 +229,45 @@ public class MeetService {
 		List list = meetDao.meetNew();
 		return list;
 	}
+	//메인페이지에 참여인원 순 모임 조회
+		public List meetMargin() {
+			// TODO Auto-generated method stub
+			List list = meetDao.meetMargin();
+			return list;
+		}
+	
+//	//메인페이지에 선호카테고리순 모임조회
+//	public List meetCategory(String memberId) {
+//		// TODO Auto-generated method stub
+//		String getMemberCategory = meetDao.getMemberCategory(memberId);
+//		List list = meetDao.meetCategory();
+//		return list;
+//	}	
+/********************************************************************************************/	
 	//모임 카테고리 메뉴 조회
-	public List selectSmallCategory(Category category) {
-		// TODO Auto-generated method stub
-		List smallCategoryList = meetDao.smallCategoryList(category);
-		return smallCategoryList;
+		public List selectSmallCategory(Category category) {
+			// TODO Auto-generated method stub
+			List smallCategoryList = meetDao.smallCategoryList(category);
+			return smallCategoryList;
 	}
 	//내모임회원 추방
 	@Transactional
-	public int deleteMember(int memberNo) {
-		// TODO Auto-generated method stub
-		return meetDao.deleteMember(memberNo);
+	public int deleteMember(int memberNo, int meetNo) {
+		//필요한 값 
+		//모임 번호 : meetNo, 모임번호로 조회된 meetMargin 
+		//meetMargin +1 
+		int meetMargin = meetDao.selectMeetMargin(meetNo);
+		int newMargin = meetMargin + 1;
+		int meetTotalCount = meetDao.disCount(meetNo,newMargin);//업데이트 meetMargin
+		int deleteResult = meetDao.deleteMember(memberNo,meetNo);//모임회원 삭제
+		System.out.println("서비스 deleteResult : "+deleteResult);
+		System.out.println("서비스meetTotalCount : "+meetTotalCount);
+		if(meetTotalCount == 1 && deleteResult == 1) {
+			return 1;
+		}else {
+			
+			return 0;
+		}
 	}
 	//모임 내 회원 호감도
 	@Transactional
@@ -263,29 +319,6 @@ public class MeetService {
 	}
 
 
-	//------------------캘린더---------------------
-	@Transactional
-	public int addcalendar(Calendar cal, String memberId) {
-		Meet m = meetDao.selectOneMeet(cal.getMeetNo());
-		if(m.getMeetCaptain().equals(memberId)) {
-			return  meetDao.addCalendar(cal);
-		}
-		return 0;
-	}
-
-	public List calendarList(int meetNo) {
-		return meetDao.calendarList(meetNo);
-	}
-	
-	@Transactional
-	public int removeCalendar(int calNo, int meetNo, String memberId) {
-		Meet m = meetDao.selectOneMeet(meetNo);
-		if(m.getMeetCaptain().equals( memberId)) {
-		return meetDao.removeCalendar(calNo);
-		}
-		return 0;
-	}
-
 	public Follower status(int meetNo, String memberId) {
 		int selectMemberNo = meetDao.selectMemberNo(memberId);
 		Follower followStatus = meetDao.status(meetNo,selectMemberNo);
@@ -300,6 +333,67 @@ public class MeetService {
 		map.put("meetCapCheck",meetCapCheck);		
 		return map;
 	}
+	@Transactional
+	public Map memberLikeStatus(String memberId, int takerNo, int meetNo, int reqPage) {
+		int giverNo = meetDao.selectMemberNo(memberId);
+		int result = meetDao.insertMemberLike(giverNo,takerNo,meetNo);
+		if(result >0) {
+			int numPerPage	= 5;
+			int pageNaviSize = 5;
+			int totalCount = meetDao.meetMemberList(meetNo);
+			System.out.println("totalCount : "+totalCount);
+			PageInfo pi = pagination.getPageInfo(reqPage,numPerPage,pageNaviSize,totalCount);
+			System.out.println("pi : "+pi);
+			HashMap<String, Object> param = new HashMap<String, Object>();
+			param.put("start", pi.getStart());
+			param.put("end", pi.getEnd());
+			param.put("meetNo",meetNo);
+			param.put("memberId",memberId);
+			List selectMeetMemberList = meetDao.selectMeetMemberList(param);
+			System.out.println("selectMeetMemberList : "+selectMeetMemberList);
+			HashMap<String, Object> map = new HashMap<String,Object>();
+			map.put("selectMeetMemberList",selectMeetMemberList);
+			map.put("pi",pi);
+			return map;
+		}
+		return null;
+	}
+
+	public String Like(String memberId, int meetNo) {
+		int memberNo = meetDao.selectMemberNo(memberId);
+		List list = meetDao.like(memberNo,meetNo);
+		if(list.size()!=0) {
+			return "true";
+		}
+		return "";
+	}
+
+
+	//------------------캘린더---------------------
+	//		Meet m = meetDao.selectOneMeet(cal.getMeetNo());
+	@Transactional
+	public int addcalendar(Calendar cal) {
+			return  meetDao.addCalendar(cal);
+	}
+	public List calendarList(int meetNo) {
+		return meetDao.calendarList(meetNo);
+	}
+	@Transactional
+	public int removeCalendar(int calNo) {
+		return meetDao.removeCalendar(calNo);
+	}
+	public Calendar schedule(int calNo) {
+		List list = meetDao.schedule(calNo);
+		Calendar c = (Calendar)list.get(0);
+		return c;
+	}
+	@Transactional
+	public int modifyCalendar(Calendar cal) {
+		return meetDao.modifyCalendar(cal);
+	}
+
+
+	
 
 
 	

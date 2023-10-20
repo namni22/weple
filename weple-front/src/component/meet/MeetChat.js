@@ -14,12 +14,12 @@ const MeetChat = (props) => {
   const [chat, setChat] = useState([]);
   const [chatContent, setChatContent] = useState("");
   const messages = useRef(null);
-  let bool = true;
+  const [bool, setBool] = useState(true);
   useEffect(() => {
     messages.current.scrollIntoView();
     if (bool) {
       window.scrollTo(0, 0);
-      bool = false;
+      setBool(false);
     }
   }, [chat]);
 

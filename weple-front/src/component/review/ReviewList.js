@@ -5,6 +5,9 @@ import axios from "axios";
 import { Button1 } from "../util/Button";
 import Swal from "sweetalert2";
 import { MoreModal } from "../util/Modal";
+//ImageModal
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
 
 const starRating = () => {
   const result = [];
@@ -26,6 +29,7 @@ const ReviewList = (props) => {
   const [reviewList, setReviewList] = useState([]);
   const [start, setStart] = useState(1);
   const isLogin = props.isLogin;
+  const isAdmin = props.isAdmin;
   //리뷰 조회
 
   const amount = 10;
@@ -76,7 +80,11 @@ const ReviewList = (props) => {
       {reviewList.map((item, index) => {
         return (
           <>
-            <ReviewListComponent item={item} isLogin={isLogin} />
+            <ReviewListComponent
+              item={item}
+              isLogin={isLogin}
+              isAdmin={isAdmin}
+            />
           </>
         );
       })}
@@ -89,9 +97,19 @@ const ReviewList = (props) => {
 const ReviewListComponent = (props) => {
   const review = props.item;
   const isLogin = props.isLogin;
+  const isAdmin = props.isAdmin;
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const reviewContent = review.reviewContent.replaceAll("<br>", "\r\n");
+  /////////////////imagemodal
+  const [open, setOpen] = useState(false);
+  const handleOpen = (sendImgUrl) => {
+    setImgUrl(sendImgUrl);
+    setOpen(true);
+  };
+  const handleClose = () => setOpen(false);
+  const [imgUrl, setImgUrl] = useState("");
+
   //더보기 버튼모달
   const moreModal = () => {
     if (isLogin) {
@@ -149,10 +167,9 @@ const ReviewListComponent = (props) => {
     <div className="reviewlist-component">
       <div className="reviewlist-component-top">
         <div className="review-profile">
-          <img
-            src={"/member/" + review.memberImage}
-            className="review-profile-img"
-          ></img>
+          <div className="review-profile-img">
+            <img src={"/member/" + review.memberImage}></img>
+          </div>
           <div>
             <div className="review-name">{review.memberId}</div>
             <div className="review-date">{review.reviewDate}</div>
@@ -177,15 +194,61 @@ const ReviewListComponent = (props) => {
           isLogin={isLogin}
           feedWriter={review.memberId}
           deleteEvent={deleteEvent}
+          isAdmin={isAdmin}
+          feedNo={review.reviewNo}
+          reportTypeValue={3}
+          reportType={3}
         />
       </div>
       <div className="review-img">
         {review.imageList.map((img, index) => {
-          return <img src={"/review/" + img.rimageName} />;
+          return (
+            <img
+              src={"/review/" + img.rimageName}
+              onClick={() => {
+                handleOpen(img.rimageName);
+              }}
+            />
+          );
         })}
+        <ImageModal
+          imgUrl={imgUrl}
+          open={open}
+          setOpen={setOpen}
+          handleClose={handleClose}
+        />
       </div>
       <div className="review-content">{reviewContent}</div>
     </div>
+  );
+};
+// 사진모달
+const ImageModal = (props) => {
+  const imgUrl = props.imgUrl;
+  const open = props.open;
+  const setOpen = props.setOpen;
+  const handleClose = props.handleClose;
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    // border: "2px solid #000",
+    // boxShadow: 24,
+  };
+  return (
+    <>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <img src={"/review/" + imgUrl} />
+        </Box>
+      </Modal>
+    </>
   );
 };
 export default ReviewList;

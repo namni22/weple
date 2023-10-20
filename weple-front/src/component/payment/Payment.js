@@ -4,6 +4,7 @@ import { useState } from "react";
 import moment from "moment/moment";
 import { Button1 } from "../util/Button";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const Payment = (props) => {
   const [count, setCount] = useState(1);
@@ -56,9 +57,9 @@ const Payment = (props) => {
             .catch(function (error) {
               console.log(error);
             });
-          alert("결제성공");
+          Swal.fire("결제가 완료되었습니다.");
         } else {
-          alert("결제실패");
+          Swal.fire("결제가 취소되었습니다.");
         }
       }
     );

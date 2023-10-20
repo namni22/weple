@@ -12,7 +12,7 @@ const ReviewWrite = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
   const meetNo = location.state.meetNo;
-  const [reviewStar, setReviewStar] = useState();
+  const [reviewStar, setReviewStar] = useState(5);
   const write = () => {
     if (reviewContent !== "" && rImage.length !== 0) {
       const form = new FormData();
@@ -62,6 +62,7 @@ const ReviewWrite = (props) => {
         reviewBox={reviewBox}
         setReviewBox={setReviewBox}
         uploadEvent={write}
+        reviewStar={reviewStar}
         setReviewStar={setReviewStar}
       />
     </div>

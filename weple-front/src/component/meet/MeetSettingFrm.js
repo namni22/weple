@@ -118,19 +118,19 @@ const MeetSettingFrm = (props) => {
         const files = e.currentTarget.files;
         if (files.length !== 0 && files[0] != 0) {
             // 파일이 들어왔을때
-            setMeetThumbnail(files[0]); //썸네일 파일 전송을 위한 state에 값 파일객체 저장
+            setMeetThumbnailPreview(files[0]); //썸네일 파일 전송을 위한 state에 값 파일객체 저장
             //화면에 썸네일 미리보기
             const reader = new FileReader(); //객체만들고
             reader.readAsDataURL(files[0]); //파일 읽어와
             reader.onloadend = () => {
-                setMeetThumbnailPreview(reader.result);
-                console.log("썸네일 바꼇을때 : " + meetThumbnailPreview);
+                setMeetThumbnail(reader.result);
             };
         } else {
             // 파일이 취소됐을때
             setMeetThumbnail(null); //썸내일 빈객체로
             setMeetThumbnailPreview(null); //보드이미지 빈문자열로 //빈문자열에서 null로 바꿈
         }
+
     };
 
     //날짜 변경 인풋에서 포커스가 나갔을때 작동하는 함수
@@ -287,11 +287,11 @@ const MeetSettingFrm = (props) => {
                             onChange={thumbnailChange}
                         ></input>
                         <div className="meetThumbnailPreview">
-                            {meetThumbnailPreview === null ? ( //""에서 null로 바꿈
+                            {meetThumbnail === null ? ( //""에서 null로 바꿈
                                 // 기본이미지 넣어야함
                                 <img src="/img/no_image.jpg"></img>
                             ) : (
-                                <img src={meetThumbnailPreview}></img>
+                                <img src={meetThumbnail}></img>
                             )}
                         </div>
 
@@ -389,7 +389,7 @@ const MeetSettingFrm = (props) => {
                                     <div key={"meetPrepare" + index} className="meetMaterials-one">
                                         <span>{meetPrepare}</span>
                                         <span
-                                            class="material-icons delete-meetPrepare"
+                                            className="material-icons delete-meetPrepare"
                                             onClick={() => {
                                                 deleteMeetPrepare(meetPrepareList, index);
                                             }}
@@ -436,28 +436,48 @@ const Postcode = (props) => {
     //주소-좌표 변환 객체를 생성
     var geocoder = new daum.maps.services.Geocoder();
 
-    let mapContainer;
-    let map;
-    let marker;
-    var mapOption;
+    // let mapContainer;
+    // let map;
+    // let marker;
+    // var mapOption;
+
+    const [mapContainer, setMapContainer] = useState({});
+    const [worldMap, setWorldMap] = useState({});
+    const [marker, setMarker] = useState({});
+    const [mapOption, setMapOption] = useState({
+        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 5 // 지도의 확대 레벨
+    });
+
+
     //처음 진행할때는 map이라는 아이디를가진 div가 존재하지 않기때문에 useEffect 안에 넣음
     useEffect(() => {
-        mapContainer = document.getElementById('map'); // 지도를 표시할 div
-        mapOption = {
-            center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-            level: 5 // 지도의 확대 레벨
-        };
+        // mapContainer = document.getElementById('map'); // 지도를 표시할 div
+        setMapContainer(document.getElementById('map'))
+        // mapOption = {
+        //     center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        //     level: 5 // 지도의 확대 레벨
+        // };
+
         //지도를 미리 생성
-        map = new daum.maps.Map(mapContainer, mapOption);
+        // map2 = new daum.maps.Map(mapContainer, mapOption);
+        const newMap = new daum.maps.Map(document.getElementById('map'), mapOption);
+        setWorldMap(newMap);
         //지오코더 선언 자리 이동
         //마커를 미리 생성
-        marker = new daum.maps.Marker({
-            position: new daum.maps.LatLng(33.450701, 126.570667),
-            map: map
-        });
+        // marker = new daum.maps.Marker({
+        //     position: new daum.maps.LatLng(33.450701, 126.570667),
+        //     map: map2
+        // });
+        setMarker(
+            new daum.maps.Marker({
+                position: new daum.maps.LatLng(33.450701, 126.570667),
+                map: newMap
+            })
+        );
 
     }, [])
-    function sample5_execDaumPostcode() {
+    function postcodeFunction() {
         new daum.Postcode({
             oncomplete: function (data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
@@ -468,6 +488,11 @@ const Postcode = (props) => {
                 document.getElementById("sample5_address").value = addr;
                 setMeetAddress1(addr);
                 console.log("검색 결과 : ", addr);
+                console.log("if문 동작확인을위한 맵컨테이너", mapContainer);
+                // mapContainer = document.getElementById('map'); // 지도를 표시할 div
+                setMapContainer(document.getElementById('map'));
+
+                console.log(worldMap);
                 if (mapContainer) {
                     // 주소로 상세 정보를 검색
                     geocoder.addressSearch(data.address, function (results, status) {
@@ -479,11 +504,10 @@ const Postcode = (props) => {
                             // 해당 주소에 대한 좌표를 받아서
                             var coords = new daum.maps.LatLng(result.y, result.x);
                             // 지도를 보여준다.
-                            console.log("맵 컨테이너", mapContainer);
                             mapContainer.style.display = "block";
-                            map.relayout();
+                            worldMap.relayout();
                             // 지도 중심을 변경한다.
-                            map.setCenter(coords);
+                            worldMap.setCenter(coords);
                             // 마커를 결과값으로 받은 위치로 옮긴다.
                             marker.setPosition(coords)
                             console.log("코더 : ", coords);
@@ -502,15 +526,15 @@ const Postcode = (props) => {
         <div>
             {/* <input type="text" id="sample5_address" placeholder="주소" /> */}
             <div className="addrSearch-btn-box">
-                <Button2 text="주소검색" clickEvent={sample5_execDaumPostcode} />
+                <Button2 text="주소검색" clickEvent={postcodeFunction} />
             </div>
             <Input type="text" data={meetAddress1} setData={setMeetAddress1} content="sample5_address" placeholder="주소" />
             <Input type="text" data={meetAddress2} setData={setMeetAddress2} content="meetAddress2" placeholder="상세주소" />
 
             <div id="map" style={{
-                width: "500px",
+                width: "640px",
                 height: "500px",
-                // display: "none"
+                display: "none"
             }}></div>
         </div>
 

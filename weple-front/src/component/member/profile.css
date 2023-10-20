@@ -110,13 +110,7 @@
 
 .myFeed-content {
   width: 100%;
-  margin-bottom: 100px;
   display: block;
-}
-
-.myMeet-content {
-  width: 100%;
-  margin: 50px 0;
 }
 
 .myFeed-item {
@@ -125,6 +119,7 @@
   height: 300px;
   padding: 3px;
   cursor: pointer;
+  position: relative;
 }
 
 .myFeed-item > img {
@@ -136,7 +131,25 @@
   margin: 30px 0;
 }
 
+.myFeedBubble {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  color: white;
+}
+
+.noFeed {
+  margin: 100px;
+  text-align: center;
+  font-size: 15px;
+}
+
 /* MyMeet */
+
+.myMeet-content {
+  width: 100%;
+  margin: 50px 0;
+}
 
 .myMeet-content-title {
   font-size: 30px;
@@ -145,6 +158,16 @@
   margin-bottom: 50px;
   display: flex;
   align-items: center;
+  width: 91%;
+}
+
+.myMeet-content-mine {
+  display: flex;
+}
+
+.myMeet-content-mine > button {
+  width: 9%;
+  display: flex;
 }
 
 .myMeet-content-title > img {
@@ -207,4 +230,10 @@
 .myMeetJoined-captain > img,
 .myMeetJoined-total > img {
   margin-right: 5px;
+}
+
+.noMeet {
+  margin: 50px;
+  text-align: center;
+  font-size: 15px;
 }

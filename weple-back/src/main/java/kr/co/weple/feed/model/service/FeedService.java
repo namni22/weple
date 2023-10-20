@@ -1,9 +1,7 @@
 package kr.co.weple.feed.model.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.weple.feed.model.dao.FeedDao;
 import kr.co.weple.feed.model.vo.FComment;
 import kr.co.weple.feed.model.vo.FImage;
-import kr.co.weple.feed.model.vo.FLike;
 import kr.co.weple.feed.model.vo.Feed;
 import kr.co.weple.member.model.dao.MemberDao;
 import kr.co.weple.member.model.vo.Member;
@@ -47,7 +44,6 @@ public class FeedService {
 
 	//피드하나출력
 	public Feed one(int feedNo) {
-		System.out.println("많이 나오나요");
 		List list = feedDao.one(feedNo);
 		Feed feed = (Feed)list.get(0);
 		List fComment =  feedDao.commentList(feedNo);
@@ -62,7 +58,9 @@ public class FeedService {
 		String [] deleteImg = {};
 		int result = 0;
 		//삭제파일 DB처리
+		
 		if(!f.getDeleteImg().equals("")) {
+			System.out.println("if문 : f.getDeleteImg"+f.getDeleteImg());
 			deleteImg = f.getDeleteImg().split("/");
 			delImageList = feedDao.selectFeedFile(deleteImg);
 			result += feedDao.deleteFeedFile(deleteImg);
@@ -157,6 +155,12 @@ public class FeedService {
 			}
 		}
 		return 0;
+	}
+	//좋아요개수, 댓글개수 불러오기
+	public Feed totalCount(int feedNo) {
+		List total = feedDao.totalCountLC(feedNo);
+		Feed feed = (Feed)total.get(0);
+		return feed;
 	}
 
 

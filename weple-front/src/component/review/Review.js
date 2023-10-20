@@ -4,7 +4,7 @@ import "./review.css";
 import "./reviewList.css";
 import axios from "axios";
 import { Link, Route, Routes } from "react-router-dom";
-import ReviewWrite from "./ReviewWrite";
+
 const starRating = () => {
   const result = [];
   for (let i = 0; i < 5; i++) {
@@ -21,11 +21,12 @@ const Review = (props) => {
   const meetNo = props.meetNo;
   const meetStar = props.reviewStar;
   const reviewCount = props.reviewCount;
-  const isMeetMember = props.isMeetMember; //해당 멤버인지 확인하는 함수(undefined)
-  console.log("isMeetMem" + isMeetMember);
-  console.log(isMeetMember);
+  const [isMember, setIsMember] = useState(false);
+  const token = window.localStorage.getItem("token");
+
   //리뷰 조회
   useEffect(() => {
+    //select ReviewList
     axios
       .get("/review/previewList/" + meetNo)
       .then((res) => {
@@ -42,7 +43,20 @@ const Review = (props) => {
         setReviewList([...arr]);
       })
       .catch((res) => {
-        // console.log(res.data.status);
+        console.log(res.data?.status);
+      });
+    //isMember
+    axios
+      .post("/member/isMember", meetNo, {
+        headers: {
+          Authorization: "Bearer" + token,
+        },
+      })
+      .then((res) => {
+        console.log("isMember", res.data);
+      })
+      .catch((res) => {
+        console.log("isMember", res.data);
       });
   }, [meetNo]);
   //리뷰 => 컴포넌트 배열로 바꿔줌
@@ -109,6 +123,7 @@ const ReviewComponent = (props) => {
   const reviewContent = props.review?.reviewContent.replaceAll("<br>", "\r\n");
   const memberId = props.review?.memberId;
   const rimageName = "/review/" + props.review?.rimageName;
+  const memberImage = "/review/" + props.review?.memberImage;
   // console.log("리뷰에서~" + props.review);
   // console.log(props.review);
   return (
@@ -117,7 +132,7 @@ const ReviewComponent = (props) => {
         <img src={rimageName}></img>
       </div>
       <div className="review-profile">
-        <img src="\img\profile_default.png" className="review-img"></img>
+        <img src={memberImage} className="review-img"></img>
         <span className="review-name">{memberId}</span>
       </div>
       <div className="review-content simple">{reviewContent}</div>

@@ -26,11 +26,16 @@ const Login = (props) => {
     axios
       .post("/member/login", member)
       .then((res) => {
-        if (res.data === "실패") {
+        if (res.data === "") {
           Swal.fire("아이디 또는 비밀번호를 확인하세요.");
         } else {
-          window.localStorage.setItem("token", res.data);
+          window.localStorage.setItem("token", res.data[0]);
           setIsLogin(true);
+          console.log("res.data[]", res.data[1]);
+          if (res.data[1] === 0) {
+            setIsAdmin(true);
+            window.localStorage.setItem("chkAdmin", res.data[1]);
+          }
           setId(member.memberId);
           navigate("/");
         }

@@ -4,9 +4,6 @@ import axios from "axios";
 // import { Pagination } from "@mui/material";
 import Pagination from "../common/Pagination";
 import { useLocation, useNavigate } from "react-router";
-import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
-import MeetMemberList from "./MeetMemberList";
 
 const MeetList = (props) => {
   //로그인상태 불러올곳 ( 모임생성버튼이 이곳에 있다면 버튼을 위해서 )
@@ -14,7 +11,7 @@ const MeetList = (props) => {
 
   const [meetList, setMeetList] = useState([]);
   const [reqPage, setReqPage] = useState(1); //처음에는 1페이지
-  const [pagenfo, setPageInfo] = useState({});
+  const [pageInfo, setPageInfo] = useState({});
   const [meetCategory, setmeetCategory] = useState(1);
   //카테고리 메뉴 출력할 카테고리 리스트
   const [smallCategoryList, setSmallCategoryList] = useState([]);
@@ -132,7 +129,7 @@ const MeetList = (props) => {
         <Pagination
           reqPage={reqPage}
           setReqPage={setReqPage}
-          pageInfo={pagenfo}
+          pageInfo={pageInfo}
           setData={setMeetList}
         />
       </div>
@@ -148,7 +145,7 @@ const MeetItem = (props) => {
   // 상세보기로 이동하는 함수
   const meetView = () => {
     // console.log("클릭하기 전 값 : ", meet, meet.meetNo);
-    navigate("/meet/meetList/View", {
+    navigate("/meet/View", {
       state: { m: meet },
     }); //이동할곳 state로 데이터 전송
   };

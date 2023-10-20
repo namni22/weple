@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import "./admin.css";
-import { FormControl, MenuItem, Select } from "@mui/material";
+
 import Swal from "sweetalert2";
 import axios from "axios";
 import Pagination from "../common/Pagination";
+import { Button1 } from "../util/Button";
 const AdminMeeting = () => {
   const [meetList, setMeetList] = useState([]);
   const [pageInfo, setPageInfo] = useState({});
@@ -59,9 +60,17 @@ const AdminMeeting = () => {
 const MeetingItem = (props) => {
   const meet = props.meet;
   const [meetType, setMeetType] = useState(meet.meetType);
+  const meetNo = meet.meetNo;
   // console.log(meet.meetCaptain + " : " + meet.meetTitle+":"+meet.meetTotal);
-  const handleChange = (event) => {
-    const obj = { meetNo: meet.meetNo, meetType: event.target.value };
+  const options = ["검수중", "승인완료", "거절"];
+
+  const clickChange = (event) => {
+    setMeetType(event.target.value);
+    //console.log(event.target.value);
+    //console 먼저 찍고 set함수 작용
+  };
+  const clickConfirm = (event) => {
+    const obj = { meetNo: meetNo, meetType: meetType, meetCaptain: meet.meetCaptain };
     //console.log("모임번호 : " + meet.meetNo);
     //console.log("모임타입" + meet.meetType);
     const token = window.localStorage.getItem("token");
@@ -74,9 +83,21 @@ const MeetingItem = (props) => {
       .then((res) => {
         //console.log("res.data : " + res.data);
         if (res.data === 1) {
-          //console.log("if문 안 이벤트 타겟 : " + event.target.value);
-          setMeetType(event.target.value);
-          // console.log("다녀온후 모임타입 : " + meet.meetType);
+          setMeetType(meetType);
+          Swal.fire("변경 성공하셨습니다.")
+          //console.log("set하고 나서 meetType : " + meetType, typeof meetType);
+          if (meetType === "1") {
+            axios
+              .post("/admin/insertFollower", obj)
+              .then((res) => {
+                if (res.data === 1) {
+                  Swal.fire("변경 성공하셨습니다.")
+                }
+              })
+              .catch((res) => {
+
+              })
+          }
 
         } else {
           Swal.fire("변경 중 문제가 발생했습니다.");
@@ -85,7 +106,7 @@ const MeetingItem = (props) => {
       .catch((res) => {
         console.log(res);
       });
-    console.log("다녀온후 모임타입 : " + meet.meetType);
+
   };
   return (
     <tr>
@@ -93,13 +114,12 @@ const MeetingItem = (props) => {
       <td>{meet.meetTitle}</td>
       <td>{meet.meetTotal}</td>
       <td>
-        <FormControl sx={{ m: 1, minWidth: 80 }}>
-          <Select value={meetType} onChange={handleChange}>
-            <MenuItem value={0}>검수중</MenuItem>
-            <MenuItem value={1}>승인완료</MenuItem>
-            <MenuItem value={2}>거절</MenuItem>
-          </Select>
-        </FormControl>
+        <select value={meetType} onChange={clickChange}>
+          {options.map((option, index) => {
+            return <option value={index} key={"option" + index}> {option} </option>
+          })}
+        </select>
+        <Button1 text="변경" clickEvent={clickConfirm} />
       </td>
     </tr>
   );

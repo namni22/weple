@@ -2,6 +2,7 @@ import { useState } from "react";
 import MeetSettingFrm from "./MeetSettingFrm";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const MeetCreate = () => {
   const [meetTitle, setMeetTitle] = useState("");
@@ -26,14 +27,16 @@ const MeetCreate = () => {
   const [meetPrepare, setMeetPrepare] = useState("");
   const [meetPrepareList, setMeetPrepareList] = useState([]);
 
+  const navigate = useNavigate();
+
   //write역할
   const meetCreateBtn = () => {
     console.log("모임제목 : " + meetTitle);
     console.log("모임 날짜 : " + meetDate);
     console.log("모임한줄설명 : " + meetContentS);
     console.log("모임디테일설명 : " + meetContentD);
-    console.log("모임인원 :" + meetTotal);
-    console.log("썸네일 : " + meetThumbnail);
+    console.log("모임인원 :", meetTotal);
+    console.log("썸네일프리뷰 : ", meetThumbnailPreview);
     console.log("준비물 : " + meetPrepareList);
     console.log("카테고리번호 : " + meetCategory);
     console.log("모임주소1  : " + meetAddress1);
@@ -56,7 +59,7 @@ const MeetCreate = () => {
       form.append("meetContentS", meetContentS);
       form.append("meetContentD", meetContentD);
       form.append("meetTotal", meetTotal);
-      form.append("meetThumbnail", meetThumbnail);
+      form.append("meetThumbnailPreview", meetThumbnailPreview);
       form.append("meetPrepareList", meetPrepareList);
       form.append("meetCategory", meetCategory);
       form.append("meetAddress1", meetAddress1);
@@ -80,6 +83,8 @@ const MeetCreate = () => {
         .then((res) => {
           console.log("결과 : " + res.data);
           Swal.fire("모임생성 완료");
+          navigate("/");
+
         })
         .catch();
     } else {

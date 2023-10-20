@@ -77,7 +77,7 @@ public class ReviewController {
 		String savepath = root+"review/";
 		ArrayList<RImage> imageList = new ArrayList<RImage>();
 		if(rImage != null) {			
-			for(MultipartFile file : rImage) {				
+			for(MultipartFile file : rImage) {		
 				String filename = file.getOriginalFilename();
 				String filepath = fileUtil.getFilepath(savepath, filename, file);
 				RImage rI = new RImage();

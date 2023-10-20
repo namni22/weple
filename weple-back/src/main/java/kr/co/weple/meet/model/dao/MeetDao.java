@@ -22,17 +22,17 @@ public interface MeetDao {
 
 	int enrollMemberList(int meetNo);
 
-	List selectEnrollMemberList(HashMap<String, Integer> param);
+	List selectEnrollMemberList(HashMap<String, Object> param);
 
 	int createMeet(Meet meet);
 
 	int meetMemberList(int meetNo);
 
-	List selectMeetMemberList(HashMap<String, Integer> param);
+	List selectMeetMemberList(HashMap<String, Object> param);
 
 	List meetList(PageInfo pi);
 
-	int updateEnrollMember(int memberNo);
+	int updateEnrollMember(int memberNo, int meetNo);
 
 	List selectCircleList(HashMap<String, Object> map);
 
@@ -47,10 +47,12 @@ public interface MeetDao {
 	List meetPopular();
 
 	List meetNew();
+	
+	List meetCategory();
 
 	List smallCategoryList(Category category);
 
-	int deleteMember(int memberNo);
+	int deleteMember(int memberNo, int meetNo);
 
 	int memberLike(String memberId, double changeMemberLike);
 
@@ -77,6 +79,26 @@ public interface MeetDao {
 	Meet meetCapCheck(int meetNo, String memberId);
 
 	int modifyMeet(Meet meet);
+
+	int selectMeetMargin(int meetNo);
+
+	int disCount(int meetNo, int newMargin);
+
+	String getMemberCategory(String memberId);
+
+	List schedule(int calNo);
+
+	int modifyCalendar(Calendar cal);
+
+//	List meetCategory(List memberCategoryArr);
+
+	int insertMemberLike(int giverNo, int takerNo, int meetNo);
+
+	List like(int memberNo, int meetNo);
+
+
+
+	
 	
 
 

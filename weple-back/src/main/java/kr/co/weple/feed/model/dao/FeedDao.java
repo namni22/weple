@@ -51,4 +51,6 @@ public interface FeedDao {
 
 	List one(int feedNo);
 
+	List totalCountLC(int feedNo);
+
 }

@@ -1,14 +1,8 @@
-import {
-  Link,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
-import { Button1, Button2 } from "../util/Button";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
+import { Button2 } from "../util/Button";
 import "./profile.css";
 import { useEffect, useState } from "react";
-import axios from "axios";
+
 import MyFeed from "./MyFeed";
 import MyMeet from "./MyMeet";
 const Profile = (props) => {
@@ -16,7 +10,9 @@ const Profile = (props) => {
   const member = props.member;
   const memberId = member.memberId;
   const memberNo = member.memberNo;
+  const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
+  const isAdmin = props.isAdmin;
   const setId = props.setId;
   const subCategory = props.subCategory;
   const [categoryNameList, setCategoryNameList] = useState([]);
@@ -24,6 +20,7 @@ const Profile = (props) => {
 
   const logout = () => {
     window.localStorage.removeItem("token");
+    window.localStorage.removeItem("chkAdmin");
     setIsLogin(false);
     setId("");
     navigate("/");
@@ -53,7 +50,6 @@ const Profile = (props) => {
             categoryNameList.push(ct.categoryName);
           }
           setCategoryNameList([...categoryNameList]);
-          console.log(categoryNameList);
         }
       });
     });
@@ -74,7 +70,6 @@ const Profile = (props) => {
         </div>
         <div className="profile-info">
           <div className="name">{member.memberName}</div>
-          <div className="intro">소개소개 입니다.</div>
         </div>
         <div className="like">{member.memberLike}˚C</div>
         <div className="prefer">
@@ -94,7 +89,12 @@ const Profile = (props) => {
 
       <div className="profile-tab-menu-content">
         <Routes>
-          <Route path="myFeed" element={<MyFeed memberId={memberId} />} />
+          <Route
+            path="myFeed"
+            element={
+              <MyFeed memberId={memberId} isLogin={isLogin} isAdmin={isAdmin} />
+            }
+          />
         </Routes>
         <Routes>
           <Route

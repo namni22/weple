@@ -81,9 +81,9 @@ public class MemberController {
 	
 	// 로그인
 	@PostMapping(value="/login")
-	public String login(@RequestBody Member member) {
-		String result = memberService.login(member);
-		return result;
+	public List login(@RequestBody Member member) {
+		List list = memberService.login(member);
+		return list;
 	}
 	
 	// 아이디로 멤버 정보 가져오기
@@ -140,7 +140,6 @@ public class MemberController {
 	@GetMapping(value="/myFeedList/{start}/{end}/{memberId}")
 	public List list(@PathVariable int start, @PathVariable int end, @PathVariable String memberId) {
 		List myFeedList = memberService.myFeedList(start, end, memberId);
-		System.out.println("내 피드 리스트 : " + myFeedList);
 		return myFeedList;
 		
 	}
@@ -194,5 +193,21 @@ public class MemberController {
 		return memberService.myMeet(memberId);
 	}
 	
-	
+	// 회원 탈퇴
+	@PostMapping(value="/delete")
+	public int delete(@RequestAttribute String memberId) {
+		return memberService.delete(memberId);
+	}
+	//회원 선호 카테고리 조회
+	@PostMapping(value = "/getMemberCategory")
+	public List getMemberCategory(@RequestAttribute String memberId) {
+		List list = memberService.getMemberCategory(memberId);
+		return list;
+	}
+	@PostMapping(value="isMember")
+	public boolean isMember(@RequestBody int meetNo,@RequestAttribute String memberId) {
+		System.out.println("controller 도착");
+		boolean result = memberService.isMember(memberId,meetNo);
+		return result;
+	}
 }
