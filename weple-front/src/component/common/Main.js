@@ -3,24 +3,29 @@ import { MeetItem } from "../meet/MeetList";
 import SwiperComponent from "../util/Swiper";
 import "./main.css";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FeedContent } from "../feed/FeedList";
+import MainMeet from "./MainMeet";
 
 const Main = (props) => {
   const isLogin = props.isLogin;
   const imgList = ["./img/main_1.jpg", "./img/main_2.jpg"];
+  const token = window.localStorage.getItem("token");
   const [memberCategory, setMemberCategory] = useState([]);
+
   //선호 카테고리 조회
   useEffect(() => {
     axios
-      .get("/member/getMemberCategory")
+      .post("/member/getMemberCategory", null, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
       .then((res) => {
-        console.log("axios", res.data);
-        setMemberCategory(res.data);
+        setMemberCategory(res?.data);
       })
       .catch((res) => {
-        console.log("axios no");
         console.log(res.data?.status);
       });
   }, []);
@@ -30,7 +35,6 @@ const Main = (props) => {
   });
   return (
     <div className="main-wrap">
-      {console.log("memberCategory", memberCategory)}
       <SwiperComponent
         spaceBetween={21}
         slidesPerView={1}
@@ -42,15 +46,17 @@ const Main = (props) => {
         delButton={false}
       />
       {/* 비로그인 */}
-      <MeetMain meetSet={"meetCategory"} meetTitle={"이 모임은 어때요?"} isLogin={isLogin} />
+      {/* <MeetMain
+        meetSet={"meetCategory"}
+        meetTitle={"이 모임은 어때요?"}
+        memberCategory={memberCategory}
+      /> */}
+      {console.log("meetMain", memberCategory)}
       <MeetMain meetSet={"meetPopular"} meetTitle={"주간 인기 TOP 30 👑"} isLogin={isLogin} />
       <MeetMain meetSet={"meetMargin"} meetTitle={"마감임박!"} isLogin={isLogin} />
-      {/* <FeedMain /> */}
+      <FeedMain />
       <MeetMain meetSet={"meetNew"} meetTitle={"신규개설"} isLogin={isLogin} />
-      {/* 로그인 */}
-      {/*<MeetMain meetSet={"meetMargin"} meetTitle={"마감임박!"} />
-      <MeetMain meetSet={"meetMargin"} meetTitle={"신규개설"} /> */}
-    </div>
+    </div >
   );
 };
 
@@ -58,25 +64,55 @@ const MeetMain = (props) => {
   const isLogin = props.isLogin;
   const meetSet = props.meetSet;
   const meetTitle = props.meetTitle;
+  const memberCategory = props?.memberCategory;
   const [meetMain, setMeetMain] = useState([]);
-  const [memberCategory, setMemberCategory] = useState([]);
+  const [sendMeetMain, setSendMeetMain] = useState([]);
 
   //모임 조회
   useEffect(() => {
-    axios
-      .get("/meet/" + meetSet)
-      .then((res) => {
-        setMeetMain(res.data?.slice(0, 4));
-      })
-      .catch((res) => {
-        console.log(res.data?.status);
-      });
+    if (meetSet == "meetCategory") {
+      console.log("memberCategory", memberCategory);
+      const form = new FormData();
+      form.append("memberCategory", memberCategory);
+      const token = window.localStorage.getItem("token");
+      axios
+        .post("/meet/meetCategory", form, {
+          headers: {
+            contentType: "multipart/form-data",
+            processData: false,
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          console.log("memberCateogrh넘어감");
+          setSendMeetMain(res.data);
+          setMeetMain(res.data?.slice(0, 4));
+        })
+        .catch((res) => {
+          console.log("memberCateogrh실패");
+          console.log(res.data?.status);
+        });
+    } else {
+      axios
+        .get("/meet/" + meetSet)
+        .then((res) => {
+          setSendMeetMain(res.data);
+          setMeetMain(res.data?.slice(0, 4));
+        })
+        .catch((res) => {
+          console.log(res.data?.status);
+        });
+    }
   }, []);
   return (
     <div className="meet-main">
       <div className="meet-main-title">
         {meetTitle}
-        <Link to="/" className="meet-move-btn">
+        <Link
+          to="/meet/mainmeet"
+          state={{ meetList: sendMeetMain, meetTitle: meetTitle }}
+          className="meet-move-btn"
+        >
           전체보기
         </Link>
       </div>

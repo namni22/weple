@@ -9,9 +9,11 @@ import AdminMeeting from "./AdminMeeting";
 import SideMenu from "../util/SideMenu";
 
 const Admin = (props) => {
-  const token = window.localStorage.getItem("token");
-  console.log("token In Admin : " + token);
+  // const token = window.localStorage.getItem("token");
+  // console.log("token In Admin : " + token);
   const isLogin = props.isLogin;
+  const setIsLogin = props.setIsLogin;
+  const setIsAdmin = props.setIsAdmin;
   console.log("props in Admin : " + props.isLogin);
   console.log("id in Admin : " + props.id);
 
@@ -27,11 +29,19 @@ const Admin = (props) => {
   return (
     <div className="admin-all-wrap">
       <div className="admin-content">
-        <SideMenu menus={menus} setMenus={setMenus} />
+        <SideMenu
+          menus={menus}
+          setMenus={setMenus}
+          setIsAdmin={setIsAdmin}
+          setIsLogin={setIsLogin}
+        />
         <div className="current-content">
           <Routes>
-            <Route path="insertBoard" element={<BoardFrm isLogin={isLogin} id={id} />} />
-            <Route path="boardList/*" element={<AdminBoard />} />
+            <Route
+              path="insertBoard"
+              element={<BoardFrm isLogin={isLogin} id={id} />}
+            />
+            <Route path="boardList" element={<AdminBoard />} />
             <Route path="reportList" element={<AdminReport />} />
             <Route path="memberList" element={<AdminMember />} />
             <Route path="meetList" element={<AdminMeeting />} />

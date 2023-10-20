@@ -2,6 +2,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import ReviewList from "./ReviewList";
 import ReviewWrite from "./ReviewWrite";
 import ReviewModify from "./ReviewModify";
+import { useEffect } from "react";
 
 const ReviewMain = (props) => {
   const navigate = useNavigate();

@@ -11,12 +11,15 @@ const Feed = (props) => {
     navigate(-1);
   };
   const isLogin = props.isLogin;
-  const id = props.id;
+  const isAdmin = props.isAdmin;
 
   return (
     <div className="feed-wrap">
       <Routes>
-        <Route path="*" element={<FeedList isLogin={isLogin} id={id} />} />
+        <Route
+          path="*"
+          element={<FeedList isLogin={isLogin} isAdmin={isAdmin} />}
+        />
         <Route path="write" element={<FeedWrite prev={prev} />} />
         <Route path="modify" element={<FeedModify prev={prev} />} />
         <Route

@@ -44,9 +44,7 @@ const MeetInfo = (props) => {
           // console.log(res.data);
           setLoginMember(res.data);
         })
-        .catch((res) => { });
-
-
+        .catch((res) => {});
     }
   }, [props]);
 
@@ -87,7 +85,11 @@ const MeetInfo = (props) => {
       // 만약 Promise리턴을 받으면,
       if (result.isConfirmed) {
         // 만약 모달창에서 confirm 버튼을 눌렀다면
-        console.log("탈퇴로 전달되는 이즈 맴버 : ", { meetNo: isMeetMember.meetNo }, { memberList: isMeetMember });
+        console.log(
+          "탈퇴로 전달되는 이즈 맴버 : ",
+          { meetNo: isMeetMember.meetNo },
+          { memberList: isMeetMember }
+        );
         axios
           .post("/meet/selfDeleteMember", isMeetMember)
           .then((res) => {
@@ -108,7 +110,7 @@ const MeetInfo = (props) => {
     navigate("/meet/meetModify", { state: { meet: meet } });
   };
 
-  console.log("모임준비물 리스트 :", meetPrepareList, meetPrepareList.length);
+  // console.log("모임준비물 리스트 :", meetPrepareList, meetPrepareList.length);
   return (
     <div className="meetInfo-all-wrap">
       <Review
@@ -118,8 +120,6 @@ const MeetInfo = (props) => {
         reviewStar={meet.reviewStar}
         reviewCount={meet.reviewCount}
       />
-      {console.log("리뷰 전 isMeetmeme")}
-      {console.log(isMeetMember)}
       <div className="meetInfo-content">
         <div className="meetInfo-content-area">
           <div className="meetInfo-content-title">모임소개</div>
@@ -141,7 +141,7 @@ const MeetInfo = (props) => {
             </div>
           </div>
         </div>
-        {meetPrepareList[0] ? (//준비물이 있으면 출력
+        {meetPrepareList[0] ? ( //준비물이 있으면 출력
           <div className="meetInfo-content-area">
             <div className="meetInfo-content-title">준비물</div>
             <div className="meetInfo-meetPrepareList">
@@ -157,8 +157,9 @@ const MeetInfo = (props) => {
               })}
             </div>
           </div>
-
-        ) : ("")}
+        ) : (
+          ""
+        )}
       </div>
       <div className="meetJoin-btn-zone">
         {/* 버튼이 보이는 조건: 로그인이 되어있고 / 아직 모임 가입을 하지 않는 경우 */}

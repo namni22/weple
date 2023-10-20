@@ -147,7 +147,16 @@ const ReportItem = (props) => {
       <>
         <tr onClick={changeToggle}>
           <td>
-            {report.reportType === 0 ? "회원" : (report.reportType === 1 ? "후기" : "피드")}
+            {report.reportType === 0
+              ? "회원"
+              : report.reportType === 1
+                ? "모임"
+                : report.reportType === 2
+                  ? "피드"
+                  : report.reportType === 3
+                    ? "후기"
+                    : ""}
+
           </td>
           <td>{report.reportedMember}</td>
           <td>{report.reportCategoryContent}</td>
@@ -176,7 +185,15 @@ const ReportItem = (props) => {
     return (
       <tr onClick={changeToggle}>
         <td>
-          {report.reportType === 0 ? "후기" : (report.reportType === 1 ? "피드" : "모임")}
+          {report.reportType === 0
+            ? "회원"
+            : report.reportType === 1
+              ? "모임"
+              : report.reportType === 2
+                ? "피드"
+                : report.reportType === 3
+                  ? "후기"
+                  : ""}
         </td>
         <td>{report.reportedMember}</td>
         <td>{report.reportCategoryContent}</td>

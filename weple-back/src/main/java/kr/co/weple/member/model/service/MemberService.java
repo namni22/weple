@@ -11,12 +11,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.weple.JwtUtil;
+import kr.co.weple.Pagination;
+import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.member.model.dao.MemberDao;
 import kr.co.weple.member.model.vo.Member;
 import kr.co.weple.review.model.vo.Report;
-import kr.co.weple.JwtUtil;
-import kr.co.weple.PageInfo;
-import kr.co.weple.Pagination;
 
 @Service
 public class MemberService {
@@ -62,13 +62,14 @@ public class MemberService {
 		return memberDao.insertMember(member);
 	}
 
-	public String login(Member member) {
+	public List login(Member member) {
 		Member m = memberDao.selectOneMember(member.getMemberId());
-		if(m != null && bCryptPasswordEncoder.matches(member.getMemberPw(), m.getMemberPw())) {
-			
-			return jwtUtil.createToken(member.getMemberId(), secretKey, expiredMs);
+
+		if(m != null && bCryptPasswordEncoder.matches(member.getMemberPw(), m.getMemberPw())) {	
+			List list = Arrays.asList(jwtUtil.createToken(member.getMemberId(), secretKey, expiredMs), m.getMemberGrade());
+			return list;
 		}else {
-			return "실패";
+			return null;
 		}
 	}
 
@@ -141,14 +142,21 @@ public class MemberService {
 	public int delete(String memberId) {
 		return memberDao.delete(memberId);
 	}
-
+//회원 선호카테고리 조회
 	public List getMemberCategory(String memberId) {
 		// TODO Auto-generated method stub
 		System.out.println("service 도착");
 		String getMemberCategory = memberDao.getMemberCategory(memberId);
 		List list = Arrays.asList(getMemberCategory.split(","));
-		System.out.println("service list 호출"+ list);
 		return list;
+	}
+
+	public boolean isMember(String memberId,int meetNo) {
+		// TODO Auto-generated method stub
+		Follower follower = memberDao.isMember(memberId,meetNo);
+		System.out.println("follower 맞는지? :"+follower);
+		boolean result = false;
+		return result;
 	}
 
 

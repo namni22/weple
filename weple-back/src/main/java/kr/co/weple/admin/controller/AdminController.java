@@ -57,6 +57,7 @@ public class AdminController {
 		//System.out.println("changeMeetType" +meet);
 		return adminService.changeMeetType(meet);
 	}
+	//모임 등급 변경하면 Follower 자동 삽입
 	@PostMapping(value="/insertFollower")
 	public int insertFollower(@RequestBody Meet meet) {
 		int result = adminService.insertFollower(meet);

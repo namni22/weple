@@ -98,5 +98,8 @@
 	<select id="getMemberCategory" resultType="String">
 		select member_category from member where member_id = #{memberId}
 	</select>
-	
+	<!-- 리뷰에서 모임원인지 확인 -->
+	<select id="isMember" resultType="follower">
+		select * from follower where meet_no = #{meetNo} and member_no = (select member_no from member where member_id = #{memberId})
+	</select>
 </mapper>

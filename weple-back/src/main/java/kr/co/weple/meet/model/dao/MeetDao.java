@@ -90,6 +90,10 @@ public interface MeetDao {
 	WishList isMeetLike(int meetNo, int memberNo);
 
 	int meetLikeCancle(int meetNo, int memberNo);
+	
+	List schedule(int calNo);
+
+	int modifyCalendar(Calendar cal);
 
 //	List meetCategory(List memberCategoryArr);
 

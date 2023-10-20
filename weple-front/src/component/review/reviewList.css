@@ -190,3 +190,11 @@
   padding-left: 10px;
 }
 /* *************************************** */
+.MuiBox-root {
+  max-width: 900px;
+}
+.MuiBox-root > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

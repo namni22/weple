@@ -99,7 +99,7 @@ const MeetView = (props) => {
     { url: "meetList", text: "멤버목록", active: false },
   ]);
 
-  console.log("meetCapttain 아이디 : ", myMeet.meetCaptain);
+  // console.log("meetCapttain 아이디 : ", myMeet.meetCaptain);
   const [memberId, setMemberId] = useState("");
 
   useEffect(() => {
@@ -118,9 +118,13 @@ const MeetView = (props) => {
         });
     }
   }, []);
+  console.log("followerStatus : ", followerStatus);
   return (
     <div className="afterMeet-all-wrap">
+      {/**
+       * 
       <div className="feed-title">{myMeet.meetTitle}</div>
+       */}
       <AfterMeetMain
         myMeet={myMeet}
         meetCaptain={meetCaptain}
@@ -148,10 +152,10 @@ const MeetView = (props) => {
             setCaptainCheck={setCaptainCheck}
           ></AfterMeetSubNavi>
         ) : (
-          ""
+          <div className="meetMain-blank"></div>
         )
       ) : (
-        ""
+        <div className="meetMain-blank"></div>
       )}
 
       <Routes>
@@ -321,7 +325,7 @@ const AfterMeetSubNavi = (props) => {
         },
       })
       .then((res) => {
-        console.log("방장체크 : ", res.data);
+        // console.log("방장체크 : ", res.data);
         setCaptainCheck(res.data.meetCapCheck);
         //   console.log("방장체크 captainCheck : ", captainCheck);
       })

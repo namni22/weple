@@ -15,6 +15,8 @@ const MeetChat = (props) => {
   const [chatContent, setChatContent] = useState("");
   const messages = useRef(null);
   const [bool, setBool] = useState(true);
+  /**
+   * 
   useEffect(() => {
     messages.current.scrollIntoView();
     if (bool) {
@@ -22,7 +24,23 @@ const MeetChat = (props) => {
       setBool(false);
     }
   }, [chat]);
+   */
+  const [memberId, setMemberId] = useState("");
 
+  useEffect(() => {
+    axios
+      .post("/member/getMember", null, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => {
+        setMemberId(res.data.memberId);
+      })
+      .catch((res) => {
+        console.log(res.response.status);
+      });
+  }, []);
   const enterInsert = (e) => {
     if (e.key === "Enter" && e.shiftKey) {
       return;
@@ -65,12 +83,17 @@ const MeetChat = (props) => {
         });
     }
   };
+
   return (
     <>
       <div className="meetChat-chat-wrap">
-        {chat.map((chat, index) => {
-          return <ChatItem key={"chat" + index} chat={chat} />;
-        })}
+        <div className="meetChat-inner">
+          {chat.map((chat, index) => {
+            return (
+              <ChatItem key={"chat" + index} chat={chat} memberId={memberId} />
+            );
+          })}
+        </div>
         <div ref={messages}></div>
       </div>
       <div className="meetChat-all-wrap">
@@ -105,9 +128,13 @@ const MeetChat = (props) => {
 };
 const ChatItem = (props) => {
   const chat = props.chat;
-
+  const memberId = props.memberId;
+  console.log("대화글 리스트 : ", chat);
+  console.log("로그인한 아이디 : ", memberId);
   return (
-    <ul>
+    /**
+     * 
+    <ul className={chat.memberId === memberId ? "aaaaaaaa" : "chat-ul"}>
       <li>
         <div className="meetChat-chat-img">
           {chat.memberImage === null ? <img src="/img/testImg_01.png" /> : ""}
@@ -120,8 +147,34 @@ const ChatItem = (props) => {
         </div>
         <div className="meetChat-chat-content">{chat.chatContent}</div>
       </li>
-      <li></li>
     </ul>
+     * 
+     */
+    <div
+      className={
+        chat.memberId === memberId ? "meetChat-item mymsg" : "meetChat-item"
+      }
+    >
+      {chat.memberId === memberId ? (
+        <></>
+      ) : (
+        <>
+          <div className="meetChat-img">
+            {chat.memberImage === null ? <img src="/img/testImg_01.png" /> : ""}
+          </div>
+        </>
+      )}
+
+      <div className="meetChat-box">
+        {chat.memberId === memberId ? (
+          <></>
+        ) : (
+          <span className="meetChat-writer">{chat.memberId}</span>
+        )}
+        <p className="meetChat-msg">{chat.chatContent}</p>
+        <span className="meetChat-time">{chat.chatDate}</span>
+      </div>
+    </div>
   );
 };
 export default MeetChat;

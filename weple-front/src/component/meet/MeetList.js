@@ -4,9 +4,6 @@ import axios from "axios";
 // import { Pagination } from "@mui/material";
 import Pagination from "../common/Pagination";
 import { useLocation, useNavigate } from "react-router";
-import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
-import MeetMemberList from "./MeetMemberList";
 
 const MeetList = (props) => {
   //로그인상태 불러올곳 ( 모임생성버튼이 이곳에 있다면 버튼을 위해서 )
