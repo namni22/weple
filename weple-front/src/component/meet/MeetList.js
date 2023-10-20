@@ -268,7 +268,7 @@ const MeetItem = (props) => {
           )
 
         ) : (
-          "로그아웃"
+          ""
         )}
 
       </div>
