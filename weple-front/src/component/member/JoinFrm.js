@@ -32,6 +32,7 @@ const JoinFrm = (props) => {
   const [selected, setSelected] = useState();
   const [subInformation, setSubInformation] = useState([]);
   const [subTag, setSubTag] = useState([]);
+  const [subValue, setSubValue] = useState([]);
 
   useEffect(() => {
     axios
@@ -81,12 +82,16 @@ const JoinFrm = (props) => {
     const newSubInfoList = [];
     const newSubTagList = [];
     const newSubValueList = [];
+    const selectedValues = newSubValueList;
 
     // 기타 선택 시 대분류 이름 출력하기 위해 필요
     const main = document.getElementById("main-category");
     const mainName = main.options[main.selectedIndex].innerText;
-
     subInfoList.forEach((item) => {
+      if (selectedValues.includes(item.value)) {
+        Swal.fire("이미 선택된 항목입니다.");
+        return;
+      }
       if (newSubInfoList.length < 5) {
         if (item.text === "기타") {
           if (item.value == 7) {
@@ -121,7 +126,8 @@ const JoinFrm = (props) => {
         }
         setSubInformation(newSubInfoList);
         setSubTag(newSubTagList); //최종 출력되는 list
-        const cate = newSubValueList.join();
+        setSubValue(newSubValueList);
+        const cate = subValue.join();
         setMemberCategory(cate);
 
         main.options[0].selected = true;
@@ -288,6 +294,26 @@ const JoinFrm = (props) => {
     } else {
       Swal.fire("입력값을 확인하세요.");
     }
+  };
+
+  // 카테고리 태그 선택 시 x 누르면 선택 카테고리 태그 삭제
+  const deleteTag = (subInformation2, subTag2, subValue2, index) => {
+    console.log("서브infor", subInformation2);
+    const newArr = subInformation2.splice(index, 1);
+    const newArr2 = subInformation.filter(function (item) {
+      return item !== newArr;
+    });
+    setSubInformation(newArr2);
+    const newArr3 = subTag2.splice(index, 1);
+    const newArr4 = subTag.filter(function (item) {
+      return item !== newArr3;
+    });
+    setSubTag(newArr4);
+    const newArr5 = subValue2.splice(index, 1);
+    const newArr6 = subValue.filter(function (item) {
+      return item !== newArr5;
+    });
+    setSubValue(newArr6);
   };
 
   return (
@@ -476,9 +502,17 @@ const JoinFrm = (props) => {
               <div className="join-select-print-box">
                 {subTag.map((subT, index) => {
                   return (
-                    <div key={"subT" + index}>
-                      <img src="/img/hashtag.png" />
-                      {subT}
+                    <div className="print-box-item">
+                      <div key={"subT" + index}>
+                        <img src="/img/hashtag.png" />
+                        {subT}
+                      </div>
+                      <img
+                        src="/img/delete.png"
+                        onClick={() => {
+                          deleteTag(subInformation, subTag, subValue, index);
+                        }}
+                      />
                     </div>
                   );
                 })}

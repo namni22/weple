@@ -3,11 +3,15 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { Button1 } from "../util/Button";
+import { useNavigate } from "react-router-dom";
+import FeedView from "../feed/FeedView";
 
 const MyFeed = (props) => {
   const memberId = props.memberId;
   const [myFeedList, setMyFeedList] = useState([]);
   const [start, setStart] = useState(1);
+  const isLogin = props.isLogin;
+  const isAdmin = props.isAdmin;
 
   // 내가 쓴 피드 가져오기(아이디로)
   const amount = 9;
@@ -41,7 +45,14 @@ const MyFeed = (props) => {
       <div className="profile-sub-content">
         <div className="myFeed-content">
           {myFeedList.map((myFeed, index) => {
-            return <MyFeedItem key={"myFeed" + index} myFeed={myFeed} />;
+            return (
+              <MyFeedItem
+                key={"myFeed" + index}
+                myFeed={myFeed}
+                isLogin={isLogin}
+                isAdmin={isAdmin}
+              />
+            );
           })}
         </div>
         <div className="myfeed-content-more-btn">
@@ -53,18 +64,39 @@ const MyFeed = (props) => {
 };
 
 const MyFeedItem = (props) => {
+  const isLogin = props.isLogin;
+  const isAdmin = props.isAdmin;
   const myFeed = props.myFeed;
   const myFeedImg = myFeed.imageList;
+  const navigate = useNavigate();
+  const [viewOpen, setViewOpen] = useState(false);
+  const [loadList, setLoadList] = useState(0);
+  const myFeedView = () => {
+    setViewOpen(true);
+  };
+  const closeView = (e) => {
+    setViewOpen(false);
+    e.stopPropagation();
+  };
 
   return (
     <div>
-      <div className="myFeed-item">
+      <div className="myFeed-item" onClick={myFeedView}>
         {myFeed.imageList === null ? (
           <img src="/img/testImg_01.png" />
         ) : (
           <img src={"/feed/" + myFeedImg[0]?.fimageName} />
         )}
       </div>
+      <FeedView
+        isOpen={viewOpen}
+        closeView={closeView}
+        feedNo={myFeed.feedNo}
+        isLogin={isLogin}
+        loadList={loadList}
+        setLoadList={setLoadList}
+        isAdmin={isAdmin}
+      />
     </div>
   );
 };

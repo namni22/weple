@@ -203,13 +203,20 @@ input[type="radio"]:checked + label {
 #sub-category > option:first-child {
   display: none;
 }
+
 .join-select-print-box {
+  display: flex;
+  flex-wrap: wrap;
+}
+.print-box-item {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   margin-top: 20px;
+  margin-right: 10px;
 }
-.join-select-print-box > div {
+
+.print-box-item > div {
   background-color: #eee;
   border-radius: 45px;
   font-size: 12px;
@@ -217,6 +224,11 @@ input[type="radio"]:checked + label {
   margin-right: 10px;
 }
 
+.print-box-item > img {
+  margin-left: -7px;
+}
+
 .join-select-print-box > div > img {
   margin-right: 2px;
+  cursor: pointer;
 }

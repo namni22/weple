@@ -152,7 +152,7 @@ const ModifyInfo = (props) => {
         member.memberImage = reader.result;
       };
     } else {
-      setProfileImg({});
+      setProfileImg(null);
       setMemberImage(null);
     }
   };

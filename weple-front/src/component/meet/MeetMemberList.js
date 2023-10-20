@@ -13,8 +13,6 @@ const MeetMemberList = (props) => {
   console.log("props로 받은 미팅 리스트 myMeet : ", myMeet);
   console.log("props로 받은 미팅 리스트 setmyMeet : ", setMyMeet);
   const id = props.id;
-  const captainCheck = props.captainCheck;
-  console.log("captainCheck : ", captainCheck);
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
   const [meetMember, setMeetMember] = useState([]);
@@ -50,23 +48,23 @@ const MeetMemberList = (props) => {
                     setMeetMember={setMeetMember}
                     id={id}
                     meetNo={myMeet.meetNo}
-                    captainCheck={captainCheck}
                     myMeet={myMeet}
                     setMyMeet={setMyMeet}
+                    isLogin={isLogin}
                   />
                 );
               })}
             </tbody>
           </table>
+          <div>
+            <Pagination
+              reqPage={reqPage}
+              setReqPage={setReqPage}
+              pageInfo={pageInfo}
+            />
+          </div>
         </>
       )}
-      <div>
-        <Pagination
-          reqPage={reqPage}
-          setReqPage={setReqPage}
-          pageInfo={pageInfo}
-        />
-      </div>
     </div>
   );
 };
@@ -74,7 +72,7 @@ const MemberList = (props) => {
   const memberList = props.member;
   const meetMember = props.meetMember;
   const setMeetMember = props.setMeetMember;
-  const captainCheck = props.captainCheck;
+
   const setMyMeet = props.setMyMeet;
   const myMeet = props.myMeet;
   //const isOpen = props.isOpen;
@@ -88,14 +86,32 @@ const MemberList = (props) => {
   const handleClick = () => setOpen(true);
   const [isOpen, setOpen] = useState(false);
   // console.log("모달 전달 전 memberList.memberId : ", memberList);
-
+  const isLogin = props.isLogin;
+  const [memberId, setMemberId] = useState("");
+  const token = window.localStorage.getItem("token");
+  useEffect(() => {
+    if (isLogin) {
+      axios
+        .post("/member/getMember", null, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          setMemberId(res.data.memberId);
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    }
+  }, []);
   const handleClickSubmit = () => {
     setOpen(false);
   };
   const handleClickCancel = () => setOpen(false);
   const buttonDisable = () => setDisable("");
   const likeEvent = () => {
-    if (memberList.memberId === id) {
+    if (memberList.memberId === memberId) {
       Swal.fire({
         text: "본인의 호감도는 올릴 수 없습니다",
       });
@@ -113,19 +129,49 @@ const MemberList = (props) => {
         if (result.isConfirmed) {
           axios
             .post("/meet/memberLike", memberList)
-            .then((res) => {})
-            .catch((res) => {});
-          Swal.fire({
-            text: `"` + memberList.memberId + `"` + "님의 호감도를 올렸습니다.",
-            icon: "success",
-          });
-          setDisable(true);
+            .then((res) => {
+              console.log("호감도를 누르고 성공한 data : ", res.data);
+              if (res.data === 1) {
+                console.log("memberId : ", memberId);
+                console.log("memeberList.Id : ", memberList.memberId);
+                axios
+                  .get(
+                    "/meet/memberLike/" +
+                      memberId +
+                      "?takerId=" +
+                      memberList.memberId
+                  )
+                  .then((res) => {
+                    console.log(res.data);
+                  })
+                  .catch((res) => {
+                    console.log(res.response.status);
+                  });
+                Swal.fire({
+                  text:
+                    `"` +
+                    memberList.memberId +
+                    `"` +
+                    "님의 호감도를 올렸습니다.",
+                  icon: "success",
+                });
+                setDisable(true);
+              } else {
+                Swal.fire({
+                  text: "실패하였습니다.",
+                  icon: "error",
+                });
+              }
+            })
+            .catch((res) => {
+              console.log(res.response.status);
+            });
         }
       });
     }
   };
   const reportEvent = () => {
-    if (memberList.memberId === id) {
+    if (memberList.memberId === memberId) {
       Swal.fire({
         text: "본인은 신고할 수 없습니다",
       });
@@ -197,7 +243,7 @@ const MemberList = (props) => {
           <Button2 text={"호감도"} clickEvent={likeEvent} disable={disable} />
           <Button2 text={"신고"} clickEvent={reportEvent} />
 
-          {captainCheck ? (
+          {myMeet.meetCaptain === memberId ? (
             <Button2 text={"추방"} clickEvent={deleteEvent} />
           ) : (
             ""
