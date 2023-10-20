@@ -76,12 +76,13 @@ public class MeetService {
 	
 	//모임수정
 	@Transactional
-	public int modifyMeet(Meet meet) {
+	public Meet modifyMeet(Meet meet) {
 		// TODO Auto-generated method stub
 		
 		int result = meetDao.modifyMeet(meet);
+		Meet newMeet= meetDao.selectOneMeet(meet.getMeetNo());
 		
-		return result;
+		return newMeet;
 	}
 
 	public Map meetMemberList(int reqPage, int meetNo, String memberId) {
@@ -234,14 +235,13 @@ public class MeetService {
 			return list;
 		}
 	
-	//메인페이지에 선호카테고리순 모임조회
-	public List meetCategory(String memberId) {
-		// TODO Auto-generated method stub
-		String getMemberCategory = meetDao.getMemberCategory(memberId);
-		List memberCategoryArr = Arrays.asList(getMemberCategory.split(","));
-		List list = meetDao.meetCategory(memberCategoryArr);
-		return list;
-	}	
+//	//메인페이지에 선호카테고리순 모임조회
+//	public List meetCategory(String memberId) {
+//		// TODO Auto-generated method stub
+//		String getMemberCategory = meetDao.getMemberCategory(memberId);
+//		List list = meetDao.meetCategory();
+//		return list;
+//	}	
 /********************************************************************************************/	
 	//모임 카테고리 메뉴 조회
 		public List selectSmallCategory(Category category) {

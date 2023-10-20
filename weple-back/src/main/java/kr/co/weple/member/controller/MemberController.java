@@ -140,7 +140,6 @@ public class MemberController {
 	@GetMapping(value="/myFeedList/{start}/{end}/{memberId}")
 	public List list(@PathVariable int start, @PathVariable int end, @PathVariable String memberId) {
 		List myFeedList = memberService.myFeedList(start, end, memberId);
-		System.out.println("내 피드 리스트 : " + myFeedList);
 		return myFeedList;
 		
 	}
@@ -199,6 +198,12 @@ public class MemberController {
 	public int delete(@RequestAttribute String memberId) {
 		return memberService.delete(memberId);
 	}
-	
+	//회원 선호 카테고리 조회
+	@GetMapping(value = "/getMemberCategory")
+	public List getMemberCategory(@RequestAttribute String memberId) {
+		System.out.println("controller 도착");
+		List list = memberService.getMemberCategory(memberId);
+		return list;
+	}
 	
 }

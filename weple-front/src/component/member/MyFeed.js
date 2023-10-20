@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { Button1 } from "../util/Button";
 import { useNavigate } from "react-router-dom";
 import FeedView from "../feed/FeedView";
+import { FeedComment } from "../feed/FeedComment";
 
 const MyFeed = (props) => {
   const memberId = props.memberId;
@@ -16,24 +17,27 @@ const MyFeed = (props) => {
   // 내가 쓴 피드 가져오기(아이디로)
   const amount = 9;
   useEffect(() => {
+    console.log("memberId", memberId);
     const end = start + amount - 1;
-    axios
-      .get("/member/myFeedList/" + start + "/" + end + "/" + memberId)
-      .then((res) => {
-        console.log("데이터 :  " + res.data);
-        if (res.data !== null) {
-          res.data.forEach((item) => {
-            myFeedList.push(item);
-            setMyFeedList([...myFeedList]);
-          });
-        } else {
-          console.log("얘는 왜 안 찍혀");
-          Swal.fire("내 피드가 없습니다. 피드를 작성해보세요.");
-        }
-      })
-      .catch((res) => {
-        console.log("오류");
-      });
+    if (memberId) {
+      axios
+        .get("/member/myFeedList/" + start + "/" + end + "/" + memberId)
+        .then((res) => {
+          console.log("데이터 :  " + res.data);
+          if (res.data !== "") {
+            res.data.forEach((item) => {
+              myFeedList.push(item);
+              setMyFeedList([...myFeedList]);
+            });
+          } else {
+            console.log("얘는 왜 안 찍혀");
+            Swal.fire("내 피드가 없습니다. 피드를 작성해보세요.");
+          }
+        })
+        .catch((res) => {
+          console.log("오류");
+        });
+    }
   }, [memberId, start]);
 
   const useFeedMore = (e) => {
@@ -70,13 +74,32 @@ const MyFeedItem = (props) => {
   const myFeedImg = myFeed.imageList;
   const navigate = useNavigate();
   const [viewOpen, setViewOpen] = useState(false);
+  const [cmtIsOpen, setCmtIsOpen] = useState(false); //댓글모달
   const [loadList, setLoadList] = useState(0);
+  const [fCommentRefNo, setFCommentRefNo] = useState(null);
+  const [rcmId, setRcmId] = useState(""); //답글남길 아이디 띄우기
+
+  // 피드 상세보기 모달
   const myFeedView = () => {
     setViewOpen(true);
   };
+
   const closeView = (e) => {
     setViewOpen(false);
     e.stopPropagation();
+  };
+
+  //댓글모달
+  const myFeedComment = (e) => {
+    setCmtIsOpen(true);
+    setRcmId("");
+    setFCommentRefNo(null);
+    // 댓글 버튼 누를 때 피드까지 뜨는 버블링 막는 코드
+    e.stopPropagation();
+    // setLoadList(loadList + 1);
+  };
+  const closeComent = () => {
+    setCmtIsOpen(false);
   };
 
   return (
@@ -87,6 +110,9 @@ const MyFeedItem = (props) => {
         ) : (
           <img src={"/feed/" + myFeedImg[0]?.fimageName} />
         )}
+        <span className="material-icons myFeedBubble" onClick={myFeedComment}>
+          chat_bubble_outline
+        </span>
       </div>
       <FeedView
         isOpen={viewOpen}
@@ -96,6 +122,18 @@ const MyFeedItem = (props) => {
         loadList={loadList}
         setLoadList={setLoadList}
         isAdmin={isAdmin}
+      />
+      <FeedComment
+        isOpen={cmtIsOpen}
+        closeComent={closeComent}
+        isLogin={isLogin}
+        feedNo={myFeed.feedNo}
+        fCommentRefNo={fCommentRefNo}
+        setFCommentRefNo={setFCommentRefNo}
+        rcmId={rcmId}
+        setRcmId={setRcmId}
+        loadList={loadList}
+        setLoadList={setLoadList}
       />
     </div>
   );

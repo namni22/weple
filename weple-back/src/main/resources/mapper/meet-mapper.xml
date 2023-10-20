@@ -132,7 +132,20 @@
 	</select>
 	<!-- 모임번호를 받아 모임을 select -->
 	<select id="selectOneMeet" resultType="meet">
-		SELECT * FROM MEET WHERE MEET_NO = #{meetNo}
+		SELECT * 
+			FROM
+			    (select ROWNUM AS RNUM , M2.* from (
+			    select meet_no, meet_date, meet_title, meet_content_s, meet_content_d, meet_total, meet_margin, meet_prepare, meet_category, meet_address1, meet_address2, meet_latitude, meet_longitude, meet_thumbnail, meet_captain, category_no, category_name, category_ref_no,
+			        ROUND(NVL((select avg(NVL(review_star, 0))
+			            from review r
+			            where r.meet_no = m.meet_no),0),1) review_star,
+			         (select count(meet_no)
+			            from review r
+			            where r.meet_no = m.meet_no) review_count 
+			    from meet m
+			    JOIN CATEGORY ON ( MEET_CATEGORY = CATEGORY_NO)
+			    where meet_no= #{meetNo}
+			    order by 1 desc, review_count desc) m2)
 	</select>
 	<!-- 멤버아이디를 받아 멤버 조회 -->
 	<select id="selectOneMember" resultType="member">
@@ -234,10 +247,7 @@
 	where rownum<=12
 	]]>
 	</select>
-	<!--메인페이지에 선호카테고리순 모임조회 -->
-	<select id="getMemberCategory" resultType="String">
-		select member_category from member where member_id = #{memberId}
-	</select>
+	<!-- 메인페이지에 선호 카테고리순 모임 조회 -->
 	<select id="meetCategory" resultType="meet">
 	<![CDATA[ 
 	select * 

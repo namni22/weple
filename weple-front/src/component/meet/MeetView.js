@@ -120,7 +120,7 @@ const MeetView = (props) => {
   }, []);
   return (
     <div className="afterMeet-all-wrap">
-      <div className="feed-title">MY GROUP</div>
+      <div className="feed-title">{myMeet.meetTitle}</div>
       <AfterMeetMain
         myMeet={myMeet}
         meetCaptain={meetCaptain}

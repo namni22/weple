@@ -106,6 +106,7 @@ const MeetInfo = (props) => {
     navigate("/meet/meetModify", { state: { meet: meet } });
   };
 
+  console.log("모임준비물 리스트 :", meetPrepareList, meetPrepareList.length);
   return (
     <div className="meetInfo-all-wrap">
       <Review
@@ -128,8 +129,6 @@ const MeetInfo = (props) => {
         <div className="meetInfo-content-area meetInfo-meetAddr-wrap">
           <div className="meetInfo-content-title">모임 장소</div>
           <div className="">
-            <div>{meet.meetLatitude}</div>
-            <div>{meet.meetLongitude}</div>
             <Kakao
               meetLatitude={meet.meetLatitude}
               meetLongitude={meet.meetLongitude}
@@ -140,21 +139,24 @@ const MeetInfo = (props) => {
             </div>
           </div>
         </div>
-        <div className="meetInfo-content-area">
-          <div className="meetInfo-content-title">준비물</div>
-          <div className="meetInfo-meetPrepareList">
-            {meetPrepareList.map((meetPrepare, index) => {
-              return (
-                <span
-                  key={"meetPrepare" + index}
-                  className="meetInfo-meetPrepare"
-                >
-                  {meetPrepare}
-                </span>
-              );
-            })}
+        {meetPrepareList[0] ? (//준비물이 있으면 출력
+          <div className="meetInfo-content-area">
+            <div className="meetInfo-content-title">준비물</div>
+            <div className="meetInfo-meetPrepareList">
+              {meetPrepareList.map((meetPrepare, index) => {
+                return (
+                  <span
+                    key={"meetPrepare" + index}
+                    className="meetInfo-meetPrepare"
+                  >
+                    {meetPrepare}
+                  </span>
+                );
+              })}
+            </div>
           </div>
-        </div>
+
+        ) : ("")}
       </div>
       <div className="meetJoin-btn-zone">
         {/* 버튼이 보이는 조건: 로그인이 되어있고 / 아직 모임 가입을 하지 않는 경우 */}
