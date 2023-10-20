@@ -36,6 +36,12 @@ const MeetCalendar = (props) => {
       })
       .catch((res) => {
         console.log(res.response.status);
+        Swal.fire({
+          icon: "error",
+          title: "문제가 발생했습니다",
+          text: "관리자에게 문의하세요",
+          confirmButtonText: "확인",
+        });
       });
   }, [calLoad]);
 
@@ -106,6 +112,12 @@ const MeetCalendar = (props) => {
           })
           .catch((res) => {
             console.log(res.response.status);
+            Swal.fire({
+              icon: "error",
+              title: "문제가 발생했습니다",
+              text: "관리자에게 문의하세요",
+              confirmButtonText: "확인",
+            });
           });
         setCalLoad(calLoad + 1);
       }
@@ -268,6 +280,12 @@ const AddModal = (props) => {
           })
           .catch((res) => {
             console.log(res.response.status);
+            Swal.fire({
+              icon: "error",
+              title: "문제가 발생했습니다",
+              text: "관리자에게 문의하세요",
+              confirmButtonText: "확인",
+            });
           });
       } else {
         const cal = {
@@ -293,6 +311,12 @@ const AddModal = (props) => {
           })
           .catch((res) => {
             console.log(res.response.status);
+            Swal.fire({
+              icon: "error",
+              title: "문제가 발생했습니다",
+              text: "관리자에게 문의하세요",
+              confirmButtonText: "확인",
+            });
           });
       }
     } else {
@@ -315,6 +339,7 @@ const AddModal = (props) => {
             value={calTitle}
             onChange={calTitleChange}
             placeholder="일정을 입력하세요"
+            maxlength="66"
           ></input>
         </div>
         <div className="meetCalendar-modal-date">
@@ -349,6 +374,7 @@ const AddModal = (props) => {
           <textarea
             value={calContent}
             onChange={calContentChange}
+            maxlength="1300"
             placeholder="내용을 입력하세요"
           ></textarea>
         </div>
