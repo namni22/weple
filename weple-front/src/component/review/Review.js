@@ -45,10 +45,15 @@ const Review = (props) => {
       .catch((res) => {
         console.log(res.data?.status);
       });
+
     //isMember
+    const form = new FormData();
+    form.append("meetNo", meetNo);
     axios
-      .post("/member/isMember", meetNo, {
+      .post("/member/isMember", form, {
         headers: {
+          contentType: "multipart/form-data",
+          processData: false,
           Authorization: "Bearer" + token,
         },
       })
@@ -56,7 +61,7 @@ const Review = (props) => {
         console.log("isMember", res.data);
       })
       .catch((res) => {
-        console.log("isMember", res.data);
+        console.log("isMember??????", res.data);
       });
   }, [meetNo]);
   //리뷰 => 컴포넌트 배열로 바꿔줌
