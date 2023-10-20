@@ -4,8 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.websocket.server.PathParam;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -301,25 +306,7 @@ public class MeetController {
 			System.out.println("list : "+list);
 			return list;
 		}
-		
-	//캘린더 일정추가
-	@PostMapping(value="/addCalendar")
-	public int addCalendar(@ModelAttribute Calendar cal,
-			@RequestAttribute String memberId) {
-		return meetService.addcalendar(cal,memberId);
-	}
-	//캘린더 리스트 출력
-	@GetMapping(value="/calendarList/{meetNo}")
-	public List calendarList(@PathVariable int meetNo) {
-		List list = meetService.calendarList(meetNo);
-		return list;
-	}
-	//캘린더 일정삭제
-	@GetMapping(value="/removeCalendar/{calNo}/{meetNo}")
-	public int removeCalendar(@PathVariable int calNo,@PathVariable int meetNo,
-			@RequestAttribute String memberId) {
-		return meetService.removeCalendar(calNo, meetNo,memberId);
-	}
+	
 	//사이드바 유무에 필요한 회원상태 정보
 	@GetMapping(value = "/memberStatus/{meetNo}")
 	public Follower memberStatus(@PathVariable int meetNo,@RequestAttribute String memberId) {
@@ -342,6 +329,37 @@ public class MeetController {
 		System.out.println("좋아요 누른 사람 : "+memberId);
 		System.out.println("좋아요 받은 사람 : "+takerId);
 		return 22;
+	}
+	
+	
+	//------------------캘린더---------------------
+		
+	//캘린더 일정추가
+	@PostMapping(value="/addCalendar")
+	public int addCalendar(@RequestBody Calendar cal) {
+		return meetService.addcalendar(cal);
+	}
+	//캘린더 리스트 출력
+	@GetMapping(value="/calendarList/{meetNo}")
+	public List calendarList(@PathVariable int meetNo) {
+		List list = meetService.calendarList(meetNo);
+		return list;
+	}
+	//캘린더 일정삭제
+	@GetMapping(value="/removeCalendar/{calNo}")
+	public int removeCalendar(@PathVariable int calNo) {
+		return meetService.removeCalendar(calNo);
+	}
+	//일정 불러오기
+	@GetMapping(value="/schedule/{calNo}")
+	public Calendar schedule(@PathVariable int calNo) {
+		return meetService.schedule(calNo);
+	}
+	//일정수정하기
+	@Transactional
+	@PostMapping(value="/modifyCalendar")
+	public int modifyCalendar(@RequestBody Calendar cal) {
+		return meetService.modifyCalendar(cal);
 	}
 
 }

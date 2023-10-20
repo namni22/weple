@@ -338,6 +338,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
+  margin-bottom: 40px;
 }
 .meetCalendar {
   margin-bottom: 20px;
@@ -380,7 +381,6 @@
 .meetCalendar .react-calendar__navigation > button > span {
   color: #fff;
 }
-
 .meetCalendar .meetCalendar .react-calendar__navigation {
   border-radius: 10px 0px 0 0;
 }
@@ -474,7 +474,7 @@ input[type="date"] {
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  background-color: orange;
+  background-color: #ff5e5e;
 }
 .meetCalendar-schedule-wrap {
   width: 48%;
@@ -489,7 +489,7 @@ input[type="date"] {
   font-size: 24px;
   border-radius: 10px 10px 0 0;
   text-align: center;
-  background-color: orange;
+  background-color: #ff5e5e;
   color: #fff;
   font-size: 16px;
   font-weight: 600;
@@ -500,9 +500,26 @@ input[type="date"] {
 .meetCalendar-schedule-content > div {
   padding: 10px;
 }
+.meetCalendar-schedule-content > div > button {
+  width: 50px;
+}
 .meetCalendar-schedule-content > div > div:first-child {
   font-weight: 600;
   font-size: 18px;
+}
+.meetCalendar-schedule-content > div > div:first-child > button {
+  font-weight: 400;
+  font-size: 12px;
+  background-color: #ff5e5e;
+  color: #fff;
+  border-radius: 5px;
+  padding: 2px 5px;
+  margin-left: 10px;
+  cursor: pointer;
+  border: none;
+}
+.meetCalendar-schedule-content > div > div:first-child > button:last-child {
+  background-color: #aaa;
 }
 .meetCalendar-schedule-content > div > div:last-child {
   font-size: 14px;

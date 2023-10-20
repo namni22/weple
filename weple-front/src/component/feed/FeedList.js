@@ -199,7 +199,7 @@ const FeedContent = (props) => {
                 text: "피드가 삭제되었습니다",
                 confirmButtonText: "확인",
               }).then(() => {
-                setLoadList(loadList + 1);
+                window.location.reload();
               });
             }
           })
@@ -230,7 +230,7 @@ const FeedContent = (props) => {
   };
   const closeView = (e) => {
     setViewOpen(false);
-    e.stopPropagation();
+    // e.stopPropagation();
   };
   return (
     <div className="feed-list-content">

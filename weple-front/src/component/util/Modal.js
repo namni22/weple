@@ -7,6 +7,7 @@ import axios from "axios";
 
 const ReportModal = (props) => {
   const isOpen = props.isOpen;
+  const moreModalClose = props.moreModalClose;
   const onSubmit = props.onSubmit;
   const onCancel = props.onCancel;
   const isLogin = props.isLogin;
@@ -141,6 +142,7 @@ const changeValue = (e) => {
         .then((res) => {
           //  console.log(res.data);
           if (res.data === 1) {
+            moreModalClose();
             Swal.fire({
               title: "신고가 완료되었습니다.",
               text: "신고 처리 완료",
@@ -365,6 +367,7 @@ const MoreModal = (props) => {
         reportMemberId={feedWriter}
         reportTypeValue={reportTypeValue}
         reportType={reportType}
+        moreModalClose={onCancel}
       />
     </ReactModal>
   );

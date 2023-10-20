@@ -20,14 +20,17 @@ const MeetCalendar = (props) => {
   const [value, onChange] = useState(new Date());
   const activeDate = moment(value).format("YYYY-MM-DD");
   const [notification, setNotification] = useState([]);
+  //수정
+  const [calNo, setCalNo] = useState(null);
+  const [type, setType] = useState("");
   useEffect(() => {
     axios
       .get("/meet/calendarList/" + meetNo)
       .then((res) => {
         setSchedule(res.data);
-        for (let i = 0; i < schedule.length; i++) {
+        for (let i = 0; i < res.data.length; i++) {
           const arr = notification;
-          arr.push(schedule[i].calStart);
+          arr.push(res.data[i].calStart);
           setNotification(arr);
         }
       })
@@ -49,6 +52,7 @@ const MeetCalendar = (props) => {
   };
 
   const addModal = () => {
+    setType("add");
     setIsOpen(true);
   };
   const onCancel = () => {
@@ -57,6 +61,55 @@ const MeetCalendar = (props) => {
     setCalEnd("");
     setCalTitle("");
     setCalContent("");
+    setType("");
+  };
+  const scheduleModify = (e) => {
+    setType("modify");
+    setCalNo(e.currentTarget.value);
+    const calNo = e.currentTarget.value;
+    axios
+      .get("/meet/schedule/" + calNo)
+      .then((res) => {
+        setCalStart(res.data.calStart);
+        setCalEnd(res.data.calEnd);
+        setCalTitle(res.data.calTitle);
+        setCalContent(res.data.calContent);
+      })
+      .catch((res) => {
+        console.log(res.response.status);
+      });
+    setIsOpen(true);
+  };
+  const scheduleDelete = (e) => {
+    const calNo = e.currentTarget.value;
+    Swal.fire({
+      icon: "warning",
+      text: "일정을 삭제하시겠습니까?",
+      showCancelButton: true,
+      confirmButtonText: "삭제",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .get("/meet/removeCalendar/" + calNo)
+          .then((res) => {
+            if (res.data !== 0) {
+              Swal.fire({
+                icon: "success",
+                text: "일정이 삭제되었습니다",
+                confirmButtonText: "확인",
+              }).then(() => {
+                setCalNo(null);
+                setCalLoad(calLoad + 1);
+              });
+            }
+          })
+          .catch((res) => {
+            console.log(res.response.status);
+          });
+        setCalLoad(calLoad + 1);
+      }
+    });
   };
 
   return (
@@ -86,10 +139,11 @@ const MeetCalendar = (props) => {
           calContent={calContent}
           setCalContent={setCalContent}
           meetNo={meetNo}
-          schedule={schedule}
-          setSchedule={setSchedule}
           calLoad={calLoad}
           setCalLoad={setCalLoad}
+          type={type}
+          calNo={calNo}
+          setCalNo={setCalNo}
         />
       </div>
       <div className="meetCalendar-schedule-wrap">
@@ -99,7 +153,15 @@ const MeetCalendar = (props) => {
             if (schedule.calStart == activeDate) {
               return (
                 <div key={"schedule" + index}>
-                  <div>· {schedule.calTitle}</div>
+                  <div>
+                    · {schedule.calTitle}
+                    <button value={schedule.calNo} onClick={scheduleModify}>
+                      수정
+                    </button>
+                    <button value={schedule.calNo} onClick={scheduleDelete}>
+                      삭제
+                    </button>
+                  </div>
                   <div>{schedule.calContent}</div>
                 </div>
               );
@@ -146,8 +208,13 @@ const AddModal = (props) => {
   const calContent = props.calContent;
   const setCalContent = props.setCalContent;
   const meetNo = props.meetNo;
+  const type = props.type;
+  const calNo = props.calNo;
+  const setCalNo = props.setCalNo;
   const schedule = props.schedule;
   const setSchedule = props.setSchedule;
+  if (type == "modify") {
+  }
 
   //오늘날짜 0000-00-00 로 등록
   const now_utc = Date.now();
@@ -171,7 +238,6 @@ const AddModal = (props) => {
     setCalContent(changeValue);
   };
 
-  const token = window.localStorage.getItem("token");
   const addSchedule = () => {
     if (
       calTitle !== "" &&
@@ -180,31 +246,55 @@ const AddModal = (props) => {
       calEnd !== "" &&
       meetNo !== ""
     ) {
-      const form = new FormData();
-      form.append("calTitle", calTitle);
-      form.append("calContent", calContent);
-      form.append("calStart", calStart);
-      form.append("calEnd", calEnd);
-      form.append("meetNo", meetNo);
-      axios
-        .post("/meet/addCalendar", form, {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        })
-        .then((res) => {
-          if (res.data > 0) {
-            Swal.fire({
-              text: "일정등록완료",
-              confirmButtonText: "확인",
-            });
-            setCalLoad(calLoad + 1);
-            onCancel();
-          }
-        })
-        .catch((res) => {
-          console.log(res.response.status);
-        });
+      if (type == "add") {
+        const cal = {
+          calTitle: calTitle,
+          calContent: calContent,
+          calStart: calStart,
+          calEnd: calEnd,
+          meetNo: meetNo,
+        };
+        axios
+          .post("/meet/addCalendar", cal)
+          .then((res) => {
+            if (res.data > 0) {
+              Swal.fire({
+                text: "일정등록완료",
+                confirmButtonText: "확인",
+              });
+              setCalLoad(calLoad + 1);
+              onCancel();
+            }
+          })
+          .catch((res) => {
+            console.log(res.response.status);
+          });
+      } else {
+        const cal = {
+          calTitle: calTitle,
+          calContent: calContent,
+          calStart: calStart,
+          calEnd: calEnd,
+          calNo: calNo,
+        };
+        console.log(cal);
+        axios
+          .post("/meet/modifyCalendar", cal)
+          .then((res) => {
+            if (res.data > 0) {
+              Swal.fire({
+                text: "일정수정완료",
+                confirmButtonText: "확인",
+              });
+              setCalNo(null);
+              setCalLoad(calLoad + 1);
+              onCancel();
+            }
+          })
+          .catch((res) => {
+            console.log(res.response.status);
+          });
+      }
     } else {
       Swal.fire({
         text: "모든 값을 입력해주세요!",
@@ -222,6 +312,7 @@ const AddModal = (props) => {
         <div className="meetCalendar-modal-title">일정등록</div>
         <div className="meetCalendar-calTitle">
           <input
+            value={calTitle}
             onChange={calTitleChange}
             placeholder="일정을 입력하세요"
           ></input>
@@ -256,6 +347,7 @@ const AddModal = (props) => {
         </div>
         <div>
           <textarea
+            value={calContent}
             onChange={calContentChange}
             placeholder="내용을 입력하세요"
           ></textarea>
