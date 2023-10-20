@@ -11,6 +11,7 @@ import kr.co.weple.meet.model.vo.Calendar;
 import kr.co.weple.meet.model.vo.Category;
 import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.meet.model.vo.Meet;
+import kr.co.weple.meet.model.vo.WishList;
 import kr.co.weple.member.model.vo.Member;
 
 @Mapper
@@ -85,6 +86,10 @@ public interface MeetDao {
 	int disCount(int meetNo, int newMargin);
 
 	String getMemberCategory(String memberId);
+
+	WishList isMeetLike(int meetNo, int memberNo);
+
+	int meetLikeCancle(int meetNo, int memberNo);
 
 //	List meetCategory(List memberCategoryArr);
 

@@ -25,6 +25,7 @@ import kr.co.weple.meet.model.vo.Category;
 import kr.co.weple.meet.model.vo.Chat;
 import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.meet.model.vo.Meet;
+import kr.co.weple.meet.model.vo.WishList;
 import kr.co.weple.member.model.service.MemberService;
 import kr.co.weple.member.model.vo.Member;
 
@@ -234,6 +235,32 @@ public class MeetController {
 		System.out.println("모임 번호 : "+meetNo);
 		return meetService.selectOneMeet(meetNo);
 	}
+	
+	@PostMapping(value = "/isMeetLike")
+	public WishList isMeetLike (
+			@RequestBody Meet meet,
+			@RequestAttribute String memberId
+			) {
+		
+		Member member = memberService.selectOneMember(memberId);
+		
+		WishList isMeetLike = meetService.isMeetLike(meet.getMeetNo(),member.getMemberNo());
+		
+		
+		return isMeetLike;
+	}
+	//모임 좋아요 취소
+	@PostMapping(value = "/meetLikeCancle")
+	public int meetLikeCancle(
+			@RequestBody Meet meet,
+			@RequestAttribute String memberId
+			) {
+		System.out.println("좋아요 취소 진행");
+		Member member = memberService.selectOneMember(memberId);
+		int result = meetService.meetLikeCancle(meet.getMeetNo(), member.getMemberNo());
+		return result;
+	}
+	
 /*********************************메인페이지 모임조회*********************************************/	
 	//메인페이지에 참여인원 순 모임 조회
 	@GetMapping(value = "/meetMargin")

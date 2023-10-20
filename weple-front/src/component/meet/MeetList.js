@@ -145,6 +145,10 @@ const MeetItem = (props) => {
   const meet = props.meet;
   const navigate = useNavigate();
   const isLogin = props.isLogin;
+
+  const [loginMember, setLoginMember] = useState(null);
+  const [isMeetLike, setIsMeetLike] = useState(null);
+
   // 상세보기로 이동하는 함수
   const meetView = () => {
     // console.log("클릭하기 전 값 : ", meet, meet.meetNo);
@@ -164,6 +168,63 @@ const MeetItem = (props) => {
     }
     return result;
   };
+
+  //모임 좋아요취소 누를시 
+  const meetLikeCancle = (meet) => {
+    console.log("좋아요 누르면", meet);
+    const token = window.localStorage.getItem("token");
+    axios
+      .post("/meet/meetLikeCancle", meet, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => { })
+      .catch((res) => { });
+
+    return
+  }
+
+  //로그인을 했을경우 누가 로그인했는지 db에서 select해오기
+  useEffect(() => {
+    const token = window.localStorage.getItem("token");
+    if (isLogin) {
+
+      axios
+        .post("/member/getMember", null, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+
+          setLoginMember(res.data);
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+
+      //모임 좋아요를 누른상태인지 조회 해오기
+      axios
+        .post("/meet/isMeetLike", meet, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          // console.log("좋아요 isMeetLike 조회 결과 : ", res.data);
+          setIsMeetLike(res.data);
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+
+    } else {//로그아웃하면 로그인멤버 초기화
+      setLoginMember(null);
+    }
+
+  }, [isLogin])
+
 
   return (
     <div className="meet-one">
@@ -194,7 +255,17 @@ const MeetItem = (props) => {
         <div className="review-count">후기 {meet.reviewCount}</div>
       </div>
       <div className="MeetList-like-box">
-        <span className="material-icons MeetList-like">favorite_border</span>
+        {loginMember ? (
+          isMeetLike ? (
+            <span className="material-icons MeetList-like" onClick={() => { meetLikeCancle(meet); }} >favorite</span>
+          ) : (
+            <span className="material-icons MeetList-like" >favorite_border</span>
+          )
+
+        ) : (
+          "로그아웃"
+        )}
+
       </div>
     </div>
   );

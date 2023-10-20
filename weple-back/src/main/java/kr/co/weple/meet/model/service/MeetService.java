@@ -16,6 +16,7 @@ import kr.co.weple.meet.model.vo.Calendar;
 import kr.co.weple.meet.model.vo.Category;
 import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.meet.model.vo.Meet;
+import kr.co.weple.meet.model.vo.WishList;
 import kr.co.weple.member.model.vo.Member;
 
 @Service
@@ -352,6 +353,23 @@ public class MeetService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("meetCapCheck",meetCapCheck);		
 		return map;
+	}
+
+	public WishList isMeetLike(int meetNo, int memberNo) {
+		// TODO Auto-generated method stub
+//		System.out.println("정보전달 확인 모임번호 : "+meetNo);
+//		System.out.println("정보전달 확인 멤버번호 : "+memberNo);
+		WishList isMeetLike = meetDao.isMeetLike(meetNo, memberNo);
+//		System.out.println("좋아요 조회 결과 : "+isMeetLike);
+	
+		return isMeetLike;
+	}
+
+	@Transactional
+	public int meetLikeCancle(int meetNo, int memberNo) {
+		// TODO Auto-generated method stub
+		
+		return meetDao.meetLikeCancle(meetNo, memberNo);
 	}
 
 
