@@ -132,7 +132,20 @@
 	</select>
 	<!-- 모임번호를 받아 모임을 select -->
 	<select id="selectOneMeet" resultType="meet">
-		SELECT * FROM MEET WHERE MEET_NO = #{meetNo}
+		SELECT * 
+			FROM
+			    (select ROWNUM AS RNUM , M2.* from (
+			    select meet_no, meet_date, meet_title, meet_content_s, meet_content_d, meet_total, meet_margin, meet_prepare, meet_category, meet_address1, meet_address2, meet_latitude, meet_longitude, meet_thumbnail, meet_captain, category_no, category_name, category_ref_no,
+			        ROUND(NVL((select avg(NVL(review_star, 0))
+			            from review r
+			            where r.meet_no = m.meet_no),0),1) review_star,
+			         (select count(meet_no)
+			            from review r
+			            where r.meet_no = m.meet_no) review_count 
+			    from meet m
+			    JOIN CATEGORY ON ( MEET_CATEGORY = CATEGORY_NO)
+			    where meet_no= #{meetNo}
+			    order by 1 desc, review_count desc) m2)
 	</select>
 	<!-- 멤버아이디를 받아 멤버 조회 -->
 	<select id="selectOneMember" resultType="member">
@@ -165,7 +178,8 @@
 			        MEMBER_LIKE,
 			        FOLLOWER_STATUS,
 			        MEET_NO,
-			        MEMBER_NO
+			        MEMBER_NO,
+                    (select count(*) from mlike ml where mlike_giver_no = (select member_no from member where member_id=#{memberId}) and mlike_taker_no=member_no and ml.meet_no=#{meetNo}) is_like
 			    FROM FOLLOWER
 			    JOIN MEMBER USING (MEMBER_NO)
 		        WHERE FOLLOWER_STATUS = 1 AND MEET_NO = #{meetNo}
@@ -254,7 +268,7 @@
 	</delete>
 	<!-- 모임 내 회원 호감도 -->
 	<update id="memberLike">
-		UPDATE MEMBER SET MEMBER_LIKE= #{changeMemberLike} WHERE MEMBER_ID = #{memberId}
+		UPDATE MEMBER SET MEMBER_LIKE= MEMBER_LIKE+0.7 WHERE MEMBER_ID = #{memberId}
 	</update>
 	<!-- meetChat -->
 	<update id="insertMeetChat">
@@ -274,17 +288,7 @@
 	    WHERE MEET_NO = #{meetNo})C where rownum <![CDATA[<=]]>1 order by 1 desc
 		
 	</select>
-	
-	<!-- 캘린더 -->
-	<insert id="addCalendar">
-		insert into calendar values(calendar_seq.nextval,#{meetNo},#{calTitle},#{calContent},#{calStart},#{calEnd})
-	</insert>
-	<select id="calendarList" resultType="calendar">
-		select * from calendar where meet_no = #{meetNo}
-	</select>
-	<delete id="removeCalendar">
-		delete from calendar where cal_no=#{calNo}
-	</delete>
+
 	<select id="selectMemberNo" resultType="int">
 		SELECT MEMBER_NO FROM MEMBER WHERE MEMBER_ID = #{memberId}
 	</select>
@@ -300,4 +304,30 @@
 	<update id="disCount">
 		update meet set meet_margin = #{newMargin} where meet_no = #{meetNo}
 	</update>
+	<insert id="insertMemberLike">
+		insert into mLike values(#{giverNo},#{takerNo},#{meetNo})
+	</insert>
+	<select id="like" resultType="memberLike">
+		select * from Mlike where meet_no=#{meetNo} and MLIKE_GIVER_NO=#{memberNo}
+	</select>
+		
+		
+	<!-- 캘린더 -->
+	<insert id="addCalendar">
+		insert into calendar values(calendar_seq.nextval,#{meetNo},#{calTitle},#{calContent},#{calStart},#{calEnd})
+	</insert>
+	<select id="calendarList" resultType="calendar">
+		select * from calendar where meet_no = #{meetNo}
+	</select>
+	<delete id="removeCalendar">
+		delete from calendar where cal_no=#{calNo}
+	</delete>
+	<select id="schedule" resultType="calendar">
+		select * from calendar where cal_no=#{calNo}
+	</select>
+	<update id="modifyCalendar">
+		update calendar set cal_title=#{calTitle},cal_content=#{calContent},cal_start=#{calStart},cal_end=#{calEnd} where cal_no=#{calNo}
+	</update>
+
+
 </mapper>

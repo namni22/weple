@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.weple.PageInfo;
 import kr.co.weple.Pagination;
+import kr.co.weple.feed.model.vo.Feed;
 import kr.co.weple.meet.model.dao.MeetDao;
 import kr.co.weple.meet.model.vo.Calendar;
 import kr.co.weple.meet.model.vo.Category;
@@ -40,18 +41,19 @@ public class MeetService {
 		
 	}
 
-	public Map enrollMember(int reqPage,int meetNo) {
-		int numPerPage	= 10;
+	public Map enrollMember(int reqPage,int meetNo, String memberId) {
+		int numPerPage	= 5;
 		int pageNaviSize = 5;
 		int totalCount = meetDao.enrollMemberList(meetNo);
 		//System.out.println("totalCount : "+totalCount);
 		
 		PageInfo pi = pagination.getPageInfo(reqPage,numPerPage,pageNaviSize,totalCount);
 		//System.out.println("pi : "+pi);
-		HashMap<String, Integer> param = new HashMap<String, Integer>();
+		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("start", pi.getStart());
 		param.put("end", pi.getEnd());
 		param.put("meetNo",meetNo);
+		param.put("memberId",memberId);
 		List enrollMemberList = meetDao.selectEnrollMemberList(param);
 		//System.out.println("enrollMemberList : "+enrollMemberList);
 		HashMap<String, Object> map = new HashMap<String,Object>();
@@ -75,26 +77,28 @@ public class MeetService {
 	
 	//모임수정
 	@Transactional
-	public int modifyMeet(Meet meet) {
+	public Meet modifyMeet(Meet meet) {
 		// TODO Auto-generated method stub
 		
 		int result = meetDao.modifyMeet(meet);
+		Meet newMeet= meetDao.selectOneMeet(meet.getMeetNo());
 		
-		return result;
+		return newMeet;
 	}
 
-	public Map meetMemberList(int reqPage, int meetNo) {
-		int numPerPage	= 12;
+	public Map meetMemberList(int reqPage, int meetNo, String memberId) {
+		int numPerPage	= 5;
 		int pageNaviSize = 5;
 		int totalCount = meetDao.meetMemberList(meetNo);
 		System.out.println("totalCount : "+totalCount);
 		
 		PageInfo pi = pagination.getPageInfo(reqPage,numPerPage,pageNaviSize,totalCount);
 		System.out.println("pi : "+pi);
-		HashMap<String, Integer> param = new HashMap<String, Integer>();
+		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("start", pi.getStart());
 		param.put("end", pi.getEnd());
 		param.put("meetNo",meetNo);
+		param.put("memberId",memberId);
 		List selectMeetMemberList = meetDao.selectMeetMemberList(param);
 		System.out.println("selectMeetMemberList : "+selectMeetMemberList);
 		HashMap<String, Object> map = new HashMap<String,Object>();
@@ -315,29 +319,6 @@ public class MeetService {
 	}
 
 
-	//------------------캘린더---------------------
-	@Transactional
-	public int addcalendar(Calendar cal, String memberId) {
-		Meet m = meetDao.selectOneMeet(cal.getMeetNo());
-		if(m.getMeetCaptain().equals(memberId)) {
-			return  meetDao.addCalendar(cal);
-		}
-		return 0;
-	}
-
-	public List calendarList(int meetNo) {
-		return meetDao.calendarList(meetNo);
-	}
-	
-	@Transactional
-	public int removeCalendar(int calNo, int meetNo, String memberId) {
-		Meet m = meetDao.selectOneMeet(meetNo);
-		if(m.getMeetCaptain().equals( memberId)) {
-		return meetDao.removeCalendar(calNo);
-		}
-		return 0;
-	}
-
 	public Follower status(int meetNo, String memberId) {
 		int selectMemberNo = meetDao.selectMemberNo(memberId);
 		Follower followStatus = meetDao.status(meetNo,selectMemberNo);
@@ -351,6 +332,64 @@ public class MeetService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("meetCapCheck",meetCapCheck);		
 		return map;
+	}
+	@Transactional
+	public Map memberLikeStatus(String memberId, int takerNo, int meetNo, int reqPage) {
+		int giverNo = meetDao.selectMemberNo(memberId);
+		int result = meetDao.insertMemberLike(giverNo,takerNo,meetNo);
+		if(result >0) {
+			int numPerPage	= 5;
+			int pageNaviSize = 5;
+			int totalCount = meetDao.meetMemberList(meetNo);
+			System.out.println("totalCount : "+totalCount);
+			PageInfo pi = pagination.getPageInfo(reqPage,numPerPage,pageNaviSize,totalCount);
+			System.out.println("pi : "+pi);
+			HashMap<String, Object> param = new HashMap<String, Object>();
+			param.put("start", pi.getStart());
+			param.put("end", pi.getEnd());
+			param.put("meetNo",meetNo);
+			param.put("memberId",memberId);
+			List selectMeetMemberList = meetDao.selectMeetMemberList(param);
+			System.out.println("selectMeetMemberList : "+selectMeetMemberList);
+			HashMap<String, Object> map = new HashMap<String,Object>();
+			map.put("selectMeetMemberList",selectMeetMemberList);
+			map.put("pi",pi);
+			return map;
+		}
+		return null;
+	}
+
+	public String Like(String memberId, int meetNo) {
+		int memberNo = meetDao.selectMemberNo(memberId);
+		List list = meetDao.like(memberNo,meetNo);
+		if(list.size()!=0) {
+			return "true";
+		}
+		return "";
+	}
+
+
+	//------------------캘린더---------------------
+	//		Meet m = meetDao.selectOneMeet(cal.getMeetNo());
+	@Transactional
+	public int addcalendar(Calendar cal) {
+			return  meetDao.addCalendar(cal);
+	}
+	public List calendarList(int meetNo) {
+		return meetDao.calendarList(meetNo);
+	}
+	@Transactional
+	public int removeCalendar(int calNo) {
+		return meetDao.removeCalendar(calNo);
+	}
+	public Calendar schedule(int calNo) {
+		List list = meetDao.schedule(calNo);
+		Calendar c = (Calendar)list.get(0);
+		return c;
+	}
+	@Transactional
+	public int modifyCalendar(Calendar cal) {
+		return meetDao.modifyCalendar(cal);
 	}
 
 
