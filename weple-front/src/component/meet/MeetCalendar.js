@@ -10,25 +10,43 @@ import Swal from "sweetalert2";
 
 const MeetCalendar = (props) => {
   const meetNo = props.meetNo;
-  const [value, onChange] = useState(new Date());
-  const activeDate = moment(value).format("YYYY-MM-DD");
   const [isOpen, setIsOpen] = useState(false);
   const [calStart, setCalStart] = useState("");
   const [calEnd, setCalEnd] = useState("");
   const [calTitle, setCalTitle] = useState("");
   const [calContent, setCalContent] = useState("");
   const [schedule, setSchedule] = useState([]);
-  console.log(schedule);
+  const [calLoad, setCalLoad] = useState(0);
+  const [value, onChange] = useState(new Date());
+  const activeDate = moment(value).format("YYYY-MM-DD");
+  const [notification, setNotification] = useState([]);
   useEffect(() => {
     axios
       .get("/meet/calendarList/" + meetNo)
       .then((res) => {
         setSchedule(res.data);
+        for (let i = 0; i < schedule.length; i++) {
+          const arr = notification;
+          arr.push(schedule[i].calStart);
+          setNotification(arr);
+        }
       })
       .catch((res) => {
         console.log(res.response.status);
       });
-  }, []);
+  }, [calLoad]);
+
+  const tileContent = ({ date, view }) => {
+    let html = [];
+    if (notification.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
+      html.push(<div className="notification"></div>);
+    }
+    return (
+      <>
+        <div className="calendar-notification">{html}</div>
+      </>
+    );
+  };
 
   const addModal = () => {
     setIsOpen(true);
@@ -49,6 +67,7 @@ const MeetCalendar = (props) => {
           value={value}
           formatDay={(locale, date) => moment(date).format("D")}
           showNeighboringMonth={false}
+          tileContent={tileContent}
         />
         <div className="meetCalendar-add-btn">
           <span className="material-icons-outlined" onClick={addModal}>
@@ -69,11 +88,28 @@ const MeetCalendar = (props) => {
           meetNo={meetNo}
           schedule={schedule}
           setSchedule={setSchedule}
+          calLoad={calLoad}
+          setCalLoad={setCalLoad}
         />
       </div>
-      <div>
-        <div> {activeDate} </div>
-        <div>일정출력하기</div>
+      <div className="meetCalendar-schedule-wrap">
+        <div className="meetCalendar-schedule-date"> {activeDate} </div>
+        <div className="meetCalendar-schedule-content">
+          {schedule.map((schedule, index) => {
+            if (schedule.calStart == activeDate) {
+              return (
+                <div key={"schedule" + index}>
+                  <div>· {schedule.calTitle}</div>
+                  <div>{schedule.calContent}</div>
+                </div>
+              );
+            } else {
+              <div key={"schedule" + index}>
+                <div className="no-schedule">등록된 일정이 없습니다</div>
+              </div>;
+            }
+          })}
+        </div>
       </div>
     </div>
   );
@@ -81,6 +117,8 @@ const MeetCalendar = (props) => {
 
 //일정등록모달
 const AddModal = (props) => {
+  const calLoad = props.calLoad;
+  const setCalLoad = props.setCalLoad;
   const customStyles = {
     content: {
       top: "50%",
@@ -110,7 +148,6 @@ const AddModal = (props) => {
   const meetNo = props.meetNo;
   const schedule = props.schedule;
   const setSchedule = props.setSchedule;
-  console.log(schedule);
 
   //오늘날짜 0000-00-00 로 등록
   const now_utc = Date.now();
@@ -135,7 +172,6 @@ const AddModal = (props) => {
   };
 
   const token = window.localStorage.getItem("token");
-  // useEffect(() => {
   const addSchedule = () => {
     if (
       calTitle !== "" &&
@@ -157,12 +193,12 @@ const AddModal = (props) => {
           },
         })
         .then((res) => {
-          console.log(res.data);
           if (res.data > 0) {
             Swal.fire({
               text: "일정등록완료",
               confirmButtonText: "확인",
             });
+            setCalLoad(calLoad + 1);
             onCancel();
           }
         })
@@ -175,7 +211,6 @@ const AddModal = (props) => {
         confirmButtonText: "확인",
       });
     }
-    // }, []);
   };
 
   return (
@@ -225,7 +260,7 @@ const AddModal = (props) => {
             placeholder="내용을 입력하세요"
           ></textarea>
         </div>
-        <Button2 text="등록하기" clickEvent={addSchedule} />
+        <Button1 text="등록하기" clickEvent={addSchedule} />
       </div>
     </ReactModal>
   );

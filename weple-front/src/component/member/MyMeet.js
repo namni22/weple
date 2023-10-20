@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Button2 } from "../util/Button";
 
 const MyMeet = (props) => {
   const memberId = props.memberId;
@@ -31,9 +32,12 @@ const MyMeet = (props) => {
     <div className="myMeet-wrap">
       <div className="profile-sub-content">
         <div className="myMeet-content">
-          <div className="myMeet-content-title">
-            <img src="/img/bar.png" />
-            내가 개설한 모임
+          <div className="myMeet-content-mine">
+            <div className="myMeet-content-title">
+              <img src="/img/bar.png" />
+              내가 개설한 모임
+            </div>
+            <Button2 text="모임 개설"></Button2>
           </div>
           <div className="myMeet-content-item">
             {myMeetList.map((myMeet, index) => {

@@ -329,14 +329,60 @@
 .meetChat-input-form-wrap {
   height: 170px;
 }
-/*그룹모임 캘린더*/
+
+/* 캘린더 */
+.meetCalendar-wrap {
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
 .meetCalendar {
   margin-bottom: 20px;
   position: relative;
+  width: 50%;
 }
 .meetCalendar > .react-calendar {
   width: 100%;
   margin: 0 auto;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  box-sizing: border-box;
+}
+.meetCalendar .react-calendar__navigation {
+  border-radius: 10px 10px 0 0;
+}
+.meetCalendar .react-calendar__navigation > button,
+.meetCalendar .react-calendar__navigation > button > span {
+  font-size: 16px;
+  font-weight: 600;
+}
+.meetCalendar .react-calendar__tile--now {
+  background-color: #3d40e57d;
+}
+.meetCalendar .react-calendar__navigation,
+.meetCalendar .react-calendar__tile--active,
+.meetCalendar .react-calendar__navigation button:enabled:hover,
+.meetCalendar .react-calendar__navigation button:enabled:focus,
+.meetCalendar .react-calendar__navigation button:disabled,
+.meetCalendar .react-calendar__tile--now:enabled:hover,
+.meetCalendar .react-calendar__tile--active:enabled:hover,
+.meetCalendar .react-calendar__tile--active:enabled:focus {
+  background-color: #3d40e5;
+}
+.meetCalendar .react-calendar__tile--now:enabled:hover > abbr,
+.meetCalendar .react-calendar__tile--active:enabled:focus > abbr,
+.meetCalendar .react-calendar__tile--now > abbr,
+.meetCalendar .react-calendar__tile--active > abbr,
+.meetCalendar .react-calendar__navigation > button,
+.meetCalendar .react-calendar__navigation > button > span {
+  color: #fff;
+}
+
+.meetCalendar .meetCalendar .react-calendar__navigation {
+  border-radius: 10px 0px 0 0;
 }
 .meetCalendar > .react-calendar__tile {
   padding: 35px 7px;
@@ -413,6 +459,54 @@ input[type="date"] {
 }
 .meetCalendar-modal .close {
   cursor: pointer;
+}
+.calendar-notification {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 5px;
+  height: 20px;
+}
+.calendar-notification > div::after {
+  display: block;
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: orange;
+}
+.meetCalendar-schedule-wrap {
+  width: 48%;
+  box-sizing: border-box;
+  border: 1px solid #eee;
+  border-radius: 10px;
+}
+.meetCalendar-schedule-date {
+  height: 45px;
+  line-height: 45px;
+  width: 100%;
+  font-size: 24px;
+  border-radius: 10px 10px 0 0;
+  text-align: center;
+  background-color: orange;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+.meetCalendar-schedule-content {
+  min-height: 380px;
+}
+.meetCalendar-schedule-content > div {
+  padding: 10px;
+}
+.meetCalendar-schedule-content > div > div:first-child {
+  font-weight: 600;
+  font-size: 18px;
+}
+.meetCalendar-schedule-content > div > div:last-child {
+  font-size: 14px;
+  margin-left: 15px;
 }
 
 /* 모임 메인 */

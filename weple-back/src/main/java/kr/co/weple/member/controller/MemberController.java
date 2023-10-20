@@ -199,6 +199,12 @@ public class MemberController {
 	public int delete(@RequestAttribute String memberId) {
 		return memberService.delete(memberId);
 	}
-	
+	//회원 선호 카테고리 조회
+	@GetMapping(value = "/getMemberCategory")
+	public List getMemberCategory(@RequestAttribute String memberId) {
+		System.out.println("controller 도착");
+		List list = memberService.getMemberCategory(memberId);
+		return list;
+	}
 	
 }
