@@ -113,11 +113,6 @@
   display: block;
 }
 
-.myMeet-content {
-  width: 100%;
-  margin: 50px 0;
-}
-
 .myFeed-item {
   width: calc(100% / 3);
   float: left;
@@ -137,6 +132,11 @@
 
 /* MyMeet */
 
+.myMeet-content {
+  width: 100%;
+  margin: 50px 0;
+}
+
 .myMeet-content-title {
   font-size: 30px;
   font-weight: bold;
@@ -144,6 +144,16 @@
   margin-bottom: 50px;
   display: flex;
   align-items: center;
+  width: 91%;
+}
+
+.myMeet-content-mine {
+  display: flex;
+}
+
+.myMeet-content-mine > button {
+  width: 9%;
+  display: flex;
 }
 
 .myMeet-content-title > img {
