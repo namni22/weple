@@ -148,7 +148,7 @@ const MeetItem = (props) => {
   // 상세보기로 이동하는 함수
   const meetView = () => {
     // console.log("클릭하기 전 값 : ", meet, meet.meetNo);
-    navigate("/meet/meetList/View", {
+    navigate("/meet/View", {
       state: { m: meet },
     }); //이동할곳 state로 데이터 전송
   };
