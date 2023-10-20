@@ -214,14 +214,13 @@ public class MeetService {
 			return list;
 		}
 	
-	//메인페이지에 선호카테고리순 모임조회
-	public List meetCategory(String memberId) {
-		// TODO Auto-generated method stub
-		String getMemberCategory = meetDao.getMemberCategory(memberId);
-		List memberCategoryArr = Arrays.asList(getMemberCategory.split(","));
-		List list = meetDao.meetCategory(memberCategoryArr);
-		return list;
-	}	
+//	//메인페이지에 선호카테고리순 모임조회
+//	public List meetCategory(String memberId) {
+//		// TODO Auto-generated method stub
+//		String getMemberCategory = meetDao.getMemberCategory(memberId);
+//		List list = meetDao.meetCategory();
+//		return list;
+//	}	
 /********************************************************************************************/	
 	//모임 카테고리 메뉴 조회
 		public List selectSmallCategory(Category category) {

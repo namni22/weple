@@ -1,5 +1,6 @@
 package kr.co.weple.member.model.service;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,6 +140,15 @@ public class MemberService {
 	@Transactional
 	public int delete(String memberId) {
 		return memberDao.delete(memberId);
+	}
+
+	public List getMemberCategory(String memberId) {
+		// TODO Auto-generated method stub
+		System.out.println("service 도착");
+		String getMemberCategory = memberDao.getMemberCategory(memberId);
+		List list = Arrays.asList(getMemberCategory.split(","));
+		System.out.println("service list 호출"+ list);
+		return list;
 	}
 
 

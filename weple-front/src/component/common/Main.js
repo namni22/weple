@@ -9,12 +9,27 @@ import { FeedContent } from "../feed/FeedList";
 
 const Main = () => {
   const imgList = ["./img/main_1.jpg", "./img/main_2.jpg"];
+  const [memberCategory, setMemberCategory] = useState([]);
+  //선호 카테고리 조회
+  useEffect(() => {
+    axios
+      .get("/member/getMemberCategory")
+      .then((res) => {
+        console.log("axios", res.data);
+        setMemberCategory(res.data);
+      })
+      .catch((res) => {
+        console.log("axios no");
+        console.log(res.data?.status);
+      });
+  }, []);
 
   const list = imgList.map((item, index) => {
     return <img src={item} key={"mainSwiper" + index}></img>;
   });
   return (
     <div className="main-wrap">
+      {console.log("memberCategory", memberCategory)}
       <SwiperComponent
         spaceBetween={21}
         slidesPerView={1}
@@ -42,7 +57,9 @@ const MeetMain = (props) => {
   const meetSet = props.meetSet;
   const meetTitle = props.meetTitle;
   const [meetMain, setMeetMain] = useState([]);
+  const [memberCategory, setMemberCategory] = useState([]);
 
+  //모임 조회
   useEffect(() => {
     axios
       .get("/meet/" + meetSet)

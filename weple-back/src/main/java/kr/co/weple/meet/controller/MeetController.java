@@ -253,12 +253,12 @@ public class MeetController {
 		return list;
 	}	
 	//메인페이지에 선호카테고리순 모임조회
-	@GetMapping(value = "/meetCategory")
-	public List meetCategory() {
-		String memberId = "user01";
-		List list = meetService.meetCategory(memberId);
-		return list;
-	}
+//	@GetMapping(value = "/meetCategory")
+//	public List meetCategory() {
+//		String memberId = "user01";
+//		List list = meetService.meetCategory(memberId);
+//		return list;
+//	}
 /********************************************************************************************/			
 	//meet챗팅 조회
 	@GetMapping(value = "/meetChat/{meetNo}")

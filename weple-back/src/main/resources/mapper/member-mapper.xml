@@ -94,5 +94,9 @@
 		delete from member where member_id=#{memberId}
 	</delete>
 	
+	<!--메인페이지에 선호카테고리 조회 -->
+	<select id="getMemberCategory" resultType="String">
+		select member_category from member where member_id = #{memberId}
+	</select>
 	
 </mapper>
