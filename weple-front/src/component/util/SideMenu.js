@@ -1,16 +1,26 @@
 import "./sideMenu.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SideMenu = (props) => {
   const menus = props.menus;
   const setMenus = props.setMenus;
-
+  const setIsLogin = props.setIsLogin;
+  const setIsAdmin = props.setIsAdmin;
+  const navigate = useNavigate();
   const activeTab = (index) => {
     menus.forEach((item) => {
       item.active = false;
     });
     menus[index].active = true;
     setMenus([...menus]);
+  };
+  //logout function
+  const logout = () => {
+    window.localStorage.removeItem("token");
+    window.localStorage.removeItem("chkAdmin");
+    setIsLogin(false);
+    setIsAdmin(false);
+    navigate("/");
   };
   return (
     <div className="side-menu">
@@ -41,6 +51,11 @@ const SideMenu = (props) => {
             </li>
           );
         })}
+        <li>
+          <Link to={"/"} onClick={logout}>
+            로그아웃
+          </Link>
+        </li>
       </ul>
     </div>
   );

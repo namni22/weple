@@ -20,6 +20,7 @@ const Profile = (props) => {
 
   const logout = () => {
     window.localStorage.removeItem("token");
+    window.localStorage.removeItem("chkAdmin");
     setIsLogin(false);
     setId("");
     navigate("/");

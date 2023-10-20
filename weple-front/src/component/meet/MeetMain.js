@@ -7,6 +7,7 @@ import { useState } from "react";
 import Category from "../common/Category";
 import MeetView from "./MeetView";
 import MeetModify from "./MeetModify";
+import MainMeet from "../common/MainMeet";
 
 const MeetMain = (props) => {
   const isLogin = props.isLogin;
@@ -34,6 +35,7 @@ const MeetMain = (props) => {
             <MeetView isLogin={isLogin} setIsLogin={setIsLogin} id={id} />
           }
         />
+        <Route path="mainmeet" element={<MainMeet />} />
       </Routes>
     </div>
   );
