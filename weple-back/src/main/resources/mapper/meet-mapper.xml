@@ -156,7 +156,7 @@
 		INSERT INTO FOLLOWER VALUES (
 			#{meetNo},
 			#{memberNo},
-			1
+			0
 		)
 	</insert>
 	<!-- 로그인한 회원이 가입승인을 받은 모임 멤버인지 조회 -->

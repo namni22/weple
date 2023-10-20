@@ -148,6 +148,7 @@ const MeetItem = (props) => {
 
   const [loginMember, setLoginMember] = useState(null);
   const [isMeetLike, setIsMeetLike] = useState(null);
+  const [meetLikeCurrentStatus, setMeetLikeCurrentStatus] = useState(null);
 
   // 상세보기로 이동하는 함수
   const meetView = () => {
@@ -179,7 +180,9 @@ const MeetItem = (props) => {
           Authorization: "Bearer " + token,
         },
       })
-      .then((res) => { })
+      .then((res) => {
+        setMeetLikeCurrentStatus(false);
+      })
       .catch((res) => { });
 
     return
@@ -223,7 +226,7 @@ const MeetItem = (props) => {
       setLoginMember(null);
     }
 
-  }, [isLogin])
+  }, [isLogin, meetLikeCurrentStatus])
 
 
   return (
