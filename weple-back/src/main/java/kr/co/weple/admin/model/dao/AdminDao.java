@@ -1,5 +1,6 @@
 package kr.co.weple.admin.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -39,6 +40,20 @@ public interface AdminDao {
 	List reportList(PageInfo pi);
 
 	int changeReportStatus(Report report);
+
+	int reduceLike(Member m);
+
+	int changeMemberBlacklist(String memberId);
+
+	int changeMeetBlacklist(String memberId);
+
+	int insertFollower(HashMap<String, Integer> map);
+
+	
+
+
+
+	
 
 	
 }
