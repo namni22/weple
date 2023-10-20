@@ -292,7 +292,7 @@ const JoinFrm = (props) => {
 
   // 카테고리 태그 선택 시 x 누르면 선택 카테고리 태그 삭제
   const deleteTag = () => {
-    console.log("찍히냐");
+    console.log("찍히냐궁");
   };
 
   return (
