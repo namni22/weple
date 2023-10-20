@@ -20,6 +20,7 @@ const Profile = (props) => {
 
   const logout = () => {
     window.localStorage.removeItem("token");
+    window.localStorage.removeItem("chkAdmin");
     setIsLogin(false);
     setId("");
     navigate("/");
@@ -49,7 +50,6 @@ const Profile = (props) => {
             categoryNameList.push(ct.categoryName);
           }
           setCategoryNameList([...categoryNameList]);
-          console.log(categoryNameList);
         }
       });
     });

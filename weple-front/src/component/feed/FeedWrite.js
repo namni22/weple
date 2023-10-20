@@ -30,13 +30,22 @@ const FeedWrite = (props) => {
         })
         .then((res) => {
           if (res.data > 0) {
-            Swal.fire("성공");
+            Swal.fire({
+              icon: "success",
+              text: "피드 업로드 완료",
+              confirmButtonText: "확인",
+            });
             navigate("/feed");
           }
         })
         .catch((res) => {
           console.log("feedwrite" + res.response.status);
-          Swal.fire("실패");
+          Swal.fire({
+            icon: "error",
+            title: "문제가 발생했습니다",
+            text: "관리자에게 문의하세요",
+            confirmButtonText: "확인",
+          });
         });
     } else {
       Swal.fire("이미지 1개이상, 내용 입력 필수입니다");

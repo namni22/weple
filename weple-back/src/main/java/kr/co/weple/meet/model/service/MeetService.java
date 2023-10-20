@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.weple.PageInfo;
 import kr.co.weple.Pagination;
+import kr.co.weple.feed.model.vo.Feed;
 import kr.co.weple.meet.model.dao.MeetDao;
 import kr.co.weple.meet.model.vo.Calendar;
 import kr.co.weple.meet.model.vo.Category;
@@ -274,29 +275,6 @@ public class MeetService {
 	}
 
 
-	//------------------캘린더---------------------
-	@Transactional
-	public int addcalendar(Calendar cal, String memberId) {
-		Meet m = meetDao.selectOneMeet(cal.getMeetNo());
-		if(m.getMeetCaptain().equals(memberId)) {
-			return  meetDao.addCalendar(cal);
-		}
-		return 0;
-	}
-
-	public List calendarList(int meetNo) {
-		return meetDao.calendarList(meetNo);
-	}
-	
-	@Transactional
-	public int removeCalendar(int calNo, int meetNo, String memberId) {
-		Meet m = meetDao.selectOneMeet(meetNo);
-		if(m.getMeetCaptain().equals( memberId)) {
-		return meetDao.removeCalendar(calNo);
-		}
-		return 0;
-	}
-
 	public Follower status(int meetNo, String memberId) {
 		int selectMemberNo = meetDao.selectMemberNo(memberId);
 		Follower followStatus = meetDao.status(meetNo,selectMemberNo);
@@ -344,6 +322,30 @@ public class MeetService {
 			return "true";
 		}
 		return "";
+	}
+
+
+	//------------------캘린더---------------------
+	//		Meet m = meetDao.selectOneMeet(cal.getMeetNo());
+	@Transactional
+	public int addcalendar(Calendar cal) {
+			return  meetDao.addCalendar(cal);
+	}
+	public List calendarList(int meetNo) {
+		return meetDao.calendarList(meetNo);
+	}
+	@Transactional
+	public int removeCalendar(int calNo) {
+		return meetDao.removeCalendar(calNo);
+	}
+	public Calendar schedule(int calNo) {
+		List list = meetDao.schedule(calNo);
+		Calendar c = (Calendar)list.get(0);
+		return c;
+	}
+	@Transactional
+	public int modifyCalendar(Calendar cal) {
+		return meetDao.modifyCalendar(cal);
 	}
 
 

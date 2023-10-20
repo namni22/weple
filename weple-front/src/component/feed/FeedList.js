@@ -30,7 +30,12 @@ const FeedList = (props) => {
       })
       .catch((res) => {
         console.log(res.data.status);
-        Swal.fire("실패");
+        Swal.fire({
+          icon: "error",
+          title: "문제가 발생했습니다",
+          text: "관리자에게 문의하세요",
+          confirmButtonText: "확인",
+        });
       });
   }, [start]);
 
@@ -67,9 +72,7 @@ const FeedList = (props) => {
           );
         })}
       </div>
-      <button defaultValue={1} onClick={useFeedMore}>
-        더보기
-      </button>
+      <Button1 defaultValue={1} clickEvent={useFeedMore} text="더보기" />
     </div>
   );
 };
@@ -199,7 +202,7 @@ const FeedContent = (props) => {
                 text: "피드가 삭제되었습니다",
                 confirmButtonText: "확인",
               }).then(() => {
-                setLoadList(loadList + 1);
+                window.location.reload();
               });
             }
           })
@@ -230,7 +233,7 @@ const FeedContent = (props) => {
   };
   const closeView = (e) => {
     setViewOpen(false);
-    e.stopPropagation();
+    // e.stopPropagation();
   };
   return (
     <div className="feed-list-content">

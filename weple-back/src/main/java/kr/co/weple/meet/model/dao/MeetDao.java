@@ -86,6 +86,10 @@ public interface MeetDao {
 
 	String getMemberCategory(String memberId);
 
+	List schedule(int calNo);
+
+	int modifyCalendar(Calendar cal);
+
 //	List meetCategory(List memberCategoryArr);
 
 	int insertMemberLike(int giverNo, int takerNo, int meetNo);

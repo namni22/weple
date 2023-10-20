@@ -288,17 +288,7 @@
 	    WHERE MEET_NO = #{meetNo})C where rownum <![CDATA[<=]]>1 order by 1 desc
 		
 	</select>
-	
-	<!-- 캘린더 -->
-	<insert id="addCalendar">
-		insert into calendar values(calendar_seq.nextval,#{meetNo},#{calTitle},#{calContent},#{calStart},#{calEnd})
-	</insert>
-	<select id="calendarList" resultType="calendar">
-		select * from calendar where meet_no = #{meetNo}
-	</select>
-	<delete id="removeCalendar">
-		delete from calendar where cal_no=#{calNo}
-	</delete>
+
 	<select id="selectMemberNo" resultType="int">
 		SELECT MEMBER_NO FROM MEMBER WHERE MEMBER_ID = #{memberId}
 	</select>
@@ -320,4 +310,24 @@
 	<select id="like" resultType="memberLike">
 		select * from Mlike where meet_no=#{meetNo} and MLIKE_GIVER_NO=#{memberNo}
 	</select>
+		
+		
+	<!-- 캘린더 -->
+	<insert id="addCalendar">
+		insert into calendar values(calendar_seq.nextval,#{meetNo},#{calTitle},#{calContent},#{calStart},#{calEnd})
+	</insert>
+	<select id="calendarList" resultType="calendar">
+		select * from calendar where meet_no = #{meetNo}
+	</select>
+	<delete id="removeCalendar">
+		delete from calendar where cal_no=#{calNo}
+	</delete>
+	<select id="schedule" resultType="calendar">
+		select * from calendar where cal_no=#{calNo}
+	</select>
+	<update id="modifyCalendar">
+		update calendar set cal_title=#{calTitle},cal_content=#{calContent},cal_start=#{calStart},cal_end=#{calEnd} where cal_no=#{calNo}
+	</update>
+
+
 </mapper>

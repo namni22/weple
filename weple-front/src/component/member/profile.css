@@ -138,6 +138,12 @@
   color: white;
 }
 
+.noFeed {
+  margin: 100px;
+  text-align: center;
+  font-size: 15px;
+}
+
 /* MyMeet */
 
 .myMeet-content {
@@ -224,4 +230,10 @@
 .myMeetJoined-captain > img,
 .myMeetJoined-total > img {
   margin-right: 5px;
+}
+
+.noMeet {
+  margin: 50px;
+  text-align: center;
+  font-size: 15px;
 }

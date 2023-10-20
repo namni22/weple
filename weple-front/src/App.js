@@ -24,8 +24,13 @@ function App() {
     const token = window.localStorage.getItem("token");
     if (token === null) {
       setIsLogin(false);
+      //사용안함
       setId("");
     } else {
+      const chkAdmin = window.localStorage.getItem("chkAdmin");
+      if (chkAdmin == 0) {
+        setIsAdmin(true);
+      }
       setIsLogin(true);
     }
   }, []);
@@ -68,7 +73,14 @@ function App() {
 
           <Route
             path="/admin/*"
-            element={<Admin isLogin={isLogin} id={id} />}
+            element={
+              <Admin
+                isLogin={isLogin}
+                id={id}
+                setIsAdmin={setIsAdmin}
+                setIsLogin={setIsLogin}
+              />
+            }
           />
           <Route path="/join" element={<Join />} />
           <Route
@@ -84,7 +96,10 @@ function App() {
           <Route path="/findId" element={<FindId />} />
           <Route path="/findPw" element={<FindPw />} />
           {/* <Route path="/category" element={<Category />} /> */}
-          <Route path="/review/*" element={<ReviewMain isLogin={isLogin} />} />
+          <Route
+            path="/review/*"
+            element={<ReviewMain isLogin={isLogin} isAdmin={isAdmin} />}
+          />
           <Route path="*" element={<Main isLogin={isLogin} />} />
         </Routes>
       </div>

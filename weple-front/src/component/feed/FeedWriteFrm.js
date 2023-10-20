@@ -92,7 +92,12 @@ const FeedWriteFrm = (props) => {
           />
         )}
       </div>
-      <textarea onChange={changeContent} defaultValue={feedContent}></textarea>
+      <textarea
+        maxlength="1300"
+        onChange={changeContent}
+        defaultValue={feedContent}
+        placeholder="내용을 입력하세요"
+      ></textarea>
       <Button2 text="피드 업로드" clickEvent={uploadEvent}></Button2>
     </div>
   );

@@ -21,10 +21,12 @@ const Review = (props) => {
   const meetNo = props.meetNo;
   const meetStar = props.reviewStar;
   const reviewCount = props.reviewCount;
-  const isMeetMember = props.isMeetMember; //해당 멤버인지 확인하는 함수(undefined)
-  console.log("리뷰로 전달 후 isMeetMember  : ", isMeetMember);
+  const [isMember, setIsMember] = useState(false);
+  const token = window.localStorage.getItem("token");
+
   //리뷰 조회
   useEffect(() => {
+    //select ReviewList
     axios
       .get("/review/previewList/" + meetNo)
       .then((res) => {
@@ -41,7 +43,20 @@ const Review = (props) => {
         setReviewList([...arr]);
       })
       .catch((res) => {
-        // console.log(res.data.status);
+        console.log(res.data?.status);
+      });
+    //isMember
+    axios
+      .post("/member/isMember", meetNo, {
+        headers: {
+          Authorization: "Bearer" + token,
+        },
+      })
+      .then((res) => {
+        console.log("isMember", res.data);
+      })
+      .catch((res) => {
+        console.log("isMember", res.data);
       });
   }, [meetNo]);
   //리뷰 => 컴포넌트 배열로 바꿔줌

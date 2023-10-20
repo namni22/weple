@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import kr.co.weple.PageInfo;
 import kr.co.weple.feed.model.vo.FImage;
+import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.member.model.vo.Member;
 import kr.co.weple.review.model.vo.Report;
 
@@ -46,6 +46,8 @@ public interface MemberDao {
 	int delete(String memberId);
 
 	String getMemberCategory(String memberId);
+
+	Follower isMember(String memberId, int meetNo);
 
 
 	
