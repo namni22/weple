@@ -128,8 +128,6 @@ const MeetInfo = (props) => {
         <div className="meetInfo-content-area meetInfo-meetAddr-wrap">
           <div className="meetInfo-content-title">모임 장소</div>
           <div className="">
-            <div>{meet.meetLatitude}</div>
-            <div>{meet.meetLongitude}</div>
             <Kakao
               meetLatitude={meet.meetLatitude}
               meetLongitude={meet.meetLongitude}
