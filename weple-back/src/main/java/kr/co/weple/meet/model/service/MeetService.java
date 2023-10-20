@@ -75,12 +75,13 @@ public class MeetService {
 	
 	//모임수정
 	@Transactional
-	public int modifyMeet(Meet meet) {
+	public Meet modifyMeet(Meet meet) {
 		// TODO Auto-generated method stub
 		
 		int result = meetDao.modifyMeet(meet);
+		Meet newMeet= meetDao.selectOneMeet(meet.getMeetNo());
 		
-		return result;
+		return newMeet;
 	}
 
 	public Map meetMemberList(int reqPage, int meetNo) {

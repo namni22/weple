@@ -102,14 +102,14 @@ public class MeetController {
 	}
 	//모임수정
 	@PostMapping(value = "/meetModify")
-	public int meetModify (
+	public Meet meetModify (
 			@ModelAttribute Meet meet,
 			@ModelAttribute MultipartFile meetThumbNailPreview,
 			@RequestAttribute String memberId
 			) {
 		
 		// @RequestAttribute String memberId 로 아이디 받아서 meet에 방장으로 추가 (토큰필요)
-		System.out.println("넘어온직후 meet : "+meet);
+
 		meet.setMeetCaptain(memberId);
 		//구분자로 준비물 String으로 이어서 set
 		if(!meet.getMeetPrepareList().isEmpty()) {//준비물이 있다면
@@ -137,8 +137,8 @@ public class MeetController {
 		
 		System.out.println("수정 멤버아이디 : "+memberId);
 		
-		int result = meetService.modifyMeet(meet);
-		return result;
+		Meet newMeet = meetService.modifyMeet(meet);
+		return newMeet;
 //		return 0;
 		
 	}

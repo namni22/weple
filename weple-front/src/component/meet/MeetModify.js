@@ -103,7 +103,7 @@ const MeetModify = () => {
                     Swal.fire("모임수정 완료");
                     console.log("수정이후 이동하는 meet", meet);
                     navigate("/meet/View", {
-                        state: { m: meet },
+                        state: { m: res.data },
                     });
 
                 })
