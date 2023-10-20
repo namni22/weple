@@ -271,9 +271,9 @@
 		UPDATE MEMBER SET MEMBER_LIKE= MEMBER_LIKE+0.7 WHERE MEMBER_ID = #{memberId}
 	</update>
 	<!-- meetChat -->
-	<update id="insertMeetChat">
+	<insert id="insertMeetChat">
 		INSERT INTO CHAT VALUES(CHAT_SEQ.NEXTVAL,#{chatContent},#{memberId},#{meetNo},TO_CHAR(SYSDATE,'YYYY-MM-DD'))
-	</update>
+	</insert>
 	<select id="meetChatLast" resultType="chat">
 		select * from    
 	    (SELECT 

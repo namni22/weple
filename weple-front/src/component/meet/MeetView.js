@@ -118,9 +118,13 @@ const MeetView = (props) => {
         });
     }
   }, []);
+  console.log("followerStatus : ", followerStatus);
   return (
     <div className="afterMeet-all-wrap">
+      {/**
+       * 
       <div className="feed-title">{myMeet.meetTitle}</div>
+       */}
       <AfterMeetMain
         myMeet={myMeet}
         meetCaptain={meetCaptain}
@@ -148,10 +152,10 @@ const MeetView = (props) => {
             setCaptainCheck={setCaptainCheck}
           ></AfterMeetSubNavi>
         ) : (
-          ""
+          <div className="meetMain-blank"></div>
         )
       ) : (
-        ""
+        <div className="meetMain-blank"></div>
       )}
 
       <Routes>
