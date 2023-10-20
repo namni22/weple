@@ -2,8 +2,14 @@
   width: 1200px;
   margin: 0 auto;
   margin-top: 30px;
+  padding: 90px 20px 20px 20px;
+  border: 1px solid #ededed;
+  border-radius: 5px;
+  background-color: #f4f4f4;
 }
-
+.meetMain-blank {
+  min-height: 120px;
+}
 .afterMeet-main-wrap {
   width: 100%;
   overflow: hidden;
@@ -33,6 +39,9 @@
 .afterMeet-main-info {
   box-sizing: border-box;
   height: 400px;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .afterMeet-info-host {
@@ -259,12 +268,96 @@
 .meetChat-span > span {
   color: #ccc;
 }
+.meetChat-chat-wrap {
+  border: 1px solid #999;
 
+  padding: 5px;
+  font-size: 13px;
+  color: #333;
+}
+.meetChat-chat-wrap .meetChat-inner {
+  background-color: #acc2d2;
+  border-radius: 5px;
+  padding: 10px;
+  overflow-y: scroll;
+  height: 400px;
+  box-sizing: border-box;
+}
+.meetChat-chat-wrap .meetChat-item {
+  margin-top: 15px;
+}
+.meetChat-chat-wrap .meetChat-item:first-child {
+  margin-top: 0;
+}
+.meetChat-chat-wrap .meetChat-item .meetChat-img {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 50px;
+  position: relative;
+}
+.meetChat-chat-wrap .meetChat-item .meetChat-img > img {
+  width: 100%;
+  height: 100%;
+}
+.meetChat-chat-wrap .meetChat-box {
+  display: inline-block;
+  max-width: 300px;
+  position: relative;
+  margin-left: 10px;
+}
+.meetChat-chat-wrap .meetChat-box:before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 9px;
+  border-top: 0px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid #fff;
+}
+.meetChat-chat-wrap .meetChat-box .meetChat-msg {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 8px;
+  text-align: left;
+  font-size: 15px;
+  white-space: pre-line;
+}
+.meetChat-chat-wrap .meetChat-box .meetChat-time {
+  font-size: 11px;
+  color: #999;
+  position: absolute;
+  right: -150px;
+  bottom: 0;
+}
+.meetChat-chat-wrap .meetChat-box .meetChat-writer {
+  position: absolute;
+  bottom: 45px;
+}
+.meetChat-chat-wrap .meetChat-item.mymsg {
+  text-align: right;
+}
+.meetChat-chat-wrap .meetChat-item.mymsg .meetChat-box:before {
+  left: auto;
+  right: -8px;
+  border-left: 8px solid #fee600;
+  border-right: 0px;
+}
+.meetChat-item.mymsg .meetChat-box .meetChat-time {
+  right: auto;
+  left: -150px;
+}
+.meetChat-item.mymsg .meetChat-box .meetChat-msg {
+  background-color: #fee600;
+}
+/*
 .meetChat-chat-wrap {
   min-height: 300px;
   max-height: 500px;
-  overflow: auto;
+  overflow: hidden;
   background-color: #dee4f8;
+  padding: 15px;
 }
 .meetChat-chatList-wrap {
   overflow: hidden;
@@ -285,6 +378,7 @@
 .meetChat-chat-img > img {
   width: 100%;
 }
+*/
 /*챗 CSS*/
 .meetChat-textEditor {
   background-color: #fff;
@@ -320,7 +414,7 @@
   background-color: #fff;
   border-radius: 5px;
   white-space: pre-line;
-  width: 50%;
+  width: 80%;
   word-break: break-all;
 }
 .meetChat-chat-content > #text {
@@ -329,7 +423,18 @@
 .meetChat-input-form-wrap {
   height: 170px;
 }
-
+.aaaaaaaa {
+  display: block;
+  float: right;
+  width: 50%;
+  padding-left: 30px;
+}
+.chat-ul {
+  display: block;
+  float: left;
+  width: 50%;
+  margin-right: 1px;
+}
 /* 캘린더 */
 .meetCalendar-wrap {
   overflow: hidden;
