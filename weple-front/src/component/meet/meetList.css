@@ -1,6 +1,5 @@
 .meetList-all-wrap {
-  /* 누가 1200px 걸어놨네 풀리면 내가 걸 곳 */
-  /* width: 1200px; */
+  margin: 40px 0;
 }
 
 .bigCategoryName {
@@ -61,7 +60,7 @@
   height: 100%;
   border-radius: 5px;
   /* 비율맞추면서 꽉채우게 , 짤려나오지 않게*/
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .MeetList-meetTitle {
