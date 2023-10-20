@@ -15,15 +15,20 @@ const EnrollMeetMember = (props) => {
   const [enrollMember, setEnrollMember] = useState([]);
   const [reqPage, setReqPage] = useState(1);
   const [pageInfo, setPageInfo] = useState({});
+  const token = window.localStorage.getItem("token");
   useEffect(() => {
     axios
-      .get("/meet/enrollMember/" + reqPage + "?meetNo=" + myMeet.meetNo)
+      .get("/meet/enrollMember/" + reqPage + "?meetNo=" + myMeet.meetNo, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
       .then((res) => {
         setEnrollMember(res.data.enrollMemberList);
         setPageInfo(res.data.pi);
       })
       .catch((res) => {});
-  }, []);
+  }, [reqPage]);
   return (
     <div className="meetMemberList-all-wrap">
       {enrollMember.length === 0 ? (
@@ -46,15 +51,16 @@ const EnrollMeetMember = (props) => {
               })}
             </tbody>
           </table>
-          <div>
-            <Pagination
-              reqPage={reqPage}
-              setReqPage={setReqPage}
-              pageInfo={pageInfo}
-            />
-          </div>
         </>
       )}
+      <div>
+        <Pagination
+          reqPage={reqPage}
+          setReqPage={setReqPage}
+          pageInfo={pageInfo}
+          setData={setEnrollMember}
+        />
+      </div>
     </div>
   );
 };
@@ -104,7 +110,11 @@ const EnrollItem = (props) => {
         </div>
       </td>
       <td width="60%">
-        <div className="meetMemberList-name">{enroll.memberId}</div>
+        <div className="meetMemberList-name">
+          {enroll.memberId}
+          <span>님</span>
+        </div>
+        <div>{enroll.memberLike}</div>
       </td>
       <td width="35%">
         <div className="meetMemberList-btn-wrap">

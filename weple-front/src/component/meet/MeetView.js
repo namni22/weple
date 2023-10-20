@@ -99,7 +99,25 @@ const MeetView = (props) => {
     { url: "meetList", text: "멤버목록", active: false },
   ]);
 
-  // console.log("meetCapttain 아이디 : ", captainId);
+  console.log("meetCapttain 아이디 : ", myMeet.meetCaptain);
+  const [memberId, setMemberId] = useState("");
+
+  useEffect(() => {
+    if (isLogin) {
+      axios
+        .post("/member/getMember", null, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          setMemberId(res.data.memberId);
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    }
+  }, []);
   return (
     <div className="afterMeet-all-wrap">
       <div className="feed-title">{myMeet.meetTitle}</div>
@@ -109,7 +127,7 @@ const MeetView = (props) => {
         isLogin={isLogin}
       />
       {isLogin ? (
-        myMeet.meetCaptain === id ? (
+        myMeet.meetCaptain === memberId ? (
           <AfterMeetSubNavi
             meetMenu={meetMenu}
             setMeetMenu={setMeetMenu}

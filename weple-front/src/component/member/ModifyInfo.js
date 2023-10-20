@@ -23,10 +23,13 @@ const ModifyInfo = (props) => {
   const [selected, setSelected] = useState();
   const [subInformation, setSubInformation] = useState([]);
   const [subTag, setSubTag] = useState([]);
+  const [subValue, setSubValue] = useState([]);
   // 대표 사진 바꿨을 때 사용
   const [profileImg, setProfileImg] = useState(null);
-  // 화면용 memberImage -> 썸네일 미리보기용
-  const [memberImage, setMemberImage] = useState(null);
+  // 화면용 memberImage
+  const [memberImage, setMemberImage] = useState(
+    "/member/" + member.memberImage
+  );
 
   useEffect(() => {
     axios
@@ -45,7 +48,6 @@ const ModifyInfo = (props) => {
   useEffect(() => {
     // 내가 선택한 카테고리 이름 배열 만들기
     myCategory.forEach((item) => {
-      console.log("아이템" + item);
       subCategory.forEach((ct) => {
         if (item == ct.categoryNo) {
           if (ct.categoryName === "기타") {
@@ -66,7 +68,6 @@ const ModifyInfo = (props) => {
             categoryNameList.push(ct.categoryName);
           }
           setCategoryNameList([...categoryNameList]);
-          console.log(categoryNameList);
         }
       });
     });
@@ -106,17 +107,43 @@ const ModifyInfo = (props) => {
     const newSubInfoList = [];
     const newSubTagList = [];
     const newSubValueList = [];
+    const selectedValues = newSubValueList;
 
     // 기타 선택 시 대분류 이름 출력하기 위해 필요
     const main = document.getElementById("main-category");
     const mainName = main.options[main.selectedIndex].innerText;
-
     subInfoList.forEach((item) => {
+      if (selectedValues.includes(item.value)) {
+        Swal.fire("이미 선택된 항목입니다.");
+        return;
+      }
       if (newSubInfoList.length < 5) {
         if (item.text === "기타") {
-          newSubInfoList.push(item);
-          newSubTagList.push(mainName);
-          newSubValueList.push(item.value);
+          if (item.value == 7) {
+            newSubInfoList.push(item);
+            newSubTagList.push("스포츠");
+            newSubValueList.push(item.value);
+          } else if (item.value == 13) {
+            newSubInfoList.push(item);
+            newSubTagList.push("공예DIY");
+            newSubValueList.push(item.value);
+          } else if (item.value == 18) {
+            newSubInfoList.push(item);
+            newSubTagList.push("요리");
+            newSubValueList.push(item.value);
+          } else if (item.value == 24) {
+            newSubInfoList.push(item);
+            newSubTagList.push("문화예술");
+            newSubValueList.push(item.value);
+          } else if (item.value == 29) {
+            newSubInfoList.push(item);
+            newSubTagList.push("자기계발");
+            newSubValueList.push(item.value);
+          } else if (item.value == 34) {
+            newSubInfoList.push(item);
+            newSubTagList.push("여행");
+            newSubValueList.push(item.value);
+          }
         } else {
           newSubInfoList.push(item);
           newSubTagList.push(item.text);
@@ -124,7 +151,8 @@ const ModifyInfo = (props) => {
         }
         setSubInformation(newSubInfoList);
         setSubTag(newSubTagList); //최종 출력되는 list
-        const cate = newSubValueList.join();
+        setSubValue(newSubValueList);
+        const cate = subValue.join();
         setMemberCategory(cate);
 
         main.options[0].selected = true;
@@ -141,19 +169,21 @@ const ModifyInfo = (props) => {
 
   // 프로필 사진 새로 업로드 했을 시 작동하는 함수(미리보기 변경)
   const profileImgChange = (e) => {
+    console.log(0);
     const files = e.currentTarget.files;
     if (files.length !== 0 && files[0] != 0) {
+      console.log(1);
       setProfileImg(files[0]); // 썸네일 파일 전송을 위한 state에 파일 객체 저장
       // 화면 썸네일 미리보기
       const reader = new FileReader();
       reader.readAsDataURL(files[0]);
       reader.onloadend = () => {
         setMemberImage(reader.result);
-        member.memberImage = reader.result;
       };
     } else {
+      console.log(2);
       setProfileImg(null);
-      setMemberImage(null);
+      setMemberImage("/member/" + member.memberImage);
     }
   };
 
@@ -194,6 +224,25 @@ const ModifyInfo = (props) => {
     });
   };
 
+  // 카테고리 태그 선택 시 x 누르면 선택 카테고리 태그 삭제
+  const deleteTag = (subInformation2, subTag2, subValue2, index) => {
+    const newArr = subInformation2.splice(index, 1);
+    const newArr2 = subInformation.filter(function (item) {
+      return item !== newArr;
+    });
+    setSubInformation(newArr2);
+    const newArr3 = subTag2.splice(index, 1);
+    const newArr4 = subTag.filter(function (item) {
+      return item !== newArr3;
+    });
+    setSubTag(newArr4);
+    const newArr5 = subValue2.splice(index, 1);
+    const newArr6 = subValue.filter(function (item) {
+      return item !== newArr5;
+    });
+    setSubValue(newArr6);
+  };
+
   // 수정 버튼 클릭 시 수정 작업
   const updateInfo = () => {
     const token = window.localStorage.getItem("token");
@@ -205,7 +254,7 @@ const ModifyInfo = (props) => {
     form.append("memberImage", memberImage);
     form.append("memberCategory", memberCategory);
     form.append("profileImg", profileImg);
-
+    console.log(memberCategory);
     axios
       .post("/member/modifyInfo", form, {
         headers: {
@@ -274,12 +323,8 @@ const ModifyInfo = (props) => {
               </div>
               <div className="input">
                 <div className="join-profileImg-pre">
-                  {memberImage === null ? (
-                    member.memberImage === null ? (
-                      <img src="/img/testImg_01.png" />
-                    ) : (
-                      <img src={"/member/" + member.memberImage} />
-                    )
+                  {memberImage === "/member/null" ? (
+                    <img src="/img/testImg_01.png" />
                   ) : (
                     <img src={memberImage} />
                   )}
@@ -360,9 +405,17 @@ const ModifyInfo = (props) => {
                 <div className="join-select-print-box">
                   {subTag.map((subT, index) => {
                     return (
-                      <div key={"subT" + index}>
-                        <img src="/img/hashtag.png" />
-                        {subT}
+                      <div className="print-box-item">
+                        <div key={"subT" + index}>
+                          <img src="/img/hashtag.png" />
+                          {subT}
+                        </div>
+                        <img
+                          src="/img/delete.png"
+                          onClick={() => {
+                            deleteTag(subInformation, subTag, subValue, index);
+                          }}
+                        />
                       </div>
                     );
                   })}

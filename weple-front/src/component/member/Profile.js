@@ -49,7 +49,6 @@ const Profile = (props) => {
             categoryNameList.push(ct.categoryName);
           }
           setCategoryNameList([...categoryNameList]);
-          console.log(categoryNameList);
         }
       });
     });
@@ -70,7 +69,6 @@ const Profile = (props) => {
         </div>
         <div className="profile-info">
           <div className="name">{member.memberName}</div>
-          <div className="intro">소개소개 입니다.</div>
         </div>
         <div className="like">{member.memberLike}˚C</div>
         <div className="prefer">
