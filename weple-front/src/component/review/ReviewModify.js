@@ -52,7 +52,7 @@ const ReviewModify = (props) => {
       axios
         .post("/review/modify", form, {
           headers: {
-            contentType: "multipart/form-data",
+            contentType: "application/json",
             processData: false,
             Authorization: "Bearer " + token,
           },
