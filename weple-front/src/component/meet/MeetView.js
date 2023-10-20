@@ -102,7 +102,7 @@ const MeetView = (props) => {
   // console.log("meetCapttain 아이디 : ", captainId);
   return (
     <div className="afterMeet-all-wrap">
-      <div className="feed-title">MY GROUP</div>
+      <div className="feed-title">{myMeet.meetTitle}</div>
       <AfterMeetMain
         myMeet={myMeet}
         meetCaptain={meetCaptain}
