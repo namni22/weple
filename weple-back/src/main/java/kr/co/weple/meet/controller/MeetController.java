@@ -52,16 +52,17 @@ public class MeetController {
 	}
 	//개설한 모임에 가입 신청자 list 출력
 	@GetMapping(value = "/enrollMember/{reqPage}")
-	public Map enrollMember(@PathVariable int reqPage, int meetNo) {
+	public Map enrollMember(@PathVariable int reqPage, int meetNo,@RequestAttribute String memberId) {
 		//System.out.println(meetNo);
-		Map map = meetService.enrollMember(reqPage,meetNo);
+		Map map = meetService.enrollMember(reqPage,meetNo,memberId);
 		return map;		
 	}
 	//개설한 모임멤버 list 출력
 	@GetMapping(value = "/meetMember/{reqPage}")
-	public Map meetMember(@PathVariable int reqPage, int meetNo) {
-		System.out.println("meetNo : "+meetNo);
-		Map map = meetService.meetMemberList(reqPage,meetNo);
+	public Map meetMember(@PathVariable int reqPage, int meetNo,@RequestAttribute String memberId) {
+		System.out.println("11111111111111111111111111111111111111111111111111111111meetNo : "+meetNo);
+		Map map = meetService.meetMemberList(reqPage,meetNo,memberId);
+		System.out.println(map);                        
 		return map;
 	}
 
@@ -86,7 +87,8 @@ public class MeetController {
 				}
 				newPrepare += (String) meet.getMeetPrepareList().get(i)+"/";
 			}
-			meet.setMeetPrepare(newPrepare);			
+			meet.setMeetPrepare(newPrepare);		
+			
 		}		
 		String savepath = root + "meet/";
 		if(meetThumbnailPreview != null) {//썸네일이 있다면 meet에 set
@@ -96,7 +98,7 @@ public class MeetController {
 			meet.setMeetThumbNail(filepath);
 		}
 		//meetMargin set 남은인원 셋팅
-		meet.setMeetMargin(meet.getMeetTotal()-1);		
+		meet.setMeetMargin(meet.getMeetTotal());		
 		
 		System.out.println("생성 모임 : "+meet);
 		
@@ -106,14 +108,14 @@ public class MeetController {
 	}
 	//모임수정
 	@PostMapping(value = "/meetModify")
-	public int meetModify (
+	public Meet meetModify (
 			@ModelAttribute Meet meet,
 			@ModelAttribute MultipartFile meetThumbNailPreview,
 			@RequestAttribute String memberId
 			) {
 		
 		// @RequestAttribute String memberId 로 아이디 받아서 meet에 방장으로 추가 (토큰필요)
-		System.out.println("넘어온직후 meet : "+meet);
+
 		meet.setMeetCaptain(memberId);
 		//구분자로 준비물 String으로 이어서 set
 		if(!meet.getMeetPrepareList().isEmpty()) {//준비물이 있다면
@@ -141,8 +143,8 @@ public class MeetController {
 		
 		System.out.println("수정 멤버아이디 : "+memberId);
 		
-		int result = meetService.modifyMeet(meet);
-		return result;
+		Meet newMeet = meetService.modifyMeet(meet);
+		return newMeet;
 //		return 0;
 		
 	}
@@ -324,13 +326,22 @@ public class MeetController {
 		return meetCapCheck;
 	}
 	//회원 호감도 저장
-	@GetMapping(value = "/memberLike/{memberId}?{takerId}")
-	public int memberLike(@PathVariable int memberId, int takerId) {
-		System.out.println("좋아요 누른 사람 : "+memberId);
-		System.out.println("좋아요 받은 사람 : "+takerId);
-		return 22;
+	@GetMapping(value = "/memberLikeStatus/{reqPage}")
+	public Map memberLikeStatus(@PathVariable int reqPage,int meetNo,int takerNo,@RequestAttribute String memberId ) {
+		System.out.println("좋아요 누른 사람 : "+ meetNo);		
+		System.out.println("좋아요 받은 사람 : "+takerNo);
+		System.out.println(memberId);
+		
+		Map map = meetService.memberLikeStatus(memberId,takerNo,meetNo,reqPage);
+		return map;
 	}
 	
+	//호감도 조회
+	@GetMapping(value = "/like/{meetNo}")
+	public String like(@PathVariable int meetNo,@RequestAttribute String memberId) {
+		return meetService.Like(memberId, meetNo);
+	}
+
 	
 	//------------------캘린더---------------------
 		
@@ -361,5 +372,7 @@ public class MeetController {
 	public int modifyCalendar(@RequestBody Calendar cal) {
 		return meetService.modifyCalendar(cal);
 	}
+
+	
 
 }

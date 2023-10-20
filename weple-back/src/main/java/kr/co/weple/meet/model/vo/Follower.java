@@ -20,4 +20,5 @@ public class Follower {
 	private String memberGender;
 	private String memberImage;
 	private String memberLike;
+	private int isLike;
 }

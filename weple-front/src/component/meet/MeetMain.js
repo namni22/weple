@@ -25,11 +25,11 @@ const MeetMain = (props) => {
           element={<MeetList isLogin={isLogin} id={id} />}
         ></Route>
         <Route path="category" element={<Category />} />
-        <Route path="meetSettingFrm" element={<MeetSettingFrm />} />
+        {/* <Route path="meetSettingFrm" element={<MeetSettingFrm />} /> */}
         <Route path="meetCreate" element={<MeetCreate />}></Route>
         <Route path="meetModify" element={<MeetModify />}></Route>
         <Route
-          path="meetList/view/*"
+          path="view/*"
           element={
             <MeetView isLogin={isLogin} setIsLogin={setIsLogin} id={id} />
           }

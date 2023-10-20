@@ -117,7 +117,7 @@ const changeValue = (e) => {
     console.log("신고물번호 : ", reportItemNo);
     const token = window.localStorage.getItem("token");
     //insert에 필요한 값 1.신고타입,2신고유형,3.가해자,4.신고내용
-    if (reportContent === "") {
+    if (reportContent === "" || reportCategory) {
       Swal.fire({
         text: "신고 항목을 모두 작성해주세요",
       });
@@ -219,6 +219,9 @@ const changeValue = (e) => {
                 <td>신고 유형</td>
                 <td>
                   <select onChange={changeCategory}>
+                    <option value="" selected disabled hidden>
+                      선택해주세요
+                    </option>
                     {reportCategory.map((category, index) => {
                       return (
                         <option

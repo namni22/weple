@@ -85,8 +85,7 @@ const ReportItem = (props) => {
 
 
 
-  console.log("ReportItem 신고번호 " + index);
-  console.log("toggleIdx : " + toggleIdx);
+
 
 
   const changeToggle = (e) => {
@@ -115,13 +114,49 @@ const ReportItem = (props) => {
     //     });
     // }
   }
+  const reduceLike = (props) => {
+
+    //const member = report.reportedMember;
+    //const setMember = [];
+    console.log("reductLike ", report);
+    axios
+      .post("/admin/reduceLike", report)
+      .then((res) => {
+        if (res.data === 1) {
+          Swal.fire("호감도가 내려갔습니다")
+          axios
+            .post("/admin/checkBlacklist", report)
+            //멤버아이디 => 온도 10 이하면 =>블랙리스트 => report type 모임 다막아버리라는 거지 검수중으로 바꾸라고/회원 블랙리스트로 가게 함
+            .then((res) => {
+
+            })
+            .catch((res) => {
+              Swal.fire("블랙리스트입니다.")
+            })
+        } else {
+          Swal.fire("블랙리스트 명단에 있습니다.")
+        }
+      })
+      .catch((res) => {
+
+      })
+  }
   if (index === toggleIdx) {
 
     return (
       <>
         <tr onClick={changeToggle}>
           <td>
-            {report.reportType === 0 ? "후기" : (report.reportType === 1 ? "피드" : "모임")}
+            {report.reportType === 0
+              ? "회원"
+              : report.reportType === 1
+                ? "모임"
+                : report.reportType === 2
+                  ? "피드"
+                  : report.reportType === 3
+                    ? "후기"
+                    : ""}
+
           </td>
           <td>{report.reportedMember}</td>
           <td>{report.reportCategoryContent}</td>
@@ -133,12 +168,12 @@ const ReportItem = (props) => {
           <div className="report-list-content">
             {report.reportContent}
           </div>
-          <div className="boardlist-btn-box">
+          <div className="reportlist-btn-box">
             <div>
               <Button2 text="이동"></Button2>
             </div>
             <div>
-              <Button1 text="점수 깎기"></Button1>
+              <Button1 text="온도 내리기" clickEvent={reduceLike}></Button1>
             </div>
           </div>
         </div>
@@ -150,7 +185,15 @@ const ReportItem = (props) => {
     return (
       <tr onClick={changeToggle}>
         <td>
-          {report.reportType === 0 ? "후기" : (report.reportType === 1 ? "피드" : "모임")}
+          {report.reportType === 0
+            ? "회원"
+            : report.reportType === 1
+              ? "모임"
+              : report.reportType === 2
+                ? "피드"
+                : report.reportType === 3
+                  ? "후기"
+                  : ""}
         </td>
         <td>{report.reportedMember}</td>
         <td>{report.reportCategoryContent}</td>
