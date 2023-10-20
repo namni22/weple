@@ -80,7 +80,7 @@ const MeetList = (props) => {
     axios
       .get("/meet/categoryMeetList/" + reqPage + "/" + categoryNo)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setMeetList(res.data.meetList);
         //페이지인포 셋팅
         setPageInfo(res.data.pi);
@@ -142,7 +142,8 @@ const MeetList = (props) => {
 
 const MeetItem = (props) => {
   // 연주님께~  meet props로 전달해주시고 meetList 따로 select 해와서 map으로 반복 출력해주세요
-  const meet = props.meet;
+  // const meet = props.meet;
+  const [meet, setMeet] = useState({});
   const navigate = useNavigate();
   const isLogin = props.isLogin;
 
@@ -190,6 +191,7 @@ const MeetItem = (props) => {
 
   //로그인을 했을경우 누가 로그인했는지 db에서 select해오기
   useEffect(() => {
+    setMeet(props.meet);
     const token = window.localStorage.getItem("token");
     if (isLogin) {
 
