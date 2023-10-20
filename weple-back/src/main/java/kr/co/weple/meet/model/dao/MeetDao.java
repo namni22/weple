@@ -86,7 +86,7 @@ public interface MeetDao {
 
 	String getMemberCategory(String memberId);
 
-	List meetCategory(List memberCategoryArr);
+//	List meetCategory(List memberCategoryArr);
 
 
 

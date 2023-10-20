@@ -233,10 +233,7 @@
 	where rownum<=12
 	]]>
 	</select>
-	<!--메인페이지에 선호카테고리순 모임조회 -->
-	<select id="getMemberCategory" resultType="String">
-		select member_category from member where member_id = #{memberId}
-	</select>
+	<!-- 메인페이지에 선호 카테고리순 모임 조회 -->
 	<select id="meetCategory" resultType="meet">
 	<![CDATA[ 
 	select * 
