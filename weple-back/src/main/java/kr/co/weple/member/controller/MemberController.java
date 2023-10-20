@@ -140,7 +140,6 @@ public class MemberController {
 	@GetMapping(value="/myFeedList/{start}/{end}/{memberId}")
 	public List list(@PathVariable int start, @PathVariable int end, @PathVariable String memberId) {
 		List myFeedList = memberService.myFeedList(start, end, memberId);
-		System.out.println("내 피드 리스트 : " + myFeedList);
 		return myFeedList;
 		
 	}
