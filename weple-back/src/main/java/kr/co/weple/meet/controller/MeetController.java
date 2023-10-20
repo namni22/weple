@@ -55,12 +55,9 @@ public class MeetController {
 	//개설한 모임멤버 list 출력
 	@GetMapping(value = "/meetMember/{reqPage}")
 	public Map meetMember(@PathVariable int reqPage, int meetNo,@RequestAttribute String memberId) {
-		System.out.println("11111111111111111111111111111111111111111111111111111111meetNo : "+meetNo);
-		Map map = meetService.meetMemberList(reqPage,meetNo,memberId);
-		System.out.println(map);                        
+		Map map = meetService.meetMemberList(reqPage,meetNo,memberId);		                   
 		return map;
 	}
-
 	//모임생성
 	@PostMapping(value = "/meetCreate")
 	public int meetCreate(
@@ -68,8 +65,7 @@ public class MeetController {
 			@ModelAttribute MultipartFile meetThumbnailPreview,
 			@RequestAttribute String memberId
 		) {
-		// @RequestAttribute String memberId 로 아이디 받아서 meet에 방장으로 추가 (토큰필요)
-		
+		// @RequestAttribute String memberId 로 아이디 받아서 meet에 방장으로 추가 (토큰필요)		
 		meet.setMeetCaptain(memberId);
 		//구분자로 준비물 String으로 이어서 set
 		if(!meet.getMeetPrepareList().isEmpty()) {//준비물이 있다면
@@ -82,8 +78,7 @@ public class MeetController {
 				}
 				newPrepare += (String) meet.getMeetPrepareList().get(i)+"/";
 			}
-			meet.setMeetPrepare(newPrepare);		
-			
+			meet.setMeetPrepare(newPrepare);					
 		}		
 		String savepath = root + "meet/";
 		if(meetThumbnailPreview != null) {//썸네일이 있다면 meet에 set
@@ -94,9 +89,7 @@ public class MeetController {
 		}
 		//meetMargin set 남은인원 셋팅
 		meet.setMeetMargin(meet.getMeetTotal());		
-		
-		System.out.println("생성 모임 : "+meet);
-		
+		System.out.println("생성 모임 : "+meet);		
 		int result = meetService.createMeet(meet);
 		//리턴 리절트로 변경
 		return result;
@@ -107,10 +100,8 @@ public class MeetController {
 			@ModelAttribute Meet meet,
 			@ModelAttribute MultipartFile meetThumbNailPreview,
 			@RequestAttribute String memberId
-			) {
-		
+			) {		
 		// @RequestAttribute String memberId 로 아이디 받아서 meet에 방장으로 추가 (토큰필요)
-
 		meet.setMeetCaptain(memberId);
 		//구분자로 준비물 String으로 이어서 set
 		if(!meet.getMeetPrepareList().isEmpty()) {//준비물이 있다면
@@ -131,46 +122,32 @@ public class MeetController {
 			String filename = meetThumbNailPreview.getOriginalFilename();
 			String filepath = fileUtil.getFilepath(savepath, filename, meetThumbNailPreview) ;//물리적으로 업로드
 			meet.setMeetThumbNail(filepath);
-		}
-		
-		System.out.println("수정 모임 : "+meet);
-		System.out.println("수정 모임 안의 썸네일 : "+meet.getMeetThumbNail());
-		
-		System.out.println("수정 멤버아이디 : "+memberId);
-		
+		}		
 		Meet newMeet = meetService.modifyMeet(meet);
-		return newMeet;
-//		return 0;
-		
+		return newMeet;	
 	}
 	
 	//모임생성 에디터 사진 추가
 	@PostMapping(value = "/meetContentDImg")
-	public String meetContentDImg(@ModelAttribute MultipartFile image) {
-		
+	public String meetContentDImg(@ModelAttribute MultipartFile image) {		
 		String savepath = root +"meet/editor/";
 		String filename = image.getOriginalFilename();
 		String filepath = fileUtil.getFilepath(savepath, filename, image);
-		
-		//webconfig 랑 맞워야함 /meet/editor/를
 		return "/meet/editor/"+filepath;
 	}
 	
 	//updateEnrollMember
 	@PostMapping(value = "/updateEnrollMember/{meetNo}")
-	public int updateEnrollMember(@RequestBody Follower enroll,@PathVariable int meetNo) {
-		System.out.println(enroll);
+	public int updateEnrollMember(@RequestBody Follower enroll,@PathVariable int meetNo) {		
 		int result = meetService.updateEnrollMember(enroll.getMemberNo(),meetNo);
 		return result;
 	}
 	//모임 카테고리 조회
 	@GetMapping(value = "/selectSmallCategory/{bigCategoryNo}")
-	public List selectSmallCategory (@PathVariable int bigCategoryNo) {
-		
+	public List selectSmallCategory (@PathVariable int bigCategoryNo) {		
 		Category category = new Category();
 		category.setCategoryNo(bigCategoryNo);
-		List smallCategoryList = meetService.selectSmallCategory(category);
-		
+		List smallCategoryList = meetService.selectSmallCategory(category);		
 		return smallCategoryList;
 	}
 	//모임 리스트 조회
@@ -184,8 +161,7 @@ public class MeetController {
 	}
 	//모임 카테고리 메뉴바 눌럿을때 모임 리스트 조회
 	@GetMapping(value = "/categoryMeetList/{reqPage}/{meetCategory}")
-	public Map categoryMeetList(@PathVariable int reqPage,@PathVariable int meetCategory) {
-		
+	public Map categoryMeetList(@PathVariable int reqPage,@PathVariable int meetCategory) {		
 		Map map = meetService.categoryMeetList(reqPage, meetCategory);
 		System.out.println("별점확인 맵 : "+map);
 		return map;
@@ -193,24 +169,17 @@ public class MeetController {
 	//아이디 받아서 멤버 조회
 	@PostMapping(value = "/selectOneMember")
 	public Member selectOneMember(@RequestBody Member member) {
-		Member m = meetService.selectOneMember(member.getMemberId());
-		
+		Member m = meetService.selectOneMember(member.getMemberId());		
 		return meetService.selectOneMember(member.getMemberId());
 	}
 	//모임 가입
 	@PostMapping(value = "/meetJoin")
 	public int meetJoin (
 			@RequestAttribute String memberId,
-			@RequestBody Meet meet
-			
-			) {
-		
-		
-		Member joinMember =  memberService.selectOneMember(memberId);
-		System.out.println(joinMember);
-		
-		int result = meetService.meetJoin(joinMember, meet);
-		
+			@RequestBody Meet meet			
+			) {		
+		Member joinMember =  memberService.selectOneMember(memberId);		
+		int result = meetService.meetJoin(joinMember, meet);		
 		return result;
 	}
 	//로그인한 회원이 가입승인을 받은 모임 멤버인지 조회
@@ -218,21 +187,16 @@ public class MeetController {
 	public Follower isMeetMember(
 			@RequestAttribute String memberId,
 			@RequestBody Meet meet
-			) {
-		
-		System.out.println("로그인 아이디 : "+memberId);
-		System.out.println("모임 : "+meet);
-		Member loginMember = memberService.selectOneMember(memberId);
-		System.out.println("로그인 회원 번호 : "+loginMember.getMemberNo());
+			) {		
+		Member loginMember = memberService.selectOneMember(memberId);		
 		Follower follower= meetService.isMeetMember(loginMember.getMemberNo(),meet.getMeetNo());
-		System.out.println("isMeetMember 컨트롤 동작 팔로워 :  "+follower);
 		return follower;
 	}
 	
 	//모임번호를 입력받아 해당 모임을 select
 	@GetMapping(value = "/selectOneMeet/{meetNo}")
 	public Meet meetView(@PathVariable int meetNo) {
-		System.out.println("모임 번호 : "+meetNo);
+		
 		return meetService.selectOneMeet(meetNo);
 	}
 /*********************************메인페이지 모임조회*********************************************/	
@@ -255,35 +219,24 @@ public class MeetController {
 		List list = meetService.meetNew();
 		return list;
 	}	
-	//메인페이지에 선호카테고리순 모임조회
-//	@GetMapping(value = "/meetCategory")
-//	public List meetCategory() {
-//		String memberId = "user01";
-//		List list = meetService.meetCategory(memberId);
-//		return list;
-//	}
+	
 /********************************************************************************************/			
 	//meet챗팅 조회
 	@GetMapping(value = "/meetChat/{meetNo}")
-	public Map meetChat(@PathVariable int meetNo) {
-		System.out.println("meetNo : "+ meetNo);
-		Map meetChat = meetService.meetChatList(meetNo);
-		System.out.println("챗 리스트 : "+meetChat);
+	public Map meetChat(@PathVariable int meetNo) {		
+		Map meetChat = meetService.meetChatList(meetNo);		
 		return meetChat;
 	}	
 	//내모임회원 추방
 	@PostMapping(value = "/deleteMember/{meetNo}")
-	public int deleteMember(@PathVariable int meetNo,@RequestBody Follower memberList) {
-		System.out.println("11111111111111111111111111111 : "+meetNo);
-		int result = meetService.deleteMember(memberList.getMemberNo(),meetNo);
-		System.out.println("컨트롤러 : "+ result);
+	public int deleteMember(@PathVariable int meetNo,@RequestBody Follower memberList) {		
+		int result = meetService.deleteMember(memberList.getMemberNo(),meetNo);		
 		return result;
 	}
 	//멤버 탈퇴
 	@PostMapping(value = "/selfDeleteMember")
 	public int selfDeleteMember ( @RequestBody Follower isMeetMember) {
-		int result = meetService.deleteMember(isMeetMember.getMemberNo(), isMeetMember.getMeetNo());
-		
+		int result = meetService.deleteMember(isMeetMember.getMemberNo(), isMeetMember.getMeetNo());		
 		return result;
 	}
 	
@@ -295,12 +248,8 @@ public class MeetController {
 		}
 	//모임 채팅
 		@PostMapping(value = "/chat/{meetNo}")
-		public List insertMeetChat(@RequestBody Chat chat,@RequestAttribute String memberId,@PathVariable int meetNo ) {
-			System.out.println("chat : "+chat.getChatContent());
-			System.out.println("meetNo :"+ meetNo);
-			System.out.println("memberId는 : "+memberId);
-			List list = meetService.insertMeetChat(chat.getChatContent(),memberId,meetNo);
-			System.out.println("list : "+list);
+		public List insertMeetChat(@RequestBody Chat chat,@RequestAttribute String memberId,@PathVariable int meetNo ) {			
+			List list = meetService.insertMeetChat(chat.getChatContent(),memberId,meetNo);			
 			return list;
 		}
 		
@@ -325,26 +274,18 @@ public class MeetController {
 	//사이드바 유무에 필요한 회원상태 정보
 	@GetMapping(value = "/memberStatus/{meetNo}")
 	public Follower memberStatus(@PathVariable int meetNo,@RequestAttribute String memberId) {
-//		System.out.println("멤버정보 필요한 모임번호 : "+meetNo);
-//		System.out.println("멤버정보 필요한 멤버번호 : "+memberId);
 		Follower followerStatus = meetService.status(meetNo,memberId);
 		return followerStatus;
 	}
 	//방장임에 따라 바뀌는 사이드바에 필요한 정보
 	@GetMapping(value = "/meetCapCheck/{meetNo}")
-	public Map meetCapCheck(@PathVariable int meetNo,@RequestAttribute String memberId) {
-		System.out.println("방장체크meetNo : "+meetNo+"방장체크meetCaptain : "+memberId);
-		Map meetCapCheck = meetService.meetCapCheck(meetNo,memberId);
-		System.out.println("meetCapcheck : "+meetCapCheck);
+	public Map meetCapCheck(@PathVariable int meetNo,@RequestAttribute String memberId) {		
+		Map meetCapCheck = meetService.meetCapCheck(meetNo,memberId);		
 		return meetCapCheck;
 	}
 	//회원 호감도 저장
 	@GetMapping(value = "/memberLikeStatus/{reqPage}")
-	public Map memberLikeStatus(@PathVariable int reqPage,int meetNo,int takerNo,@RequestAttribute String memberId ) {
-		System.out.println("좋아요 누른 사람 : "+ meetNo);		
-		System.out.println("좋아요 받은 사람 : "+takerNo);
-		System.out.println(memberId);
-		
+	public Map memberLikeStatus(@PathVariable int reqPage,int meetNo,int takerNo,@RequestAttribute String memberId ) {		
 		Map map = meetService.memberLikeStatus(memberId,takerNo,meetNo,reqPage);
 		return map;
 	}
