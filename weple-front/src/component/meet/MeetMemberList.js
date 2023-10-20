@@ -145,6 +145,8 @@ const MemberList = (props) => {
               if (res.data === 1) {
                 console.log("memberId : ", memberId);
                 console.log("memeberList.Id : ", memberList.memberNo);
+                console.log("meetNo : " + meetNo);
+                console.log("reqPage : " + reqPage);
                 const token = window.localStorage.getItem("token");
                 axios
                   .get(
@@ -152,7 +154,7 @@ const MemberList = (props) => {
                       reqPage +
                       "?meetNo=" +
                       meetNo +
-                      "?takerNo=" +
+                      "&takerNo=" +
                       memberList.memberNo,
                     {
                       headers: {
@@ -261,6 +263,7 @@ const MemberList = (props) => {
           {memberList.memberId}
           <span>님</span>
         </div>
+        <div>{memberList.memberLike}</div>
       </td>
       <td width="35%">
         <div className="meetMemberList-btn-wrap">

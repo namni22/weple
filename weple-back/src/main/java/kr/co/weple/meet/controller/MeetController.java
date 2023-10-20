@@ -55,7 +55,7 @@ public class MeetController {
 	//개설한 모임멤버 list 출력
 	@GetMapping(value = "/meetMember/{reqPage}")
 	public Map meetMember(@PathVariable int reqPage, int meetNo,@RequestAttribute String memberId) {
-		System.out.println("meetNo : "+meetNo);
+		System.out.println("11111111111111111111111111111111111111111111111111111111meetNo : "+meetNo);
 		Map map = meetService.meetMemberList(reqPage,meetNo,memberId);
 		System.out.println(map);                        
 		return map;
@@ -339,7 +339,7 @@ public class MeetController {
 	}
 	//회원 호감도 저장
 	@GetMapping(value = "/memberLikeStatus/{reqPage}")
-	public Map memberLikeStatus(@PathVariable int meetNo,int takerNo,int reqPage,@RequestAttribute String memberId ) {
+	public Map memberLikeStatus(@PathVariable int reqPage,int meetNo,int takerNo,@RequestAttribute String memberId ) {
 		System.out.println("좋아요 누른 사람 : "+ meetNo);		
 		System.out.println("좋아요 받은 사람 : "+takerNo);
 		System.out.println(memberId);

@@ -110,7 +110,11 @@ const EnrollItem = (props) => {
         </div>
       </td>
       <td width="60%">
-        <div className="meetMemberList-name">{enroll.memberId}</div>
+        <div className="meetMemberList-name">
+          {enroll.memberId}
+          <span>님</span>
+        </div>
+        <div>{enroll.memberLike}</div>
       </td>
       <td width="35%">
         <div className="meetMemberList-btn-wrap">
