@@ -30,8 +30,7 @@ const MyFeed = (props) => {
               setMyFeedList([...myFeedList]);
             });
           } else {
-            console.log("얘는 왜 안 찍혀");
-            Swal.fire("내 피드가 없습니다. 피드를 작성해보세요.");
+            console.log("내 피드가 없습니다. 피드를 작성해보세요.");
           }
         })
         .catch((res) => {
@@ -48,16 +47,22 @@ const MyFeed = (props) => {
     <div className="myFeed-wrap">
       <div className="profile-sub-content">
         <div className="myFeed-content">
-          {myFeedList.map((myFeed, index) => {
-            return (
-              <MyFeedItem
-                key={"myFeed" + index}
-                myFeed={myFeed}
-                isLogin={isLogin}
-                isAdmin={isAdmin}
-              />
-            );
-          })}
+          {myFeedList == "" ? (
+            <div className="noFeed">
+              내 피드가 없습니다.<br></br>피드를 작성해 보세요😆
+            </div>
+          ) : (
+            myFeedList.map((myFeed, index) => {
+              return (
+                <MyFeedItem
+                  key={"myFeed" + index}
+                  myFeed={myFeed}
+                  isLogin={isLogin}
+                  isAdmin={isAdmin}
+                />
+              );
+            })
+          )}
         </div>
         <div className="myfeed-content-more-btn">
           <Button1 text="더보기" dValue={1} clickEvent={useFeedMore} />
