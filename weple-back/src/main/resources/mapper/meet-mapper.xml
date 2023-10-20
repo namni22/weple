@@ -323,7 +323,7 @@
 		
 	<!-- 캘린더 -->
 	<insert id="addCalendar">
-		insert into calendar values(calendar_seq.nextval,#{meetNo},#{calTitle},#{calContent},#{calStart},#{calEnd})
+		insert into calendar values(calendar_seq.nextval,#{meetNo},#{calTitle},#{calContent},#{calStart})
 	</insert>
 	<select id="calendarList" resultType="calendar">
 		select * from calendar where meet_no = #{meetNo}
@@ -335,7 +335,7 @@
 		select * from calendar where cal_no=#{calNo}
 	</select>
 	<update id="modifyCalendar">
-		update calendar set cal_title=#{calTitle},cal_content=#{calContent},cal_start=#{calStart},cal_end=#{calEnd} where cal_no=#{calNo}
+		update calendar set cal_title=#{calTitle},cal_content=#{calContent},cal_start=#{calStart} where cal_no=#{calNo}
 	</update>
 
 
