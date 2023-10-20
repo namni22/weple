@@ -30,7 +30,12 @@ const FeedList = (props) => {
       })
       .catch((res) => {
         console.log(res.data.status);
-        Swal.fire("실패");
+        Swal.fire({
+          icon: "error",
+          title: "문제가 발생했습니다",
+          text: "관리자에게 문의하세요",
+          confirmButtonText: "확인",
+        });
       });
   }, [start]);
 
