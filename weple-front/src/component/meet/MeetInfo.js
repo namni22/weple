@@ -64,10 +64,12 @@ const MeetInfo = (props) => {
       })
       .then((res) => {
         console.log(res.data);
-        if (res.data === 1) {
-          Swal.fire("가입신청 완료");
-          navigate("/");
-        }
+        Swal.fire("가입신청 완료");
+        //상세보기에 남아있고 렌더링 다시 하도록
+        setIsMeetMember(res.data)
+        navigate("/meet/View");
+        // if (res.data === 1) {
+        // }
       })
       .catch((res) => {
         console.log(res.response.status);

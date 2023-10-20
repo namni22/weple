@@ -286,7 +286,7 @@ public class MeetService {
 
 	//모임가입신청
 	@Transactional
-	public int meetJoin(Member joinMember, Meet meet) {
+	public Follower meetJoin(Member joinMember, Meet meet) {
 		// TODO Auto-generated method stub
 		// 가입신청한 멤버번호와 가입할 모임번호를 모임가입정보로 묶어서 전달
 		System.out.println("가입할 회원 아이디 : "+ joinMember);
@@ -297,7 +297,13 @@ public class MeetService {
 		
 		int result = meetDao.meetJoin(meetJoinInfo);
 		System.out.println("결과확인");
-		return result;
+		//Meet newMeet= meetDao.selectOneMeet(meet.getMeetNo());
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		map.put("memberNo", joinMember.getMemberNo());
+		map.put("meetNo", meet.getMeetNo());
+		Follower follower = meetDao.isMeetMember(map);
+		
+		return follower;
 	}
 	//로그인한 회원이 가입승인을 받은 모임 멤버인지 조회
 	public Follower isMeetMember(int memberNo, int meetNo) {

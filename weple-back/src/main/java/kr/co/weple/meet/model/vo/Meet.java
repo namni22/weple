@@ -36,6 +36,9 @@ public class Meet {
 	//모임 별점
 	private double reviewStar;
 	private int reviewCount;
+	
+	//모임 좋아요
+	private int isMeetLike;
 
 
 }

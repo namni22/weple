@@ -148,8 +148,8 @@ const MeetItem = (props) => {
   const isLogin = props.isLogin;
 
   const [loginMember, setLoginMember] = useState(null);
-  const [isMeetLike, setIsMeetLike] = useState(null);
-  const [meetLikeCurrentStatus, setMeetLikeCurrentStatus] = useState(null);
+  const [isMeetLike, setIsMeetLike] = useState(0);
+  // const [meetLikeCurrentStatus, setMeetLikeCurrentStatus] = useState(null);
 
   // 상세보기로 이동하는 함수
   const meetView = () => {
@@ -182,7 +182,7 @@ const MeetItem = (props) => {
         },
       })
       .then((res) => {
-        setMeetLikeCurrentStatus(false);
+
       })
       .catch((res) => { });
 
@@ -209,26 +209,13 @@ const MeetItem = (props) => {
           console.log(res.response.status);
         });
 
-      //모임 좋아요를 누른상태인지 조회 해오기
-      axios
-        .post("/meet/isMeetLike", meet, {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        })
-        .then((res) => {
-          // console.log("좋아요 isMeetLike 조회 결과 : ", res.data);
-          setIsMeetLike(res.data);
-        })
-        .catch((res) => {
-          console.log(res.response.status);
-        });
+
 
     } else {//로그아웃하면 로그인멤버 초기화
       setLoginMember(null);
     }
 
-  }, [isLogin, meetLikeCurrentStatus])
+  }, [isLogin])
 
 
   return (
@@ -261,7 +248,7 @@ const MeetItem = (props) => {
       </div>
       <div className="MeetList-like-box">
         {loginMember ? (
-          isMeetLike ? (
+          isMeetLike === 0 ? (
             <span className="material-icons MeetList-like" onClick={() => { meetLikeCancle(meet); }} >favorite</span>
           ) : (
             <span className="material-icons MeetList-like" >favorite_border</span>

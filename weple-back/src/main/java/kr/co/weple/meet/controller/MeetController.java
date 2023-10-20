@@ -200,7 +200,7 @@ public class MeetController {
 	}
 	//모임 가입
 	@PostMapping(value = "/meetJoin")
-	public int meetJoin (
+	public Follower meetJoin (
 			@RequestAttribute String memberId,
 			@RequestBody Meet meet
 			
@@ -210,9 +210,10 @@ public class MeetController {
 		Member joinMember =  memberService.selectOneMember(memberId);
 		System.out.println(joinMember);
 		
-		int result = meetService.meetJoin(joinMember, meet);
+		//가입신청이후 view로 이동하기위한 meet정보
+		Follower follower = meetService.meetJoin(joinMember, meet);
 		
-		return result;
+		return follower;
 	}
 	//로그인한 회원이 가입승인을 받은 모임 멤버인지 조회
 	@PostMapping(value = "/isMeetMember")
