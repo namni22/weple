@@ -81,7 +81,8 @@ public class MeetController {
 				}
 				newPrepare += (String) meet.getMeetPrepareList().get(i)+"/";
 			}
-			meet.setMeetPrepare(newPrepare);			
+			meet.setMeetPrepare(newPrepare);		
+			
 		}		
 		String savepath = root + "meet/";
 		if(meetThumbnailPreview != null) {//썸네일이 있다면 meet에 set
@@ -91,7 +92,7 @@ public class MeetController {
 			meet.setMeetThumbNail(filepath);
 		}
 		//meetMargin set 남은인원 셋팅
-		meet.setMeetMargin(meet.getMeetTotal()-1);		
+		meet.setMeetMargin(meet.getMeetTotal());		
 		
 		System.out.println("생성 모임 : "+meet);
 		
