@@ -9,7 +9,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 const ModifyInfo = (props) => {
   const navigate = useNavigate();
   const member = props.member;
-  console.log(member.memberImage);
   const setMember = props.setMember;
   const [memberEmail, setMemberEmail] = useState(member.memberEmail);
   const [memberPhone, setMemberPhone] = useState(member.memberPhone);
@@ -69,7 +68,6 @@ const ModifyInfo = (props) => {
             categoryNameList.push(ct.categoryName);
           }
           setCategoryNameList([...categoryNameList]);
-          console.log(categoryNameList);
         }
       });
     });
@@ -228,7 +226,6 @@ const ModifyInfo = (props) => {
 
   // 카테고리 태그 선택 시 x 누르면 선택 카테고리 태그 삭제
   const deleteTag = (subInformation2, subTag2, subValue2, index) => {
-    console.log("서브infor", subInformation2);
     const newArr = subInformation2.splice(index, 1);
     const newArr2 = subInformation.filter(function (item) {
       return item !== newArr;
@@ -257,7 +254,7 @@ const ModifyInfo = (props) => {
     form.append("memberImage", memberImage);
     form.append("memberCategory", memberCategory);
     form.append("profileImg", profileImg);
-
+    console.log(memberCategory);
     axios
       .post("/member/modifyInfo", form, {
         headers: {

@@ -40,9 +40,15 @@ const MyMeet = (props) => {
             <Button2 text="모임 개설"></Button2>
           </div>
           <div className="myMeet-content-item">
-            {myMeetList.map((myMeet, index) => {
-              return <MyMeetItem key={"myMeet" + index} myMeet={myMeet} />;
-            })}
+            {myMeetList == "" ? (
+              <div className="noMeet">
+                개설한 모임이 없습니다.<br></br>모임을 개설해보세요.
+              </div>
+            ) : (
+              myMeetList.map((myMeet, index) => {
+                return <MyMeetItem key={"myMeet" + index} myMeet={myMeet} />;
+              })
+            )}
           </div>
         </div>
         <div className="myMeet-content">
@@ -51,14 +57,20 @@ const MyMeet = (props) => {
             내가 가입한 모임
           </div>
           <div className="myMeet-content-item">
-            {myMeetJoinedList.map((myMeetJoined, index) => {
-              return (
-                <MyMeetJoinedItem
-                  key={"myMeetJoined" + index}
-                  myMeetJoined={myMeetJoined}
-                />
-              );
-            })}
+            {myMeetJoinedList == "" ? (
+              <div className="noMeet">
+                가입한 모임이 없습니다.<br></br>모임에 가입해보세요.
+              </div>
+            ) : (
+              myMeetJoinedList.map((myMeetJoined, index) => {
+                return (
+                  <MyMeetJoinedItem
+                    key={"myMeetJoined" + index}
+                    myMeetJoined={myMeetJoined}
+                  />
+                );
+              })
+            )}
           </div>
         </div>
       </div>

@@ -49,7 +49,6 @@ const Profile = (props) => {
             categoryNameList.push(ct.categoryName);
           }
           setCategoryNameList([...categoryNameList]);
-          console.log(categoryNameList);
         }
       });
     });
