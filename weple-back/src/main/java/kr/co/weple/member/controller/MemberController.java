@@ -81,9 +81,9 @@ public class MemberController {
 	
 	// 로그인
 	@PostMapping(value="/login")
-	public String login(@RequestBody Member member) {
-		String result = memberService.login(member);
-		return result;
+	public List login(@RequestBody Member member) {
+		List list = memberService.login(member);
+		return list;
 	}
 	
 	// 아이디로 멤버 정보 가져오기
@@ -199,9 +199,8 @@ public class MemberController {
 		return memberService.delete(memberId);
 	}
 	//회원 선호 카테고리 조회
-	@GetMapping(value = "/getMemberCategory")
+	@PostMapping(value = "/getMemberCategory")
 	public List getMemberCategory(@RequestAttribute String memberId) {
-		System.out.println("controller 도착");
 		List list = memberService.getMemberCategory(memberId);
 		return list;
 	}

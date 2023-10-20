@@ -4,6 +4,7 @@
   align-items: center;
   flex-wrap: wrap;
 }
+
 .paging-wrap > .page-item {
   min-width: 20px;
   height: 20px;
