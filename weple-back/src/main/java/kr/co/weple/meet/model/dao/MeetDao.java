@@ -22,13 +22,13 @@ public interface MeetDao {
 
 	int enrollMemberList(int meetNo);
 
-	List selectEnrollMemberList(HashMap<String, Integer> param);
+	List selectEnrollMemberList(HashMap<String, Object> param);
 
 	int createMeet(Meet meet);
 
 	int meetMemberList(int meetNo);
 
-	List selectMeetMemberList(HashMap<String, Integer> param);
+	List selectMeetMemberList(HashMap<String, Object> param);
 
 	List meetList(PageInfo pi);
 
@@ -87,6 +87,10 @@ public interface MeetDao {
 	String getMemberCategory(String memberId);
 
 //	List meetCategory(List memberCategoryArr);
+
+	int insertMemberLike(int giverNo, int takerNo, int meetNo);
+
+	List like(int memberNo, int meetNo);
 
 
 

@@ -178,7 +178,8 @@
 			        MEMBER_LIKE,
 			        FOLLOWER_STATUS,
 			        MEET_NO,
-			        MEMBER_NO
+			        MEMBER_NO,
+                    (select count(*) from mlike ml where mlike_giver_no = (select member_no from member where member_id=#{memberId}) and mlike_taker_no=member_no and ml.meet_no=#{meetNo}) is_like
 			    FROM FOLLOWER
 			    JOIN MEMBER USING (MEMBER_NO)
 		        WHERE FOLLOWER_STATUS = 1 AND MEET_NO = #{meetNo}
@@ -267,7 +268,7 @@
 	</delete>
 	<!-- 모임 내 회원 호감도 -->
 	<update id="memberLike">
-		UPDATE MEMBER SET MEMBER_LIKE= #{changeMemberLike} WHERE MEMBER_ID = #{memberId}
+		UPDATE MEMBER SET MEMBER_LIKE= MEMBER_LIKE+0.7 WHERE MEMBER_ID = #{memberId}
 	</update>
 	<!-- meetChat -->
 	<update id="insertMeetChat">
@@ -313,4 +314,10 @@
 	<update id="disCount">
 		update meet set meet_margin = #{newMargin} where meet_no = #{meetNo}
 	</update>
+	<insert id="insertMemberLike">
+		insert into mLike values(#{giverNo},#{takerNo},#{meetNo})
+	</insert>
+	<select id="like" resultType="memberLike">
+		select * from Mlike where meet_no=#{meetNo} and MLIKE_GIVER_NO=#{memberNo}
+	</select>
 </mapper>
