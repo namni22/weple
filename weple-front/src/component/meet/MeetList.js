@@ -14,7 +14,7 @@ const MeetList = (props) => {
 
   const [meetList, setMeetList] = useState([]);
   const [reqPage, setReqPage] = useState(1); //처음에는 1페이지
-  const [pagenfo, setPageInfo] = useState({});
+  const [pageInfo, setPageInfo] = useState({});
   const [meetCategory, setmeetCategory] = useState(1);
   //카테고리 메뉴 출력할 카테고리 리스트
   const [smallCategoryList, setSmallCategoryList] = useState([]);
@@ -132,7 +132,7 @@ const MeetList = (props) => {
         <Pagination
           reqPage={reqPage}
           setReqPage={setReqPage}
-          pageInfo={pagenfo}
+          pageInfo={pageInfo}
           setData={setMeetList}
         />
       </div>
