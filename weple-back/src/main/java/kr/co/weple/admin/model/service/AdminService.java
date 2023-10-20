@@ -12,6 +12,8 @@ import kr.co.weple.PageInfo;
 import kr.co.weple.Pagination;
 import kr.co.weple.admin.model.dao.AdminDao;
 import kr.co.weple.meet.model.vo.Meet;
+import kr.co.weple.member.model.dao.MemberDao;
+import kr.co.weple.member.model.service.MemberService;
 import kr.co.weple.member.model.vo.Member;
 import kr.co.weple.review.model.vo.Report;
 
@@ -19,7 +21,8 @@ import kr.co.weple.review.model.vo.Report;
 public class AdminService {
 	@Autowired
 	private AdminDao adminDao;
-	
+	@Autowired
+	private MemberDao memberDao;
 	@Autowired
 	private Pagination pagination;
 	
@@ -37,7 +40,7 @@ public class AdminService {
 		}
 		//멤버 등급 변경
 		@Transactional
-		public int changeMemberGrade(Member member) {
+		public int changeMemberGrade(Member member) {			
 			return adminDao.changeMemberGrade(member);			
 		}
 		//모임 리스트 조회
@@ -58,7 +61,25 @@ public class AdminService {
 		//모임 등급 변경
 		@Transactional
 		public int changeMeetType(Meet meet) {
+			
 			return adminDao.changeMeetType(meet);
+		}
+		@Transactional
+		public int insertFollower(Meet meet) {
+			// TODO Auto-generated method stub
+			Member m = memberDao.selectOneMember(meet.getMeetCaptain());
+			
+			HashMap<String, Integer> map = new HashMap<String, Integer>();
+			map.put("meetNo", meet.getMeetNo());
+			map.put("memberNo", m.getMemberNo());
+			int result = adminDao.insertFollower(map);
+			if(result >= 0) {
+				return 1;
+			}else {
+				return 0;
+			}
+			//System.out.println(m.getMemberNo());
+			
 		}
 		//회원 검색 조회
 		public Map selectMemberbySubId(String memberId, int reqPage) {
@@ -101,9 +122,40 @@ public class AdminService {
 			map.put("pi", pi);
 			return map;
 		}
+		@Transactional
 		public int changeReportStatus(Report report) {
 			return adminDao.changeReportStatus(report);
 		}
-		
-		
+
+		@Transactional
+		public int reduceLike(String reportedMember) {
+			
+			Member m = memberDao.selectOneMember(reportedMember);
+			
+			if(m.getMemberLike() > 10) {	
+				double updateLike = adminDao.reduceLike(m);
+				return 1;
+			}else {				
+				return 0;
+			}		
+
+			
+		}	
+		@Transactional
+		public int checkBlacklist(Report report) {
+			int reportType = report.getReportType();
+			Member m = memberDao.selectOneMember(report.getReportedMember());
+			if(m.getMemberLike() <= 10) {
+				if(reportType == 0) {
+					return adminDao.changeMemberBlacklist(m.getMemberId());
+				}else if(reportType == 1) {
+					return adminDao.changeMeetBlacklist(m.getMemberId());
+				}
+			}
+			return 0;
+			
+			
+		}
+
 }
+		

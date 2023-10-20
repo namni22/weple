@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./admin.css";
-import { FormControl, MenuItem, Select } from "@mui/material";
+
 import Swal from "sweetalert2";
 import axios from "axios";
 import Pagination from "../common/Pagination";
@@ -70,7 +70,7 @@ const MeetingItem = (props) => {
     //console 먼저 찍고 set함수 작용
   };
   const clickConfirm = (event) => {
-    const obj = { meetNo: meetNo, meetType: meetType };
+    const obj = { meetNo: meetNo, meetType: meetType, meetCaptain: meet.meetCaptain };
     //console.log("모임번호 : " + meet.meetNo);
     //console.log("모임타입" + meet.meetType);
     const token = window.localStorage.getItem("token");
@@ -83,10 +83,22 @@ const MeetingItem = (props) => {
       .then((res) => {
         //console.log("res.data : " + res.data);
         if (res.data === 1) {
-          //console.log("if문 안 이벤트 타겟 : " + event.target.value);
           setMeetType(meetType);
-          // console.log("다녀온후 모임타입 : " + meet.meetType);
           Swal.fire("변경 성공하셨습니다.")
+          //console.log("set하고 나서 meetType : " + meetType, typeof meetType);
+          if (meetType === "1") {
+            axios
+              .post("/admin/insertFollower", obj)
+              .then((res) => {
+                if (res.data === 1) {
+                  Swal.fire("변경 성공하셨습니다.")
+                }
+              })
+              .catch((res) => {
+
+              })
+          }
+
         } else {
           Swal.fire("변경 중 문제가 발생했습니다.");
         }
@@ -94,7 +106,7 @@ const MeetingItem = (props) => {
       .catch((res) => {
         console.log(res);
       });
-    console.log("다녀온후 모임타입 : " + meet.meetType);
+
   };
   return (
     <tr>
