@@ -14,17 +14,7 @@ const MeetChat = (props) => {
   const [chat, setChat] = useState([]);
   const [chatContent, setChatContent] = useState("");
   const messages = useRef(null);
-  const [bool, setBool] = useState(true);
-  /**
-   * 
-  useEffect(() => {
-    messages.current.scrollIntoView();
-    if (bool) {
-      window.scrollTo(0, 0);
-      setBool(false);
-    }
-  }, [chat]);
-   */
+
   const [memberId, setMemberId] = useState("");
 
   useEffect(() => {
@@ -90,11 +80,15 @@ const MeetChat = (props) => {
         <div className="meetChat-inner">
           {chat.map((chat, index) => {
             return (
-              <ChatItem key={"chat" + index} chat={chat} memberId={memberId} />
+              <ChatItem
+                key={"chat" + index}
+                chat={chat}
+                memberId={memberId}
+                messages={messages}
+              />
             );
           })}
         </div>
-        <div ref={messages}></div>
       </div>
       <div className="meetChat-all-wrap">
         <ul>
@@ -131,6 +125,16 @@ const ChatItem = (props) => {
   const memberId = props.memberId;
   console.log("대화글 리스트 : ", chat);
   console.log("로그인한 아이디 : ", memberId);
+  const messages = props.messages;
+  const [bool, setBool] = useState(true);
+
+  useEffect(() => {
+    messages.current.scrollIntoView();
+    if (bool) {
+      window.scrollTo(0, 0);
+      setBool(false);
+    }
+  }, [chat]);
   return (
     /**
      * 
@@ -178,6 +182,7 @@ const ChatItem = (props) => {
         <p className="meetChat-msg">{chat.chatContent}</p>
         <span className="meetChat-time">{chat.chatDate}</span>
       </div>
+      <div ref={messages}></div>
     </div>
   );
 };

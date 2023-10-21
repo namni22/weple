@@ -36,45 +36,49 @@ const MeetMemberList = (props) => {
   }, [reqPage]);
   return (
     <div className="meetMemberList-all-wrap">
-      {meetMember.length === 0 ? (
-        <>모임회원이 없습니다.</>
-      ) : (
-        <>
-          <table className="meetMemberList-wrap">
-            <tbody>
-              {meetMember.map((member, index) => {
-                return (
-                  <MemberList
-                    key={"member" + index}
-                    member={member}
-                    //isOpen={isOpen}
-                    // setOpen={setOpen}
-                    meetMember={meetMember}
-                    setMeetMember={setMeetMember}
-                    //id={id}
-                    meetNo={myMeet.meetNo}
-                    myMeet={myMeet}
-                    setMyMeet={setMyMeet}
-                    isLogin={isLogin}
-                    userLike={userLike}
-                    setUserLike={setUserLike}
-                    reqPage={reqPage}
-                    setPageInfo={setPageInfo}
-                  />
-                );
-              })}
-            </tbody>
-          </table>
-          <div>
-            <Pagination
-              reqPage={reqPage}
-              setReqPage={setReqPage}
-              pageInfo={pageInfo}
-              setData={setMeetMember}
-            />
+      <div className="meet-div-border">
+        {meetMember.length === 0 ? (
+          <div className="meet-noMember-div">
+            <p>NO LIST(●'◡'●)</p>
           </div>
-        </>
-      )}
+        ) : (
+          <>
+            <table className="meetMemberList-wrap">
+              <tbody>
+                {meetMember.map((member, index) => {
+                  return (
+                    <MemberList
+                      key={"member" + index}
+                      member={member}
+                      //isOpen={isOpen}
+                      // setOpen={setOpen}
+                      meetMember={meetMember}
+                      setMeetMember={setMeetMember}
+                      //id={id}
+                      meetNo={myMeet.meetNo}
+                      myMeet={myMeet}
+                      setMyMeet={setMyMeet}
+                      isLogin={isLogin}
+                      userLike={userLike}
+                      setUserLike={setUserLike}
+                      reqPage={reqPage}
+                      setPageInfo={setPageInfo}
+                    />
+                  );
+                })}
+              </tbody>
+            </table>
+            <div>
+              <Pagination
+                reqPage={reqPage}
+                setReqPage={setReqPage}
+                pageInfo={pageInfo}
+                setData={setMeetMember}
+              />
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };
@@ -87,7 +91,7 @@ const MemberList = (props) => {
   const myMeet = props.myMeet;
   const reqPage = props.reqPage;
   const setPageInfo = props.setPageInfo;
-
+  console.log("12222222222222222myMeet :", myMeet);
   const meetNo = props.meetNo;
   const reportItemNo = props.meetNo;
   const [disable, setDisable] = useState("");

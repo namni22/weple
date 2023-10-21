@@ -85,7 +85,10 @@ const Review = (props) => {
       {reviewCount < 1 ? (
         <div className="review-all-wrap">
           <div className="meetInfo-content-title">모임리뷰</div>
+          {/**
+           * 
           <div className="review-wrap">첫 번째 리뷰를 작성해 보세요!</div>
+           */}
         </div>
       ) : (
         <div className="review-all-wrap">
