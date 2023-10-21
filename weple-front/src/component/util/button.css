@@ -23,7 +23,7 @@
 }
 
 .btn1 {
-  background-color: #3d40e5;
+  background-color: #2d31fa;
 }
 .btn1:disabled,
 .btn2:disabled,
@@ -40,8 +40,8 @@
 }
 
 .btn2 {
-  border: 1px solid #3d40e5;
-  color: #3d40e5;
+  border: 1px solid #2d31fa;
+  color: #2d31fa;
   background-color: transparent;
 }
 .btn3 {
@@ -53,7 +53,7 @@
 }
 
 .btn2:hover {
-  background-color: #3d40e5;
+  background-color: #2d31fa;
   color: #fff;
 }
 .btn3:hover {
