@@ -135,12 +135,7 @@ public class MeetController {
 	public int meetDelete (
 			@RequestBody Meet meet
 			) {
-		System.out.println("삭제 진행");
-		System.out.println(meet);
-//		System.out.println("삭제할 모임 번호 : "+ meetNo);
-		
-		int result = meetService.deleteMeet(meet.getMeetNo());
-		System.out.println(result);
+		int result = meetService.deleteMeet(meet);
 		return result;
 	}
 	

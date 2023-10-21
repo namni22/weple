@@ -26,6 +26,8 @@ public interface MeetDao {
 	List selectEnrollMemberList(HashMap<String, Object> param);
 
 	int createMeet(Meet meet);
+	
+	int updateMemberMeet(Member member);
 
 	int meetMemberList(int meetNo);
 
@@ -110,6 +112,8 @@ public interface MeetDao {
 	int updateEnrollMember(HashMap<String, Integer> param);
 
 	int deleteMember(HashMap<String, Integer> param);
+
+
 
 	
 

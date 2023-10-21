@@ -63,6 +63,10 @@
 
 		)
 	</insert>
+	<!-- 모임생성시, 모임삭제시 모임 개설 가능수 올리고 내리기 -->
+	<update id="updateMemberMeet">
+		update member set member_meet = #{memberMeet} where member_no = #{memberNo}
+	</update>
 	<!-- 모임수정 -->
 	<update id="modifyMeet">
 		update meet set

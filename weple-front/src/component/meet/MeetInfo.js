@@ -133,13 +133,13 @@ const MeetInfo = (props) => {
           })
           .then((res) => {
             console.log(("모임 삭제 ", res.data));
+            Swal.fire("삭제완료")
+            navigate("/")
           })
           .catch((res) => {
             console.log("모임삭제 캐치", res.response.status);
           });
 
-        // Swal.fire("삭제완료")
-        // navigate("/")
       }
     });
   }
@@ -202,7 +202,7 @@ const MeetInfo = (props) => {
             meetCaptain.memberNo === loginMember.memberNo ? ( //로그인한 멤버가 모임장이라면?
               <div className="meetInfo-cap-btn-wrap">
                 <Button1 text={"수정하기"} clickEvent={meetModify} />
-                <Button1 text={"삭제하기"} clickEvent={meetDelete} />
+                <Button1 text={"모임삭제"} clickEvent={meetDelete} />
               </div>
             ) : isMeetMember ? ( //객체 가져와져있는지부터 확인
               // <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />

@@ -64,7 +64,19 @@ public class MeetService {
 	@Transactional
 	public int createMeet(Meet meet) {		
 		//모임 장장 select 해와서 meet에 set 은 같은 자료형이라 controller에서 이미 해왔고 여기선 안해도됨		
-		int result = meetDao.createMeet(meet);		
+		int result = meetDao.createMeet(meet);
+		if(result>0) {
+			//개설가능 모임수 조회
+			Member member = memberDao.selectOneMember(meet.getMeetCaptain());
+			//개설가능 모임수 줄이기
+			int memberMeet = member.getMemberMeet()-1;
+			
+			member.setMemberMeet(memberMeet);
+			//db가서 모임 개설수 업데이트
+			int result2 = meetDao.updateMemberMeet(member);
+			
+			
+		}
 		return result;
 	}
 	//모임수정
@@ -399,9 +411,28 @@ public class MeetService {
 	}
 	//모임삭제
 	@Transactional
-	public int deleteMeet(int meetNo) {
+	public int deleteMeet(Meet meet) {
 		// TODO Auto-generated method stub
-		return meetDao.deleteMeet(meetNo);
+		
+		
+		int result = meetDao.deleteMeet(meet.getMeetNo());
+		
+		if(result>0) {
+			
+			//개설가능 모임수 조회
+			Member member = memberDao.selectOneMember(meet.getMeetCaptain());
+			//개설가능 모임수 줄이기
+			int memberMeet = member.getMemberMeet()+1;
+			
+			member.setMemberMeet(memberMeet);
+			//db가서 모임 개설수 업데이트
+			int result2 = meetDao.updateMemberMeet(member);
+			
+			
+			
+		}
+		
+		return result;
 	}
 
 
