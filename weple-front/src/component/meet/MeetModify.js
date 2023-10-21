@@ -33,13 +33,19 @@ const MeetModify = () => {
     const [meetPrepareList, setMeetPrepareList] = useState(meet.meetPrepareList);
 
     const navigate = useNavigate();
-
+    console.log("수정 들어왔을떄 상세주소 : ", meetAddress2, typeof meetAddress2);
     useEffect(() => {
         if (meetPrepare) {
             setMeetPrepareList(meetPrepare.split("/"));
         } else {// 준비물 없으면 빈배열로 초기화
             setMeetPrepareList([]);
         }
+        //상세주소 비어있으면 초기화
+        if (meetAddress2 === "null" || meetAddress2 === null) {
+            setMeetAddress2("");
+        }
+
+
     }, [meet.meetPrepare])
 
 
@@ -59,6 +65,7 @@ const MeetModify = () => {
         console.log("준비물 : " + meetPrepareList);
         console.log("카테고리번호 : " + meetCategory);
         console.log("모임주소1  : " + meetAddress1);
+        console.log("상세주소2  : " + meetAddress2, typeof meetAddress2, "---------------------------------");
         console.log("위도 : ", meetLatitude);
         console.log("경도 : ", meetLongitude);
         if (
