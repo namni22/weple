@@ -140,7 +140,7 @@ public class MeetService {
 		}
 	}
 	 * */
-	public Map circleList(int reqPage, int meetCategory) {			
+	public Map circleList(int reqPage, int meetCategory, int memberNo) {			
 		// 게시물조회, 페이징에 필요한 데이터를 취합
 		int numPerPage = 12; // 한페이지당 게시물 수
 		int pageNaviSize = 5; // 페이지 네비게이션 길이
@@ -152,7 +152,8 @@ public class MeetService {
 		map.put("start", pi.getStart());
 		map.put("end", pi.getEnd());
 		map.put("meetCategory",meetCategory);
-		// 리스트조회 //pi 랑 meetCategory도 묶어서 보냄
+		map.put("memberNo",memberNo);
+		// 리스트조회 //pi 랑 meetCategory도 묶어서 보냄 //좋아요 를 로그인한 회원이 누른 상태인지 확인하기위해 추가
 		List circleList = meetDao.selectCircleList(map);
 		map.put("meetList", circleList);		
 		return map;
@@ -352,6 +353,14 @@ public class MeetService {
 		return isMeetLike;
 	}
 
+	//좋아요
+	@Transactional
+	public int meetLikeUp(int meetNo, int memberNo) {
+		// TODO Auto-generated method stub
+		return meetDao.meetLikeUp(meetNo, memberNo);
+	}
+
+	//모임 좋아요 취소
 	@Transactional
 	public int meetLikeCancle(int meetNo, int memberNo) {
 		// TODO Auto-generated method stub

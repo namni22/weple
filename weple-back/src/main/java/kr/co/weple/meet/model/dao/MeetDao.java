@@ -89,6 +89,8 @@ public interface MeetDao {
 
 	WishList isMeetLike(int meetNo, int memberNo);
 
+	int meetLikeUp(int meetNo, int memberNo);
+	
 	int meetLikeCancle(int meetNo, int memberNo);
 	
 	List schedule(int calNo);
@@ -106,6 +108,8 @@ public interface MeetDao {
 	int updateEnrollMember(HashMap<String, Integer> param);
 
 	int deleteMember(HashMap<String, Integer> param);
+
+
 
 
 

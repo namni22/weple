@@ -44,7 +44,7 @@ const MeetInfo = (props) => {
           // console.log(res.data);
           setLoginMember(res.data);
         })
-        .catch((res) => {});
+        .catch((res) => { });
     }
   }, [props]);
 
@@ -110,6 +110,12 @@ const MeetInfo = (props) => {
     navigate("/meet/meetModify", { state: { meet: meet } });
   };
 
+  //모임장이 모임 삭제 버튼 클릭시
+  const meetDelete = () => {
+    Swal.fire("정말 모임을 삭제하시겟습니까?")
+    // navigate("/")
+  }
+
   // console.log("모임준비물 리스트 :", meetPrepareList, meetPrepareList.length);
   return (
     <div className="meetInfo-all-wrap">
@@ -166,7 +172,10 @@ const MeetInfo = (props) => {
         {isLogin ? (
           meetCaptain && loginMember ? ( //객체 가져와져있는지부터 확인
             meetCaptain.memberNo === loginMember.memberNo ? ( //로그인한 멤버가 모임장이라면?
-              <Button1 text={"수정하기"} clickEvent={meetModify} />
+              <div className="cap-btn-wrap">
+                <Button1 text={"수정하기"} clickEvent={meetModify} />
+                <Button1 text={"삭제하기"} clickEvent={meetDelete} />
+              </div>
             ) : isMeetMember ? ( //객체 가져와져있는지부터 확인
               // <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
               // isMesetMember가 있을때"
@@ -184,9 +193,13 @@ const MeetInfo = (props) => {
               )
             ) : (
               //isMeetMember가 비어있을때
-              <div>
-                <Button1 text="모임가입하기" clickEvent={meetJoin} />
-              </div>
+              loginMember.memberGrade < 2 ? (
+                <div>
+                  <Button1 text="모임가입하기" clickEvent={meetJoin} />
+                </div>) : (
+                ""//블랙리스트일떄 가입버튼 비활성화
+              )
+
             )
           ) : (
             ""

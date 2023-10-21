@@ -119,7 +119,13 @@ const MeetMain = (props) => {
       <div className="meet-one-wrap">
         {meetMain.map((meet, index) => {
           // console.log(meet);
-          return <MeetItem key={"meetMain" + index} meet={meet} isLogin={isLogin} />;
+          return (
+            <MeetItem
+              key={"meetMain" + index}
+              meet={meet}
+              isLogin={isLogin}
+            />
+          );
         })}
       </div>
     </div>

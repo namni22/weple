@@ -103,9 +103,10 @@
 		        ROUND(NVL((select avg(NVL(review_star, 0))
 		            from review r
 		            where r.meet_no = m.meet_no),0),1) review_star,
-		         (select count(meet_no)
+		        (select count(meet_no)
 		            from review r
-		            where r.meet_no = m.meet_no) review_count 
+		            where r.meet_no = m.meet_no) review_count,
+           			(select count(*) from wish_list where meet_no = m.meet_no and member_no = #{memberNo}) is_meet_like 
 		    from meet m
 		    JOIN CATEGORY ON ( MEET_CATEGORY = CATEGORY_NO)
 		    where meet_type = 1 AND CATEGORY_REF_NO = #{meetCategory}
@@ -123,7 +124,8 @@
 		            where r.meet_no = m.meet_no),0),1) review_star,
 		         (select count(meet_no)
 		            from review r
-		            where r.meet_no = m.meet_no) review_count 
+		            where r.meet_no = m.meet_no) review_count ,
+           (select count(*) from wish_list where meet_no = m.meet_no and member_no = 49) is_meet_like
 		    from meet m
 		    JOIN CATEGORY ON ( MEET_CATEGORY = CATEGORY_NO)
 		    where meet_type = 1 AND CATEGORY_NO = #{meetCategory}
@@ -141,7 +143,8 @@
 			            where r.meet_no = m.meet_no),0),1) review_star,
 			         (select count(meet_no)
 			            from review r
-			            where r.meet_no = m.meet_no) review_count 
+			            where r.meet_no = m.meet_no) review_count ,
+           				(select count(*) from wish_list where meet_no = m.meet_no and member_no = 49) is_meet_like
 			    from meet m
 			    JOIN CATEGORY ON ( MEET_CATEGORY = CATEGORY_NO)
 			    where meet_no= #{meetNo}
@@ -190,6 +193,10 @@
 	<select id="isMeetLike" resultType="wishList">
 		select * from wish_list where meet_no = #{meetNo} and member_no = #{memberNo}
 	</select>
+	<!-- 모임 좋아요 -->
+	<insert id="meetLikeUp">
+		insert into wish_list values ( #{meetNo}, #{memberNo})
+	</insert>
 	<!-- 모임 좋아요 취소 -->
 	<delete id="meetLikeCancle">
 		delete from wish_list where meet_no = #{meetNo} and member_no = #{memberNo}
