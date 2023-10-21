@@ -17,11 +17,11 @@ const AdminMember = () => {
 
   useEffect(() => {
     if (memberId === "") {
-      console.log("first useEffect reqPage : " + reqPage);
+      
       axios
         .get("/admin/memberList/" + reqPage)
         .then((res) => {
-          //console.log("admin/memberList : " + res.data.list);
+          
           setMemberList(res.data.list);
           setPageInfo(res.data.pi);
         })
@@ -37,7 +37,7 @@ const AdminMember = () => {
       axios
         .get("/admin/searchId/" + memberId + "/" + reqPage)
         .then((res) => {
-          //console.log("admin/searchId : " + res.data.list);
+         
           setMemberList(res.data.list);
           setPageInfo(res.data.pi);
         })
@@ -102,7 +102,7 @@ const MemberItem = (props) => {
   const member = props.member;
   const [memberGrade, setMemberGrade] = useState(member.memberGrade);
   const memberNo = member.memberNo;
-  //console.log("MemberItem : ", member)
+ 
   //const options = [{ grade: 0, name: "관리자" }, { grade: 1, name: "정회원" }, { grade: 2, name: "블랙리스트" }];
   // index 0 : 관리자, 1 : 정회원, 2 : 블랙리스트
   const options = ["관리자", "정회원", "블랙리스트"];
@@ -114,9 +114,7 @@ const MemberItem = (props) => {
   };
 
   const clickConfirm = (event) => {
-    const obj = { memberNo: memberNo, memberGrade: memberGrade };
-    //console.log(memberNo);
-    //console.log(memberGrade);
+    const obj = { memberNo: memberNo, memberGrade: memberGrade };  
     const token = window.localStorage.getItem("token");
     axios
       .post("/admin/changeMemberGrade", obj, {
@@ -144,8 +142,8 @@ const MemberItem = (props) => {
       <td>{member.memberId}</td>
       <td>{member.memberName}</td>
       <td>{member.memberEmail}</td>
-      <td>
-        <select value={memberGrade} onChange={clickChange}>
+      <td className="selectGrade">
+        <select value={memberGrade} onChange={clickChange} >
           {options.map((option, index) => {
             return <option value={index} key={"option" + index}> {option} </option>
           })}

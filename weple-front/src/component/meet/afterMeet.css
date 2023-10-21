@@ -522,13 +522,8 @@
 }
 .meetCalendar-modal-date {
   margin: 10px 0;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  flex-direction: row;
 }
 .meetCalendar-modal-date > div {
-  width: 48%;
   text-align: left;
 }
 input[type="date"] {
@@ -540,7 +535,7 @@ input[type="date"] {
   border-radius: 5px;
   text-align: center;
   font-size: 100%;
-  margin: 5px 0;
+  margin: 10px 0;
 }
 .meetCalendar-calTitle > input {
   width: 100%;

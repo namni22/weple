@@ -9,13 +9,11 @@ import AdminMeeting from "./AdminMeeting";
 import SideMenu from "../util/SideMenu";
 
 const Admin = (props) => {
-  // const token = window.localStorage.getItem("token");
-  // console.log("token In Admin : " + token);
+  // const token = window.localStorage.getItem("token"); 
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
   const setIsAdmin = props.setIsAdmin;
-  console.log("props in Admin : " + props.isLogin);
-  console.log("id in Admin : " + props.id);
+  
 
   const id = props.id;
   const [menus, setMenus] = useState([

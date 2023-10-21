@@ -39,9 +39,9 @@ const FeedView = (props) => {
   const [fCommentRefNo, setFCommentRefNo] = useState(null);
   const [rcmId, setRcmId] = useState(""); //답글남길 아이디 띄우기
   const [load, setLoad] = useState(0); //useEffect용
-  ///////////////////////////////////////////////////////////////////////
   const reviewNo = props.reviewNo;
   const [review, setReview] = useState({});
+  const memberGrade = props.memberGrade;
 
   const token = window.localStorage.getItem("token");
   useEffect(() => {
@@ -87,7 +87,13 @@ const FeedView = (props) => {
   const [isOpenMore, setIsOpenMore] = useState(false); //더보기모달
   const navigate = useNavigate();
   const moreModal = () => {
-    if (isLogin) {
+    if (isLogin && memberGrade == 2) {
+      Swal.fire({
+        icon: "error",
+        text: "기능을 이용하실 수 없습니다",
+        confirmButtonText: "확인",
+      });
+    } else if (isLogin) {
       setIsOpenMore(true);
     } else {
       Swal.fire({
@@ -147,6 +153,7 @@ const FeedView = (props) => {
         feedNo={feed.feedNo}
         reportTypeValue={2}
         reportType={2}
+        memberGrade={memberGrade}
       />
       <div className="feed-view">
         <div className="feed-view-top">

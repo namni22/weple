@@ -124,11 +124,10 @@ const JoinFrm = (props) => {
           newSubTagList.push(item.text);
           newSubValueList.push(item.value);
         }
+
         setSubInformation(newSubInfoList);
         setSubTag(newSubTagList); //최종 출력되는 list
-        setSubValue(newSubValueList);
-        const cate = subValue.join();
-        setMemberCategory(cate);
+        setSubValue([...newSubValueList]);
 
         main.options[0].selected = true;
         sub.options[0].selected = true;
@@ -141,6 +140,13 @@ const JoinFrm = (props) => {
       }
     });
   };
+
+  useEffect(() => {
+    console.log(subValue);
+    const cate = subValue.join();
+    console.log(cate);
+    setMemberCategory(cate);
+  }, [subValue]);
 
   const profileImgChange = (e) => {
     const files = e.currentTarget.files;
@@ -237,6 +243,7 @@ const JoinFrm = (props) => {
 
   // 회원가입 insert
   const join = () => {
+    console.log(memberCategory);
     const member = {
       memberId,
       memberPw,
@@ -298,7 +305,6 @@ const JoinFrm = (props) => {
 
   // 카테고리 태그 선택 시 x 누르면 선택 카테고리 태그 삭제
   const deleteTag = (subInformation2, subTag2, subValue2, index) => {
-    console.log("서브infor", subInformation2);
     const newArr = subInformation2.splice(index, 1);
     const newArr2 = subInformation.filter(function (item) {
       return item !== newArr;

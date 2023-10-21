@@ -78,7 +78,7 @@ public class AdminService {
 			}else {
 				return 0;
 			}
-			//System.out.println(m.getMemberNo());
+			
 			
 		}
 		//회원 검색 조회
@@ -91,7 +91,7 @@ public class AdminService {
 			System.out.println("memberListBySubId.size() : " + memberListBySubId.size());
 			for(int i=0 ; i<memberListBySubId.size() ; i++)
 			{
-				//System.out.println(memberListBySubId[i]);
+				
 			}
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("list", memberListBySubId);

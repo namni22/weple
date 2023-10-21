@@ -113,7 +113,7 @@ const MeetingItem = (props) => {
       <td>{meet.meetCaptain}</td>
       <td>{meet.meetTitle}</td>
       <td>{meet.meetTotal}</td>
-      <td>
+      <td className="selectGrade">
         <select value={meetType} onChange={clickChange}>
           {options.map((option, index) => {
             return <option value={index} key={"option" + index}> {option} </option>

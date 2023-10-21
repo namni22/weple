@@ -352,7 +352,11 @@ public class MeetController {
 	public int modifyCalendar(@RequestBody Calendar cal) {
 		return meetService.modifyCalendar(cal);
 	}
-
+	//방장조회(true/false)
+	@PostMapping(value="captainCk")
+	public boolean captainCk(@RequestBody Meet m,@RequestAttribute String memberId) {
+		return meetService.captainCk(m.getMeetNo(),memberId);
+	}
 	
 
 }

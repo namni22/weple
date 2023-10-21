@@ -147,6 +147,24 @@
   float: left;
 }
 
+.selectGrade>select{
+  width:100px;
+  padding: 5px;
+  border:1px solid #5d8bf4;
+  font-weight: 900; 
+  height: 40px;
+  border-radius: 3px;
+  text-align-last: center;
+  text-align: center;
+  -ms-text-align-last: center;
+-moz-text-align-last: center;
+ 
+}
+
+.selectGrade>button{
+  margin-left: 10px;
+  width: 30%;
+}
 /* 공지 목록 */
 .admin-board-tbl>table {
   width: 100%;

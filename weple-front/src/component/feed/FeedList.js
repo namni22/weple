@@ -15,6 +15,22 @@ const FeedList = (props) => {
   const isLogin = props.isLogin;
   const [loadList, setLoadList] = useState(0); //useEffect용
   const isAdmin = props.isAdmin;
+  const [memberGrade, setMemberGrade] = useState({});
+
+  const token = window.localStorage.getItem("token");
+  axios
+    .post("/member/getMember", null, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((res) => {
+      setMemberGrade(res.data.memberGrade);
+      console.log(memberGrade);
+    })
+    .catch((res) => {
+      console.log("feedwrite" + res.response.status);
+    });
 
   const amount = 9;
   useEffect(() => {
@@ -39,7 +55,7 @@ const FeedList = (props) => {
       });
   }, [start]);
 
-  const useFeedMore = (e) => {
+  const useFeedMore = () => {
     setStart(start + amount);
   };
 
@@ -50,7 +66,7 @@ const FeedList = (props) => {
   return (
     <div>
       <div className="feed-title">WEPLE FEED</div>
-      {isLogin ? (
+      {isLogin && memberGrade !== 2 ? (
         <div className="feed-list-btn">
           <Button1 text="피드작성" clickEvent={write} />
         </div>
@@ -68,11 +84,12 @@ const FeedList = (props) => {
               loadList={loadList}
               setLoadList={setLoadList}
               isAdmin={isAdmin}
+              memberGrade={memberGrade}
             />
           );
         })}
       </div>
-      <Button1 defaultValue={1} clickEvent={useFeedMore} text="더보기" />
+      <Button1 clickEvent={useFeedMore} text="더보기" />
     </div>
   );
 };
@@ -83,6 +100,7 @@ const FeedContent = (props) => {
   const loadList = props.loadList;
   const setLoadList = props.setLoadList;
   const isAdmin = props.isAdmin;
+  const memberGrade = props.memberGrade;
   const navigate = useNavigate();
   const list = feed.imageList.map((img, index) => {
     return <img src={"/feed/" + img?.fimageName} />;
@@ -169,7 +187,13 @@ const FeedContent = (props) => {
 
   //more버튼모달
   const moreModal = () => {
-    if (isLogin) {
+    if (isLogin && memberGrade == 2) {
+      Swal.fire({
+        icon: "error",
+        text: "기능을 이용하실 수 없습니다",
+        confirmButtonText: "확인",
+      });
+    } else if (isLogin) {
       setIsOpen(true);
     } else {
       Swal.fire({
@@ -313,6 +337,7 @@ const FeedContent = (props) => {
         setRcmId={setRcmId}
         loadList={loadList}
         setLoadList={setLoadList}
+        memberGrade={memberGrade}
       />
       <FeedView
         isOpen={viewOpen}
@@ -322,6 +347,7 @@ const FeedContent = (props) => {
         loadList={loadList}
         setLoadList={setLoadList}
         isAdmin={isAdmin}
+        memberGrade={memberGrade}
       />
     </div>
   );
