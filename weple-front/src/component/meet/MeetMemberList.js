@@ -68,17 +68,21 @@ const MeetMemberList = (props) => {
                 })}
               </tbody>
             </table>
-            <div>
-              <Pagination
-                reqPage={reqPage}
-                setReqPage={setReqPage}
-                pageInfo={pageInfo}
-                setData={setMeetMember}
-              />
-            </div>
           </>
         )}
       </div>
+      {meetMember.length === 0 ? (
+        <></>
+      ) : (
+        <div>
+          <Pagination
+            reqPage={reqPage}
+            setReqPage={setReqPage}
+            pageInfo={pageInfo}
+            setData={setMeetMember}
+          />
+        </div>
+      )}
     </div>
   );
 };
@@ -267,21 +271,21 @@ const MemberList = (props) => {
           {memberList.memberId}
           <span>님</span>
         </div>
-        <div>{memberList.memberLike}</div>
+        <div className="like">{memberList.memberLike}</div>
       </td>
       <td width="35%">
         <div className="meetMemberList-btn-wrap">
-          {memberList.isLike === 0 ? (
-            <Button2 text={"호감도"} clickEvent={likeEvent} disable={disable} />
-          ) : (
-            <Button2 text={"호감도"} clickEvent={likeEvent} disable={true} />
-          )}
           <Button2 text={"신고"} clickEvent={reportEvent} />
 
           {myMeet.meetCaptain === memberId ? (
             <Button2 text={"추방"} clickEvent={deleteEvent} />
           ) : (
             ""
+          )}
+          {memberList.isLike === 0 ? (
+            <Button2 text={"호감도"} clickEvent={likeEvent} disable={disable} />
+          ) : (
+            <Button2 text={"호감도"} clickEvent={likeEvent} disable={true} />
           )}
         </div>
       </td>
