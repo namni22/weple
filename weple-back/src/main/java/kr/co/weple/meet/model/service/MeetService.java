@@ -344,6 +344,14 @@ public class MeetService {
 		return isMeetLike;
 	}
 
+	//좋아요
+	@Transactional
+	public int meetLikeUp(int meetNo, int memberNo) {
+		// TODO Auto-generated method stub
+		return meetDao.meetLikeUp(meetNo, memberNo);
+	}
+
+	//모임 좋아요 취소
 	@Transactional
 	public int meetLikeCancle(int meetNo, int memberNo) {
 		// TODO Auto-generated method stub

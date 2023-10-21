@@ -212,7 +212,22 @@ const MeetItem = (props) => {
 
   //모임 좋아요 누를시
   const meetLikeUp = (meet) => {
-    setIsMeetLike(1);
+
+
+    console.log("좋아요 누르면", meet);
+    const token = window.localStorage.getItem("token");
+    axios
+      .post("/meet/meetLikeUp", meet, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => {
+        console.log("좋아요");
+        setIsMeetLike(1);
+      })
+      .catch((res) => { });
+
     return
   }
 

@@ -227,6 +227,17 @@ public class MeetController {
 		
 		return isMeetLike;
 	}
+	//모임 좋아요 누를떄
+	@PostMapping(value = "/meetLikeUp")
+	public int meetLikeUp(
+			@RequestBody Meet meet,
+			@RequestAttribute String memberId
+			) {
+		System.out.println("좋아요");
+		Member member = memberService.selectOneMember(memberId);
+		int result = meetService.meetLikeUp (meet.getMeetNo(), member.getMemberNo()) ;
+		return result;
+	}
 	//모임 좋아요 취소
 	@PostMapping(value = "/meetLikeCancle")
 	public int meetLikeCancle(
@@ -235,8 +246,8 @@ public class MeetController {
 			) {
 		System.out.println("좋아요 취소 진행");
 		Member member = memberService.selectOneMember(memberId);
-//		int result = meetService.meetLikeCancle(meet.getMeetNo(), member.getMemberNo());
-		return 0;
+		int result = meetService.meetLikeCancle(meet.getMeetNo(), member.getMemberNo());
+		return result;
 	}
 	
 /*********************************메인페이지 모임조회*********************************************/	
