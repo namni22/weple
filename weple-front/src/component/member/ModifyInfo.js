@@ -13,7 +13,7 @@ const ModifyInfo = (props) => {
   const [memberEmail, setMemberEmail] = useState(member.memberEmail);
   const [memberPhone, setMemberPhone] = useState(member.memberPhone);
   const [memberBirth, setMemberBirth] = useState(member.memberBirth);
-  const [memberCategory, setMemberCategory] = useState(member.memberCateogry);
+  const [memberCategory, setMemberCategory] = useState(member.memberCategory);
   const setIsLogin = props.setIsLogin;
   const subCategory = props.subCategory;
   const myCategory = props.myCategory;
@@ -73,24 +73,33 @@ const ModifyInfo = (props) => {
     });
   }, [myCategory]);
 
+  const resetMemberCategory = () => {
+    setMemberCategory(member.memberCategory); // Set the state to its initial value
+  };
+
   // 서브 카테고리 출력 함수
   const printSub = () => {
     const mainKeyword = document.getElementById("main-category");
     const categoryNo = mainKeyword.options[mainKeyword.selectedIndex].value;
-
-    axios
-      .get("/member/subcategory/" + categoryNo)
-      .then((res) => {
-        const sub = document.getElementById("sub-category");
-        sub.style.display = "inline-block";
-        res.data.forEach((item) => {
-          subCategory2.push(item);
+    if (!categoryNo) {
+      // 모든 state reset
+      resetMemberCategory();
+      return;
+    } else {
+      axios
+        .get("/member/subcategory/" + categoryNo)
+        .then((res) => {
+          const sub = document.getElementById("sub-category");
+          sub.style.display = "inline-block";
+          res.data.forEach((item) => {
+            subCategory2.push(item);
+          });
+          setSubCategory2([...subCategory2]);
+        })
+        .catch((res) => {
+          console.log(res.response.status);
         });
-        setSubCategory2([...subCategory2]);
-      })
-      .catch((res) => {
-        console.log(res.response.status);
-      });
+    }
   };
 
   // 서브 카테고리 선택 시 텍스트 출력 함수
@@ -100,72 +109,86 @@ const ModifyInfo = (props) => {
     const subInfoList = [...subInformation];
     subInfoList.push(subInfo); // <option value="3">구기스포츠</option>
 
-    // 대분류 소분류 선택상태 리셋
-    const emptyArr = [];
-    setSubCategory2([...emptyArr]);
+    if (!subInfo) {
+      resetMemberCategory();
+      return;
+    } else {
+      const emptyArr = [];
+      setSubCategory2([...emptyArr]);
 
-    const newSubInfoList = [];
-    const newSubTagList = [];
-    const newSubValueList = [];
-    const selectedValues = newSubValueList;
+      const newSubInfoList = [];
+      const newSubTagList = [];
+      const newSubValueList = [];
+      const selectedValues = newSubValueList;
 
-    // 기타 선택 시 대분류 이름 출력하기 위해 필요
-    const main = document.getElementById("main-category");
-    const mainName = main.options[main.selectedIndex].innerText;
-    subInfoList.forEach((item) => {
-      if (selectedValues.includes(item.value)) {
-        Swal.fire("이미 선택된 항목입니다.");
-        return;
-      }
-      if (newSubInfoList.length < 5) {
-        if (item.text === "기타") {
-          if (item.value == 7) {
+      // 기타 선택 시 대분류 이름 출력하기 위해 필요
+      const main = document.getElementById("main-category");
+      const mainName = main.options[main.selectedIndex].innerText;
+      subInfoList.forEach((item) => {
+        if (selectedValues.includes(item.value)) {
+          Swal.fire("이미 선택된 항목입니다.");
+          return;
+        }
+        if (newSubInfoList.length < 5) {
+          if (item.text === "기타") {
+            if (item.value == 7) {
+              newSubInfoList.push(item);
+              newSubTagList.push("스포츠");
+              newSubValueList.push(item.value);
+            } else if (item.value == 13) {
+              newSubInfoList.push(item);
+              newSubTagList.push("공예DIY");
+              newSubValueList.push(item.value);
+            } else if (item.value == 18) {
+              newSubInfoList.push(item);
+              newSubTagList.push("요리");
+              newSubValueList.push(item.value);
+            } else if (item.value == 24) {
+              newSubInfoList.push(item);
+              newSubTagList.push("문화예술");
+              newSubValueList.push(item.value);
+            } else if (item.value == 29) {
+              newSubInfoList.push(item);
+              newSubTagList.push("자기계발");
+              newSubValueList.push(item.value);
+            } else if (item.value == 34) {
+              newSubInfoList.push(item);
+              newSubTagList.push("여행");
+              newSubValueList.push(item.value);
+            }
+          } else {
             newSubInfoList.push(item);
-            newSubTagList.push("스포츠");
-            newSubValueList.push(item.value);
-          } else if (item.value == 13) {
-            newSubInfoList.push(item);
-            newSubTagList.push("공예DIY");
-            newSubValueList.push(item.value);
-          } else if (item.value == 18) {
-            newSubInfoList.push(item);
-            newSubTagList.push("요리");
-            newSubValueList.push(item.value);
-          } else if (item.value == 24) {
-            newSubInfoList.push(item);
-            newSubTagList.push("문화예술");
-            newSubValueList.push(item.value);
-          } else if (item.value == 29) {
-            newSubInfoList.push(item);
-            newSubTagList.push("자기계발");
-            newSubValueList.push(item.value);
-          } else if (item.value == 34) {
-            newSubInfoList.push(item);
-            newSubTagList.push("여행");
+            newSubTagList.push(item.text);
             newSubValueList.push(item.value);
           }
-        } else {
-          newSubInfoList.push(item);
-          newSubTagList.push(item.text);
-          newSubValueList.push(item.value);
-        }
-        setSubInformation(newSubInfoList);
-        setSubTag(newSubTagList); //최종 출력되는 list
-        setSubValue(newSubValueList);
-        const cate = subValue.join();
-        setMemberCategory(cate);
 
-        main.options[0].selected = true;
-        sub.options[0].selected = true;
-        sub.style.display = "none";
-      }
-      //5개 이상 선택된 경우
-      else {
-        Swal.fire("5개까지 선택가능합니다.");
-        return;
-      }
-    });
+          setSubInformation(newSubInfoList);
+          setSubTag(newSubTagList); //최종 출력되는 list
+          setSubValue([...newSubValueList]);
+
+          main.options[0].selected = true;
+          sub.options[0].selected = true;
+          sub.style.display = "none";
+        }
+        //5개 이상 선택된 경우
+        else {
+          Swal.fire("5개까지 선택가능합니다.");
+          return;
+        }
+      });
+    }
+    // 대분류 소분류 선택상태 리셋
   };
+
+  // 회원가입 시 넘겨줄 memberCategory 문자열 만듦
+  useEffect(() => {
+    if (subValue.length === 0) {
+      resetMemberCategory();
+    } else {
+      const cate = subValue.join();
+      setMemberCategory(cate);
+    }
+  }, [subValue]);
 
   // 프로필 사진 새로 업로드 했을 시 작동하는 함수(미리보기 변경)
   const profileImgChange = (e) => {
@@ -245,6 +268,7 @@ const ModifyInfo = (props) => {
 
   // 수정 버튼 클릭 시 수정 작업
   const updateInfo = () => {
+    console.log(memberCategory);
     const token = window.localStorage.getItem("token");
     const form = new FormData();
     form.append("memberNo", member.memberNo);
@@ -254,7 +278,6 @@ const ModifyInfo = (props) => {
     form.append("memberImage", memberImage);
     form.append("memberCategory", memberCategory);
     form.append("profileImg", profileImg);
-    console.log(memberCategory);
     axios
       .post("/member/modifyInfo", form, {
         headers: {
