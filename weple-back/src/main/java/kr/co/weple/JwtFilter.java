@@ -28,10 +28,10 @@ public class JwtFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		
 		String auth = request.getHeader(HttpHeaders.AUTHORIZATION);
-		System.out.println("filter/auth : " + auth);
+		//System.out.println("filter/auth : " + auth);
 		// 1. 인증 토큰 없거나 잘못보낸 경우
 		if(auth == null || !auth.startsWith("Bearer ")) {
-			System.out.println("인증이 없거나, 잘못됨");
+			//System.out.println("인증이 없거나, 잘못됨");
 			filterChain.doFilter(request, response);
 			return;
 		}

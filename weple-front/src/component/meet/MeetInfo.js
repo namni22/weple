@@ -121,15 +121,25 @@ const MeetInfo = (props) => {
       cancelButtonText: "취소",
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log("삭제시필요한 모임번호 : ", meet);
+        console.log("삭제시필요한 모임번호 : ", meet.meetNo);
         //삭제진행
+        const token = window.localStorage.getItem("token");
+        const meetNo = meet.meetNo
         axios
-          .post("/meet/meetdelete", meet)
-          .then((res) => { })
-          .catch((res) => { });
+          .post("/meet/meetDelete", meet, {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          })
+          .then((res) => {
+            console.log(("모임 삭제 ", res.data));
+          })
+          .catch((res) => {
+            console.log("모임삭제 캐치", res.response.status);
+          });
 
-        Swal.fire("삭제완료")
-        navigate("/")
+        // Swal.fire("삭제완료")
+        // navigate("/")
       }
     });
   }
