@@ -64,7 +64,7 @@ const MeetInfo = (props) => {
         console.log(res.data);
         Swal.fire("가입신청 완료");
         //상세보기에 남아있고 렌더링 다시 하도록
-        setIsMeetMember(res.data)
+        setIsMeetMember(res.data);
         navigate("/meet/View");
         // if (res.data === 1) {
         // }
@@ -158,7 +158,7 @@ const MeetInfo = (props) => {
             </div>
           </div>
         ) : (
-          ""
+          <div className="meetInfo-content-title">준비물</div>
         )}
       </div>
       <div className="meetJoin-btn-zone">
@@ -166,7 +166,7 @@ const MeetInfo = (props) => {
         {isLogin ? (
           meetCaptain && loginMember ? ( //객체 가져와져있는지부터 확인
             meetCaptain.memberNo === loginMember.memberNo ? ( //로그인한 멤버가 모임장이라면?
-              <div onClick={meetModify}>모임장이면 출력안함</div>
+              <Button1 text={"수정하기"} clickEvent={meetModify} />
             ) : isMeetMember ? ( //객체 가져와져있는지부터 확인
               // <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
               // isMesetMember가 있을때"

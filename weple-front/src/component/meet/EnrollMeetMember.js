@@ -114,11 +114,12 @@ const EnrollItem = (props) => {
           {enroll.memberId}
           <span>님</span>
         </div>
-        <div>{enroll.memberLike}</div>
+        <div className="like">{enroll.memberLike}</div>
       </td>
       <td width="35%">
         <div className="meetMemberList-btn-wrap">
           <Button2 text={"수락"} clickEvent={changeStatus} />
+          <Button2 text={"삭제"} />
         </div>
       </td>
     </tr>

@@ -160,7 +160,11 @@ const ChatItem = (props) => {
       ) : (
         <>
           <div className="meetChat-img">
-            {chat.memberImage === null ? <img src="/img/testImg_01.png" /> : ""}
+            {chat.memberImage === null ? (
+              <img src="/img/testImg_01.png" />
+            ) : (
+              <img src={chat.memberImage} />
+            )}
           </div>
         </>
       )}

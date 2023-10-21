@@ -6,69 +6,68 @@
  */
 
 .meetInfo-content-area {
-    /* border: 1px solid #ccc; */
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    /* margin: 20px 0; */
-    padding: 20px 0;
+  /* border: 1px solid #ccc; */
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  /* margin: 20px 0; */
+  padding: 20px 0;
 }
 
 .meetInfo-content-title {
-    /* 모임 소개 선택자 */
-    font-size: 30px;
-    font-weight: bold;
-    padding: 10px 0;
-
+  /* 모임 소개 선택자 */
+  font-size: 30px;
+  font-weight: bold;
+  padding: 10px 0;
+  color: #5d8bf4;
+  letter-spacing: 2px;
 }
 
 .meetViewContentD {
-    /* 모임설명 선택자 */
-    margin: 10px 0;
-    /* height: 300px; */
-    min-height: 300px;
-    /* overflow: auto; */
+  /* 모임설명 선택자 */
+  margin: 10px 0;
+  /* height: 300px; */
+  min-height: 300px;
+  /* overflow: auto; */
 }
 
-.meetInfo-meetAddr-wrap {}
+.meetInfo-meetAddr-wrap {
+}
 
-.meetInfo-meetAddr-wrap>div:nth-child(2) {
-    /* 카카오지도, 주소, 상세주소를 감싸는 div 선택자 */
-    overflow: hidden;
-    width: 800px;
-    /* margin: 0 auto; */
-    /* padding-left: 20px; */
-    border: 1px solid #2d30fa89;
-    border-radius: 5px;
-    margin-left: 50px;
-
+.meetInfo-meetAddr-wrap > div:nth-child(2) {
+  /* 카카오지도, 주소, 상세주소를 감싸는 div 선택자 */
+  overflow: hidden;
+  width: 800px;
+  /* margin: 0 auto; */
+  /* padding-left: 20px; */
+  border: 1px solid #2d30fa89;
+  border-radius: 5px;
+  margin-left: 50px;
 }
 
 .meetInfo-meetAddress1 {
-    /* 모임 meetAdress1 선택자 */
-    font-weight: bold;
-    padding: 10px 10px;
+  /* 모임 meetAdress1 선택자 */
+  font-weight: bold;
+  padding: 10px 10px;
 }
 
 .meetInfo-meetAddress2 {
-    /* 모임 meetAdress2 선택자 */
-    padding: 10px 10px;
-    color: #606060;
+  /* 모임 meetAdress2 선택자 */
+  padding: 10px 10px;
+  color: #606060;
 }
 
 .meetInfo-meetPrepareList {
-    overflow: hidden;
+  overflow: hidden;
 }
 
-
 .meetInfo-meetPrepare {
-    /* 준비물선택자 */
-    background-color: #2d30fa1b;
-    border: 1px solid #2d30fa89;
+  /* 준비물선택자 */
+  background-color: #2d30fa1b;
+  border: 1px solid #2d30fa89;
 
-    border-radius: 20px;
-    padding: 7px 20px;
-    display: inline-block;
-    font-weight: bold;
-    margin: 3px 5px;
-
+  border-radius: 20px;
+  padding: 7px 20px;
+  display: inline-block;
+  font-weight: bold;
+  margin: 3px 5px;
 }
