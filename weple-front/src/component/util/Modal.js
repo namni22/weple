@@ -216,9 +216,14 @@ const changeValue = (e) => {
                 </td>
               </tr>
               <tr>
-                <td>신고 유형</td>
                 <td>
-                  <select onChange={changeCategory}>
+                  신고 유형<sup className="report-sup">*</sup>
+                </td>
+                <td>
+                  <select
+                    className="report-tbl-select"
+                    onChange={changeCategory}
+                  >
                     <option value="" selected disabled hidden>
                       선택해주세요
                     </option>
@@ -236,14 +241,12 @@ const changeValue = (e) => {
                 </td>
               </tr>
               <tr>
-                <td>
-                  신고 할 회원<sup>*</sup>
-                </td>
+                <td>신고 할 회원</td>
                 <td>{reportMemberId}</td>
               </tr>
               <tr>
                 <td>
-                  신고내용<sup>*</sup>
+                  신고내용<sup className="report-sup">*</sup>
                 </td>
                 <td>
                   <textarea

@@ -2,7 +2,7 @@
   width: 1200px;
   margin: 0 auto;
   margin-top: 30px;
-  padding: 90px 20px 20px 20px;
+  padding: 90px 40px 30px 40px;
 
   border-radius: 5px;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -116,6 +116,7 @@
   margin-top: 8px;
   font-size: 35px;
   color: red;
+  cursor: pointer;
 }
 
 .afterMeet-info-title {
@@ -158,6 +159,7 @@
 }
 .afer-host-like .report {
   color: #ccc;
+  cursor: pointer;
 }
 .afterMeet-sub-navi > ul > li {
   display: block;
@@ -337,13 +339,10 @@
 }
 
 .meetChat-btn > button {
-  width: 100px;
+  width: 80px;
   height: 50px;
   margin-top: 30px;
-  margin-left: 20px;
-}
-
-.meetChat-span {
+  margin-left: 5px;
 }
 
 .meetChat-span > span {

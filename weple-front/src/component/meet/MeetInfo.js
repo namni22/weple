@@ -154,7 +154,7 @@ const MeetInfo = (props) => {
         </div>
         <div className="meetInfo-content-area meetInfo-meetAddr-wrap">
           <div className="meetInfo-content-title">모임 장소</div>
-          <div className="">
+          <div className="meetInfo-map">
             <Kakao
               meetLatitude={meet.meetLatitude}
               meetLongitude={meet.meetLongitude}
@@ -190,7 +190,7 @@ const MeetInfo = (props) => {
         {isLogin ? (
           meetCaptain && loginMember ? ( //객체 가져와져있는지부터 확인
             meetCaptain.memberNo === loginMember.memberNo ? ( //로그인한 멤버가 모임장이라면?
-              <div className="cap-btn-wrap">
+              <div className="meetInfo-cap-btn-wrap">
                 <Button1 text={"수정하기"} clickEvent={meetModify} />
                 <Button1 text={"삭제하기"} clickEvent={meetDelete} />
               </div>
@@ -209,16 +209,14 @@ const MeetInfo = (props) => {
                 //현재 followerStatus == 0 일때
                 <div>가입승인 대기중</div> //div로 가입 승인대기중 띄워주기 또는 공백 처리
               )
-            ) : (
-              //isMeetMember가 비어있을때
+            ) : //isMeetMember가 비어있을때
               loginMember.memberGrade < 2 ? (
                 <div>
                   <Button1 text="모임가입하기" clickEvent={meetJoin} />
-                </div>) : (
-                ""//블랙리스트일떄 가입버튼 비활성화
+                </div>
+              ) : (
+                "" //블랙리스트일떄 가입버튼 비활성화
               )
-
-            )
           ) : (
             ""
           )
