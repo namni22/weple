@@ -232,8 +232,8 @@ public class MeetController {
 			) {
 		System.out.println("좋아요 취소 진행");
 		Member member = memberService.selectOneMember(memberId);
-		int result = meetService.meetLikeCancle(meet.getMeetNo(), member.getMemberNo());
-		return result;
+//		int result = meetService.meetLikeCancle(meet.getMeetNo(), member.getMemberNo());
+		return 0;
 	}
 	
 /*********************************메인페이지 모임조회*********************************************/	

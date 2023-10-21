@@ -23,6 +23,9 @@ const MeetList = (props) => {
   const isLogin = props.isLogin;
   const id = props.id;
 
+  const [loginMember, setLoginMember] = useState({});
+  console.log("로그인멤버가 함수가 아니라고 : ?", typeof setLoginMember);
+
   //카테고리 메뉴 조회해오기
   useEffect(() => {
     // setmeetCategory(bigCategoryNo);
@@ -51,6 +54,30 @@ const MeetList = (props) => {
         console.log("catch : " + res.response.status);
       });
   }, [reqPage]);
+
+  //로그인을 했을경우 누가 로그인했는지 db에서 select해오기
+  useEffect(() => {
+    // setMeet(props.meet);
+    const token = window.localStorage.getItem("token");
+    if (isLogin) {
+
+      axios
+        .post("/member/getMember", null, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          setLoginMember(res.data);
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    } else {//로그아웃하면 로그인멤버 초기화
+      setLoginMember(null);
+    }
+
+  }, [isLogin])
 
   //카테고리 메뉴바의 전체를 클릭하면 동작하는 함수
   const changeCategoryAll = () => {
@@ -121,7 +148,13 @@ const MeetList = (props) => {
         {/* props로 meet 정보 줄예정 */}
         {meetList.map((meet, index) => {
           return (
-            <MeetItem key={"meet" + index} meet={meet} isLogin={isLogin} />
+            <MeetItem
+              key={"meet" + index}
+              meet={meet}
+              isLogin={isLogin}
+              loginMember={loginMember}
+              setLoginMember={setLoginMember}
+            />
           );
         })}
       </div>
@@ -138,13 +171,18 @@ const MeetList = (props) => {
 };
 
 const MeetItem = (props) => {
-  // 연주님께~  meet props로 전달해주시고 meetList 따로 select 해와서 map으로 반복 출력해주세요
+  // meet props로 전달해주시고 meetList 따로 select 해와서 map으로 반복 출력해주세요
   const meet = props.meet;
   // const [meet, setMeet] = useState({});
   const navigate = useNavigate();
   const isLogin = props.isLogin;
 
-  const [loginMember, setLoginMember] = useState(null);
+  // const [loginMember, setLoginMember] = useState(null);
+  const loginMember = props.loginMember;//프롭스로 받기
+  const setLoginMember = props.setLoginMember;
+
+
+
   const [isMeetLike, setIsMeetLike] = useState(0);
   // const [meetLikeCurrentStatus, setMeetLikeCurrentStatus] = useState(null);
 
@@ -168,6 +206,12 @@ const MeetItem = (props) => {
     return result;
   };
 
+  //모임 좋아요 누를시
+  const meetLikeUp = (meet) => {
+    setIsMeetLike(1);
+    return
+  }
+
   //모임 좋아요취소 누를시 
   const meetLikeCancle = (meet) => {
     console.log("좋아요 누르면", meet);
@@ -179,40 +223,15 @@ const MeetItem = (props) => {
         },
       })
       .then((res) => {
-
+        console.log("좋아요 취소");
+        setIsMeetLike(0);
       })
       .catch((res) => { });
 
     return
   }
 
-  //로그인을 했을경우 누가 로그인했는지 db에서 select해오기
-  useEffect(() => {
-    // setMeet(props.meet);
-    const token = window.localStorage.getItem("token");
-    if (isLogin) {
 
-      axios
-        .post("/member/getMember", null, {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        })
-        .then((res) => {
-
-          setLoginMember(res.data);
-        })
-        .catch((res) => {
-          console.log(res.response.status);
-        });
-
-
-
-    } else {//로그아웃하면 로그인멤버 초기화
-      setLoginMember(null);
-    }
-
-  }, [isLogin])
 
 
   return (
@@ -245,10 +264,10 @@ const MeetItem = (props) => {
       </div>
       <div className="MeetList-like-box">
         {loginMember ? (
-          isMeetLike === 0 ? (
+          isMeetLike === 1 ? (
             <span className="material-icons MeetList-like" onClick={() => { meetLikeCancle(meet); }} >favorite</span>
           ) : (
-            <span className="material-icons MeetList-like" >favorite_border</span>
+            <span className="material-icons MeetList-like" onClick={() => { meetLikeUp(meet) }} >favorite_border</span>
           )
 
         ) : (
