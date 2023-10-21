@@ -124,7 +124,8 @@
 		            where r.meet_no = m.meet_no),0),1) review_star,
 		         (select count(meet_no)
 		            from review r
-		            where r.meet_no = m.meet_no) review_count 
+		            where r.meet_no = m.meet_no) review_count ,
+           (select count(*) from wish_list where meet_no = m.meet_no and member_no = 49) is_meet_like
 		    from meet m
 		    JOIN CATEGORY ON ( MEET_CATEGORY = CATEGORY_NO)
 		    where meet_type = 1 AND CATEGORY_NO = #{meetCategory}

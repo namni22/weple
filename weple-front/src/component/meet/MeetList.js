@@ -106,7 +106,7 @@ const MeetList = (props) => {
     const big = smallCategory.categoryRefNo; //선택한 카테고리의 대분류
 
     axios
-      .get("/meet/categoryMeetList/" + reqPage + "/" + categoryNo)
+      .get("/meet/categoryMeetList/" + reqPage + "/" + categoryNo + "/" + loginMemberNo)
       .then((res) => {
         // console.log(res.data);
         setMeetList(res.data.meetList);

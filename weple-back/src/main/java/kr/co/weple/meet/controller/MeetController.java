@@ -167,8 +167,12 @@ public class MeetController {
 		return map;
 	}
 	//모임 카테고리 메뉴바 눌럿을때 모임 리스트 조회
-	@GetMapping(value = "/categoryMeetList/{reqPage}/{meetCategory}")
-	public Map categoryMeetList(@PathVariable int reqPage,@PathVariable int meetCategory) {		
+	@GetMapping(value = "/categoryMeetList/{reqPage}/{meetCategory}/{memberNo}")
+	public Map categoryMeetList(
+			@PathVariable int reqPage,
+			@PathVariable int meetCategory,
+			@PathVariable int memberNo
+			) {		
 		Map map = meetService.categoryMeetList(reqPage, meetCategory);
 		
 		return map;
