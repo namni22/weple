@@ -54,17 +54,21 @@ const EnrollMeetMember = (props) => {
                 })}
               </tbody>
             </table>
-            <div>
-              <Pagination
-                reqPage={reqPage}
-                setReqPage={setReqPage}
-                pageInfo={pageInfo}
-                setData={setEnrollMember}
-              />
-            </div>
           </>
         )}
       </div>
+      {enrollMember.length === 0 ? (
+        <></>
+      ) : (
+        <div>
+          <Pagination
+            reqPage={reqPage}
+            setReqPage={setReqPage}
+            pageInfo={pageInfo}
+            setData={setEnrollMember}
+          />
+        </div>
+      )}
     </div>
   );
 };
@@ -121,10 +125,10 @@ const EnrollItem = (props) => {
         </div>
         <div className="like">{enroll.memberLike}</div>
       </td>
-      <td width="35%">
+      <td>
         <div className="meetMemberList-btn-wrap">
-          <Button2 text={"수락"} clickEvent={changeStatus} />
           <Button2 text={"삭제"} />
+          <Button2 text={"수락"} clickEvent={changeStatus} />
         </div>
       </td>
     </tr>

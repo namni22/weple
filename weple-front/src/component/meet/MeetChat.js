@@ -36,7 +36,7 @@ const MeetChat = (props) => {
       return;
     } else if (e.key === "Enter") {
       insertChat();
-      e.currentTarget.value = "";
+      e.currentTarget.value = null;
     }
   };
   useEffect(() => {
@@ -95,27 +95,22 @@ const MeetChat = (props) => {
           <li className="meetChat-input-form-wrap">
             <div className="meetChat-textEditor">
               <textarea
+                placeholder="내용을 입력하세요"
+                className="textarea"
+                value={chatContent}
                 onChange={(e) => {
                   const changeValue = e.currentTarget.value;
 
                   setChatContent(changeValue);
                 }}
                 onKeyPress={enterInsert}
-              >
-                {chatContent}
-              </textarea>
+              ></textarea>
             </div>
             <div className="meetChat-btn">
               <Button1 text={"전송"} clickEvent={insertChat} />
             </div>
           </li>
         </ul>
-        <div className="meetChat-span">
-          <span>
-            통신예절에 어긋나는 상업적인 글, 타 사이트에 관련된 글은 관리자에
-            의해 사전 통보없으 삭제될 수 있습니다.
-          </span>
-        </div>
       </div>
     </>
   );
