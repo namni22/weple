@@ -10,6 +10,7 @@ const Profile = (props) => {
   const member = props.member;
   const memberId = member.memberId;
   const memberNo = member.memberNo;
+  const memberGrade = member.memberGrade;
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
   const isAdmin = props.isAdmin;
@@ -99,7 +100,7 @@ const Profile = (props) => {
         <Routes>
           <Route
             path="myMeet"
-            element={<MyMeet memberId={memberId} memberNo={memberNo} />}
+            element={<MyMeet memberId={memberId} memberNo={memberNo} memberGrade={memberGrade} />}
           />
         </Routes>
       </div>

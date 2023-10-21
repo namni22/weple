@@ -118,7 +118,7 @@ const MeetModify = () => {
 
     return (
         <div>
-            <div>모임 수정</div>
+
             <MeetSettingFrm
                 meetTitle={meetTitle}
                 setMeetTitle={setMeetTitle}
