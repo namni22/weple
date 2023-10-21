@@ -17,7 +17,7 @@ const AdminBoard = () => {
         setPageInfo(res.data.pi);
       })
       .catch((res) => {
-        console.log(res);
+       
       });
   }, [reqPage]);
 

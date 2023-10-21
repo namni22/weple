@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import "./board.css";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import Pagination from "../common/Pagination";
 import { Button1, Button2 } from "../util/Button";
 import Swal from "sweetalert2";
 
-const tabTypeList = [{ boardType: 99, name: "전체" }, { boardType: 0, name: "관리자" }, { boardType: 1, name: "정회원" }, { boardType: 2, name: "블랙리스트" }];
-//const testmap = { name : "dongmin", age : 33, name : "yeojung"};
+const tabTypeList = [{ boardType: 99, name: "전체" }, { boardType: 0, name: "공지사항" }, { boardType: 1, name: "이벤트" }, { boardType: 2, name: "FAQ" }];
+
 
 const BoardAll = (props) => {
     const member = props.member;
@@ -18,17 +18,14 @@ const BoardAll = (props) => {
     const [pageInfo, setPageInfo] = useState({});
     const [boardType, setBoardType] = useState(99);
 
-    useEffect(() => {
-        console.log("BoardAll axios : " + boardType + ", reqPage : " + reqPage);
+    useEffect(() => {     
         axios
             .get("/board/list/" + reqPage + "/" + boardType)
-            .then((res) => {
-                console.log("axios result");
+            .then((res) => {                
                 setBoardList(res.data.boardList);
                 setPageInfo(res.data.pi);
             })
-            .catch((res) => {
-                console.log(res.response.status);
+            .catch((res) => {                
             });
     }, [boardType, reqPage]);
 
@@ -62,8 +59,7 @@ const BoardAll = (props) => {
     )
 };
 
-const BoardItem = (props) => {
-    // Map으로boardType :키 색깔 value
+const BoardItem = (props) => {    
     const board = props.board;
     const member = props.member;
     const toggleIdx = props.toggleIdx;
@@ -165,17 +161,16 @@ const BoardTab = (props) => {
         props.setToggleIdx(-1);
     }
 
-    console.log("props.boardType : " + props.boardType);
+  
 
     return (
-        <div className="board-tab-wrap">
-            {/* 클릭이벤트 걸어서 component 걸기 */}
+        <div className="board-tab-wrap">           
             {tabTypeList.map((tabData, index) => {
                 if (tabData.boardType === props.boardType) {
-                    return <span className="board-active-tab" style={titlestyle} onClick={() => { OnClickBoardTab(tabData.boardType) }}> {tabData.name} </span>
+                    return <span key={"boardactivetab"+index} className="board-active-tab" style={titlestyle} onClick={() => { OnClickBoardTab(tabData.boardType) }}> {tabData.name} </span>
                 }
                 else {
-                    return <span className="board-active-tab" onClick={() => { OnClickBoardTab(tabData.boardType) }}> {tabData.name} </span>
+                    return <span key={"boardactivetab"+index} className="board-active-tab" onClick={() => { OnClickBoardTab(tabData.boardType) }}> {tabData.name} </span>
                 }
             })}
         </div>

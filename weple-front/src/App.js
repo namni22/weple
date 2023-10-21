@@ -68,15 +68,14 @@ function App() {
           ></Route>
           <Route
             path="/board/*"
-            element={<Board isLogin={isLogin} id={id} />}
+            element={<Board isLogin={isLogin} />}
           />
 
           <Route
             path="/admin/*"
             element={
               <Admin
-                isLogin={isLogin}
-                id={id}
+                isLogin={isLogin}               
                 setIsAdmin={setIsAdmin}
                 setIsLogin={setIsLogin}
               />
