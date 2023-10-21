@@ -12,10 +12,9 @@ const Admin = (props) => {
   // const token = window.localStorage.getItem("token"); 
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
-  const setIsAdmin = props.setIsAdmin;
-  
+  const setIsAdmin = props.setIsAdmin; 
 
-  const id = props.id;
+  
   const [menus, setMenus] = useState([
     { url: "boardList", text: "공지 목록", active: false },
     { url: "insertBoard", text: "공지 등록", active: false },
@@ -37,7 +36,7 @@ const Admin = (props) => {
           <Routes>
             <Route
               path="insertBoard"
-              element={<BoardFrm isLogin={isLogin} id={id} />}
+              element={<BoardFrm isLogin={isLogin}  />}
             />
             <Route path="boardList" element={<AdminBoard />} />
             <Route path="reportList" element={<AdminReport />} />

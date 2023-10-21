@@ -239,3 +239,7 @@
 .admin-paging-wrap {
   margin: 50px;
 }
+.report-list-content{
+  width: 100%;
+  text-align: center;
+}
