@@ -116,6 +116,7 @@
   margin-top: 8px;
   font-size: 35px;
   color: red;
+  cursor: pointer;
 }
 
 .afterMeet-info-title {
@@ -158,6 +159,7 @@
 }
 .afer-host-like .report {
   color: #ccc;
+  cursor: pointer;
 }
 .afterMeet-sub-navi > ul > li {
   display: block;
