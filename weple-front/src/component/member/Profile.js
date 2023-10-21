@@ -10,7 +10,8 @@ const Profile = (props) => {
   const member = props.member;
   const memberId = member.memberId;
   const memberNo = member.memberNo;
-  const memberGrade = member.memberGrade;
+  const memberGrade = member.memberGrade;//블랙리스트인지
+  const memberMeet = member.memberMeet;//모임개설가능 숫자
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
   const isAdmin = props.isAdmin;
@@ -100,7 +101,7 @@ const Profile = (props) => {
         <Routes>
           <Route
             path="myMeet"
-            element={<MyMeet memberId={memberId} memberNo={memberNo} memberGrade={memberGrade} />}
+            element={<MyMeet memberId={memberId} memberNo={memberNo} memberGrade={memberGrade} memberMeet={memberMeet} />}
           />
         </Routes>
       </div>
