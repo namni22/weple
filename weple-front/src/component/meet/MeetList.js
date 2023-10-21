@@ -54,7 +54,7 @@ const MeetList = (props) => {
       .catch((res) => {
         console.log("catch : " + res.response.status);
       });
-  }, [reqPage, loginMemberNo, meetList]);
+  }, [reqPage, loginMemberNo]);
 
   //로그인을 했을경우 누가 로그인했는지 db에서 select해오기
   useEffect(() => {
@@ -249,9 +249,7 @@ const MeetItem = (props) => {
         // setIsMeetLike(0);
         setIsMeetLikeFront(props.meet.isMeetLike);
       })
-      .catch((res) => {
-        console.log("캐치");
-      });
+      .catch((res) => { });
 
     return
   }
@@ -289,7 +287,7 @@ const MeetItem = (props) => {
       </div>
       <div className="MeetList-like-box">
         {loginMember ? (
-          isMeetLikeFront === 1 ? (
+          meet.isMeetLike === 1 ? (
             <span className="material-icons MeetList-like" onClick={() => { meetLikeCancle(meet); }} >favorite</span>
           ) : (
             <span className="material-icons MeetList-like" onClick={() => { meetLikeUp(meet) }} >favorite_border</span>
