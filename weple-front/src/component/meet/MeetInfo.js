@@ -44,7 +44,7 @@ const MeetInfo = (props) => {
           // console.log(res.data);
           setLoginMember(res.data);
         })
-        .catch((res) => {});
+        .catch((res) => { });
     }
   }, [props]);
 
@@ -184,9 +184,13 @@ const MeetInfo = (props) => {
               )
             ) : (
               //isMeetMember가 비어있을때
-              <div>
-                <Button1 text="모임가입하기" clickEvent={meetJoin} />
-              </div>
+              loginMember.memberGrade < 2 ? (
+                <div>
+                  <Button1 text="모임가입하기" clickEvent={meetJoin} />
+                </div>) : (
+                ""//블랙리스트일떄 가입버튼 비활성화
+              )
+
             )
           ) : (
             ""

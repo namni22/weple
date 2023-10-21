@@ -214,8 +214,6 @@ const MeetItem = (props) => {
 
   //모임 좋아요 누를시
   const meetLikeUp = (meet) => {
-
-
     console.log("좋아요 누르면", meet);
     const token = window.localStorage.getItem("token");
     axios
@@ -286,7 +284,7 @@ const MeetItem = (props) => {
         <div className="review-count">후기 {meet.reviewCount}</div>
       </div>
       <div className="MeetList-like-box">
-        {loginMember ? (
+        {isLogin ? (
           meet.isMeetLike === 1 ? (
             <span className="material-icons MeetList-like" onClick={() => { meetLikeCancle(meet); }} >favorite</span>
           ) : (
