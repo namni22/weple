@@ -166,7 +166,10 @@ const MeetInfo = (props) => {
         {isLogin ? (
           meetCaptain && loginMember ? ( //객체 가져와져있는지부터 확인
             meetCaptain.memberNo === loginMember.memberNo ? ( //로그인한 멤버가 모임장이라면?
-              <Button1 text={"수정하기"} clickEvent={meetModify} />
+              <div className="cap-btn-wrap">
+                <Button1 text={"수정하기"} clickEvent={meetModify} />
+                <Button1 text={"삭제하기"} clickEvent={meetModify} />
+              </div>
             ) : isMeetMember ? ( //객체 가져와져있는지부터 확인
               // <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
               // isMesetMember가 있을때"
