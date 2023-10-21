@@ -54,7 +54,7 @@ const MeetList = (props) => {
       .catch((res) => {
         console.log("catch : " + res.response.status);
       });
-  }, [reqPage, loginMemberNo]);
+  }, [reqPage, loginMemberNo, meetList]);
 
   //로그인을 했을경우 누가 로그인했는지 db에서 select해오기
   useEffect(() => {
@@ -176,19 +176,21 @@ const MeetList = (props) => {
 
 const MeetItem = (props) => {
   // meet props로 전달해주시고 meetList 따로 select 해와서 map으로 반복 출력해주세요
-  const meet = props.meet;
-  // const [meet, setMeet] = useState({});
+  // const meet = props.meet;
   const navigate = useNavigate();
   const isLogin = props.isLogin;
 
   // const [loginMember, setLoginMember] = useState(null);
   const loginMember = props.loginMember;//프롭스로 받기
   const setLoginMember = props.setLoginMember;
-  console.log("미트 아이템의 : ", meet.isMeetLike);
 
+  const [meet, setMeet] = useState({});
+  const [isMeetLikeFront, setIsMeetLikeFront] = useState(0);
+  useEffect(() => {
+    setMeet(props.meet);
+    setIsMeetLikeFront(props.meet.isMeetLike);
+  }, [props])
 
-  const [isMeetLike, setIsMeetLike] = useState(0);
-  // const [meetLikeCurrentStatus, setMeetLikeCurrentStatus] = useState(null);
 
   // 상세보기로 이동하는 함수
   const meetView = () => {
@@ -224,7 +226,8 @@ const MeetItem = (props) => {
       })
       .then((res) => {
         console.log("좋아요");
-        setIsMeetLike(1);
+        // setIsMeetLike(1);
+        setIsMeetLikeFront(props.meet.isMeetLike);
       })
       .catch((res) => { });
 
@@ -243,9 +246,12 @@ const MeetItem = (props) => {
       })
       .then((res) => {
         console.log("좋아요 취소");
-        setIsMeetLike(0);
+        // setIsMeetLike(0);
+        setIsMeetLikeFront(props.meet.isMeetLike);
       })
-      .catch((res) => { });
+      .catch((res) => {
+        console.log("캐치");
+      });
 
     return
   }
@@ -283,7 +289,7 @@ const MeetItem = (props) => {
       </div>
       <div className="MeetList-like-box">
         {loginMember ? (
-          meet.isMeetLike === 1 ? (
+          isMeetLikeFront === 1 ? (
             <span className="material-icons MeetList-like" onClick={() => { meetLikeCancle(meet); }} >favorite</span>
           ) : (
             <span className="material-icons MeetList-like" onClick={() => { meetLikeUp(meet) }} >favorite_border</span>
