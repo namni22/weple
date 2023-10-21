@@ -86,7 +86,7 @@ const MeetList = (props) => {
   //카테고리 메뉴바의 전체를 클릭하면 동작하는 함수
   const changeCategoryAll = () => {
     axios
-      .get("/meet/meetList/" + reqPage + "/" + bigCategoryNo)
+      .get("/meet/meetList/" + reqPage + "/" + bigCategoryNo + "/" + loginMemberNo)
       .then((res) => {
         console.log(res.data);
         setMeetList(res.data.meetList);
