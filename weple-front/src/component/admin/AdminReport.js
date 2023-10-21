@@ -1,4 +1,3 @@
-import { FormControl, MenuItem, Select } from "@mui/material";
 import "./admin.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -39,13 +38,7 @@ const AdminReport = () => {
             <thead>
               <tr>
                 <td width={"20%"}>
-                  <FormControl sx={{ m: 1, minWidth: 80 }}>
-                    <Select>
-                      <MenuItem value={0}>후기</MenuItem>
-                      <MenuItem value={1}>피드</MenuItem>
-                      <MenuItem value={2}>모임</MenuItem>
-                    </Select>
-                  </FormControl>
+                  <select></select>
                 </td>
                 <td width={"20%"}>신고 받은 아이디</td>
                 <td width={"35%"}>신고유형</td>
@@ -79,14 +72,6 @@ const ReportItem = (props) => {
   const index = props.index;
   const [reportType, setReportType] = useState(report.reportType);
   const [reportStatus, setReportStatus] = useState();
-
-
-
-
-
-
-
-
 
   const changeToggle = (e) => {
     //console.log("신고번호 : " + index);
@@ -141,6 +126,9 @@ const ReportItem = (props) => {
 
       })
   }
+  const clickMove = (props) =>{
+    
+  }
   if (index === toggleIdx) {
 
     return (
@@ -170,7 +158,7 @@ const ReportItem = (props) => {
           </div>
           <div className="reportlist-btn-box">
             <div>
-              <Button2 text="이동"></Button2>
+              <Button2 text="이동" clickEvent={clickMove}></Button2>
             </div>
             <div>
               <Button1 text="온도 내리기" clickEvent={reduceLike}></Button1>
