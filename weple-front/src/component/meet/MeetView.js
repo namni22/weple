@@ -119,7 +119,7 @@ const MeetView = (props) => {
         });
     }
   }, []);
-  console.log("followerStatus : ", followerStatus);
+
   return (
     <div className="afterMeet-all-all-wrap">
       <div className="feed-title">WEPLE MEET</div>
@@ -221,6 +221,46 @@ const MeetView = (props) => {
   );
 };
 
+//모임 좋아요 누를시
+const meetLikeUp = (meet) => {
+  console.log("좋아요 누르면", meet);
+  const token = window.localStorage.getItem("token");
+  axios
+    .post("/meet/meetLikeUp", meet, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((res) => {
+      console.log("좋아요");
+      // setIsMeetLike(1);
+      //setIsMeetLikeFront(props.meet.isMeetLike);
+    })
+    .catch((res) => { });
+
+  return
+}
+
+//모임 좋아요취소 누를시 
+const meetLikeCancle = (meet) => {
+  console.log("좋아요 누르면", meet);
+  const token = window.localStorage.getItem("token");
+  axios
+    .post("/meet/meetLikeCancle", meet, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((res) => {
+      console.log("좋아요 취소");
+      // setIsMeetLike(0);
+      //setIsMeetLikeFront(props.meet.isMeetLike);
+    })
+    .catch((res) => { });
+
+  return
+}
+
 const AfterMeetMain = (props) => {
   const isLogin = props.isLogin;
   const myMeet = props.myMeet;
@@ -302,8 +342,18 @@ const AfterMeetMain = (props) => {
               reportType={reportType}
               setReportType={setReportType}
             />
+            {isLogin ? (
 
-            <span className="material-icons">favorite</span>
+              myMeet.isMeetLike === 1 ? (
+                <span className="material-icons MeetList-like" onClick={() => { meetLikeCancle(myMeet); }}  >favorite</span>
+              ) : (
+                <span className="material-icons MeetList-like" onClick={() => { meetLikeUp(myMeet) }}  >favorite_border</span>
+              )
+
+            ) : (
+              "빈하트"
+            )}
+
           </div>
         </div>
         <div className="afterMeet-info-title">
@@ -317,7 +367,7 @@ const AfterMeetMain = (props) => {
           {myMeet.meetTotal - myMeet.meetMargin}/{myMeet.meetTotal}명
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 const AfterMeetSubNavi = (props) => {

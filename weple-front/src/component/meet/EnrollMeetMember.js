@@ -31,36 +31,44 @@ const EnrollMeetMember = (props) => {
   }, [reqPage]);
   return (
     <div className="meetMemberList-all-wrap">
-      {enrollMember.length === 0 ? (
-        <>신청내역이 없습니다.</>
-      ) : (
-        <>
-          <table className="meetMemberList-wrap">
-            <tbody>
-              {enrollMember.map((enroll, index) => {
-                return (
-                  <EnrollItem
-                    key={"enroll" + index}
-                    enroll={enroll}
-                    enrollMember={enrollMember}
-                    setEnrollMember={setEnrollMember}
-                    meetNo={myMeet.meetNo}
-                    setMyMeet={setMyMeet}
-                  />
-                );
-              })}
-            </tbody>
-          </table>
-        </>
-      )}
-      <div>
-        <Pagination
-          reqPage={reqPage}
-          setReqPage={setReqPage}
-          pageInfo={pageInfo}
-          setData={setEnrollMember}
-        />
+      <div className="meet-div-border">
+        {enrollMember.length === 0 ? (
+          <div className="meet-noMember-div">
+            <p>NO LIST(●'◡'●)</p>
+          </div>
+        ) : (
+          <>
+            <table className="meetMemberList-wrap">
+              <tbody>
+                {enrollMember.map((enroll, index) => {
+                  return (
+                    <EnrollItem
+                      key={"enroll" + index}
+                      enroll={enroll}
+                      enrollMember={enrollMember}
+                      setEnrollMember={setEnrollMember}
+                      meetNo={myMeet.meetNo}
+                      setMyMeet={setMyMeet}
+                    />
+                  );
+                })}
+              </tbody>
+            </table>
+          </>
+        )}
       </div>
+      {enrollMember.length === 0 ? (
+        <></>
+      ) : (
+        <div>
+          <Pagination
+            reqPage={reqPage}
+            setReqPage={setReqPage}
+            pageInfo={pageInfo}
+            setData={setEnrollMember}
+          />
+        </div>
+      )}
     </div>
   );
 };
@@ -72,6 +80,7 @@ const EnrollItem = (props) => {
   const meetNo = props.meetNo;
   const setMyMeet = props.setMyMeet;
   //신청자 수락 이벤트
+  console.log("enrollMember : ", enrollMember);
   const changeStatus = () => {
     axios
       .post("/meet/updateEnrollMember/" + meetNo, enroll)
@@ -116,10 +125,10 @@ const EnrollItem = (props) => {
         </div>
         <div className="like">{enroll.memberLike}</div>
       </td>
-      <td width="35%">
+      <td>
         <div className="meetMemberList-btn-wrap">
-          <Button2 text={"수락"} clickEvent={changeStatus} />
           <Button2 text={"삭제"} />
+          <Button2 text={"수락"} clickEvent={changeStatus} />
         </div>
       </td>
     </tr>

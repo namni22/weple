@@ -36,44 +36,52 @@ const MeetMemberList = (props) => {
   }, [reqPage]);
   return (
     <div className="meetMemberList-all-wrap">
-      {meetMember.length === 0 ? (
-        <>모임회원이 없습니다.</>
-      ) : (
-        <>
-          <table className="meetMemberList-wrap">
-            <tbody>
-              {meetMember.map((member, index) => {
-                return (
-                  <MemberList
-                    key={"member" + index}
-                    member={member}
-                    //isOpen={isOpen}
-                    // setOpen={setOpen}
-                    meetMember={meetMember}
-                    setMeetMember={setMeetMember}
-                    //id={id}
-                    meetNo={myMeet.meetNo}
-                    myMeet={myMeet}
-                    setMyMeet={setMyMeet}
-                    isLogin={isLogin}
-                    userLike={userLike}
-                    setUserLike={setUserLike}
-                    reqPage={reqPage}
-                    setPageInfo={setPageInfo}
-                  />
-                );
-              })}
-            </tbody>
-          </table>
-          <div>
-            <Pagination
-              reqPage={reqPage}
-              setReqPage={setReqPage}
-              pageInfo={pageInfo}
-              setData={setMeetMember}
-            />
+      <div className="meet-div-border">
+        {meetMember.length === 0 ? (
+          <div className="meet-noMember-div">
+            <p>NO LIST(●'◡'●)</p>
           </div>
-        </>
+        ) : (
+          <>
+            <table className="meetMemberList-wrap">
+              <tbody>
+                {meetMember.map((member, index) => {
+                  return (
+                    <MemberList
+                      key={"member" + index}
+                      member={member}
+                      //isOpen={isOpen}
+                      // setOpen={setOpen}
+                      meetMember={meetMember}
+                      setMeetMember={setMeetMember}
+                      //id={id}
+                      meetNo={myMeet.meetNo}
+                      myMeet={myMeet}
+                      setMyMeet={setMyMeet}
+                      isLogin={isLogin}
+                      userLike={userLike}
+                      setUserLike={setUserLike}
+                      reqPage={reqPage}
+                      setPageInfo={setPageInfo}
+                    />
+                  );
+                })}
+              </tbody>
+            </table>
+          </>
+        )}
+      </div>
+      {meetMember.length === 0 ? (
+        <></>
+      ) : (
+        <div>
+          <Pagination
+            reqPage={reqPage}
+            setReqPage={setReqPage}
+            pageInfo={pageInfo}
+            setData={setMeetMember}
+          />
+        </div>
       )}
     </div>
   );
@@ -87,7 +95,7 @@ const MemberList = (props) => {
   const myMeet = props.myMeet;
   const reqPage = props.reqPage;
   const setPageInfo = props.setPageInfo;
-
+  console.log("12222222222222222myMeet :", myMeet);
   const meetNo = props.meetNo;
   const reportItemNo = props.meetNo;
   const [disable, setDisable] = useState("");
@@ -263,21 +271,21 @@ const MemberList = (props) => {
           {memberList.memberId}
           <span>님</span>
         </div>
-        <div>{memberList.memberLike}</div>
+        <div className="like">{memberList.memberLike}</div>
       </td>
       <td width="35%">
         <div className="meetMemberList-btn-wrap">
-          {memberList.isLike === 0 ? (
-            <Button2 text={"호감도"} clickEvent={likeEvent} disable={disable} />
-          ) : (
-            <Button2 text={"호감도"} clickEvent={likeEvent} disable={true} />
-          )}
           <Button2 text={"신고"} clickEvent={reportEvent} />
 
           {myMeet.meetCaptain === memberId ? (
             <Button2 text={"추방"} clickEvent={deleteEvent} />
           ) : (
             ""
+          )}
+          {memberList.isLike === 0 ? (
+            <Button2 text={"호감도"} clickEvent={likeEvent} disable={disable} />
+          ) : (
+            <Button2 text={"호감도"} clickEvent={likeEvent} disable={true} />
           )}
         </div>
       </td>

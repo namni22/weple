@@ -130,6 +130,14 @@ public class MeetController {
 		Meet newMeet = meetService.modifyMeet(meet);
 		return newMeet;	
 	}
+	//모임삭제
+	@PostMapping(value = "/meetDelete")
+	public int meetDelete (
+			@RequestBody Meet meet
+			) {
+		int result = meetService.deleteMeet(meet);
+		return result;
+	}
 	
 	//모임생성 에디터 사진 추가
 	@PostMapping(value = "/meetContentDImg")
@@ -155,19 +163,26 @@ public class MeetController {
 		return smallCategoryList;
 	}
 	//모임 리스트 조회
-	@GetMapping(value = "/meetList/{reqPage}/{meetCategory}")
-	public Map meetList(@PathVariable int reqPage, @PathVariable int meetCategory) {
-		System.out.println("모임 카테고리 번호 : "+meetCategory);
+	@GetMapping(value = "/meetList/{reqPage}/{meetCategory}/{memberNo}")
+	public Map meetList(
+			@PathVariable int reqPage, 
+			@PathVariable int meetCategory,
+			@PathVariable int memberNo
+			) {
 		//이미 meetList를 쓰고 있어서 바꿈
-		Map map = meetService.circleList(reqPage,meetCategory);
-		System.out.println("전체 조회 별점확인 맵 : "+ map);
+		Map map = meetService.circleList(reqPage,meetCategory,memberNo);
+		
 		return map;
 	}
 	//모임 카테고리 메뉴바 눌럿을때 모임 리스트 조회
-	@GetMapping(value = "/categoryMeetList/{reqPage}/{meetCategory}")
-	public Map categoryMeetList(@PathVariable int reqPage,@PathVariable int meetCategory) {		
+	@GetMapping(value = "/categoryMeetList/{reqPage}/{meetCategory}/{memberNo}")
+	public Map categoryMeetList(
+			@PathVariable int reqPage,
+			@PathVariable int meetCategory,
+			@PathVariable int memberNo
+			) {		
 		Map map = meetService.categoryMeetList(reqPage, meetCategory);
-		System.out.println("별점확인 맵 : "+map);
+		
 		return map;
 	}
 	//아이디 받아서 멤버 조회
@@ -223,6 +238,17 @@ public class MeetController {
 		
 		
 		return isMeetLike;
+	}
+	//모임 좋아요 누를떄
+	@PostMapping(value = "/meetLikeUp")
+	public int meetLikeUp(
+			@RequestBody Meet meet,
+			@RequestAttribute String memberId
+			) {
+		System.out.println("좋아요");
+		Member member = memberService.selectOneMember(memberId);
+		int result = meetService.meetLikeUp (meet.getMeetNo(), member.getMemberNo()) ;
+		return result;
 	}
 	//모임 좋아요 취소
 	@PostMapping(value = "/meetLikeCancle")
@@ -280,7 +306,8 @@ public class MeetController {
 	//멤버 탈퇴
 	@PostMapping(value = "/selfDeleteMember")
 	public int selfDeleteMember ( @RequestBody Follower isMeetMember) {
-		int result = meetService.deleteMember(isMeetMember.getMemberNo(), isMeetMember.getMeetNo());		
+		int result = meetService.deleteMember(isMeetMember.getMemberNo(), isMeetMember.getMeetNo());
+		
 		return result;
 	}
 	
