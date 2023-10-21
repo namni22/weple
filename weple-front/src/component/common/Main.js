@@ -104,6 +104,7 @@ const MeetMain = (props) => {
         });
     }
   }, []);
+  console.log("모임 메인 신규개설 : ", meetMain);
   return (
     <div className="meet-main">
       <div className="meet-main-title">
