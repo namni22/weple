@@ -110,6 +110,12 @@ const MeetInfo = (props) => {
     navigate("/meet/meetModify", { state: { meet: meet } });
   };
 
+  //모임장이 모임 삭제 버튼 클릭시
+  const meetDelete = () => {
+    Swal.fire("정말 모임을 삭제하시겟습니까?")
+    // navigate("/")
+  }
+
   // console.log("모임준비물 리스트 :", meetPrepareList, meetPrepareList.length);
   return (
     <div className="meetInfo-all-wrap">
@@ -168,7 +174,7 @@ const MeetInfo = (props) => {
             meetCaptain.memberNo === loginMember.memberNo ? ( //로그인한 멤버가 모임장이라면?
               <div className="cap-btn-wrap">
                 <Button1 text={"수정하기"} clickEvent={meetModify} />
-                <Button1 text={"삭제하기"} clickEvent={meetModify} />
+                <Button1 text={"삭제하기"} clickEvent={meetDelete} />
               </div>
             ) : isMeetMember ? ( //객체 가져와져있는지부터 확인
               // <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
