@@ -30,6 +30,9 @@ const ModifyInfo = (props) => {
   const [memberImage, setMemberImage] = useState(
     "/member/" + member.memberImage
   );
+  const [checkEmailMsg, setCheckEmailMsg] = useState("");
+  const [checkPhoneMsg, setCheckPhoneMsg] = useState("");
+  const [checkBirthMsg, setCheckBirthMsg] = useState("");
 
   useEffect(() => {
     axios
@@ -192,10 +195,8 @@ const ModifyInfo = (props) => {
 
   // 프로필 사진 새로 업로드 했을 시 작동하는 함수(미리보기 변경)
   const profileImgChange = (e) => {
-    console.log(0);
     const files = e.currentTarget.files;
     if (files.length !== 0 && files[0] != 0) {
-      console.log(1);
       setProfileImg(files[0]); // 썸네일 파일 전송을 위한 state에 파일 객체 저장
       // 화면 썸네일 미리보기
       const reader = new FileReader();
@@ -204,7 +205,6 @@ const ModifyInfo = (props) => {
         setMemberImage(reader.result);
       };
     } else {
-      console.log(2);
       setProfileImg(null);
       setMemberImage("/member/" + member.memberImage);
     }
@@ -268,37 +268,68 @@ const ModifyInfo = (props) => {
 
   // 수정 버튼 클릭 시 수정 작업
   const updateInfo = () => {
-    console.log(memberCategory);
     const token = window.localStorage.getItem("token");
     const form = new FormData();
-    form.append("memberNo", member.memberNo);
-    form.append("memberEmail", memberEmail);
-    form.append("memberBirth", memberBirth);
-    form.append("memberPhone", memberPhone);
-    form.append("memberImage", memberImage);
-    form.append("memberCategory", memberCategory);
-    form.append("profileImg", profileImg);
-    axios
-      .post("/member/modifyInfo", form, {
-        headers: {
-          contentType: "multipart/form-data",
-          processData: false,
-          Authorization: "Bearer " + token,
-        },
-      })
-      .then((res) => {
-        if (res.data === 1) {
-          Swal.fire("정보 수정이 완료되었습니다.");
-          navigate("/mypage");
-        } else {
-          Swal.fire(
-            "정보 수정 중 문제가 발생했습니다. 잠시 후 다시 시도하세요."
-          );
-        }
-      })
-      .catch((res) => {
-        console.log(res.response.status);
-      });
+
+    if (checkBirthMsg == "" && checkPhoneMsg == "" && checkEmailMsg == "") {
+      form.append("memberNo", member.memberNo);
+      form.append("memberEmail", memberEmail);
+      form.append("memberBirth", memberBirth);
+      form.append("memberPhone", memberPhone);
+      form.append("memberImage", memberImage);
+      form.append("memberCategory", memberCategory);
+      form.append("profileImg", profileImg);
+      axios
+        .post("/member/modifyInfo", form, {
+          headers: {
+            contentType: "multipart/form-data",
+            processData: false,
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          if (res.data === 1) {
+            Swal.fire("정보 수정이 완료되었습니다.");
+            navigate("/mypage/profile/myFeed");
+          } else {
+            Swal.fire(
+              "정보 수정 중 문제가 발생했습니다. 잠시 후 다시 시도하세요."
+            );
+          }
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    } else {
+      Swal.fire("입력값을 확인하세요.");
+    }
+  };
+
+  const phoneCheck = () => {
+    const phoneReg = /^[0-9]{3}-[0-9]{3,4}-[0-9]{4}/;
+    if (!phoneReg.test(memberPhone)) {
+      setCheckPhoneMsg("ex) 010-123(4)-1234 형식으로 입력해주세요.");
+    } else {
+      setCheckPhoneMsg("");
+    }
+  };
+
+  const emailCheck = () => {
+    const emailReg = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
+    if (!emailReg.test(memberEmail)) {
+      setCheckEmailMsg("ex) weple@weple.co.kr 형식으로 입력해주세요. ");
+    } else {
+      setCheckEmailMsg("");
+    }
+  };
+
+  const birthCheck = () => {
+    const birthReg = /^[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+    if (!birthReg.test(memberBirth)) {
+      setCheckBirthMsg("ex) 1990-01-01 형식으로 입력해주세요.");
+    } else {
+      setCheckBirthMsg("");
+    }
   };
 
   return (
@@ -324,6 +355,9 @@ const ModifyInfo = (props) => {
             type="text"
             data={memberPhone}
             setData={setMemberPhone}
+            msgClass="check-msg"
+            blurEvent={phoneCheck}
+            checkMsg={checkPhoneMsg}
           />
           <ModifyInputWrap
             content="memberBirth"
@@ -331,6 +365,9 @@ const ModifyInfo = (props) => {
             type="text"
             data={memberBirth}
             setData={setMemberBirth}
+            checkMsg={checkBirthMsg}
+            blurEvent={birthCheck}
+            msgClass="check-msg"
           />
           <ModifyInputWrap
             content="memberEmail"
@@ -338,6 +375,9 @@ const ModifyInfo = (props) => {
             type="text"
             data={memberEmail}
             setData={setMemberEmail}
+            msgClass="check-msg"
+            blurEvent={emailCheck}
+            checkMsg={checkEmailMsg}
           />
           <div className="modifyInfo-info">
             <div>
@@ -469,6 +509,8 @@ const ModifyInputWrap = (props) => {
   const blurEvent = props.blurEvent;
   const placeholder = props.placeholder;
   const readOnly = props.readOnly;
+  const checkMsg = props.checkMsg;
+  const msgClass = props.msgClass;
 
   return (
     <div className="modifyInfo-info">
@@ -488,6 +530,7 @@ const ModifyInputWrap = (props) => {
           />
         </div>
       </div>
+      <div className={msgClass}>{checkMsg}</div>
     </div>
   );
 };
