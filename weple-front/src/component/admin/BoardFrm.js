@@ -15,8 +15,8 @@ const BoardFrm = (props) => {
   const [boardContent, setBoardContent] = useState("");
   var getType;
   const [boardType, setBoardType] = useState();
-  const id = props.id;
-  console.log(id);
+ 
+ 
 
   const navigate = useNavigate();
 
@@ -30,8 +30,7 @@ const BoardFrm = (props) => {
       //console.log(boardContent);
       const form = new FormData();
       form.append("boardTitle", boardTitle);
-      form.append("boardContent", boardContent);
-      form.append("boardWriter", id);
+      form.append("boardContent", boardContent);     
       form.append("boardType",boardType)
       //console.log(getBoardType);
       const token = window.localStorage.getItem("token");

@@ -298,7 +298,7 @@ const MeetSettingFrm = (props) => {
                     </div>
 
                 </div>
-                <div className="meetDateFrm">
+                {/* <div className="meetDateFrm">
                     <label>모임날짜</label>
                     <Input
                         type="date"
@@ -309,7 +309,7 @@ const MeetSettingFrm = (props) => {
                         }}
 
                     />
-                </div>
+                </div> */}
                 <div className="meetPlaceFrm">
                     <label>모임위치</label>
                     <div>
