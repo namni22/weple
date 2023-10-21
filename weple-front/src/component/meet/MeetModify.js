@@ -37,6 +37,8 @@ const MeetModify = () => {
     useEffect(() => {
         if (meetPrepare) {
             setMeetPrepareList(meetPrepare.split("/"));
+        } else {// 준비물 없으면 빈배열로 초기화
+            setMeetPrepareList([]);
         }
     }, [meet.meetPrepare])
 
