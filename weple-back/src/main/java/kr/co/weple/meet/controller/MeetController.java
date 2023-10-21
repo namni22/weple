@@ -298,7 +298,8 @@ public class MeetController {
 	//멤버 탈퇴
 	@PostMapping(value = "/selfDeleteMember")
 	public int selfDeleteMember ( @RequestBody Follower isMeetMember) {
-		int result = meetService.deleteMember(isMeetMember.getMemberNo(), isMeetMember.getMeetNo());		
+		int result = meetService.deleteMember(isMeetMember.getMemberNo(), isMeetMember.getMeetNo());
+		
 		return result;
 	}
 	

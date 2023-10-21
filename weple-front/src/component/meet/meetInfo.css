@@ -10,7 +10,7 @@
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   /* margin: 20px 0; */
-  padding: 20px 0;
+  padding: 20px 10px;
 }
 
 .meetInfo-content-title {
@@ -19,7 +19,6 @@
   font-weight: bold;
   padding: 10px 0;
   color: #5d8bf4;
-  letter-spacing: 2px;
 }
 
 .meetViewContentD {

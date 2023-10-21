@@ -108,8 +108,12 @@ public class MeetService {
 	public int updateEnrollMember(int memberNo, int meetNo) {	
 		int meetMargin = meetDao.selectMeetMargin(meetNo);
 		int newMargin = meetMargin - 1;
-		int meetTotalCount = meetDao.disCount(meetNo,newMargin);//업데이트 meetMargin
-		int updateResult = meetDao.updateEnrollMember(memberNo,meetNo);
+		HashMap<String,Integer> param = new HashMap<String, Integer>();
+		param.put("meetNo",meetNo);
+		param.put("newMargin",newMargin);
+		param.put("memberNo",memberNo);
+		int meetTotalCount = meetDao.disCount(param);//업데이트 meetMargin
+		int updateResult = meetDao.updateEnrollMember(param);
 		if(meetTotalCount == 1 && updateResult == 1) {
 			return 1;
 		}else {			
@@ -224,10 +228,15 @@ public class MeetService {
 		//필요한 값 
 		//모임 번호 : meetNo, 모임번호로 조회된 meetMargin 
 		//meetMargin +1 
+		
 		int meetMargin = meetDao.selectMeetMargin(meetNo);
 		int newMargin = meetMargin + 1;
-		int meetTotalCount = meetDao.disCount(meetNo,newMargin);//업데이트 meetMargin
-		int deleteResult = meetDao.deleteMember(memberNo,meetNo);//모임회원 삭제
+		HashMap<String,Integer> param = new HashMap<String, Integer>();
+		param.put("meetNo",meetNo);
+		param.put("newMargin",newMargin);
+		param.put("memberNo",memberNo);
+		int meetTotalCount = meetDao.disCount(param);//업데이트 meetMargin
+		int deleteResult = meetDao.deleteMember(param);//모임회원 삭제
 		
 		if(meetTotalCount == 1 && deleteResult == 1) {
 			return 1;
