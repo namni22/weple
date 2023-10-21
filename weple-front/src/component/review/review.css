@@ -71,10 +71,19 @@
   object-fit: cover;
 }
 /* ******************************* */
-.review-wrap {
+.review-all-wrap {
+  padding: 10px;
   border-top: 1px solid #ccc;
-  margin-top: 20px;
 }
+.review-wrap {
+  margin-top: 20px;
+  min-height: 400px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
 .review-wrap .review-top {
   box-sizing: border-box;
   margin: 20px 10px;
