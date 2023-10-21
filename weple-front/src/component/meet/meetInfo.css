@@ -76,3 +76,15 @@
   margin: 3px 5px;
   text-align: center;
 }
+.meetInfo-cap-btn-wrap {
+  overflow: hidden;
+}
+
+.meetInfo-cap-btn-wrap > button:first-child {
+  width: 80%;
+  margin-right: 50px;
+}
+.meetInfo-cap-btn-wrap > button:last-child {
+  width: 10%;
+  background-color: rgb(221, 44, 44);
+}
