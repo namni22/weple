@@ -80,6 +80,10 @@
 		    MEET_PREPARE = #{meetPrepare}
 		where meet_no = #{meetNo}
 	</update>
+	<!-- 모임삭제 -->
+	<delete id="deleteMeet">
+		delete from meet where meet_no = #{meetNo}
+	</delete>
 	<!-- 모임 카테고리 메뉴 조회 -->
 	<select id="smallCategoryList" resultType="category">
 		select * from category where CATEGORY_REF_NO=#{categoryNo}

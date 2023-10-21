@@ -130,6 +130,18 @@ public class MeetController {
 		Meet newMeet = meetService.modifyMeet(meet);
 		return newMeet;	
 	}
+	//모임삭제
+	@PostMapping(value = "/meetdelete")
+	public int meetdelete (
+			@ModelAttribute Meet meet
+			) {
+		
+		System.out.println("삭제할모임 번호 : "+meet.getMeetNo());
+		int result = meetService.deleteMeet(meet.getMeetNo());
+		System.out.println("삭제 진행");
+		System.out.println(result);
+		return result;
+	}
 	
 	//모임생성 에디터 사진 추가
 	@PostMapping(value = "/meetContentDImg")

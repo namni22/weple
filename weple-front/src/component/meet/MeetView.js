@@ -119,8 +119,7 @@ const MeetView = (props) => {
         });
     }
   }, []);
-  console.log("followerStatus : ", followerStatus);
-  console.log("1111111111111111myMeet :", myMeet);
+
   return (
     <div className="afterMeet-all-all-wrap">
       <div className="feed-title">WEPLE MEET</div>

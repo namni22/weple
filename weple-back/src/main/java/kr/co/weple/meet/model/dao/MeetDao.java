@@ -80,6 +80,8 @@ public interface MeetDao {
 	Meet meetCapCheck(int meetNo, String memberId);
 
 	int modifyMeet(Meet meet);
+	
+	int deleteMeet(int meetNo);
 
 	int selectMeetMargin(int meetNo);
 
@@ -108,6 +110,8 @@ public interface MeetDao {
 	int updateEnrollMember(HashMap<String, Integer> param);
 
 	int deleteMember(HashMap<String, Integer> param);
+
+	
 
 
 

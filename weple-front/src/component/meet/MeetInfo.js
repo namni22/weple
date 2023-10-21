@@ -112,8 +112,26 @@ const MeetInfo = (props) => {
 
   //모임장이 모임 삭제 버튼 클릭시
   const meetDelete = () => {
-    Swal.fire("정말 모임을 삭제하시겟습니까?")
-    // navigate("/")
+    Swal.fire({
+      text: "정말 모임을 삭제하시겠습니까??",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "삭제",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log("삭제시필요한 모임번호 : ", meet);
+        //삭제진행
+        axios
+          .post("/meet/meetdelete", meet)
+          .then((res) => { })
+          .catch((res) => { });
+
+        Swal.fire("삭제완료")
+        navigate("/")
+      }
+    });
   }
 
   // console.log("모임준비물 리스트 :", meetPrepareList, meetPrepareList.length);

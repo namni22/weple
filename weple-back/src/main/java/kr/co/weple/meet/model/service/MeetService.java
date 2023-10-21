@@ -397,6 +397,12 @@ public class MeetService {
 		}
 		return false;
 	}
+	//모임삭제
+	@Transactional
+	public int deleteMeet(int meetNo) {
+		// TODO Auto-generated method stub
+		return meetDao.deleteMeet(meetNo);
+	}
 
 
 	
