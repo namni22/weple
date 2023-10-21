@@ -24,7 +24,8 @@ const MeetList = (props) => {
   const id = props.id;
 
   const [loginMember, setLoginMember] = useState({});
-  console.log("로그인멤버가 함수가 아니라고 : ?", typeof setLoginMember);
+  const [loginMemberNo, setLoginMemberNo] = useState(0);
+
 
   //카테고리 메뉴 조회해오기
   useEffect(() => {
@@ -43,9 +44,9 @@ const MeetList = (props) => {
   // 카테고리에서 넘어오면서 기본적으로 전체 모임 조회해오기
   useEffect(() => {
     axios
-      .get("/meet/meetList/" + reqPage + "/" + bigCategoryNo)
+      .get("/meet/meetList/" + reqPage + "/" + bigCategoryNo + "/" + loginMemberNo)
       .then((res) => {
-        console.log(res.data);
+        // console.log("조회 결과 : ", res.data.meetList[1].isMeetLike);
         setMeetList(res.data.meetList);
         //페이지인포 셋팅
         setPageInfo(res.data.pi);
@@ -53,7 +54,7 @@ const MeetList = (props) => {
       .catch((res) => {
         console.log("catch : " + res.response.status);
       });
-  }, [reqPage]);
+  }, [reqPage, loginMemberNo]);
 
   //로그인을 했을경우 누가 로그인했는지 db에서 select해오기
   useEffect(() => {
@@ -69,6 +70,9 @@ const MeetList = (props) => {
         })
         .then((res) => {
           setLoginMember(res.data);
+          //로그인한 멤버 번호
+          // loginMemberNo = res.data.memberNo;
+          setLoginMemberNo(res.data.memberNo)
         })
         .catch((res) => {
           console.log(res.response.status);
@@ -180,7 +184,7 @@ const MeetItem = (props) => {
   // const [loginMember, setLoginMember] = useState(null);
   const loginMember = props.loginMember;//프롭스로 받기
   const setLoginMember = props.setLoginMember;
-
+  console.log("미트 아이템의 : ", meet.isMeetLike);
 
 
   const [isMeetLike, setIsMeetLike] = useState(0);
@@ -264,7 +268,7 @@ const MeetItem = (props) => {
       </div>
       <div className="MeetList-like-box">
         {loginMember ? (
-          isMeetLike === 1 ? (
+          meet.isMeetLike === 1 ? (
             <span className="material-icons MeetList-like" onClick={() => { meetLikeCancle(meet); }} >favorite</span>
           ) : (
             <span className="material-icons MeetList-like" onClick={() => { meetLikeUp(meet) }} >favorite_border</span>
