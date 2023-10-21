@@ -1,12 +1,21 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button2 } from "../util/Button";
+import { useNavigate } from "react-router-dom";
 
 const MyMeet = (props) => {
   const memberId = props.memberId;
   const memberNo = props.memberNo;
+  const memberGrade = props.memberGrade;
+  const memberMeet = props.memberMeet;
   const [myMeetJoinedList, setMyMeetJoinedList] = useState([]);
   const [myMeetList, setMyMeetList] = useState([]);
+
+  const navigate = useNavigate();
+
+  const meetCreateBtn = () => {
+    navigate("/meet/meetCreate");
+  }
 
   useEffect(() => {
     axios
@@ -37,7 +46,8 @@ const MyMeet = (props) => {
               <img src="/img/bar.png" />
               내가 개설한 모임
             </div>
-            <Button2 text="모임 개설"></Button2>
+            {/* 멤버등급이 블랙리스트면 모임개설버튼 비활성화, 모임 개설가능 수가 0 이상일때 버튼활성화 */}
+            {memberGrade < 2 && memberMeet > 0 ? (<Button2 text="모임개설" clickEvent={meetCreateBtn}></Button2>) : ("")}
           </div>
           <div className="myMeet-content-item">
             {myMeetList == "" ? (
