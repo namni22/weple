@@ -86,6 +86,7 @@
 .MeetList-like {
   font-size: 24px;
   color: red;
+  cursor: pointer;
 }
 .meetList-memberTotal{
   padding-left: 5px;

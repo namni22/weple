@@ -400,15 +400,15 @@ const AfterMeetMain = (props) => {
             {isLogin ? (
 
               isMeetLikeFront === 1 ? (
-                <div className="meetLike-wrap">
+                <>
                   <span className="material-icons MeetList-like" onClick={() => { meetLikeCancle(myMeet, meetLikeCount, setMeetLikeCount, setIsMeetLikeFront) }}  >favorite</span>
-                  <span className="meetLikeCount">{meetLikeCount}</span>
-                </div>
+                  <sup className="meetLikeCount">{meetLikeCount}</sup>
+                </>
               ) : (
-                <div className="meetLike-wrap">
+                <>
                   <span className="material-icons MeetList-like" onClick={() => { meetLikeUp(myMeet, meetLikeCount, setMeetLikeCount, setIsMeetLikeFront) }}  >favorite_border</span>
-                  <span className="meetLikeCount">{meetLikeCount}</span>
-                </div>
+                  <sup className="meetLikeCount">{meetLikeCount}</sup>
+                </>
               )
             ) : (
               <span className="material-icons MeetList-like" onClick={() => { Swal.fire("로그인이후 이용해주세요") }} >favorite_border</span>
