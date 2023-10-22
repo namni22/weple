@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import "./admin.css";
 import { useState } from "react";
 import BoardFrm from "./BoardFrm";
-import AdminBoard from "./AdminBoard";
+import BoardAll from "../board/BoardList"
 import AdminReport from "./AdminReport";
 import AdminMember from "./AdminMember";
 import AdminMeeting from "./AdminMeeting";
@@ -38,7 +38,7 @@ const Admin = (props) => {
               path="insertBoard"
               element={<BoardFrm isLogin={isLogin}  />}
             />
-            <Route path="boardList" element={<AdminBoard />} />
+            <Route path="boardList" element={<BoardAll />} />            
             <Route path="reportList" element={<AdminReport />} />
             <Route path="memberList" element={<AdminMember />} />
             <Route path="meetList" element={<AdminMeeting />} />
