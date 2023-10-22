@@ -427,7 +427,7 @@ public class MeetService {
 		// TODO Auto-generated method stub
 		int numPerPage = 5; // 한페이지당 게시물 수
 		int pageNaviSize = 5; // 페이지 네비게이션 길이
-		int totalCount = meetDao.searchTotal();// 전체게시물수 
+		int totalCount = meetDao.searchTotal(searchKeyword);// 전체게시물수 
 		PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("pi", pi);

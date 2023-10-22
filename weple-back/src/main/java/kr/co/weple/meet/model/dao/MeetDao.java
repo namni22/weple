@@ -111,7 +111,7 @@ public interface MeetDao {
 
 	List searchList(HashMap<String, Object> map);
 
-	int searchTotal();
+	int searchTotal(String searchKeyword);
 
 
 	int disCount(HashMap<String, Integer> param);
