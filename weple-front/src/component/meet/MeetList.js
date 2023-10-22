@@ -182,6 +182,9 @@ const MeetItem = (props) => {
 
   const [meet, setMeet] = useState({});
   const [isMeetLikeFront, setIsMeetLikeFront] = useState(0);
+  // const isMeetLikeFront = props.isMeetLikeFront;
+  // const setIsMeetLikeFront = props.setIsMeetLikeFront;
+
   useEffect(() => {
     setMeet(props.meet);
     setIsMeetLikeFront(props.meet.isMeetLike);
@@ -193,6 +196,7 @@ const MeetItem = (props) => {
     // console.log("클릭하기 전 값 : ", meet, meet.meetNo);
     navigate("/meet/View", {
       state: { m: meet },
+      // , isMeetLikeFront: { isMeetLikeFront }, setIsMeetLikeFront: { setIsMeetLikeFront }
     }); //이동할곳 state로 데이터 전송
   };
 
@@ -209,7 +213,7 @@ const MeetItem = (props) => {
   };
 
   //모임 좋아요 누를시
-  const meetLikeUp = (meet) => {
+  const meetLikeUp = (meet, isMeetLikeFront, setIsMeetLikeFront) => {
     console.log("좋아요 누르면", meet);
     const token = window.localStorage.getItem("token");
     axios
@@ -221,7 +225,17 @@ const MeetItem = (props) => {
       .then((res) => {
         console.log("좋아요");
         // setIsMeetLike(1);
-        setIsMeetLikeFront(props.meet.isMeetLike);
+        setIsMeetLikeFront(1);
+        //다시 axios가서 바뀐 meet값 가져와서 set
+        axios
+          .get("/meet/selectOneMeet/" + meet.meetNo)
+          .then((res) => {
+            console.log(res.data);
+            setMeet(res.data)
+          })
+          .catch((res) => {
+            // console.log();
+          })
       })
       .catch((res) => { });
 
@@ -229,7 +243,7 @@ const MeetItem = (props) => {
   }
 
   //모임 좋아요취소 누를시 
-  const meetLikeCancle = (meet) => {
+  const meetLikeCancle = (meet, isMeetLikeFront, setIsMeetLikeFront) => {
     console.log("좋아요 누르면", meet);
     const token = window.localStorage.getItem("token");
     axios
@@ -241,7 +255,7 @@ const MeetItem = (props) => {
       .then((res) => {
         console.log("좋아요 취소");
         // setIsMeetLike(0);
-        setIsMeetLikeFront(props.meet.isMeetLike);
+        setIsMeetLikeFront(0);
       })
       .catch((res) => { });
 
@@ -282,9 +296,9 @@ const MeetItem = (props) => {
       <div className="MeetList-like-box">
         {isLogin ? (
           isMeetLikeFront === 1 ? (
-            <span className="material-icons MeetList-like" onClick={() => { meetLikeCancle(meet); }} >favorite</span>
+            <span className="material-icons MeetList-like" onClick={() => { meetLikeCancle(meet, isMeetLikeFront, setIsMeetLikeFront); }} >favorite</span>
           ) : (
-            <span className="material-icons MeetList-like" onClick={() => { meetLikeUp(meet) }} >favorite_border</span>
+            <span className="material-icons MeetList-like" onClick={() => { meetLikeUp(meet, isMeetLikeFront, setIsMeetLikeFront) }} >favorite_border</span>
           )
 
         ) : (

@@ -36,6 +36,8 @@ const MeetView = (props) => {
   //모임에 이미 가입한 상태인지 알아보는 변수
   const [isMeetMember, setIsMeetMember] = useState(null);
   const [isMeetLikeFront, setIsMeetLikeFront] = useState(0);
+  // const isMeetLikeFront = location.isMeetLikeFront;
+  // const setIsMeetLikeFront = location.setIsMeetLikeFront;
   const [meetLikeCount, setMeetLikeCount] = useState(0);
 
   useEffect(() => {
@@ -388,7 +390,7 @@ const AfterMeetMain = (props) => {
               )
 
             ) : (
-              "빈하트"
+              <span>{meetLikeCount}</span>
             )}
 
           </div>

@@ -234,8 +234,10 @@ public class MeetController {
 	//모임번호를 입력받아 해당 모임을 select
 	@GetMapping(value = "/selectOneMeet/{meetNo}")
 	public Meet meetView(@PathVariable int meetNo) {
+		Meet meet = meetService.selectOneMeet(meetNo);
+		System.out.println("모임 한개 조회 "+meet);
 		
-		return meetService.selectOneMeet(meetNo);
+		return meet;
 	}
 	
 	@PostMapping(value = "/isMeetLike")
