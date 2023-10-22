@@ -6,8 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import kr.co.weple.feed.model.vo.FImage;
 import kr.co.weple.review.model.dao.ReviewDao;
 import kr.co.weple.review.model.vo.RImage;
 import kr.co.weple.review.model.vo.Review;
@@ -74,5 +72,12 @@ public class ReviewService {
 				return list;
 			}
 			return null;
+		}
+		public Review one(int reviewNo) {
+			// TODO Auto-generated method stub
+			Review review = reviewDao.one(reviewNo);
+			List<RImage> list = reviewDao.selectImageList(reviewNo);
+			review.setImageList(list);
+			return review;
 		}
 }

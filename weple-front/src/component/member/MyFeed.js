@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { Button1 } from "../util/Button";
 import { useNavigate } from "react-router-dom";
-import FeedView from "../feed/FeedView";
+import {FeedView} from "../feed/FeedView";
 import { FeedComment } from "../feed/FeedComment";
 
 const MyFeed = (props) => {

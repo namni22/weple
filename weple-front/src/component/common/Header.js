@@ -1,20 +1,26 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./header.css";
 import { useState } from "react";
+import ReviewReport from "../review/ReviewReport";
 
 const Header = (props) => {
   const isLogin = props.isLogin;
   const isAdmin = props.isAdmin;
+  //////////////////////////////////
+  const [reviewOpen, setReviewOpen] = useState(false); //리뷰 모달
+  const view = () => {
+    setReviewOpen(true);
+  };
+  //////////////////////////////////
   const navigate = useNavigate();
-  const [searchWord, setSearchWord]=useState("");
-  const moveSearch = (e)=>{
-    if(e.key === 'Enter'){
+  const [searchWord, setSearchWord] = useState("");
+  const moveSearch = (e) => {
+    if (e.key === "Enter") {
       navigate("/search", { state: { searchWord: searchWord } });
-    } else{
+    } else {
       setSearchWord(e.target.value);
     }
-
-  }
+  };
   return (
     <div className="header">
       <div className="header-inner">
@@ -29,6 +35,7 @@ const Header = (props) => {
         <div className="logo">
           <Link to="/">Weple</Link>
         </div>
+        <div onClick={view}>열려라</div>
         <input
           className="searchFrm"
           placeholder="지금 생각나는 취미를 검색하세요."
@@ -75,6 +82,14 @@ const Header = (props) => {
           )}
         </div>
       </div>
+      <ReviewReport
+        reviewOpen={reviewOpen}
+        closeView={(e) => {
+          setReviewOpen(false);
+        }}
+        reviewNo={118} //review번호 값
+        isAdmin={isAdmin}
+      />
     </div>
   );
 };

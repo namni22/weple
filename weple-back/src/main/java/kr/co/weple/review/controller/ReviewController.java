@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.weple.FileUtil;
 import kr.co.weple.feed.model.vo.FImage;
+import kr.co.weple.feed.model.vo.Feed;
 import kr.co.weple.review.model.service.ReviewService;
 import kr.co.weple.review.model.vo.RImage;
 import kr.co.weple.review.model.vo.Review;
@@ -111,5 +112,9 @@ public class ReviewController {
 			result++;
 		}
 		return result;
-	}	
+	}
+	@GetMapping(value="/one/{reviewNo}")
+	public Review one(@PathVariable int reviewNo) {
+		return reviewService.one(reviewNo);
+	}
 }

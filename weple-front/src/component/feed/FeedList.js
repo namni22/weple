@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import SwiperComponent from "../util/Swiper";
 import { MoreModal } from "../util/Modal";
 import { FeedComment } from "./FeedComment";
-import FeedView from "./FeedView";
+import {FeedView} from "./FeedView";
 
 const FeedList = (props) => {
   const navigate = useNavigate();

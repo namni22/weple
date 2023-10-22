@@ -25,5 +25,6 @@ public interface ReviewDao {
 
 	List preReviewList(int meetNo);
 	int deleteReview(int reviewNo);
+	Review one(int reviewNo);
 
 }
