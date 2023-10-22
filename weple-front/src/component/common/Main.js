@@ -94,13 +94,13 @@ const MeetMain = (props) => {
           console.log(res.data?.status);
         });
     } else {
-      console.log("전달하는 로그인 멤버 번호 : ", loginMemberNo);
+
       axios
         .get("/meet/" + meetSet + "/" + loginMemberNo)
         .then((res) => {
           setSendMeetMain(res.data);
           setMeetMain(res.data?.slice(0, 4));
-          console.log("모임 메인 조회 : ", res.data);
+
         })
         .catch((res) => {
           console.log(res.data?.status);
@@ -149,7 +149,7 @@ const MeetMain = (props) => {
       </div>
       <div className="meet-one-wrap">
         {meetMain.map((meet, index) => {
-          console.log("모임 메인 : ", meet);
+
           return (
             <MeetItem
               key={"meetMain" + index}
