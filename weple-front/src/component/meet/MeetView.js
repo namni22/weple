@@ -1,5 +1,6 @@
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 import "./afterMeet.css";
+import "./meetView.css";
 import MeetInfo from "./MeetInfo";
 import MeetChat from "./MeetChat";
 import { useState } from "react";
@@ -381,18 +382,21 @@ const AfterMeetMain = (props) => {
             {isLogin ? (
 
               isMeetLikeFront === 1 ? (
-                <div>
+                <div className="meetLike-wrap">
                   <span className="material-icons MeetList-like" onClick={() => { meetLikeCancle(myMeet, meetLikeCount, setMeetLikeCount, setIsMeetLikeFront) }}  >favorite</span>
-                  <span>{meetLikeCount}</span>
+                  <span className="meetLikeCount">{meetLikeCount}</span>
                 </div>
               ) : (
-                <div>
+                <div className="meetLike-wrap">
                   <span className="material-icons MeetList-like" onClick={() => { meetLikeUp(myMeet, meetLikeCount, setMeetLikeCount, setIsMeetLikeFront) }}  >favorite_border</span>
-                  <span>{meetLikeCount}</span>
+                  <span className="meetLikeCount">{meetLikeCount}</span>
                 </div>
               )
             ) : (
-              <span>{meetLikeCount}</span>
+              <span className="material-icons MeetList-like" onClick={() => { Swal.fire("로그인이후 이용해주세요") }} >favorite_border</span>
+              // <div>
+              //   {/* meetLikeCount */}
+              // </div>
             )}
           </div>
         </div>
