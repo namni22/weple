@@ -7,7 +7,7 @@ const MainMeet = () => {
   const meetList = location.state.meetList;
   const meetTitle = location.state.meetTitle;
   const isLogin = location.state.isLogin;
-  console.log("메인미트 : ", meetList);
+
   return (
     <div className="meetList-all-wrap">
       <div className="meetListCategori-area">
