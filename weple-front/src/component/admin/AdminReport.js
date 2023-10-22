@@ -7,7 +7,6 @@ import { Button1, Button2 } from "../util/Button";
 import { useNavigate } from "react-router-dom";
 import {FeedView} from "../feed/FeedView";
 import { FeedComment } from "../feed/FeedComment";
-import { useNavigate } from "react-router-dom";
 import MeetView from "../meet/MeetView";
 const AdminReport = () => {
 

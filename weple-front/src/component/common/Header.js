@@ -7,10 +7,11 @@ const Header = (props) => {
   const isLogin = props.isLogin;
   const isAdmin = props.isAdmin;
   //////////////////////////////////
-  const [reviewOpen, setReviewOpen] = useState(false); //리뷰 모달
-  const view = () => {
-    setReviewOpen(true);
-  };
+  // const [reviewOpen, setReviewOpen] = useState(false); //리뷰 모달
+  // const isAdmin = props.isAdmin;
+  // const view = () => {
+  //   setReviewOpen(true);
+  // };
   //////////////////////////////////
   const navigate = useNavigate();
   const [searchWord, setSearchWord] = useState("");
@@ -35,7 +36,7 @@ const Header = (props) => {
         <div className="logo">
           <Link to="/">Weple</Link>
         </div>
-        <div onClick={view}>열려라</div>
+        {/* <div onClick={view}>reviewReport</div> */}
         <input
           className="searchFrm"
           placeholder="지금 생각나는 취미를 검색하세요."
@@ -82,14 +83,14 @@ const Header = (props) => {
           )}
         </div>
       </div>
-      <ReviewReport
+      {/* <ReviewReport
         reviewOpen={reviewOpen}
         closeView={(e) => {
           setReviewOpen(false);
         }}
-        reviewNo={118} //review번호 값
+        reviewNo={reviewNo} //review번호 값
         isAdmin={isAdmin}
-      />
+      /> */}
     </div>
   );
 };
