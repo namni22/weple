@@ -9,8 +9,6 @@ import MeetMemberList from "./MeetMemberList";
 import { useEffect } from "react";
 import EnrollMeetMember from "./EnrollMeetMember";
 import axios from "axios";
-import { Button1 } from "../util/Button";
-import ReactModal from "react-modal";
 import { ReportModal } from "../util/Modal";
 import Swal from "sweetalert2";
 
@@ -20,27 +18,27 @@ const MeetView = (props) => {
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
   const id = props.id;
-  // console.log("모임메인 id : ", id);
-
-  useEffect(() => {
-    //   console.log(location.state.m);
-    // console.log("myMeet set");
-    setMyMeet(location.state.m);
-  }, [props]);
-  const [myMeet, setMyMeet] = useState({});
-  //const [captainCheck, setCaptainCheck] = useState({});
+  ////////////////////////////////////////
+  // useEffect(() => {
+  //   setMyMeet(location.state.m);
+  // }, [props]);
+  ////////////////////////////////////////
+  const [myMeet, setMyMeet] = useState(location.state.m);
   const token = window.localStorage.getItem("token");
   const [followerStatus, setFollowerStatus] = useState({});
   const meetNo = myMeet.meetNo;
-  const [admin,setAdmin]=useState({});
+  const [admin, setAdmin] = useState({});
   //모임에 이미 가입한 상태인지 알아보는 변수
-  const [isMeetMember, setIsMeetMember] = useState(null);
+  const [isMeetMember, setIsMeetMember] = useState({});
   const [isMeetLikeFront, setIsMeetLikeFront] = useState(0);
   // const isMeetLikeFront = location.isMeetLikeFront;
   // const setIsMeetLikeFront = location.setIsMeetLikeFront;
   const [meetLikeCount, setMeetLikeCount] = useState(0);
+  //모임장 id 전송 이후 DB에서 모임장 정보 불러오기
+  const [meetCaptain, setMeetCaptain] = useState({});
 
   useEffect(() => {
+    //멤버 가입상태??
     axios
       .get("/meet/memberStatus/" + myMeet.meetNo, {
         headers: {
@@ -62,14 +60,10 @@ const MeetView = (props) => {
         setMeetLikeCount(res.data);
       })
       .catch((res) => {
-        console.log("meetLikeCount 캐치");
+        console.log(res.status + "meetLikeCount");
       });
-
     setIsMeetLikeFront(myMeet.isMeetLike);
-  }, [myMeet]);
-  //모임장 id 전송 이후 DB에서 모임장 정보 불러오기
-  const [meetCaptain, setMeetCaptain] = useState({});
-  useEffect(() => {
+    ///////////////////////////////////////
     axios
       .post("/meet/selectOneMember", { memberId: location.state.m.meetCaptain })
       .then((res) => {
@@ -79,7 +73,7 @@ const MeetView = (props) => {
       .catch((res) => {
         console.log("catch : " + res.response.status);
       });
-
+  
     if (isLogin) {
       //로그인이 되어있다면 로그인멤버가 모임멤버인지 조회해오기
       //모임멤버라면 해당 follower 리턴 아직 멤버가 아니라면 null 리턴
@@ -97,10 +91,11 @@ const MeetView = (props) => {
         .catch((res) => {
           console.log(res.response.status);
         });
-
+  
       //가입 대기 상태라면 모임가입 버튼 비활성화하도록 db에서 가입상태 가져오기
     }
-  }, []);
+  }, [meetNo]);
+
 
   //  console.log("view", myMeet);
   const [meetMenu, setMeetMenu] = useState([
@@ -122,6 +117,7 @@ const MeetView = (props) => {
 
   useEffect(() => {
     if (isLogin) {
+      //멤버조회?
       axios
         .post("/member/getMember", null, {
           headers: {
@@ -134,27 +130,23 @@ const MeetView = (props) => {
         .catch((res) => {
           console.log(res.response.status);
         });
+        //어드민 체크
+        axios
+          .post("/member/adminCheck", null, {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          })
+          .then((res) => {
+            console.log(res.data);
+            setAdmin(res.data);
+          })
+          .catch((res) => {
+            console.log(res.response.status);
+          });
     }
   }, []);
-  useEffect(() => {  
-    if(isLogin){
 
-      axios
-        .post("/member/adminCheck",null, {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        })
-        .then((res) => {
-          console.log(res.data);
-          setAdmin(res.data);
-        })
-        .catch((res) => {
-          console.log(res.response.status);
-        });
-    }  
-
-  }, []);
   return (
     <div className="afterMeet-all-all-wrap">
       <div className="feed-title">WEPLE MEET</div>
@@ -173,7 +165,7 @@ const MeetView = (props) => {
           setMeetLikeCount={setMeetLikeCount}
         />
         {isLogin ? (
-          myMeet.meetCaptain === memberId  || admin.memberGrade === 0 ? (
+          myMeet.meetCaptain === memberId || admin.memberGrade === 0 ? (
             <AfterMeetSubNavi
               meetMenu={meetMenu}
               setMeetMenu={setMeetMenu}
@@ -182,8 +174,8 @@ const MeetView = (props) => {
               meetNo={meetNo}
               myMeet={myMeet}
               memberId={memberId}
-            //captainCheck={captainCheck}
-            //setCaptainCheck={setCaptainCheck}
+              //captainCheck={captainCheck}
+              //setCaptainCheck={setCaptainCheck}
             />
           ) : followerStatus ? (
             <AfterMeetSubNavi
@@ -270,23 +262,21 @@ const MeetView = (props) => {
 const meetLikeUp = (meet, meetLikeCount, setMeetLikeCount, setIsMeetLikeFront) => {
   console.log("좋아요 누르면", meet);
   const token = window.localStorage.getItem("token");
-  axios
-    .post("/meet/meetLikeUp", meet, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    })
-    .then((res) => {
-      console.log("좋아요");
-      // setIsMeetLike(1);
-      // setIsMeetLikeFront(props.meet.isMeetLike);
-      const oldMeetLikeCount = meetLikeCount;
-      setMeetLikeCount(oldMeetLikeCount + 1);
-      setIsMeetLikeFront(1);
-    })
-    .catch((res) => { });
-
-  return;
+    axios
+      .post("/meet/meetLikeUp", meet, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => {
+        console.log("좋아요");
+        // setIsMeetLike(1);
+        // setIsMeetLikeFront(props.meet.isMeetLike);
+        const oldMeetLikeCount = meetLikeCount;
+        setMeetLikeCount(oldMeetLikeCount + 1);
+        setIsMeetLikeFront(1);
+      })
+      .catch((res) => {console.log(res.status) });
 };
 
 //모임 좋아요취소 누를시 
@@ -307,7 +297,7 @@ const meetLikeCancle = (meet, meetLikeCount, setMeetLikeCount, setIsMeetLikeFron
       setMeetLikeCount(oldMeetLikeCount - 1);
       setIsMeetLikeFront(0);
     })
-    .catch((res) => { });
+    .catch((res) => { console.log(res.status);});
 
   return;
 };
@@ -375,7 +365,8 @@ const AfterMeetMain = (props) => {
           </div>
           <div className="aferMeet-host-name">
             <Link to="#">{myMeet.meetCaptain}</Link>
-            <span className="like">{meetCaptain.memberLike}</span>
+            {/* <span className="like">{meetCaptain.memberLike}</span> */}
+            <span className="like">{Math.round(meetCaptain.memberLike*10)/10}</span>
           </div>
           <div className="afer-host-like">
             {myMeet.meetCaptain === memberId ? (
@@ -398,29 +389,57 @@ const AfterMeetMain = (props) => {
               setReportType={setReportType}
             />
             {isLogin ? (
-
               isMeetLikeFront === 1 ? (
                 <>
-                  <span className="material-icons MeetList-like" onClick={() => { meetLikeCancle(myMeet, meetLikeCount, setMeetLikeCount, setIsMeetLikeFront) }}  >favorite</span>
+                  <span
+                    className="material-icons MeetList-like"
+                    onClick={() => {
+                      meetLikeCancle(
+                        myMeet,
+                        meetLikeCount,
+                        setMeetLikeCount,
+                        setIsMeetLikeFront
+                      );
+                    }}
+                  >
+                    favorite
+                  </span>
                   <sup className="meetLikeCount">{meetLikeCount}</sup>
                 </>
               ) : (
                 <>
-                  <span className="material-icons MeetList-like" onClick={() => { meetLikeUp(myMeet, meetLikeCount, setMeetLikeCount, setIsMeetLikeFront) }}  >favorite_border</span>
+                  <span
+                    className="material-icons MeetList-like"
+                    onClick={() => {
+                      meetLikeUp(
+                        myMeet,
+                        meetLikeCount,
+                        setMeetLikeCount,
+                        setIsMeetLikeFront
+                      );
+                    }}
+                  >
+                    favorite_border
+                  </span>
                   <sup className="meetLikeCount">{meetLikeCount}</sup>
                 </>
               )
             ) : (
-              <span className="material-icons MeetList-like" onClick={() => { Swal.fire("로그인이후 이용해주세요") }} >favorite_border</span>
+              <span
+                className="material-icons MeetList-like"
+                onClick={() => {
+                  Swal.fire("로그인이후 이용해주세요");
+                }}
+              >
+                favorite_border
+              </span>
               // <div>
               //   {/* meetLikeCount */}
               // </div>
             )}
           </div>
         </div>
-        <div className="afterMeet-info-title">
-          <h1>{myMeet.meetTitle}</h1>
-        </div>
+        <div className="afterMeet-info-title">{myMeet.meetTitle}</div>
         <div className="afterMeet-info-sub-content">
           <p>{myMeet.meetContentS}</p>
         </div>

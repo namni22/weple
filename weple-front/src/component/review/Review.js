@@ -45,7 +45,6 @@ const Review = (props) => {
       .catch((res) => {
         console.log(res.data?.status);
       });
-
     // //isMember
     // const form = new FormData();
     // form.append("meetNo", meetNo);

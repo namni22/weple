@@ -78,11 +78,12 @@
 
 .review-wrap {
   margin-top: 20px;
-  min-height: 400px;
+  /* min-height: 400px; */
   background-color: #fff;
   padding: 10px;
   border-radius: 5px;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .review-wrap .review-top {
@@ -168,4 +169,6 @@
 }
 .review-wrap .swiper-pagination-bullets {
   display: none;
+}
+.review-none{
 }

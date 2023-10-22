@@ -74,9 +74,13 @@ const ReviewList = (props) => {
             </div>
             <div className="meet-star-score">{meetStar}</div>
           </div>
-          <div className="review-write-btn">
-            <Button1 text="후기작성" clickEvent={write} />
-          </div>
+          {isLogin ? (
+            <div className="review-write-btn">
+              <Button1 text="후기작성" clickEvent={write} />
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       {reviewList.map((item, index) => {
@@ -90,9 +94,7 @@ const ReviewList = (props) => {
           </>
         );
       })}
-      <button defaultValue={1} onClick={useMore}>
-        더보기
-      </button>
+      <Button1 clickEvent={useMore} text="더보기" />
     </div>
   );
 };

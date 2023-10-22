@@ -15,10 +15,11 @@
 
 .meetInfo-content-title {
   /* 모임 소개 선택자 */
-  font-size: 30px;
+  font-size: 20px;
+  letter-spacing: -1px;
   font-weight: bold;
   padding: 10px 0;
-  color: #5d8bf4;
+  /* color: #5d8bf4; */
 }
 
 .meetViewContentD {
@@ -64,16 +65,15 @@
 
 .meetInfo-meetPrepareList {
   overflow: hidden;
-  margin: 40px 20px;
 }
 
 .meetInfo-meetPrepare {
   /* 준비물선택자 #2d30fa89 */
   background-color: #2d30fa1b;
   border: 1px solid #5d8bf4;
-  min-width: 80px;
+  /* min-width: 80px; */
   border-radius: 20px;
-  padding: 7px 20px;
+  padding: 3px 10px;
   display: inline-block;
   font-weight: bold;
   margin: 3px 5px;
