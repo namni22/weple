@@ -40,7 +40,7 @@
 		WHERE RNUM BETWEEN #{start} AND #{end}
 		
 	</select>
-
+<!-- ************************************************************************************************************ -->
 	<!-- 모임생성 -->
 	<insert id="createMeet">
 		INSERT INTO MEET VALUES (
@@ -102,6 +102,24 @@
 			    ORDER BY 1 DESC)M)
 			WHERE RNUM BETWEEN #{start} AND #{end}
 	</select> -->
+	<!-- 모임리스트 circle 토탈카운트 조회 -->
+	<select id="circleListTotalCount">
+		select count(*) 
+		from
+		    (select * 
+		    from meet 
+		    join category on (category_no = meet_category) 
+		    where category_ref_no = #{meetCategory} and meet_type = 1)
+	</select>
+	<!--  -->
+	<select id="categoryMeetListTotalCount">
+		select count(*) 
+		from
+		    (select * 
+		    from meet 
+		    join category on (category_no = meet_category) 
+		    where category_no = #{meetCategory} and meet_type = 1)
+	</select>
 	<!-- 모임리스트 대분류로 조회 -->
 	<select id="selectCircleList" resultType="meet">
 		SELECT * 

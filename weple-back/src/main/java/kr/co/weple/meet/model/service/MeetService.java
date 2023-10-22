@@ -156,12 +156,13 @@ public class MeetService {
 		// 게시물조회, 페이징에 필요한 데이터를 취합
 		int numPerPage = 12; // 한페이지당 게시물 수
 		int pageNaviSize = 5; // 페이지 네비게이션 길이
-		int totalCount = meetDao.totalCount();// 전체게시물수 구해오기
+		int totalCount = meetDao.circleListTotalCount(meetCategory);// 전체게시물수 구해오기
 		PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);		
 		//map으로 list와 pi 묶어서 리턴
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("pi", pi);
 		map.put("start", pi.getStart());
+		System.out.println("전체조회 reqPage  스타트 번호 : "+pi.getStart());
 		map.put("end", pi.getEnd());
 		map.put("meetCategory",meetCategory);
 		map.put("memberNo",memberNo);
@@ -176,12 +177,13 @@ public class MeetService {
 		// 게시물조회, 페이징에 필요한 데이터를 취합
 		int numPerPage = 12; // 한페이지당 게시물 수
 		int pageNaviSize = 5; // 페이지 네비게이션 길이
-		int totalCount = meetDao.totalCount();// 전체게시물수 구해오기
+		int totalCount = meetDao.categoryMeetListTotalCount(meetCategory);// 전체게시물수 구해오기
 		PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
 		// map으로 list와 pi 묶어서 리턴
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("pi", pi);
 		map.put("start", pi.getStart());
+		System.out.println("소분류  reqPage  스타트 번호 : "+pi.getStart());
 		map.put("end", pi.getEnd());
 		map.put("meetCategory", meetCategory);
 		// 리스트조회 //pi 랑 meetCategory도 묶어서 보냄

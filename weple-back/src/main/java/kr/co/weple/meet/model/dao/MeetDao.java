@@ -113,6 +113,10 @@ public interface MeetDao {
 
 	int deleteMember(HashMap<String, Integer> param);
 
+	int circleListTotalCount(int meetCategory);
+
+	int categoryMeetListTotalCount(int meetCategory);
+
 
 
 	

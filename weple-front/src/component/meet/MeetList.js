@@ -25,7 +25,7 @@ const MeetList = (props) => {
 
   const [loginMember, setLoginMember] = useState({});
   const [loginMemberNo, setLoginMemberNo] = useState(0);
-
+  const [categoryType, setCategoryType] = useState(0);//카테고리타입 0:대분류 그외:소분류,카테고리번호를 담는변수
 
   //카테고리 메뉴 조회해오기
   useEffect(() => {
@@ -42,19 +42,46 @@ const MeetList = (props) => {
   }, []);
 
   // 카테고리에서 넘어오면서 기본적으로 전체 모임 조회해오기
-  useEffect(() => {
-    axios
-      .get("/meet/meetList/" + reqPage + "/" + bigCategoryNo + "/" + loginMemberNo)
-      .then((res) => {
-        // console.log("조회 결과 : ", res.data.meetList[1].isMeetLike);
-        setMeetList(res.data.meetList);
-        //페이지인포 셋팅
-        setPageInfo(res.data.pi);
-      })
-      .catch((res) => {
-        console.log("catch : " + res.response.status);
-      });
-  }, [reqPage, loginMemberNo]);
+  useEffect(() => {//reqPage, 카테고리 타입이 바뀔경우 동작
+    if (categoryType === 0) {//카테고리타입이 대분류 라면 아래 axios 수행
+      axios
+        .get("/meet/meetList/" + reqPage + "/" + bigCategoryNo + "/" + loginMemberNo)
+        .then((res) => {
+          // console.log("조회 결과 : ", res.data.meetList[1].isMeetLike);
+          setMeetList(res.data.meetList);
+          //페이지인포 셋팅
+          setPageInfo(res.data.pi);
+        })
+        .catch((res) => {
+          console.log("catch : " + res.response.status);
+        });
+    } else {//카테고리타입이 소분류면 카테고리번호 들고 가서 axios 수행
+      axios
+        .get("/meet/categoryMeetList/" + reqPage + "/" + categoryType + "/" + loginMemberNo)
+        .then((res) => {
+          // console.log(res.data);
+          setMeetList(res.data.meetList);
+          //페이지인포 셋팅
+          setPageInfo(res.data.pi);
+        })
+        .catch((res) => {
+          console.log("catch : " + res.response.status);
+        });
+    }
+  }, [reqPage, loginMemberNo, categoryType]);
+
+  //카테고리 메뉴바의 전체를 클릭하면 동작하는 함수
+  const changeCategoryAll = (reqPage) => {
+    setReqPage(1);//전체 클릭시 reqPage 초기화
+    setCategoryType(0);//카테고리 타입을 0 (대분류로)
+  };
+
+  // 카테고리 메뉴바의 카테고리를 클릭하면 동작하는 함수
+  const changeCategory = (smallCategory) => {
+    setReqPage(1);
+    setCategoryType(smallCategory.categoryNo);
+  };
+
 
   //로그인을 했을경우 누가 로그인했는지 db에서 select해오기
   useEffect(() => {
@@ -83,40 +110,6 @@ const MeetList = (props) => {
 
   }, [isLogin])
 
-  //카테고리 메뉴바의 전체를 클릭하면 동작하는 함수
-  const changeCategoryAll = () => {
-    axios
-      .get("/meet/meetList/" + reqPage + "/" + bigCategoryNo + "/" + loginMemberNo)
-      .then((res) => {
-        console.log(res.data);
-        setMeetList(res.data.meetList);
-        //페이지인포 셋팅
-        setPageInfo(res.data.pi);
-      })
-      .catch((res) => {
-        console.log("catch : " + res.response.status);
-      });
-  };
-
-  // 카테고리 메뉴바의 카테고리를 클릭하면 동작하는 함수
-  const changeCategory = (smallCategory) => {
-    const categoryNo = smallCategory.categoryNo;
-    console.log("카테고리번호 : " + categoryNo);
-    bigCategoryNo = smallCategory.categoryRefNo;
-    const big = smallCategory.categoryRefNo; //선택한 카테고리의 대분류
-
-    axios
-      .get("/meet/categoryMeetList/" + reqPage + "/" + categoryNo + "/" + loginMemberNo)
-      .then((res) => {
-        // console.log(res.data);
-        setMeetList(res.data.meetList);
-        //페이지인포 셋팅
-        setPageInfo(res.data.pi);
-      })
-      .catch((res) => {
-        console.log("catch : " + res.response.status);
-      });
-  };
 
   return (
     <div className="meetList-all-wrap">
@@ -126,7 +119,7 @@ const MeetList = (props) => {
           <ul className="smallCategory-ul">
             <li
               onClick={() => {
-                changeCategoryAll();
+                changeCategoryAll(reqPage);
               }}
             >
               전체
