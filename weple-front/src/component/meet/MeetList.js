@@ -47,7 +47,7 @@ const MeetList = (props) => {
       axios
         .get("/meet/meetList/" + reqPage + "/" + bigCategoryNo + "/" + loginMemberNo)
         .then((res) => {
-          // console.log("조회 결과 : ", res.data.meetList[1].isMeetLike);
+          console.log("조회 결과 : ", res.data.meetList);
           setMeetList(res.data.meetList);
           //페이지인포 셋팅
           setPageInfo(res.data.pi);
@@ -56,17 +56,20 @@ const MeetList = (props) => {
           console.log("catch : " + res.response.status);
         });
     } else {//카테고리타입이 소분류면 카테고리번호 들고 가서 axios 수행
+
       axios
         .get("/meet/categoryMeetList/" + reqPage + "/" + categoryType + "/" + loginMemberNo)
         .then((res) => {
           // console.log(res.data);
           setMeetList(res.data.meetList);
+          console.log("조회결과 : ", res.data.meetList);
           //페이지인포 셋팅
           setPageInfo(res.data.pi);
         })
         .catch((res) => {
           console.log("catch : " + res.response.status);
         });
+
     }
   }, [reqPage, loginMemberNo, categoryType]);
 

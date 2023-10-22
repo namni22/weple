@@ -180,7 +180,7 @@ public class MeetService {
 		return map;
 	}
 	// 모임 카테고리 메뉴바 눌럿을때 모임 리스트 조회
-	public Map categoryMeetList(int reqPage, int meetCategory) {
+	public Map categoryMeetList(int reqPage, int meetCategory, int memberNo) {
 		// TODO Auto-generated method stub
 		// 게시물조회, 페이징에 필요한 데이터를 취합
 		int numPerPage = 12; // 한페이지당 게시물 수
@@ -193,6 +193,7 @@ public class MeetService {
 		map.put("start", pi.getStart());
 		map.put("end", pi.getEnd());
 		map.put("meetCategory", meetCategory);
+		map.put("memberNo",memberNo);
 		// 리스트조회 //pi 랑 meetCategory도 묶어서 보냄
 		List circleList = meetDao.categoryMeetList(map);
 		map.put("meetList", circleList);
