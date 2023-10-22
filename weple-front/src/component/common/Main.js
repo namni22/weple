@@ -67,6 +67,7 @@ const MeetMain = (props) => {
   const memberCategory = props?.memberCategory;
   const [meetMain, setMeetMain] = useState([]);
   const [sendMeetMain, setSendMeetMain] = useState([]);
+  const [loginMemberNo, setLoginMemberNo] = useState(0);
 
   //모임 조회
   useEffect(() => {
@@ -93,17 +94,46 @@ const MeetMain = (props) => {
           console.log(res.data?.status);
         });
     } else {
+
       axios
-        .get("/meet/" + meetSet)
+        .get("/meet/" + meetSet + "/" + loginMemberNo)
         .then((res) => {
           setSendMeetMain(res.data);
           setMeetMain(res.data?.slice(0, 4));
+
         })
         .catch((res) => {
           console.log(res.data?.status);
         });
     }
-  }, []);
+  }, [loginMemberNo]);
+
+  //로그인을 했을경우 누가 로그인했는지 db에서 select해오기
+  useEffect(() => {
+    // setMeet(props.meet);
+    const token = window.localStorage.getItem("token");
+    if (isLogin) {
+
+      axios
+        .post("/member/getMember", null, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          //setLoginMember(res.data);
+          //로그인한 멤버 번호
+          // loginMemberNo = res.data.memberNo;
+          setLoginMemberNo(res.data.memberNo)
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    } else {//로그아웃하면 로그인멤버 초기화
+      //setLoginMember(null);
+    }
+
+  }, [isLogin])
 
   return (
     <div className="meet-main">
@@ -119,7 +149,7 @@ const MeetMain = (props) => {
       </div>
       <div className="meet-one-wrap">
         {meetMain.map((meet, index) => {
-          // console.log(meet);
+
           return (
             <MeetItem
               key={"meetMain" + index}

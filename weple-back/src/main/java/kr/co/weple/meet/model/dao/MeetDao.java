@@ -49,11 +49,11 @@ public interface MeetDao {
 
 	List meetChatList(int meetNo);
 
-	List meetMargin();
+	List meetMargin(int memberNo);
 
-	List meetPopular();
+	List meetPopular(int memberNo);
 
-	List meetNew();
+	List meetNew(int memberNo);
 	
 	List meetCategory();
 

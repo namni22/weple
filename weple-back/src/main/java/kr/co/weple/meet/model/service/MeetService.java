@@ -213,21 +213,22 @@ public class MeetService {
 	}
 /*********************************메인페이지 모임조회*********************************************/
 	//메인페이지에 인기순 모임조회
-	public List meetPopular() {
+	public List meetPopular(int memberNo) {
 		// TODO Auto-generated method stub
-		List list = meetDao.meetPopular();
+		
+		List list = meetDao.meetPopular(memberNo);
 		return list;
 	}
 	//메인페이지에 최신순 모임조회
-	public List meetNew() {
+	public List meetNew(int memberNo) {
 		// TODO Auto-generated method stub
-		List list = meetDao.meetNew();
+		List list = meetDao.meetNew(memberNo);
 		return list;
 	}
 	//메인페이지에 참여인원 순 모임 조회
-		public List meetMargin() {
+		public List meetMargin(int memberNo) {
 			// TODO Auto-generated method stub
-			List list = meetDao.meetMargin();
+			List list = meetDao.meetMargin(memberNo);
 			return list;
 		}
 	

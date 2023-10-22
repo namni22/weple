@@ -276,22 +276,35 @@ public class MeetController {
 	
 /*********************************메인페이지 모임조회*********************************************/	
 	//메인페이지에 참여인원 순 모임 조회
-	@GetMapping(value = "/meetMargin")
-	public List meetMargin() {
-		List list = meetService.meetMargin();
+	@GetMapping(value = "/meetMargin/{memberNo}")
+	public List meetMargin(
+			@PathVariable int memberNo
+			) {
+		System.out.println("전달하는 멤버 번호 : "+ memberNo);
+		List list = meetService.meetMargin(memberNo);
+		System.out.println("meetMargin메인 모임 진행"+ list);
+		
 		return list;
 	}
 	
 	//메인페이지에 인기순 모임조회
-	@GetMapping(value = "/meetPopular")
-	public List meetPopular() {
-		List list = meetService.meetPopular();
+	@GetMapping(value = "/meetPopular/{memberNo}")
+	public List meetPopular(
+			@PathVariable int memberNo
+			) {
+		System.out.println("전달하는 멤버 번호 : "+ memberNo);
+		List list = meetService.meetPopular(memberNo);
+		System.out.println("meetPopular 메인 모임 진행"+ list);
 		return list;
 	}
 	//메인페이지에 최신순 모임조회
-	@GetMapping(value = "/meetNew")
-	public List meetNew() {
-		List list = meetService.meetNew();
+	@GetMapping(value = "/meetNew/{memberNo}")
+	public List meetNew(
+			@PathVariable int memberNo
+			) {
+		System.out.println("전달하는 멤버 번호 : "+ memberNo);
+		List list = meetService.meetNew(memberNo);
+		System.out.println("meetNew 메인 모임 진행"+ list);
 		return list;
 	}	
 	
