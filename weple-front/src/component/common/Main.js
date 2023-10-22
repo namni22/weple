@@ -141,7 +141,7 @@ const MeetMain = (props) => {
         {meetTitle}
         <Link
           to="/meet/mainmeet"
-          state={{ meetList: sendMeetMain, meetTitle: meetTitle }}
+          state={{ meetList: sendMeetMain, meetTitle: meetTitle, isLogin: isLogin }}
           className="meet-move-btn"
         >
           전체보기
