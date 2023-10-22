@@ -3,6 +3,9 @@ package kr.co.weple.meet.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.websocket.server.PathParam;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -177,6 +180,11 @@ public class MeetController {
 		return map;
 	}
 	//모임 카테고리 메뉴바 눌럿을때 모임 리스트 조회
+
+// 	@GetMapping(value = "/categoryMeetList/{reqPage}/{meetCategory}")
+// 	public Map categoryMeetList(@PathVariable int reqPage,@PathVariable int meetCategory) {		
+// 		Map map = meetService.categoryMeetList(reqPage, meetCategory);
+// =======
 	@GetMapping(value = "/categoryMeetList/{reqPage}/{meetCategory}/{memberNo}")
 	public Map categoryMeetList(
 			@PathVariable int reqPage,
@@ -294,6 +302,15 @@ public class MeetController {
 //		List list = meetService.meetCategory(meetCategory);
 		return null;
 	}
+	//검색어 입력
+	@GetMapping(value = "/searchKeyword/{reqPage}/{searchWord}")
+	public Map searchList(@PathVariable int reqPage,@PathVariable String searchWord) {
+		System.out.println(searchWord);
+		Map map = meetService.searchList(reqPage, searchWord);
+		System.out.println(map);
+		return map;
+	}
+
 /********************************************************************************************/			
 	//meet챗팅 조회
 	@GetMapping(value = "/meetChat/{meetNo}")

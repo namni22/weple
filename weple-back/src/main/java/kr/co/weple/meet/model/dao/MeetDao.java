@@ -109,6 +109,11 @@ public interface MeetDao {
 
 	List like(int memberNo, int meetNo);
 
+	List searchList(HashMap<String, Object> map);
+
+	int searchTotal();
+
+
 	int disCount(HashMap<String, Integer> param);
 
 	int updateEnrollMember(HashMap<String, Integer> param);
@@ -118,11 +123,6 @@ public interface MeetDao {
 	int selectMeetTotal(int meetNo);
 
 	int deleteEnrollMember(HashMap<String, Integer> param);
-
-
-
-	
-
 
 
 
