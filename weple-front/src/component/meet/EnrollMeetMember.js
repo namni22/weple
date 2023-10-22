@@ -7,11 +7,7 @@ import Swal from "sweetalert2";
 
 const EnrollMeetMember = (props) => {
   const myMeet = props.myMeet;
-  console.log(myMeet.meetNo);
   const setMyMeet = props.setMyMeet;
-  const isLogin = props.isLogin;
-  const setIsLogin = props.setIsLogin;
-
   const [enrollMember, setEnrollMember] = useState([]);
   const [reqPage, setReqPage] = useState(1);
   const [pageInfo, setPageInfo] = useState({});
@@ -80,7 +76,6 @@ const EnrollItem = (props) => {
   const meetNo = props.meetNo;
   const setMyMeet = props.setMyMeet;
   //신청자 수락 이벤트
-  console.log("enrollMember : ", enrollMember);
   const changeStatus = () => {
     //남은 인원과 총인원이 같을 경우
     axios
@@ -105,18 +100,14 @@ const EnrollItem = (props) => {
             .then((res) => {
               setMyMeet(res.data);
             })
-            .catch((res) => {
-              console.log(res.response.status);
-            });
+            .catch((res) => {});
         }
       })
-      .catch((res) => {
-        console.log(res.response.status);
-      });
+      .catch((res) => {});
   };
   const enrollDelete = () => {
     //삭제버튼 눌렀을 때
-    console.log(enroll.memberNo);
+
     axios
       .post("/meet/deleteEnrollMember/" + meetNo, enroll)
       .then((res) => {
@@ -129,9 +120,7 @@ const EnrollItem = (props) => {
           setEnrollMember(newArr);
         }
       })
-      .catch((res) => {
-        console.log(res.response.status);
-      });
+      .catch((res) => {});
   };
   return (
     <tr>

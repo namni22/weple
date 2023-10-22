@@ -59,9 +59,7 @@ public interface MeetDao {
 
 	List smallCategoryList(Category category);
 
-	//int deleteMember(int memberNo, int meetNo);
-
-	int memberLike(String memberId, double changeMemberLike);
+	int memberLike(String memberId);
 
 	Member selectOneMember(String memberId);
 
@@ -69,7 +67,6 @@ public interface MeetDao {
 
 	Follower isMeetMember(HashMap<String, Object> map);
 
-	int insertMeetChat(String chatContent, String memberId, int meetNo);
 
 	List meetChatLast(int meetNo);
 
@@ -81,8 +78,6 @@ public interface MeetDao {
 
 	int selectMemberNo(String memberId);
 
-	Follower status(int meetNo, int selectMemberNo);
-
 	Meet meetCapCheck(int meetNo, String memberId);
 
 	int modifyMeet(Meet meet);
@@ -90,8 +85,6 @@ public interface MeetDao {
 	int deleteMeet(int meetNo);
 
 	int selectMeetMargin(int meetNo);
-
-	//int disCount(int meetNo, int newMargin);
 
 	String getMemberCategory(String memberId);
 
@@ -125,6 +118,9 @@ public interface MeetDao {
 	int deleteEnrollMember(HashMap<String, Integer> param);
 
 	int meetLikeCount(int meetNo);
+	int insertMeetChat(HashMap<String, Object> param);
+
+	Follower status(HashMap<String, Object> param);
 
 
 

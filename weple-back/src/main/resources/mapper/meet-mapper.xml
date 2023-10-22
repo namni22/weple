@@ -342,7 +342,7 @@
 	</update>
 	<!-- meetChat -->
 	<insert id="insertMeetChat">
-		INSERT INTO CHAT VALUES(CHAT_SEQ.NEXTVAL,#{chatContent},#{memberId},#{meetNo},TO_CHAR(SYSDATE,'YYYY-MM-DD'))
+		INSERT INTO CHAT VALUES(CHAT_SEQ.NEXTVAL,#{chatContent},#{memberId},#{meetNo},SYSDATE)
 	</insert>
 	<select id="meetChatLast" resultType="chat">
 		select * from    

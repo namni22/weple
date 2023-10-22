@@ -3,6 +3,7 @@ package kr.co.weple.admin.controller;
 import java.util.List;
 import java.util.Map;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -73,6 +74,7 @@ public class AdminController {
 	@PostMapping(value="/changeReportStatus")
 	public int changeReportStatus(@RequestBody Report report) {
 		return adminService.changeReportStatus(report);
+		
 	}
 	//신고받은 멤버 점수깎기
 	@PostMapping(value="/reduceLike")
@@ -85,5 +87,11 @@ public class AdminController {
 	public int checkBlacklist(@RequestBody Report report) {		
 		return adminService.checkBlacklist(report);
 		
+	}
+	//meet 정보 가져오기
+	@GetMapping(value="/meetInfo/{reportItemNo}")
+	public List meetInfo(@PathVariable int reportItemNo) {
+		System.out.println("meetInfo");
+		return adminService.meetInfo(reportItemNo);
 	}
 }

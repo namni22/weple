@@ -239,7 +239,22 @@
 .admin-paging-wrap {
   margin: 50px;
 }
-.report-list-content{
-  width: 100%;
+
+.report-list-content>div{
+  margin-top: 30px;
   text-align: center;
+}
+/* 온도내리기 이동 버튼 */
+.reportlist-btn-box {
+  text-align: center;
+}
+
+.reportlist-btn-box > div {
+  width: 30%;
+  display: inline-block;
+  margin: 50px 0;
+}
+
+.reportlist-btn-box> div:first-child {
+  margin-right: 30px;
 }

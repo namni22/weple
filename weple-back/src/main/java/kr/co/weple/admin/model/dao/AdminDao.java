@@ -27,7 +27,7 @@ public interface AdminDao {
 
 	int memberListCountbySubId(String memberId);
 	
-	List memberListBySubId(PageInfo pi, String memberId);	
+	List memberListBySubId(HashMap<String, Object> mapBySubId);	
 	
 	List selectMemberbySubId(String memberId);
 
@@ -48,6 +48,10 @@ public interface AdminDao {
 	int changeMeetBlacklist(String memberId);
 
 	int insertFollower(HashMap<String, Integer> map);
+
+	List meetInfo(int reportItemNo);
+
+	
 
 	
 

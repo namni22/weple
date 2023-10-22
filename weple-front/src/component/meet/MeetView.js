@@ -6,7 +6,6 @@ import { useState } from "react";
 import MeetCalendar from "./MeetCalendar";
 import MeetMemberList from "./MeetMemberList";
 import { useEffect } from "react";
-
 import EnrollMeetMember from "./EnrollMeetMember";
 import axios from "axios";
 import { Button1 } from "../util/Button";
@@ -28,7 +27,7 @@ const MeetView = (props) => {
     setMyMeet(location.state.m);
   }, [props]);
   const [myMeet, setMyMeet] = useState({});
-  const [captainCheck, setCaptainCheck] = useState({});
+  //const [captainCheck, setCaptainCheck] = useState({});
   const token = window.localStorage.getItem("token");
   const [followerStatus, setFollowerStatus] = useState({});
   const meetNo = myMeet.meetNo;
@@ -162,8 +161,10 @@ const MeetView = (props) => {
               meetMenu2={meetMenu2}
               setMeetMenu2={setMeetMenu2}
               meetNo={meetNo}
-              captainCheck={captainCheck}
-              setCaptainCheck={setCaptainCheck}
+              myMeet={myMeet}
+              memberId={memberId}
+            //captainCheck={captainCheck}
+            //setCaptainCheck={setCaptainCheck}
             />
           ) : followerStatus ? (
             <AfterMeetSubNavi
@@ -176,6 +177,8 @@ const MeetView = (props) => {
               setCaptainCheck={setCaptainCheck}
               meetLikeCount={meetLikeCount}
               setMeetLikeCount={setMeetLikeCount}
+              myMeet={myMeet}
+              memberId={memberId}
             ></AfterMeetSubNavi>
           ) : (
             <div className="meetMain-blank"></div>
@@ -221,7 +224,7 @@ const MeetView = (props) => {
                 setMyMeet={setMyMeet}
                 isLogin={isLogin}
                 setIsLogin={setIsLogin}
-                captainCheck={captainCheck}
+                //captainCheck={captainCheck}
                 id={id}
               />
             }
@@ -264,8 +267,8 @@ const meetLikeUp = (meet, meetLikeCount, setMeetLikeCount, setIsMeetLikeFront) =
     })
     .catch((res) => { });
 
-  return
-}
+  return;
+};
 
 //모임 좋아요취소 누를시 
 const meetLikeCancle = (meet, meetLikeCount, setMeetLikeCount, setIsMeetLikeFront) => {
@@ -287,8 +290,8 @@ const meetLikeCancle = (meet, meetLikeCount, setMeetLikeCount, setIsMeetLikeFron
     })
     .catch((res) => { });
 
-  return
-}
+  return;
+};
 
 const AfterMeetMain = (props) => {
   const isLogin = props.isLogin;
@@ -388,11 +391,9 @@ const AfterMeetMain = (props) => {
                   <span>{meetLikeCount}</span>
                 </div>
               )
-
             ) : (
               <span>{meetLikeCount}</span>
             )}
-
           </div>
         </div>
         <div className="afterMeet-info-title">
@@ -406,7 +407,7 @@ const AfterMeetMain = (props) => {
           {myMeet.meetTotal - myMeet.meetMargin}/{myMeet.meetTotal}명
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 const AfterMeetSubNavi = (props) => {
@@ -421,8 +422,9 @@ const AfterMeetSubNavi = (props) => {
   // const captainCheck = props.captainCheck;
   // const setCaptainCheck = props.setCaptainCheck;
   const token = window.localStorage.getItem("token");
-  // console.log("방장체크에 필요한 meetNo :", meetNo);
-
+  const memberId = props.memberId;
+  const myMeet = props.myMeet;
+  /*
   useEffect(() => {
     axios
       .get("/meet/meetCapCheck/" + meetNo, {
@@ -431,15 +433,11 @@ const AfterMeetSubNavi = (props) => {
         },
       })
       .then((res) => {
-        // console.log("방장체크 : ", res.data);
         setCaptainCheck(res.data.meetCapCheck);
-        //   console.log("방장체크 captainCheck : ", captainCheck);
       })
-      .catch((res) => {
-        //    console.log(res.response.status);
-      });
+      .catch((res) => {});
   }, [props]);
-  // console.log("렌더링", captainCheck);
+   */
 
   const activeTab = (index) => {
     meetMenu.forEach((item) => {
@@ -455,10 +453,10 @@ const AfterMeetSubNavi = (props) => {
     meetMenu2[index].active = true;
     setMeetMenu2([...meetMenu2]);
   };
-  // console.log("meetView의 capTainCheck : ", captainCheck);
+
   return (
     <>
-      {captainCheck ? (
+      {myMeet.meetCaptain === memberId ? (
         <div className="afterMeet-sub-navi">
           <ul>
             {meetMenu.map((meetMenu, index) => {
@@ -471,7 +469,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab(index);
                       }}
-                      captainCheck={captainCheck}
+                    // captainCheck={captainCheck}
                     >
                       {meetMenu.text}
                     </Link>
@@ -481,7 +479,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab(index);
                       }}
-                      captainCheck={captainCheck}
+                    // captainCheck={captainCheck}
                     >
                       {meetMenu.text}
                     </Link>
@@ -504,7 +502,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab2(index);
                       }}
-                      captainCheck={captainCheck}
+                    // captainCheck={captainCheck}
                     >
                       {meetMenu2.text}
                     </Link>
@@ -514,7 +512,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab2(index);
                       }}
-                      captainCheck={captainCheck}
+                    //  captainCheck={captainCheck}
                     >
                       {meetMenu2.text}
                     </Link>

@@ -79,7 +79,7 @@ const BoardItem = (props) => {
         } else {
             setToggleIdx(index);
         }
-        console.log("board key : " + index);
+        
     }
     const modify = () => {
         navigate("/board/modify", { state: { board: board } });

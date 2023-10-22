@@ -249,10 +249,6 @@ public class MeetService {
 	//내모임회원 추방
 	@Transactional
 	public int deleteMember(int memberNo, int meetNo) {
-		//필요한 값 
-		//모임 번호 : meetNo, 모임번호로 조회된 meetMargin 
-		//meetMargin +1 
-		
 		int meetMargin = meetDao.selectMeetMargin(meetNo);
 		int newMargin = meetMargin + 1;
 		HashMap<String,Integer> param = new HashMap<String, Integer>();
@@ -260,43 +256,34 @@ public class MeetService {
 		param.put("newMargin",newMargin);
 		param.put("memberNo",memberNo);
 		int meetTotalCount = meetDao.disCount(param);//업데이트 meetMargin
-		int deleteResult = meetDao.deleteMember(param);//모임회원 삭제
-		
+		int deleteResult = meetDao.deleteMember(param);//모임회원 삭제		
 		if(meetTotalCount == 1 && deleteResult == 1) {
 			return 1;
-		}else {
-			
+		}else {			
 			return 0;
 		}
 	}
 	//모임 내 회원 호감도
 	@Transactional
 	public int memberLike(String memberId, double memberLike) {
-		double changeMemberLike = memberLike + 0.7;		
-		return meetDao.memberLike(memberId,changeMemberLike);
-	}
+		return meetDao.memberLike(memberId);	}
 	//아이디 받아서 멤버 조회
 	public Member selectOneMember(String memberId) {
-		// TODO Auto-generated method stub
 		return meetDao.selectOneMember(memberId);
 	}
 	//모임가입신청
 	@Transactional
 	public Follower meetJoin(Member joinMember, Meet meet) {
-		// TODO Auto-generated method stub
 		// 가입신청한 멤버번호와 가입할 모임번호를 모임가입정보로 묶어서 전달		
 		HashMap<String, Object> meetJoinInfo = new HashMap<String,Object>();
 		meetJoinInfo.put("memberNo",joinMember.getMemberNo());
-		meetJoinInfo.put("meetNo",meet.getMeetNo());
-		
+		meetJoinInfo.put("meetNo",meet.getMeetNo());		
 		int result = meetDao.meetJoin(meetJoinInfo);
 		System.out.println("결과확인");
-		//Meet newMeet= meetDao.selectOneMeet(meet.getMeetNo());
 		HashMap<String, Object> map = new HashMap<String,Object>();
 		map.put("memberNo", joinMember.getMemberNo());
 		map.put("meetNo", meet.getMeetNo());
-		Follower follower = meetDao.isMeetMember(map);
-		
+		Follower follower = meetDao.isMeetMember(map);		
 		return follower;
 	}
 	//로그인한 회원이 가입승인을 받은 모임 멤버인지 조회
@@ -305,23 +292,25 @@ public class MeetService {
 		HashMap<String, Object> map = new HashMap<String,Object>();
 		map.put("memberNo", memberNo);
 		map.put("meetNo", meetNo);
-		Follower follower = meetDao.isMeetMember(map);
-		
+		Follower follower = meetDao.isMeetMember(map);		
 		return follower;
 	}
 	@Transactional
 	public List insertMeetChat(String chatContent, String memberId, int meetNo) {
-		// TODO Auto-generated method stub
-		int result = meetDao.insertMeetChat(chatContent,memberId,meetNo);
-		List list = meetDao.meetChatLast(meetNo);
-		
+		HashMap<String , Object> param = new HashMap<String, Object>();
+		param.put("chatContent",chatContent);
+		param.put("memberId",memberId);
+		param.put("meetNo",meetNo);
+		int result = meetDao.insertMeetChat(param);
+		List list = meetDao.meetChatLast(meetNo);		
 		return list;
 	}
-
-
 	public Follower status(int meetNo, String memberId) {
 		int selectMemberNo = meetDao.selectMemberNo(memberId);
-		Follower followStatus = meetDao.status(meetNo,selectMemberNo);
+		HashMap<String , Object> param = new HashMap<String, Object>();
+		param.put("meetNo",meetNo);
+		param.put("selectMemberNo",selectMemberNo);
+		Follower followStatus = meetDao.status(param);
 		
 		return followStatus;
 	}
