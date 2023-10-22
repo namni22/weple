@@ -162,7 +162,6 @@ public class MeetService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("pi", pi);
 		map.put("start", pi.getStart());
-		System.out.println("전체조회 reqPage  스타트 번호 : "+pi.getStart());
 		map.put("end", pi.getEnd());
 		map.put("meetCategory",meetCategory);
 		map.put("memberNo",memberNo);
@@ -183,7 +182,6 @@ public class MeetService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("pi", pi);
 		map.put("start", pi.getStart());
-		System.out.println("소분류  reqPage  스타트 번호 : "+pi.getStart());
 		map.put("end", pi.getEnd());
 		map.put("meetCategory", meetCategory);
 		// 리스트조회 //pi 랑 meetCategory도 묶어서 보냄
