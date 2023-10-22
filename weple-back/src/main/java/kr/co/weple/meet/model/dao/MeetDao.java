@@ -113,6 +113,10 @@ public interface MeetDao {
 
 	int deleteMember(HashMap<String, Integer> param);
 
+	int selectMeetTotal(int meetNo);
+
+	int deleteEnrollMember(HashMap<String, Integer> param);
+
 
 
 	

@@ -22,7 +22,7 @@ const ReportModal = (props) => {
   const [reportContent, setReportContent] = useState("");
   //const [reportTypeValue, setReportTypeValue] = useState("");
   const [currentVaule, setCurrentVaule] = useState("");
-  const [currentCategory, setCurrentCategory] = useState();
+  const [currentCategory, setCurrentCategory] = useState(null);
   const [checkIdMsg, setCheckIdMsg] = useState("");
 
   const [memberId, setMemberId] = useState("");
@@ -115,9 +115,10 @@ const changeValue = (e) => {
     console.log("신고자 :", memberId);
     console.log("신고유형 : ", currentCategory);
     console.log("신고물번호 : ", reportItemNo);
+    console.log("reportCategory : ", reportCategory);
     const token = window.localStorage.getItem("token");
     //insert에 필요한 값 1.신고타입,2신고유형,3.가해자,4.신고내용
-    if (reportContent === "" || reportCategory) {
+    if (reportContent === "" || currentCategory === null) {
       Swal.fire({
         text: "신고 항목을 모두 작성해주세요",
       });
@@ -142,7 +143,7 @@ const changeValue = (e) => {
         .then((res) => {
           //  console.log(res.data);
           if (res.data === 1) {
-            moreModalClose();
+            setCurrentCategory(null);
             Swal.fire({
               title: "신고가 완료되었습니다.",
               text: "신고 처리 완료",
@@ -154,10 +155,11 @@ const changeValue = (e) => {
               text: "신고 처리 실패",
               icon: "error",
             });
+            moreModalClose();
           }
         })
         .catch((res) => {
-          console.log(res.response.status);
+          console.log(res);
         });
 
       onSubmit();
@@ -223,6 +225,7 @@ const changeValue = (e) => {
                   <select
                     className="report-tbl-select"
                     onChange={changeCategory}
+                    required
                   >
                     <option value="" selected disabled hidden>
                       선택해주세요

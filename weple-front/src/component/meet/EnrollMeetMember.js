@@ -82,10 +82,20 @@ const EnrollItem = (props) => {
   //신청자 수락 이벤트
   console.log("enrollMember : ", enrollMember);
   const changeStatus = () => {
+    //남은 인원과 총인원이 같을 경우
     axios
+      //남은 인원과 총 인원이 같이 않을 경우
       .post("/meet/updateEnrollMember/" + meetNo, enroll)
       .then((res) => {
-        if (res.data === 1) {
+        console.log(res.data);
+        if (res.data === 2) {
+          Swal.fire(
+            "더 이상 회원을 추가할 수 없습니다.",
+            "회원수락 실패",
+            "warning"
+          );
+        } else if (res.data === 1) {
+          Swal.fire("회원 수락 완료하였습니다.", "회원수락 완료", "success");
           const newArr = enrollMember.filter((newEnrollMember) => {
             return newEnrollMember.memberNo !== enroll.memberNo;
           });
@@ -98,9 +108,25 @@ const EnrollItem = (props) => {
             .catch((res) => {
               console.log(res.response.status);
             });
-          Swal.fire("회원 수락 완료하였습니다.", "회원수락 완료", "success");
-        } else {
-          Swal.fire("회원 수락에 실패하였습니다.", "회원수락 실패", "error");
+        }
+      })
+      .catch((res) => {
+        console.log(res.response.status);
+      });
+  };
+  const enrollDelete = () => {
+    //삭제버튼 눌렀을 때
+    console.log(enroll.memberNo);
+    axios
+      .post("/meet/deleteEnrollMember/" + meetNo, enroll)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data === 1) {
+          Swal.fire("삭제 완료하였습니다.", "삭제 완료", "success");
+          const newArr = enrollMember.filter((newEnrollMember) => {
+            return newEnrollMember.memberNo !== enroll.memberNo;
+          });
+          setEnrollMember(newArr);
         }
       })
       .catch((res) => {
@@ -127,7 +153,7 @@ const EnrollItem = (props) => {
       </td>
       <td>
         <div className="meetMemberList-btn-wrap">
-          <Button2 text={"삭제"} />
+          <Button2 text={"삭제"} clickEvent={enrollDelete} />
           <Button2 text={"수락"} clickEvent={changeStatus} />
         </div>
       </td>

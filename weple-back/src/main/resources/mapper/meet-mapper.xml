@@ -355,6 +355,10 @@
 	<update id="modifyCalendar">
 		update calendar set cal_title=#{calTitle},cal_content=#{calContent},cal_start=#{calStart} where cal_no=#{calNo}
 	</update>
-
-
+	<select id="selectMeetTotal" resultType="int">
+		SELECT MEET_TOTAL FROM MEET WHERE MEET_NO=#{meetNo}
+	</select>
+	<delete id="deleteEnrollMember">
+		delete From follower where meet_no=#{meetNo} and member_no=#{memberNo} and follower_status = 0
+	</delete>
 </mapper>
