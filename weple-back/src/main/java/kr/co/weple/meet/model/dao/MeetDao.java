@@ -37,6 +37,10 @@ public interface MeetDao {
 
 	//int updateEnrollMember(int memberNo, int meetNo);
 
+	int circleListTotalCount(int meetCategory);
+
+	int categoryMeetListTotalCount(int meetCategory);
+	
 	List selectCircleList(HashMap<String, Object> map);
 
 	List categoryMeetList(HashMap<String, Object> map);
@@ -101,8 +105,6 @@ public interface MeetDao {
 
 	int modifyCalendar(Calendar cal);
 
-//	List meetCategory(List memberCategoryArr);
-
 	int insertMemberLike(int giverNo, int takerNo, int meetNo);
 
 	List like(int memberNo, int meetNo);
@@ -113,9 +115,6 @@ public interface MeetDao {
 
 	int deleteMember(HashMap<String, Integer> param);
 
-	int circleListTotalCount(int meetCategory);
-
-	int categoryMeetListTotalCount(int meetCategory);
 	int selectMeetTotal(int meetNo);
 
 	int deleteEnrollMember(HashMap<String, Integer> param);
