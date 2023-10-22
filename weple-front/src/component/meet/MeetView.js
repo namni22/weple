@@ -16,11 +16,12 @@ import Swal from "sweetalert2";
 
 const MeetView = (props) => {
   // console.log("view 렌더링");
+  const location = useLocation();
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
   const id = props.id;
   // console.log("모임메인 id : ", id);
-  const location = useLocation();
+
   useEffect(() => {
     //   console.log(location.state.m);
     // console.log("myMeet set");
@@ -34,6 +35,8 @@ const MeetView = (props) => {
 
   //모임에 이미 가입한 상태인지 알아보는 변수
   const [isMeetMember, setIsMeetMember] = useState(null);
+  const [isMeetLikeFront, setIsMeetLikeFront] = useState(0);
+  const [meetLikeCount, setMeetLikeCount] = useState(0);
 
   useEffect(() => {
     axios
@@ -49,6 +52,18 @@ const MeetView = (props) => {
       .catch((res) => {
         console.log(res.response.status);
       });
+    // 모임의 좋아요 총 갯수 가져오기
+    axios
+      .get("/meet/meetLikeCount/" + myMeet.meetNo)
+      .then((res) => {
+        // console.log(res.data);
+        setMeetLikeCount(res.data);
+      })
+      .catch((res) => {
+        console.log("meetLikeCount 캐치");
+      });
+
+    setIsMeetLikeFront(myMeet.isMeetLike);
   }, [myMeet]);
   //모임장 id 전송 이후 DB에서 모임장 정보 불러오기
   const [meetCaptain, setMeetCaptain] = useState({});
@@ -132,6 +147,10 @@ const MeetView = (props) => {
           myMeet={myMeet}
           meetCaptain={meetCaptain}
           isLogin={isLogin}
+          isMeetLikeFront={isMeetLikeFront}
+          setIsMeetLikeFront={setIsMeetLikeFront}
+          meetLikeCount={meetLikeCount}
+          setMeetLikeCount={setMeetLikeCount}
         />
         {isLogin ? (
           myMeet.meetCaptain === memberId ? (
@@ -153,6 +172,8 @@ const MeetView = (props) => {
               meetNo={meetNo}
               captainCheck={captainCheck}
               setCaptainCheck={setCaptainCheck}
+              meetLikeCount={meetLikeCount}
+              setMeetLikeCount={setMeetLikeCount}
             ></AfterMeetSubNavi>
           ) : (
             <div className="meetMain-blank"></div>
@@ -222,7 +243,7 @@ const MeetView = (props) => {
 };
 
 //모임 좋아요 누를시
-const meetLikeUp = (meet) => {
+const meetLikeUp = (meet, meetLikeCount, setMeetLikeCount, setIsMeetLikeFront) => {
   console.log("좋아요 누르면", meet);
   const token = window.localStorage.getItem("token");
   axios
@@ -234,7 +255,10 @@ const meetLikeUp = (meet) => {
     .then((res) => {
       console.log("좋아요");
       // setIsMeetLike(1);
-      //setIsMeetLikeFront(props.meet.isMeetLike);
+      // setIsMeetLikeFront(props.meet.isMeetLike);
+      const oldMeetLikeCount = meetLikeCount;
+      setMeetLikeCount(oldMeetLikeCount + 1);
+      setIsMeetLikeFront(1);
     })
     .catch((res) => { });
 
@@ -242,7 +266,7 @@ const meetLikeUp = (meet) => {
 }
 
 //모임 좋아요취소 누를시 
-const meetLikeCancle = (meet) => {
+const meetLikeCancle = (meet, meetLikeCount, setMeetLikeCount, setIsMeetLikeFront) => {
   console.log("좋아요 누르면", meet);
   const token = window.localStorage.getItem("token");
   axios
@@ -255,6 +279,9 @@ const meetLikeCancle = (meet) => {
       console.log("좋아요 취소");
       // setIsMeetLike(0);
       //setIsMeetLikeFront(props.meet.isMeetLike);
+      const oldMeetLikeCount = meetLikeCount;
+      setMeetLikeCount(oldMeetLikeCount - 1);
+      setIsMeetLikeFront(0);
     })
     .catch((res) => { });
 
@@ -265,6 +292,10 @@ const AfterMeetMain = (props) => {
   const isLogin = props.isLogin;
   const myMeet = props.myMeet;
   const meetCaptain = props.meetCaptain;
+  const meetLikeCount = props.meetLikeCount;
+  const isMeetLikeFront = props.isMeetLikeFront;
+  const setIsMeetLikeFront = props.setIsMeetLikeFront;
+  const setMeetLikeCount = props.setMeetLikeCount;
   const [isOpen, setOpen] = useState(false);
   const handleClick = () => setOpen(true);
   const handleClickSubmit = () => {
@@ -344,10 +375,16 @@ const AfterMeetMain = (props) => {
             />
             {isLogin ? (
 
-              myMeet.isMeetLike === 1 ? (
-                <span className="material-icons MeetList-like" onClick={() => { meetLikeCancle(myMeet); }}  >favorite</span>
+              isMeetLikeFront === 1 ? (
+                <div>
+                  <span className="material-icons MeetList-like" onClick={() => { meetLikeCancle(myMeet, meetLikeCount, setMeetLikeCount, setIsMeetLikeFront) }}  >favorite</span>
+                  <span>{meetLikeCount}</span>
+                </div>
               ) : (
-                <span className="material-icons MeetList-like" onClick={() => { meetLikeUp(myMeet) }}  >favorite_border</span>
+                <div>
+                  <span className="material-icons MeetList-like" onClick={() => { meetLikeUp(myMeet, meetLikeCount, setMeetLikeCount, setIsMeetLikeFront) }}  >favorite_border</span>
+                  <span>{meetLikeCount}</span>
+                </div>
               )
 
             ) : (
@@ -376,6 +413,8 @@ const AfterMeetSubNavi = (props) => {
   const meetMenu2 = props.meetMenu2;
   const setMeetMenu2 = props.setMeetMenu2;
   const meetNo = props.meetNo;
+  const meetLikeCount = props.meetLikeCount;
+  const setMeetLikeCount = props.setMeetLikeCount;
   const [captainCheck, setCaptainCheck] = useState(null);
   // const captainCheck = props.captainCheck;
   // const setCaptainCheck = props.setCaptainCheck;

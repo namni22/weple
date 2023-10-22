@@ -281,7 +281,7 @@ const MeetItem = (props) => {
       </div>
       <div className="MeetList-like-box">
         {isLogin ? (
-          meet.isMeetLike === 1 ? (
+          isMeetLikeFront === 1 ? (
             <span className="material-icons MeetList-like" onClick={() => { meetLikeCancle(meet); }} >favorite</span>
           ) : (
             <span className="material-icons MeetList-like" onClick={() => { meetLikeUp(meet) }} >favorite_border</span>

@@ -124,6 +124,8 @@ public interface MeetDao {
 
 	int deleteEnrollMember(HashMap<String, Integer> param);
 
+	int meetLikeCount(int meetNo);
+
 
 
 

@@ -464,6 +464,8 @@ public class MeetService {
 		
 		return result;
 	}
+	
+	@Transactional
 	public int deleteEnrollMember(int memberNo, int meetNo) {
 		// TODO Auto-generated method stub
 		HashMap<String , Integer> param = new HashMap<String, Integer>();
@@ -471,6 +473,12 @@ public class MeetService {
 		param.put("meetNo",meetNo);
 		int result =  meetDao.deleteEnrollMember(param);
 		return result;
+	}
+	
+	//모임 좋아요 갯수 세오기
+	public int meetLikeCount(int meetNo) {
+		// TODO Auto-generated method stub
+		return meetDao.meetLikeCount(meetNo);
 	}
 
 }

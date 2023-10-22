@@ -176,7 +176,7 @@ public class MeetController {
 		Map map = meetService.circleList(reqPage,meetCategory,memberNo);
 //		System.out.println("전체 모임 조회 : "+ map);
 //		List meetList = (List) map.get("meetList");
-//		System.out.println("모임 하나 : "+meetList.get(1));
+//		System.out.println("모임 하나 : "+meetList.get(2));
 		return map;
 	}
 	//모임 카테고리 메뉴바 눌럿을때 모임 리스트 조회
@@ -251,6 +251,15 @@ public class MeetController {
 		
 		return isMeetLike;
 	}
+	//모임view의 좋아요 갯수 세오기
+	@GetMapping(value = "/meetLikeCount/{meetNo}")
+	public int meetLikeCount (@PathVariable int meetNo) {
+		System.out.println("모임좋아요 갯수세오기"+meetNo);
+		int result = meetService.meetLikeCount(meetNo);
+		return result;
+	}
+	
+	
 	//모임 좋아요 누를떄
 	@PostMapping(value = "/meetLikeUp")
 	public int meetLikeUp(
@@ -280,9 +289,9 @@ public class MeetController {
 	public List meetMargin(
 			@PathVariable int memberNo
 			) {
-		System.out.println("전달하는 멤버 번호 : "+ memberNo);
+		
 		List list = meetService.meetMargin(memberNo);
-		System.out.println("meetMargin메인 모임 진행"+ list);
+		
 		
 		return list;
 	}
@@ -292,9 +301,8 @@ public class MeetController {
 	public List meetPopular(
 			@PathVariable int memberNo
 			) {
-		System.out.println("전달하는 멤버 번호 : "+ memberNo);
+		
 		List list = meetService.meetPopular(memberNo);
-		System.out.println("meetPopular 메인 모임 진행"+ list);
 		return list;
 	}
 	//메인페이지에 최신순 모임조회
@@ -302,9 +310,7 @@ public class MeetController {
 	public List meetNew(
 			@PathVariable int memberNo
 			) {
-		System.out.println("전달하는 멤버 번호 : "+ memberNo);
 		List list = meetService.meetNew(memberNo);
-		System.out.println("meetNew 메인 모임 진행"+ list);
 		return list;
 	}	
 	
