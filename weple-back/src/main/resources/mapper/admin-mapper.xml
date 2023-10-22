@@ -43,7 +43,7 @@
 		select * from member where member_id like '%'||#{memberId}||'%'
 	</select>
 	<select id="memberListCountbySubId" resultType="int">
-		select count(*) from member where member_id like '%'||#{memberId}||'%'
+		select count(*) from member where member_id like '%'||#{memberId}||'%'		
 	</select>
 	<select id="boardListCount" resultType="int">
 		select count(*) from board 
@@ -69,7 +69,7 @@
 			WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
 	<update id="changeReportStatus">
-		update report set report_type=#{reportType} where report_no = #{reportNo}
+		update report set report_status=#{reportStatus} where report_no = #{reportNo}
 	</update>
 	<update id="reduceLike">
 		update member set member_like = #{memberLike}-0.7 where member_id= #{memberId}
@@ -80,4 +80,7 @@
 	<update id="changeMeetBlacklist">
 		update meet set meet_type = 0 where meet_captain=#{memberId}
 	</update>
+	<select id="meetInfo" resultType="meet">
+		select * from meet where meet_no =#{reportItemNo}
+	</select>
 </mapper>

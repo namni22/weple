@@ -16,8 +16,7 @@ const AdminMember = () => {
   const [confirmedMemberId, setConfirmedMemberId] = useState("");
 
   useEffect(() => {
-    if (memberId === "") {
-      
+    if (memberId === "") {      
       axios
         .get("/admin/memberList/" + reqPage)
         .then((res) => {
@@ -29,11 +28,7 @@ const AdminMember = () => {
           console.log(res);
         });
     }
-  }, [reqPage]);
-
-  useEffect(() => {
-    if (memberId !== "") {
-      console.log("second useEffect memberId : " + memberId + ", reqPage : " + reqPage);
+    else{      
       axios
         .get("/admin/searchId/" + memberId + "/" + reqPage)
         .then((res) => {
@@ -45,13 +40,14 @@ const AdminMember = () => {
           //console.log(res);
         });
     }
-  }, [confirmedMemberId, reqPage])
+  }, [reqPage, confirmedMemberId]);
 
 
   const onSearch = (e) => {
     const memberIdInputValue = document.querySelector("#memberId");
     setReqPage(1);
     setConfirmedMemberId(memberIdInputValue.value);
+    setMemberList([]);
   }
 
   return (
@@ -136,6 +132,8 @@ const MemberItem = (props) => {
       });
 
   }
+
+
 
   return (
     <tr>

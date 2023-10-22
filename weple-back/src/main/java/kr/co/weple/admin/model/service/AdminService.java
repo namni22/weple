@@ -87,7 +87,10 @@ public class AdminService {
 			int numPerPage = 10;
 			int pageNaviSize = 5;
 			PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
-			List memberListBySubId = adminDao.memberListBySubId(pi, memberId);
+			HashMap<String, Object> mapBySubId = new HashMap<String, Object>();
+			mapBySubId.put("pi", pi);
+			mapBySubId.put("memberId", memberId);
+			List memberListBySubId = adminDao.memberListBySubId(mapBySubId);
 			System.out.println("memberListBySubId.size() : " + memberListBySubId.size());
 			for(int i=0 ; i<memberListBySubId.size() ; i++)
 			{
@@ -124,6 +127,10 @@ public class AdminService {
 		}
 		@Transactional
 		public int changeReportStatus(Report report) {
+			if(report.getReportStatus() == 1) {
+				report.setReportStatus(0);		
+			}
+			
 			return adminDao.changeReportStatus(report);
 		}
 
@@ -156,6 +163,10 @@ public class AdminService {
 			
 			
 		}
-
+		public List meetInfo(int reportItemNo) {
+			List meetList = adminDao.meetInfo(reportItemNo);			
+			return meetList;
+		}
+		
 }
 		
