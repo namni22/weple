@@ -34,15 +34,12 @@ public class AdminController {
 	
 	//멤버 등급 변경
 	@PostMapping(value="/changeMemberGrade")
-	public int changeMemberGrade(@RequestBody Member member) {
-		System.out.println("AdminController : "+member);
-		
+	public int changeMemberGrade(@RequestBody Member member) {		
 		return adminService.changeMemberGrade(member);
 	}
 	//회원 검색 조회
 	@GetMapping(value="/searchId/{memberId}/{reqPage}")
-	public Map searchId(@PathVariable("memberId") String memberId, @PathVariable int reqPage) {
-		System.out.println("memberId :" + memberId);
+	public Map searchId(@PathVariable("memberId") String memberId, @PathVariable int reqPage) {	
 		return adminService.selectMemberbySubId(memberId, reqPage);
 	}
 	
@@ -53,8 +50,7 @@ public class AdminController {
 	}
 	//모임 등급 변경
 	@PostMapping(value="/changeMeetType")
-	public int changeMeetType(@RequestBody Meet meet) {
-		//System.out.println("changeMeetType" +meet);
+	public int changeMeetType(@RequestBody Meet meet) {		
 		return adminService.changeMeetType(meet);
 	}
 	//모임 등급 변경하면 Follower 자동 삽입

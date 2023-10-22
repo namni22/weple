@@ -133,6 +133,7 @@ public class MemberController {
 	public int insertReport(@RequestBody Report report) {
 		System.out.println("report :" +report);
 		int result = memberService.insertReport(report);
+		System.out.println("result : "+result);
 		return result;
 	}
 	

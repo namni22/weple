@@ -44,7 +44,7 @@ const MeetInfo = (props) => {
           // console.log(res.data);
           setLoginMember(res.data);
         })
-        .catch((res) => {});
+        .catch((res) => { });
     }
   }, [props]);
 
@@ -64,7 +64,7 @@ const MeetInfo = (props) => {
         console.log(res.data);
         Swal.fire("가입신청 완료");
         //상세보기에 남아있고 렌더링 다시 하도록
-        setIsMeetMember(res.data)
+        setIsMeetMember(res.data);
         navigate("/meet/View");
         // if (res.data === 1) {
         // }
@@ -110,6 +110,40 @@ const MeetInfo = (props) => {
     navigate("/meet/meetModify", { state: { meet: meet } });
   };
 
+  //모임장이 모임 삭제 버튼 클릭시
+  const meetDelete = () => {
+    Swal.fire({
+      text: "정말 모임을 삭제하시겠습니까??",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "삭제",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log("삭제시필요한 모임번호 : ", meet.meetNo);
+        //삭제진행
+        const token = window.localStorage.getItem("token");
+        const meetNo = meet.meetNo
+        axios
+          .post("/meet/meetDelete", meet, {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          })
+          .then((res) => {
+            console.log(("모임 삭제 ", res.data));
+            Swal.fire("삭제완료")
+            navigate("/")
+          })
+          .catch((res) => {
+            console.log("모임삭제 캐치", res.response.status);
+          });
+
+      }
+    });
+  }
+
   // console.log("모임준비물 리스트 :", meetPrepareList, meetPrepareList.length);
   return (
     <div className="meetInfo-all-wrap">
@@ -130,7 +164,7 @@ const MeetInfo = (props) => {
         </div>
         <div className="meetInfo-content-area meetInfo-meetAddr-wrap">
           <div className="meetInfo-content-title">모임 장소</div>
-          <div className="">
+          <div className="meetInfo-map">
             <Kakao
               meetLatitude={meet.meetLatitude}
               meetLongitude={meet.meetLongitude}
@@ -158,7 +192,7 @@ const MeetInfo = (props) => {
             </div>
           </div>
         ) : (
-          ""
+          <div className="meetInfo-content-title">준비물</div>
         )}
       </div>
       <div className="meetJoin-btn-zone">
@@ -166,7 +200,10 @@ const MeetInfo = (props) => {
         {isLogin ? (
           meetCaptain && loginMember ? ( //객체 가져와져있는지부터 확인
             meetCaptain.memberNo === loginMember.memberNo ? ( //로그인한 멤버가 모임장이라면?
-              <div onClick={meetModify}>모임장이면 출력안함</div>
+              <div className="meetInfo-cap-btn-wrap">
+                <Button1 text={"수정하기"} clickEvent={meetModify} />
+                <Button1 text={"모임삭제"} clickEvent={meetDelete} />
+              </div>
             ) : isMeetMember ? ( //객체 가져와져있는지부터 확인
               // <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
               // isMesetMember가 있을때"
@@ -182,12 +219,14 @@ const MeetInfo = (props) => {
                 //현재 followerStatus == 0 일때
                 <div>가입승인 대기중</div> //div로 가입 승인대기중 띄워주기 또는 공백 처리
               )
-            ) : (
-              //isMeetMember가 비어있을때
-              <div>
-                <Button1 text="모임가입하기" clickEvent={meetJoin} />
-              </div>
-            )
+            ) : //isMeetMember가 비어있을때
+              loginMember.memberGrade < 2 ? (
+                <div>
+                  <Button1 text="모임가입하기" clickEvent={meetJoin} />
+                </div>
+              ) : (
+                "" //블랙리스트일떄 가입버튼 비활성화
+              )
           ) : (
             ""
           )

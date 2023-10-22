@@ -2,38 +2,27 @@ import TextEditor from "../util/TextEditor";
 import { Button1, Button2, Button3 } from "../util/Button";
 import "./admin.css";
 import Input from "../util/InputFrm";
-import { FormControl, MenuItem, Select } from "@mui/material";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const BoardFrm = (props) => {
-  const isLogin= props.isLogin;
-  
+  const isLogin= props.isLogin;  
   const [boardTitle, setBoardTitle] = useState("");
   const [boardContent, setBoardContent] = useState("");
-  var getType;
   const [boardType, setBoardType] = useState();
-  const id = props.id;
-  console.log(id);
-
   const navigate = useNavigate();
 
   console.log("boardContent : " + boardContent);
 
   const insert = () => {
 
-    if (boardTitle !== "" && boardContent !== "") {
-
-      //console.log(boardTitle);
-      //console.log(boardContent);
+    if (boardTitle !== "" && boardContent !== "") {     
       const form = new FormData();
       form.append("boardTitle", boardTitle);
-      form.append("boardContent", boardContent);
-      form.append("boardWriter", id);
-      form.append("boardType",boardType)
-      //console.log(getBoardType);
+      form.append("boardContent", boardContent);     
+      form.append("boardType",boardType)     
       const token = window.localStorage.getItem("token");
       axios
         .post("/board/insert", form, {
@@ -47,24 +36,31 @@ const BoardFrm = (props) => {
         .then((res) => {
           // console.log(res.data);
           if (res.data > 0) {
+            Swal.fire({
+              icon: "success",
+              text: "공지 등록 완료",
+              confirmButtonText: "확인",
+            });           
             navigate("/board");
           }
         })
         .catch((res) => {
           // console.log(res.response.status);
+          Swal.fire("공지 등록 실패");
         });
     } else {
-
+      Swal.fire("내용 입력 필수입니다");
     }
   }
   const reset=()=>{
-    
+    navigate("/board");
   }
-  const handleChange = (event) => {
-    setBoardType(event.target.value);
-    console.log(boardType);
-  }
+  
+  const options = ["공지사항", "이벤트", "FAQ"];
 
+  const clickChange = (event) => {
+    setBoardType(event.target.value);    
+  };
   return (
     <div className="board-frm-wrap">
       <div className="board-frm-top">
@@ -74,13 +70,11 @@ const BoardFrm = (props) => {
             <tbody>
               <tr>
                 <td className="selectOption">
-                  <FormControl sx={{ m: 1, minWidth: 80 }}>
-                    <Select onChange={handleChange}>
-                      <MenuItem value={0}>공지사항</MenuItem>
-                      <MenuItem value={1}>이벤트</MenuItem>
-                      <MenuItem value={2}>FAQ</MenuItem>
-                    </Select>
-                  </FormControl>
+                <select value={boardType} onChange={clickChange} >
+                  {options.map((option, index) => {
+                    return <option value={index} key={"option" + index}> {option} </option>
+                  })}
+                </select>
                 </td>
                 <td>
                   <label htmlFor="boardTitle">제목</label>

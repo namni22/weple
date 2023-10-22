@@ -2,22 +2,19 @@ import { Route, Routes } from "react-router-dom";
 import "./admin.css";
 import { useState } from "react";
 import BoardFrm from "./BoardFrm";
-import AdminBoard from "./AdminBoard";
+import BoardAll from "../board/BoardList"
 import AdminReport from "./AdminReport";
 import AdminMember from "./AdminMember";
 import AdminMeeting from "./AdminMeeting";
 import SideMenu from "../util/SideMenu";
 
 const Admin = (props) => {
-  // const token = window.localStorage.getItem("token");
-  // console.log("token In Admin : " + token);
+  // const token = window.localStorage.getItem("token"); 
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
-  const setIsAdmin = props.setIsAdmin;
-  console.log("props in Admin : " + props.isLogin);
-  console.log("id in Admin : " + props.id);
+  const setIsAdmin = props.setIsAdmin; 
 
-  const id = props.id;
+  
   const [menus, setMenus] = useState([
     { url: "boardList", text: "공지 목록", active: false },
     { url: "insertBoard", text: "공지 등록", active: false },
@@ -39,9 +36,9 @@ const Admin = (props) => {
           <Routes>
             <Route
               path="insertBoard"
-              element={<BoardFrm isLogin={isLogin} id={id} />}
+              element={<BoardFrm isLogin={isLogin}  />}
             />
-            <Route path="boardList" element={<AdminBoard />} />
+            <Route path="boardList" element={<BoardAll />} />            
             <Route path="reportList" element={<AdminReport />} />
             <Route path="memberList" element={<AdminMember />} />
             <Route path="meetList" element={<AdminMeeting />} />

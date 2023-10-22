@@ -37,28 +37,37 @@ const MeetModify = () => {
     useEffect(() => {
         if (meetPrepare) {
             setMeetPrepareList(meetPrepare.split("/"));
+        } else {// 준비물 없으면 빈배열로 초기화
+            setMeetPrepareList([]);
         }
+        //상세주소 비어있으면 초기화
+        if (meetAddress2 === "null" || meetAddress2 === null) {
+            setMeetAddress2("");
+        }
+
+
     }, [meet.meetPrepare])
 
 
     //수정완료 버튼 눌럿을때 동작할 함수
     const meetModifyBtn = () => {
-        console.log("meet 수정전체", meet);
+        // console.log("meet 수정전체", meet);
 
-        console.log("수정완료버튼 눌럿을때");
-        console.log("모임번호 : " + meet.meetNo);
-        console.log("모임제목 : " + meetTitle);
-        console.log("모임 날짜 : " + meetDate);
-        console.log("모임한줄설명 : " + meetContentS);
-        console.log("모임디테일설명 : " + meetContentD);
-        console.log("모임인원 :" + meetTotal);
-        console.log("썸네일 : ", meetThumbnail);
-        console.log("썸네일 미리보기 : ", meetThumbnailPreview);
-        console.log("준비물 : " + meetPrepareList);
-        console.log("카테고리번호 : " + meetCategory);
-        console.log("모임주소1  : " + meetAddress1);
-        console.log("위도 : ", meetLatitude);
-        console.log("경도 : ", meetLongitude);
+        // console.log("수정완료버튼 눌럿을때");
+        // console.log("모임번호 : " + meet.meetNo);
+        // console.log("모임제목 : " + meetTitle);
+        // console.log("모임 날짜 : " + meetDate);
+        // console.log("모임한줄설명 : " + meetContentS);
+        // console.log("모임디테일설명 : " + meetContentD);
+        // console.log("모임인원 :" + meetTotal);
+        // console.log("썸네일 : ", meetThumbnail);
+        // console.log("썸네일 미리보기 : ", meetThumbnailPreview);
+        // console.log("준비물 : " + meetPrepareList);
+        // console.log("카테고리번호 : " + meetCategory);
+        // console.log("모임주소1  : " + meetAddress1);
+        // console.log("상세주소2  : " + meetAddress2, typeof meetAddress2);
+        // console.log("위도 : ", meetLatitude);
+        // console.log("경도 : ", meetLongitude);
         if (
             meetCategory !== 0 &&
             meetTitle !== "" &&
@@ -99,9 +108,9 @@ const MeetModify = () => {
                     },
                 })
                 .then((res) => {
-                    console.log("결과 : " + res.data);
+                    console.log("수정 결과 : " + res.data);
                     Swal.fire("모임수정 완료");
-                    console.log("수정이후 이동하는 meet", meet);
+
                     navigate("/meet/View", {
                         state: { m: res.data },
                     });
@@ -118,7 +127,7 @@ const MeetModify = () => {
 
     return (
         <div>
-            <div>모임 수정</div>
+
             <MeetSettingFrm
                 meetTitle={meetTitle}
                 setMeetTitle={setMeetTitle}

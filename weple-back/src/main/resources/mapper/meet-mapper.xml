@@ -40,7 +40,7 @@
 		WHERE RNUM BETWEEN #{start} AND #{end}
 		
 	</select>
-
+<!-- ************************************************************************************************************ -->
 	<!-- 모임생성 -->
 	<insert id="createMeet">
 		INSERT INTO MEET VALUES (
@@ -63,6 +63,10 @@
 
 		)
 	</insert>
+	<!-- 모임생성시, 모임삭제시 모임 개설 가능수 올리고 내리기 -->
+	<update id="updateMemberMeet">
+		update member set member_meet = #{memberMeet} where member_no = #{memberNo}
+	</update>
 	<!-- 모임수정 -->
 	<update id="modifyMeet">
 		update meet set
@@ -80,6 +84,10 @@
 		    MEET_PREPARE = #{meetPrepare}
 		where meet_no = #{meetNo}
 	</update>
+	<!-- 모임삭제 -->
+	<delete id="deleteMeet">
+		delete from meet where meet_no = #{meetNo}
+	</delete>
 	<!-- 모임 카테고리 메뉴 조회 -->
 	<select id="smallCategoryList" resultType="category">
 		select * from category where CATEGORY_REF_NO=#{categoryNo}
@@ -94,6 +102,24 @@
 			    ORDER BY 1 DESC)M)
 			WHERE RNUM BETWEEN #{start} AND #{end}
 	</select> -->
+	<!-- 모임리스트 circle 토탈카운트 조회 -->
+	<select id="circleListTotalCount">
+		select count(*) 
+		from
+		    (select * 
+		    from meet 
+		    join category on (category_no = meet_category) 
+		    where category_ref_no = #{meetCategory} and meet_type = 1)
+	</select>
+	<!--  -->
+	<select id="categoryMeetListTotalCount">
+		select count(*) 
+		from
+		    (select * 
+		    from meet 
+		    join category on (category_no = meet_category) 
+		    where category_no = #{meetCategory} and meet_type = 1)
+	</select>
 	<!-- 모임리스트 대분류로 조회 -->
 	<select id="selectCircleList" resultType="meet">
 		SELECT * 
@@ -103,9 +129,10 @@
 		        ROUND(NVL((select avg(NVL(review_star, 0))
 		            from review r
 		            where r.meet_no = m.meet_no),0),1) review_star,
-		         (select count(meet_no)
+		        (select count(meet_no)
 		            from review r
-		            where r.meet_no = m.meet_no) review_count 
+		            where r.meet_no = m.meet_no) review_count,
+           			(select count(*) from wish_list where meet_no = m.meet_no and member_no = #{memberNo}) is_meet_like 
 		    from meet m
 		    JOIN CATEGORY ON ( MEET_CATEGORY = CATEGORY_NO)
 		    where meet_type = 1 AND CATEGORY_REF_NO = #{meetCategory}
@@ -123,7 +150,8 @@
 		            where r.meet_no = m.meet_no),0),1) review_star,
 		         (select count(meet_no)
 		            from review r
-		            where r.meet_no = m.meet_no) review_count 
+		            where r.meet_no = m.meet_no) review_count ,
+           (select count(*) from wish_list where meet_no = m.meet_no and member_no = #{memberNo}) is_meet_like
 		    from meet m
 		    JOIN CATEGORY ON ( MEET_CATEGORY = CATEGORY_NO)
 		    where meet_type = 1 AND CATEGORY_NO = #{meetCategory}
@@ -141,7 +169,8 @@
 			            where r.meet_no = m.meet_no),0),1) review_star,
 			         (select count(meet_no)
 			            from review r
-			            where r.meet_no = m.meet_no) review_count 
+			            where r.meet_no = m.meet_no) review_count ,
+           				(select count(*) from wish_list where meet_no = m.meet_no and member_no = #{memberNo}) is_meet_like
 			    from meet m
 			    JOIN CATEGORY ON ( MEET_CATEGORY = CATEGORY_NO)
 			    where meet_no= #{meetNo}
@@ -190,6 +219,10 @@
 	<select id="isMeetLike" resultType="wishList">
 		select * from wish_list where meet_no = #{meetNo} and member_no = #{memberNo}
 	</select>
+	<!-- 모임 좋아요 -->
+	<insert id="meetLikeUp">
+		insert into wish_list values ( #{meetNo}, #{memberNo})
+	</insert>
 	<!-- 모임 좋아요 취소 -->
 	<delete id="meetLikeCancle">
 		delete from wish_list where meet_no = #{meetNo} and member_no = #{memberNo}
@@ -209,7 +242,8 @@
 	        where r.meet_no = m.meet_no),0),1) review_star,
 	        (select count(meet_no)
 	        from review r
-	        where r.meet_no = m.meet_no) review_count 
+	        where r.meet_no = m.meet_no) review_count,
+           (select count(*) from wish_list where meet_no = m.meet_no and member_no = #{memberNo}) is_meet_like 
 	    from meet m where meet_type = 1 order by meet_margin desc) 
 	where rownum<=12 order by meet_margin desc,review_star desc
 	]]>
@@ -236,7 +270,8 @@
 	        where r.meet_no = m.meet_no),0),1) review_star,
 	     (select count(meet_no)
 	        from review r
-	        where r.meet_no = m.meet_no) review_count 
+	        where r.meet_no = m.meet_no) review_count,
+           (select count(*) from wish_list where meet_no = m.meet_no and member_no = #{memberNo}) is_meet_like 
 	    from meet m where meet_type = 1 order by review_star desc, review_count desc) 
 	where rownum<=12
 	]]>
@@ -251,7 +286,8 @@
 	        where r.meet_no = m.meet_no),0),1) review_star,
 	     (select count(meet_no)
 	        from review r
-	        where r.meet_no = m.meet_no) review_count 
+	        where r.meet_no = m.meet_no) review_count,
+           (select count(*) from wish_list where meet_no = m.meet_no and member_no = #{memberNo}) is_meet_like 
 	    from meet m where meet_type = 1 order by meet_date desc) 
 	where rownum<=12
 	]]>
@@ -358,6 +394,10 @@
 	<update id="modifyCalendar">
 		update calendar set cal_title=#{calTitle},cal_content=#{calContent},cal_start=#{calStart} where cal_no=#{calNo}
 	</update>
-
-
+	<select id="selectMeetTotal" resultType="int">
+		SELECT MEET_TOTAL FROM MEET WHERE MEET_NO=#{meetNo}
+	</select>
+	<delete id="deleteEnrollMember">
+		delete From follower where meet_no=#{meetNo} and member_no=#{memberNo} and follower_status = 0
+	</delete>
 </mapper>

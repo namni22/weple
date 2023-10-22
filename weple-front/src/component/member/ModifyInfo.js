@@ -13,7 +13,7 @@ const ModifyInfo = (props) => {
   const [memberEmail, setMemberEmail] = useState(member.memberEmail);
   const [memberPhone, setMemberPhone] = useState(member.memberPhone);
   const [memberBirth, setMemberBirth] = useState(member.memberBirth);
-  const [memberCategory, setMemberCategory] = useState(member.memberCateogry);
+  const [memberCategory, setMemberCategory] = useState(member.memberCategory);
   const setIsLogin = props.setIsLogin;
   const subCategory = props.subCategory;
   const myCategory = props.myCategory;
@@ -30,6 +30,9 @@ const ModifyInfo = (props) => {
   const [memberImage, setMemberImage] = useState(
     "/member/" + member.memberImage
   );
+  const [checkEmailMsg, setCheckEmailMsg] = useState("");
+  const [checkPhoneMsg, setCheckPhoneMsg] = useState("");
+  const [checkBirthMsg, setCheckBirthMsg] = useState("");
 
   useEffect(() => {
     axios
@@ -73,24 +76,33 @@ const ModifyInfo = (props) => {
     });
   }, [myCategory]);
 
+  const resetMemberCategory = () => {
+    setMemberCategory(member.memberCategory); // Set the state to its initial value
+  };
+
   // 서브 카테고리 출력 함수
   const printSub = () => {
     const mainKeyword = document.getElementById("main-category");
     const categoryNo = mainKeyword.options[mainKeyword.selectedIndex].value;
-
-    axios
-      .get("/member/subcategory/" + categoryNo)
-      .then((res) => {
-        const sub = document.getElementById("sub-category");
-        sub.style.display = "inline-block";
-        res.data.forEach((item) => {
-          subCategory2.push(item);
+    if (!categoryNo) {
+      // 모든 state reset
+      resetMemberCategory();
+      return;
+    } else {
+      axios
+        .get("/member/subcategory/" + categoryNo)
+        .then((res) => {
+          const sub = document.getElementById("sub-category");
+          sub.style.display = "inline-block";
+          res.data.forEach((item) => {
+            subCategory2.push(item);
+          });
+          setSubCategory2([...subCategory2]);
+        })
+        .catch((res) => {
+          console.log(res.response.status);
         });
-        setSubCategory2([...subCategory2]);
-      })
-      .catch((res) => {
-        console.log(res.response.status);
-      });
+    }
   };
 
   // 서브 카테고리 선택 시 텍스트 출력 함수
@@ -100,79 +112,91 @@ const ModifyInfo = (props) => {
     const subInfoList = [...subInformation];
     subInfoList.push(subInfo); // <option value="3">구기스포츠</option>
 
-    // 대분류 소분류 선택상태 리셋
-    const emptyArr = [];
-    setSubCategory2([...emptyArr]);
+    if (!subInfo) {
+      resetMemberCategory();
+      return;
+    } else {
+      const emptyArr = [];
+      setSubCategory2([...emptyArr]);
 
-    const newSubInfoList = [];
-    const newSubTagList = [];
-    const newSubValueList = [];
-    const selectedValues = newSubValueList;
+      const newSubInfoList = [];
+      const newSubTagList = [];
+      const newSubValueList = [];
+      const selectedValues = newSubValueList;
 
-    // 기타 선택 시 대분류 이름 출력하기 위해 필요
-    const main = document.getElementById("main-category");
-    const mainName = main.options[main.selectedIndex].innerText;
-    subInfoList.forEach((item) => {
-      if (selectedValues.includes(item.value)) {
-        Swal.fire("이미 선택된 항목입니다.");
-        return;
-      }
-      if (newSubInfoList.length < 5) {
-        if (item.text === "기타") {
-          if (item.value == 7) {
+      // 기타 선택 시 대분류 이름 출력하기 위해 필요
+      const main = document.getElementById("main-category");
+      const mainName = main.options[main.selectedIndex].innerText;
+      subInfoList.forEach((item) => {
+        if (selectedValues.includes(item.value)) {
+          Swal.fire("이미 선택된 항목입니다.");
+          return;
+        }
+        if (newSubInfoList.length < 5) {
+          if (item.text === "기타") {
+            if (item.value == 7) {
+              newSubInfoList.push(item);
+              newSubTagList.push("스포츠");
+              newSubValueList.push(item.value);
+            } else if (item.value == 13) {
+              newSubInfoList.push(item);
+              newSubTagList.push("공예DIY");
+              newSubValueList.push(item.value);
+            } else if (item.value == 18) {
+              newSubInfoList.push(item);
+              newSubTagList.push("요리");
+              newSubValueList.push(item.value);
+            } else if (item.value == 24) {
+              newSubInfoList.push(item);
+              newSubTagList.push("문화예술");
+              newSubValueList.push(item.value);
+            } else if (item.value == 29) {
+              newSubInfoList.push(item);
+              newSubTagList.push("자기계발");
+              newSubValueList.push(item.value);
+            } else if (item.value == 34) {
+              newSubInfoList.push(item);
+              newSubTagList.push("여행");
+              newSubValueList.push(item.value);
+            }
+          } else {
             newSubInfoList.push(item);
-            newSubTagList.push("스포츠");
-            newSubValueList.push(item.value);
-          } else if (item.value == 13) {
-            newSubInfoList.push(item);
-            newSubTagList.push("공예DIY");
-            newSubValueList.push(item.value);
-          } else if (item.value == 18) {
-            newSubInfoList.push(item);
-            newSubTagList.push("요리");
-            newSubValueList.push(item.value);
-          } else if (item.value == 24) {
-            newSubInfoList.push(item);
-            newSubTagList.push("문화예술");
-            newSubValueList.push(item.value);
-          } else if (item.value == 29) {
-            newSubInfoList.push(item);
-            newSubTagList.push("자기계발");
-            newSubValueList.push(item.value);
-          } else if (item.value == 34) {
-            newSubInfoList.push(item);
-            newSubTagList.push("여행");
+            newSubTagList.push(item.text);
             newSubValueList.push(item.value);
           }
-        } else {
-          newSubInfoList.push(item);
-          newSubTagList.push(item.text);
-          newSubValueList.push(item.value);
-        }
-        setSubInformation(newSubInfoList);
-        setSubTag(newSubTagList); //최종 출력되는 list
-        setSubValue(newSubValueList);
-        const cate = subValue.join();
-        setMemberCategory(cate);
 
-        main.options[0].selected = true;
-        sub.options[0].selected = true;
-        sub.style.display = "none";
-      }
-      //5개 이상 선택된 경우
-      else {
-        Swal.fire("5개까지 선택가능합니다.");
-        return;
-      }
-    });
+          setSubInformation(newSubInfoList);
+          setSubTag(newSubTagList); //최종 출력되는 list
+          setSubValue([...newSubValueList]);
+
+          main.options[0].selected = true;
+          sub.options[0].selected = true;
+          sub.style.display = "none";
+        }
+        //5개 이상 선택된 경우
+        else {
+          Swal.fire("5개까지 선택가능합니다.");
+          return;
+        }
+      });
+    }
+    // 대분류 소분류 선택상태 리셋
   };
+
+  // 회원가입 시 넘겨줄 memberCategory 문자열 만듦
+  useEffect(() => {
+    if (subValue.length === 0) {
+      resetMemberCategory();
+    } else {
+      const cate = subValue.join();
+      setMemberCategory(cate);
+    }
+  }, [subValue]);
 
   // 프로필 사진 새로 업로드 했을 시 작동하는 함수(미리보기 변경)
   const profileImgChange = (e) => {
-    console.log(0);
     const files = e.currentTarget.files;
     if (files.length !== 0 && files[0] != 0) {
-      console.log(1);
       setProfileImg(files[0]); // 썸네일 파일 전송을 위한 state에 파일 객체 저장
       // 화면 썸네일 미리보기
       const reader = new FileReader();
@@ -181,7 +205,6 @@ const ModifyInfo = (props) => {
         setMemberImage(reader.result);
       };
     } else {
-      console.log(2);
       setProfileImg(null);
       setMemberImage("/member/" + member.memberImage);
     }
@@ -247,35 +270,66 @@ const ModifyInfo = (props) => {
   const updateInfo = () => {
     const token = window.localStorage.getItem("token");
     const form = new FormData();
-    form.append("memberNo", member.memberNo);
-    form.append("memberEmail", memberEmail);
-    form.append("memberBirth", memberBirth);
-    form.append("memberPhone", memberPhone);
-    form.append("memberImage", memberImage);
-    form.append("memberCategory", memberCategory);
-    form.append("profileImg", profileImg);
-    console.log(memberCategory);
-    axios
-      .post("/member/modifyInfo", form, {
-        headers: {
-          contentType: "multipart/form-data",
-          processData: false,
-          Authorization: "Bearer " + token,
-        },
-      })
-      .then((res) => {
-        if (res.data === 1) {
-          Swal.fire("정보 수정이 완료되었습니다.");
-          navigate("/mypage");
-        } else {
-          Swal.fire(
-            "정보 수정 중 문제가 발생했습니다. 잠시 후 다시 시도하세요."
-          );
-        }
-      })
-      .catch((res) => {
-        console.log(res.response.status);
-      });
+
+    if (checkBirthMsg == "" && checkPhoneMsg == "" && checkEmailMsg == "") {
+      form.append("memberNo", member.memberNo);
+      form.append("memberEmail", memberEmail);
+      form.append("memberBirth", memberBirth);
+      form.append("memberPhone", memberPhone);
+      form.append("memberImage", memberImage);
+      form.append("memberCategory", memberCategory);
+      form.append("profileImg", profileImg);
+      axios
+        .post("/member/modifyInfo", form, {
+          headers: {
+            contentType: "multipart/form-data",
+            processData: false,
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          if (res.data === 1) {
+            Swal.fire("정보 수정이 완료되었습니다.");
+            navigate("/mypage/profile/myFeed");
+          } else {
+            Swal.fire(
+              "정보 수정 중 문제가 발생했습니다. 잠시 후 다시 시도하세요."
+            );
+          }
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    } else {
+      Swal.fire("입력값을 확인하세요.");
+    }
+  };
+
+  const phoneCheck = () => {
+    const phoneReg = /^[0-9]{3}-[0-9]{3,4}-[0-9]{4}/;
+    if (!phoneReg.test(memberPhone)) {
+      setCheckPhoneMsg("ex) 010-123(4)-1234 형식으로 입력해주세요.");
+    } else {
+      setCheckPhoneMsg("");
+    }
+  };
+
+  const emailCheck = () => {
+    const emailReg = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
+    if (!emailReg.test(memberEmail)) {
+      setCheckEmailMsg("ex) weple@weple.co.kr 형식으로 입력해주세요. ");
+    } else {
+      setCheckEmailMsg("");
+    }
+  };
+
+  const birthCheck = () => {
+    const birthReg = /^[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+    if (!birthReg.test(memberBirth)) {
+      setCheckBirthMsg("ex) 1990-01-01 형식으로 입력해주세요.");
+    } else {
+      setCheckBirthMsg("");
+    }
   };
 
   return (
@@ -301,6 +355,9 @@ const ModifyInfo = (props) => {
             type="text"
             data={memberPhone}
             setData={setMemberPhone}
+            msgClass="check-msg"
+            blurEvent={phoneCheck}
+            checkMsg={checkPhoneMsg}
           />
           <ModifyInputWrap
             content="memberBirth"
@@ -308,6 +365,9 @@ const ModifyInfo = (props) => {
             type="text"
             data={memberBirth}
             setData={setMemberBirth}
+            checkMsg={checkBirthMsg}
+            blurEvent={birthCheck}
+            msgClass="check-msg"
           />
           <ModifyInputWrap
             content="memberEmail"
@@ -315,6 +375,9 @@ const ModifyInfo = (props) => {
             type="text"
             data={memberEmail}
             setData={setMemberEmail}
+            msgClass="check-msg"
+            blurEvent={emailCheck}
+            checkMsg={checkEmailMsg}
           />
           <div className="modifyInfo-info">
             <div>
@@ -446,6 +509,8 @@ const ModifyInputWrap = (props) => {
   const blurEvent = props.blurEvent;
   const placeholder = props.placeholder;
   const readOnly = props.readOnly;
+  const checkMsg = props.checkMsg;
+  const msgClass = props.msgClass;
 
   return (
     <div className="modifyInfo-info">
@@ -465,6 +530,7 @@ const ModifyInputWrap = (props) => {
           />
         </div>
       </div>
+      <div className={msgClass}>{checkMsg}</div>
     </div>
   );
 };

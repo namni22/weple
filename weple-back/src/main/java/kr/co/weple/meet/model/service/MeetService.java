@@ -64,7 +64,19 @@ public class MeetService {
 	@Transactional
 	public int createMeet(Meet meet) {		
 		//모임 장장 select 해와서 meet에 set 은 같은 자료형이라 controller에서 이미 해왔고 여기선 안해도됨		
-		int result = meetDao.createMeet(meet);		
+		int result = meetDao.createMeet(meet);
+		if(result>0) {
+			//개설가능 모임수 조회
+			Member member = memberDao.selectOneMember(meet.getMeetCaptain());
+			//개설가능 모임수 줄이기
+			int memberMeet = member.getMemberMeet()-1;
+			
+			member.setMemberMeet(memberMeet);
+			//db가서 모임 개설수 업데이트
+			int result2 = meetDao.updateMemberMeet(member);
+			
+			
+		}
 		return result;
 	}
 	//모임수정
@@ -107,14 +119,27 @@ public class MeetService {
 	@Transactional
 	public int updateEnrollMember(int memberNo, int meetNo) {	
 		int meetMargin = meetDao.selectMeetMargin(meetNo);
+		int meetTotal = meetDao.selectMeetTotal(meetNo);
 		int newMargin = meetMargin - 1;
-		int meetTotalCount = meetDao.disCount(meetNo,newMargin);//업데이트 meetMargin
-		int updateResult = meetDao.updateEnrollMember(memberNo,meetNo);
-		if(meetTotalCount == 1 && updateResult == 1) {
-			return 1;
-		}else {			
-			return 0;
+		HashMap<String,Integer> param = new HashMap<String, Integer>();
+		param.put("meetNo",meetNo);
+		param.put("newMargin",newMargin);
+		param.put("memberNo",memberNo);
+		//185 기준 total=10 마진은 0 
+		if(meetMargin * meetTotal == 0) {
+			//남은 인원과 총인원이 같을 경우
+			return 2;
+		}else {
+			//남은 인원과 총인원이 같이 않을 경우
+			int meetTotalCount = meetDao.disCount(param);//업데이트 meetMargin
+			int updateResult = meetDao.updateEnrollMember(param);
+			if(meetTotalCount == 1 && updateResult == 1) {
+				return 1;
+			}else {			
+				return 0;			
+			}		
 		}
+		
 	}
 	/*
 	 	@Transactional
@@ -136,11 +161,11 @@ public class MeetService {
 		}
 	}
 	 * */
-	public Map circleList(int reqPage, int meetCategory) {			
+	public Map circleList(int reqPage, int meetCategory, int memberNo) {			
 		// 게시물조회, 페이징에 필요한 데이터를 취합
 		int numPerPage = 12; // 한페이지당 게시물 수
 		int pageNaviSize = 5; // 페이지 네비게이션 길이
-		int totalCount = meetDao.totalCount();// 전체게시물수 구해오기
+		int totalCount = meetDao.circleListTotalCount(meetCategory);// 전체게시물수 구해오기
 		PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);		
 		//map으로 list와 pi 묶어서 리턴
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -148,18 +173,19 @@ public class MeetService {
 		map.put("start", pi.getStart());
 		map.put("end", pi.getEnd());
 		map.put("meetCategory",meetCategory);
-		// 리스트조회 //pi 랑 meetCategory도 묶어서 보냄
+		map.put("memberNo",memberNo);
+		// 리스트조회 //pi 랑 meetCategory도 묶어서 보냄 //좋아요 를 로그인한 회원이 누른 상태인지 확인하기위해 추가
 		List circleList = meetDao.selectCircleList(map);
 		map.put("meetList", circleList);		
 		return map;
 	}
 	// 모임 카테고리 메뉴바 눌럿을때 모임 리스트 조회
-	public Map categoryMeetList(int reqPage, int meetCategory) {
+	public Map categoryMeetList(int reqPage, int meetCategory, int memberNo) {
 		// TODO Auto-generated method stub
 		// 게시물조회, 페이징에 필요한 데이터를 취합
 		int numPerPage = 12; // 한페이지당 게시물 수
 		int pageNaviSize = 5; // 페이지 네비게이션 길이
-		int totalCount = meetDao.totalCount();// 전체게시물수 구해오기
+		int totalCount = meetDao.categoryMeetListTotalCount(meetCategory);// 전체게시물수 구해오기
 		PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
 		// map으로 list와 pi 묶어서 리턴
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -167,6 +193,7 @@ public class MeetService {
 		map.put("start", pi.getStart());
 		map.put("end", pi.getEnd());
 		map.put("meetCategory", meetCategory);
+		map.put("memberNo",memberNo);
 		// 리스트조회 //pi 랑 meetCategory도 묶어서 보냄
 		List circleList = meetDao.categoryMeetList(map);
 		map.put("meetList", circleList);
@@ -224,10 +251,15 @@ public class MeetService {
 		//필요한 값 
 		//모임 번호 : meetNo, 모임번호로 조회된 meetMargin 
 		//meetMargin +1 
+		
 		int meetMargin = meetDao.selectMeetMargin(meetNo);
 		int newMargin = meetMargin + 1;
-		int meetTotalCount = meetDao.disCount(meetNo,newMargin);//업데이트 meetMargin
-		int deleteResult = meetDao.deleteMember(memberNo,meetNo);//모임회원 삭제
+		HashMap<String,Integer> param = new HashMap<String, Integer>();
+		param.put("meetNo",meetNo);
+		param.put("newMargin",newMargin);
+		param.put("memberNo",memberNo);
+		int meetTotalCount = meetDao.disCount(param);//업데이트 meetMargin
+		int deleteResult = meetDao.deleteMember(param);//모임회원 삭제
 		
 		if(meetTotalCount == 1 && deleteResult == 1) {
 			return 1;
@@ -344,6 +376,14 @@ public class MeetService {
 		return isMeetLike;
 	}
 
+	//좋아요
+	@Transactional
+	public int meetLikeUp(int meetNo, int memberNo) {
+		// TODO Auto-generated method stub
+		return meetDao.meetLikeUp(meetNo, memberNo);
+	}
+
+	//모임 좋아요 취소
 	@Transactional
 	public int meetLikeCancle(int meetNo, int memberNo) {
 		// TODO Auto-generated method stub
@@ -380,6 +420,7 @@ public class MeetService {
 		}
 		return false;
 	}
+
 	//검색어 입력
 	public Map searchList(int reqPage, String searchKeyword) {
 		// TODO Auto-generated method stub
@@ -396,4 +437,39 @@ public class MeetService {
 		map.put("meetList", meetList);
 		return map;
 	}
+
+	//모임삭제
+	@Transactional
+	public int deleteMeet(Meet meet) {
+		// TODO Auto-generated method stub
+		
+		
+		int result = meetDao.deleteMeet(meet.getMeetNo());
+		
+		if(result>0) {
+			
+			//개설가능 모임수 조회
+			Member member = memberDao.selectOneMember(meet.getMeetCaptain());
+			//개설가능 모임수 줄이기
+			int memberMeet = member.getMemberMeet()+1;
+			
+			member.setMemberMeet(memberMeet);
+			//db가서 모임 개설수 업데이트
+			int result2 = meetDao.updateMemberMeet(member);
+			
+			
+			
+		}
+		
+		return result;
+	}
+	public int deleteEnrollMember(int memberNo, int meetNo) {
+		// TODO Auto-generated method stub
+		HashMap<String , Integer> param = new HashMap<String, Integer>();
+		param.put("memberNo",memberNo);
+		param.put("meetNo",meetNo);
+		int result =  meetDao.deleteEnrollMember(param);
+		return result;
+	}
+
 }

@@ -83,41 +83,50 @@ const Review = (props) => {
     <>
       {/* 리뷰가 있으면 보임 */}
       {reviewCount < 1 ? (
-        <div className="review-wrap">첫 번째 리뷰를 작성해 보세요!</div>
+        <div className="review-all-wrap">
+          <div className="meetInfo-content-title">모임리뷰</div>
+          {/**
+           * 
+          <div className="review-wrap">첫 번째 리뷰를 작성해 보세요!</div>
+           */}
+        </div>
       ) : (
-        <div className="review-wrap">
-          <div className="review-top">
-            <div className="meet-star-wrap">
-              <div className="star-rating meet-star">
-                <div
-                  className="star-rating-fill"
-                  style={{ width: (meetStar / 5) * 100 + "%" }}
-                >
-                  {starRating()}
+        <div className="review-all-wrap">
+          <div className="meetInfo-content-title">모임리뷰</div>
+          <div className="review-wrap">
+            <div className="review-top">
+              <div className="meet-star-wrap">
+                <div className="star-rating meet-star">
+                  <div
+                    className="star-rating-fill"
+                    style={{ width: (meetStar / 5) * 100 + "%" }}
+                  >
+                    {starRating()}
+                  </div>
+                  <div className="star-rating-base">{starRating()}</div>
                 </div>
-                <div className="star-rating-base">{starRating()}</div>
+                <div className="meet-star-score">{meetStar}</div>
               </div>
-              <div className="meet-star-score">{meetStar}</div>
+              <Link
+                to="/review"
+                state={{
+                  meetNo: meetNo,
+                  meetStar: meetStar,
+                  reviewCount: reviewCount,
+                }}
+              >
+                <div className="more-btn">{reviewCount}개 후기 더보기</div>
+              </Link>
             </div>
-            <Link
-              to="/review"
-              state={{
-                meetNo: meetNo,
-                meetStar: meetStar,
-                reviewCount: reviewCount,
-              }}
-            >
-              <div className="more-btn">{reviewCount}개 후기 더보기</div>
-            </Link>
+            <SwiperComponent
+              spaceBetween={21}
+              slidesPerView={4.7}
+              navigation={true}
+              loop={false}
+              autoplay={false}
+              list={list}
+            />
           </div>
-          <SwiperComponent
-            spaceBetween={21}
-            slidesPerView={4.7}
-            navigation={true}
-            loop={false}
-            autoplay={false}
-            list={list}
-          />
         </div>
       )}
     </>

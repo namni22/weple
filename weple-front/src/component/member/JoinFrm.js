@@ -141,10 +141,9 @@ const JoinFrm = (props) => {
     });
   };
 
+  // 회원가입 시 넘겨줄 memberCategory 문자열
   useEffect(() => {
-    console.log(subValue);
     const cate = subValue.join();
-    console.log(cate);
     setMemberCategory(cate);
   }, [subValue]);
 
@@ -221,7 +220,6 @@ const JoinFrm = (props) => {
       axios
         .get("/member/checkId/" + memberId)
         .then((res) => {
-          console.log(res.data);
           if (res.data == 0) {
             setCheckIdMsg("사용 가능한 아이디 입니다.");
             setUseId(true);
@@ -237,13 +235,11 @@ const JoinFrm = (props) => {
   };
 
   const clickRadio = (e) => {
-    console.log(e.target.value);
     setMemberGender(e.target.value);
   };
 
   // 회원가입 insert
   const join = () => {
-    console.log(memberCategory);
     const member = {
       memberId,
       memberPw,
@@ -261,7 +257,11 @@ const JoinFrm = (props) => {
       memberPhone !== "" &&
       memberGender !== "" &&
       memberBirth !== "" &&
-      memberEmail !== ""
+      memberEmail !== "" &&
+      checkPwMsg == "" &&
+      checkPwReMsg == "" &&
+      checkBirthMsg == "" &&
+      checkEmailMsg == ""
     ) {
       const form = new FormData();
       form.append("memberId", memberId);

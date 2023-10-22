@@ -12,6 +12,7 @@ import axios from "axios";
 import { Button1 } from "../util/Button";
 import ReactModal from "react-modal";
 import { ReportModal } from "../util/Modal";
+import Swal from "sweetalert2";
 
 const MeetView = (props) => {
   // console.log("view 렌더링");
@@ -118,104 +119,147 @@ const MeetView = (props) => {
         });
     }
   }, []);
-  console.log("followerStatus : ", followerStatus);
+
   return (
-    <div className="afterMeet-all-wrap">
-      {/**
+    <div className="afterMeet-all-all-wrap">
+      <div className="feed-title">WEPLE MEET</div>
+      <div className="afterMeet-all-wrap">
+        {/**
        * 
       <div className="feed-title">{myMeet.meetTitle}</div>
        */}
-      <AfterMeetMain
-        myMeet={myMeet}
-        meetCaptain={meetCaptain}
-        isLogin={isLogin}
-      />
-      {isLogin ? (
-        myMeet.meetCaptain === memberId ? (
-          <AfterMeetSubNavi
-            meetMenu={meetMenu}
-            setMeetMenu={setMeetMenu}
-            meetMenu2={meetMenu2}
-            setMeetMenu2={setMeetMenu2}
-            meetNo={meetNo}
-            captainCheck={captainCheck}
-            setCaptainCheck={setCaptainCheck}
-          />
-        ) : followerStatus ? (
-          <AfterMeetSubNavi
-            meetMenu={meetMenu}
-            setMeetMenu={setMeetMenu}
-            meetMenu2={meetMenu2}
-            setMeetMenu2={setMeetMenu2}
-            meetNo={meetNo}
-            captainCheck={captainCheck}
-            setCaptainCheck={setCaptainCheck}
-          ></AfterMeetSubNavi>
+        <AfterMeetMain
+          myMeet={myMeet}
+          meetCaptain={meetCaptain}
+          isLogin={isLogin}
+        />
+        {isLogin ? (
+          myMeet.meetCaptain === memberId ? (
+            <AfterMeetSubNavi
+              meetMenu={meetMenu}
+              setMeetMenu={setMeetMenu}
+              meetMenu2={meetMenu2}
+              setMeetMenu2={setMeetMenu2}
+              meetNo={meetNo}
+              captainCheck={captainCheck}
+              setCaptainCheck={setCaptainCheck}
+            />
+          ) : followerStatus ? (
+            <AfterMeetSubNavi
+              meetMenu={meetMenu}
+              setMeetMenu={setMeetMenu}
+              meetMenu2={meetMenu2}
+              setMeetMenu2={setMeetMenu2}
+              meetNo={meetNo}
+              captainCheck={captainCheck}
+              setCaptainCheck={setCaptainCheck}
+            ></AfterMeetSubNavi>
+          ) : (
+            <div className="meetMain-blank"></div>
+          )
         ) : (
           <div className="meetMain-blank"></div>
-        )
-      ) : (
-        <div className="meetMain-blank"></div>
-      )}
+        )}
 
-      <Routes>
-        <Route
-          path="enrollMeetMember"
-          element={
-            <EnrollMeetMember
-              myMeet={myMeet}
-              setMyMeet={setMyMeet}
-              isLogin={isLogin}
-              setIsLogin={setIsLogin}
-              id={id}
-            />
-          }
-        />
-        <Route
-          path="meetChat"
-          element={
-            <MeetChat
-              myMeet={myMeet}
-              isLogin={isLogin}
-              setIsLogin={setIsLogin}
-              id={id}
-            />
-          }
-        />
+        <Routes>
+          <Route
+            path="enrollMeetMember"
+            element={
+              <EnrollMeetMember
+                myMeet={myMeet}
+                setMyMeet={setMyMeet}
+                isLogin={isLogin}
+                setIsLogin={setIsLogin}
+                id={id}
+              />
+            }
+          />
+          <Route
+            path="meetChat"
+            element={
+              <MeetChat
+                myMeet={myMeet}
+                isLogin={isLogin}
+                setIsLogin={setIsLogin}
+                id={id}
+              />
+            }
+          />
 
-        <Route
-          path="meetCalendar"
-          element={<MeetCalendar meetNo={myMeet.meetNo} />}
-        />
-        <Route
-          path="meetList"
-          element={
-            <MeetMemberList
-              myMeet={myMeet}
-              setMyMeet={setMyMeet}
-              isLogin={isLogin}
-              setIsLogin={setIsLogin}
-              captainCheck={captainCheck}
-              id={id}
-            />
-          }
-        />
-        <Route
-          path="*"
-          element={
-            <MeetInfo
-              myMeet={myMeet}
-              isLogin={isLogin}
-              meetCaptain={meetCaptain}
-              isMeetMember={isMeetMember}
-              setIsMeetMember={setIsMeetMember}
-            />
-          }
-        />
-      </Routes>
+          <Route
+            path="meetCalendar"
+            element={<MeetCalendar meetNo={myMeet.meetNo} />}
+          />
+          <Route
+            path="meetList"
+            element={
+              <MeetMemberList
+                myMeet={myMeet}
+                setMyMeet={setMyMeet}
+                isLogin={isLogin}
+                setIsLogin={setIsLogin}
+                captainCheck={captainCheck}
+                id={id}
+              />
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <MeetInfo
+                myMeet={myMeet}
+                isLogin={isLogin}
+                meetCaptain={meetCaptain}
+                isMeetMember={isMeetMember}
+                setIsMeetMember={setIsMeetMember}
+              />
+            }
+          />
+        </Routes>
+      </div>
     </div>
   );
 };
+
+//모임 좋아요 누를시
+const meetLikeUp = (meet) => {
+  console.log("좋아요 누르면", meet);
+  const token = window.localStorage.getItem("token");
+  axios
+    .post("/meet/meetLikeUp", meet, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((res) => {
+      console.log("좋아요");
+      // setIsMeetLike(1);
+      //setIsMeetLikeFront(props.meet.isMeetLike);
+    })
+    .catch((res) => { });
+
+  return
+}
+
+//모임 좋아요취소 누를시 
+const meetLikeCancle = (meet) => {
+  console.log("좋아요 누르면", meet);
+  const token = window.localStorage.getItem("token");
+  axios
+    .post("/meet/meetLikeCancle", meet, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((res) => {
+      console.log("좋아요 취소");
+      // setIsMeetLike(0);
+      //setIsMeetLikeFront(props.meet.isMeetLike);
+    })
+    .catch((res) => { });
+
+  return
+}
 
 const AfterMeetMain = (props) => {
   const isLogin = props.isLogin;
@@ -230,7 +274,14 @@ const AfterMeetMain = (props) => {
   const [reportTypeValue, setReportTypeValue] = useState(1);
   const [reportType, setReportType] = useState(1);
   const reportModal = () => {
-    setOpen(true);
+    if (isLogin) {
+      setOpen(true);
+    } else {
+      Swal.fire({
+        text: "로그인 후 이용해 주세요",
+        icon: "error",
+      });
+    }
   };
   const [memberId, setMemberId] = useState("");
   const token = window.localStorage.getItem("token");
@@ -253,9 +304,10 @@ const AfterMeetMain = (props) => {
   return (
     <div className="afterMeet-main-wrap">
       <div className="afterMeet-main-thumbnail">
-        <div className="afterMeet-thumbnail-img">
-          <img src={"/meet/" + myMeet.meetThumbNail}></img>
-        </div>
+        {/*
+         */}
+        <img src={"/meet/" + myMeet.meetThumbNail}></img>
+        <img src="/img/testImg_01.png"></img>
       </div>
       <div className="afterMeet-main-info">
         <div className="afterMeet-info-host">
@@ -268,41 +320,54 @@ const AfterMeetMain = (props) => {
           </div>
           <div className="aferMeet-host-name">
             <Link to="#">{myMeet.meetCaptain}</Link>
+            <span className="like">{meetCaptain.memberLike}</span>
           </div>
           <div className="afer-host-like">
-            <span className="material-icons">favorite</span>
+            {myMeet.meetCaptain === memberId ? (
+              ""
+            ) : (
+              <span className="material-icons report" onClick={reportModal}>
+                report
+              </span>
+            )}
+            <ReportModal
+              isOpen={isOpen}
+              onSubmit={handleClickSubmit}
+              onCancel={handleClickCancel}
+              isLogin={true}
+              reportItemNo={myMeet.meetNo}
+              reportMemberId={myMeet.meetCaptain}
+              reportTypeValue={reportTypeValue}
+              setReportTypeValue={setReportTypeValue}
+              reportType={reportType}
+              setReportType={setReportType}
+            />
+            {isLogin ? (
+
+              myMeet.isMeetLike === 1 ? (
+                <span className="material-icons MeetList-like" onClick={() => { meetLikeCancle(myMeet); }}  >favorite</span>
+              ) : (
+                <span className="material-icons MeetList-like" onClick={() => { meetLikeUp(myMeet) }}  >favorite_border</span>
+              )
+
+            ) : (
+              "빈하트"
+            )}
+
           </div>
         </div>
         <div className="afterMeet-info-title">
-          <h3>{myMeet.meetTitle}</h3>
+          <h1>{myMeet.meetTitle}</h1>
         </div>
         <div className="afterMeet-info-sub-content">
           <p>{myMeet.meetContentS}</p>
         </div>
         <div className="afterMeet-member-count">
+          <span className="material-icons group">group</span>
           {myMeet.meetTotal - myMeet.meetMargin}/{myMeet.meetTotal}명
         </div>
-        <div className="afterMeet-report-btn">
-          {myMeet.meetCaptain === memberId ? (
-            ""
-          ) : (
-            <Button1 text={"신고"} clickEvent={reportModal} />
-          )}
-          <ReportModal
-            isOpen={isOpen}
-            onSubmit={handleClickSubmit}
-            onCancel={handleClickCancel}
-            isLogin={true}
-            reportItemNo={myMeet.meetNo}
-            reportMemberId={myMeet.meetCaptain}
-            reportTypeValue={reportTypeValue}
-            setReportTypeValue={setReportTypeValue}
-            reportType={reportType}
-            setReportType={setReportType}
-          />
-        </div>
       </div>
-    </div>
+    </div >
   );
 };
 const AfterMeetSubNavi = (props) => {
