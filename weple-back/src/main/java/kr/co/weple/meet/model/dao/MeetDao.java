@@ -101,6 +101,11 @@ public interface MeetDao {
 
 	List like(int memberNo, int meetNo);
 
+	List searchList(HashMap<String, Object> map);
+
+	int searchTotal();
+	
+
 
 
 	

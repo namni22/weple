@@ -1,11 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./header.css";
+import { useState } from "react";
 
 const Header = (props) => {
   const isLogin = props.isLogin;
   const isAdmin = props.isAdmin;
-  console.log("isLogin : ", isLogin, "isAdmin : ", isAdmin);
-  const setId = props.setId;
+  const navigate = useNavigate();
+  const [searchWord, setSearchWord]=useState("");
+  const moveSearch = (e)=>{
+    if(e.key === 'Enter'){
+      navigate("/search", { state: { searchWord: searchWord } });
+    } else{
+      setSearchWord(e.target.value);
+    }
+
+  }
   return (
     <div className="header">
       <div className="header-inner">
@@ -23,6 +32,7 @@ const Header = (props) => {
         <input
           className="searchFrm"
           placeholder="지금 생각나는 취미를 검색하세요."
+          onKeyDown={moveSearch}
         ></input>
         <div className="icons">
           <div className="icon-wrap">

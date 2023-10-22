@@ -271,6 +271,27 @@
 	where rownum<=12
 	]]>
 	</select>
+	<!-- 검색어 -->
+	<select id="searchTotal" resultType="int">
+		select count(*) from meet
+		where meet_type =1 and (meet_title like '%'||#{searchKeyword}||'%' or meet_content_s like '%'||#{searchKeyword}||'%' or meet_content_d like '%'||#{searchKeyword}||'%')
+	</select>
+	<select id="searchList" resultType="meet">
+	<![CDATA[ 
+	SELECT * 
+		FROM(select ROWNUM AS RNUM , M2.* from 
+        (select meet_no, meet_date, meet_title, meet_content_s, meet_content_d, meet_total, meet_margin, meet_prepare, meet_category, meet_address1, meet_address2, meet_latitude, meet_longitude, meet_thumbnail, meet_captain,
+	    ROUND(NVL((select avg(NVL(review_star, 0))
+	        from review r
+	        where r.meet_no = m.meet_no),0),1) review_star,
+	     (select count(meet_no)
+	        from review r
+	        where r.meet_no = m.meet_no) review_count 
+	    from meet m where meet_type = 1 and (meet_title like '%'||#{searchKeyword}||'%' or meet_content_s like '%'||#{searchKeyword}||'%' or meet_content_d like '%'||#{searchKeyword}||'%')order by meet_margin desc) m2)
+	WHERE RNUM BETWEEN #{start} AND #{end}
+	]]>
+	</select>
+	
 	<!-- 내모임 추방 -->
 	<delete id="deleteMember">
 		 DELETE FROM FOLLOWER WHERE MEMBER_NO = #{memberNo} and meet_no = #{meetNo}

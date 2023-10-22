@@ -172,6 +172,7 @@ public class MeetService {
 		map.put("meetList", circleList);
 		return map;
 	}
+	
 	//meet
 	public Meet selectOneMeet(int meetNo) {
 		// TODO Auto-generated method stub		
@@ -379,13 +380,20 @@ public class MeetService {
 		}
 		return false;
 	}
-
-
-	
-
-
-	
-
-
-	
+	//검색어 입력
+	public Map searchList(int reqPage, String searchKeyword) {
+		// TODO Auto-generated method stub
+		int numPerPage = 5; // 한페이지당 게시물 수
+		int pageNaviSize = 5; // 페이지 네비게이션 길이
+		int totalCount = meetDao.searchTotal();// 전체게시물수 
+		PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("pi", pi);
+		map.put("start", pi.getStart());
+		map.put("end", pi.getEnd());
+		map.put("searchKeyword", searchKeyword);
+		List meetList = meetDao.searchList(map);
+		map.put("meetList", meetList);
+		return map;
+	}
 }
