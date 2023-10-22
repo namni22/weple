@@ -87,9 +87,20 @@ const MeetList = (props) => {
     setReqPage(1);
     setCategoryType(smallCategory.categoryNo);
 
-    //탭메뉴 함수
-    const tab = document.querySelectorAll(".smallCategory-li");
-    console.log("탭", tab);
+    //탭메뉴 활성화
+    const smallTabs = document.querySelectorAll(".smallCategory-li")
+    smallTabs.forEach(function (item, index) {
+      item.addEventListener("click", function () {
+        for (let i = 0; i < smallTabs.length; i++) {
+          smallTabs[i].classList.remove("active-smallCategory")
+        }
+        item.classList.add("active-smallCategory")
+      })
+    })
+
+    // console.log("탭", tab);
+
+
 
   };
 

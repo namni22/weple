@@ -15,7 +15,7 @@
   margin: 20px 0px 20px 0px;
 }
 
-.smallCategory-ul > li {
+.smallCategory-ul>li {
   /* 소분류 li 선택자 */
   float: left;
   width: 10%;
@@ -26,7 +26,7 @@
 
 .smallCategory-ul *:hover {
   /* 자식으로 선택하면 div가 선택되지않아 전체 선택자로 했음 */
-  background-color: #2d30fa0f;
+  /* background-color: #2d30fa0f; */
   color: #2d31fa;
   font-weight: bold;
   border-radius: 5px;
@@ -54,7 +54,7 @@
   background-color: #cccccc33;
 }
 
-.MeetList-meet-img-box > img {
+.MeetList-meet-img-box>img {
   width: 100%;
   height: 100%;
   border-radius: 5px;
@@ -118,7 +118,7 @@
   padding: 0;
 }
 
-.meet-one .star-rating-base > .material-icons {
+.meet-one .star-rating-base>.material-icons {
   color: gainsboro;
 }
 
