@@ -14,8 +14,6 @@ const BoardFrm = (props) => {
   const [boardType, setBoardType] = useState();
   const navigate = useNavigate();
 
-  console.log("boardContent : " + boardContent);
-
   const insert = () => {
 
     if (boardTitle !== "" && boardContent !== "") {     
@@ -49,7 +47,7 @@ const BoardFrm = (props) => {
           Swal.fire("공지 등록 실패");
         });
     } else {
-      Swal.fire("내용 입력 필수입니다");
+      Swal.fire("제목, 내용 입력 필수입니다");
     }
   }
   const reset=()=>{
