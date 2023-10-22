@@ -1,0 +1,19 @@
+.meetLike-wrap {
+    /* 좋아요, 좋아요 숫자를 감싸는 div선택자 */
+    /* 아이콘과 숫자를 동일선상에 정렬 */
+    display: flex;
+    align-items: center;
+}
+
+.MeetList-like {
+    /* 좋아요 하트 선택자 */
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.meetLikeCount {
+    font-size: 25px;
+    color: red;
+    font-weight: bold;
+
+}
