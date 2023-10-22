@@ -32,11 +32,11 @@
 .search-content{
     margin-left: 30px;
     width: 600px;
-    height: 150px;
+    /* height: 150px; */
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 5;
     padding-top: 10px;
 }
 .search-title{
@@ -47,5 +47,6 @@
     margin-top: 10px;
 }
 .search-contentD{
+    margin-top: 6px;
     
 }

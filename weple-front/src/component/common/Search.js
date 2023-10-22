@@ -15,7 +15,7 @@ const Search = ()=>{
     const searchWord = location.state;
     console.log(searchWord);
     axios
-      .get("/meet/searchKeyword/" + reqPage + "/테")
+      .get("/meet/searchKeyword/" + reqPage + "/테스트")
       .then((res) => {
         console.log(res.data);
         setSearchResult(res.data.meetList);
