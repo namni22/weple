@@ -235,7 +235,7 @@ public class MeetController {
 	@GetMapping(value = "/selectOneMeet/{meetNo}")
 	public Meet meetView(@PathVariable int meetNo) {
 		Meet meet = meetService.selectOneMeet(meetNo);
-		System.out.println("모임 한개 조회 "+meet);
+//		System.out.println("모임 한개 조회 "+meet);
 		
 		return meet;
 	}
@@ -256,7 +256,7 @@ public class MeetController {
 	//모임view의 좋아요 갯수 세오기
 	@GetMapping(value = "/meetLikeCount/{meetNo}")
 	public int meetLikeCount (@PathVariable int meetNo) {
-		System.out.println("모임좋아요 갯수세오기"+meetNo);
+//		System.out.println("모임좋아요 갯수세오기"+meetNo);
 		int result = meetService.meetLikeCount(meetNo);
 		return result;
 	}
@@ -268,7 +268,6 @@ public class MeetController {
 			@RequestBody Meet meet,
 			@RequestAttribute String memberId
 			) {
-		System.out.println("좋아요");
 		Member member = memberService.selectOneMember(memberId);
 		int result = meetService.meetLikeUp (meet.getMeetNo(), member.getMemberNo()) ;
 		return result;
@@ -279,7 +278,6 @@ public class MeetController {
 			@RequestBody Meet meet,
 			@RequestAttribute String memberId
 			) {
-		System.out.println("좋아요 취소 진행");
 		Member member = memberService.selectOneMember(memberId);
 		int result = meetService.meetLikeCancle(meet.getMeetNo(), member.getMemberNo());
 		return result;

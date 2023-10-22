@@ -173,8 +173,8 @@ const MeetView = (props) => {
               meetMenu2={meetMenu2}
               setMeetMenu2={setMeetMenu2}
               meetNo={meetNo}
-              captainCheck={captainCheck}
-              setCaptainCheck={setCaptainCheck}
+              // captainCheck={captainCheck}
+              // setCaptainCheck={setCaptainCheck}
               meetLikeCount={meetLikeCount}
               setMeetLikeCount={setMeetLikeCount}
               myMeet={myMeet}
