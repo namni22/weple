@@ -40,7 +40,7 @@
 		WHERE RNUM BETWEEN #{start} AND #{end}
 		
 	</select>
-
+<!-- ************************************************************************************************************ -->
 	<!-- 모임생성 -->
 	<insert id="createMeet">
 		INSERT INTO MEET VALUES (
@@ -102,6 +102,24 @@
 			    ORDER BY 1 DESC)M)
 			WHERE RNUM BETWEEN #{start} AND #{end}
 	</select> -->
+	<!-- 모임리스트 circle 토탈카운트 조회 -->
+	<select id="circleListTotalCount">
+		select count(*) 
+		from
+		    (select * 
+		    from meet 
+		    join category on (category_no = meet_category) 
+		    where category_ref_no = #{meetCategory} and meet_type = 1)
+	</select>
+	<!--  -->
+	<select id="categoryMeetListTotalCount">
+		select count(*) 
+		from
+		    (select * 
+		    from meet 
+		    join category on (category_no = meet_category) 
+		    where category_no = #{meetCategory} and meet_type = 1)
+	</select>
 	<!-- 모임리스트 대분류로 조회 -->
 	<select id="selectCircleList" resultType="meet">
 		SELECT * 
@@ -133,7 +151,7 @@
 		         (select count(meet_no)
 		            from review r
 		            where r.meet_no = m.meet_no) review_count ,
-           (select count(*) from wish_list where meet_no = m.meet_no and member_no = 49) is_meet_like
+           (select count(*) from wish_list where meet_no = m.meet_no and member_no = #{memberNo}) is_meet_like
 		    from meet m
 		    JOIN CATEGORY ON ( MEET_CATEGORY = CATEGORY_NO)
 		    where meet_type = 1 AND CATEGORY_NO = #{meetCategory}
@@ -152,7 +170,7 @@
 			         (select count(meet_no)
 			            from review r
 			            where r.meet_no = m.meet_no) review_count ,
-           				(select count(*) from wish_list where meet_no = m.meet_no and member_no = 49) is_meet_like
+           				(select count(*) from wish_list where meet_no = m.meet_no and member_no = #{memberNo}) is_meet_like
 			    from meet m
 			    JOIN CATEGORY ON ( MEET_CATEGORY = CATEGORY_NO)
 			    where meet_no= #{meetNo}
@@ -225,7 +243,7 @@
 	        (select count(meet_no)
 	        from review r
 	        where r.meet_no = m.meet_no) review_count,
-           (select count(*) from wish_list where meet_no = m.meet_no and member_no = 49) is_meet_like 
+           (select count(*) from wish_list where meet_no = m.meet_no and member_no = #{memberNo}) is_meet_like 
 	    from meet m where meet_type = 1 order by meet_margin desc) 
 	where rownum<=12 order by meet_margin desc,review_star desc
 	]]>
@@ -253,7 +271,7 @@
 	     (select count(meet_no)
 	        from review r
 	        where r.meet_no = m.meet_no) review_count,
-           (select count(*) from wish_list where meet_no = m.meet_no and member_no = 49) is_meet_like 
+           (select count(*) from wish_list where meet_no = m.meet_no and member_no = #{memberNo}) is_meet_like 
 	    from meet m where meet_type = 1 order by review_star desc, review_count desc) 
 	where rownum<=12
 	]]>
@@ -269,7 +287,7 @@
 	     (select count(meet_no)
 	        from review r
 	        where r.meet_no = m.meet_no) review_count,
-           (select count(*) from wish_list where meet_no = m.meet_no and member_no = 49) is_meet_like 
+           (select count(*) from wish_list where meet_no = m.meet_no and member_no = #{memberNo}) is_meet_like 
 	    from meet m where meet_type = 1 order by meet_date desc) 
 	where rownum<=12
 	]]>
@@ -289,6 +307,27 @@
 	where rownum<=12
 	]]>
 	</select>
+	<!-- 검색어 -->
+	<select id="searchTotal" resultType="int">
+		select count(*) from meet
+		where meet_type =1 and (meet_title like '%'||#{searchKeyword}||'%' or meet_content_s like '%'||#{searchKeyword}||'%' or meet_content_d like '%'||#{searchKeyword}||'%')
+	</select>
+	<select id="searchList" resultType="meet">
+	<![CDATA[ 
+	SELECT * 
+		FROM(select ROWNUM AS RNUM , M2.* from 
+        (select meet_no, meet_date, meet_title, meet_content_s, meet_content_d, meet_total, meet_margin, meet_prepare, meet_category, meet_address1, meet_address2, meet_latitude, meet_longitude, meet_thumbnail, meet_captain,
+	    ROUND(NVL((select avg(NVL(review_star, 0))
+	        from review r
+	        where r.meet_no = m.meet_no),0),1) review_star,
+	     (select count(meet_no)
+	        from review r
+	        where r.meet_no = m.meet_no) review_count 
+	    from meet m where meet_type = 1 and (meet_title like '%'||#{searchKeyword}||'%' or meet_content_s like '%'||#{searchKeyword}||'%' or meet_content_d like '%'||#{searchKeyword}||'%')order by meet_margin desc) m2)
+	WHERE RNUM BETWEEN #{start} AND #{end}
+	]]>
+	</select>
+	
 	<!-- 내모임 추방 -->
 	<delete id="deleteMember">
 		 DELETE FROM FOLLOWER WHERE MEMBER_NO = #{memberNo} and meet_no = #{meetNo}

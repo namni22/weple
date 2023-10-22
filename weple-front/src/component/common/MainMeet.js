@@ -6,6 +6,8 @@ const MainMeet = () => {
   const location = useLocation();
   const meetList = location.state.meetList;
   const meetTitle = location.state.meetTitle;
+  const isLogin = location.state.isLogin;
+
   return (
     <div className="meetList-all-wrap">
       <div className="meetListCategori-area">
@@ -18,7 +20,7 @@ const MainMeet = () => {
       </div>
       <div className="meetList-area">
         {meetList.map((meet, index) => {
-          return <MeetItem key={"meet" + index} meet={meet} />;
+          return <MeetItem key={"meet" + index} meet={meet} isLogin={isLogin} />;
         })}
       </div>
     </div>

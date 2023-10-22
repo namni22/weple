@@ -50,6 +50,7 @@ public interface MemberDao {
 	Follower isMember(String memberId, int meetNo);
 
 
+
 	
 
 

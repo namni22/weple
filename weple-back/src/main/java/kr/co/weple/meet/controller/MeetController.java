@@ -3,6 +3,9 @@ package kr.co.weple.meet.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.websocket.server.PathParam;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -171,18 +174,27 @@ public class MeetController {
 			) {
 		//이미 meetList를 쓰고 있어서 바꿈
 		Map map = meetService.circleList(reqPage,meetCategory,memberNo);
-		
+//		System.out.println("전체 모임 조회 : "+ map);
+//		List meetList = (List) map.get("meetList");
+//		System.out.println("모임 하나 : "+meetList.get(1));
 		return map;
 	}
 	//모임 카테고리 메뉴바 눌럿을때 모임 리스트 조회
+
+// 	@GetMapping(value = "/categoryMeetList/{reqPage}/{meetCategory}")
+// 	public Map categoryMeetList(@PathVariable int reqPage,@PathVariable int meetCategory) {		
+// 		Map map = meetService.categoryMeetList(reqPage, meetCategory);
+// =======
 	@GetMapping(value = "/categoryMeetList/{reqPage}/{meetCategory}/{memberNo}")
 	public Map categoryMeetList(
 			@PathVariable int reqPage,
 			@PathVariable int meetCategory,
 			@PathVariable int memberNo
 			) {		
-		Map map = meetService.categoryMeetList(reqPage, meetCategory);
-		
+		Map map = meetService.categoryMeetList(reqPage, meetCategory,memberNo);
+//		System.out.println("소분류 모임 조회 : "+ map.get("meetList"));
+//		List meetList = (List) map.get("meetList");
+//		System.out.println("모임 하나 : "+meetList.get(1));
 		return map;
 	}
 	//아이디 받아서 멤버 조회
@@ -264,22 +276,35 @@ public class MeetController {
 	
 /*********************************메인페이지 모임조회*********************************************/	
 	//메인페이지에 참여인원 순 모임 조회
-	@GetMapping(value = "/meetMargin")
-	public List meetMargin() {
-		List list = meetService.meetMargin();
+	@GetMapping(value = "/meetMargin/{memberNo}")
+	public List meetMargin(
+			@PathVariable int memberNo
+			) {
+		System.out.println("전달하는 멤버 번호 : "+ memberNo);
+		List list = meetService.meetMargin(memberNo);
+		System.out.println("meetMargin메인 모임 진행"+ list);
+		
 		return list;
 	}
 	
 	//메인페이지에 인기순 모임조회
-	@GetMapping(value = "/meetPopular")
-	public List meetPopular() {
-		List list = meetService.meetPopular();
+	@GetMapping(value = "/meetPopular/{memberNo}")
+	public List meetPopular(
+			@PathVariable int memberNo
+			) {
+		System.out.println("전달하는 멤버 번호 : "+ memberNo);
+		List list = meetService.meetPopular(memberNo);
+		System.out.println("meetPopular 메인 모임 진행"+ list);
 		return list;
 	}
 	//메인페이지에 최신순 모임조회
-	@GetMapping(value = "/meetNew")
-	public List meetNew() {
-		List list = meetService.meetNew();
+	@GetMapping(value = "/meetNew/{memberNo}")
+	public List meetNew(
+			@PathVariable int memberNo
+			) {
+		System.out.println("전달하는 멤버 번호 : "+ memberNo);
+		List list = meetService.meetNew(memberNo);
+		System.out.println("meetNew 메인 모임 진행"+ list);
 		return list;
 	}	
 	
@@ -290,6 +315,15 @@ public class MeetController {
 //		List list = meetService.meetCategory(meetCategory);
 		return null;
 	}
+	//검색어 입력
+	@GetMapping(value = "/searchKeyword/{reqPage}/{searchWord}")
+	public Map searchList(@PathVariable int reqPage,@PathVariable String searchWord) {
+		System.out.println(searchWord);
+		Map map = meetService.searchList(reqPage, searchWord);
+		System.out.println(map);
+		return map;
+	}
+
 /********************************************************************************************/			
 	//meet챗팅 조회
 	@GetMapping(value = "/meetChat/{meetNo}")

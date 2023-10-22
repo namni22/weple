@@ -165,7 +165,7 @@ public class MeetService {
 		// 게시물조회, 페이징에 필요한 데이터를 취합
 		int numPerPage = 12; // 한페이지당 게시물 수
 		int pageNaviSize = 5; // 페이지 네비게이션 길이
-		int totalCount = meetDao.totalCount();// 전체게시물수 구해오기
+		int totalCount = meetDao.circleListTotalCount(meetCategory);// 전체게시물수 구해오기
 		PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);		
 		//map으로 list와 pi 묶어서 리턴
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -180,12 +180,12 @@ public class MeetService {
 		return map;
 	}
 	// 모임 카테고리 메뉴바 눌럿을때 모임 리스트 조회
-	public Map categoryMeetList(int reqPage, int meetCategory) {
+	public Map categoryMeetList(int reqPage, int meetCategory, int memberNo) {
 		// TODO Auto-generated method stub
 		// 게시물조회, 페이징에 필요한 데이터를 취합
 		int numPerPage = 12; // 한페이지당 게시물 수
 		int pageNaviSize = 5; // 페이지 네비게이션 길이
-		int totalCount = meetDao.totalCount();// 전체게시물수 구해오기
+		int totalCount = meetDao.categoryMeetListTotalCount(meetCategory);// 전체게시물수 구해오기
 		PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
 		// map으로 list와 pi 묶어서 리턴
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -193,11 +193,13 @@ public class MeetService {
 		map.put("start", pi.getStart());
 		map.put("end", pi.getEnd());
 		map.put("meetCategory", meetCategory);
+		map.put("memberNo",memberNo);
 		// 리스트조회 //pi 랑 meetCategory도 묶어서 보냄
 		List circleList = meetDao.categoryMeetList(map);
 		map.put("meetList", circleList);
 		return map;
 	}
+	
 	//meet
 	public Meet selectOneMeet(int meetNo) {
 		// TODO Auto-generated method stub		
@@ -211,21 +213,22 @@ public class MeetService {
 	}
 /*********************************메인페이지 모임조회*********************************************/
 	//메인페이지에 인기순 모임조회
-	public List meetPopular() {
+	public List meetPopular(int memberNo) {
 		// TODO Auto-generated method stub
-		List list = meetDao.meetPopular();
+		
+		List list = meetDao.meetPopular(memberNo);
 		return list;
 	}
 	//메인페이지에 최신순 모임조회
-	public List meetNew() {
+	public List meetNew(int memberNo) {
 		// TODO Auto-generated method stub
-		List list = meetDao.meetNew();
+		List list = meetDao.meetNew(memberNo);
 		return list;
 	}
 	//메인페이지에 참여인원 순 모임 조회
-		public List meetMargin() {
+		public List meetMargin(int memberNo) {
 			// TODO Auto-generated method stub
-			List list = meetDao.meetMargin();
+			List list = meetDao.meetMargin(memberNo);
 			return list;
 		}
 	
@@ -407,6 +410,24 @@ public class MeetService {
 		}
 		return false;
 	}
+
+	//검색어 입력
+	public Map searchList(int reqPage, String searchKeyword) {
+		// TODO Auto-generated method stub
+		int numPerPage = 5; // 한페이지당 게시물 수
+		int pageNaviSize = 5; // 페이지 네비게이션 길이
+		int totalCount = meetDao.searchTotal(searchKeyword);// 전체게시물수 
+		PageInfo pi = pagination.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("pi", pi);
+		map.put("start", pi.getStart());
+		map.put("end", pi.getEnd());
+		map.put("searchKeyword", searchKeyword);
+		List meetList = meetDao.searchList(map);
+		map.put("meetList", meetList);
+		return map;
+	}
+
 	//모임삭제
 	@Transactional
 	public int deleteMeet(Meet meet) {
@@ -441,12 +462,4 @@ public class MeetService {
 		return result;
 	}
 
-
-	
-
-
-	
-
-
-	
 }

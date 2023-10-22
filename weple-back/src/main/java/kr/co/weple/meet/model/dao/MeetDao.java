@@ -35,6 +35,12 @@ public interface MeetDao {
 
 	List meetList(PageInfo pi);
 
+	//int updateEnrollMember(int memberNo, int meetNo);
+
+	int circleListTotalCount(int meetCategory);
+
+	int categoryMeetListTotalCount(int meetCategory);
+	
 	List selectCircleList(HashMap<String, Object> map);
 
 	List categoryMeetList(HashMap<String, Object> map);
@@ -43,11 +49,11 @@ public interface MeetDao {
 
 	List meetChatList(int meetNo);
 
-	List meetMargin();
+	List meetMargin(int memberNo);
 
-	List meetPopular();
+	List meetPopular(int memberNo);
 
-	List meetNew();
+	List meetNew(int memberNo);
 	
 	List meetCategory();
 
@@ -96,6 +102,11 @@ public interface MeetDao {
 
 	List like(int memberNo, int meetNo);
 
+	List searchList(HashMap<String, Object> map);
+
+	int searchTotal(String searchKeyword);
+
+
 	int disCount(HashMap<String, Integer> param);
 
 	int updateEnrollMember(HashMap<String, Integer> param);
@@ -109,11 +120,6 @@ public interface MeetDao {
 	int insertMeetChat(HashMap<String, Object> param);
 
 	Follower status(HashMap<String, Object> param);
-
-
-
-	
-
 
 
 
