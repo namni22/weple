@@ -119,18 +119,27 @@ public class MeetService {
 	@Transactional
 	public int updateEnrollMember(int memberNo, int meetNo) {	
 		int meetMargin = meetDao.selectMeetMargin(meetNo);
+		int meetTotal = meetDao.selectMeetTotal(meetNo);
 		int newMargin = meetMargin - 1;
 		HashMap<String,Integer> param = new HashMap<String, Integer>();
 		param.put("meetNo",meetNo);
 		param.put("newMargin",newMargin);
 		param.put("memberNo",memberNo);
-		int meetTotalCount = meetDao.disCount(param);//업데이트 meetMargin
-		int updateResult = meetDao.updateEnrollMember(param);
-		if(meetTotalCount == 1 && updateResult == 1) {
-			return 1;
-		}else {			
-			return 0;
+		//185 기준 total=10 마진은 0 
+		if(meetMargin * meetTotal == 0) {
+			//남은 인원과 총인원이 같을 경우
+			return 2;
+		}else {
+			//남은 인원과 총인원이 같이 않을 경우
+			int meetTotalCount = meetDao.disCount(param);//업데이트 meetMargin
+			int updateResult = meetDao.updateEnrollMember(param);
+			if(meetTotalCount == 1 && updateResult == 1) {
+				return 1;
+			}else {			
+				return 0;			
+			}		
 		}
+		
 	}
 	/*
 	 	@Transactional
@@ -432,6 +441,14 @@ public class MeetService {
 			
 		}
 		
+		return result;
+	}
+	public int deleteEnrollMember(int memberNo, int meetNo) {
+		// TODO Auto-generated method stub
+		HashMap<String , Integer> param = new HashMap<String, Integer>();
+		param.put("memberNo",memberNo);
+		param.put("meetNo",meetNo);
+		int result =  meetDao.deleteEnrollMember(param);
 		return result;
 	}
 

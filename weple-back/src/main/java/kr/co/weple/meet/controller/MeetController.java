@@ -384,6 +384,12 @@ public class MeetController {
 	public boolean captainCk(@RequestBody Meet m,@RequestAttribute String memberId) {
 		return meetService.captainCk(m.getMeetNo(),memberId);
 	}
-	
+	//모임 신청 목록 삭제
+	@PostMapping(value = "/deleteEnrollMember/{meetNo}")
+	public int deleteEnrollMember(@RequestBody Member enroll,@PathVariable int meetNo) {
+		System.out.println("333333333333333333333333333"+ enroll+meetNo);
+		int result = meetService.deleteEnrollMember(enroll.getMemberNo(),meetNo);
+		return result;
+	}
 
 }

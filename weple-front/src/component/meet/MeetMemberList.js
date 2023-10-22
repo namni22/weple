@@ -295,7 +295,7 @@ const MemberList = (props) => {
         onCancel={handleClickCancel}
         isLogin={true}
         // memberId={id}
-        reportItemNo={reportItemNo}
+        reportItemNo={memberList.memberNo}
         reportMemberId={memberList.memberId}
         reportTypeValue={reportTypeValue}
         setReportTypeValue={setReportTypeValue}
