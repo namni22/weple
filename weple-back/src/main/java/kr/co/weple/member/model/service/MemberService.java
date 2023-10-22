@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.weple.JwtUtil;
 import kr.co.weple.Pagination;
-import kr.co.weple.meet.model.dao.MeetDao;
 import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.member.model.dao.MemberDao;
 import kr.co.weple.member.model.vo.Member;
@@ -159,7 +158,10 @@ public class MemberService {
 		boolean result = false;
 		return result;
 	}
-	
+
+	public int getMemberGrade(String memberId) {
+		return memberDao.getMemberGrade(memberId);
+	}
 
 
 

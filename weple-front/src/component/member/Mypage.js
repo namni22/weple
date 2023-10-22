@@ -9,6 +9,7 @@ import axios from "axios";
 import ModifyInfo from "./ModifyInfo";
 import ModifyPw from "./ModifyPw";
 import Payment from "../payment/Payment";
+import Alarm from "./Alarm";
 
 const Mypage = (props) => {
   const isLogin = props.isLogin;
@@ -119,7 +120,10 @@ const Mypage = (props) => {
             />
             <Route path="modifyPw" element={<ModifyPw />} />
             <Route path="myCalendar" element={<AdminReport />} />
-            <Route path="alarm" element={<AdminReport />} />
+            <Route
+              path="alarm"
+              element={<Alarm member={member} token={token} />}
+            />
             <Route path="payment" element={<Payment member={member} />} />
           </Routes>
         </div>
