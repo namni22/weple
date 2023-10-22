@@ -30,6 +30,8 @@ const ReviewList = (props) => {
   const [start, setStart] = useState(1);
   const isLogin = props.isLogin;
   const isAdmin = props.isAdmin;
+  const isMeetMember = props.isMeetMember;
+  console.log("isMeetMember", isMeetMember);
   //리뷰 조회
 
   const amount = 10;

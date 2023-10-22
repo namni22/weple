@@ -21,7 +21,7 @@ const Review = (props) => {
   const meetNo = props.meetNo;
   const meetStar = props.reviewStar;
   const reviewCount = props.reviewCount;
-  const [isMember, setIsMember] = useState(false);
+  const isMeetMember = props.isMeetMember;
   const token = window.localStorage.getItem("token");
 
   //리뷰 조회
@@ -46,23 +46,23 @@ const Review = (props) => {
         console.log(res.data?.status);
       });
 
-    //isMember
-    const form = new FormData();
-    form.append("meetNo", meetNo);
-    axios
-      .post("/member/isMember", form, {
-        headers: {
-          contentType: "multipart/form-data",
-          processData: false,
-          Authorization: "Bearer" + token,
-        },
-      })
-      .then((res) => {
-        console.log("isMember", res.data);
-      })
-      .catch((res) => {
-        console.log("isMember??????", res.data);
-      });
+    // //isMember
+    // const form = new FormData();
+    // form.append("meetNo", meetNo);
+    // axios
+    //   .post("/member/isMember", form, {
+    //     headers: {
+    //       contentType: "multipart/form-data",
+    //       processData: false,
+    //       Authorization: "Bearer" + token,
+    //     },
+    //   })
+    //   .then((res) => {
+    //     console.log("isMember", res.data);
+    //   })
+    //   .catch((res) => {
+    //     console.log("isMember??????", res.data);
+    //   });
   }, [meetNo]);
   //리뷰 => 컴포넌트 배열로 바꿔줌
   const list = reviewList.map((item, index) => {
@@ -73,6 +73,7 @@ const Review = (props) => {
           meetNo: meetNo,
           meetStar: meetStar,
           reviewCount: reviewCount,
+          isMeetMember: isMeetMember
         }}
       >
         <ReviewComponent review={item} />
@@ -85,10 +86,11 @@ const Review = (props) => {
       {reviewCount < 1 ? (
         <div className="review-all-wrap">
           <div className="meetInfo-content-title">모임리뷰</div>
-          {/**
-           * 
-          <div className="review-wrap">첫 번째 리뷰를 작성해 보세요!</div>
-           */}
+          {
+            <div className="review-wrap">
+              <div className="review-no">모임에 가입하고 첫 번째 리뷰를 작성해 보세요!</div>
+            </div>
+           }
         </div>
       ) : (
         <div className="review-all-wrap">
