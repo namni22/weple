@@ -133,7 +133,7 @@
 		         (select count(meet_no)
 		            from review r
 		            where r.meet_no = m.meet_no) review_count ,
-           (select count(*) from wish_list where meet_no = m.meet_no and member_no = 49) is_meet_like
+           (select count(*) from wish_list where meet_no = m.meet_no and member_no = #{memberNo}) is_meet_like
 		    from meet m
 		    JOIN CATEGORY ON ( MEET_CATEGORY = CATEGORY_NO)
 		    where meet_type = 1 AND CATEGORY_NO = #{meetCategory}
@@ -152,7 +152,7 @@
 			         (select count(meet_no)
 			            from review r
 			            where r.meet_no = m.meet_no) review_count ,
-           				(select count(*) from wish_list where meet_no = m.meet_no and member_no = 49) is_meet_like
+           				(select count(*) from wish_list where meet_no = m.meet_no and member_no = #{memberNo}) is_meet_like
 			    from meet m
 			    JOIN CATEGORY ON ( MEET_CATEGORY = CATEGORY_NO)
 			    where meet_no= #{meetNo}
@@ -225,7 +225,7 @@
 	        (select count(meet_no)
 	        from review r
 	        where r.meet_no = m.meet_no) review_count,
-           (select count(*) from wish_list where meet_no = m.meet_no and member_no = 49) is_meet_like 
+           (select count(*) from wish_list where meet_no = m.meet_no and member_no = #{memberNo}) is_meet_like 
 	    from meet m where meet_type = 1 order by meet_margin desc) 
 	where rownum<=12 order by meet_margin desc,review_star desc
 	]]>
@@ -253,7 +253,7 @@
 	     (select count(meet_no)
 	        from review r
 	        where r.meet_no = m.meet_no) review_count,
-           (select count(*) from wish_list where meet_no = m.meet_no and member_no = 49) is_meet_like 
+           (select count(*) from wish_list where meet_no = m.meet_no and member_no = #{memberNo}) is_meet_like 
 	    from meet m where meet_type = 1 order by review_star desc, review_count desc) 
 	where rownum<=12
 	]]>
@@ -269,7 +269,7 @@
 	     (select count(meet_no)
 	        from review r
 	        where r.meet_no = m.meet_no) review_count,
-           (select count(*) from wish_list where meet_no = m.meet_no and member_no = 49) is_meet_like 
+           (select count(*) from wish_list where meet_no = m.meet_no and member_no = #{memberNo}) is_meet_like 
 	    from meet m where meet_type = 1 order by meet_date desc) 
 	where rownum<=12
 	]]>
