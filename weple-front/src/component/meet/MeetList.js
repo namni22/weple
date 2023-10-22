@@ -177,8 +177,8 @@ const MeetItem = (props) => {
   const isLogin = props.isLogin;
 
   // const [loginMember, setLoginMember] = useState(null);
-  const loginMember = props.loginMember;//프롭스로 받기
-  const setLoginMember = props.setLoginMember;
+  // const loginMember = props.loginMember;//프롭스로 받기
+  // const setLoginMember = props.setLoginMember;
 
   const [meet, setMeet] = useState({});
   const [isMeetLikeFront, setIsMeetLikeFront] = useState(0);
