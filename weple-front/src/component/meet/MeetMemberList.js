@@ -10,17 +10,12 @@ import { ReportModal } from "../util/Modal";
 const MeetMemberList = (props) => {
   const myMeet = props.myMeet;
   const setMyMeet = props.setMyMeet;
-  console.log("props로 받은 미팅 리스트 myMeet : ", myMeet);
-  console.log("props로 받은 미팅 리스트 setmyMeet : ", setMyMeet);
-  const id = props.id;
   const isLogin = props.isLogin;
-  const setIsLogin = props.setIsLogin;
   const [meetMember, setMeetMember] = useState([]);
   const [userLike, setUserLike] = useState();
   const [reqPage, setReqPage] = useState(1);
   const [pageInfo, setPageInfo] = useState({});
   const token = window.localStorage.getItem("token");
-  console.log("모임회원리스트 : ", meetMember);
   useEffect(() => {
     axios
       .get("/meet/meetMember/" + reqPage + "?meetNo=" + myMeet.meetNo, {
@@ -50,11 +45,8 @@ const MeetMemberList = (props) => {
                     <MemberList
                       key={"member" + index}
                       member={member}
-                      //isOpen={isOpen}
-                      // setOpen={setOpen}
                       meetMember={meetMember}
                       setMeetMember={setMeetMember}
-                      //id={id}
                       meetNo={myMeet.meetNo}
                       myMeet={myMeet}
                       setMyMeet={setMyMeet}
@@ -90,24 +82,19 @@ const MemberList = (props) => {
   const memberList = props.member;
   const meetMember = props.meetMember;
   const setMeetMember = props.setMeetMember;
-
   const setMyMeet = props.setMyMeet;
   const myMeet = props.myMeet;
   const reqPage = props.reqPage;
   const setPageInfo = props.setPageInfo;
-  console.log("12222222222222222myMeet :", myMeet);
   const meetNo = props.meetNo;
-  const reportItemNo = props.meetNo;
   const [disable, setDisable] = useState("");
   const [reportTypeValue, setReportTypeValue] = useState(0);
   const [reportType, setReportType] = useState(0);
   const handleClick = () => setOpen(true);
   const [isOpen, setOpen] = useState(false);
-
   const isLogin = props.isLogin;
   const [memberId, setMemberId] = useState("");
   const token = window.localStorage.getItem("token");
-
   useEffect(() => {
     if (isLogin) {
       axios
@@ -119,9 +106,7 @@ const MemberList = (props) => {
         .then((res) => {
           setMemberId(res.data.memberId);
         })
-        .catch((res) => {
-          console.log(res.response.status);
-        });
+        .catch((res) => {});
     }
   }, []);
   const handleClickSubmit = () => {
@@ -171,14 +156,11 @@ const MemberList = (props) => {
                     }
                   )
                   .then((res) => {
-                    console.log(res.data);
                     setMeetMember(res.data.selectMeetMemberList);
                     setPageInfo(res.data.pi);
                     setDisable(true);
                   })
-                  .catch((res) => {
-                    console.log(res.response.status);
-                  });
+                  .catch((res) => {});
                 Swal.fire({
                   text:
                     `"` +
@@ -194,9 +176,7 @@ const MemberList = (props) => {
                 });
               }
             })
-            .catch((res) => {
-              console.log(res.response.status);
-            });
+            .catch((res) => {});
         }
       });
     }
@@ -236,25 +216,18 @@ const MemberList = (props) => {
                 .then((res) => {
                   setMyMeet(res.data);
                 })
-                .catch((res) => {
-                  console.log(res.response.status);
-                });
-              //console.log("onMeet : ", oneMeet);
-              //setMyMeet(oneMeet);
+                .catch((res) => {});
 
               Swal.fire("탈퇴 완료하였습니다.", "회원탈퇴 완료", "success");
-              //setMyMeet(newMargin);
             } else {
               Swal.fire("탈퇴 실패하였습니다.", "회원탈퇴 실패", "error");
             }
           })
-          .catch((res) => {
-            console.log(res.response.status);
-          });
+          .catch((res) => {});
       }
     });
   };
-  // console.log("모달 전달 전 memberId : ", memberList);
+
   return (
     <tr>
       <td width="5%">
@@ -294,7 +267,6 @@ const MemberList = (props) => {
         onSubmit={handleClickSubmit}
         onCancel={handleClickCancel}
         isLogin={true}
-        // memberId={id}
         reportItemNo={memberList.memberNo}
         reportMemberId={memberList.memberId}
         reportTypeValue={reportTypeValue}
