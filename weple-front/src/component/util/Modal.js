@@ -11,16 +11,13 @@ const ReportModal = (props) => {
   const onSubmit = props.onSubmit;
   const onCancel = props.onCancel;
   const isLogin = props.isLogin;
-  // const memberId = props.memberId;
   const reportItemNo = props.reportItemNo;
   const reportMemberId = props.reportMemberId;
   const setReportTypeValue = props.setReportTypeValue;
   const reportTypeValue = props.reportTypeValue;
   const reportType = props.reportType;
   const setReportType = props.setReportType;
-  //const [reportedMember, setReportedMember] = useState("");
   const [reportContent, setReportContent] = useState("");
-  //const [reportTypeValue, setReportTypeValue] = useState("");
   const [currentVaule, setCurrentVaule] = useState("");
   const [currentCategory, setCurrentCategory] = useState(null);
   const [checkIdMsg, setCheckIdMsg] = useState("");
@@ -44,55 +41,7 @@ const ReportModal = (props) => {
         });
     }
   }, []);
-
-  // console.log("props.reportMemberId : ", reportMemberId);
-  // console.log("모달 memberId : ", memberId);
-
-  // console.log("신고자 : ", reportType);
-  //console.log("props.reportMemberId : ", reportMemberId);
-  //console.log("모달 memberId : ", memberId);
-  /**
-   
-
-  const [reportType, setReportType] = useState([
-    {
-      value: 0,
-      text: "회원",
-    },
-    {
-      value: 1,
-      text: "모임",
-    },
-    {
-      value: 2,
-      text: "피드",
-    },
-    {
-      value: 3,
-      text: "후기",
-    },
-  ]);
-   */
   const [reportCategory, setReportCategory] = useState([]);
-  /*
-const changeValue = (e) => {
-  const newValue = e.currentTarget.value;
-  console.log("신고타입 전 : ", newValue);
-  setReportTypeValue(newValue);
-  console.log("신고타입 후 : ", reportTypeValue);
-  axios
-    .get("/member/selectReportOption/" + newValue)
-    .then((res) => {
-      console.log(res.data);
-      console.log(reportType.value);
-      setReportCategory(res.data.reportCategory);
-      setCurrentVaule(newValue);
-    })
-    .catch((res) => {
-      console.log(res.response.status);
-    });
-};
- */
   const customStyles = {
     content: {
       top: "50%",
@@ -141,7 +90,6 @@ const changeValue = (e) => {
           }
         )
         .then((res) => {
-          //  console.log(res.data);
           if (res.data === 1) {
             setCurrentCategory(null);
             Swal.fire({
@@ -158,37 +106,26 @@ const changeValue = (e) => {
             moreModalClose();
           }
         })
-        .catch((res) => {
-          console.log(res);
-        });
+        .catch((res) => {});
 
       onSubmit();
     }
   };
   const handleClickCancel = () => {
-    //setReportType(reportType);
-    // setReportTypeValue();
     onCancel();
   };
   useEffect(() => {
     axios
       .get("/member/selectReportOption/" + reportTypeValue)
       .then((res) => {
-        // console.log(res.data);
-        // console.log(reportType.value);
-
         setReportCategory(res.data.reportCategory);
       })
-      .catch((res) => {
-        console.log(res.response.status);
-      });
+      .catch((res) => {});
   }, []);
   const changeCategory = (e) => {
     const newCategory = e.currentTarget.value;
     setCurrentCategory(newCategory);
   };
-
-  // console.log("reportMemberId : ", reportMemberId);
 
   return (
     <ReactModal style={customStyles} isOpen={isOpen}>

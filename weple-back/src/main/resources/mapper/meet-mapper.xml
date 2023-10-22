@@ -215,6 +215,10 @@
 		        ORDER BY 1 DESC)F)
 		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
+	<!-- 모임 좋아요 토탈 카운트 세오기 -->
+	<select id="meetLikeCount">
+		select count(*) from wish_list where meet_no = #{meetNo}
+	</select>
 	<!-- 모임좋아요를 눌렀느지 조회 -->
 	<select id="isMeetLike" resultType="wishList">
 		select * from wish_list where meet_no = #{meetNo} and member_no = #{memberNo}
@@ -338,7 +342,7 @@
 	</update>
 	<!-- meetChat -->
 	<insert id="insertMeetChat">
-		INSERT INTO CHAT VALUES(CHAT_SEQ.NEXTVAL,#{chatContent},#{memberId},#{meetNo},TO_CHAR(SYSDATE,'YYYY-MM-DD'))
+		INSERT INTO CHAT VALUES(CHAT_SEQ.NEXTVAL,#{chatContent},#{memberId},#{meetNo},SYSDATE)
 	</insert>
 	<select id="meetChatLast" resultType="chat">
 		select * from    

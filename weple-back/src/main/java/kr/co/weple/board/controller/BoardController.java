@@ -37,8 +37,7 @@ public class BoardController {
 	
 	//게시판 목록
 	@GetMapping(value = "/list/{reqPage}/{boardType}")
-	public Map list(@PathVariable int reqPage, @PathVariable int boardType) {
-		System.out.println("boardType in BoardController :" + boardType);
+	public Map list(@PathVariable int reqPage, @PathVariable int boardType) {		
 		Map map = boardService.boardList(reqPage, boardType);
 		return map;
 	}

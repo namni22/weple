@@ -7,14 +7,9 @@ import TextEditor from "../util/TextEditor";
 
 const MeetChat = (props) => {
   const meet = props.myMeet;
-  const isLogin = props.isLogin;
-  const setIsLogin = props.setIsLogin;
-
-  const [newChat, setNewChat] = useState([]);
   const [chat, setChat] = useState([]);
   const [chatContent, setChatContent] = useState("");
   const messages = useRef(null);
-
   const [memberId, setMemberId] = useState("");
 
   useEffect(() => {
@@ -27,9 +22,7 @@ const MeetChat = (props) => {
       .then((res) => {
         setMemberId(res.data.memberId);
       })
-      .catch((res) => {
-        console.log(res.response.status);
-      });
+      .catch((res) => {});
   }, []);
   const enterInsert = (e) => {
     if (e.key === "Enter" && e.shiftKey) {
@@ -49,8 +42,6 @@ const MeetChat = (props) => {
   }, []);
   const token = window.localStorage.getItem("token");
   const insertChat = () => {
-    console.log("전송이벤트");
-    console.log(chatContent);
     if (chatContent !== "\n") {
       axios
         .post(
@@ -68,9 +59,7 @@ const MeetChat = (props) => {
           setChat(newArr);
           setChatContent("");
         })
-        .catch((res) => {
-          console.log(res.response.status);
-        });
+        .catch((res) => {});
     }
   };
 
@@ -118,8 +107,7 @@ const MeetChat = (props) => {
 const ChatItem = (props) => {
   const chat = props.chat;
   const memberId = props.memberId;
-  console.log("대화글 리스트 : ", chat);
-  console.log("로그인한 아이디 : ", memberId);
+
   const messages = props.messages;
   const [bool, setBool] = useState(true);
 
@@ -131,24 +119,6 @@ const ChatItem = (props) => {
     }
   }, [chat]);
   return (
-    /**
-     * 
-    <ul className={chat.memberId === memberId ? "aaaaaaaa" : "chat-ul"}>
-      <li>
-        <div className="meetChat-chat-img">
-          {chat.memberImage === null ? <img src="/img/testImg_01.png" /> : ""}
-        </div>
-      </li>
-      <li>
-        <div className="meetChat-chat-writer">
-          <span>{chat.memberId}</span>
-          <sub>{chat.chatDate}</sub>
-        </div>
-        <div className="meetChat-chat-content">{chat.chatContent}</div>
-      </li>
-    </ul>
-     * 
-     */
     <div
       className={
         chat.memberId === memberId ? "meetChat-item mymsg" : "meetChat-item"

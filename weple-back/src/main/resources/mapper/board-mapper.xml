@@ -61,7 +61,8 @@
 	<update id="modify">
 		update board set 
 			board_title = #{boardTitle},
-			board_Content = #{boardContent}
+			board_Content = #{boardContent},
+			board_Type = #{boardType}
 		where board_no = #{boardNo}
 	</update>
 	<delete id="deleteBoard">

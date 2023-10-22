@@ -102,4 +102,9 @@
 	<select id="isMember" resultType="follower">
 		select * from follower where meet_no = #{meetNo} and member_no = (select member_no from member where member_id = #{memberId})
 	</select>
+	
+	<!-- 회원 등급 가져오기 -->
+	<select id="getMemberGrade" resultType="int">
+		select member_grade from member where member_id=#{memberId}
+	</select>
 </mapper>
