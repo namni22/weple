@@ -30,7 +30,7 @@ const MeetView = (props) => {
   const token = window.localStorage.getItem("token");
   const [followerStatus, setFollowerStatus] = useState({});
   const meetNo = myMeet.meetNo;
-
+  const [admin,setAdmin]=useState({});
   //모임에 이미 가입한 상태인지 알아보는 변수
   const [isMeetMember, setIsMeetMember] = useState(null);
 
@@ -118,7 +118,25 @@ const MeetView = (props) => {
         });
     }
   }, []);
+  useEffect(() => {  
+    if(isLogin){
 
+      axios
+        .post("/member/adminCheck",null, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+          setAdmin(res.data);
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    }  
+
+  }, []);
   return (
     <div className="afterMeet-all-all-wrap">
       <div className="feed-title">WEPLE MEET</div>
@@ -133,7 +151,7 @@ const MeetView = (props) => {
           isLogin={isLogin}
         />
         {isLogin ? (
-          myMeet.meetCaptain === memberId ? (
+          myMeet.meetCaptain === memberId  || admin.memberGrade === 0 ? (
             <AfterMeetSubNavi
               meetMenu={meetMenu}
               setMeetMenu={setMeetMenu}

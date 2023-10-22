@@ -159,6 +159,11 @@ public class MemberService {
 		boolean result = false;
 		return result;
 	}
+
+	public Member adminCheck(String memberId) {		
+		Member admin =memberDao.selectOneMember(memberId);
+		return admin;
+	}
 	
 
 

@@ -425,5 +425,5 @@ public class MeetController {
 		int result = meetService.deleteEnrollMember(enroll.getMemberNo(),meetNo);
 		return result;
 	}
-
+	
 }

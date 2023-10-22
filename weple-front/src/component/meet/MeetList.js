@@ -78,11 +78,13 @@ const MeetList = (props) => {
     setReqPage(1);//전체 클릭시 reqPage 초기화
     setCategoryType(0);//카테고리 타입을 0 (대분류로)
   };
-
+  const [active,setActive]=useState("")
+  const [bool,setBool] =useState(false);
   // 카테고리 메뉴바의 카테고리를 클릭하면 동작하는 함수
   const changeCategory = (smallCategory) => {
     setReqPage(1);
     setCategoryType(smallCategory.categoryNo);
+    
   };
 
 
@@ -113,7 +115,6 @@ const MeetList = (props) => {
 
   }, [isLogin])
 
-
   return (
     <div className="meetList-all-wrap">
       <div className="meetListCategori-area">
@@ -123,6 +124,7 @@ const MeetList = (props) => {
             <li
               onClick={() => {
                 changeCategoryAll(reqPage);
+                
               }}
             >
               전체
@@ -134,9 +136,10 @@ const MeetList = (props) => {
                   className="smallCategory-li"
                   onClick={() => {
                     changeCategory(smallCategory);
+                  
                   }}
                 >
-                  <div>{smallCategory.categoryName}</div>
+                  <div  >{smallCategory.categoryName}</div>
                 </li>
               );
             })}
@@ -261,7 +264,7 @@ const MeetItem = (props) => {
       <div className="MeetList-meetTitle">
         <span>{meet.meetTitle}</span>
       </div>
-      <div className="">
+      <div className="meetList-memberTotal">
         <span>인원 : </span>
         <span>{meet.meetTotal - meet.meetMargin}</span>
         <span>/</span>

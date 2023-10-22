@@ -46,6 +46,10 @@
   margin: 5px 15px;
 }
 
+.meet-one:hover{
+  box-shadow: 0 2px 5px rgba(0,0,0,.25);
+  border-radius: 5px;
+}
 .MeetList-meet-img-box {
   width: 270px;
   height: 300px;
@@ -64,7 +68,7 @@
 
 .MeetList-meetTitle {
   padding: 10px 0;
-
+  padding-left: 5px;
   /* 아래로 안떨어지고 옆으로 길게 늘려주기 */
   white-space: nowrap;
   /* 보여주지마 */
@@ -83,7 +87,9 @@
   font-size: 24px;
   color: red;
 }
-
+.meetList-memberTotal{
+  padding-left: 5px;
+}
 /* ---------------- 별점 ---------------- */
 .meet-one .star-rating {
   color: #989898;
@@ -96,7 +102,9 @@
   color: #2d31fa;
   margin-left: -3px;
 }
-
+.meet-one .star-wrap{
+  padding-left: 5px;
+}
 .meet-one .star-rating .material-icons:not(:first-child) {
   margin-left: -4px;
 }
@@ -131,4 +139,7 @@
   font-size: 12px;
   font-weight: 600;
   margin-left: 10px;
+}
+.active{
+  background-color: #2d31fa;
 }

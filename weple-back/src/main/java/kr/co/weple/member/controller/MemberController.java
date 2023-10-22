@@ -212,4 +212,10 @@ public class MemberController {
 		boolean result = memberService.isMember(memberId,meetNo);
 		return result;
 	}
+	//관리자 체크
+		@PostMapping(value = "/adminCheck")
+		public Member adminCheck(@RequestAttribute String memberId) {
+			Member admin = memberService.adminCheck(memberId);			
+			return admin;
+		}
 }
