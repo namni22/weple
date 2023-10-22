@@ -48,7 +48,7 @@ const MeetList = (props) => {
       axios
         .get("/meet/meetList/" + reqPage + "/" + bigCategoryNo + "/" + loginMemberNo)
         .then((res) => {
-          console.log("모임 리스트 조회 결과 : ", res.data.meetList);
+          // console.log("모임 리스트 조회 결과 : ", res.data.meetList);
           // console.log("조회결과 이즈 : ", res.data.meetList[2].isMeetLike);
           setMeetList(res.data.meetList);
           //페이지인포 셋팅
@@ -86,6 +86,11 @@ const MeetList = (props) => {
   const changeCategory = (smallCategory) => {
     setReqPage(1);
     setCategoryType(smallCategory.categoryNo);
+
+    //탭메뉴 함수
+    const tab = document.querySelectorAll(".smallCategory-li");
+    console.log("탭", tab);
+
   };
 
 
@@ -124,6 +129,7 @@ const MeetList = (props) => {
         <div>
           <ul className="smallCategory-ul">
             <li
+              className="smallCategory-li"
               onClick={() => {
                 changeCategoryAll(reqPage);
               }}
@@ -190,7 +196,7 @@ const MeetItem = (props) => {
   const isMeetLikeFront = props.isMeetLikeFront;
   const setIsMeetLikeFront = props.setIsMeetLikeFront;
   // console.log("프롭스 : ", props);
-  console.log("프롭스 안의 isMeetLike ", props.meet.meetTitle, props.meet.isMeetLike);
+  // console.log("프롭스 안의 isMeetLike ", props.meet.meetTitle, props.meet.isMeetLike);
   useEffect(() => {
     setMeet(props.meet);
 
