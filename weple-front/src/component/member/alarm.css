@@ -1,0 +1,35 @@
+/*
+메인색상
+#2D31FA - 진한파랑
+#5D8BF4 - 연한파랑
+#ededed - 연한회색
+#171717 - 진한회색(기본폰트색)
+*/
+
+.alarm-wrap {
+  margin-top: 30px;
+}
+
+.alarm-content {
+  width: 800px;
+  margin: 30px auto;
+}
+
+.alarm-one-item {
+  margin: 30px 0;
+}
+
+.alarm-item-title {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.alarm-item-content {
+  font-size: 15px;
+}
+
+.grade {
+  color: #2d31fa;
+  font-weight: bold;
+  font-size: 18px;
+}

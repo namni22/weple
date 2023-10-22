@@ -16,7 +16,7 @@ const Admin = (props) => {
 
   
   const [menus, setMenus] = useState([
-    { url: "boardList", text: "공지 목록", active: false },
+    { url: "boardList", text: "공지 목록", active: true },
     { url: "insertBoard", text: "공지 등록", active: false },
     { url: "reportList", text: "신고 내역", active: false },
     { url: "memberList", text: "회원 목록", active: false },

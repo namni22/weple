@@ -68,6 +68,7 @@ const MeetMain = (props) => {
   const [meetMain, setMeetMain] = useState([]);
   const [sendMeetMain, setSendMeetMain] = useState([]);
   const [loginMemberNo, setLoginMemberNo] = useState(0);
+  const [isMeetLikeFront, setIsMeetLikeFront] = useState(0);
 
   //모임 조회
   useEffect(() => {
@@ -106,7 +107,7 @@ const MeetMain = (props) => {
           console.log(res.data?.status);
         });
     }
-  }, [loginMemberNo]);
+  }, [loginMemberNo, isMeetLikeFront]);
 
   //로그인을 했을경우 누가 로그인했는지 db에서 select해오기
   useEffect(() => {
@@ -139,6 +140,7 @@ const MeetMain = (props) => {
     <div className="meet-main">
       <div className="meet-main-title">
         {meetTitle}
+        {/* 메인미트로 이동 */}
         <Link
           to="/meet/mainmeet"
           state={{ meetList: sendMeetMain, meetTitle: meetTitle, isLogin: isLogin }}
@@ -155,6 +157,8 @@ const MeetMain = (props) => {
               key={"meetMain" + index}
               meet={meet}
               isLogin={isLogin}
+              isMeetLikeFront={isMeetLikeFront}
+              setIsMeetLikeFront={setIsMeetLikeFront}
             />
           );
         })}

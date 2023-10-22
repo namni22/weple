@@ -128,12 +128,12 @@ public class MemberController {
 		}
 		return memberService.changeInfo(member);
 	}
+	
 	//신고내용 insert
 	@PostMapping(value = "/report")
 	public int insertReport(@RequestBody Report report) {
 		System.out.println("report :" +report);
 		int result = memberService.insertReport(report);
-		System.out.println("result : "+result);
 		return result;
 	}
 	
@@ -199,12 +199,14 @@ public class MemberController {
 	public int delete(@RequestAttribute String memberId) {
 		return memberService.delete(memberId);
 	}
+	
 	//회원 선호 카테고리 조회
 	@PostMapping(value = "/getMemberCategory")
 	public List getMemberCategory(@RequestAttribute String memberId) {
 		List list = memberService.getMemberCategory(memberId);
 		return list;
 	}
+	
 	@PostMapping(value="/isMember")
 	public boolean isMember(@RequestBody int meetNo) {
 		System.out.println("controller 도착");
@@ -218,4 +220,10 @@ public class MemberController {
 			Member admin = memberService.adminCheck(memberId);			
 			return admin;
 		}
+	
+	// 회원 등급 가져오기
+	@GetMapping(value="/getMemberGrade/{memberId}")
+	public int memberGrade(@PathVariable String memberId) {
+		return memberService.getMemberGrade(memberId);
+	}
 }
