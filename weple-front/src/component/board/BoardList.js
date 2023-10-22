@@ -19,6 +19,7 @@ const BoardAll = (props) => {
     const [boardType, setBoardType] = useState(99);
 
     useEffect(() => {     
+        setToggleIdx(-1);
         axios
             .get("/board/list/" + reqPage + "/" + boardType)
             .then((res) => {                
@@ -155,10 +156,9 @@ const BoardTab = (props) => {
     }
 
     const OnClickBoardTab = (inBoardType) => {
-        console.log("OnClickBoardTab : " + inBoardType);
+        //console.log("OnClickBoardTab : " + inBoardType);
         props.setBoardType(inBoardType);
         props.setReqPage(1);
-        props.setToggleIdx(-1);
     }
 
   
@@ -177,4 +177,4 @@ const BoardTab = (props) => {
     )
 }
 
-export { BoardAll };
+export default BoardAll ;

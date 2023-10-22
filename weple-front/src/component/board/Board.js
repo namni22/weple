@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./board.css";
-import { BoardAll } from "./BoardList";
+import  BoardAll  from "./BoardList";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import BoardModify from "./BoardModify";
