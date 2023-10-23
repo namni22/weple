@@ -179,6 +179,7 @@
   display: inline-block;
   font-weight: bold;
   margin: 3px 5px;
+
 }
 
 .meetMaterials-one>span:first-child {
@@ -189,7 +190,16 @@
 
 .meetMaterials-one>span:nth-child(2) {
   /* 준비물 x 선택자 */
-  padding-left: 10px;
+  /* padding-left: 10px; */
+  margin-left: 10px;
+}
+
+.meetMaterials-one>span:nth-child(2):hover {
+  /* 준비물 x 선택자에 커서 올렸을때 */
+  background-color: #2d30fa89;
+  border-radius: 20px;
+  color: #fff;
+  cursor: pointer;
 }
 
 .meetMaterials-wrap {
