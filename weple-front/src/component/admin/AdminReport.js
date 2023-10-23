@@ -128,6 +128,7 @@ const ReportItem = (props) => {
   }
 
   const [viewOpen, setViewOpen] = useState(false);
+  const [reviewOpen, setReviewOpen] = useState(false);
   // [meetInfo, setMeetInfo] =
 
   const clickMove = (props) => {
@@ -139,8 +140,7 @@ const ReportItem = (props) => {
       axios
         .get("/admin/meetInfo/" + reportItemNo)
         .then((res) => {
-          console.log("meetinfo result : ", res.data[0]);
-          //setMeetInfo();
+          //console.log("meetinfo result : ", res.data[0]);
           navigate("/meet/View", { state: { m: res.data[0] } })
         })
         .catch((res) => {
@@ -156,7 +156,7 @@ const ReportItem = (props) => {
       setViewOpen(true);
 
     } else if (report.reportType === 3) {
-
+      setReviewOpen(true);
     }
 
   }
@@ -205,7 +205,7 @@ const ReportItem = (props) => {
                   <Button1 text="온도 내리기" clickEvent={reduceLike}></Button1>
                 </div>
               </div>
-              <ReportItemContent report={report} viewOpen={viewOpen} setViewOpen={setViewOpen}></ReportItemContent>
+              <ReportItemContent report={report} viewOpen={viewOpen} setViewOpen={setViewOpen} reviewOpen={reviewOpen} setReviewOpen={setReviewOpen}></ReportItemContent>
             </div>
           </td>
         </tr>
@@ -242,13 +242,16 @@ const ReportItemContent = (props) => {
   const reportType = props.report.reportType;
   const setViewOpen = props.setViewOpen;
   const viewOpen = props.viewOpen;
+  const setReviewOpen = props.setViewOpen;
+  const reviewOpen = props.viewOpen;
   const reportItemNo = props.report.reportItemNo;
-  const [reviewOpen, setReviewOpen] = useState(false); //리뷰 모달
+  console.log(reportItemNo);
+  //const [reviewOpen, setReviewOpen] = useState(false); //리뷰 모달
   const isAdmin = props.isAdmin;
   {/* <div onClick={view}>reviewReport</div> */ }
-  const view = () => {
-    setReviewOpen(true);
-  };
+  // const view = () => {
+  //   setReviewOpen(true);
+  // };
 
   const [loadList, setLoadList] = useState(0);
 
