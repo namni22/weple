@@ -12,6 +12,7 @@ const MyMeet = (props) => {
   const memberMeet = props.memberMeet; //모임개설가능 수
   const [myMeetJoinedList, setMyMeetJoinedList] = useState([]);
   const [myMeetList, setMyMeetList] = useState([]);
+  const [myMeetLikedList, setMyMeetLikedList] = useState([]);
 
   const navigate = useNavigate();
 
@@ -30,7 +31,7 @@ const MyMeet = (props) => {
       })
         .then((result) => {
           if (result.isConfirmed) {
-            navigate("/mypage/payment")//부모컴포넌트가 같아서 member를 안줘도 이동
+            navigate("/mypage/payment"); //부모컴포넌트가 같아서 member를 안줘도 이동
           }
         })
         .catch((res) => {
@@ -56,6 +57,15 @@ const MyMeet = (props) => {
       })
       .catch((res) => {
         console.log(res.response.status);
+      });
+
+    axios
+      .get("/member/meetLiked/" + memberNo)
+      .then((res) => {
+        setMyMeetLikedList(res.data);
+      })
+      .catch((res) => {
+        console.log(res.response.data);
       });
   }, [memberId]);
 
@@ -107,6 +117,28 @@ const MyMeet = (props) => {
                     key={"myMeetJoined" + index}
                     myMeetJoined={myMeetJoined}
                     memberNo={memberNo}
+                  />
+                );
+              })
+            )}
+          </div>
+        </div>
+        <div className="myMeet-content">
+          <div className="myMeet-content-title">
+            <img src="/img/bar.png" />
+            내가 찜한 모임
+          </div>
+          <div className="myMeet-content-item">
+            {myMeetLikedList == "" ? (
+              <div className="noMeet">
+                찜한 모임이 없습니다.<br></br>모임을 찜해보세요.
+              </div>
+            ) : (
+              myMeetLikedList.map((myMeetLiked, index) => {
+                return (
+                  <MyMeetLikedItem
+                    key={"myMeetLiked" + index}
+                    myMeetLiked={myMeetLiked}
                   />
                 );
               })
@@ -219,6 +251,36 @@ const MyMeetJoinedItem = (props) => {
       </div>
     </div>
 
+  );
+};
+
+const MyMeetLikedItem = (props) => {
+  const myMeetLiked = props.myMeetLiked;
+  return (
+    <Link to="/meet/view" state={{ m: myMeetLiked }}>
+      <div className="myMeetJoined-item">
+        <div className="myMeetJoined-img">
+          {myMeetLiked.meetThumbNail === null ? (
+            <img src="/img/testImg_01.png" />
+          ) : (
+            <img src={"/meet/" + myMeetLiked.meetThumbNail} />
+          )}
+        </div>
+        <div className="myMeetJoined-info">
+          <div className="myMeetJoined-title">{myMeetLiked.meetTitle}</div>
+          <div>
+            <div className="myMeetJoined-captain">
+              <img src="/img/captain.png" />
+              {myMeetLiked.meetCaptain}
+            </div>
+            <div className="myMeetJoined-total">
+              <img src="/img/meetTotal.png" />
+              {myMeetLiked.meetTotal - myMeetLiked.meetMargin}
+            </div>
+          </div>
+        </div>
+      </div>
+    </Link>
   );
 };
 

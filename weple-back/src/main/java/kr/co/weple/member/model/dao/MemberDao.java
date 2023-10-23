@@ -53,6 +53,8 @@ public interface MemberDao {
 	
 	Member getMemberInfo(String memberId);
 
+	List meetLiked(int memberNo);
+
 
 	
 
