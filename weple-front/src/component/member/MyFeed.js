@@ -11,6 +11,8 @@ const MyFeed = (props) => {
   const memberId = props.memberId;
   const [myFeedList, setMyFeedList] = useState([]);
   const [start, setStart] = useState(1);
+  const [loadList, setLoadList] = useState(0);
+  const [load, setLoad] = useState(0); //useEffect용
   const isLogin = props.isLogin;
   const isAdmin = props.isAdmin;
 
@@ -37,7 +39,7 @@ const MyFeed = (props) => {
           console.log("오류");
         });
     }
-  }, [memberId, start]);
+  }, [memberId, start, loadList]);
 
   const useFeedMore = (e) => {
     setStart(start + amount);
@@ -59,6 +61,10 @@ const MyFeed = (props) => {
                   myFeed={myFeed}
                   isLogin={isLogin}
                   isAdmin={isAdmin}
+                  loadList={loadList}
+                  setLoadList={setLoadList}
+                  load={load}
+                  setLoad={setLoad}
                 />
               );
             })
@@ -78,6 +84,8 @@ const MyFeedItem = (props) => {
   const myFeed = props.myFeed;
   const loadList = props.loadList;
   const setLoadList = props.setLoadList;
+  const load = props.load;
+  const setLoad = props.setLoad;
   const myFeedImg = myFeed.imageList;
   const navigate = useNavigate();
   const [viewOpen, setViewOpen] = useState(false);
@@ -141,6 +149,8 @@ const MyFeedItem = (props) => {
         setRcmId={setRcmId}
         loadList={loadList}
         setLoadList={setLoadList}
+        load={load}
+        setLoad={setLoad}
       />
     </div>
   );

@@ -415,7 +415,7 @@ const CommentFrm = (props) => {
           }
         })
         .catch((res) => {
-          console.log(res.response.status);
+          console.log(res);
           Swal.fire("Feed실패");
         });
     } else {
