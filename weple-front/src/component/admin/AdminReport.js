@@ -71,7 +71,6 @@ const ReportItem = (props) => {
   const setToggleIdx = props.setToggleIdx;
   const navigate = useNavigate();
   const index = props.index;
-
   const changeToggle = (e) => {
     if (index === toggleIdx) {
       setToggleIdx(-1);
@@ -174,6 +173,7 @@ const ReportItem = (props) => {
   // };
   const [viewOpen, setViewOpen] = useState(false);
   const [reviewOpen, setReviewOpen] = useState(false);
+  const isAdmin = props.isAdmin;
   if (index === toggleIdx) {
     return (
       <>
@@ -208,7 +208,7 @@ const ReportItem = (props) => {
                   <Button1 text="온도 내리기" clickEvent={reduceLike}></Button1>
                 </div>
               </div>
-              <ReportItemContent report={report} viewOpen={viewOpen} setViewOpen={setViewOpen} reviewOpen={reviewOpen} setReviewOpen={setReviewOpen}></ReportItemContent>
+              <ReportItemContent report={report} viewOpen={viewOpen} setViewOpen={setViewOpen} reviewOpen={reviewOpen} setReviewOpen={setReviewOpen} isAdmin={isAdmin}></ReportItemContent>
             </div>
           </td>
         </tr>

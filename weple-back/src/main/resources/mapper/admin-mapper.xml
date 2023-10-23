@@ -96,9 +96,9 @@
 		select * from meet where meet_captain = #{memberId}
 	</select>
 	<select id="selectOneMember" resultType="member">
-		select member_Grade from member where member_id=#{memberId}
+		select * from member where member_no=#{memberNo}
 	</select>
 	<update id="changeMemberLike">
-		update member set member_like = 10.0 where member_id=#{memberId}
+		update member set member_like = 10.0 where member_No=#{memberNo}
 	</update>
 </mapper>
