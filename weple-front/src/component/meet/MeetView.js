@@ -160,8 +160,8 @@ const MeetView = (props) => {
               meetNo={meetNo}
               myMeet={myMeet}
               memberId={memberId}
-              //captainCheck={captainCheck}
-              //setCaptainCheck={setCaptainCheck}
+            //captainCheck={captainCheck}
+            //setCaptainCheck={setCaptainCheck}
             />
           ) : followerStatus ? (
             <AfterMeetSubNavi
@@ -447,7 +447,7 @@ const AfterMeetMain = (props) => {
         </div>
         <div className="afterMeet-member-count">
           <span className="material-icons group">group</span>
-          {myMeet.meetTotal - myMeet.meetMargin}/{myMeet.meetTotal}명
+          {myMeet.meetTotal - myMeet.meetMargin + 1}/{myMeet.meetTotal}명
         </div>
       </div>
     </div>
@@ -512,7 +512,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab(index);
                       }}
-                      // captainCheck={captainCheck}
+                    // captainCheck={captainCheck}
                     >
                       {meetMenu.text}
                     </Link>
@@ -522,7 +522,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab(index);
                       }}
-                      // captainCheck={captainCheck}
+                    // captainCheck={captainCheck}
                     >
                       {meetMenu.text}
                     </Link>
@@ -545,7 +545,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab2(index);
                       }}
-                      // captainCheck={captainCheck}
+                    // captainCheck={captainCheck}
                     >
                       {meetMenu2.text}
                     </Link>
@@ -555,7 +555,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab2(index);
                       }}
-                      //  captainCheck={captainCheck}
+                    //  captainCheck={captainCheck}
                     >
                       {meetMenu2.text}
                     </Link>

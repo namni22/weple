@@ -408,6 +408,7 @@ const MeetSettingFrm = (props) => {
                         </div>
                     </div>
                 </div>
+                {console.log("출력")}
                 <div className="meet-btn-box">
                     {type === "modify" ? (
                         <Button1 text="모임수정" clickEvent={buttonEvent}></Button1>

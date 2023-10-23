@@ -222,7 +222,7 @@ const MeetInfo = (props) => {
                 </div>
               ) : (
                 //현재 followerStatus == 0 일때
-                <div>가입승인 대기중</div> //div로 가입 승인대기중 띄워주기 또는 공백 처리
+                <div className="meetJoinWait">가입승인 대기중</div> //div로 가입 승인대기중 띄워주기 또는 공백 처리
               )
             ) : //isMeetMember가 비어있을때
               loginMember.memberGrade < 2 ? (
