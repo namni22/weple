@@ -170,6 +170,11 @@ public class MemberService {
 		return memberDao.getMemberGrade(memberId);
 	}
 
+	public Member getMemberInfo(String memberId) {
+		
+		return memberDao.getMemberInfo(memberId);
+	}
+
 
 
 	

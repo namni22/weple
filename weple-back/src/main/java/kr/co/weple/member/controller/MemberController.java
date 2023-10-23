@@ -218,9 +218,16 @@ public class MemberController {
 	public int memberGrade(@PathVariable String memberId) {
 		return memberService.getMemberGrade(memberId);
 	}
+	//회원인지 확인하는 메소드
 	@PostMapping(value="/isMember")
 	public boolean isMember(@RequestAttribute String memberId, @RequestBody Meet meet) {
 		boolean result = memberService.isMember(memberId,meet.getMeetNo());
 		return result;
-	}
 }
+
+	
+	// 남이보는 프로필 멤버 정보 가져오기
+	@PostMapping(value="/getMemberInfo")
+	public Member getMemberInfo(@RequestBody Member m) {
+		return memberService.getMemberInfo(m.getMemberId());
+	}

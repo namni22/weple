@@ -81,13 +81,13 @@ const MeetList = (props) => {
     setReqPage(1);//전체 클릭시 reqPage 초기화
     setCategoryType(0);//카테고리 타입을 0 (대분류로)
   };
-  const [active,setActive]=useState("")
-  const [bool,setBool] =useState(false);
+  const [active, setActive] = useState("")
+  const [bool, setBool] = useState(false);
   // 카테고리 메뉴바의 카테고리를 클릭하면 동작하는 함수
   const changeCategory = (smallCategory) => {
     setReqPage(1);
     setCategoryType(smallCategory.categoryNo);
-    
+
 
     //탭메뉴 활성화
     const smallTabs = document.querySelectorAll(".smallCategory-li")
@@ -144,7 +144,7 @@ const MeetList = (props) => {
               className="smallCategory-li"
               onClick={() => {
                 changeCategoryAll(reqPage);
-                
+
               }}
             >
               전체
@@ -156,7 +156,7 @@ const MeetList = (props) => {
                   className="smallCategory-li"
                   onClick={() => {
                     changeCategory(smallCategory);
-                  
+
                   }}
                 >
                   <div  >{smallCategory.categoryName}</div>
@@ -254,15 +254,21 @@ const MeetItem = (props) => {
         // setIsMeetLike(1);
         setIsMeetLikeFront(1);
         //다시 axios가서 바뀐 meet값 가져와서 set
-        axios
-          .get("/meet/selectOneMeet/" + meet.meetNo)
-          .then((res) => {
-            console.log(res.data);
-            // setMeet(res.data)
-          })
-          .catch((res) => {
-            // console.log();
-          })
+        // axios
+        //   .get("/meet/selectOneMeet/" + meet.meetNo)
+        //   .then((res) => {
+        //     console.log(res.data);
+        //     // setMeet(res.data)
+        //   })
+        //   .catch((res) => {
+        //     // console.log();
+        //   });
+        console.log("좋아요 누르고 덴 : ", meet.isMeetLike);
+        const isMeetLike = 1;
+        meet.isMeetLike = isMeetLike;
+        setMeet({ ...meet });
+
+
       })
       .catch((res) => { });
 
@@ -284,15 +290,21 @@ const MeetItem = (props) => {
         // setIsMeetLike(0);
         setIsMeetLikeFront(-1);//이거 뭐야..
         //다시 axios가서 바뀐 meet값 가져와서 set
-        axios
-          .get("/meet/selectOneMeet/" + meet.meetNo)
-          .then((res) => {
-            console.log(res.data);
-            // setMeet(res.data)
-          })
-          .catch((res) => {
-            // console.log();
-          })
+        // axios
+        //   .get("/meet/selectOneMeet/" + meet.meetNo)
+        //   .then((res) => {
+        //     console.log(res.data);
+        //     // setMeet(res.data)
+        //   })
+        //   .catch((res) => {
+        //     // console.log();
+        //   });
+        // console.log("좋아요 취소 누르고 덴 : ", meet.isMeetLike);
+        const isMeetLike = 0;
+        meet.isMeetLike = isMeetLike;
+        setMeet({ ...meet });
+
+
       })
       .catch((res) => { });
 
