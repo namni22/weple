@@ -112,4 +112,9 @@
 	<select id="getMemberInfo" resultType="member">
 		select * from member where member_id=#{memberId}
 	</select>
+	
+	<!-- 찜한 모임 목록 가져오기 -->
+	<select id="meetLiked" resultType="meet">
+		select * from meet where meet.meet_no in(select meet_no from wish_list where member_no=#{memberNo})
+	</select>
 </mapper>

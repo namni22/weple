@@ -175,6 +175,10 @@ public class MemberService {
 		return memberDao.getMemberInfo(memberId);
 	}
 
+	public List meetLiked(int memberNo) {
+		return memberDao.meetLiked(memberNo);
+	}
+
 
 
 	
