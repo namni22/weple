@@ -58,7 +58,7 @@
 		#{meetLatitude},
 		#{meetLongitude}, 
 		#{meetThumbNail},
-		1,
+		0,
 		#{meetCaptain}
 
 		)
