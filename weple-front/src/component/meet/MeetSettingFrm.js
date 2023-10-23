@@ -412,13 +412,17 @@ const MeetSettingFrm = (props) => {
                             {meetPrepareList && meetPrepareList.map((meetPrepare, index) => {
                                 return (
                                     <div key={"meetPrepare" + index} className="meetMaterials-one">
-                                        <span>{meetPrepare}</span>
-                                        <span
-                                            className="material-icons delete-meetPrepare"
-                                            onClick={() => {
-                                                deleteMeetPrepare(meetPrepareList, index);
-                                            }}
-                                        >clear</span>
+                                        {/* meetMaterials-one을 inline-block으로 쓰고 display: flex로 아이콘정렬을위해 div로 감쌈  */}
+                                        <div>
+                                            <span>{meetPrepare}</span>
+                                            <span
+                                                className="material-icons delete-meetPrepare"
+                                                onClick={() => {
+                                                    deleteMeetPrepare(meetPrepareList, index);
+                                                }}
+                                            >clear
+                                            </span>
+                                        </div>
                                     </div>
                                 )
                             })}

@@ -30,6 +30,7 @@ const ReviewList = (props) => {
   const [reviewList, setReviewList] = useState([]);
   const isLogin = props.isLogin;
   const isAdmin = props.isAdmin;
+  const [lastNum, setLastNum] = useState(0);
   //회원인지 조회
   const [isMember, setIsMember] = useState(false);
   const token = window.localStorage.getItem("token");
@@ -52,14 +53,15 @@ const ReviewList = (props) => {
       });
   }, []);
   //리뷰 조회
-  const amount = 3;
+  const amount = 5;
   useEffect(() => {
     const end = start + amount - 1;
+    setLastNum(end);
     axios
       .get("/review/reviewList/" + meetNo + "/" + start + "/" + end)
       .then((res) => {
         const arr = [...reviewList];
-        console.log("res.data review : ", res.data);
+        console.log("res.data review : ", start, end);
         for (let i = 0; i < res.data.length; i++) {
           arr.push(res.data[i]);
         }
@@ -115,7 +117,13 @@ const ReviewList = (props) => {
           </>
         );
       })}
-      <Button1 clickEvent={useMore} text="더보기" />
+      {lastNum >= reviewCount ? (
+        <div className="btn1">
+          <div className="btn1"></div>
+        </div>
+      ) : (
+        <Button1 clickEvent={useMore} text="더보기" />
+      )}
     </div>
   );
 };
