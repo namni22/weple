@@ -170,3 +170,7 @@ path {
 .MuiRating-visuallyHidden {
   color: #ccc;
 }
+.review-none {
+  display: flex;
+  justify-content: center;
+}

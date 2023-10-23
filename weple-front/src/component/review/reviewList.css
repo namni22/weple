@@ -1,6 +1,6 @@
 .reviewlist-top {
   border-bottom: 1px solid gainsboro;
-  margin: 30px 0;
+  margin-top: 20px;
 }
 .reviewlist-title {
   font-size: 20px;
@@ -8,10 +8,13 @@
   margin-bottom: 10px;
   margin-left: 5px;
 }
-
+.reviewlist-wrap .btn1 {
+  margin: 20px 0;
+}
 /* ********reviewListcomponent*********** */
 .reviewlist-component {
-  margin: 50px 0;
+  padding: 20px 0;
+  border-bottom: 1px solid #ccc;
 }
 .reviewlist-component-top {
   margin-bottom: 10px;
