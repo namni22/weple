@@ -24,46 +24,77 @@ const MeetCalendar = (props) => {
   const [calNo, setCalNo] = useState(null);
   const [type, setType] = useState("");
   const token = window.localStorage.getItem("token");
+  const myType = props.myType;
+  const isLogin = props.isLogin;
+  console.log("넘어오냐");
 
   useEffect(() => {
-    console.log("왜 안도냐?");
-    axios
-      .get("/meet/calendarList/" + meetNo)
-      .then((res) => {
-        setSchedule(res.data);
-        const arr = [];
-        for (let i = 0; i < res.data.length; i++) {
-          arr.push(res.data[i].calStart);
-          setNotification([...arr]);
-          console.log(arr);
-        }
-      })
-      .catch((res) => {
-        console.log(res.response.status);
-        Swal.fire({
-          icon: "error",
-          title: "문제가 발생했습니다",
-          text: "관리자에게 문의하세요",
-          confirmButtonText: "확인",
+    if (myType === "my") {
+      const token = window.localStorage.getItem("token");
+      if (isLogin) {
+        axios
+          .post("/meet/myCalendar", null, {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          })
+          .then((res) => {
+            if (res.data !== null) {
+              setSchedule(res.data);
+              const arr = [];
+              for (let i = 0; i < res.data.length; i++) {
+                arr.push(res.data[i].calStart);
+                setNotification([...arr]);
+              }
+            }
+          })
+          .catch((res) => {
+            Swal.fire({
+              icon: "error",
+              title: "문제가 발생했습니다",
+              text: "관리자에게 문의하세요",
+              confirmButtonText: "확인",
+            });
+          });
+      }
+    } else {
+      axios
+        .get("/meet/calendarList/" + meetNo)
+        .then((res) => {
+          if (res.data !== null) {
+            setSchedule(res.data);
+            const arr = [];
+            for (let i = 0; i < res.data.length; i++) {
+              arr.push(res.data[i].calStart);
+              setNotification([...arr]);
+            }
+          }
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+          Swal.fire({
+            icon: "error",
+            title: "문제가 발생했습니다",
+            text: "관리자에게 문의하세요",
+            confirmButtonText: "확인",
+          });
         });
-      });
-  }, [calLoad]);
 
-  useEffect(() => {
-    const m = { meetNo };
-    axios
-      .post("/meet/captainCk", m, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
-      .then((res) => {
-        setCaptainCk(res.data);
-      })
-      .catch((res) => {
-        console.log(res.response.status);
-      });
-  }, []);
+      const m = { meetNo };
+      axios
+        .post("/meet/captainCk", m, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          setCaptainCk(res.data);
+        })
+        .catch((res) => {
+          console.log(res.response.status);
+        });
+    }
+  }, [calLoad]);
 
   const tileContent = ({ date, view }) => {
     let html = [];

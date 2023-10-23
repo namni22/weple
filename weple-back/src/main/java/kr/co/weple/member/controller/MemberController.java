@@ -226,4 +226,5 @@ public class MemberController {
 	public int memberGrade(@PathVariable String memberId) {
 		return memberService.getMemberGrade(memberId);
 	}
+
 }
