@@ -16,11 +16,11 @@ const AdminMember = () => {
   const [confirmedMemberId, setConfirmedMemberId] = useState("");
 
   useEffect(() => {
-    if (memberId === "") {      
+    if (memberId === "") {
       axios
         .get("/admin/memberList/" + reqPage)
         .then((res) => {
-          
+
           setMemberList(res.data.list);
           setPageInfo(res.data.pi);
         })
@@ -28,11 +28,11 @@ const AdminMember = () => {
           console.log(res);
         });
     }
-    else{      
+    else {
       axios
         .get("/admin/searchId/" + memberId + "/" + reqPage)
         .then((res) => {
-         
+
           setMemberList(res.data.list);
           setPageInfo(res.data.pi);
         })
@@ -98,7 +98,7 @@ const MemberItem = (props) => {
   const member = props.member;
   const [memberGrade, setMemberGrade] = useState(member.memberGrade);
   const memberNo = member.memberNo;
- 
+
   //const options = [{ grade: 0, name: "관리자" }, { grade: 1, name: "정회원" }, { grade: 2, name: "블랙리스트" }];
   // index 0 : 관리자, 1 : 정회원, 2 : 블랙리스트
   const options = ["관리자", "정회원", "블랙리스트"];
@@ -110,7 +110,7 @@ const MemberItem = (props) => {
   };
 
   const clickConfirm = (event) => {
-    const obj = { memberNo: memberNo, memberGrade: memberGrade };  
+    const obj = { memberNo: memberNo, memberGrade: memberGrade };
     const token = window.localStorage.getItem("token");
     axios
       .post("/admin/changeMemberGrade", obj, {
@@ -128,7 +128,7 @@ const MemberItem = (props) => {
         }
       })
       .catch((res) => {
-        console.log(res);
+        console.log(res.response.status);
       });
 
   }
