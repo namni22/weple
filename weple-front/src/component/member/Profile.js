@@ -102,6 +102,7 @@ const Profile = (props) => {
             path="myMeet"
             element={
               <MyMeet
+                member={member}
                 memberId={memberId}
                 memberNo={memberNo}
                 memberGrade={memberGrade}

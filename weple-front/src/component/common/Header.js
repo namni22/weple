@@ -50,7 +50,7 @@ const Header = (props) => {
             </Link>
           </div>
           <div className="icon-wrap">
-            <Link to="/myMeet">
+            <Link to="/memberMeet">
               <div className="material-icons meet">diversity_1</div>
               <div className="icon-explain">모임</div>
             </Link>
