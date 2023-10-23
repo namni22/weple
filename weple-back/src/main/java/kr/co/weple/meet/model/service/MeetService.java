@@ -471,10 +471,7 @@ public class MeetService {
 		return false;
 	}
 	public List myCalendar(String memberId) {
-		List list = meetDao.myCalendar(memberId);
-		System.out.println(list);
-		return list;
-//		return meetDao.myCalendar(memberId);
+		return meetDao.myCalendar(memberId);
 	}
 
 }
