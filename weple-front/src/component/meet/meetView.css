@@ -1,8 +1,12 @@
 .meetLike-wrap {
     /* 좋아요, 좋아요 숫자를 감싸는 div선택자 */
     /* 아이콘과 숫자를 동일선상에 정렬 */
-   float: left;
-   
+    float: left;
+
+}
+
+.aferMeet-host-img:hover {
+    cursor: pointer;
 }
 
 .MeetList-like {
@@ -13,7 +17,7 @@
 
 .meetLikeCount {
     color: #ccc;
-   
+
 
 
 }
