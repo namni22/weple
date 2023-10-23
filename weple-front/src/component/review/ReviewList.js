@@ -193,7 +193,11 @@ const ReviewListComponent = (props) => {
       <div className="reviewlist-component-top">
         <div className="review-profile">
           <div className="review-profile-img">
-            <img src={"/member/" + review.memberImage}></img>
+            {review.memberImage ? (
+              <img src={"/member/" + review.memberImage}></img>
+            ) : (
+              <img src={"../img/testImg_01.png"}></img>
+            )}
           </div>
           <div>
             <div className="review-name">{review.memberId}</div>

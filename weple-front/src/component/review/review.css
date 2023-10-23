@@ -164,5 +164,6 @@
 .review-wrap .swiper-pagination-bullets {
   display: none;
 }
-.review-none {
+path {
+  color: blue;
 }
