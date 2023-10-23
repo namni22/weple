@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 const MemberProfile = (props) => {
   const location = useLocation();
   const memberId = location.state.memberId;
+  console.log("review memberId", memberId);
   const userId = props.memberId;
   const m = { memberId };
   const [subCategory, setSubCategory] = useState([]);

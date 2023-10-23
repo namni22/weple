@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./reviewList.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -192,13 +192,15 @@ const ReviewListComponent = (props) => {
     <div className="reviewlist-component">
       <div className="reviewlist-component-top">
         <div className="review-profile">
-          <div className="review-profile-img">
-            {review.memberImage ? (
-              <img src={"/member/" + review.memberImage}></img>
-            ) : (
-              <img src={"../img/testImg_01.png"}></img>
-            )}
-          </div>
+          <Link to="/memberProfile" state={{ memberId: review.memberId }}>
+            <div className="review-profile-img">
+              {review.memberImage ? (
+                <img src={"/member/" + review.memberImage}></img>
+              ) : (
+                <img src={"../img/testImg_01.png"}></img>
+              )}
+            </div>
+          </Link>
           <div>
             <div className="review-name">{review.memberId}</div>
             <div className="review-date">{review.reviewDate}</div>
