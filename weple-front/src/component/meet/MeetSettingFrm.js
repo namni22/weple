@@ -343,18 +343,22 @@ const MeetSettingFrm = (props) => {
                 </div>
                 <div className="meetMemberLimitFrm">
                     <label>모임참여인원</label>
-                    <input
+                    {/* <input
                         type="number"
-                        min="1"
-                        max="100"
+                        // min="1"
+                        // max="100"
                         onChange={changeMeetTotal}
                         className="meetMemberLimit-input"
                         value={meetTotal}
-
                     >
-
-
-                    </input>
+                    </input> */}
+                    <Input
+                        content="meetMemberLimit-input"
+                        type="number"
+                        data={meetTotal}
+                        setData={setMeetTotal}
+                        blurEvent={changeMeetTotal}
+                    />
 
                 </div>
                 <div>
