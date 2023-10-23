@@ -107,4 +107,9 @@
 	<select id="getMemberGrade" resultType="int">
 		select member_grade from member where member_id=#{memberId}
 	</select>
+	
+	<!-- 남이보는 프로필 멤버 정보 가져오기 -->
+	<select id="getMemberInfo" resultType="member">
+		select * from member where member_id=#{memberId}
+	</select>
 </mapper>

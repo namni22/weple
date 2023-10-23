@@ -4,6 +4,7 @@ import axios from "axios";
 import Pagination from "../common/Pagination";
 import { Button1, Button2, Button3 } from "../util/Button";
 import Swal from "sweetalert2";
+import { Link, useNavigate } from "react-router-dom";
 
 const EnrollMeetMember = (props) => {
   const myMeet = props.myMeet;
@@ -75,6 +76,7 @@ const EnrollItem = (props) => {
   const enrollMember = props.enrollMember;
   const meetNo = props.meetNo;
   const setMyMeet = props.setMyMeet;
+  const navigate = useNavigate();
   //신청자 수락 이벤트
   const changeStatus = () => {
     //남은 인원과 총인원이 같을 경우
@@ -105,6 +107,7 @@ const EnrollItem = (props) => {
       })
       .catch((res) => {});
   };
+
   const enrollDelete = () => {
     //삭제버튼 눌렀을 때
 
@@ -122,10 +125,14 @@ const EnrollItem = (props) => {
       })
       .catch((res) => {});
   };
+
+  const goMemberProfile = () => {
+    navigate("/memberProfile", { state: { memberId: enroll.memberId } });
+  };
   return (
     <tr>
       <td width="5%">
-        <div className="meetMemberList-img">
+        <div className="meetMemberList-img" onClick={goMemberProfile}>
           {enroll.memberImage === null ? (
             <img src="/img/testImg_01.png" />
           ) : (

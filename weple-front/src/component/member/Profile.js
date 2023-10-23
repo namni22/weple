@@ -10,8 +10,8 @@ const Profile = (props) => {
   const member = props.member;
   const memberId = member.memberId;
   const memberNo = member.memberNo;
-  const memberGrade = member.memberGrade;//블랙리스트인지
-  const memberMeet = member.memberMeet;//모임개설가능 숫자
+  const memberGrade = member.memberGrade; //블랙리스트인지
+  const memberMeet = member.memberMeet; //모임개설가능 숫자
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
   const isAdmin = props.isAdmin;
@@ -31,7 +31,6 @@ const Profile = (props) => {
   useEffect(() => {
     // 내가 선택한 카테고리 이름 배열 만들기
     myCategory.forEach((item) => {
-      console.log("아이템" + item);
       subCategory.forEach((ct) => {
         if (item == ct.categoryNo) {
           if (ct.categoryName === "기타") {
@@ -101,7 +100,14 @@ const Profile = (props) => {
         <Routes>
           <Route
             path="myMeet"
-            element={<MyMeet memberId={memberId} memberNo={memberNo} memberGrade={memberGrade} memberMeet={memberMeet} />}
+            element={
+              <MyMeet
+                memberId={memberId}
+                memberNo={memberNo}
+                memberGrade={memberGrade}
+                memberMeet={memberMeet}
+              />
+            }
           />
         </Routes>
       </div>
