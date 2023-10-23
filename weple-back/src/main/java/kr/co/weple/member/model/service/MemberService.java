@@ -154,18 +154,25 @@ public class MemberService {
 	public boolean isMember(String memberId,int meetNo) {
 		// TODO Auto-generated method stub
 		Follower follower = memberDao.isMember(memberId,meetNo);
-		System.out.println("follower 맞는지? :"+follower);
 		boolean result = false;
+		if(follower != null) {
+			result = true;
+		}
 		return result;
 	}
 
 	public Member adminCheck(String memberId) {		
-		Member admin =memberDao.selectOneMember(memberId);
+		Member admin = memberDao.selectOneMember(memberId);
 		return admin;
 	}
 	
 	public int getMemberGrade(String memberId) {
 		return memberDao.getMemberGrade(memberId);
+	}
+
+	public Member getMemberInfo(String memberId) {
+		
+		return memberDao.getMemberInfo(memberId);
 	}
 
 

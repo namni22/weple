@@ -1,4 +1,10 @@
-import { Link, Route, Routes, useLocation } from "react-router-dom";
+import {
+  Link,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import "./afterMeet.css";
 import "./meetView.css";
 import MeetInfo from "./MeetInfo";
@@ -19,12 +25,12 @@ const MeetView = (props) => {
   const setIsLogin = props.setIsLogin;
   const id = props.id;
   const isAdmin = props.isAdmin;
+  const [myMeet, setMyMeet] = useState({});
   ////////////////////////////////////////
   useEffect(() => {
     setMyMeet(location.state.m);
   }, [props]);
   ////////////////////////////////////////
-  const [myMeet, setMyMeet] = useState({});
   const token = window.localStorage.getItem("token");
   const [followerStatus, setFollowerStatus] = useState({});
   const meetNo = myMeet.meetNo;
@@ -160,8 +166,8 @@ const MeetView = (props) => {
               meetNo={meetNo}
               myMeet={myMeet}
               memberId={memberId}
-              //captainCheck={captainCheck}
-              //setCaptainCheck={setCaptainCheck}
+            //captainCheck={captainCheck}
+            //setCaptainCheck={setCaptainCheck}
             />
           ) : followerStatus ? (
             <AfterMeetSubNavi
@@ -330,6 +336,7 @@ const AfterMeetMain = (props) => {
   };
   const [memberId, setMemberId] = useState("");
   const token = window.localStorage.getItem("token");
+  const navigate = useNavigate();
   useEffect(() => {
     if (isLogin) {
       axios
@@ -346,6 +353,9 @@ const AfterMeetMain = (props) => {
         });
     }
   }, []);
+  const goMemberProfile = () => {
+    navigate("/memberProfile", { state: { memberId: meetCaptain.memberId } });
+  };
   return (
     <div className="afterMeet-main-wrap">
       <div className="afterMeet-main-thumbnail">
@@ -356,14 +366,14 @@ const AfterMeetMain = (props) => {
       </div>
       <div className="afterMeet-main-info">
         <div className="afterMeet-info-host">
-          <div className="aferMeet-host-img">
+          <div className="aferMeet-host-img" onClick={goMemberProfile}>
             {meetCaptain.memberImage ? (
               <img src={"/member/" + meetCaptain.memberImage}></img>
             ) : (
               <img src="/img/testImg_01.png"></img>
             )}
           </div>
-          <div className="aferMeet-host-name">
+          <div className="aferMeet-host-name" onClick={goMemberProfile}>
             <Link to="#">{myMeet.meetCaptain}</Link>
             {/* <span className="like">{meetCaptain.memberLike}</span> */}
             <span className="like">
@@ -512,7 +522,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab(index);
                       }}
-                      // captainCheck={captainCheck}
+                    // captainCheck={captainCheck}
                     >
                       {meetMenu.text}
                     </Link>
@@ -522,7 +532,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab(index);
                       }}
-                      // captainCheck={captainCheck}
+                    // captainCheck={captainCheck}
                     >
                       {meetMenu.text}
                     </Link>
@@ -545,7 +555,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab2(index);
                       }}
-                      // captainCheck={captainCheck}
+                    // captainCheck={captainCheck}
                     >
                       {meetMenu2.text}
                     </Link>
@@ -555,7 +565,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab2(index);
                       }}
-                      //  captainCheck={captainCheck}
+                    //  captainCheck={captainCheck}
                     >
                       {meetMenu2.text}
                     </Link>

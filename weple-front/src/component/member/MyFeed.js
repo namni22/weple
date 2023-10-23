@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { Button1 } from "../util/Button";
 import { useNavigate } from "react-router-dom";
-import {FeedView} from "../feed/FeedView";
+import { FeedView } from "../feed/FeedView";
 import { FeedComment } from "../feed/FeedComment";
 
 const MyFeed = (props) => {
@@ -76,11 +76,13 @@ const MyFeedItem = (props) => {
   const isLogin = props.isLogin;
   const isAdmin = props.isAdmin;
   const myFeed = props.myFeed;
+  const loadList = props.loadList;
+  const setLoadList = props.setLoadList;
   const myFeedImg = myFeed.imageList;
   const navigate = useNavigate();
   const [viewOpen, setViewOpen] = useState(false);
   const [cmtIsOpen, setCmtIsOpen] = useState(false); //댓글모달
-  const [loadList, setLoadList] = useState(0);
+
   const [fCommentRefNo, setFCommentRefNo] = useState(null);
   const [rcmId, setRcmId] = useState(""); //답글남길 아이디 띄우기
 
@@ -91,7 +93,7 @@ const MyFeedItem = (props) => {
 
   const closeView = (e) => {
     setViewOpen(false);
-    e.stopPropagation();
+    // e.stopPropagation();
   };
 
   //댓글모달

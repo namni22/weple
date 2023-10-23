@@ -1,14 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button2 } from "../util/Button";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const MyMeet = (props) => {
   const memberId = props.memberId;
   const memberNo = props.memberNo;
   const memberGrade = props.memberGrade;
-  const memberMeet = props.memberMeet;//모임개설가능 수
+  const memberMeet = props.memberMeet; //모임개설가능 수
   const [myMeetJoinedList, setMyMeetJoinedList] = useState([]);
   const [myMeetList, setMyMeetList] = useState([]);
 
@@ -18,11 +18,10 @@ const MyMeet = (props) => {
     // console.log("모임개설 가능 수 : ", memberMeet);
     if (memberMeet > 0) {
       navigate("/meet/meetCreate");
-
     } else {
-      Swal.fire("추가 모임 개설은 결제가 필요합니다")
+      Swal.fire("추가 모임 개설은 결제가 필요합니다");
     }
-  }
+  };
 
   useEffect(() => {
     axios
@@ -54,7 +53,11 @@ const MyMeet = (props) => {
               내가 개설한 모임
             </div>
             {/* 멤버등급이 블랙리스트면 모임개설버튼 비활성화, 모임 개설가능 수가 0 이상일때 버튼활성화 */}
-            {memberGrade < 2 ? (<Button2 text="모임개설" clickEvent={meetCreateBtn}></Button2>) : ("")}
+            {memberGrade < 2 ? (
+              <Button2 text="모임개설" clickEvent={meetCreateBtn}></Button2>
+            ) : (
+              ""
+            )}
           </div>
           <div className="myMeet-content-item">
             {myMeetList == "" ? (
@@ -98,56 +101,60 @@ const MyMeet = (props) => {
 const MyMeetItem = (props) => {
   const myMeet = props.myMeet;
   return (
-    <div className="myMeetJoined-item">
-      <div className="myMeetJoined-img">
-        {myMeet.meetThumbNail === null ? (
-          <img src="/img/testImg_01.png" />
-        ) : (
-          <img src={"/meet/" + myMeet.meetThumbNail} />
-        )}
-      </div>
-      <div className="myMeetJoined-info">
-        <div className="myMeetJoined-title">{myMeet.meetTitle}</div>
-        <div>
-          <div className="myMeetJoined-captain">
-            <img src="/img/captain.png" />
-            {myMeet.meetCaptain}
-          </div>
-          <div className="myMeetJoined-total">
-            <img src="/img/meetTotal.png" />
-            {myMeet.meetTotal - myMeet.meetMargin}
+    <Link to="/meet/view" state={{ m: myMeet }}>
+      <div className="myMeetJoined-item">
+        <div className="myMeetJoined-img">
+          {myMeet.meetThumbNail === null ? (
+            <img src="/img/testImg_01.png" />
+          ) : (
+            <img src={"/meet/" + myMeet.meetThumbNail} />
+          )}
+        </div>
+        <div className="myMeetJoined-info">
+          <div className="myMeetJoined-title">{myMeet.meetTitle}</div>
+          <div>
+            <div className="myMeetJoined-captain">
+              <img src="/img/captain.png" />
+              {myMeet.meetCaptain}
+            </div>
+            <div className="myMeetJoined-total">
+              <img src="/img/meetTotal.png" />
+              {myMeet.meetTotal - myMeet.meetMargin}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
 const MyMeetJoinedItem = (props) => {
   const myMeetJoined = props.myMeetJoined;
   return (
-    <div className="myMeetJoined-item">
-      <div className="myMeetJoined-img">
-        {myMeetJoined.meetThumbNail === null ? (
-          <img src="/img/testImg_01.png" />
-        ) : (
-          <img src={"/meet/" + myMeetJoined.meetThumbNail} />
-        )}
-      </div>
-      <div className="myMeetJoined-info">
-        <div className="myMeetJoined-title">{myMeetJoined.meetTitle}</div>
-        <div>
-          <div className="myMeetJoined-captain">
-            <img src="/img/captain.png" />
-            {myMeetJoined.meetCaptain}
-          </div>
-          <div className="myMeetJoined-total">
-            <img src="/img/meetTotal.png" />
-            {myMeetJoined.meetTotal - myMeetJoined.meetMargin}
+    <Link to="/meet/view" state={{ m: myMeetJoined }}>
+      <div className="myMeetJoined-item">
+        <div className="myMeetJoined-img">
+          {myMeetJoined.meetThumbNail === null ? (
+            <img src="/img/testImg_01.png" />
+          ) : (
+            <img src={"/meet/" + myMeetJoined.meetThumbNail} />
+          )}
+        </div>
+        <div className="myMeetJoined-info">
+          <div className="myMeetJoined-title">{myMeetJoined.meetTitle}</div>
+          <div>
+            <div className="myMeetJoined-captain">
+              <img src="/img/captain.png" />
+              {myMeetJoined.meetCaptain}
+            </div>
+            <div className="myMeetJoined-total">
+              <img src="/img/meetTotal.png" />
+              {myMeetJoined.meetTotal - myMeetJoined.meetMargin}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

@@ -48,6 +48,11 @@ const MeetInfo = (props) => {
     }
   }, [props]);
 
+  //로그아웃상태에서 모임가입 버튼클릭시 
+  const loginSwal = () => {
+    Swal.fire("로그인이 필요한 서비스 입니다.")
+  }
+
   //로그인 이후 모임가입하기 버튼 클릭시 작동하는 함수
   const meetJoin = () => {
     const token = window.localStorage.getItem("token");
@@ -195,15 +200,20 @@ const MeetInfo = (props) => {
           <div className="meetInfo-content-title">준비물</div>
         )}
       </div>
+      {console.log("모임 타입 : ", meet.meetType)}
       <div className="meetJoin-btn-zone">
         {/* 버튼이 보이는 조건: 로그인이 되어있고 / 아직 모임 가입을 하지 않는 경우 */}
         {isLogin ? (
           meetCaptain && loginMember ? ( //객체 가져와져있는지부터 확인
             meetCaptain.memberNo === loginMember.memberNo ? ( //로그인한 멤버가 모임장이라면?
-              <div className="meetInfo-cap-btn-wrap">
-                <Button1 text={"수정하기"} clickEvent={meetModify} />
-                <Button1 text={"모임삭제"} clickEvent={meetDelete} />
-              </div>
+              meet.meetType === 1 ? (//모임 반려중이면 버튼 출력안함
+                <div className="meetInfo-cap-btn-wrap">
+                  <Button1 text={"수정하기"} clickEvent={meetModify} />
+                  <Button1 text={"모임삭제"} clickEvent={meetDelete} />
+                </div>
+              ) : (
+                ""
+              )
             ) : isMeetMember ? ( //객체 가져와져있는지부터 확인
               // <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
               // isMesetMember가 있을때"
@@ -217,7 +227,7 @@ const MeetInfo = (props) => {
                 </div>
               ) : (
                 //현재 followerStatus == 0 일때
-                <div>가입승인 대기중</div> //div로 가입 승인대기중 띄워주기 또는 공백 처리
+                <div className="meetJoinWait">가입승인 대기중</div> //div로 가입 승인대기중 띄워주기 또는 공백 처리
               )
             ) : //isMeetMember가 비어있을때
               loginMember.memberGrade < 2 ? (
@@ -231,7 +241,7 @@ const MeetInfo = (props) => {
             ""
           )
         ) : (
-          "로그아웃 상태" //로그아웃 상태일때 공백
+          <Button1 text="모임가입하기" clickEvent={loginSwal} /> //로그아웃 상태일때 공백
         )}
       </div>
     </div>

@@ -29,12 +29,18 @@ const Login = (props) => {
         if (res.data === "") {
           Swal.fire("아이디 또는 비밀번호를 확인하세요.");
         } else {
+          console.log("res.data", res.data);
           window.localStorage.setItem("token", res.data[0]);
           setIsLogin(true);
           console.log("res.data[]", res.data[1]);
           if (res.data[1] === 0) {
             setIsAdmin(true);
             window.localStorage.setItem("chkAdmin", res.data[1]);
+          } else if (res.data[1] === 2) {
+            // 회원 등급이 2인 경우 알림 띄우기
+            Swal.fire(
+              "블랙리스트가 되었습니다. 모임 생성 및 모임 참여가 불가능합니다."
+            );
           }
           setId(member.memberId);
           navigate("/");

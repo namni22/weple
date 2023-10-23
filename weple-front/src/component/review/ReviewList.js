@@ -30,10 +30,28 @@ const ReviewList = (props) => {
   const [start, setStart] = useState(1);
   const isLogin = props.isLogin;
   const isAdmin = props.isAdmin;
-  const isMeetMember = props.isMeetMember;
-  console.log("isMeetMember", isMeetMember);
+  //회원인지 조회
+  const [isMember, setIsMember] = useState(false);
+  const token = window.localStorage.getItem("token");
+  useEffect(() => {
+    axios
+      .post(
+        "/member/isMember",
+        { meetNo },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
+      .then((res) => {
+        setIsMember(res.data);
+      })
+      .catch((res) => {
+        console.log("isMember", res.status);
+      });
+  }, []);
   //리뷰 조회
-
   const amount = 10;
   useEffect(() => {
     const end = start + amount - 1;
@@ -41,6 +59,7 @@ const ReviewList = (props) => {
       .get("/review/reviewList/" + meetNo + "/" + start + "/" + end)
       .then((res) => {
         const arr = [...reviewList];
+        console.log("res.data review : ", res.data);
         for (let i = 0; i < res.data.length; i++) {
           arr.push(res.data[i]);
         }
@@ -74,7 +93,9 @@ const ReviewList = (props) => {
             </div>
             <div className="meet-star-score">{meetStar}</div>
           </div>
-          {isLogin ? (
+          {console.log("isMember", isMember)}
+          {console.log("isLogin", isLogin)}
+          {isMember && isLogin ? (
             <div className="review-write-btn">
               <Button1 text="후기작성" clickEvent={write} />
             </div>

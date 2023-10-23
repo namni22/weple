@@ -66,40 +66,16 @@ const MeetSettingFrm = (props) => {
         axios
             .get("/meet/selectSmallCategory/" + bigCategoryNo)
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 setSmallCategoryList(res.data);
             })
             .catch((res) => {
                 console.log("catch : " + res.response.status);
             });
-    }
-    //카테고리 대분류 선택지 작동하는 함수 (탭메뉴)
-    const activeBigCategory = () => {
-        const smallTabs = document.querySelectorAll(".smallCategoryName")
-        console.log("스몰 탭 : ", smallTabs);
-        smallTabs.forEach(function (item, index) {
-            item.addEventListener("click", function () {
-                for (let i = 0; i < smallTabs.length; i++) {
-
-                    smallTabs[i].classList.remove("active-smallCategory")
-                }
-
-            })
-        })
-        const bigTabs = document.querySelectorAll(".meetSettingFrm-bigCategory-ul>li")
-        bigTabs.forEach(function (item, index) {
-            item.addEventListener("click", function () {
-                for (let i = 0; i < bigTabs.length; i++) {
-
-                    bigTabs[i].classList.remove("active-bigCategory")
-                }
-                item.classList.add("active-bigCategory")
-            })
-        })
+        //activeBigCategory();
 
     }
-    //카테고리 선택시 작동하는 함수 (탭메뉴)
-    const activeSmallCategory = () => {
+    useEffect(() => {
         const smallTabs = document.querySelectorAll(".smallCategoryName")
         smallTabs.forEach(function (item, index) {
             item.addEventListener("click", function () {
@@ -110,8 +86,45 @@ const MeetSettingFrm = (props) => {
             })
         })
 
+        const bigTabs = document.querySelectorAll(".meetSettingFrm-bigCategory-ul>li")
+        bigTabs.forEach(function (item, index) {
+            item.addEventListener("click", function () {//대분류 클릭이벤트발동시
+                for (let i = 0; i < bigTabs.length; i++) {
+                    bigTabs[i].classList.remove("active-bigCategory")
+                }
+                //액티브 탭 클래스 추가
+                item.classList.add("active-bigCategory")
+                console.log("변한 스몰 탭 : ", smallTabs);
+                //스몰탭의 액티브 클래스 초기화
+                smallTabs.forEach(function (item, index) {
+                    for (let i = 0; i < smallTabs.length; i++) {
+                        // 스몰탭 초기화
+                        smallTabs[i].classList.remove("active-smallCategory")
+                    }
+                });
+                //
+            })
+        });
+    }, [smallCategoryList])
+    //카테고리 대분류 선택지 작동하는 함수 (탭메뉴)
+    // const activeBigCategory = () => {
 
-    }
+
+    // }
+    //카테고리 선택시 작동하는 함수 (탭메뉴)
+    // const activeSmallCategory = () => {
+    //     const smallTabs = document.querySelectorAll(".smallCategoryName")
+    //     smallTabs.forEach(function (item, index) {
+    //         item.addEventListener("click", function () {
+    //             for (let i = 0; i < smallTabs.length; i++) {
+    //                 smallTabs[i].classList.remove("active-smallCategory")
+    //             }
+    //             item.classList.add("active-smallCategory")
+    //         })
+    //     });
+
+
+    // }
 
     //   썸네일 미리보기 함수
     const thumbnailChange = (e) => {
@@ -149,8 +162,8 @@ const MeetSettingFrm = (props) => {
     //모임 인원 변경 함수
     const changeMeetTotal = (e) => {
         console.log(e.currentTarget.value);
-        if (e.currentTarget.value < 1) {
-            setMeetTotal(1);
+        if (e.currentTarget.value < 2) {
+            setMeetTotal(2);
         }
         else if (e.currentTarget.value > 100) {
             setMeetTotal(100);
@@ -212,32 +225,32 @@ const MeetSettingFrm = (props) => {
                             <ul className="meetSettingFrm-bigCategory-ul">
                                 <li onClick={() => {
                                     selectSmallCategory(1);
-                                    activeBigCategory();
+                                    // activeBigCategory();
                                 }}>스포츠</li>
 
                                 <li onClick={() => {
                                     selectSmallCategory(30);
-                                    activeBigCategory();
+                                    // activeBigCategory();
                                 }}>여행</li>
 
                                 <li onClick={() => {
                                     selectSmallCategory(14);
-                                    activeBigCategory();
+                                    // activeBigCategory();
                                 }}>요리</li>
 
                                 <li onClick={() => {
                                     selectSmallCategory(8);
-                                    activeBigCategory();
+                                    // activeBigCategory();
                                 }}>공예DIY</li>
 
                                 <li onClick={() => {
                                     selectSmallCategory(25);
-                                    activeBigCategory();
+                                    // activeBigCategory();
                                 }}>자기개발</li>
 
                                 <li onClick={() => {
                                     selectSmallCategory(19);
-                                    activeBigCategory();
+                                    // activeBigCategory();
                                 }}>문화예술</li>
                             </ul>
                         </div>
@@ -253,7 +266,8 @@ const MeetSettingFrm = (props) => {
                                                 console.log("선택한 카테고리번호 : " + meetCategory);
                                             }}
                                         >
-                                            <div className="smallCategoryName" onClick={activeSmallCategory}>{smallCategory.categoryName}</div>
+                                            <div className="smallCategoryName" >{smallCategory.categoryName}</div>
+                                            {/* onClick={activeSmallCategory} */}
                                         </li>
                                     );
                                 })}
@@ -401,6 +415,7 @@ const MeetSettingFrm = (props) => {
                         </div>
                     </div>
                 </div>
+
                 <div className="meet-btn-box">
                     {type === "modify" ? (
                         <Button1 text="모임수정" clickEvent={buttonEvent}></Button1>
