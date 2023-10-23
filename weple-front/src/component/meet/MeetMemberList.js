@@ -6,6 +6,7 @@ import ReactDOM from "react-dom";
 import Pagination from "../common/Pagination";
 import Swal from "sweetalert2";
 import { ReportModal } from "../util/Modal";
+import { useNavigate } from "react-router-dom";
 
 const MeetMemberList = (props) => {
   const myMeet = props.myMeet;
@@ -95,6 +96,7 @@ const MemberList = (props) => {
   const isLogin = props.isLogin;
   const [memberId, setMemberId] = useState("");
   const token = window.localStorage.getItem("token");
+  const navigate = useNavigate();
   useEffect(() => {
     if (isLogin) {
       axios
@@ -228,10 +230,14 @@ const MemberList = (props) => {
     });
   };
 
+  const goMemberProfile = () => {
+    navigate("/memberProfile", { state: { memberId: memberList.memberId } });
+  };
+
   return (
     <tr>
       <td width="5%">
-        <div className="meetMemberList-img">
+        <div className="meetMemberList-img" onClick={goMemberProfile}>
           {memberList.memberImage === null ? (
             <img src="/img/testImg_01.png" />
           ) : (
