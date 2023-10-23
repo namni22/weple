@@ -372,17 +372,17 @@ const FeedContent = (props) => {
   );
 };
 
-window.onload = function () {
-  const swipernext = document.querySelector(".swiper-button-next");
-  const swiperprev = document.querySelector(".swiper-button-prev");
+// window.onload = function () {
+//   const swipernext = document.querySelector(".swiper-button-next");
+//   const swiperprev = document.querySelector(".swiper-button-prev");
 
-  swipernext.addEventListener("click", function (e) {
-    console.log("클릭!!");
-    e.stopPropagation();
-  });
-  swiperprev.addEventListener("click", function (e) {
-    e.stopPropagation();
-  });
-};
+//   swipernext.addEventListener("click", function (e) {
+//     console.log("클릭!!");
+//     e.stopPropagation();
+//   });
+//   swiperprev.addEventListener("click", function (e) {
+//     e.stopPropagation();
+//   });
+// };
 
 export { FeedContent, FeedList };
