@@ -10,7 +10,7 @@ import MainMeet from "./MainMeet";
 
 const Main = (props) => {
   const isLogin = props.isLogin;
-  const imgList = ["./img/main_1.jpg", "./img/main_2.jpg"];
+  const imgList = ["./img/main_1.jpg", "./img/main_2.jpg", "./img/main_3.jpg"];
   const token = window.localStorage.getItem("token");
   const [memberCategory, setMemberCategory] = useState([]);
 
@@ -52,11 +52,19 @@ const Main = (props) => {
         memberCategory={memberCategory}
       /> */}
       {console.log("meetMain", memberCategory)}
-      <MeetMain meetSet={"meetPopular"} meetTitle={"주간 인기 TOP 30 👑"} isLogin={isLogin} />
-      <MeetMain meetSet={"meetMargin"} meetTitle={"마감임박!"} isLogin={isLogin} />
+      <MeetMain
+        meetSet={"meetPopular"}
+        meetTitle={"주간 인기 TOP 30 👑"}
+        isLogin={isLogin}
+      />
+      <MeetMain
+        meetSet={"meetMargin"}
+        meetTitle={"마감임박!"}
+        isLogin={isLogin}
+      />
       <FeedMain />
       <MeetMain meetSet={"meetNew"} meetTitle={"신규개설"} isLogin={isLogin} />
-    </div >
+    </div>
   );
 };
 
@@ -95,13 +103,11 @@ const MeetMain = (props) => {
           console.log(res.data?.status);
         });
     } else {
-
       axios
         .get("/meet/" + meetSet + "/" + loginMemberNo)
         .then((res) => {
           setSendMeetMain(res.data);
           setMeetMain(res.data?.slice(0, 4));
-
         })
         .catch((res) => {
           console.log(res.data?.status);
@@ -114,7 +120,6 @@ const MeetMain = (props) => {
     // setMeet(props.meet);
     const token = window.localStorage.getItem("token");
     if (isLogin) {
-
       axios
         .post("/member/getMember", null, {
           headers: {
@@ -125,16 +130,16 @@ const MeetMain = (props) => {
           //setLoginMember(res.data);
           //로그인한 멤버 번호
           // loginMemberNo = res.data.memberNo;
-          setLoginMemberNo(res.data.memberNo)
+          setLoginMemberNo(res.data.memberNo);
         })
         .catch((res) => {
           console.log(res.response.status);
         });
-    } else {//로그아웃하면 로그인멤버 초기화
+    } else {
+      //로그아웃하면 로그인멤버 초기화
       //setLoginMember(null);
     }
-
-  }, [isLogin])
+  }, [isLogin]);
 
   return (
     <div className="meet-main">
@@ -143,7 +148,11 @@ const MeetMain = (props) => {
         {/* 메인미트로 이동 */}
         <Link
           to="/meet/mainmeet"
-          state={{ meetList: sendMeetMain, meetTitle: meetTitle, isLogin: isLogin }}
+          state={{
+            meetList: sendMeetMain,
+            meetTitle: meetTitle,
+            isLogin: isLogin,
+          }}
           className="meet-move-btn"
         >
           전체보기
@@ -151,7 +160,6 @@ const MeetMain = (props) => {
       </div>
       <div className="meet-one-wrap">
         {meetMain.map((meet, index) => {
-
           return (
             <MeetItem
               key={"meetMain" + index}

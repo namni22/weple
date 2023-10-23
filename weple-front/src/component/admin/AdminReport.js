@@ -5,9 +5,10 @@ import Swal from "sweetalert2";
 import Pagination from "../common/Pagination";
 import { Button1, Button2 } from "../util/Button";
 import { useNavigate } from "react-router-dom";
-import {FeedView} from "../feed/FeedView";
+import { FeedView } from "../feed/FeedView";
 import { FeedComment } from "../feed/FeedComment";
 import MeetView from "../meet/MeetView";
+import ReviewReport from "../review/ReviewReport";
 const AdminReport = () => {
 
   const [toggleIdx, setToggleIdx] = useState(-1);
@@ -68,7 +69,7 @@ const ReportItem = (props) => {
   const report = props.report;
   const toggleIdx = props.toggleIdx;
   const setToggleIdx = props.setToggleIdx;
-  const navigate =useNavigate();
+  const navigate = useNavigate();
   const index = props.index;
 
   const changeToggle = (e) => {
@@ -80,15 +81,15 @@ const ReportItem = (props) => {
 
   }
   const clickConfirm = () => {
-    const obj = {reportNo : report.reportNo , reportStatus : report.reportStatus};
-    console.log("clickConfirm :" ,obj);
+    const obj = { reportNo: report.reportNo, reportStatus: report.reportStatus };
+    console.log("clickConfirm :", obj);
     if (report.reportStatus === 1) {
       axios
         .post("/admin/changeReportStatus", obj)
         .then((res) => {
           if (res.data === 1) {
             Swal.fire("확인완료");
-            report.reportStatus = 0;  
+            report.reportStatus = 0;
           } else {
             Swal.fire("변경 중 문제가 발생했습니다.");
           }
@@ -128,35 +129,36 @@ const ReportItem = (props) => {
 
   const [viewOpen, setViewOpen] = useState(false);
   // [meetInfo, setMeetInfo] =
-  const clickMove = (props) =>{  
-    const report =props;
-    if(report.reportType === 0){
 
-    }else if(report.reportType === 1){
-      const reportItemNo =report.reportItemNo;    
-        axios
-          .get("/admin/meetInfo/" + reportItemNo)
-          .then((res) => {
-            console.log("meetinfo result : ", res.data[0]);
-           //setMeetInfo();
-           navigate("/meet/View", { state: { m: res.data[0] } })
-          })
-          .catch((res) => {
-            console.log("catch : " + res.response.status);
-          });
+  const clickMove = (props) => {
+    const report = props;
+    if (report.reportType === 0) {
 
-        //상세보기로 이동하는 함수
-        const meetView = () => {
+    } else if (report.reportType === 1) {
+      const reportItemNo = report.reportItemNo;
+      axios
+        .get("/admin/meetInfo/" + reportItemNo)
+        .then((res) => {
+          console.log("meetinfo result : ", res.data[0]);
+          //setMeetInfo();
+          navigate("/meet/View", { state: { m: res.data[0] } })
+        })
+        .catch((res) => {
+          console.log("catch : " + res.response.status);
+        });
+
+      //상세보기로 이동하는 함수
+      const meetView = () => {
         // console.log("클릭하기 전 값 : ", meet, meet.meetNo);
-        }; //이동할곳 state로 데이터 전송
-      
-    }else if(report.reportType === 2){     
-      setViewOpen(true);  
-      
-    }else if(report.reportType === 3){
-      
+      }; //이동할곳 state로 데이터 전송
+
+    } else if (report.reportType === 2) {
+      setViewOpen(true);
+
+    } else if (report.reportType === 3) {
+
     }
-  
+
   }
   // //댓글모달
   // const myFeedComment = (e) => {
@@ -191,23 +193,23 @@ const ReportItem = (props) => {
             {report.reportStatus === 1 ? <Button2 text="확인 중" clickEvent={clickConfirm} /> : <Button1 text="확인완료" />}
           </td>
         </tr>
-        <tr>          
+        <tr>
           <td className="report-list-content" colSpan={4}>
             <div>{report.reportContent}</div>
             <div>
-            <div className="reportlist-btn-box">
-              <div>
-                <Button2 text="이동" clickEvent={()=>{clickMove(report)}}></Button2>
+              <div className="reportlist-btn-box">
+                <div>
+                  <Button2 text="이동" clickEvent={() => { clickMove(report) }}></Button2>
+                </div>
+                <div>
+                  <Button1 text="온도 내리기" clickEvent={reduceLike}></Button1>
+                </div>
               </div>
-              <div>
-                <Button1 text="온도 내리기" clickEvent={reduceLike}></Button1>
-              </div>
-            </div>          
-            <ReportItemContent report={report} viewOpen={viewOpen} setViewOpen={setViewOpen}></ReportItemContent> 
+              <ReportItemContent report={report} viewOpen={viewOpen} setViewOpen={setViewOpen}></ReportItemContent>
             </div>
-          </td>                     
+          </td>
         </tr>
-        
+
       </>
 
     );
@@ -241,6 +243,12 @@ const ReportItemContent = (props) => {
   const setViewOpen = props.setViewOpen;
   const viewOpen = props.viewOpen;
   const reportItemNo = props.report.reportItemNo;
+  const [reviewOpen, setReviewOpen] = useState(false); //리뷰 모달
+  const isAdmin = props.isAdmin;
+  {/* <div onClick={view}>reviewReport</div> */ }
+  const view = () => {
+    setReviewOpen(true);
+  };
 
   const [loadList, setLoadList] = useState(0);
 
@@ -249,37 +257,41 @@ const ReportItemContent = (props) => {
     e.stopPropagation();
   };
 
-  if(reportType === 0)
-  {
-      return(<tr></tr>)
-  }   
-  else if(reportType === 1)
-  {
-    return(<tr>
-    {/* <MeetView /> */}
+  if (reportType === 0) {
+    return (<tr></tr>)
+  }
+  else if (reportType === 1) {
+    return (<tr>
+      {/* <MeetView /> */}
     </tr>)
-  } 
-  else if(reportType === 2) 
-  {
-    return(
+  }
+  else if (reportType === 2) {
+    return (
       <tr>
         <FeedView
-        isOpen={viewOpen}
-        closeView={closeView}
-        feedNo={reportItemNo}
-        isLogin={true}
-        loadList={loadList}
-        setLoadList={setLoadList}
-        isAdmin={true}
-      />
+          isOpen={viewOpen}
+          closeView={closeView}
+          feedNo={reportItemNo}
+          isLogin={true}
+          loadList={loadList}
+          setLoadList={setLoadList}
+          isAdmin={true}
+        />
       </tr>
     )
-  } 
-  else if(reportType === 3)
-  {
-    return(<tr></tr>)
   }
-  
+  else if (reportType === 3) {
+    return (<tr>
+      <ReviewReport
+        reviewOpen={reviewOpen}
+        closeView={(e) => {
+          setReviewOpen(false);
+        }}
+        reviewNo={reportItemNo} //review번호 값
+        isAdmin={isAdmin}
+      /></tr>)
+  }
+
 }
 
 export default AdminReport;
