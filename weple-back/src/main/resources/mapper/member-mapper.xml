@@ -40,7 +40,7 @@
 		where member_no = #{memberNo}
 	</update>
 	<insert id="insertReport">
-		INSERT INTO REPORT VALUES(REPORT_SEQ.NEXTVAL,#{reportType},#{reportItemNo},#{reportContent},#{reportedMember},1,#{reportCategoryNo},#{reportMember},TO_CHAR(SYSDATE,'YYYY-DD-MM'))
+		 INSERT INTO REPORT VALUES(REPORT_SEQ.NEXTVAL,#{reportType},#{reportItemNo},#{reportContent},#{reportedMember},1,#{reportCategoryNo},#{reportMember},TO_CHAR(SYSDATE,'YYYY-DD-MM'))
 	</insert>
 	
 	<select id="totalCount">

@@ -302,7 +302,9 @@ public class MeetService {
 		param.put("memberId",memberId);
 		param.put("meetNo",meetNo);
 		int result = meetDao.insertMeetChat(param);
-		List list = meetDao.meetChatLast(meetNo);		
+		System.out.println(param);
+		List list = meetDao.meetChatLast(meetNo);
+		System.out.println(list);
 		return list;
 	}
 	public Follower status(int meetNo, String memberId) {

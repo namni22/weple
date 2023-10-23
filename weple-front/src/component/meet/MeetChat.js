@@ -39,7 +39,7 @@ const MeetChat = (props) => {
         setChat(res.data.meetChat);
       })
       .catch((res) => {});
-  }, []);
+  }, [props]);
   const token = window.localStorage.getItem("token");
   const insertChat = () => {
     if (chatContent !== "\n") {
@@ -54,6 +54,7 @@ const MeetChat = (props) => {
           }
         )
         .then((res) => {
+          console.log(res.data);
           const newArr = [...chat];
           newArr.push(res.data[0]);
           setChat(newArr);
@@ -107,7 +108,6 @@ const MeetChat = (props) => {
 const ChatItem = (props) => {
   const chat = props.chat;
   const memberId = props.memberId;
-
   const messages = props.messages;
   const [bool, setBool] = useState(true);
 
