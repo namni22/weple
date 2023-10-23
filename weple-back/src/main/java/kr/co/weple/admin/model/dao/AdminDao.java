@@ -62,9 +62,9 @@ public interface AdminDao {
 
 	int deleteMeet(String memberId);
 
-	Member selectOneMember(String memberId);
+	Member selectOneMember(int memberNo);
 
-	int changeMemberLike(String memberId);
+	int changeMemberLike(int memberNo);
 
 	
 

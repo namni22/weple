@@ -92,16 +92,16 @@ const Review = (props) => {
           {
             <div className="review-wrap">
               {isMember ? (
-                <div className="review-no">
+                <div className="">
                   이미 회원이신가요? 첫번째 리뷰를 작성해 보세요!
                   <div className="review-write-btn">
                     <Button1 text="후기작성" clickEvent={write} />
                   </div>
                 </div>
               ) : (
-                <div className="review-no">
-                  모임에 가입하고 첫 번째 리뷰를 작성해 보세요!
-                </div>
+                <span className="review-none">
+                  모임에 가입하고 첫 번째 리뷰를 작성해 보세요😘
+                </span>
               )}
             </div>
           }
@@ -153,7 +153,7 @@ const ReviewComponent = (props) => {
   const reviewContent = props.review?.reviewContent.replaceAll("<br>", "\r\n");
   const memberId = props.review?.memberId;
   const rimageName = "/review/" + props.review?.rimageName;
-  const memberImage = "/review/" + props.review?.memberImage;
+  const memberImage = props.review?.memberImage;
   // console.log("리뷰에서~" + props.review);
   // console.log(props.review);
   return (
@@ -162,7 +162,11 @@ const ReviewComponent = (props) => {
         <img src={rimageName}></img>
       </div>
       <div className="review-profile">
-        <img src={memberImage} className="review-img"></img>
+        {memberImage ? (
+          <img src={"/review/" + memberImage} className="review-img" />
+        ) : (
+          <img src={"../img/testImg_01.png"} className="review-img" />
+        )}
         <span className="review-name">{memberId}</span>
       </div>
       <div className="review-content simple">{reviewContent}</div>

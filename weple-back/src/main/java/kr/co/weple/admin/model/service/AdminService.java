@@ -45,19 +45,26 @@ public class AdminService {
 		//멤버 등급 변경
 		@Transactional
 		public int changeMemberGrade(Member member) {
+			//System.out.println("멤버 그레이드 정말 블랙이야? : " + member.getMemberGrade());
 			int result = adminDao.changeMemberGrade(member);
-//			if(result > 0) {
-//				
-//				System.out.println(member.getMemberGrade());
-//				if(member.getMemberGrade() == 2) {
-//					int result2 = adminDao.changeMemberLike(member.getMemberId());
-//					return result2;
-//				}else {
-//					return 3;
-//				}
-//				
-//			}
-			return result;
+			if(result > 0) {	
+				
+//				System.out.println("결과 : "+ result);
+//				System.out.println("멤버 아이디 : " + member.getMemberId());
+				Member m = adminDao.selectOneMember(member.getMemberNo());
+				
+				
+				if(m.getMemberGrade() == 2) {
+					int result2 = adminDao.changeMemberLike(member.getMemberNo());
+					return result2;
+				}else {
+					return 1;
+				}
+				
+			}else {
+				return 0;
+			}
+			
 		
 							
 		}
