@@ -6,7 +6,7 @@ import { FeedViewContent } from "../feed/FeedView";
 import Swal from "sweetalert2";
 import { MoreModal } from "../util/Modal";
 
-const ReviewReport = (props)=>{
+const ReviewReport = (props) => {
   const customStyles = {
     content: {
       top: "50%",
@@ -28,8 +28,8 @@ const ReviewReport = (props)=>{
   const reviewNo = props.reviewNo;
   const isAdmin = props.isAdmin;
   const [review, setReview] = useState({});
-  const [reviewBox, setReviewBox] = useState([]);   
-  const [delModal, setDelModal] = useState(false);  //삭제버튼
+  const [reviewBox, setReviewBox] = useState([]);
+  const [delModal, setDelModal] = useState(false); //삭제버튼
   //review
   useEffect(() => {
     axios
@@ -52,34 +52,34 @@ const ReviewReport = (props)=>{
       });
   }, [reviewNo]);
   //삭제 이벤트
-const deleteEvent = () => {
-  Swal.fire({
-    icon: "warning",
-    text: "리뷰를 삭제하시겠습니까?",
-    showCancelButton: true,
-    confirmButtonText: "삭제",
-    cancelButtonText: "취소",
-  }).then((res) => {
-    setDelModal(false);
-    closeView();
-    if (res.isConfirmed) {
-      axios
-        .get("/review/delete/" + reviewNo)
-        .then((res) => {
-          if (res.data !== 0) {
-            Swal.fire({
-              icon: "success",
-              text: "리뷰가 삭제되었습니다",
-              confirmButtonText: "확인",
-            })
-          }
-        })
-        .catch((res) => {
-          console.log(res.response.status);
-        });
-    }
-  });
-};
+  const deleteEvent = () => {
+    Swal.fire({
+      icon: "warning",
+      text: "리뷰를 삭제하시겠습니까?",
+      showCancelButton: true,
+      confirmButtonText: "삭제",
+      cancelButtonText: "취소",
+    }).then((res) => {
+      setDelModal(false);
+      closeView();
+      if (res.isConfirmed) {
+        axios
+          .get("/review/delete/" + reviewNo)
+          .then((res) => {
+            if (res.data !== 0) {
+              Swal.fire({
+                icon: "success",
+                text: "리뷰가 삭제되었습니다",
+                confirmButtonText: "확인",
+              });
+            }
+          })
+          .catch((res) => {
+            console.log(res.response.status);
+          });
+      }
+    });
+  };
   return (
     <ReactModal style={customStyles} isOpen={reviewOpen}>
       <MoreModal
@@ -87,12 +87,18 @@ const deleteEvent = () => {
         deleteEvent={deleteEvent}
         isAdmin={isAdmin}
         feedNo={review.reviewNo}
+        onCancel={() => {
+          setDelModal(false);
+        }}
       />
       <div className="feed-view">
         <div className="feed-view-top">
-          <div className="feed-list-more-btn" onClick={()=>{
-            setDelModal(true);
-          }}>
+          <div
+            className="feed-list-more-btn"
+            onClick={() => {
+              setDelModal(true);
+            }}
+          >
             <span className="material-icons-outlined">more_vert</span>
           </div>
           <div className="feed-list-top">
@@ -118,5 +124,5 @@ const deleteEvent = () => {
       </div>
     </ReactModal>
   );
-}
+};
 export default ReviewReport;
