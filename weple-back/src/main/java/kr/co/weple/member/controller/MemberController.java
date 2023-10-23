@@ -227,4 +227,10 @@ public class MemberController {
 		return memberService.getMemberGrade(memberId);
 	}
 
+	
+	// 남이보는 프로필 멤버 정보 가져오기
+	@PostMapping(value="/getMemberInfo")
+	public Member getMemberInfo(@RequestBody Member m) {
+		return memberService.getMemberInfo(m.getMemberId());
+	}
 }

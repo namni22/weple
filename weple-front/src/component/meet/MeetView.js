@@ -1,4 +1,10 @@
-import { Link, Route, Routes, useLocation } from "react-router-dom";
+import {
+  Link,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import "./afterMeet.css";
 import "./meetView.css";
 import MeetInfo from "./MeetInfo";
@@ -330,6 +336,7 @@ const AfterMeetMain = (props) => {
   };
   const [memberId, setMemberId] = useState("");
   const token = window.localStorage.getItem("token");
+  const navigate = useNavigate();
   useEffect(() => {
     if (isLogin) {
       axios
@@ -346,6 +353,9 @@ const AfterMeetMain = (props) => {
         });
     }
   }, []);
+  const goMemberProfile = () => {
+    navigate("/memberProfile", { state: { memberId: meetCaptain.memberId } });
+  };
   return (
     <div className="afterMeet-main-wrap">
       <div className="afterMeet-main-thumbnail">
@@ -356,14 +366,14 @@ const AfterMeetMain = (props) => {
       </div>
       <div className="afterMeet-main-info">
         <div className="afterMeet-info-host">
-          <div className="aferMeet-host-img">
+          <div className="aferMeet-host-img" onClick={goMemberProfile}>
             {meetCaptain.memberImage ? (
               <img src={"/member/" + meetCaptain.memberImage}></img>
             ) : (
               <img src="/img/testImg_01.png"></img>
             )}
           </div>
-          <div className="aferMeet-host-name">
+          <div className="aferMeet-host-name" onClick={goMemberProfile}>
             <Link to="#">{myMeet.meetCaptain}</Link>
             {/* <span className="like">{meetCaptain.memberLike}</span> */}
             <span className="like">
@@ -447,7 +457,7 @@ const AfterMeetMain = (props) => {
         </div>
         <div className="afterMeet-member-count">
           <span className="material-icons group">group</span>
-          {myMeet.meetTotal - myMeet.meetMargin}/{myMeet.meetTotal}명
+          {myMeet.meetTotal - myMeet.meetMargin + 1}/{myMeet.meetTotal}명
         </div>
       </div>
     </div>

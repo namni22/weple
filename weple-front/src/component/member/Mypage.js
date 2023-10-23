@@ -17,7 +17,7 @@ const Mypage = (props) => {
   const setIsLogin = props.setIsLogin;
   const setId = props.setId;
   const isAdmin = props.isAdmin;
-  const setIsAdmin = props.setIsAdmin;
+  // const setIsAdmin = props.setIsAdmin;
   const token = window.localStorage.getItem("token");
   const [member, setMember] = useState({});
   const [mainCategory, setMainCategory] = useState([]);
@@ -90,7 +90,7 @@ const Mypage = (props) => {
   return (
     <div className="mypage-wrap">
       <div className="mypage-content">
-        <SideMenu menus={menus} setMenus={setMenus} />
+        <SideMenu menus={menus} setMenus={setMenus} isAdmin={isAdmin} />
         <div className="current-content">
           <Routes>
             <Route

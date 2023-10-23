@@ -25,6 +25,7 @@ const JoinFrm = (props) => {
   const [checkEmailMsg, setCheckEmailMsg] = useState("");
   const [checkPhoneMsg, setCheckPhoneMsg] = useState("");
   const [checkBirthMsg, setCheckBirthMsg] = useState("");
+  const [checkNameMsg, setCheckNameMsg] = useState("");
   // 유효성검사 메세지 색 변경위한 클래스 추가할 때 씀
   const [useId, setUseId] = useState(false);
   const [mainCategory, setMainCategory] = useState([]);
@@ -163,6 +164,15 @@ const JoinFrm = (props) => {
     }
   };
 
+  const nameCheck = () => {
+    const nameReg = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,7}$/;
+    if (!nameReg.test(memberName)) {
+      setCheckNameMsg("이름은 2~7글자만 가능합니다.");
+    } else {
+      setCheckNameMsg("");
+    }
+  };
+
   const birthCheck = () => {
     const birthReg = /^[0-9]{4}-[0-9]{2}-[0-9]{2}/;
     if (!birthReg.test(memberBirth)) {
@@ -261,7 +271,8 @@ const JoinFrm = (props) => {
       checkPwMsg == "" &&
       checkPwReMsg == "" &&
       checkBirthMsg == "" &&
-      checkEmailMsg == ""
+      checkEmailMsg == "" &&
+      checkNameMsg == ""
     ) {
       const form = new FormData();
       form.append("memberId", memberId);
@@ -368,6 +379,9 @@ const JoinFrm = (props) => {
           content="memberName"
           label="이름"
           es=" *"
+          checkMsg={checkNameMsg}
+          blurEvent={nameCheck}
+          msgClass="check-msg"
         />
         <JoinInputWrap
           data={memberPhone}
