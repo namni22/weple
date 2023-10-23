@@ -77,18 +77,12 @@
 }
 
 .review-wrap {
-  margin-top: 20px;
-  /* min-height: 400px; */
-  background-color: #fff;
-  padding: 10px;
-  border-radius: 5px;
   margin-bottom: 20px;
   width: 100%;
 }
 
 .review-wrap .review-top {
   box-sizing: border-box;
-  margin: 20px 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -170,5 +164,5 @@
 .review-wrap .swiper-pagination-bullets {
   display: none;
 }
-.review-none{
+.review-none {
 }

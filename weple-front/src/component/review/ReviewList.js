@@ -21,13 +21,13 @@ const starRating = () => {
   return result;
 };
 const ReviewList = (props) => {
+  const [start, setStart] = useState(1);
   const location = useLocation();
   const navigate = useNavigate();
   const meetNo = location.state.meetNo;
   const meetStar = location.state.meetStar;
   const reviewCount = location.state.reviewCount;
   const [reviewList, setReviewList] = useState([]);
-  const [start, setStart] = useState(1);
   const isLogin = props.isLogin;
   const isAdmin = props.isAdmin;
   //회원인지 조회
@@ -52,7 +52,7 @@ const ReviewList = (props) => {
       });
   }, []);
   //리뷰 조회
-  const amount = 10;
+  const amount = 3;
   useEffect(() => {
     const end = start + amount - 1;
     axios

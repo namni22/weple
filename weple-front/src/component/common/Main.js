@@ -145,7 +145,6 @@ const MeetMain = (props) => {
     <div className="meet-main">
       <div className="meet-main-title">
         {meetTitle}
-        {/* 메인미트로 이동 */}
         <Link
           to="/meet/mainmeet"
           state={{
@@ -196,8 +195,14 @@ const FeedMain = () => {
   }, []);
 
   return (
-    <div>
-      <div className="meet-main-title">피드</div>
+    <div className="meet-main">
+      <div className="meet-main-title">
+        피드
+        <Link to="/feed" className="meet-move-btn">
+          전체보기
+        </Link>
+      </div>
+
       <div className="feed-list-content-wrap">
         {feedList.map((feed, index) => {
           return (

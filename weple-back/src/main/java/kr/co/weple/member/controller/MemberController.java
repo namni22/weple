@@ -231,4 +231,5 @@ public class MemberController {
 	public Member getMemberInfo(@RequestBody Member m) {
 		return memberService.getMemberInfo(m.getMemberId());
 	}
+
 }
