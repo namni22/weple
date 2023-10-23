@@ -4,6 +4,8 @@
 #5D8BF4 - 연한파랑
 #ededed - 연한회색
 #171717 - 진한회색(기본폰트색)
+
+#4b38ff
 */
 
 .btn {
@@ -23,7 +25,7 @@
 }
 
 .btn1 {
-  background-color: #2d31fa;
+  background-color: #4b38ff;
 }
 .btn1:disabled,
 .btn2:disabled,
@@ -40,8 +42,8 @@
 }
 
 .btn2 {
-  border: 1px solid #2d31fa;
-  color: #2d31fa;
+  border: 1px solid #4b38ff;
+  color: #4b38ff;
   background-color: transparent;
 }
 .btn3 {
@@ -53,7 +55,7 @@
 }
 
 .btn2:hover {
-  background-color: #2d31fa;
+  background-color: #4b38ff;
   color: #fff;
 }
 .btn3:hover {
