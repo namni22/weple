@@ -17,6 +17,7 @@ import ReviewMain from "./component/review/ReviewMain";
 import FindPw from "./component/member/FindPw";
 import Search from "./component/common/Search";
 import MemberProfile from "./component/member/MemberProfile";
+import MyMeet from "./component/member/MyMeet";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -100,6 +101,7 @@ function App() {
           <Route path="/findId" element={<FindId />} />
           <Route path="/findPw" element={<FindPw />} />
           <Route path="/memberProfile" element={<MemberProfile />} />
+          <Route path="/myMeet" element={<MyMeet />} />
           <Route
             path="/review/*"
             element={<ReviewMain isLogin={isLogin} isAdmin={isAdmin} />}

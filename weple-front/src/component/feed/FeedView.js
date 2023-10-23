@@ -41,7 +41,6 @@ const FeedView = (props) => {
   const [load, setLoad] = useState(0); //useEffect용
   const memberGrade = props.memberGrade;
 
-
   const token = window.localStorage.getItem("token");
   useEffect(() => {
     if (isLogin) {
@@ -79,7 +78,6 @@ const FeedView = (props) => {
         Swal.fire("실패");
       });
   }, [feedNo]);
- 
 
   //more버튼모달
   const loadList = props.loadList;
@@ -126,6 +124,7 @@ const FeedView = (props) => {
                 text: "피드가 삭제되었습니다",
                 confirmButtonText: "확인",
               }).then(() => {
+                closeView();
                 setLoadList(loadList + 1);
               });
             }
