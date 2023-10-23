@@ -111,6 +111,7 @@
 .myFeed-content {
   width: 100%;
   display: block;
+  margin: 0 10px 0 3px;
 }
 
 .myFeed-item {
