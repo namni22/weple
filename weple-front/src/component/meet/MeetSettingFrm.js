@@ -79,46 +79,46 @@ const MeetSettingFrm = (props) => {
         const smallTabs = document.querySelectorAll(".smallCategoryName")
         console.log("스몰 탭 : ", smallTabs);
         smallTabs.forEach(function (item, index) {
-            item.addEventListener("click", function () {
-                for (let i = 0; i < smallTabs.length; i++) {
-
-                    smallTabs[i].classList.remove("active-smallCategory")
-                }
-
-            })
-        })
-        const bigTabs = document.querySelectorAll(".meetSettingFrm-bigCategory-ul>li")
-        bigTabs.forEach(function (item, index) {
-
-            item.addEventListener("click", function () {
-                for (let i = 0; i < bigTabs.length; i++) {
-
-                    bigTabs[i].classList.remove("active-bigCategory")
-                }
-                console.log(index)
-                item.classList.add("active-bigCategory")
-            })
-        });
-    }, [])
-    //카테고리 대분류 선택지 작동하는 함수 (탭메뉴)
-    // const activeBigCategory = () => {
-
-
-    // }
-    //카테고리 선택시 작동하는 함수 (탭메뉴)
-    const activeSmallCategory = () => {
-        const smallTabs = document.querySelectorAll(".smallCategoryName")
-        smallTabs.forEach(function (item, index) {
+            console.log("스몰탭 아이템 : ", item);
             item.addEventListener("click", function () {
                 for (let i = 0; i < smallTabs.length; i++) {
                     smallTabs[i].classList.remove("active-smallCategory")
                 }
                 item.classList.add("active-smallCategory")
             })
+
         })
+        const bigTabs = document.querySelectorAll(".meetSettingFrm-bigCategory-ul>li")
+        bigTabs.forEach(function (item, index) {
+
+            item.addEventListener("click", function () {
+                for (let i = 0; i < bigTabs.length; i++) {
+                    bigTabs[i].classList.remove("active-bigCategory")
+                }
+                console.log(index)
+                item.classList.add("active-bigCategory")
+            })
+        });
+    }, [smallCategoryList])
+    //카테고리 대분류 선택지 작동하는 함수 (탭메뉴)
+    // const activeBigCategory = () => {
 
 
-    }
+    // }
+    //카테고리 선택시 작동하는 함수 (탭메뉴)
+    // const activeSmallCategory = () => {
+    //     const smallTabs = document.querySelectorAll(".smallCategoryName")
+    //     smallTabs.forEach(function (item, index) {
+    //         item.addEventListener("click", function () {
+    //             for (let i = 0; i < smallTabs.length; i++) {
+    //                 smallTabs[i].classList.remove("active-smallCategory")
+    //             }
+    //             item.classList.add("active-smallCategory")
+    //         })
+    //     });
+
+
+    // }
 
     //   썸네일 미리보기 함수
     const thumbnailChange = (e) => {
@@ -260,7 +260,8 @@ const MeetSettingFrm = (props) => {
                                                 console.log("선택한 카테고리번호 : " + meetCategory);
                                             }}
                                         >
-                                            <div className="smallCategoryName" onClick={activeSmallCategory}>{smallCategory.categoryName}</div>
+                                            <div className="smallCategoryName" >{smallCategory.categoryName}</div>
+                                            {/* onClick={activeSmallCategory} */}
                                         </li>
                                     );
                                 })}
@@ -408,7 +409,7 @@ const MeetSettingFrm = (props) => {
                         </div>
                     </div>
                 </div>
-                {console.log("출력")}
+
                 <div className="meet-btn-box">
                     {type === "modify" ? (
                         <Button1 text="모임수정" clickEvent={buttonEvent}></Button1>
