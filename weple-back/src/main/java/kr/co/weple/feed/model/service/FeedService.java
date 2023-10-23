@@ -32,6 +32,9 @@ public class FeedService {
 		return result;
 	}
 
+	public int totalCount() {
+		return feedDao.totalCount();
+	}
 	//피드출력
 	public List feedList(int start, int end) {
 		int totalCount = feedDao.totalCount();
@@ -162,6 +165,8 @@ public class FeedService {
 		Feed feed = (Feed)total.get(0);
 		return feed;
 	}
+
+
 
 
 	

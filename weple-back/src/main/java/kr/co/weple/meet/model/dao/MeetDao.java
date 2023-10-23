@@ -46,6 +46,7 @@ public interface MeetDao {
 	List categoryMeetList(HashMap<String, Object> map);
 
 	Meet selectOneMeet(int meetNo);
+	Meet selectOneMeet2(HashMap<String, Object> map);//모임 조회 좋아요했는지 알아오기위해 meetNo, 로그인한memberNo추가
 
 	List meetChatList(int meetNo);
 
@@ -118,9 +119,15 @@ public interface MeetDao {
 	int deleteEnrollMember(HashMap<String, Integer> param);
 
 	int meetLikeCount(int meetNo);
+	
 	int insertMeetChat(HashMap<String, Object> param);
 
 	Follower status(HashMap<String, Object> param);
+
+	
+
+	
+	List myCalendar(String memberId);
 
 
 

@@ -35,9 +35,10 @@
   margin: 40px 0px;
 }
 
-.meetInfo-meetAddr-wrap {}
+.meetInfo-meetAddr-wrap {
+}
 
-.meetInfo-meetAddr-wrap>div:nth-child(2) {
+.meetInfo-meetAddr-wrap > div:nth-child(2) {
   /* 카카오지도, 주소, 상세주소를 감싸는 div 선택자 */
   overflow: hidden;
   width: 800px;
@@ -60,11 +61,11 @@
   /* 모임 meetAdress2 선택자 */
   padding: 10px 10px;
   color: #606060;
-
 }
 
 .meetInfo-meetPrepareList {
   overflow: hidden;
+  margin: 20px 0px;
 }
 
 .meetInfo-meetPrepare {
@@ -78,25 +79,26 @@
   font-weight: bold;
   margin: 3px 5px;
   text-align: center;
+  font-size: 14px;
 }
 
 .meetInfo-cap-btn-wrap {
   overflow: hidden;
 }
 
-.meetInfo-cap-btn-wrap>button:first-child {
+.meetInfo-cap-btn-wrap > button:first-child {
   width: 80%;
   margin-right: 50px;
 }
 
-.meetInfo-cap-btn-wrap>button:last-child {
+.meetInfo-cap-btn-wrap > button:last-child {
   width: 10%;
   background-color: rgb(221, 44, 44);
 }
 
 .meetJoinWait {
   text-align: center;
-  font-size: 24px;
+  font-size: 14px;
   font-weight: bold;
   color: #5d8bf4;
   border: 1px solid #5d8bf4;

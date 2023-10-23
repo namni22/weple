@@ -17,6 +17,12 @@
   display: flex;
   justify-content: space-between;
 }
+.meet-one-wrap > div {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+}
 .meet-main .meet-one-wrap,
 .feed-main .feed-one-wrap {
   display: flex;
