@@ -257,10 +257,15 @@ const MemberList = (props) => {
           <Button2 text={"신고"} clickEvent={reportEvent} />
 
           {myMeet.meetCaptain === memberId ? (
-            <Button2 text={"추방"} clickEvent={deleteEvent} />
+            memberList.memberId !== memberId ? (
+              <Button2 text={"추방"} clickEvent={deleteEvent} />
+            ) : (
+              ""
+            )
           ) : (
             ""
           )}
+
           {memberList.isLike === 0 ? (
             <Button2 text={"호감도"} clickEvent={likeEvent} disable={disable} />
           ) : (
