@@ -2,16 +2,40 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import MyFeed from "./MyFeed";
+import { Button2, Button3 } from "../util/Button";
+import { ReportModal } from "../util/Modal";
+import Swal from "sweetalert2";
 
 const MemberProfile = (props) => {
   const location = useLocation();
   const memberId = location.state.memberId;
+  const userId = props.memberId;
   const m = { memberId };
   const [subCategory, setSubCategory] = useState([]);
   const [member, setMember] = useState({});
   const [categoryNameList, setCategoryNameList] = useState([]);
   const [myCategory, setMyCategory] = useState([]);
   const token = window.localStorage.getItem("token");
+  const [isOpen, setOpen] = useState(false);
+  const [reportTypeValue, setReportTypeValue] = useState(0);
+  const [reportType, setReportType] = useState(0);
+  const isLogin = props.isLogin;
+
+  const reportEvent = () => {
+    if (userId === memberId) {
+      Swal.fire({
+        text: "본인은 신고할 수 없습니다",
+      });
+    } else {
+      setOpen(true);
+    }
+  };
+
+  const handleClickSubmit = () => {
+    setOpen(false);
+  };
+
+  const handleClickCancel = () => setOpen(false);
 
   useEffect(() => {
     axios
@@ -80,34 +104,51 @@ const MemberProfile = (props) => {
       });
   }, [memberId]);
   return (
-    <div className="profile-wrap">
-      <div className="profile-top">
-        <div className="profile-img">
-          {member.memberImage ? (
-            <img src={"/member/" + member.memberImage} />
-          ) : (
-            <img src="/img/testImg_01.png" />
-          )}
+    <>
+      <div className="profile-wrap">
+        <div className="profile-top">
+          <div className="profile-img">
+            {member.memberImage ? (
+              <img src={"/member/" + member.memberImage} />
+            ) : (
+              <img src="/img/testImg_01.png" />
+            )}
+          </div>
+          <div className="modifyAndLogout">
+            <Button3 text="신고" clickEvent={reportEvent} />
+          </div>
+          <div className="profile-info">
+            <div className="name">{member.memberName}</div>
+          </div>
+          <div className="like">{member.memberLike}˚C</div>
+          <div className="prefer">
+            {categoryNameList.map((ctName, index) => {
+              return (
+                <span key={"ctName" + index}>
+                  <img src="/img/hashtag.png" />
+                  {ctName}
+                </span>
+              );
+            })}
+          </div>
         </div>
-        <div className="profile-info">
-          <div className="name">{member.memberName}</div>
-        </div>
-        <div className="like">{member.memberLike}˚C</div>
-        <div className="prefer">
-          {categoryNameList.map((ctName, index) => {
-            return (
-              <span key={"ctName" + index}>
-                <img src="/img/hashtag.png" />
-                {ctName}
-              </span>
-            );
-          })}
+        <div className="profile-myFeed">
+          <MyFeed memberId={memberId} />
         </div>
       </div>
-      <div className="profile-myFeed">
-        <MyFeed memberId={memberId} />
-      </div>
-    </div>
+      <ReportModal
+        isOpen={isOpen}
+        onSubmit={handleClickSubmit}
+        onCancel={handleClickCancel}
+        isLogin={true}
+        reportItemNo={member.memberNo}
+        reportMemberId={member.memberId}
+        reportTypeValue={reportTypeValue}
+        setReportTypeValue={setReportTypeValue}
+        reportType={reportType}
+        setReportType={setReportType}
+      />
+    </>
   );
 };
 
