@@ -85,14 +85,16 @@ const Payment = (props) => {
             </tr>
             <tr>
               <td>수량</td>
-              <td>
-                <span class="material-icons" onClick={minus}>
-                  remove_circle_outline
-                </span>
-                {count}
-                <span class="material-icons" onClick={plus}>
-                  add_circle_outline
-                </span>
+              <td className="amount">
+                <div className="payment-amount">
+                  <span class="material-icons" onClick={minus}>
+                    remove_circle_outline
+                  </span>
+                  {count}
+                  <span class="material-icons" onClick={plus}>
+                    add_circle_outline
+                  </span>
+                </div>
               </td>
             </tr>
             <tr>
