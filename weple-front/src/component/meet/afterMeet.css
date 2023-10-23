@@ -192,7 +192,7 @@
   border-top-right-radius: 5px;
 }
 .afterMeet-sub-navi > ul > li > a.active-side {
-  background-color: #2d31fa;
+  background-color: #4b38ff;
   color: #fff;
 }
 
@@ -352,7 +352,7 @@
   color: #ccc;
 }
 .meetChat-chat-wrap {
-  background-color: #cddbfa;
+  background-color: #e1eaff;
   border: 1px solid #ededed;
   border-radius: 5px;
   padding: 5px;
@@ -560,7 +560,7 @@
 .meetCalendar .react-calendar__tile--now:enabled:hover,
 .meetCalendar .react-calendar__tile--active:enabled:hover,
 .meetCalendar .react-calendar__tile--active:enabled:focus {
-  background-color: #3d40e5;
+  background-color: #4b38ff;
 }
 .meetCalendar .react-calendar__tile--now:enabled:hover > abbr,
 .meetCalendar .react-calendar__tile--active:enabled:focus > abbr,
@@ -584,7 +584,7 @@
 }
 .meetCalendar-add-btn > span {
   border-radius: 100px;
-  background-color: #2d30faa6;
+  background-color: #4b38ff;
   color: #fff;
   width: 40px;
   height: 40px;

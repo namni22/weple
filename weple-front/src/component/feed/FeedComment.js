@@ -305,6 +305,10 @@ const CommentList = (props) => {
     setRcmId(comment.fcommentWriter);
     setLoad(load + 1);
   };
+  const navigate = useNavigate();
+  const profile = () => {
+    navigate("/memberProfile", { state: { memberId: comment.fcommentWriter } });
+  };
 
   return (
     <>
@@ -313,9 +317,9 @@ const CommentList = (props) => {
         <div className="feed-list-top">
           <div className="feed-list-profile">
             {comment.memberImage !== "" ? (
-              <img src={"/member/" + comment.memberImage} />
+              <img src={"/member/" + comment.memberImage} onClick={profile} />
             ) : (
-              <img src="/img/testImg_01.png" />
+              <img src="/img/testImg_01.png" onClick={profile} />
             )}
           </div>
           <div className="feed-list-info">
@@ -342,7 +346,9 @@ const CommentList = (props) => {
                 좋아요 <span>{comment.totalCommentLike}</span>개
               </div>
               {isLogin && type !== "reCmt" && memberGrade != 2 ? (
-                <div onClick={reComemtEvent}>답글달기</div>
+                <div className="re" onClick={reComemtEvent}>
+                  답글달기
+                </div>
               ) : (
                 ""
               )}

@@ -220,9 +220,8 @@ const FeedContent = (props) => {
       });
     }
   };
-  const onCancel = (e) => {
+  const onCancel = () => {
     setIsOpen(false);
-    // e.stopPropagation();
   };
   const deleteEvent = () => {
     Swal.fire({
@@ -276,14 +275,18 @@ const FeedContent = (props) => {
     setViewOpen(false);
     // e.stopPropagation();
   };
+  const profile = () => {
+    navigate("/memberProfile", { state: { memberId: feed.feedWriter } });
+  };
+
   return (
     <div className="feed-list-content">
       <div className="feed-list-top">
         <div className="feed-list-profile">
           {feed.memberImage ? (
-            <img src={"/member/" + feed.memberImage} />
+            <img src={"/member/" + feed.memberImage} onClick={profile} />
           ) : (
-            <img src="/img/testImg_01.png" />
+            <img src="/img/testImg_01.png" onClick={profile} />
           )}
         </div>
         <div className="feed-list-info">
@@ -365,8 +368,16 @@ const FeedContent = (props) => {
         setLoadList={setLoadList}
         isAdmin={isAdmin}
         memberGrade={memberGrade}
+        profile={profile}
       />
     </div>
   );
 };
+
+// const onCancel = (e) => {
+//   setIsOpen(false);
+//   e.stopPropagation();
+// };
+// document.querySelector
+
 export { FeedContent, FeedList };

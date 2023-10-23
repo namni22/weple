@@ -221,8 +221,6 @@ const MeetInfo = (props) => {
               isMeetMember?.followerStatus === 1 ? ( //현재 가입이 승인되어있는가?
                 //현재 followerStatus == 1 일때
                 <div>
-                  <div>{isMeetMember?.followerStatus}</div>
-
                   <Button1 text="모임탈퇴하기" clickEvent={deleteMember} />
                 </div>
               ) : (

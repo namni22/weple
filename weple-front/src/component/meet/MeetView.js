@@ -166,8 +166,8 @@ const MeetView = (props) => {
               meetNo={meetNo}
               myMeet={myMeet}
               memberId={memberId}
-              //captainCheck={captainCheck}
-              //setCaptainCheck={setCaptainCheck}
+            //captainCheck={captainCheck}
+            //setCaptainCheck={setCaptainCheck}
             />
           ) : followerStatus ? (
             <AfterMeetSubNavi
@@ -458,7 +458,7 @@ const AfterMeetMain = (props) => {
           {myMeet.meetTotal - myMeet.meetMargin}/{myMeet.meetTotal}명
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 const AfterMeetSubNavi = (props) => {
@@ -520,7 +520,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab(index);
                       }}
-                      // captainCheck={captainCheck}
+                    // captainCheck={captainCheck}
                     >
                       {meetMenu.text}
                     </Link>
@@ -530,7 +530,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab(index);
                       }}
-                      // captainCheck={captainCheck}
+                    // captainCheck={captainCheck}
                     >
                       {meetMenu.text}
                     </Link>
@@ -553,7 +553,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab2(index);
                       }}
-                      // captainCheck={captainCheck}
+                    // captainCheck={captainCheck}
                     >
                       {meetMenu2.text}
                     </Link>
@@ -563,7 +563,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab2(index);
                       }}
-                      //  captainCheck={captainCheck}
+                    //  captainCheck={captainCheck}
                     >
                       {meetMenu2.text}
                     </Link>

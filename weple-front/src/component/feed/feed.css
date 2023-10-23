@@ -31,6 +31,9 @@
   box-sizing: border-box;
   margin: 30px 24px;
   position: relative;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
 }
 .feed-list-top {
   overflow: hidden;
@@ -78,15 +81,17 @@
   height: 370px;
   object-fit: cover;
   background-color: #eee;
+  border-radius: 5px;
 }
 .feed-list-content .swiper {
   width: 100%;
   height: 370px;
+  border-radius: 5px;
 }
 .feed-list-more-btn {
   position: absolute;
   top: 15px;
-  right: -12px;
+  right: 0;
   cursor: pointer;
 }
 .feed-list-more-btn > span {
@@ -179,6 +184,7 @@
 }
 .feed-title {
   position: relative;
+  color: #4b38ff;
 }
 .feed-title > span {
   position: absolute;
@@ -229,6 +235,8 @@
 .comment-click-btn > div {
   float: left;
   margin-right: 10px;
+}
+.comment-click-btn > .re {
   cursor: pointer;
 }
 .feed-comment-write {
@@ -254,7 +262,6 @@
   justify-content: center;
   align-content: center;
   flex-direction: row;
-  margin: 10px 0;
 }
 .feed-comment-noco > div {
   width: 100%;
