@@ -32,7 +32,7 @@ const FeedWrite = (props) => {
           if (res.data > 0) {
             Swal.fire({
               icon: "success",
-              text: "피드 업로드 완료",
+              text: "피드가 등록되었습니다",
               confirmButtonText: "확인",
             });
             navigate("/feed");
@@ -48,7 +48,11 @@ const FeedWrite = (props) => {
           });
         });
     } else {
-      Swal.fire("이미지 1개이상, 내용 입력 필수입니다");
+      Swal.fire({
+        icon: "warning",
+        text: "이미지 1개이상, 내용 입력 필수입니다",
+        confirmButtonText: "확인",
+      });
     }
   };
 
