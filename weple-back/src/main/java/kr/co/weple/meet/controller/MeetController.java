@@ -231,14 +231,32 @@ public class MeetController {
 		return follower;
 	}
 	
-	//모임번호를 입력받아 해당 모임을 select
+	//모임번호를 입력받아 해당 모임을 select //모임번호
 	@GetMapping(value = "/selectOneMeet/{meetNo}")
-	public Meet meetView(@PathVariable int meetNo) {
+	public Meet meetView(
+			@PathVariable int meetNo
+			) {
+//		System.out.println("모임 한개조회 진행");
+//		System.out.println(meetNo+"/"+memberNo);
 		Meet meet = meetService.selectOneMeet(meetNo);
 //		System.out.println("모임 한개 조회 "+meet);
 		
 		return meet;
 	}
+	//모임번호, 멤버번호 를 입력받아 좋아요상태를 포함하는 해당 모임을 select //모임번호, 로그인한 멤버번호 필요
+	@GetMapping(value = "/selectOneMeet2/{meetNo}/{memberNo}")
+	public Meet meetView2(
+			@PathVariable int meetNo,
+			@PathVariable int memberNo
+			) {
+//		System.out.println("모임 한개조회 진행");
+//		System.out.println(meetNo+"/"+memberNo);
+		Meet meet = meetService.selectOneMeet2(meetNo,memberNo);
+//		System.out.println("모임 한개 조회 "+meet);
+		
+		return meet;
+	}
+	
 	
 	@PostMapping(value = "/isMeetLike")
 	public WishList isMeetLike (

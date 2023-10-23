@@ -83,8 +83,14 @@ public class MeetService {
 	@Transactional
 	public Meet modifyMeet(Meet meet) {
 		// TODO Auto-generated method stub		
+		//모임 수정이후
 		int result = meetDao.modifyMeet(meet);
-		Meet newMeet= meetDao.selectOneMeet(meet.getMeetNo());		
+		//모임 view로 이동하기위해 변경한 모임 조회해서 리턴
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("meetNo",meet.getMeetNo());
+		Member member = memberDao.getMemberInfo(meet.getMeetCaptain());//모임장 번호 알아와
+		map.put("memberNo",member.getMemberNo());
+		Meet newMeet= meetDao.selectOneMeet2(map);		
 		return newMeet;
 	}
 	public Map meetMemberList(int reqPage, int meetNo, String memberId) {
@@ -200,11 +206,22 @@ public class MeetService {
 		return map;
 	}
 	
-	//meet
+	//meet한개 조회 역하리다르니까 밑에 2랑 지우지 말아주세요
 	public Meet selectOneMeet(int meetNo) {
-		// TODO Auto-generated method stub		
-		return meetDao.selectOneMeet(meetNo);
+		// TODO Auto-generated method stub
+		
+		Meet meet =meetDao.selectOneMeet(meetNo); 
+		return meet;
 	}
+	//meet한개 조회
+		public Meet selectOneMeet2(int meetNo, int memberNo) {
+			// TODO Auto-generated method stub
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("meetNo",meetNo);
+			map.put("memberNo",memberNo);
+			Meet meet =meetDao.selectOneMeet2(map); 
+			return meet;
+		}
 	public Map meetChatList(int meetNo) {
 		List meetChat = meetDao.meetChatList(meetNo);
 		HashMap<String, Object> map = new HashMap<String, Object>();
