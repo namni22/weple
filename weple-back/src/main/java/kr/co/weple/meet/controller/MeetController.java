@@ -231,14 +231,32 @@ public class MeetController {
 		return follower;
 	}
 	
-	//모임번호를 입력받아 해당 모임을 select
+	//모임번호를 입력받아 해당 모임을 select //모임번호
 	@GetMapping(value = "/selectOneMeet/{meetNo}")
-	public Meet meetView(@PathVariable int meetNo) {
+	public Meet meetView(
+			@PathVariable int meetNo
+			) {
+//		System.out.println("모임 한개조회 진행");
+//		System.out.println(meetNo+"/"+memberNo);
 		Meet meet = meetService.selectOneMeet(meetNo);
 //		System.out.println("모임 한개 조회 "+meet);
 		
 		return meet;
 	}
+	//모임번호, 멤버번호 를 입력받아 좋아요상태를 포함하는 해당 모임을 select //모임번호, 로그인한 멤버번호 필요
+	@GetMapping(value = "/selectOneMeet2/{meetNo}/{memberNo}")
+	public Meet meetView2(
+			@PathVariable int meetNo,
+			@PathVariable int memberNo
+			) {
+//		System.out.println("모임 한개조회 진행");
+//		System.out.println(meetNo+"/"+memberNo);
+		Meet meet = meetService.selectOneMeet2(meetNo,memberNo);
+//		System.out.println("모임 한개 조회 "+meet);
+		
+		return meet;
+	}
+	
 	
 	@PostMapping(value = "/isMeetLike")
 	public WishList isMeetLike (
@@ -435,6 +453,13 @@ public class MeetController {
 	@PostMapping(value="captainCk")
 	public boolean captainCk(@RequestBody Meet m,@RequestAttribute String memberId) {
 		return meetService.captainCk(m.getMeetNo(),memberId);
+	}
+	//모임 신청 목록 삭제
+	@PostMapping(value = "/deleteEnrollMember/{meetNo}")
+	public int deleteEnrollMember(@RequestBody Member enroll,@PathVariable int meetNo) {
+		
+		int result = meetService.deleteEnrollMember(enroll.getMemberNo(),meetNo);
+		return result;
 	}
 
 	

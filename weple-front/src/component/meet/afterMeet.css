@@ -73,7 +73,8 @@
 .aferMeet-host-img > img {
   border-radius: 50%;
   width: 100%;
-
+  height: 100%;
+  /*object-fit: cover;*/
   /* 비율맞추면서 꽉채우게 , 짤려나오지 않게*/
   object-fit: contain;
 }
@@ -287,6 +288,7 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .meetMemberList-name {

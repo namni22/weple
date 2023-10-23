@@ -92,7 +92,10 @@ const MyMeet = (props) => {
               </div>
             ) : (
               myMeetList.map((myMeet, index) => {
-                return <MyMeetItem key={"myMeet" + index} myMeet={myMeet} />;
+                return <MyMeetItem key={"myMeet" + index}
+                  myMeet={myMeet}
+                  memberNo={memberNo}
+                />;
               })
             )}
           </div>
@@ -148,37 +151,61 @@ const MyMeet = (props) => {
 
 const MyMeetItem = (props) => {
   const myMeet = props.myMeet;
+  const memberNo = props.memberNo;
+
+  const navigate = useNavigate();
+
+  //상세보기로 이동하는 함수
+  const moveToMeetView = (myMeet, memberNo) => {
+
+    axios
+      .get("/meet/selectOneMeet2/" + myMeet.meetNo + "/" + memberNo)
+      .then((res) => {
+        console.log(res.data);
+        navigate("/meet/View", {
+          state: { m: res.data },
+        });
+      })
+      .catch((res) => {
+        console.log(res.response.status);
+      });
+  }
+
   return (
-    <Link to="/meet/view" state={{ m: myMeet }}>
-      <div className="myMeetJoined-item">
-        <div className="myMeetJoined-img">
-          {myMeet.meetThumbNail === null ? (
-            <img src="/img/testImg_01.png" />
-          ) : (
-            <img src={"/meet/" + myMeet.meetThumbNail} />
-          )}
-        </div>
-        <div className="myMeetJoined-info">
-          <div className="myMeetJoined-title">{myMeet.meetTitle}</div>
-          <div>
-            <div className="myMeetJoined-captain">
-              <img src="/img/captain.png" />
-              {myMeet.meetCaptain}
-            </div>
-            <div className="myMeetJoined-total">
-              <img src="/img/meetTotal.png" />
-              {myMeet.meetTotal - myMeet.meetMargin}
-            </div>
+    //내가 개설한 모임으로이동
+    // <Link to="/meet/view" state={{ m: myMeet }}></Link>
+    <div className="myMeetJoined-item" onClick={() => {
+      moveToMeetView(myMeet, memberNo);
+    }}>
+      <div className="myMeetJoined-img">
+        {myMeet.meetThumbNail === null ? (
+          <img src="/img/testImg_01.png" />
+        ) : (
+          <img src={"/meet/" + myMeet.meetThumbNail} />
+        )}
+      </div>
+      <div className="myMeetJoined-info">
+        <div className="myMeetJoined-title">{myMeet.meetTitle}</div>
+        <div>
+          <div className="myMeetJoined-captain">
+            <img src="/img/captain.png" />
+            {myMeet.meetCaptain}
+          </div>
+          <div className="myMeetJoined-total">
+            <img src="/img/meetTotal.png" />
+            {myMeet.meetTotal - myMeet.meetMargin}
           </div>
         </div>
       </div>
-    </Link>
+    </div>
+
   );
 };
 
 const MyMeetJoinedItem = (props) => {
   const myMeetJoined = props.myMeetJoined;
   return (
+    //내가 가입한 모임으로 이동
     <Link to="/meet/view" state={{ m: myMeetJoined }}>
       <div className="myMeetJoined-item">
         <div className="myMeetJoined-img">
