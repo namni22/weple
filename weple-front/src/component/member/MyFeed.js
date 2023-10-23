@@ -39,7 +39,7 @@ const MyFeed = (props) => {
           console.log("오류");
         });
     }
-  }, [memberId, start, loadList]);
+  }, [memberId, start]);
 
   const useFeedMore = (e) => {
     setStart(start + amount);

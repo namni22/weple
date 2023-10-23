@@ -231,5 +231,11 @@ public class MemberController {
 	public Member getMemberInfo(@RequestBody Member m) {
 		return memberService.getMemberInfo(m.getMemberId());
 	}
+	
+	// 찜한 모임 리스트 가져오기
+	@GetMapping(value="/meetLiked/{memberNo}")
+	public List meetLiked(@PathVariable int memberNo) {
+		return memberService.meetLiked(memberNo);
+	}
 
 }
