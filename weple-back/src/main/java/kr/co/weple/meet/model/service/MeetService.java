@@ -84,7 +84,10 @@ public class MeetService {
 	public Meet modifyMeet(Meet meet) {
 		// TODO Auto-generated method stub		
 		//모임 수정이후
+		System.out.println("모임 정보 마진 :"+ meet.getMeetMargin());
+		System.out.println("토탈" + meet.getMeetTotal());
 		int result = meetDao.modifyMeet(meet);
+		
 		//모임 view로 이동하기위해 변경한 모임 조회해서 리턴
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("meetNo",meet.getMeetNo());
@@ -491,6 +494,14 @@ public class MeetService {
 	}
 	public List myCalendar(String memberId) {
 		return meetDao.myCalendar(memberId);
+	}
+	//모임 수정시 모임 멤버수 세오기
+	public int selectMeetMemberCount(int meetNo) {
+		// TODO Auto-generated method stub
+		//있는 메소드 쓰지만 수정된다면 쿼리문은 다음을 쓴다. select count(*) from follower where follower_status=1 and meet_no = #{meetNo} 
+		int result = meetDao.meetMemberList(meetNo);
+		System.out.println("미트 서비스 멤버수 : "+result);
+		return result;
 	}
 
 }

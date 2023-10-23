@@ -84,7 +84,8 @@ public class AdminController {
 	}
 	//블랙리스트 체크하기
 	@PostMapping(value="/checkBlacklist")
-	public int checkBlacklist(@RequestBody Report report) {		
+	public int checkBlacklist(@RequestBody Report report) {	
+		System.out.println("controller 도착");
 		return adminService.checkBlacklist(report);
 		
 	}

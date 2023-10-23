@@ -167,3 +167,6 @@
 path {
   color: blue;
 }
+.MuiRating-visuallyHidden {
+  color: #ccc;
+}

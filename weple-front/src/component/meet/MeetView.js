@@ -141,7 +141,7 @@ const MeetView = (props) => {
 
   return (
     <div className="afterMeet-all-all-wrap">
-      <div className="feed-title">WEPLE MEET</div>
+      {/* <div className="feed-title">WEPLE MEET</div> */}
       <div className="afterMeet-all-wrap">
         {/**
        * 
@@ -359,10 +359,8 @@ const AfterMeetMain = (props) => {
   return (
     <div className="afterMeet-main-wrap">
       <div className="afterMeet-main-thumbnail">
-        {/*
-         */}
         <img src={"/meet/" + myMeet.meetThumbNail}></img>
-        <img src="/img/testImg_01.png"></img>
+        {/* <img src="/img/testImg_01.png"></img> */}
       </div>
       <div className="afterMeet-main-info">
         <div className="afterMeet-info-host">
