@@ -66,7 +66,7 @@ const MeetSettingFrm = (props) => {
         axios
             .get("/meet/selectSmallCategory/" + bigCategoryNo)
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 setSmallCategoryList(res.data);
             })
             .catch((res) => {
@@ -77,26 +77,32 @@ const MeetSettingFrm = (props) => {
     }
     useEffect(() => {
         const smallTabs = document.querySelectorAll(".smallCategoryName")
-        console.log("스몰 탭 : ", smallTabs);
         smallTabs.forEach(function (item, index) {
-            console.log("스몰탭 아이템 : ", item);
             item.addEventListener("click", function () {
                 for (let i = 0; i < smallTabs.length; i++) {
                     smallTabs[i].classList.remove("active-smallCategory")
                 }
                 item.classList.add("active-smallCategory")
             })
-
         })
+
         const bigTabs = document.querySelectorAll(".meetSettingFrm-bigCategory-ul>li")
         bigTabs.forEach(function (item, index) {
-
-            item.addEventListener("click", function () {
+            item.addEventListener("click", function () {//대분류 클릭이벤트발동시
                 for (let i = 0; i < bigTabs.length; i++) {
                     bigTabs[i].classList.remove("active-bigCategory")
                 }
-                console.log(index)
+                //액티브 탭 클래스 추가
                 item.classList.add("active-bigCategory")
+                console.log("변한 스몰 탭 : ", smallTabs);
+                //스몰탭의 액티브 클래스 초기화
+                smallTabs.forEach(function (item, index) {
+                    for (let i = 0; i < smallTabs.length; i++) {
+                        // 스몰탭 초기화
+                        smallTabs[i].classList.remove("active-smallCategory")
+                    }
+                });
+                //
             })
         });
     }, [smallCategoryList])

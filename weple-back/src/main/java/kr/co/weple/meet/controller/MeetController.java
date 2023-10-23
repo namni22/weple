@@ -95,7 +95,7 @@ public class MeetController {
 			meet.setMeetThumbNail(filepath);
 		}
 		//meetMargin set 남은인원 셋팅
-		meet.setMeetMargin(meet.getMeetTotal());		
+		meet.setMeetMargin(meet.getMeetTotal()-1);		
 		System.out.println("생성 모임 : "+meet);		
 		int result = meetService.createMeet(meet);
 		//리턴 리절트로 변경
