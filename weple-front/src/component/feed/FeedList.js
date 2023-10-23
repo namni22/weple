@@ -11,38 +11,55 @@ import { FeedView } from "./FeedView";
 const FeedList = (props) => {
   const navigate = useNavigate();
   const [feedList, setFeedList] = useState([]);
-  const [start, setStart] = useState(1);
   const isLogin = props.isLogin;
   const [loadList, setLoadList] = useState(0); //useEffect용
   const isAdmin = props.isAdmin;
   const [memberGrade, setMemberGrade] = useState({});
 
-  const token = window.localStorage.getItem("token");
-  axios
-    .post("/member/getMember", null, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    })
-    .then((res) => {
-      setMemberGrade(res.data.memberGrade);
-      console.log(memberGrade);
-    })
-    .catch((res) => {
-      console.log("feedwrite" + res.response.status);
-    });
-
+  const [total, setTotal] = useState();
+  const [start, setStart] = useState(1);
   const amount = 9;
+  const [end, setEnd] = useState();
+
   useEffect(() => {
-    const end = start + amount - 1;
+    const token = window.localStorage.getItem("token");
     axios
-      .get("/feed/list/" + start + "/" + end + "/")
+      .post("/member/getMember", null, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
       .then((res) => {
-        const arr = [...feedList];
-        for (let i = 0; i < res.data.length; i++) {
-          arr.push(res.data[i]);
-        }
-        setFeedList([...arr]);
+        setMemberGrade(res.data.memberGrade);
+      })
+      .catch((res) => {
+        console.log("feedwrite" + res.response.status);
+      });
+
+    axios
+      .get("/feed/totalCount")
+      .then((res) => {
+        setTotal(res.data);
+      })
+      .catch((res) => {
+        console.log(res.data.status);
+        Swal.fire({
+          icon: "error",
+          title: "문제가 발생했습니다",
+          text: "관리자에게 문의하세요",
+          confirmButtonText: "확인",
+        });
+      });
+  }, []);
+
+  useEffect(() => {
+    setEnd(start + amount - 1);
+    const endNum = start + amount - 1;
+    axios
+      .get("/feed/list/" + start + "/" + endNum + "/")
+      .then((res) => {
+        const arr = [...feedList, ...res.data];
+        setFeedList(arr);
       })
       .catch((res) => {
         console.log(res.data.status);
@@ -62,7 +79,7 @@ const FeedList = (props) => {
   const write = () => {
     navigate("/feed/write");
   };
-
+  console.log(feedList);
   return (
     <div>
       <div className="feed-title">WEPLE FEED</div>
@@ -89,7 +106,7 @@ const FeedList = (props) => {
           );
         })}
       </div>
-      <Button1 clickEvent={useFeedMore} text="더보기" />
+      {end >= total ? "" : <Button1 clickEvent={useFeedMore} text="더보기" />}
     </div>
   );
 };

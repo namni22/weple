@@ -119,6 +119,7 @@ public interface MeetDao {
 	int deleteEnrollMember(HashMap<String, Integer> param);
 
 	int meetLikeCount(int meetNo);
+	
 	int insertMeetChat(HashMap<String, Object> param);
 
 	Follower status(HashMap<String, Object> param);
@@ -126,6 +127,7 @@ public interface MeetDao {
 	
 
 	
+	List myCalendar(String memberId);
 
 
 
