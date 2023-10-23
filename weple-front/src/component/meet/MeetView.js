@@ -18,12 +18,13 @@ const MeetView = (props) => {
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
   const id = props.id;
+  const isAdmin = props.isAdmin;
   ////////////////////////////////////////
-  // useEffect(() => {
-  //   setMyMeet(location.state.m);
-  // }, [props]);
+  useEffect(() => {
+    setMyMeet(location.state.m);
+  }, [props]);
   ////////////////////////////////////////
-  const [myMeet, setMyMeet] = useState(location.state.m);
+  const [myMeet, setMyMeet] = useState({});
   const token = window.localStorage.getItem("token");
   const [followerStatus, setFollowerStatus] = useState({});
   const meetNo = myMeet.meetNo;
@@ -73,7 +74,7 @@ const MeetView = (props) => {
       .catch((res) => {
         console.log("catch : " + res.response.status);
       });
-  
+
     if (isLogin) {
       //로그인이 되어있다면 로그인멤버가 모임멤버인지 조회해오기
       //모임멤버라면 해당 follower 리턴 아직 멤버가 아니라면 null 리턴
@@ -91,11 +92,10 @@ const MeetView = (props) => {
         .catch((res) => {
           console.log(res.response.status);
         });
-  
+
       //가입 대기 상태라면 모임가입 버튼 비활성화하도록 db에서 가입상태 가져오기
     }
   }, [meetNo]);
-
 
   //  console.log("view", myMeet);
   const [meetMenu, setMeetMenu] = useState([
@@ -130,20 +130,6 @@ const MeetView = (props) => {
         .catch((res) => {
           console.log(res.response.status);
         });
-        //어드민 체크
-        axios
-          .post("/member/adminCheck", null, {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          })
-          .then((res) => {
-            console.log(res.data);
-            setAdmin(res.data);
-          })
-          .catch((res) => {
-            console.log(res.response.status);
-          });
     }
   }, []);
 
@@ -165,7 +151,7 @@ const MeetView = (props) => {
           setMeetLikeCount={setMeetLikeCount}
         />
         {isLogin ? (
-          myMeet.meetCaptain === memberId || admin.memberGrade === 0 ? (
+          myMeet.meetCaptain === memberId || isAdmin ? (
             <AfterMeetSubNavi
               meetMenu={meetMenu}
               setMeetMenu={setMeetMenu}
@@ -259,28 +245,40 @@ const MeetView = (props) => {
 };
 
 //모임 좋아요 누를시
-const meetLikeUp = (meet, meetLikeCount, setMeetLikeCount, setIsMeetLikeFront) => {
+const meetLikeUp = (
+  meet,
+  meetLikeCount,
+  setMeetLikeCount,
+  setIsMeetLikeFront
+) => {
   console.log("좋아요 누르면", meet);
   const token = window.localStorage.getItem("token");
-    axios
-      .post("/meet/meetLikeUp", meet, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
-      .then((res) => {
-        console.log("좋아요");
-        // setIsMeetLike(1);
-        // setIsMeetLikeFront(props.meet.isMeetLike);
-        const oldMeetLikeCount = meetLikeCount;
-        setMeetLikeCount(oldMeetLikeCount + 1);
-        setIsMeetLikeFront(1);
-      })
-      .catch((res) => {console.log(res.status) });
+  axios
+    .post("/meet/meetLikeUp", meet, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((res) => {
+      console.log("좋아요");
+      // setIsMeetLike(1);
+      // setIsMeetLikeFront(props.meet.isMeetLike);
+      const oldMeetLikeCount = meetLikeCount;
+      setMeetLikeCount(oldMeetLikeCount + 1);
+      setIsMeetLikeFront(1);
+    })
+    .catch((res) => {
+      console.log(res.status);
+    });
 };
 
-//모임 좋아요취소 누를시 
-const meetLikeCancle = (meet, meetLikeCount, setMeetLikeCount, setIsMeetLikeFront) => {
+//모임 좋아요취소 누를시
+const meetLikeCancle = (
+  meet,
+  meetLikeCount,
+  setMeetLikeCount,
+  setIsMeetLikeFront
+) => {
   console.log("좋아요 누르면", meet);
   const token = window.localStorage.getItem("token");
   axios
@@ -297,7 +295,9 @@ const meetLikeCancle = (meet, meetLikeCount, setMeetLikeCount, setIsMeetLikeFron
       setMeetLikeCount(oldMeetLikeCount - 1);
       setIsMeetLikeFront(0);
     })
-    .catch((res) => { console.log(res.status);});
+    .catch((res) => {
+      console.log(res.status);
+    });
 
   return;
 };
@@ -366,7 +366,9 @@ const AfterMeetMain = (props) => {
           <div className="aferMeet-host-name">
             <Link to="#">{myMeet.meetCaptain}</Link>
             {/* <span className="like">{meetCaptain.memberLike}</span> */}
-            <span className="like">{Math.round(meetCaptain.memberLike*10)/10}</span>
+            <span className="like">
+              {Math.round(meetCaptain.memberLike * 10) / 10}
+            </span>
           </div>
           <div className="afer-host-like">
             {myMeet.meetCaptain === memberId ? (
@@ -510,7 +512,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab(index);
                       }}
-                    // captainCheck={captainCheck}
+                      // captainCheck={captainCheck}
                     >
                       {meetMenu.text}
                     </Link>
@@ -520,7 +522,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab(index);
                       }}
-                    // captainCheck={captainCheck}
+                      // captainCheck={captainCheck}
                     >
                       {meetMenu.text}
                     </Link>
@@ -543,7 +545,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab2(index);
                       }}
-                    // captainCheck={captainCheck}
+                      // captainCheck={captainCheck}
                     >
                       {meetMenu2.text}
                     </Link>
@@ -553,7 +555,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab2(index);
                       }}
-                    //  captainCheck={captainCheck}
+                      //  captainCheck={captainCheck}
                     >
                       {meetMenu2.text}
                     </Link>
