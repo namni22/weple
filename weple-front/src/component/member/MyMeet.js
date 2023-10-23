@@ -92,10 +92,13 @@ const MyMeet = (props) => {
               </div>
             ) : (
               myMeetList.map((myMeet, index) => {
-                return <MyMeetItem key={"myMeet" + index}
-                  myMeet={myMeet}
-                  memberNo={memberNo}
-                />;
+                return (
+                  <MyMeetItem
+                    key={"myMeet" + index}
+                    myMeet={myMeet}
+                    memberNo={memberNo}
+                  />
+                );
               })
             )}
           </div>
@@ -158,7 +161,6 @@ const MyMeetItem = (props) => {
 
   //상세보기로 이동하는 함수
   const moveToMeetView = (myMeet, memberNo) => {
-
     axios
       .get("/meet/selectOneMeet2/" + myMeet.meetNo + "/" + memberNo)
       .then((res) => {
@@ -170,14 +172,17 @@ const MyMeetItem = (props) => {
       .catch((res) => {
         console.log(res.response.status);
       });
-  }
+  };
 
   return (
     //내가 개설한 모임으로이동
     // <Link to="/meet/view" state={{ m: myMeet }}></Link>
-    <div className="myMeetJoined-item" onClick={() => {
-      moveToMeetView(myMeet, memberNo);
-    }}>
+    <div
+      className="myMeetJoined-item"
+      onClick={() => {
+        moveToMeetView(myMeet, memberNo);
+      }}
+    >
       <div className="myMeetJoined-img">
         {myMeet.meetThumbNail === null ? (
           <img src="/img/testImg_01.png" />
@@ -199,7 +204,6 @@ const MyMeetItem = (props) => {
         </div>
       </div>
     </div>
-
   );
 };
 
@@ -209,7 +213,6 @@ const MyMeetJoinedItem = (props) => {
   const navigate = useNavigate();
   //상세보기로 이동하는 함수
   const moveToMeetView = (myMeet, memberNo) => {
-
     axios
       .get("/meet/selectOneMeet2/" + myMeet.meetNo + "/" + memberNo)
       .then((res) => {
@@ -221,14 +224,17 @@ const MyMeetJoinedItem = (props) => {
       .catch((res) => {
         console.log(res.response.status);
       });
-  }
+  };
 
   return (
     //내가 가입한 모임으로 이동
     // <Link to="/meet/view" state={{ m: myMeetJoined }}></Link>
-    <div className="myMeetJoined-item" onClick={() => {
-      moveToMeetView(myMeetJoined, memberNo);
-    }} >
+    <div
+      className="myMeetJoined-item"
+      onClick={() => {
+        moveToMeetView(myMeetJoined, memberNo);
+      }}
+    >
       <div className="myMeetJoined-img">
         {myMeetJoined.meetThumbNail === null ? (
           <img src="/img/testImg_01.png" />
@@ -250,7 +256,6 @@ const MyMeetJoinedItem = (props) => {
         </div>
       </div>
     </div>
-
   );
 };
 
