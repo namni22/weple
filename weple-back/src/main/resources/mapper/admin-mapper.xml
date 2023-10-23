@@ -80,7 +80,17 @@
 	<update id="changeMeetBlacklist">
 		update meet set meet_type = 0 where meet_captain=#{memberId}
 	</update>
+	<delete id="changeFollowerBlacklist">
+		DELETE FROM FOLLOWER WHERE MEMBER_NO = #{memberNo} 
+	</delete>	
 	<select id="meetInfo" resultType="meet">
 		select * from meet where meet_no =#{reportItemNo}
 	</select>
+	<select id="memberInfo" resultType="member">
+		select * from member where member_no =#{reportItemNo}
+	</select>
+	<select id="selectFollowers" resultType="follower">
+		select * from follower where member_no=#{memberNo}
+	</select>
+	
 </mapper>
