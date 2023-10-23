@@ -25,12 +25,12 @@ const MeetView = (props) => {
   const setIsLogin = props.setIsLogin;
   const id = props.id;
   const isAdmin = props.isAdmin;
+  const [myMeet, setMyMeet] = useState({});
   ////////////////////////////////////////
   useEffect(() => {
     setMyMeet(location.state.m);
   }, [props]);
   ////////////////////////////////////////
-  const [myMeet, setMyMeet] = useState({});
   const token = window.localStorage.getItem("token");
   const [followerStatus, setFollowerStatus] = useState({});
   const meetNo = myMeet.meetNo;
