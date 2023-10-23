@@ -48,6 +48,11 @@ const MeetInfo = (props) => {
     }
   }, [props]);
 
+  //로그아웃상태에서 모임가입 버튼클릭시 
+  const loginSwal = () => {
+    Swal.fire("로그인이 필요한 서비스 입니다.")
+  }
+
   //로그인 이후 모임가입하기 버튼 클릭시 작동하는 함수
   const meetJoin = () => {
     const token = window.localStorage.getItem("token");
@@ -231,7 +236,7 @@ const MeetInfo = (props) => {
             ""
           )
         ) : (
-          "로그아웃 상태" //로그아웃 상태일때 공백
+          <Button1 text="모임가입하기" clickEvent={loginSwal} /> //로그아웃 상태일때 공백
         )}
       </div>
     </div>
