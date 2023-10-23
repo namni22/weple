@@ -3,7 +3,6 @@ import { Button2 } from "../util/Button";
 import SwiperComponent from "../util/Swiper";
 import "./review.css";
 import Rating from "@mui/material/Rating";
-import { useEffect, useState } from "react";
 
 const ReviewWriteFrm = (props) => {
   const reviewContent = props.reviewContent;
@@ -63,9 +62,21 @@ const ReviewWriteFrm = (props) => {
   return (
     <div className="review-write-wrap">
       <div className="review-top">
-        <div className="profileImg">
-          <img src="./img/profile_default.png"></img>
+        <div className="file-box">
+          <label htmlFor="file" className="btn btn1 feed-label">
+            사진 첨부하기
+          </label>
+          <input
+            id="file"
+            type="file"
+            accept="image/*"
+            onChange={changeFile}
+            multiple
+          />
         </div>
+        {/* <div className="profileImg">
+          <img src="./img/profile_default.png"></img>
+        </div> */}
         <div className="star-rating">
           <Rating
             name="half-rating"
@@ -84,18 +95,6 @@ const ReviewWriteFrm = (props) => {
             }}
           />
         </div>
-      </div>
-      <div className="file-box">
-        <label htmlFor="file" className="btn btn1 feed-label">
-          사진 첨부하기
-        </label>
-        <input
-          id="file"
-          type="file"
-          accept="image/*"
-          onChange={changeFile}
-          multiple
-        />
       </div>
       <div className="feed-write-img">
         {reviewBox?.length === 0 ? (
