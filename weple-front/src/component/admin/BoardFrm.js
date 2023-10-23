@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const BoardFrm = (props) => {
-  const isLogin= props.isLogin;  
+  const isLogin = props.isLogin;
   const [boardTitle, setBoardTitle] = useState("");
   const [boardContent, setBoardContent] = useState("");
   const [boardType, setBoardType] = useState();
@@ -16,11 +16,12 @@ const BoardFrm = (props) => {
 
   const insert = () => {
 
-    if (boardTitle !== "" && boardContent !== "") {     
+    if (boardTitle !== "" && boardContent !== "") {
       const form = new FormData();
       form.append("boardTitle", boardTitle);
-      form.append("boardContent", boardContent);     
-      form.append("boardType",boardType)     
+      form.append("boardContent", boardContent);
+      form.append("boardType", boardType);
+      //console.log(boardType);
       const token = window.localStorage.getItem("token");
       axios
         .post("/board/insert", form, {
@@ -38,7 +39,7 @@ const BoardFrm = (props) => {
               icon: "success",
               text: "공지 등록 완료",
               confirmButtonText: "확인",
-            });           
+            });
             navigate("/board");
           }
         })
@@ -50,14 +51,15 @@ const BoardFrm = (props) => {
       Swal.fire("제목, 내용 입력 필수입니다");
     }
   }
-  const reset=()=>{
+  const reset = () => {
     navigate("/board");
   }
-  
+
   const options = ["공지사항", "이벤트", "FAQ"];
 
   const clickChange = (event) => {
-    setBoardType(event.target.value);    
+    setBoardType(event.target.value);
+    console.log(event.target.value);
   };
   return (
     <div className="board-frm-wrap">
@@ -68,11 +70,11 @@ const BoardFrm = (props) => {
             <tbody>
               <tr>
                 <td className="selectOption">
-                <select value={boardType} onChange={clickChange} >
-                  {options.map((option, index) => {
-                    return <option value={index} key={"option" + index}> {option} </option>
-                  })}
-                </select>
+                  <select value={boardType} onChange={clickChange} >
+                    {options.map((option, index) => {
+                      return <option value={index} key={"option" + index}> {option} </option>
+                    })}
+                  </select>
                 </td>
                 <td>
                   <label htmlFor="boardTitle">제목</label>
@@ -99,13 +101,13 @@ const BoardFrm = (props) => {
       </div>
       <div className="board-btn-box">
         <div>
-        <Button2 text="취소" clickEvent={reset}></Button2>
+          <Button2 text="취소" clickEvent={reset}></Button2>
         </div>
         <div>
-        <Button1 text="등록" clickEvent={insert}></Button1>        
+          <Button1 text="등록" clickEvent={insert}></Button1>
+        </div>
       </div>
-      </div>
-      
+
     </div >
 
 
