@@ -1,21 +1,21 @@
-import {  useLocation } from "react-router";
+import { useLocation } from "react-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Pagination from "../common/Pagination";
 import "./search.css";
 import { Link } from "react-router-dom";
 
-const Search = ()=>{
+const Search = () => {
   const location = useLocation();
   const [searchResult, setSearchResult] = useState([]);
   const [reqPage, setReqPage] = useState(1);
   const [pageInfo, setPageInfo] = useState({});
   useEffect(() => {
     console.log(location.state);
-    const searchWord = location.state;
+    const searchWord = location.state.searchWord;
     console.log(searchWord);
     axios
-      .get("/meet/searchKeyword/" + reqPage + "/테스트")
+      .get("/meet/searchKeyword/" + reqPage + "/" + searchWord)
       .then((res) => {
         console.log(res.data);
         setSearchResult(res.data.meetList);
@@ -25,29 +25,29 @@ const Search = ()=>{
       .catch((res) => {
         console.log(res);
       });
-  }, [reqPage]);
-    return (
-      <div className="search-wrap">
-        {/* <div className="search-top">검색결과 </div> */}
-        {searchResult.map((meet, index) => {
-          return (
-            <Link to="/meet/View" state={{ m: meet }}>
-              <div className="search-results">
-                <SearchComponent meet={meet} />
-              </div>
-            </Link>
-          );
-        })}
-        <Pagination
-          reqPage={reqPage}
-          setReqPage={setReqPage}
-          pageInfo={pageInfo}
-          setData={setSearchResult}
-        />
-      </div>
-    );
-}
-const SearchComponent = (props)=>{
+  }, [location, reqPage]);
+  return (
+    <div className="search-wrap">
+      {/* <div className="search-top">검색결과 </div> */}
+      {searchResult.map((meet, index) => {
+        return (
+          <Link to="/meet/View" state={{ m: meet }}>
+            <div className="search-results">
+              <SearchComponent meet={meet} />
+            </div>
+          </Link>
+        );
+      })}
+      <Pagination
+        reqPage={reqPage}
+        setReqPage={setReqPage}
+        pageInfo={pageInfo}
+        setData={setSearchResult}
+      />
+    </div>
+  );
+};
+const SearchComponent = (props) => {
   const meet = props.meet;
   const meetTitle = meet.meetTitle;
   const meetThumbNail = "/meet/" + meet.meetThumbNail;
@@ -60,23 +60,22 @@ const SearchComponent = (props)=>{
     meetContentDRaw.indexOf("<img"),
     meetContentDRaw.indexOf(">") + 1
   );
-    imgTags.map((item, index)=>{
-      meetContentDRaw= meetContentDRaw.replaceAll(item,"");
-
-    })
-    //
+  imgTags.map((item, index) => {
+    meetContentDRaw = meetContentDRaw.replaceAll(item, "");
+  });
+  //
   const meetContentD = meetContentDRaw;
-    return (
-      <div className="search-result">
-        <div className="search-thumb">
-          <img src={meetThumbNail} />
-        </div>
-        <div className="search-content">
-          <div className="search-title">{meetTitle}</div>
-          <div className="search-contentS">{meetContentS}</div>
-          <div className="search-contentD">{meetContentD}</div>
-        </div>
+  return (
+    <div className="search-result">
+      <div className="search-thumb">
+        <img src={meetThumbNail} />
       </div>
-    );
-}
+      <div className="search-content">
+        <div className="search-title">{meetTitle}</div>
+        <div className="search-contentS">{meetContentS}</div>
+        <div className="search-contentD">{meetContentD}</div>
+      </div>
+    </div>
+  );
+};
 export default Search;
