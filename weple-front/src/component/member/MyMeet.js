@@ -117,6 +117,7 @@ const MyMeet = (props) => {
 const MyMeetItem = (props) => {
   const myMeet = props.myMeet;
   return (
+    //내가 개설한 모임으로이동
     <Link to="/meet/view" state={{ m: myMeet }}>
       <div className="myMeetJoined-item">
         <div className="myMeetJoined-img">
@@ -147,6 +148,7 @@ const MyMeetItem = (props) => {
 const MyMeetJoinedItem = (props) => {
   const myMeetJoined = props.myMeetJoined;
   return (
+    //내가 가입한 모임으로 이동
     <Link to="/meet/view" state={{ m: myMeetJoined }}>
       <div className="myMeetJoined-item">
         <div className="myMeetJoined-img">
