@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const MyMeet = (props) => {
+  const member = props.member;
   const memberId = props.memberId;
   const memberNo = props.memberNo;
   const memberGrade = props.memberGrade;
@@ -19,7 +20,22 @@ const MyMeet = (props) => {
     if (memberMeet > 0) {
       navigate("/meet/meetCreate");
     } else {
-      Swal.fire("추가 모임 개설은 결제가 필요합니다");
+      Swal.fire({
+        text: "모임 추가개설은 결제가 필요한 서비스 입니다.",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "결제페이지로 이동",
+        cancelButtonText: "취소",
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            navigate("/mypage/payment")//부모컴포넌트가 같아서 member를 안줘도 이동
+          }
+        })
+        .catch((res) => {
+          console.log(res.response.data);
+        });
     }
   };
 

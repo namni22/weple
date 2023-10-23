@@ -10,6 +10,7 @@ import ModifyInfo from "./ModifyInfo";
 import ModifyPw from "./ModifyPw";
 import Payment from "../payment/Payment";
 import Alarm from "./Alarm";
+import MyCalendar from "./MyCalendar";
 
 const Mypage = (props) => {
   const isLogin = props.isLogin;
@@ -119,7 +120,12 @@ const Mypage = (props) => {
               }
             />
             <Route path="modifyPw" element={<ModifyPw />} />
-            <Route path="myCalendar" element={<AdminReport />} />
+            <Route
+              path="myCalendar"
+              element={
+                <MyCalendar isLogin={isLogin} memberNo={member.memberNo} />
+              }
+            />
             <Route
               path="alarm"
               element={<Alarm member={member} token={token} />}

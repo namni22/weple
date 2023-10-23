@@ -380,7 +380,12 @@
 	<select id="like" resultType="memberLike">
 		select * from Mlike where meet_no=#{meetNo} and MLIKE_GIVER_NO=#{memberNo}
 	</select>
-		
+	<select id="selectMeetTotal" resultType="int">
+		SELECT MEET_TOTAL FROM MEET WHERE MEET_NO=#{meetNo}
+	</select>
+	<delete id="deleteEnrollMember">
+		delete From follower where meet_no=#{meetNo} and member_no=#{memberNo} and follower_status = 0
+	</delete>
 		
 	<!-- 캘린더 -->
 	<insert id="addCalendar">
@@ -398,10 +403,14 @@
 	<update id="modifyCalendar">
 		update calendar set cal_title=#{calTitle},cal_content=#{calContent},cal_start=#{calStart} where cal_no=#{calNo}
 	</update>
-	<select id="selectMeetTotal" resultType="int">
-		SELECT MEET_TOTAL FROM MEET WHERE MEET_NO=#{meetNo}
+	<select id="myCalendar" resultType="calendar">
+		select * 
+		from calendar 
+		where meet_no in
+			(select meet_no from follower 
+				where 
+					member_no=(select member_no from member where member_Id=#{memberId}) 
+					and follower_status=1)
 	</select>
-	<delete id="deleteEnrollMember">
-		delete From follower where meet_no=#{meetNo} and member_no=#{memberNo} and follower_status = 0
-	</delete>
+	
 </mapper>

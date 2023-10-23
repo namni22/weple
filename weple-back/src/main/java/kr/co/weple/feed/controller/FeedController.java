@@ -51,14 +51,17 @@ public class FeedController {
 		}
 		return feedService.insertFeed(f,imageList);
 	}
-	
+	@GetMapping(value="/totalCount")
+	public int totalCount() {
+		return feedService.totalCount();
+	}
 	//피드출력
-	@GetMapping(value="/list/{start}/{end}")
+	@GetMapping(value="/list/{start}/{endNum}")
 	public List list(
 			@PathVariable int start,
-			@PathVariable int end
+			@PathVariable int endNum
 			) {
-		return feedService.feedList(start, end);
+		return feedService.feedList(start, endNum);
 	}
 	//피드하나출력
 		@GetMapping(value="/one/{feedNo}")

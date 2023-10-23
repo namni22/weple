@@ -18,11 +18,16 @@ import FindPw from "./component/member/FindPw";
 import Search from "./component/common/Search";
 import MemberProfile from "./component/member/MemberProfile";
 import MyMeet from "./component/member/MyMeet";
+import MemberMeet from "./component/member/MemberMeet";
+import axios from "axios";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [id, setId] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const token = window.localStorage.getItem("token");
+  const [member, setMember] = useState({});
+  const memberId = member.memberId;
   useEffect(() => {
     const token = window.localStorage.getItem("token");
     if (token === null) {
@@ -37,6 +42,22 @@ function App() {
       setIsLogin(true);
     }
   }, []);
+
+  useEffect(() => {
+    axios
+      .post("/member/getMember", null, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setMember(res.data);
+      })
+      .catch((res) => {
+        console.log(res.response.status);
+      });
+  }, [token]);
 
   return (
     <div className="weple-wrap">
@@ -100,8 +121,11 @@ function App() {
           />
           <Route path="/findId" element={<FindId />} />
           <Route path="/findPw" element={<FindPw />} />
-          <Route path="/memberProfile" element={<MemberProfile />} />
-          <Route path="/myMeet" element={<MyMeet />} />
+          <Route
+            path="/memberProfile"
+            element={<MemberProfile isLogin={isLogin} memberId={memberId} />}
+          />
+          <Route path="/memberMeet" element={<MemberMeet />} />
           <Route
             path="/review/*"
             element={<ReviewMain isLogin={isLogin} isAdmin={isAdmin} />}

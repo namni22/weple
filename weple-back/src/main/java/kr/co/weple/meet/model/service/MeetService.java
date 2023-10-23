@@ -384,35 +384,7 @@ public class MeetService {
 	}
 
 
-	//------------------캘린더---------------------
-	@Transactional
-	public int addcalendar(Calendar cal) {
-			return  meetDao.addCalendar(cal);
-	}
-	public List calendarList(int meetNo) {
-		return meetDao.calendarList(meetNo);
-	}
-	@Transactional
-	public int removeCalendar(int calNo) {
-		return meetDao.removeCalendar(calNo);
-	}
-	public Calendar schedule(int calNo) {
-		List list = meetDao.schedule(calNo);
-		Calendar c = (Calendar)list.get(0);
-		return c;
-	}
-	@Transactional
-	public int modifyCalendar(Calendar cal) {
-		return meetDao.modifyCalendar(cal);
-	}
-	public boolean captainCk(int meetNo, String memberId) {
-		Meet meet = meetDao.selectOneMeet(meetNo);
-		if(meet.getMeetCaptain().equals(memberId)) {
-			return true;
-		}
-		return false;
-	}
-
+	
 	//검색어 입력
 	public Map searchList(int reqPage, String searchKeyword) {
 		// TODO Auto-generated method stub
@@ -470,6 +442,38 @@ public class MeetService {
 	public int meetLikeCount(int meetNo) {
 		// TODO Auto-generated method stub
 		return meetDao.meetLikeCount(meetNo);
+	}
+	
+	//------------------캘린더---------------------
+	@Transactional
+	public int addcalendar(Calendar cal) {
+			return  meetDao.addCalendar(cal);
+	}
+	public List calendarList(int meetNo) {
+		return meetDao.calendarList(meetNo);
+	}
+	@Transactional
+	public int removeCalendar(int calNo) {
+		return meetDao.removeCalendar(calNo);
+	}
+	public Calendar schedule(int calNo) {
+		List list = meetDao.schedule(calNo);
+		Calendar c = (Calendar)list.get(0);
+		return c;
+	}
+	@Transactional
+	public int modifyCalendar(Calendar cal) {
+		return meetDao.modifyCalendar(cal);
+	}
+	public boolean captainCk(int meetNo, String memberId) {
+		Meet meet = meetDao.selectOneMeet(meetNo);
+		if(meet.getMeetCaptain().equals(memberId)) {
+			return true;
+		}
+		return false;
+	}
+	public List myCalendar(String memberId) {
+		return meetDao.myCalendar(memberId);
 	}
 
 }

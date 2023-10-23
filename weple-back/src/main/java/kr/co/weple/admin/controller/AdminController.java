@@ -94,4 +94,9 @@ public class AdminController {
 		System.out.println("meetInfo");
 		return adminService.meetInfo(reportItemNo);
 	}
+	//member 정보 가져오기
+	@GetMapping(value="/memberInfo/{reportItemNo}")
+	public String memberInfo(@PathVariable int reportItemNo) {		
+		return adminService.memberInfo(reportItemNo);
+	}
 }

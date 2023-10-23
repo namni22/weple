@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.weple.PageInfo;
 import kr.co.weple.Pagination;
 import kr.co.weple.admin.model.dao.AdminDao;
+import kr.co.weple.meet.model.dao.MeetDao;
+import kr.co.weple.meet.model.vo.Follower;
 import kr.co.weple.meet.model.vo.Meet;
 import kr.co.weple.member.model.dao.MemberDao;
 import kr.co.weple.member.model.service.MemberService;
@@ -23,6 +25,8 @@ public class AdminService {
 	private AdminDao adminDao;
 	@Autowired
 	private MemberDao memberDao;
+	@Autowired
+	private MeetDao meetDao;
 	@Autowired
 	private Pagination pagination;
 	
@@ -151,21 +155,34 @@ public class AdminService {
 		@Transactional
 		public int checkBlacklist(Report report) {
 			int reportType = report.getReportType();
-			Member m = memberDao.selectOneMember(report.getReportedMember());
-			if(m.getMemberLike() <= 10) {
-				if(reportType == 0) {
-					return adminDao.changeMemberBlacklist(m.getMemberId());
-				}else if(reportType == 1) {
-					return adminDao.changeMeetBlacklist(m.getMemberId());
+			
+			Member member = memberDao.selectOneMember(report.getReportedMember());
+			Meet meet = meetDao.selectOneMeet(member.getMemberNo());
+			Follower follower = adminDao.selectFollowers(member.getMemberNo());
+			if(member.getMemberLike() <= 10) {	
+				int changeMember= adminDao.changeMemberBlacklist(member.getMemberId());		
+				if(meet.getMeetCaptain() == member.getMemberId()) {
+					int changeMeetCaptain =adminDao.changeMeetBlacklist(member.getMemberId());
 				}
+				if(follower.getMemberNo() == member.getMemberNo()) {
+					int changeFollower = adminDao.changeFollowerBlacklist(member.getMemberId());
+				}					 
+				return 1;
+			
+			}else {
+				return 0;
 			}
-			return 0;
 			
 			
 		}
 		public List meetInfo(int reportItemNo) {
 			List meetList = adminDao.meetInfo(reportItemNo);			
 			return meetList;
+		}
+		 public String memberInfo(int reportItemNo) {
+			 Member m = adminDao.memberInfo(reportItemNo);
+			 String memberId = m.getMemberId();
+			return memberId;
 		}
 		
 }

@@ -164,9 +164,11 @@ const MeetSettingFrm = (props) => {
         console.log(e.currentTarget.value);
         if (e.currentTarget.value < 2) {
             setMeetTotal(2);
+            Swal.fire("모임 최소 인원은 2명입니다.")
         }
         else if (e.currentTarget.value > 100) {
             setMeetTotal(100);
+            Swal.fire("모임 최대 인원은 100명입니다.")
         }
         else {
             setMeetTotal(e.currentTarget.value)
@@ -342,19 +344,28 @@ const MeetSettingFrm = (props) => {
                     </div>
                 </div>
                 <div className="meetMemberLimitFrm">
+
+
                     <label>모임참여인원</label>
-                    <input
+                    {/* <input
                         type="number"
-                        min="1"
-                        max="100"
+                        // min="1"
+                        // max="100"
                         onChange={changeMeetTotal}
                         className="meetMemberLimit-input"
                         value={meetTotal}
-
-                    >
-
-
-                    </input>
+                        >
+                    </input> */}
+                    <div>
+                        <Input
+                            content="meetMemberLimit-input"
+                            type="number"
+                            data={meetTotal}
+                            setData={setMeetTotal}
+                            blurEvent={changeMeetTotal}
+                        />
+                        <div className="meetMemberLimit-guid">모임참여인원은 최소 2명 ~최대 100명 입니다.</div>
+                    </div>
 
                 </div>
                 <div>

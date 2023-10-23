@@ -388,7 +388,13 @@ public class MeetController {
 	public String like(@PathVariable int meetNo,@RequestAttribute String memberId) {
 		return meetService.Like(memberId, meetNo);
 	}
-
+	//모임 신청 목록 삭제
+	@PostMapping(value = "/deleteEnrollMember/{meetNo}")
+	public int deleteEnrollMember(@RequestBody Member enroll,@PathVariable int meetNo) {
+		System.out.println("333333333333333333333333333"+ enroll+meetNo);
+		int result = meetService.deleteEnrollMember(enroll.getMemberNo(),meetNo);
+		return result;
+	}
 	
 	//------------------캘린더---------------------
 		
@@ -402,6 +408,12 @@ public class MeetController {
 	public List calendarList(@PathVariable int meetNo) {
 		List list = meetService.calendarList(meetNo);
 		return list;
+	}
+	//mypage캘린더 리스트 출력
+	@PostMapping(value="/myCalendar")
+	public List myCalendar(@RequestAttribute String memberId){
+		return meetService.myCalendar(memberId);
+		
 	}
 	//캘린더 일정삭제
 	@GetMapping(value="/removeCalendar/{calNo}")
@@ -431,5 +443,6 @@ public class MeetController {
 		int result = meetService.deleteEnrollMember(enroll.getMemberNo(),meetNo);
 		return result;
 	}
+
 	
 }
