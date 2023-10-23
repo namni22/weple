@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 const SideMenu = (props) => {
   const menus = props.menus;
   const setMenus = props.setMenus;
+  const isAdmin = props.isAdmin;
   const setIsLogin = props.setIsLogin;
   const setIsAdmin = props.setIsAdmin;
   const navigate = useNavigate();
@@ -51,11 +52,15 @@ const SideMenu = (props) => {
             </li>
           );
         })}
-        <li>
-          <Link to={"/"} onClick={logout}>
-            로그아웃
-          </Link>
-        </li>
+        {isAdmin ? (
+          <li>
+            <Link to={"/"} onClick={logout}>
+              로그아웃
+            </Link>
+          </li>
+        ) : (
+          <></>
+        )}
       </ul>
     </div>
   );
