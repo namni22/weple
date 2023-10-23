@@ -358,6 +358,8 @@ const AfterMeetMain = (props) => {
   };
   return (
     <div className="afterMeet-main-wrap">
+
+      <div className="afterMeet-meetTitle">{myMeet.meetTitle}</div>
       <div className="afterMeet-main-thumbnail">
         <img src={"/meet/" + myMeet.meetThumbNail}></img>
         {/* <img src="/img/testImg_01.png"></img> */}
@@ -449,7 +451,7 @@ const AfterMeetMain = (props) => {
             )}
           </div>
         </div>
-        <div className="afterMeet-info-title">{myMeet.meetTitle}</div>
+        {/* <div className="afterMeet-info-title">{myMeet.meetTitle}</div> */}
         <div className="afterMeet-info-sub-content">
           <p>{myMeet.meetContentS}</p>
         </div>
