@@ -326,7 +326,7 @@ const MeetItem = (props) => {
       </div>
       <div className="meetList-memberTotal">
         <span>인원 : </span>
-        <span>{meet.meetTotal - meet.meetMargin}</span>
+        <span>{meet.meetTotal - meet.meetMargin + 1}</span>
         <span>/</span>
         <span>{meet.meetTotal}</span>
       </div>
