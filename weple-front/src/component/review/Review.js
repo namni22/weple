@@ -3,7 +3,8 @@ import SwiperComponent from "../util/Swiper";
 import "./review.css";
 import "./reviewList.css";
 import axios from "axios";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
+import { Button1 } from "../util/Button";
 
 const starRating = () => {
   const result = [];
@@ -18,14 +19,35 @@ const starRating = () => {
 };
 const Review = (props) => {
   const [reviewList, setReviewList] = useState([]);
+  const [isMember, setIsMember] = useState(false);
   const meetNo = props.meetNo;
   const meetStar = props.reviewStar;
   const reviewCount = props.reviewCount;
-  const isMeetMember = props.isMeetMember;
-  const token = window.localStorage.getItem("token");
-
+  //리뷰 작성
+  const navigate = useNavigate();
+  const write = () => {
+    navigate("/review/write", { state: { meetNo: meetNo } });
+  };
   //리뷰 조회
   useEffect(() => {
+    // //isMember
+    const token = window.localStorage.getItem("token");
+    axios
+      .post(
+        "/member/isMember",
+        { meetNo },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
+      .then((res) => {
+        setIsMember(res.data);
+      })
+      .catch((res) => {
+        console.log("isMember", res.status);
+      });
     //select ReviewList
     axios
       .get("/review/previewList/" + meetNo)
@@ -45,23 +67,6 @@ const Review = (props) => {
       .catch((res) => {
         console.log(res.data?.status);
       });
-    // //isMember
-    // const form = new FormData();
-    // form.append("meetNo", meetNo);
-    // axios
-    //   .post("/member/isMember", form, {
-    //     headers: {
-    //       contentType: "multipart/form-data",
-    //       processData: false,
-    //       Authorization: "Bearer" + token,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     console.log("isMember", res.data);
-    //   })
-    //   .catch((res) => {
-    //     console.log("isMember??????", res.data);
-    //   });
   }, [meetNo]);
   //리뷰 => 컴포넌트 배열로 바꿔줌
   const list = reviewList.map((item, index) => {
@@ -72,7 +77,6 @@ const Review = (props) => {
           meetNo: meetNo,
           meetStar: meetStar,
           reviewCount: reviewCount,
-          isMeetMember: isMeetMember
         }}
       >
         <ReviewComponent review={item} />
@@ -87,9 +91,20 @@ const Review = (props) => {
           <div className="meetInfo-content-title">모임리뷰</div>
           {
             <div className="review-wrap">
-              <div className="review-no">모임에 가입하고 첫 번째 리뷰를 작성해 보세요!</div>
+              {isMember ? (
+                <div className="review-no">
+                  이미 회원이신가요? 첫번째 리뷰를 작성해 보세요!
+                  <div className="review-write-btn">
+                    <Button1 text="후기작성" clickEvent={write} />
+                  </div>
+                </div>
+              ) : (
+                <div className="review-no">
+                  모임에 가입하고 첫 번째 리뷰를 작성해 보세요!
+                </div>
+              )}
             </div>
-           }
+          }
         </div>
       ) : (
         <div className="review-all-wrap">
