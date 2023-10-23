@@ -299,7 +299,7 @@ const MeetItem = (props) => {
         //   .catch((res) => {
         //     // console.log();
         //   });
-        console.log("좋아요 취소 누르고 덴 : ", meet.isMeetLike);
+        // console.log("좋아요 취소 누르고 덴 : ", meet.isMeetLike);
         const isMeetLike = 0;
         meet.isMeetLike = isMeetLike;
         setMeet({ ...meet });
