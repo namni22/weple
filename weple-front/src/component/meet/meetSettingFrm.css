@@ -179,22 +179,27 @@
   display: inline-block;
   font-weight: bold;
   margin: 3px 5px;
-
 }
 
-.meetMaterials-one>span:first-child {
+.meetMaterials-one>div {
+  /* 아이콘정렬을 위해 display: flex로 아이콘정렬을위해 div로 감싼 div 선택자 */
+  display: flex;
+  align-items: center;
+}
+
+.meetMaterials-one span:first-child {
   /* 준비물의 글자 선택자 */
   font-size: 20px;
   font-weight: bold;
 }
 
-.meetMaterials-one>span:nth-child(2) {
+.meetMaterials-one span:nth-child(2) {
   /* 준비물 x 선택자 */
   /* padding-left: 10px; */
   margin-left: 10px;
 }
 
-.meetMaterials-one>span:nth-child(2):hover {
+.meetMaterials-one span:nth-child(2):hover {
   /* 준비물 x 선택자에 커서 올렸을때 */
   background-color: #2d30fa89;
   border-radius: 20px;
