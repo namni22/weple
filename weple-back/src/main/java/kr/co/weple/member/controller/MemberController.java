@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.weple.EmailSender;
 import kr.co.weple.FileUtil;
+import kr.co.weple.meet.model.vo.Meet;
 import kr.co.weple.member.model.service.MemberService;
 import kr.co.weple.member.model.vo.Member;
 import kr.co.weple.review.model.vo.Report;
@@ -207,30 +207,29 @@ public class MemberController {
 		return list;
 	}
 	
-	@PostMapping(value="/isMember")
-	public boolean isMember(@RequestBody int meetNo) {
-		System.out.println("controller 도착");
-		String memberId = "adminyj";
-		boolean result = memberService.isMember(memberId,meetNo);
-		return result;
-	}
 	//관리자 체크
 		@PostMapping(value = "/adminCheck")
 		public Member adminCheck(@RequestAttribute String memberId) {
 			Member admin = memberService.adminCheck(memberId);			
 			return admin;
 		}
-	
 	// 회원 등급 가져오기
 	@GetMapping(value="/getMemberGrade/{memberId}")
 	public int memberGrade(@PathVariable String memberId) {
 		return memberService.getMemberGrade(memberId);
 	}
 
-	
+	//회원인지 확인하는 메소드
+	@PostMapping(value="/isMember")
+	public boolean isMember(@RequestAttribute String memberId, @RequestBody Meet meet) {
+		boolean result = memberService.isMember(memberId,meet.getMeetNo());
+		return result;
+}
+
 	// 남이보는 프로필 멤버 정보 가져오기
 	@PostMapping(value="/getMemberInfo")
 	public Member getMemberInfo(@RequestBody Member m) {
 		return memberService.getMemberInfo(m.getMemberId());
 	}
+
 }

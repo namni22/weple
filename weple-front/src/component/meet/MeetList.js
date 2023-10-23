@@ -40,6 +40,10 @@ const MeetList = (props) => {
       .catch((res) => {
         console.log("catch : " + res.response.status);
       });
+    // const allTab = document.querySelectorAll(".smallCategory-li")[0];//전체 li
+    // allTab.click();
+    // console.log("전체버튼 : ", allTab);
+
   }, []);
 
   // 카테고리에서 넘어오면서 기본적으로 전체 모임 조회해오기
@@ -72,8 +76,18 @@ const MeetList = (props) => {
         .catch((res) => {
           console.log("catch : " + res.response.status);
         });
-
     }
+    //탭메뉴 활성화
+    const smallTabs = document.querySelectorAll(".smallCategory-li")
+    smallTabs.forEach(function (item, index) {
+      item.addEventListener("click", function () {
+        for (let i = 0; i < smallTabs.length; i++) {
+          smallTabs[i].classList.remove("active-smallCategory")
+        }
+        item.classList.add("active-smallCategory")
+      });
+    });//탭메뉴 활성화
+
   }, [reqPage, loginMemberNo, categoryType, isMeetLikeFront]);
 
   //카테고리 메뉴바의 전체를 클릭하면 동작하는 함수
@@ -89,18 +103,18 @@ const MeetList = (props) => {
     setCategoryType(smallCategory.categoryNo);
 
 
-    //탭메뉴 활성화
-    const smallTabs = document.querySelectorAll(".smallCategory-li")
-    smallTabs.forEach(function (item, index) {
-      item.addEventListener("click", function () {
-        for (let i = 0; i < smallTabs.length; i++) {
-          smallTabs[i].classList.remove("active-smallCategory")
-        }
-        item.classList.add("active-smallCategory")
-      })
-    })
+    // //탭메뉴 활성화
+    // const smallTabs = document.querySelectorAll(".smallCategory-li")
+    // smallTabs.forEach(function (item, index) {
+    //   item.addEventListener("click", function () {
+    //     for (let i = 0; i < smallTabs.length; i++) {
+    //       smallTabs[i].classList.remove("active-smallCategory")
+    //     }
+    //     item.classList.add("active-smallCategory")
+    //   });
+    // });
 
-    // console.log("탭", tab);
+
 
 
 
@@ -326,7 +340,7 @@ const MeetItem = (props) => {
       </div>
       <div className="meetList-memberTotal">
         <span>인원 : </span>
-        <span>{meet.meetTotal - meet.meetMargin + 1}</span>
+        <span>{meet.meetTotal - meet.meetMargin}</span>
         <span>/</span>
         <span>{meet.meetTotal}</span>
       </div>

@@ -72,6 +72,12 @@ const ReviewWriteFrm = (props) => {
             defaultValue={5}
             precision={0.5}
             value={reviewStar}
+            size="large"
+            sx={{
+              "& .MuiRating-iconFilled": {
+                color: "blue",
+              },
+            }}
             onChange={(event, newValue) => {
               setReviewStar(newValue);
               // console.log(value);?

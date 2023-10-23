@@ -11,10 +11,17 @@
 }
 .payment-wrap table {
   width: 100%;
-  border-top: 1px solid #ccc;
+  border: 1px solid #ccc;
+  border-left: none;
+  border-right: none;
+  margin-bottom: 30px;
 }
 .payment-wrap table td {
   width: 50%;
   text-align: center;
   padding: 5px 0;
+}
+.payment-amount {
+  display: flex;
+  justify-content: space-evenly;
 }

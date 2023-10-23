@@ -111,15 +111,18 @@ const ReportItem = (props) => {
           Swal.fire("호감도가 내려갔습니다")
           axios
             .post("/admin/checkBlacklist", report)
-            //멤버아이디 => 온도 10 이하면 =>블랙리스트 => report type 모임 다막아버리라는 거지 검수중으로 바꾸라고/회원 블랙리스트로 가게 함
             .then((res) => {
-
+              if (res.data === 1) {
+                Swal.fire("블랙리스트입니다.")
+              } else {
+                Swal.fire("블랙리스트가 아닙니다.")
+              }
             })
             .catch((res) => {
-              Swal.fire("블랙리스트입니다.")
+
             })
         } else {
-          Swal.fire("블랙리스트 명단에 있습니다.")
+          Swal.fire("호감도 실패")
         }
       })
       .catch((res) => {
@@ -127,14 +130,18 @@ const ReportItem = (props) => {
       })
   }
 
-  const [viewOpen, setViewOpen] = useState(false);
-  const [reviewOpen, setReviewOpen] = useState(false);
-  // [meetInfo, setMeetInfo] =
+
 
   const clickMove = (props) => {
     const report = props;
-    if (report.reportType === 0) {
 
+    if (report.reportType === 0) {
+      const reportItemNo = report.reportItemNo;
+      axios
+        .get("/admin/memberInfo/" + reportItemNo)
+        .then((res) => {
+          navigate("/memberProfile", { state: { memberId: res.data } })
+        })
     } else if (report.reportType === 1) {
       const reportItemNo = report.reportItemNo;
       axios
@@ -147,10 +154,6 @@ const ReportItem = (props) => {
           console.log("catch : " + res.response.status);
         });
 
-      //상세보기로 이동하는 함수
-      const meetView = () => {
-        // console.log("클릭하기 전 값 : ", meet, meet.meetNo);
-      }; //이동할곳 state로 데이터 전송
 
     } else if (report.reportType === 2) {
       setViewOpen(true);
@@ -169,9 +172,9 @@ const ReportItem = (props) => {
   //   e.stopPropagation();
   //   // setLoadList(loadList + 1);
   // };
-
+  const [viewOpen, setViewOpen] = useState(false);
+  const [reviewOpen, setReviewOpen] = useState(false);
   if (index === toggleIdx) {
-
     return (
       <>
         <tr onClick={changeToggle}>
@@ -242,16 +245,11 @@ const ReportItemContent = (props) => {
   const reportType = props.report.reportType;
   const setViewOpen = props.setViewOpen;
   const viewOpen = props.viewOpen;
-  const setReviewOpen = props.setViewOpen;
-  const reviewOpen = props.viewOpen;
   const reportItemNo = props.report.reportItemNo;
-  console.log(reportItemNo);
-  //const [reviewOpen, setReviewOpen] = useState(false); //리뷰 모달
   const isAdmin = props.isAdmin;
-  {/* <div onClick={view}>reviewReport</div> */ }
-  // const view = () => {
-  //   setReviewOpen(true);
-  // };
+  const setReviewOpen = props.setReviewOpen;
+  const reviewOpen = props.reviewOpen;
+
 
   const [loadList, setLoadList] = useState(0);
 
@@ -284,15 +282,20 @@ const ReportItemContent = (props) => {
     )
   }
   else if (reportType === 3) {
-    return (<tr>
-      <ReviewReport
-        reviewOpen={reviewOpen}
-        closeView={(e) => {
-          setReviewOpen(false);
-        }}
-        reviewNo={reportItemNo} //review번호 값
-        isAdmin={isAdmin}
-      /></tr>)
+    return (
+      <tr>
+        <ReviewReport
+          reviewOpen={reviewOpen}
+          setReviewOpen={setReviewOpen}
+          closeView={(e) => {
+            setReviewOpen(false);
+          }}
+          reviewNo={reportItemNo} //review번호 값
+          isAdmin={isAdmin}
+        />
+      </tr>
+
+    )
   }
 
 }
