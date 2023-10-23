@@ -15,7 +15,7 @@
   margin: 20px 0px 20px 0px;
 }
 
-.smallCategory-ul > li {
+.smallCategory-ul>li {
   /* 소분류 li 선택자 */
   float: left;
   width: 10%;
@@ -51,6 +51,7 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
 }
+
 .MeetList-meet-img-box {
   width: 270px;
   height: 270px;
@@ -59,7 +60,7 @@
   background-color: #cccccc33;
 }
 
-.MeetList-meet-img-box > img {
+.MeetList-meet-img-box>img {
   width: 100%;
   height: 100%;
   border-radius: 5px;
@@ -80,7 +81,7 @@
 
 .MeetList-like-box {
   position: absolute;
-  top: 68%;
+  top: 71%;
   left: 230px;
 }
 
@@ -89,9 +90,11 @@
   color: red;
   cursor: pointer;
 }
+
 .meetList-memberTotal {
   padding-left: 5px;
 }
+
 /* ---------------- 별점 ---------------- */
 .meet-one .star-rating {
   color: #989898;
@@ -104,9 +107,11 @@
   color: #2d31fa;
   margin-left: -3px;
 }
+
 .meet-one .star-wrap {
   padding-left: 5px;
 }
+
 .meet-one .star-rating .material-icons:not(:first-child) {
   margin-left: -4px;
 }
@@ -128,7 +133,7 @@
   padding: 0;
 }
 
-.meet-one .star-rating-base > .material-icons {
+.meet-one .star-rating-base>.material-icons {
   color: gainsboro;
 }
 

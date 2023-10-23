@@ -149,8 +149,8 @@ const MeetSettingFrm = (props) => {
     //모임 인원 변경 함수
     const changeMeetTotal = (e) => {
         console.log(e.currentTarget.value);
-        if (e.currentTarget.value < 1) {
-            setMeetTotal(1);
+        if (e.currentTarget.value < 2) {
+            setMeetTotal(2);
         }
         else if (e.currentTarget.value > 100) {
             setMeetTotal(100);
