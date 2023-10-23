@@ -11,7 +11,7 @@ const BoardFrm = (props) => {
   const isLogin = props.isLogin;
   const [boardTitle, setBoardTitle] = useState("");
   const [boardContent, setBoardContent] = useState("");
-  const [boardType, setBoardType] = useState();
+  const [boardType, setBoardType] = useState(0);
   const navigate = useNavigate();
 
   const insert = () => {
@@ -54,7 +54,7 @@ const BoardFrm = (props) => {
   const reset = () => {
     navigate("/board");
   }
-
+  //const options = [{ type: 0, name: "공지사항" }, { type: 1, name: "이벤트" }, { type: 2, name: "블랙리스트" }];
   const options = ["공지사항", "이벤트", "FAQ"];
 
   const clickChange = (event) => {
