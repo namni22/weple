@@ -64,19 +64,21 @@ function App() {
           <Route
             path="/meet/*"
             element={
-              <MeetMain isLogin={isLogin} setIsLogin={setIsLogin} id={id} />
+              <MeetMain
+                isLogin={isLogin}
+                setIsLogin={setIsLogin}
+                id={id}
+                isAdmin={isAdmin}
+              />
             }
           ></Route>
-          <Route
-            path="/board/*"
-            element={<Board isLogin={isLogin} />}
-          />
+          <Route path="/board/*" element={<Board isLogin={isLogin} />} />
 
           <Route
             path="/admin/*"
             element={
               <Admin
-                isLogin={isLogin}               
+                isLogin={isLogin}
                 setIsAdmin={setIsAdmin}
                 setIsLogin={setIsLogin}
               />

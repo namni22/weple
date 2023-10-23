@@ -13,6 +13,7 @@ const MeetMain = (props) => {
   const isLogin = props.isLogin;
   const setIsLogin = props.setIsLogin;
   const id = props.id;
+  const isAdmin = props.isAdmin;
   const [meetNavi, setMeetNavi] = useState([
     { url: "myMeet", text: "내가 개설한 모임", active: false },
     { url: "currentMeet", text: "참여하는 모임", active: false },
@@ -32,7 +33,12 @@ const MeetMain = (props) => {
         <Route
           path="view/*"
           element={
-            <MeetView isLogin={isLogin} setIsLogin={setIsLogin} id={id} />
+            <MeetView
+              isLogin={isLogin}
+              setIsLogin={setIsLogin}
+              id={id}
+              isAdmin={isAdmin}
+            />
           }
         />
         <Route path="mainmeet" element={<MainMeet />} />
