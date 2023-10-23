@@ -81,6 +81,7 @@ function App() {
                 isLogin={isLogin}
                 setIsAdmin={setIsAdmin}
                 setIsLogin={setIsLogin}
+                isAdmin={isAdmin}
               />
             }
           />
