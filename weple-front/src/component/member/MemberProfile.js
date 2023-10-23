@@ -49,7 +49,7 @@ const MemberProfile = (props) => {
       .catch((res) => {
         console.log(res.response.status);
       });
-  }, []);
+  }, [subCategory]);
 
   useEffect(() => {
     // 내가 선택한 카테고리 이름 배열 만들기
@@ -108,7 +108,7 @@ const MemberProfile = (props) => {
       <div className="profile-wrap">
         <div className="profile-top">
           <div className="profile-img">
-            {member.memberImage ? (
+            {member.memberImage === null ? (
               <img src={"/member/" + member.memberImage} />
             ) : (
               <img src="/img/testImg_01.png" />

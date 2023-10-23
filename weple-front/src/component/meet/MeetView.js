@@ -166,8 +166,8 @@ const MeetView = (props) => {
               meetNo={meetNo}
               myMeet={myMeet}
               memberId={memberId}
-            //captainCheck={captainCheck}
-            //setCaptainCheck={setCaptainCheck}
+              //captainCheck={captainCheck}
+              //setCaptainCheck={setCaptainCheck}
             />
           ) : followerStatus ? (
             <AfterMeetSubNavi
@@ -367,7 +367,7 @@ const AfterMeetMain = (props) => {
       <div className="afterMeet-main-info">
         <div className="afterMeet-info-host">
           <div className="aferMeet-host-img" onClick={goMemberProfile}>
-            {meetCaptain.memberImage ? (
+            {meetCaptain.memberImage === null ? (
               <img src={"/member/" + meetCaptain.memberImage}></img>
             ) : (
               <img src="/img/testImg_01.png"></img>
@@ -522,7 +522,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab(index);
                       }}
-                    // captainCheck={captainCheck}
+                      // captainCheck={captainCheck}
                     >
                       {meetMenu.text}
                     </Link>
@@ -532,7 +532,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab(index);
                       }}
-                    // captainCheck={captainCheck}
+                      // captainCheck={captainCheck}
                     >
                       {meetMenu.text}
                     </Link>
@@ -555,7 +555,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab2(index);
                       }}
-                    // captainCheck={captainCheck}
+                      // captainCheck={captainCheck}
                     >
                       {meetMenu2.text}
                     </Link>
@@ -565,7 +565,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab2(index);
                       }}
-                    //  captainCheck={captainCheck}
+                      //  captainCheck={captainCheck}
                     >
                       {meetMenu2.text}
                     </Link>
