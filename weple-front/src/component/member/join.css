@@ -78,13 +78,8 @@
 }
 
 .join-agree-btn > div {
-  width: 30%;
-  display: inline-block;
-  margin: 50px 0;
-}
-
-.join-agree-btn > div:first-child {
-  margin-right: 30px;
+  width: 60%;
+  margin: 50px auto;
 }
 
 .all-check {

@@ -111,10 +111,10 @@ public class MemberService {
 	}
 
 	// 프로필 내 피드 가져오기
-	public List myFeedList(int start, int end, String memberId) {
+	public List myFeedList(int start, int endNum, String memberId) {
 		int totalCount = memberDao.totalCount(memberId);
 		if(start <= totalCount) {
-			List myFeedList = memberDao.selectMyFeedList(start, end, memberId);
+			List myFeedList = memberDao.selectMyFeedList(start, endNum, memberId);
 			return myFeedList;
 		}
 		return null;
@@ -178,6 +178,14 @@ public class MemberService {
 	public List meetLiked(int memberNo) {
 		return memberDao.meetLiked(memberNo);
 	}
+
+	public int myFeedTotalCount(String memberId) {
+		return memberDao.myFeedTotalCount(memberId);
+	}
+
+
+
+
 
 
 
