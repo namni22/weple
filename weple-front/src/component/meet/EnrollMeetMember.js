@@ -84,7 +84,7 @@ const EnrollItem = (props) => {
       //남은 인원과 총 인원이 같이 않을 경우
       .post("/meet/updateEnrollMember/" + meetNo, enroll)
       .then((res) => {
-        console.log(res.data);
+        //  console.log(res.data);
         if (res.data === 2) {
           Swal.fire(
             "더 이상 회원을 추가할 수 없습니다.",
@@ -114,7 +114,7 @@ const EnrollItem = (props) => {
     axios
       .post("/meet/deleteEnrollMember/" + meetNo, enroll)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data === 1) {
           Swal.fire("삭제 완료하였습니다.", "삭제 완료", "success");
           const newArr = enrollMember.filter((newEnrollMember) => {

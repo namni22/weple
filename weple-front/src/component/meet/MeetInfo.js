@@ -65,7 +65,7 @@ const MeetInfo = (props) => {
         },
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         Swal.fire("가입신청 완료");
         //상세보기에 남아있고 렌더링 다시 하도록
         setIsMeetMember(res.data);
@@ -74,7 +74,7 @@ const MeetInfo = (props) => {
         // }
       })
       .catch((res) => {
-        console.log(res.response.status);
+        //  console.log(res.response.status);
       });
   };
   const deleteMember = () => {
@@ -92,12 +92,12 @@ const MeetInfo = (props) => {
         axios
           .post("/meet/selfDeleteMember", isMeetMember)
           .then((res) => {
-            console.log(res.data);
+            //      console.log(res.data);
             Swal.fire("탈퇴 완료하였습니다.", "회원탈퇴 완료", "success");
             navigate("/");
           })
           .catch((res) => {
-            console.log(res.response.data);
+            //     console.log(res.response.data);
           });
       }
     });
@@ -134,7 +134,7 @@ const MeetInfo = (props) => {
             navigate("/");
           })
           .catch((res) => {
-            console.log("모임삭제 캐치", res.response.status);
+            //    console.log("모임삭제 캐치", res.response.status);
           });
       }
     });

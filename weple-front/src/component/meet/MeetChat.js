@@ -54,7 +54,7 @@ const MeetChat = (props) => {
           }
         )
         .then((res) => {
-          console.log(res.data);
+          //  console.log(res.data);
           const newArr = [...chat];
           newArr.push(res.data[0]);
           setChat(newArr);
