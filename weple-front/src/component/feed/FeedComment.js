@@ -467,8 +467,7 @@ const CommentFrm = (props) => {
       <div className="feed-comment-write">
         <div className="feed-comment-left">
           <div className="feed-list-profile">
-            {console.log(memberImage)}
-            {memberImage !== "" ? (
+            {memberImage !== null ? (
               <img src={"/member/" + memberImage} />
             ) : (
               <img src="/img/testImg_01.png" />
