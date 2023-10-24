@@ -86,25 +86,26 @@ public class AdminService {
 		//모임 등급 변경
 		@Transactional
 		public int changeMeetType(Meet meet) {
-			
 			return adminDao.changeMeetType(meet);
 		}
 		@Transactional
 		public int insertFollower(Meet meet) {
-			// TODO Auto-generated method stub
-			Member m = memberDao.selectOneMember(meet.getMeetCaptain());
-			
-			HashMap<String, Integer> map = new HashMap<String, Integer>();
-			map.put("meetNo", meet.getMeetNo());
-			map.put("memberNo", m.getMemberNo());			
-			int result = adminDao.insertFollower(map);			
-			if(result >= 0) {
-				return 1;
-			}else {
-				return 0;
+			List list = adminDao.searchCaptain(meet);
+			System.out.println(list);
+			if(list != null) {				
+				Member m = memberDao.selectOneMember(meet.getMeetCaptain());
+
+				HashMap<String, Integer> map = new HashMap<String, Integer>();
+				map.put("meetNo", meet.getMeetNo());
+				map.put("memberNo", m.getMemberNo());			
+				int result = adminDao.insertFollower(map);			
+				if(result >= 0) {
+					return 1;
+				}else {
+					return 0;
+				}
 			}
-			
-			
+			return 1;
 		}
 		//회원 검색 조회
 		public Map selectMemberbySubId(String memberId, int reqPage) {
