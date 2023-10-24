@@ -103,7 +103,7 @@ const ReviewReport = (props) => {
           </div>
           <div className="feed-list-top">
             <div className="feed-list-profile">
-              {review.memberImage ? (
+              {review.memberImage !== null ? (
                 <img src={"/member/" + review.memberImage} />
               ) : (
                 <img src="/img/testImg_01.png" />
