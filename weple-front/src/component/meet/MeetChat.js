@@ -54,7 +54,7 @@ const MeetChat = (props) => {
           }
         )
         .then((res) => {
-          console.log(res.data);
+          //  console.log(res.data);
           const newArr = [...chat];
           newArr.push(res.data[0]);
           setChat(newArr);
@@ -132,7 +132,7 @@ const ChatItem = (props) => {
             {chat.memberImage === null ? (
               <img src="/img/testImg_01.png" />
             ) : (
-              <img src={chat.memberImage} />
+              <img src={"/member/" + chat.memberImage} />
             )}
           </div>
         </>

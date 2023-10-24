@@ -324,11 +324,10 @@ const CommentList = (props) => {
 
   return (
     <>
-      {/* {comment.fcommentRefNo === 0 ? ( */}
       <div className="feed-comment">
         <div className="feed-list-top">
           <div className="feed-list-profile">
-            {comment.memberImage !== "" ? (
+            {comment.memberImage !== null ? (
               <img src={"/member/" + comment.memberImage} onClick={profile} />
             ) : (
               <img src="/img/testImg_01.png" onClick={profile} />
@@ -375,9 +374,6 @@ const CommentList = (props) => {
           </div>
         </div>
       </div>
-      {/* ) : (
-        ""
-      )} */}
     </>
   );
 };
@@ -471,7 +467,7 @@ const CommentFrm = (props) => {
       <div className="feed-comment-write">
         <div className="feed-comment-left">
           <div className="feed-list-profile">
-            {memberImage !== "" ? (
+            {memberImage !== null ? (
               <img src={"/member/" + memberImage} />
             ) : (
               <img src="/img/testImg_01.png" />

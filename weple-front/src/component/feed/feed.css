@@ -246,6 +246,9 @@
   float: left;
   margin-right: 10px;
 }
+.comment-click-btn > div:first-child {
+  cursor: auto;
+}
 .comment-click-btn > .re {
   cursor: pointer;
 }
@@ -315,6 +318,9 @@
 .commment-modal-wrap > .feed-title {
   margin-top: 0;
   margin-bottom: 20px;
+}
+.list-more-btn {
+  margin-bottom: 30px;
 }
 
 /* View */

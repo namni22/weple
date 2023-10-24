@@ -56,7 +56,7 @@ const MeetView = (props) => {
         setFollowerStatus(res.data.followerStatus);
       })
       .catch((res) => {
-        console.log(res.response.status);
+        //  console.log(res.response.status);
       });
     // 모임의 좋아요 총 갯수 가져오기
     axios
@@ -77,7 +77,7 @@ const MeetView = (props) => {
         setMeetCaptain(res.data);
       })
       .catch((res) => {
-        console.log("catch : " + res.response.status);
+        //     console.log("catch : " + res.response.status);
       });
 
     if (isLogin) {
@@ -95,7 +95,7 @@ const MeetView = (props) => {
           setIsMeetMember(res.data);
         })
         .catch((res) => {
-          console.log(res.response.status);
+          //      console.log(res.response.status);
         });
 
       //가입 대기 상태라면 모임가입 버튼 비활성화하도록 db에서 가입상태 가져오기
@@ -133,7 +133,7 @@ const MeetView = (props) => {
           setMemberId(res.data.memberId);
         })
         .catch((res) => {
-          console.log(res.response.status);
+          ///      console.log(res.response.status);
         });
     }
   }, []);
@@ -265,7 +265,7 @@ const meetLikeUp = (
       },
     })
     .then((res) => {
-      console.log("좋아요");
+      //  console.log("좋아요");
       // setIsMeetLike(1);
       // setIsMeetLikeFront(props.meet.isMeetLike);
       const oldMeetLikeCount = meetLikeCount;
@@ -273,7 +273,7 @@ const meetLikeUp = (
       setIsMeetLikeFront(1);
     })
     .catch((res) => {
-      console.log(res.status);
+      //  console.log(res.status);
     });
 };
 
@@ -284,7 +284,7 @@ const meetLikeCancle = (
   setMeetLikeCount,
   setIsMeetLikeFront
 ) => {
-  console.log("좋아요 누르면", meet);
+  // console.log("좋아요 누르면", meet);
   const token = window.localStorage.getItem("token");
   axios
     .post("/meet/meetLikeCancle", meet, {
@@ -293,7 +293,7 @@ const meetLikeCancle = (
       },
     })
     .then((res) => {
-      console.log("좋아요 취소");
+      //  console.log("좋아요 취소");
       // setIsMeetLike(0);
       //setIsMeetLikeFront(props.meet.isMeetLike);
       const oldMeetLikeCount = meetLikeCount;
@@ -301,7 +301,7 @@ const meetLikeCancle = (
       setIsMeetLikeFront(0);
     })
     .catch((res) => {
-      console.log(res.status);
+      //   console.log(res.status);
     });
 
   return;
@@ -348,7 +348,7 @@ const AfterMeetMain = (props) => {
           setMemberId(res.data.memberId);
         })
         .catch((res) => {
-          console.log(res.response.status);
+          //   console.log(res.response.status);
         });
     }
   }, []);

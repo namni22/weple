@@ -107,6 +107,9 @@
 }
 
 /* MyFeed */
+.current-content {
+  margin-bottom: 50px;
+}
 
 .myFeed-content {
   width: 100%;

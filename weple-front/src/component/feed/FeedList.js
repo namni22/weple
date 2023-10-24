@@ -105,7 +105,9 @@ const FeedList = (props) => {
           );
         })}
       </div>
-      {end >= total ? "" : <Button1 clickEvent={useFeedMore} text="더보기" />}
+      <div className="list-more-btn">
+        {end >= total ? "" : <Button1 clickEvent={useFeedMore} text="더보기" />}
+      </div>
     </div>
   );
 };
@@ -295,7 +297,7 @@ const FeedContent = (props) => {
     <div className="feed-list-content">
       <div className="feed-list-top">
         <div className="feed-list-profile">
-          {feed.memberImage ? (
+          {feed.memberImage !== null ? (
             <img src={"/member/" + feed.memberImage} onClick={profile} />
           ) : (
             <img src="/img/testImg_01.png" onClick={profile} />
