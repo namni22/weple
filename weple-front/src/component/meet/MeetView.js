@@ -367,7 +367,7 @@ const AfterMeetMain = (props) => {
       <div className="afterMeet-main-info">
         <div className="afterMeet-info-host">
           <div className="aferMeet-host-img" onClick={goMemberProfile}>
-            {meetCaptain.memberImage === null ? (
+            {meetCaptain.memberImage !== null ? (
               <img src={"/member/" + meetCaptain.memberImage}></img>
             ) : (
               <img src="/img/testImg_01.png"></img>
