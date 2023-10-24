@@ -37,7 +37,7 @@ const Payment = (props) => {
         pay_method: "card",
         merchant_uid: "모임_" + id + formatDate,
         name: "모임추가결제",
-        amount: payPrice,
+        amount: 1,
         buyer_name: id,
         buyer_tel: "010-1111-1111",
         buyer_postcode: "12345",

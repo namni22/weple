@@ -38,9 +38,9 @@ public class ReviewController {
 			return list;
 		}
 //		//리뷰 별점,후기개수 조회
-//		@GetMapping(value = "/reviewTotal/{meetNo}")
+//		@GetMapping(value = "/reviewInfo/{meetNo}")
 //		public List reviewTotal(@PathVariable int meetNo) {
-//			List list = reviewService.previewList(meetNo);
+//			List list = reviewService.reviewInfo(meetNo);
 //			return list;
 //		}
 	//reviewList
