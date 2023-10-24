@@ -17,9 +17,7 @@ const Search = () => {
     axios
       .get("/meet/searchKeyword/" + reqPage + "/" + searchWord)
       .then((res) => {
-        console.log(res.data);
         setSearchResult(res.data.meetList);
-        //페이지인포 셋팅
         setPageInfo(res.data.pi);
       })
       .catch((res) => {
@@ -29,15 +27,25 @@ const Search = () => {
   return (
     <div className="search-wrap">
       {/* <div className="search-top">검색결과 </div> */}
-      {searchResult.map((meet, index) => {
-        return (
-          <Link to="/meet/View" state={{ m: meet }}>
-            <div className="search-results">
-              <SearchComponent meet={meet} />
-            </div>
-          </Link>
-        );
-      })}
+      {searchResult ? (
+        <>
+          {searchResult.map((meet, index) => {
+            return (
+              <Link to="/meet/View" state={{ m: meet }}>
+                <div className="search-results">
+                  <SearchComponent meet={meet} />
+                </div>
+              </Link>
+            );
+          })}
+        </>
+      ) : (
+        <div>
+          검색결과 없음
+          {console.log("searchResult", searchResult)}
+        </div>
+      )}
+
       <Pagination
         reqPage={reqPage}
         setReqPage={setReqPage}
