@@ -46,7 +46,7 @@ const Review = (props) => {
         setIsMember(res.data);
       })
       .catch((res) => {
-        console.log("isMember", res.status);
+        console.log("isMember error :", res.status);
       });
     //select ReviewList
     axios

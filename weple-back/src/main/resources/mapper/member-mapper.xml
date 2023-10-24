@@ -100,7 +100,7 @@
 	</select>
 	<!-- 리뷰에서 모임원인지 확인 -->
 	<select id="isMember" resultType="follower">
-		select * from follower where meet_no = #{meetNo} and member_no = (select member_no from member where member_id = #{memberId})
+		select * from follower where meet_no = #{meetNo} and follower_status=1 and member_no = (select member_no from member where member_id = #{memberId})
 	</select>
 	
 	<!-- 회원 등급 가져오기 -->

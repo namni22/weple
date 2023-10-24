@@ -61,7 +61,6 @@ const ReviewList = (props) => {
       .get("/review/reviewList/" + meetNo + "/" + start + "/" + end)
       .then((res) => {
         const arr = [...reviewList];
-        console.log("res.data review : ", start, end);
         for (let i = 0; i < res.data.length; i++) {
           arr.push(res.data[i]);
         }
