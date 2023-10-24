@@ -34,7 +34,9 @@ const Header = (props) => {
         </Link>
         {/* <span class="material-icons bar">maximize</span> */}
         <div className="logo">
-          <Link to="/">Weple</Link>
+          <Link to="/">
+            <img src="../img/weple-logo.png" />
+          </Link>
         </div>
         <div onClick={view}>reviewReport</div>
         <input

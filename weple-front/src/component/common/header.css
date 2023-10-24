@@ -25,13 +25,11 @@
   text-align: center;
 }
 .header .logo {
-  font-size: 30px;
-  margin-right: 150px;
-  margin-left: 20px;
   font-weight: 800;
+  width: 150px;
 }
-.header .logo a {
-  color: #2d31fa;
+.header .logo img {
+  width: 100%;
 }
 
 /* 
