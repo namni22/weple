@@ -44,14 +44,14 @@ const MeetInfo = (props) => {
           // console.log(res.data);
           setLoginMember(res.data);
         })
-        .catch((res) => { });
+        .catch((res) => {});
     }
   }, [props]);
 
-  //로그아웃상태에서 모임가입 버튼클릭시 
+  //로그아웃상태에서 모임가입 버튼클릭시
   const loginSwal = () => {
-    Swal.fire("로그인이 필요한 서비스 입니다.")
-  }
+    Swal.fire("로그인이 필요한 서비스 입니다.");
+  };
 
   //로그인 이후 모임가입하기 버튼 클릭시 작동하는 함수
   const meetJoin = () => {
@@ -66,7 +66,7 @@ const MeetInfo = (props) => {
         },
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         Swal.fire("가입신청 완료");
         //상세보기에 남아있고 렌더링 다시 하도록
         setIsMeetMember(res.data);
@@ -75,7 +75,7 @@ const MeetInfo = (props) => {
         // }
       })
       .catch((res) => {
-        console.log(res.response.status);
+        //  console.log(res.response.status);
       });
   };
   const deleteMember = () => {
@@ -90,20 +90,20 @@ const MeetInfo = (props) => {
       // 만약 Promise리턴을 받으면,
       if (result.isConfirmed) {
         // 만약 모달창에서 confirm 버튼을 눌렀다면
-        console.log(
-          "탈퇴로 전달되는 이즈 맴버 : ",
-          { meetNo: isMeetMember.meetNo },
-          { memberList: isMeetMember }
-        );
+        //  console.log(
+        //    "탈퇴로 전달되는 이즈 맴버 : ",
+        //   { meetNo: isMeetMember.meetNo },
+        //{ memberList: isMeetMember }
+        //    );
         axios
           .post("/meet/selfDeleteMember", isMeetMember)
           .then((res) => {
-            console.log(res.data);
+            //      console.log(res.data);
             Swal.fire("탈퇴 완료하였습니다.", "회원탈퇴 완료", "success");
             navigate("/");
           })
           .catch((res) => {
-            console.log(res.response.data);
+            //     console.log(res.response.data);
           });
       }
     });
@@ -126,10 +126,10 @@ const MeetInfo = (props) => {
       cancelButtonText: "취소",
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log("삭제시필요한 모임번호 : ", meet.meetNo);
+        //    console.log("삭제시필요한 모임번호 : ", meet.meetNo);
         //삭제진행
         const token = window.localStorage.getItem("token");
-        const meetNo = meet.meetNo
+        const meetNo = meet.meetNo;
         axios
           .post("/meet/meetDelete", meet, {
             headers: {
@@ -137,17 +137,16 @@ const MeetInfo = (props) => {
             },
           })
           .then((res) => {
-            console.log(("모임 삭제 ", res.data));
-            Swal.fire("삭제완료")
-            navigate("/")
+            //    console.log(("모임 삭제 ", res.data));
+            Swal.fire("삭제완료");
+            navigate("/");
           })
           .catch((res) => {
-            console.log("모임삭제 캐치", res.response.status);
+            //    console.log("모임삭제 캐치", res.response.status);
           });
-
       }
     });
-  }
+  };
 
   // console.log("모임준비물 리스트 :", meetPrepareList, meetPrepareList.length);
   return (
@@ -206,7 +205,7 @@ const MeetInfo = (props) => {
         {isLogin ? (
           meetCaptain && loginMember ? ( //객체 가져와져있는지부터 확인
             meetCaptain.memberNo === loginMember.memberNo ? ( //로그인한 멤버가 모임장이라면?
-              meet.meetType === 1 ? (//모임 반려중이면 버튼 출력안함
+              meet.meetType === 1 ? ( //모임 반려중이면 버튼 출력안함
                 <div className="meetInfo-cap-btn-wrap">
                   <Button1 text={"수정하기"} clickEvent={meetModify} />
                   <Button1 text={"모임삭제"} clickEvent={meetDelete} />
@@ -228,13 +227,13 @@ const MeetInfo = (props) => {
                 <div className="meetJoinWait">가입승인 대기중</div> //div로 가입 승인대기중 띄워주기 또는 공백 처리
               )
             ) : //isMeetMember가 비어있을때
-              loginMember.memberGrade < 2 ? (
-                <div>
-                  <Button1 text="모임가입하기" clickEvent={meetJoin} />
-                </div>
-              ) : (
-                "" //블랙리스트일떄 가입버튼 비활성화
-              )
+            loginMember.memberGrade < 2 ? (
+              <div>
+                <Button1 text="모임가입하기" clickEvent={meetJoin} />
+              </div>
+            ) : (
+              "" //블랙리스트일떄 가입버튼 비활성화
+            )
           ) : (
             ""
           )

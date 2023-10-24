@@ -47,7 +47,7 @@ const MemberProfile = (props) => {
         });
       })
       .catch((res) => {
-        console.log(res.response.status);
+        //    console.log(res.response.status);
       });
   }, [subCategory]);
 
