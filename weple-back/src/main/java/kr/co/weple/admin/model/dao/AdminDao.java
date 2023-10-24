@@ -66,6 +66,8 @@ public interface AdminDao {
 
 	int changeMemberLike(int memberNo);
 
+	List searchCaptain(Meet meet);
+
 	
 
 	

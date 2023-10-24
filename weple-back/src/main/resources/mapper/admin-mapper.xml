@@ -101,4 +101,7 @@
 	<update id="changeMemberLike">
 		update member set member_like = 10.0 where member_No=#{memberNo}
 	</update>
+	<select id="searchCaptain">
+		SELECT * FROM follower where meet_no=#{meetNo} and meet_captain=#{meetCaptain}
+	</select>
 </mapper>
