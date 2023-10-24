@@ -271,10 +271,6 @@ const AddModal = (props) => {
   const type = props.type;
   const calNo = props.calNo;
   const setCalNo = props.setCalNo;
-  // const schedule = props.schedule;
-  // const setSchedule = props.setSchedule;
-  if (type == "modify") {
-  }
 
   //오늘날짜 0000-00-00 로 등록
   const now_utc = Date.now();
