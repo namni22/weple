@@ -11,6 +11,7 @@ import ModifyPw from "./ModifyPw";
 import Payment from "../payment/Payment";
 import Alarm from "./Alarm";
 import MyCalendar from "./MyCalendar";
+import BoardAll from "../board/BoardList";
 
 const Mypage = (props) => {
   const isLogin = props.isLogin;
@@ -105,7 +106,7 @@ const Mypage = (props) => {
                 />
               }
             />
-            <Route path="notice" element={<AdminBoard />} />
+            <Route path="notice" element={<BoardAll />} />
             <Route
               path="modifyInfo"
               element={
