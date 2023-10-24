@@ -76,7 +76,6 @@ const FeedView = (props) => {
       })
       .catch((res) => {
         console.log(res.response.status);
-        Swal.fire("실패");
       });
   }, [feedNo]);
 
