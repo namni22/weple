@@ -295,7 +295,8 @@ const FeedContent = (props) => {
     <div className="feed-list-content">
       <div className="feed-list-top">
         <div className="feed-list-profile">
-          {feed.memberImage ? (
+          {console.log(feed.memberImage)}
+          {feed.memberImage !== null ? (
             <img src={"/member/" + feed.memberImage} onClick={profile} />
           ) : (
             <img src="/img/testImg_01.png" onClick={profile} />
