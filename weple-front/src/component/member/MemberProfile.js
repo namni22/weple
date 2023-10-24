@@ -107,7 +107,7 @@ const MemberProfile = (props) => {
       <div className="profile-wrap">
         <div className="profile-top">
           <div className="profile-img">
-            {member.memberImage === null ? (
+            {member.memberImage !== null ? (
               <img src={"/member/" + member.memberImage} />
             ) : (
               <img src="/img/testImg_01.png" />
