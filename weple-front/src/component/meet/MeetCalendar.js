@@ -26,7 +26,6 @@ const MeetCalendar = (props) => {
   const token = window.localStorage.getItem("token");
   const myType = props.myType;
   const isLogin = props.isLogin;
-  console.log("넘어오냐");
 
   useEffect(() => {
     if (myType === "my") {
@@ -314,7 +313,8 @@ const AddModal = (props) => {
           .then((res) => {
             if (res.data > 0) {
               Swal.fire({
-                text: "일정등록완료",
+                icon: "success",
+                text: "등록을 완료했습니다",
                 confirmButtonText: "확인",
               });
               setCalLoad(calLoad + 1);
@@ -345,7 +345,8 @@ const AddModal = (props) => {
               setCalLoad(calLoad + 1);
               onCancel();
               Swal.fire({
-                text: "일정수정완료",
+                icon: "success",
+                text: "수정을 완료했습니다",
                 confirmButtonText: "확인",
               });
             }
@@ -362,6 +363,7 @@ const AddModal = (props) => {
       }
     } else {
       Swal.fire({
+        icon: "error",
         text: "모든 값을 입력해주세요!",
         confirmButtonText: "확인",
       });

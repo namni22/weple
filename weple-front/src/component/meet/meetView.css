@@ -1,8 +1,28 @@
+.afterMeet-meetTitle {
+    font-weight: bold;
+    font-size: 39px;
+    padding: 10px 0;
+    padding-bottom: 30px;
+    text-align: center;
+    /* 아래로 안떨어지고 옆으로 길게 늘려주기 */
+    white-space: nowrap;
+    /* 보여주지마 */
+    overflow: hidden;
+    /* 텍스트 삐져나온거 ... 처리 */
+    text-overflow: ellipsis;
+
+
+}
+
 .meetLike-wrap {
     /* 좋아요, 좋아요 숫자를 감싸는 div선택자 */
     /* 아이콘과 숫자를 동일선상에 정렬 */
-   float: left;
-   
+    float: left;
+
+}
+
+.aferMeet-host-img:hover {
+    cursor: pointer;
 }
 
 .MeetList-like {
@@ -13,7 +33,7 @@
 
 .meetLikeCount {
     color: #ccc;
-   
+
 
 
 }

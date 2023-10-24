@@ -26,11 +26,19 @@
 .feed-list-content:nth-child(3n) {
   margin-right: -20px;
 }
+.feed-list-content:hover {
+  border: 1px solid #4b38ff;
+  background-color: #e8efff;
+}
 .feed-list-content {
   width: calc(100% / 3 - 40px);
   box-sizing: border-box;
   margin: 30px 24px;
   position: relative;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  transition: 300ms;
 }
 .feed-list-top {
   overflow: hidden;
@@ -62,6 +70,7 @@
 }
 .feed-list-info {
   margin-left: 10px;
+  cursor: pointer;
 }
 .feed-list-info > div:first-child {
   font-weight: 600;
@@ -78,15 +87,17 @@
   height: 370px;
   object-fit: cover;
   background-color: #eee;
+  border-radius: 5px;
 }
 .feed-list-content .swiper {
   width: 100%;
   height: 370px;
+  border-radius: 5px;
 }
 .feed-list-more-btn {
   position: absolute;
   top: 15px;
-  right: -12px;
+  right: 0;
   cursor: pointer;
 }
 .feed-list-more-btn > span {
@@ -179,6 +190,7 @@
 }
 .feed-title {
   position: relative;
+  color: #4b38ff;
 }
 .feed-title > span {
   position: absolute;
@@ -219,6 +231,10 @@
   box-sizing: border-box;
   font-size: 14px;
 }
+
+.feed-comment-re-wrap .feed-comment-text {
+  background-color: #fff;
+}
 .feed-comment-detail > .material-icons-outlined {
   cursor: pointer;
   font-size: 16px;
@@ -229,6 +245,8 @@
 .comment-click-btn > div {
   float: left;
   margin-right: 10px;
+}
+.comment-click-btn > .re {
   cursor: pointer;
 }
 .feed-comment-write {
@@ -243,7 +261,7 @@
 .feed-comment-re-wrap {
   margin: 10px;
   margin-left: 30px;
-  background-color: #eee;
+  background-color: #f6f6f6;
   border-radius: 5px;
 }
 .feed-comment-noco {
@@ -254,7 +272,6 @@
   justify-content: center;
   align-content: center;
   flex-direction: row;
-  margin: 10px 0;
 }
 .feed-comment-noco > div {
   width: 100%;
@@ -293,6 +310,7 @@
   position: absolute;
   border: none;
   cursor: pointer;
+  background-color: transparent;
 }
 .commment-modal-wrap > .feed-title {
   margin-top: 0;

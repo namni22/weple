@@ -259,6 +259,12 @@ const CommentList = (props) => {
         })
         .catch((res) => {
           console.log(res.response.status);
+          Swal.fire({
+            icon: "error",
+            title: "문제가 발생했습니다",
+            text: "관리자에게 문의하세요",
+            confirmButtonText: "확인",
+          });
         });
     } else {
       Swal.fire({
@@ -295,6 +301,12 @@ const CommentList = (props) => {
           })
           .catch((res) => {
             console.log(res.response.status);
+            Swal.fire({
+              icon: "error",
+              title: "문제가 발생했습니다",
+              text: "관리자에게 문의하세요",
+              confirmButtonText: "확인",
+            });
           });
       }
     });
@@ -305,6 +317,10 @@ const CommentList = (props) => {
     setRcmId(comment.fcommentWriter);
     setLoad(load + 1);
   };
+  const navigate = useNavigate();
+  const profile = () => {
+    navigate("/memberProfile", { state: { memberId: comment.fcommentWriter } });
+  };
 
   return (
     <>
@@ -313,9 +329,9 @@ const CommentList = (props) => {
         <div className="feed-list-top">
           <div className="feed-list-profile">
             {comment.memberImage !== "" ? (
-              <img src={"/member/" + comment.memberImage} />
+              <img src={"/member/" + comment.memberImage} onClick={profile} />
             ) : (
-              <img src="/img/testImg_01.png" />
+              <img src="/img/testImg_01.png" onClick={profile} />
             )}
           </div>
           <div className="feed-list-info">
@@ -342,7 +358,9 @@ const CommentList = (props) => {
                 좋아요 <span>{comment.totalCommentLike}</span>개
               </div>
               {isLogin && type !== "reCmt" && memberGrade != 2 ? (
-                <div onClick={reComemtEvent}>답글달기</div>
+                <div className="re" onClick={reComemtEvent}>
+                  답글달기
+                </div>
               ) : (
                 ""
               )}
@@ -416,10 +434,19 @@ const CommentFrm = (props) => {
         })
         .catch((res) => {
           console.log(res);
-          Swal.fire("Feed실패");
+          Swal.fire({
+            icon: "error",
+            title: "문제가 발생했습니다",
+            text: "관리자에게 문의하세요",
+            confirmButtonText: "확인",
+          });
         });
     } else {
-      Swal.fire("댓글 내용을 입력하세요");
+      Swal.fire({
+        icon: "warning",
+        text: "댓글을 입력하세요",
+        confirmButtonText: "확인",
+      });
     }
   };
   const enterCheck = (e) => {

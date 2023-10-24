@@ -138,11 +138,16 @@ public class MemberController {
 	}
 	
 	// 프로필 내 피드 가져오기
-	@GetMapping(value="/myFeedList/{start}/{end}/{memberId}")
-	public List list(@PathVariable int start, @PathVariable int end, @PathVariable String memberId) {
-		List myFeedList = memberService.myFeedList(start, end, memberId);
+	@GetMapping(value="/myFeedList/{start}/{endNum}/{memberId}")
+	public List list(@PathVariable int start, @PathVariable int endNum, @PathVariable String memberId) {
+		List myFeedList = memberService.myFeedList(start, endNum, memberId);
 		return myFeedList;
-		
+	}
+	
+	// 내 피드 totalCount
+	@GetMapping(value="/myFeedTotalCount/{memberId}")
+	public int myFeedTotalCount(@PathVariable String memberId) {
+		return memberService.myFeedTotalCount(memberId);
 	}
 	
 	// 아이디 찾기

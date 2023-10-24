@@ -96,8 +96,7 @@ public class MeetController {
 		}
 		//meetMargin set 남은인원 셋팅
 		meet.setMeetMargin(meet.getMeetTotal()-1);		
-		System.out.println("생성 모임 : "+meet);		
-		int result = meetService.createMeet(meet);
+		int result = meetService.createMeet(meet);		
 		//리턴 리절트로 변경
 		return result;
 	}
@@ -109,6 +108,7 @@ public class MeetController {
 			@RequestAttribute String memberId
 			) {		
 		// @RequestAttribute String memberId 로 아이디 받아서 meet에 방장으로 추가 (토큰필요)
+		System.out.println("수정할 모임 정보 : " + meet);
 		meet.setMeetCaptain(memberId);
 		//구분자로 준비물 String으로 이어서 set
 		if(!meet.getMeetPrepareList().isEmpty()) {//준비물이 있다면
@@ -129,8 +129,16 @@ public class MeetController {
 			String filename = meetThumbNailPreview.getOriginalFilename();
 			String filepath = fileUtil.getFilepath(savepath, filename, meetThumbNailPreview) ;//물리적으로 업로드
 			meet.setMeetThumbNail(filepath);
-		}		
+		}	
+		
+		//모임 멤버 받아서 마진에 set
+		//모임 멤버수 세오기
+		int meetMemberCount = meetService.selectMeetMemberCount(meet.getMeetNo());
+		meet.setMeetMargin(meet.getMeetTotal()-meetMemberCount);//변경할 모임에 마진 set
+		//모임수정 진행
 		Meet newMeet = meetService.modifyMeet(meet);
+		
+		System.out.println("수정한 모임" + newMeet);
 		return newMeet;	
 	}
 	//모임삭제

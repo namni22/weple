@@ -68,3 +68,24 @@
   padding-top: 5px;
   color: #171717;
 }
+
+/* SWAL */
+.swal2-actions .swal2-confirm {
+  background-color: #4b38ff;
+}
+.swal2-actions .swal2-cancel {
+  background-color: #bbb;
+}
+.swal2-icon.swal2-warning {
+  border-color: #ff5e5e;
+  color: #ff5e5e;
+}
+.swal2-warning .swal2-icon-content {
+  color: #ff5e5e;
+}
+.swal2-popup.swal2-modal {
+  width: 25em;
+}
+.swal2-actions .swal2-styled {
+  font-size: 0.9em;
+}

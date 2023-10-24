@@ -141,7 +141,7 @@ const MeetView = (props) => {
 
   return (
     <div className="afterMeet-all-all-wrap">
-      <div className="feed-title">WEPLE MEET</div>
+      {/* <div className="feed-title">WEPLE MEET</div> */}
       <div className="afterMeet-all-wrap">
         {/**
        * 
@@ -166,8 +166,8 @@ const MeetView = (props) => {
               meetNo={meetNo}
               myMeet={myMeet}
               memberId={memberId}
-              //captainCheck={captainCheck}
-              //setCaptainCheck={setCaptainCheck}
+            //captainCheck={captainCheck}
+            //setCaptainCheck={setCaptainCheck}
             />
           ) : followerStatus ? (
             <AfterMeetSubNavi
@@ -358,11 +358,11 @@ const AfterMeetMain = (props) => {
   };
   return (
     <div className="afterMeet-main-wrap">
+
+      <div className="afterMeet-meetTitle">{myMeet.meetTitle}</div>
       <div className="afterMeet-main-thumbnail">
-        {/*
-         */}
         <img src={"/meet/" + myMeet.meetThumbNail}></img>
-        <img src="/img/testImg_01.png"></img>
+        {/* <img src="/img/testImg_01.png"></img> */}
       </div>
       <div className="afterMeet-main-info">
         <div className="afterMeet-info-host">
@@ -451,7 +451,7 @@ const AfterMeetMain = (props) => {
             )}
           </div>
         </div>
-        <div className="afterMeet-info-title">{myMeet.meetTitle}</div>
+        {/* <div className="afterMeet-info-title">{myMeet.meetTitle}</div> */}
         <div className="afterMeet-info-sub-content">
           <p>{myMeet.meetContentS}</p>
         </div>
@@ -460,7 +460,7 @@ const AfterMeetMain = (props) => {
           {myMeet.meetTotal - myMeet.meetMargin}/{myMeet.meetTotal}명
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 const AfterMeetSubNavi = (props) => {
@@ -522,7 +522,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab(index);
                       }}
-                      // captainCheck={captainCheck}
+                    // captainCheck={captainCheck}
                     >
                       {meetMenu.text}
                     </Link>
@@ -532,7 +532,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab(index);
                       }}
-                      // captainCheck={captainCheck}
+                    // captainCheck={captainCheck}
                     >
                       {meetMenu.text}
                     </Link>
@@ -555,7 +555,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab2(index);
                       }}
-                      // captainCheck={captainCheck}
+                    // captainCheck={captainCheck}
                     >
                       {meetMenu2.text}
                     </Link>
@@ -565,7 +565,7 @@ const AfterMeetSubNavi = (props) => {
                       onClick={() => {
                         activeTab2(index);
                       }}
-                      //  captainCheck={captainCheck}
+                    //  captainCheck={captainCheck}
                     >
                       {meetMenu2.text}
                     </Link>

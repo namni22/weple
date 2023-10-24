@@ -16,11 +16,11 @@ const AdminMember = () => {
   const [confirmedMemberId, setConfirmedMemberId] = useState("");
 
   useEffect(() => {
-    if (memberId === "") {      
+    if (memberId === "") {
       axios
         .get("/admin/memberList/" + reqPage)
         .then((res) => {
-          
+
           setMemberList(res.data.list);
           setPageInfo(res.data.pi);
         })
@@ -28,11 +28,11 @@ const AdminMember = () => {
           console.log(res);
         });
     }
-    else{      
+    else {
       axios
         .get("/admin/searchId/" + memberId + "/" + reqPage)
         .then((res) => {
-         
+
           setMemberList(res.data.list);
           setPageInfo(res.data.pi);
         })
@@ -98,19 +98,21 @@ const MemberItem = (props) => {
   const member = props.member;
   const [memberGrade, setMemberGrade] = useState(member.memberGrade);
   const memberNo = member.memberNo;
- 
+  const memberLike = member.memberLike;
   //const options = [{ grade: 0, name: "관리자" }, { grade: 1, name: "정회원" }, { grade: 2, name: "블랙리스트" }];
   // index 0 : 관리자, 1 : 정회원, 2 : 블랙리스트
   const options = ["관리자", "정회원", "블랙리스트"];
 
   const clickChange = (event) => {
+
     setMemberGrade(event.target.value);
     //console.log(event.target.value);
     //console 먼저 찍고 set함수 작용
   };
 
   const clickConfirm = (event) => {
-    const obj = { memberNo: memberNo, memberGrade: memberGrade };  
+    const obj = { memberNo: memberNo, memberGrade: memberGrade, memberLike: memberLike };
+    console.log("",);
     const token = window.localStorage.getItem("token");
     axios
       .post("/admin/changeMemberGrade", obj, {
@@ -119,7 +121,7 @@ const MemberItem = (props) => {
         }
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data === 1) {
           setMemberGrade(memberGrade);
           Swal.fire("변경 성공하셨습니다.")
@@ -128,7 +130,7 @@ const MemberItem = (props) => {
         }
       })
       .catch((res) => {
-        console.log(res);
+        console.log(res.response.status);
       });
 
   }

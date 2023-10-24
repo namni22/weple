@@ -92,10 +92,13 @@ const MyMeet = (props) => {
               </div>
             ) : (
               myMeetList.map((myMeet, index) => {
-                return <MyMeetItem key={"myMeet" + index}
-                  myMeet={myMeet}
-                  memberNo={memberNo}
-                />;
+                return (
+                  <MyMeetItem
+                    key={"myMeet" + index}
+                    myMeet={myMeet}
+                    memberNo={memberNo}
+                  />
+                );
               })
             )}
           </div>
@@ -139,6 +142,7 @@ const MyMeet = (props) => {
                   <MyMeetLikedItem
                     key={"myMeetLiked" + index}
                     myMeetLiked={myMeetLiked}
+                    memberNo={memberNo}
                   />
                 );
               })
@@ -158,7 +162,6 @@ const MyMeetItem = (props) => {
 
   //상세보기로 이동하는 함수
   const moveToMeetView = (myMeet, memberNo) => {
-
     axios
       .get("/meet/selectOneMeet2/" + myMeet.meetNo + "/" + memberNo)
       .then((res) => {
@@ -170,14 +173,17 @@ const MyMeetItem = (props) => {
       .catch((res) => {
         console.log(res.response.status);
       });
-  }
+  };
 
   return (
     //내가 개설한 모임으로이동
     // <Link to="/meet/view" state={{ m: myMeet }}></Link>
-    <div className="myMeetJoined-item" onClick={() => {
-      moveToMeetView(myMeet, memberNo);
-    }}>
+    <div
+      className="myMeetJoined-item"
+      onClick={() => {
+        moveToMeetView(myMeet, memberNo);
+      }}
+    >
       <div className="myMeetJoined-img">
         {myMeet.meetThumbNail === null ? (
           <img src="/img/testImg_01.png" />
@@ -199,7 +205,6 @@ const MyMeetItem = (props) => {
         </div>
       </div>
     </div>
-
   );
 };
 
@@ -209,7 +214,6 @@ const MyMeetJoinedItem = (props) => {
   const navigate = useNavigate();
   //상세보기로 이동하는 함수
   const moveToMeetView = (myMeet, memberNo) => {
-
     axios
       .get("/meet/selectOneMeet2/" + myMeet.meetNo + "/" + memberNo)
       .then((res) => {
@@ -221,14 +225,17 @@ const MyMeetJoinedItem = (props) => {
       .catch((res) => {
         console.log(res.response.status);
       });
-  }
+  };
 
   return (
     //내가 가입한 모임으로 이동
     // <Link to="/meet/view" state={{ m: myMeetJoined }}></Link>
-    <div className="myMeetJoined-item" onClick={() => {
-      moveToMeetView(myMeetJoined, memberNo);
-    }} >
+    <div
+      className="myMeetJoined-item"
+      onClick={() => {
+        moveToMeetView(myMeetJoined, memberNo);
+      }}
+    >
       <div className="myMeetJoined-img">
         {myMeetJoined.meetThumbNail === null ? (
           <img src="/img/testImg_01.png" />
@@ -250,37 +257,57 @@ const MyMeetJoinedItem = (props) => {
         </div>
       </div>
     </div>
-
   );
 };
 
 const MyMeetLikedItem = (props) => {
   const myMeetLiked = props.myMeetLiked;
+  const memberNo = props.memberNo;
+  const navigate = useNavigate();
+
+  //상세보기로 이동하는 함수
+  const moveToMeetView = (meet, memberNo) => {
+    axios
+      .get("/meet/selectOneMeet2/" + meet.meetNo + "/" + memberNo)
+      .then((res) => {
+        console.log(res.data);
+        navigate("/meet/View", {
+          state: { m: res.data },
+        });
+      })
+      .catch((res) => {
+        console.log(res.response.status);
+      });
+  };
+
   return (
-    <Link to="/meet/view" state={{ m: myMeetLiked }}>
-      <div className="myMeetJoined-item">
-        <div className="myMeetJoined-img">
-          {myMeetLiked.meetThumbNail === null ? (
-            <img src="/img/testImg_01.png" />
-          ) : (
-            <img src={"/meet/" + myMeetLiked.meetThumbNail} />
-          )}
-        </div>
-        <div className="myMeetJoined-info">
-          <div className="myMeetJoined-title">{myMeetLiked.meetTitle}</div>
-          <div>
-            <div className="myMeetJoined-captain">
-              <img src="/img/captain.png" />
-              {myMeetLiked.meetCaptain}
-            </div>
-            <div className="myMeetJoined-total">
-              <img src="/img/meetTotal.png" />
-              {myMeetLiked.meetTotal - myMeetLiked.meetMargin}
-            </div>
+    // <Link to="/meet/view" state={{ m: myMeetLiked }}></Link>
+    <div className="myMeetJoined-item"
+      onClick={() => {
+        moveToMeetView(myMeetLiked, memberNo);
+      }}>
+      <div className="myMeetJoined-img">
+        {myMeetLiked.meetThumbNail === null ? (
+          <img src="/img/testImg_01.png" />
+        ) : (
+          <img src={"/meet/" + myMeetLiked.meetThumbNail} />
+        )}
+      </div>
+      <div className="myMeetJoined-info">
+        <div className="myMeetJoined-title">{myMeetLiked.meetTitle}</div>
+        <div>
+          <div className="myMeetJoined-captain">
+            <img src="/img/captain.png" />
+            {myMeetLiked.meetCaptain}
+          </div>
+          <div className="myMeetJoined-total">
+            <img src="/img/meetTotal.png" />
+            {myMeetLiked.meetTotal - myMeetLiked.meetMargin}
           </div>
         </div>
       </div>
-    </Link>
+    </div>
+
   );
 };
 

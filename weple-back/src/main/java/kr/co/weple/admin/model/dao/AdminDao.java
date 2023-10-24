@@ -46,7 +46,7 @@ public interface AdminDao {
 
 	int changeMemberBlacklist(String memberId);
 
-	int changeMeetBlacklist(String memberId);
+	
 
 	int insertFollower(HashMap<String, Integer> map);
 
@@ -54,9 +54,17 @@ public interface AdminDao {
 
 	Member memberInfo(int reportItemNo);
 
-	Follower selectFollowers(int memberNo);
+	List selectFollowers(int memberNo);
 
-	int changeFollowerBlacklist(String memberId);
+	int deleteFollowerBlacklist(int memberNo);
+
+	List selectMeets(String memberId);
+
+	int deleteMeet(String memberId);
+
+	Member selectOneMember(int memberNo);
+
+	int changeMemberLike(int memberNo);
 
 	
 

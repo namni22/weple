@@ -37,12 +37,12 @@ public class ReviewController {
 			List list = reviewService.previewList(meetNo);
 			return list;
 		}
-		//리뷰 별점,후기개수 조회
-		@GetMapping(value = "/reviewTotal/{meetNo}")
-		public List reviewTotal(@PathVariable int meetNo) {
-			List list = reviewService.previewList(meetNo);
-			return list;
-		}
+//		//리뷰 별점,후기개수 조회
+//		@GetMapping(value = "/reviewTotal/{meetNo}")
+//		public List reviewTotal(@PathVariable int meetNo) {
+//			List list = reviewService.previewList(meetNo);
+//			return list;
+//		}
 	//reviewList
 	@GetMapping(value = "/reviewList/{meetNo}/{start}/{end}")
 	public List reviewList(@PathVariable int meetNo,@PathVariable int start,@PathVariable int end) {

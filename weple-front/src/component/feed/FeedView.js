@@ -40,6 +40,7 @@ const FeedView = (props) => {
   const [rcmId, setRcmId] = useState(""); //답글남길 아이디 띄우기
   const [load, setLoad] = useState(0); //useEffect용
   const memberGrade = props.memberGrade;
+  const profile = props.profile;
 
   const token = window.localStorage.getItem("token");
   useEffect(() => {
@@ -126,6 +127,7 @@ const FeedView = (props) => {
               }).then(() => {
                 closeView();
                 setLoadList(loadList + 1);
+                window.location.reload();
               });
             }
           })
@@ -162,9 +164,9 @@ const FeedView = (props) => {
           <div className="feed-list-top">
             <div className="feed-list-profile">
               {feed.memberImage ? (
-                <img src={"/member/" + feed.memberImage} />
+                <img src={"/member/" + feed.memberImage} onClick={profile} />
               ) : (
-                <img src="/img/testImg_01.png" />
+                <img src="/img/testImg_01.png" onClick={profile} />
               )}
             </div>
             <div className="feed-list-info">

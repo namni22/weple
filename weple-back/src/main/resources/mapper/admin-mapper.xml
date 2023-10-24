@@ -77,11 +77,11 @@
 	<update id="changeMemberBlacklist">
 		update member set member_grade = 2 where member_id=#{memberId}
 	</update>
-	<update id="changeMeetBlacklist">
-		update meet set meet_type = 0 where meet_captain=#{memberId}
-	</update>
-	<delete id="changeFollowerBlacklist">
-		DELETE FROM FOLLOWER WHERE MEMBER_NO = #{memberNo} 
+	<delete id="deleteMeet">
+		delete from meet where meet_captain=#{memberId}
+	</delete>
+	<delete id="deleteFollowerBlacklist">
+		DELETE FROM FOLLOWER WHERE MEMBER_no = #{memberNo} 
 	</delete>	
 	<select id="meetInfo" resultType="meet">
 		select * from meet where meet_no =#{reportItemNo}
@@ -92,5 +92,13 @@
 	<select id="selectFollowers" resultType="follower">
 		select * from follower where member_no=#{memberNo}
 	</select>
-	
+	<select id="selectMeets" resultType="meet">
+		select * from meet where meet_captain = #{memberId}
+	</select>
+	<select id="selectOneMember" resultType="member">
+		select * from member where member_no=#{memberNo}
+	</select>
+	<update id="changeMemberLike">
+		update member set member_like = 10.0 where member_No=#{memberNo}
+	</update>
 </mapper>

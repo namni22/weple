@@ -18,7 +18,7 @@
 .side-menu > ul > li > a {
   display: block;
   padding: 10px;
-  color: #5d8bf4;
+  color: #4b38ff;
   font-family: ns-b;
   position: relative;
   font-size: 15px;
@@ -28,7 +28,7 @@
   right: 0;
 }
 .side-menu > ul > li > a.active-side {
-  background-color: #5d8bf4;
+  background-color: #4b38ff;
   color: #fff;
 }
 .side-menu > ul > li > a.active-side > span {

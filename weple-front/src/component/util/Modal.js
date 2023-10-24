@@ -4,6 +4,7 @@ import "./modal.css";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { width } from "dom7";
 
 const ReportModal = (props) => {
   const isOpen = props.isOpen;
@@ -137,11 +138,11 @@ const ReportModal = (props) => {
           <table className="modal-tbl">
             <tbody>
               <tr>
-                <td width="20%">신고자</td>
+                <td>신고자</td>
                 <td>{memberId}</td>
               </tr>
               <tr>
-                <td>신고 타입</td>
+                <td> 신고 타입</td>
                 <td>
                   {reportType === 0
                     ? "회원"

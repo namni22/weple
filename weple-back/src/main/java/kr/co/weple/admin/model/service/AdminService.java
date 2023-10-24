@@ -44,8 +44,29 @@ public class AdminService {
 		}
 		//멤버 등급 변경
 		@Transactional
-		public int changeMemberGrade(Member member) {			
-			return adminDao.changeMemberGrade(member);			
+		public int changeMemberGrade(Member member) {
+			//System.out.println("멤버 그레이드 정말 블랙이야? : " + member.getMemberGrade());
+			int result = adminDao.changeMemberGrade(member);
+			if(result > 0) {	
+				
+//				System.out.println("결과 : "+ result);
+//				System.out.println("멤버 아이디 : " + member.getMemberId());
+				Member m = adminDao.selectOneMember(member.getMemberNo());
+				
+				
+				if(m.getMemberGrade() == 2) {
+					int result2 = adminDao.changeMemberLike(member.getMemberNo());
+					return result2;
+				}else {
+					return 1;
+				}
+				
+			}else {
+				return 0;
+			}
+			
+		
+							
 		}
 		//모임 리스트 조회
 		public Map meetList(int reqPage) {
@@ -75,8 +96,8 @@ public class AdminService {
 			
 			HashMap<String, Integer> map = new HashMap<String, Integer>();
 			map.put("meetNo", meet.getMeetNo());
-			map.put("memberNo", m.getMemberNo());
-			int result = adminDao.insertFollower(map);
+			map.put("memberNo", m.getMemberNo());			
+			int result = adminDao.insertFollower(map);			
 			if(result >= 0) {
 				return 1;
 			}else {
@@ -157,22 +178,27 @@ public class AdminService {
 			int reportType = report.getReportType();
 			
 			Member member = memberDao.selectOneMember(report.getReportedMember());
-			Meet meet = meetDao.selectOneMeet(member.getMemberNo());
-			Follower follower = adminDao.selectFollowers(member.getMemberNo());
-			if(member.getMemberLike() <= 10) {	
-				int changeMember= adminDao.changeMemberBlacklist(member.getMemberId());		
-				if(meet.getMeetCaptain() == member.getMemberId()) {
-					int changeMeetCaptain =adminDao.changeMeetBlacklist(member.getMemberId());
-				}
-				if(follower.getMemberNo() == member.getMemberNo()) {
-					int changeFollower = adminDao.changeFollowerBlacklist(member.getMemberId());
-				}					 
-				return 1;
+			List meet = adminDao.selectMeets(member.getMemberId());
+			List follower = adminDao.selectFollowers(member.getMemberNo());
+			System.out.println(follower);
 			
+			if(member.getMemberLike() <= 10) {
+				// member 블랙리스트로 만듦
+				int changeMember= adminDao.changeMemberBlacklist(member.getMemberId());	
+				System.out.println("changeMember"+changeMember);
+				if(!meet.isEmpty()) {
+					//모임 삭제 상태로 변경
+					int changeMeetCaptain =adminDao.deleteMeet(member.getMemberId());					
+				}
+				if(!follower.isEmpty()) {						
+						//참여모임원일때, 모든 모임에서 탈퇴
+						int deleteFollow = adminDao.deleteFollowerBlacklist(member.getMemberNo());
+				
+				}								 
+				return 1;			
 			}else {
 				return 0;
 			}
-			
 			
 		}
 		public List meetInfo(int reportItemNo) {

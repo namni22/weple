@@ -69,8 +69,8 @@
 }
 
 .checks input[type="checkbox"]:checked + label:before {
-  background: url(/public/img/check.png) no-repeat 50% 50% #2d31fa;
-  border-color: #2d31fa;
+  background: url(/public/img/check.png) no-repeat 50% 50% #4b38ff;
+  border-color: #4b38ff;
 }
 
 .join-agree-btn {
@@ -78,13 +78,8 @@
 }
 
 .join-agree-btn > div {
-  width: 30%;
-  display: inline-block;
-  margin: 50px 0;
-}
-
-.join-agree-btn > div:first-child {
-  margin-right: 30px;
+  width: 60%;
+  margin: 50px auto;
 }
 
 .all-check {
@@ -139,27 +134,27 @@ input[type="radio"] {
   cursor: pointer;
   height: 45px;
   float: left;
-  border: 1px solid #5d8bf4;
+  border: 1px solid #4b38ff;
   box-sizing: border-box;
   text-align: center;
-  color: #5d8bf4;
+  color: #4b38ff;
   line-height: 45px;
 }
 
 input[type="radio"]:checked + label {
-  background-color: #5d8bf4;
+  background-color: #4b38ff;
   color: #fff;
 }
 
 .join-profileImg {
   display: inline-block;
   width: 200px;
-  border: 1px solid #5d8bf4;
+  border: 1px solid #4b38ff;
   height: 45px;
   line-height: 45px;
   text-align: center;
   color: #fff;
-  background-color: #5d8bf4;
+  background-color: #4b38ff;
   border-radius: 5px;
 }
 
@@ -184,7 +179,7 @@ input[type="radio"]:checked + label {
   font-size: 0.8em;
   width: 75%;
   align-self: flex-end;
-  color: #2d31fa;
+  color: #4b38ff;
 }
 
 .input > select {

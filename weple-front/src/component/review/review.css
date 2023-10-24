@@ -167,3 +167,10 @@
 path {
   color: blue;
 }
+.MuiRating-visuallyHidden {
+  color: #ccc;
+}
+.review-none {
+  display: flex;
+  justify-content: center;
+}
