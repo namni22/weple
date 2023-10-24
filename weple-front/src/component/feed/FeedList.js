@@ -276,6 +276,20 @@ const FeedContent = (props) => {
   const profile = () => {
     navigate("/memberProfile", { state: { memberId: feed.feedWriter } });
   };
+  useEffect(() => {
+    const swipernext = document.querySelectorAll(".swiper-button-next");
+    const swiperprev = document.querySelectorAll(".swiper-button-prev");
+    swipernext.forEach((item) => {
+      item.addEventListener("click", (e) => {
+        e.stopPropagation();
+      });
+    });
+    swiperprev.forEach((item) => {
+      item.addEventListener("click", (e) => {
+        e.stopPropagation();
+      });
+    });
+  }, []);
 
   return (
     <div className="feed-list-content">
@@ -371,18 +385,5 @@ const FeedContent = (props) => {
     </div>
   );
 };
-
-// window.onload = function () {
-//   const swipernext = document.querySelector(".swiper-button-next");
-//   const swiperprev = document.querySelector(".swiper-button-prev");
-
-//   swipernext.addEventListener("click", function (e) {
-//     console.log("클릭!!");
-//     e.stopPropagation();
-//   });
-//   swiperprev.addEventListener("click", function (e) {
-//     e.stopPropagation();
-//   });
-// };
 
 export { FeedContent, FeedList };
