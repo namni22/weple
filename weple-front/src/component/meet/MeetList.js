@@ -25,7 +25,7 @@ const MeetList = (props) => {
 
   const [loginMember, setLoginMember] = useState({});
   const [loginMemberNo, setLoginMemberNo] = useState(0);
-  const [categoryType, setCategoryType] = useState(0);//카테고리타입 0:대분류 그외:소분류,카테고리번호를 담는변수
+  const [categoryType, setCategoryType] = useState(0); //카테고리타입 0:대분류 그외:소분류,카테고리번호를 담는변수
   const [isMeetLikeFront, setIsMeetLikeFront] = useState(0);
 
   //카테고리 메뉴 조회해오기
@@ -43,14 +43,22 @@ const MeetList = (props) => {
     // const allTab = document.querySelectorAll(".smallCategory-li")[0];//전체 li
     // allTab.click();
     // console.log("전체버튼 : ", allTab);
-
   }, []);
 
   // 카테고리에서 넘어오면서 기본적으로 전체 모임 조회해오기
-  useEffect(() => {//reqPage, 카테고리 타입이 바뀔경우 동작
-    if (categoryType === 0) {//카테고리타입이 대분류 라면 아래 axios 수행
+  useEffect(() => {
+    //reqPage, 카테고리 타입이 바뀔경우 동작
+    if (categoryType === 0) {
+      //카테고리타입이 대분류 라면 아래 axios 수행
       axios
-        .get("/meet/meetList/" + reqPage + "/" + bigCategoryNo + "/" + loginMemberNo)
+        .get(
+          "/meet/meetList/" +
+            reqPage +
+            "/" +
+            bigCategoryNo +
+            "/" +
+            loginMemberNo
+        )
         .then((res) => {
           // console.log("모임 리스트 조회 결과 : ", res.data.meetList);
           // console.log("조회결과 이즈 : ", res.data.meetList[2].isMeetLike);
@@ -61,10 +69,18 @@ const MeetList = (props) => {
         .catch((res) => {
           console.log("catch : " + res.response.status);
         });
-    } else {//카테고리타입이 소분류면 카테고리번호 들고 가서 axios 수행
+    } else {
+      //카테고리타입이 소분류면 카테고리번호 들고 가서 axios 수행
 
       axios
-        .get("/meet/categoryMeetList/" + reqPage + "/" + categoryType + "/" + loginMemberNo)
+        .get(
+          "/meet/categoryMeetList/" +
+            reqPage +
+            "/" +
+            categoryType +
+            "/" +
+            loginMemberNo
+        )
         .then((res) => {
           // console.log(res.data);
           setMeetList(res.data.meetList);
@@ -78,30 +94,28 @@ const MeetList = (props) => {
         });
     }
     //탭메뉴 활성화
-    const smallTabs = document.querySelectorAll(".smallCategory-li")
+    const smallTabs = document.querySelectorAll(".smallCategory-li");
     smallTabs.forEach(function (item, index) {
       item.addEventListener("click", function () {
         for (let i = 0; i < smallTabs.length; i++) {
-          smallTabs[i].classList.remove("active-smallCategory")
+          smallTabs[i].classList.remove("active-smallCategory");
         }
-        item.classList.add("active-smallCategory")
+        item.classList.add("active-smallCategory");
       });
-    });//탭메뉴 활성화
-
+    }); //탭메뉴 활성화
   }, [reqPage, loginMemberNo, categoryType, isMeetLikeFront]);
 
   //카테고리 메뉴바의 전체를 클릭하면 동작하는 함수
   const changeCategoryAll = (reqPage) => {
-    setReqPage(1);//전체 클릭시 reqPage 초기화
-    setCategoryType(0);//카테고리 타입을 0 (대분류로)
+    setReqPage(1); //전체 클릭시 reqPage 초기화
+    setCategoryType(0); //카테고리 타입을 0 (대분류로)
   };
-  const [active, setActive] = useState("")
+  const [active, setActive] = useState("");
   const [bool, setBool] = useState(false);
   // 카테고리 메뉴바의 카테고리를 클릭하면 동작하는 함수
   const changeCategory = (smallCategory) => {
     setReqPage(1);
     setCategoryType(smallCategory.categoryNo);
-
 
     // //탭메뉴 활성화
     // const smallTabs = document.querySelectorAll(".smallCategory-li")
@@ -113,20 +127,13 @@ const MeetList = (props) => {
     //     item.classList.add("active-smallCategory")
     //   });
     // });
-
-
-
-
-
   };
-
 
   //로그인을 했을경우 누가 로그인했는지 db에서 select해오기
   useEffect(() => {
     // setMeet(props.meet);
     const token = window.localStorage.getItem("token");
     if (isLogin) {
-
       axios
         .post("/member/getMember", null, {
           headers: {
@@ -137,16 +144,16 @@ const MeetList = (props) => {
           setLoginMember(res.data);
           //로그인한 멤버 번호
           // loginMemberNo = res.data.memberNo;
-          setLoginMemberNo(res.data.memberNo)
+          setLoginMemberNo(res.data.memberNo);
         })
         .catch((res) => {
           console.log(res.response.status);
         });
-    } else {//로그아웃하면 로그인멤버 초기화
+    } else {
+      //로그아웃하면 로그인멤버 초기화
       setLoginMember(null);
     }
-
-  }, [isLogin])
+  }, [isLogin]);
 
   return (
     <div className="meetList-all-wrap">
@@ -158,7 +165,6 @@ const MeetList = (props) => {
               className="smallCategory-li"
               onClick={() => {
                 changeCategoryAll(reqPage);
-
               }}
             >
               전체
@@ -170,10 +176,9 @@ const MeetList = (props) => {
                   className="smallCategory-li"
                   onClick={() => {
                     changeCategory(smallCategory);
-
                   }}
                 >
-                  <div  >{smallCategory.categoryName}</div>
+                  <div>{smallCategory.categoryName}</div>
                 </li>
               );
             })}
@@ -229,7 +234,7 @@ const MeetItem = (props) => {
     setMeet(props.meet);
 
     setIsMeetLikeFront(props.meet.isMeetLike);
-  }, [props])
+  }, [props]);
   // console.log("유즈이펙트 아래", props.meet.meetTitle, isMeetLikeFront);
 
   // 상세보기로 이동하는 함수
@@ -281,15 +286,13 @@ const MeetItem = (props) => {
         const isMeetLike = 1;
         meet.isMeetLike = isMeetLike;
         setMeet({ ...meet });
-
-
       })
-      .catch((res) => { });
+      .catch((res) => {});
 
-    return
-  }
+    return;
+  };
 
-  //모임 좋아요취소 누를시 
+  //모임 좋아요취소 누를시
   const meetLikeCancle = (meet, isMeetLikeFront, setIsMeetLikeFront) => {
     console.log("좋아요 누르면", meet);
     const token = window.localStorage.getItem("token");
@@ -302,7 +305,7 @@ const MeetItem = (props) => {
       .then((res) => {
         console.log("좋아요 취소");
         // setIsMeetLike(0);
-        setIsMeetLikeFront(-1);//이거 뭐야..
+        setIsMeetLikeFront(-1); //이거 뭐야..
         //다시 axios가서 바뀐 meet값 가져와서 set
         // axios
         //   .get("/meet/selectOneMeet/" + meet.meetNo)
@@ -317,16 +320,11 @@ const MeetItem = (props) => {
         const isMeetLike = 0;
         meet.isMeetLike = isMeetLike;
         setMeet({ ...meet });
-
-
       })
-      .catch((res) => { });
+      .catch((res) => {});
 
-    return
-  }
-
-
-
+    return;
+  };
 
   return (
     <div className="meet-one">
@@ -340,7 +338,7 @@ const MeetItem = (props) => {
       </div>
       <div className="meetList-memberTotal">
         <span>인원 : </span>
-        <span>{meet.meetTotal - meet.meetMargin}</span>
+        <span>{meet.meetMargin}</span>
         <span>/</span>
         <span>{meet.meetTotal}</span>
       </div>
@@ -360,15 +358,27 @@ const MeetItem = (props) => {
       <div className="MeetList-like-box">
         {isLogin ? (
           props.meet.isMeetLike === 1 ? (
-            <span className="material-icons MeetList-like" onClick={() => { meetLikeCancle(meet, isMeetLikeFront, setIsMeetLikeFront); }} >favorite</span>
+            <span
+              className="material-icons MeetList-like"
+              onClick={() => {
+                meetLikeCancle(meet, isMeetLikeFront, setIsMeetLikeFront);
+              }}
+            >
+              favorite
+            </span>
           ) : (
-            <span className="material-icons MeetList-like" onClick={() => { meetLikeUp(meet, isMeetLikeFront, setIsMeetLikeFront) }} >favorite_border</span>
+            <span
+              className="material-icons MeetList-like"
+              onClick={() => {
+                meetLikeUp(meet, isMeetLikeFront, setIsMeetLikeFront);
+              }}
+            >
+              favorite_border
+            </span>
           )
-
         ) : (
           ""
         )}
-
       </div>
     </div>
   );
