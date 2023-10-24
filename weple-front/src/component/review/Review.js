@@ -165,7 +165,7 @@ const ReviewComponent = (props) => {
       </div>
       <div className="review-profile">
         {memberImage ? (
-          <img src={"/review/" + memberImage} className="review-img" />
+          <img src={"/member/" + memberImage} className="review-img" />
         ) : (
           <img src={"../img/testImg_01.png"} className="review-img" />
         )}
