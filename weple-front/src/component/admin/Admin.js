@@ -39,7 +39,7 @@ const Admin = (props) => {
               path="insertBoard"
               element={<BoardFrm isLogin={isLogin} />}
             />
-            <Route path="boardList" element={<BoardAll />} />
+            <Route path="boardList" element={<BoardAll isAdmin={isAdmin} />} />
             <Route path="reportList" element={<AdminReport />} />
             <Route path="memberList" element={<AdminMember />} />
             <Route path="meetList" element={<AdminMeeting />} />

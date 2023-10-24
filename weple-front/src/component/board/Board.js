@@ -9,10 +9,11 @@ import BoardModify from "./BoardModify";
 
 const Board = (props) => {
   const token = window.localStorage.getItem("token");
-
+  const isAdmin = props.isAdmin;
   const [member, setMember] = useState({});
-
   useEffect(() => {
+    console.log(isAdmin);
+
     axios
       .post("/member/getMember", null, {
         headers: {
