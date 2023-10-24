@@ -35,7 +35,7 @@ const ReviewWrite = (props) => {
         .then((res) => {
           if (res.data > 0) {
             Swal.fire("성공");
-            prev();
+            navigate("/review", { state: { meetNo: meetNo } });
           }
         })
         .catch((res) => {

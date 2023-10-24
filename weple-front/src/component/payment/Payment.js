@@ -35,10 +35,10 @@ const Payment = (props) => {
       {
         pg: "html5_inicis",
         pay_method: "card",
-        merchant_uid: "상품번호_" + formatDate,
-        name: "결제테스트",
-        amount: 1,
-        buyer_name: "ㅇ",
+        merchant_uid: "모임_" + id + formatDate,
+        name: "모임추가결제",
+        amount: payPrice,
+        buyer_name: id,
         buyer_tel: "010-1111-1111",
         buyer_postcode: "12345",
       },
@@ -66,8 +66,7 @@ const Payment = (props) => {
   };
   return (
     <div className="payment-wrap">
-      <div className="payment-top">결제</div>
-      {id}
+      <div className="myPage-title">결제</div>
       <div className="payment-mid">
         <table>
           <tbody>

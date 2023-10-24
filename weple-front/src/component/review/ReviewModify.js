@@ -60,7 +60,16 @@ const ReviewModify = (props) => {
         .then((res) => {
           if (res.data == 1) {
             Swal.fire("성공");
-            navigate(-1);
+            // axios
+            //   .get("/review/reviewInfo" + review.meetNo)
+            //   .then((res) => {
+            //     console.log(res.data);
+            //   })
+            //   .catch((res) => {
+            //     console.log(res);
+            //   });
+
+            navigate("/review", { state: { meetNo: review.meetNo } });
           }
         })
         .catch((res) => {
