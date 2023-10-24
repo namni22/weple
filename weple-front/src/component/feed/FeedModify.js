@@ -49,16 +49,29 @@ const FeedModify = (props) => {
         })
         .then((res) => {
           if (res.data == 1) {
-            Swal.fire("성공");
+            Swal.fire({
+              icon: "success",
+              text: "피드 수정이 완료되었습니다",
+              confirmButtonText: "확인",
+            });
             navigate("/feed");
           }
         })
         .catch((res) => {
           console.log(res.response.status);
-          Swal.fire("실패");
+          Swal.fire({
+            icon: "error",
+            title: "문제가 발생했습니다",
+            text: "관리자에게 문의하세요",
+            confirmButtonText: "확인",
+          });
         });
     } else {
-      Swal.fire("이미지 1개이상, 내용 입력 필수입니다");
+      Swal.fire({
+        icon: "warning",
+        text: "이미지 1개이상, 내용 입력 필수입니다",
+        confirmButtonText: "확인",
+      });
     }
   };
 

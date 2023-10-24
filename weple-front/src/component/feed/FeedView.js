@@ -127,6 +127,7 @@ const FeedView = (props) => {
               }).then(() => {
                 closeView();
                 setLoadList(loadList + 1);
+                window.location.reload();
               });
             }
           })

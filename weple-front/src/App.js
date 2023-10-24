@@ -51,7 +51,6 @@ function App() {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setMember(res.data);
       })
       .catch((res) => {

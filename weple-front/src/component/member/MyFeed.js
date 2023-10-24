@@ -17,15 +17,34 @@ const MyFeed = (props) => {
   const isAdmin = props.isAdmin;
 
   // 내가 쓴 피드 가져오기(아이디로)
+  const [total, setTotal] = useState();
   const amount = 9;
+  const [end, setEnd] = useState();
+
   useEffect(() => {
-    console.log("memberId", memberId);
-    const end = start + amount - 1;
+    axios
+      .get("/member/myFeedTotalCount/" + memberId)
+      .then((res) => {
+        setTotal(res.data);
+      })
+      .catch((res) => {
+        console.log(res.response.data);
+        Swal.fire({
+          icon: "error",
+          title: "문제가 발생했습니다",
+          text: "관리자에게 문의하세요",
+          confirmButtonText: "확인",
+        });
+      });
+  }, [memberId]);
+
+  useEffect(() => {
+    setEnd(start + amount - 1);
+    const endNum = start + amount - 1;
     if (memberId) {
       axios
-        .get("/member/myFeedList/" + start + "/" + end + "/" + memberId)
+        .get("/member/myFeedList/" + start + "/" + endNum + "/" + memberId)
         .then((res) => {
-          console.log("데이터 :  " + res.data);
           if (res.data !== "") {
             res.data.forEach((item) => {
               myFeedList.push(item);
@@ -71,7 +90,11 @@ const MyFeed = (props) => {
           )}
         </div>
         <div className="myfeed-content-more-btn">
-          <Button1 text="더보기" dValue={1} clickEvent={useFeedMore} />
+          {end >= total ? (
+            ""
+          ) : (
+            <Button1 clickEvent={useFeedMore} text="더보기" />
+          )}
         </div>
       </div>
     </div>

@@ -79,7 +79,6 @@ const FeedList = (props) => {
   const write = () => {
     navigate("/feed/write");
   };
-  console.log(feedList);
   return (
     <div>
       <div className="feed-title">WEPLE FEED</div>
@@ -261,7 +260,6 @@ const FeedContent = (props) => {
     setCmtIsOpen(true);
     setRcmId("");
     setFCommentRefNo(null);
-    // setLoadList(loadList + 1);
   };
   const closeComent = () => {
     setCmtIsOpen(false);
@@ -289,7 +287,7 @@ const FeedContent = (props) => {
             <img src="/img/testImg_01.png" onClick={profile} />
           )}
         </div>
-        <div className="feed-list-info">
+        <div className="feed-list-info" onClick={profile}>
           <div>{feed.feedWriter}</div>
           <div>{feed.feedDate}</div>
         </div>
@@ -374,10 +372,17 @@ const FeedContent = (props) => {
   );
 };
 
-// const onCancel = (e) => {
-//   setIsOpen(false);
-//   e.stopPropagation();
+// window.onload = function () {
+//   const swipernext = document.querySelector(".swiper-button-next");
+//   const swiperprev = document.querySelector(".swiper-button-prev");
+
+//   swipernext.addEventListener("click", function (e) {
+//     console.log("클릭!!");
+//     e.stopPropagation();
+//   });
+//   swiperprev.addEventListener("click", function (e) {
+//     e.stopPropagation();
+//   });
 // };
-// document.querySelector
 
 export { FeedContent, FeedList };

@@ -259,6 +259,12 @@ const CommentList = (props) => {
         })
         .catch((res) => {
           console.log(res.response.status);
+          Swal.fire({
+            icon: "error",
+            title: "문제가 발생했습니다",
+            text: "관리자에게 문의하세요",
+            confirmButtonText: "확인",
+          });
         });
     } else {
       Swal.fire({
@@ -295,6 +301,12 @@ const CommentList = (props) => {
           })
           .catch((res) => {
             console.log(res.response.status);
+            Swal.fire({
+              icon: "error",
+              title: "문제가 발생했습니다",
+              text: "관리자에게 문의하세요",
+              confirmButtonText: "확인",
+            });
           });
       }
     });
@@ -422,10 +434,19 @@ const CommentFrm = (props) => {
         })
         .catch((res) => {
           console.log(res);
-          Swal.fire("Feed실패");
+          Swal.fire({
+            icon: "error",
+            title: "문제가 발생했습니다",
+            text: "관리자에게 문의하세요",
+            confirmButtonText: "확인",
+          });
         });
     } else {
-      Swal.fire("댓글 내용을 입력하세요");
+      Swal.fire({
+        icon: "warning",
+        text: "댓글을 입력하세요",
+        confirmButtonText: "확인",
+      });
     }
   };
   const enterCheck = (e) => {

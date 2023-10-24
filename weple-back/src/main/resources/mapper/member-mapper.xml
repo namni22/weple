@@ -51,7 +51,7 @@
 		select *
 		from (select rownum as rnum, f.*
 			from (select * from feed where feed_writer=#{memberId} order by 1 desc)f)
-		where rnum between #{start} and #{end}
+		where rnum between #{start} and #{endNum}
 	</select>
 		<select id="selectImageList" resultType="fImage">
 		select * from fImage where feed_no = #{feedNo}
@@ -116,5 +116,9 @@
 	<!-- 찜한 모임 목록 가져오기 -->
 	<select id="meetLiked" resultType="meet">
 		select * from meet where meet.meet_no in(select meet_no from wish_list where member_no=#{memberNo})
+	</select>
+	
+	<select id="myFeedTotalCount" resultType="int">
+		select count(*) from feed where feed_writer=#{memberId}
 	</select>
 </mapper>
