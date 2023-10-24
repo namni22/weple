@@ -267,7 +267,7 @@
 	        from review r
 	        where r.meet_no = m.meet_no) review_count,
            (select count(*) from wish_list where meet_no = m.meet_no and member_no = #{memberNo}) is_meet_like 
-	    from meet m where meet_type = 1 order by meet_margin desc) 
+	    from meet m where meet_type = 1 order by meet_margin desc, meet_total asc) 
 	where rownum<=12 order by meet_margin desc,review_star desc
 	]]>
 	</select>
@@ -295,7 +295,7 @@
 	        from review r
 	        where r.meet_no = m.meet_no) review_count,
            (select count(*) from wish_list where meet_no = m.meet_no and member_no = #{memberNo}) is_meet_like 
-	    from meet m where meet_type = 1 order by review_star desc, review_count desc) 
+	    from meet m where meet_type = 1 order by review_count desc, review_star desc) 
 	where rownum<=12
 	]]>
 	</select>

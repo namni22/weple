@@ -3,14 +3,19 @@ import { MeetItem } from "../meet/MeetList";
 import SwiperComponent from "../util/Swiper";
 import "./main.css";
 import { useEffect, useState } from "react";
-import { Link, Route, Routes, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FeedContent } from "../feed/FeedList";
 import MainMeet from "./MainMeet";
 
 const Main = (props) => {
   const isLogin = props.isLogin;
-  const imgList = ["./img/main_1.jpg", "./img/main_2.jpg", "./img/main_3.jpg"];
+  const imgList = [
+    "./img/main_4.jpg",
+    "./img/main_1.jpg",
+    "./img/main_2.jpg",
+    "./img/main_3.jpg",
+  ];
   const token = window.localStorage.getItem("token");
   const [memberCategory, setMemberCategory] = useState([]);
 
