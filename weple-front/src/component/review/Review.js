@@ -92,12 +92,14 @@ const Review = (props) => {
           {
             <div className="review-wrap">
               {isMember ? (
-                <div className="">
-                  이미 회원이신가요? 첫번째 리뷰를 작성해 보세요!
-                  <div className="review-write-btn">
+                <>
+                  <div className="review-none">
+                    이미 회원이신가요? 첫 번째 리뷰를 작성해 보세요😁
+                  </div>
+                  <div className="review-write-btn review-margin">
                     <Button1 text="후기작성" clickEvent={write} />
                   </div>
-                </div>
+                </>
               ) : (
                 <span className="review-none">
                   모임에 가입하고 첫 번째 리뷰를 작성해 보세요😘

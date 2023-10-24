@@ -45,13 +45,7 @@ const Main = (props) => {
         list={list}
         delButton={false}
       />
-      {/* 비로그인 */}
-      {/* <MeetMain
-        meetSet={"meetCategory"}
-        meetTitle={"이 모임은 어때요?"}
-        memberCategory={memberCategory}
-      /> */}
-      {console.log("meetMain", memberCategory)}
+
       <MeetMain
         meetSet={"meetPopular"}
         meetTitle={"주간 인기 TOP 30 👑"}
