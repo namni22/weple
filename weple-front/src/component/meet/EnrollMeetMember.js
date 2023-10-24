@@ -136,7 +136,7 @@ const EnrollItem = (props) => {
           {enroll.memberImage === null ? (
             <img src="/img/testImg_01.png" />
           ) : (
-            <img src={enroll.memberImage} />
+            <img src={"/member/" + enroll.memberImage} />
           )}
         </div>
       </td>
