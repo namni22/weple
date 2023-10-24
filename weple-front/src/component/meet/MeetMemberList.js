@@ -17,6 +17,7 @@ const MeetMemberList = (props) => {
   const [reqPage, setReqPage] = useState(1);
   const [pageInfo, setPageInfo] = useState({});
   const token = window.localStorage.getItem("token");
+  // console.log(meetMember);
   useEffect(() => {
     axios
       .get("/meet/meetMember/" + reqPage + "?meetNo=" + myMeet.meetNo, {
@@ -79,6 +80,7 @@ const MeetMemberList = (props) => {
     </div>
   );
 };
+
 const MemberList = (props) => {
   const memberList = props.member;
   const meetMember = props.meetMember;
@@ -136,12 +138,12 @@ const MemberList = (props) => {
           axios
             .post("/meet/memberLike", memberList)
             .then((res) => {
-              console.log("호감도를 누르고 성공한 data : ", res.data);
+              //console.log("호감도를 누르고 성공한 data : ", res.data);
               if (res.data === 1) {
-                console.log("memberId : ", memberId);
-                console.log("memeberList.Id : ", memberList.memberNo);
-                console.log("meetNo : " + meetNo);
-                console.log("reqPage : " + reqPage);
+                // console.log("memberId : ", memberId);
+                //console.log("memeberList.Id : ", memberList.memberNo);
+                // console.log("meetNo : " + meetNo);
+                // console.log("reqPage : " + reqPage);
                 const token = window.localStorage.getItem("token");
                 axios
                   .get(
@@ -241,7 +243,7 @@ const MemberList = (props) => {
           {memberList.memberImage === null ? (
             <img src="/img/testImg_01.png" />
           ) : (
-            <img src={memberList.memberImage} />
+            <img src={"/member/" + memberList.memberImage} />
           )}
         </div>
       </td>

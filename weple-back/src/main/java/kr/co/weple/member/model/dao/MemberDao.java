@@ -31,7 +31,7 @@ public interface MemberDao {
 	int insertReport(Report report);
 	int totalCount(String memberId);
 
-	List selectMyFeedList(int start, int end, String memberId);
+	List selectMyFeedList(int start, int endNum, String memberId);
 	
 	List<FImage> selectImageList(int feedNo);
 
@@ -54,6 +54,9 @@ public interface MemberDao {
 	Member getMemberInfo(String memberId);
 
 	List meetLiked(int memberNo);
+
+	int myFeedTotalCount(String memberId);
+
 
 
 	

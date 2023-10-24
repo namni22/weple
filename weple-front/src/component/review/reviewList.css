@@ -85,6 +85,10 @@
 .review-write-btn {
   width: 100px;
 }
+.review-margin {
+  margin: 0 auto;
+  margin-top: 20px;
+}
 .flex {
   display: flex;
   justify-content: space-between;

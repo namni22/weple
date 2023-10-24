@@ -25,7 +25,7 @@ const Mypage = (props) => {
   const [myCategory, setMyCategory] = useState([]);
 
   const [menus, setMenus] = useState([
-    { url: "profile/myFeed", text: "프로필", active: false },
+    { url: "profile/myFeed", text: "프로필", active: true },
     { url: "modifyInfo", text: "정보 수정", active: false },
     { url: "modifyPw", text: "비밀번호 변경", active: false },
     { url: "myCalendar", text: "캘린더", active: false },
@@ -41,7 +41,6 @@ const Mypage = (props) => {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setMember(res.data);
         // 회원이 선택한 카테고리 번호 문자열 , 기준으로 split
         // memberCategory가 현재 object로 생성된 string타입이어서 new String
@@ -52,7 +51,6 @@ const Mypage = (props) => {
           myCategory.push(item);
         });
         setMyCategory([...myCategory]);
-        console.log(myCategory);
       })
       .catch((res) => {
         console.log(res.response.status);

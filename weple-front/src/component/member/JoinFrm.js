@@ -543,9 +543,6 @@ const JoinFrm = (props) => {
       </div>
       <div className="join-agree-btn">
         <div>
-          <Button2 text="취소" />
-        </div>
-        <div>
           <Button1 text="회원가입" clickEvent={join} />
         </div>
       </div>

@@ -97,7 +97,6 @@ const MemberProfile = (props) => {
           myCategory.push(item);
         });
         setMyCategory([...myCategory]);
-        console.log(myCategory);
       })
       .catch((res) => {
         console.log(res.response.status);
