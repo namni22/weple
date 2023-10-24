@@ -42,10 +42,6 @@
   text-align: center;
 }
 
-.header .logo img {
-  width: 100%;
-}
-
 .header .searchFrm {
   border-radius: 15px;
   outline: none;
