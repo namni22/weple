@@ -61,44 +61,41 @@ const MeetingItem = (props) => {
   const meet = props.meet;
   const [meetType, setMeetType] = useState(meet.meetType);
   const meetNo = meet.meetNo;
-  // console.log(meet.meetCaptain + " : " + meet.meetTitle+":"+meet.meetTotal);
+
   const options = ["검수중", "승인완료", "거절"];
 
   const clickChange = (event) => {
     setMeetType(event.target.value);
-    //console.log(event.target.value);
-    //console 먼저 찍고 set함수 작용
   };
   const clickConfirm = (event) => {
-    const obj = { meetNo: meetNo, meetType: meetType, meetCaptain: meet.meetCaptain };
-    //console.log("모임번호 : " + meet.meetNo);
-    //console.log("모임타입" + meet.meetType);
+    const obj = {
+      meetNo: meetNo,
+      meetType: meetType,
+      meetCaptain: meet.meetCaptain,
+    };
+
     const token = window.localStorage.getItem("token");
     axios
       .post("/admin/changeMeetType", obj, {
         headers: {
           Authorization: "Bearer " + token,
-        }
+        },
       })
       .then((res) => {
-        //console.log("res.data : " + res.data);
         if (res.data === 1) {
           setMeetType(meetType);
-          Swal.fire("변경 성공하셨습니다.")
-          //console.log("set하고 나서 meetType : " + meetType, typeof meetType);
+          Swal.fire("변경 성공하셨습니다.");
+
           if (meetType === "1") {
             axios
               .post("/admin/insertFollower", obj)
               .then((res) => {
                 if (res.data === 1) {
-                  Swal.fire("변경 성공하셨습니다.")
+                  Swal.fire("변경 성공하셨습니다.");
                 }
               })
-              .catch((res) => {
-
-              })
+              .catch((res) => {});
           }
-
         } else {
           Swal.fire("변경 중 문제가 발생했습니다.");
         }
@@ -106,7 +103,6 @@ const MeetingItem = (props) => {
       .catch((res) => {
         console.log(res);
       });
-
   };
   return (
     <tr>
@@ -116,7 +112,12 @@ const MeetingItem = (props) => {
       <td className="selectGrade">
         <select value={meetType} onChange={clickChange}>
           {options.map((option, index) => {
-            return <option value={index} key={"option" + index}> {option} </option>
+            return (
+              <option value={index} key={"option" + index}>
+                {" "}
+                {option}{" "}
+              </option>
+            );
           })}
         </select>
         <Button1 text="변경" clickEvent={clickConfirm} />

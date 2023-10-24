@@ -18,23 +18,29 @@ const Header = (props) => {
   return (
     <div className="header">
       <div className="header-inner">
-        <Link to="/meet/category">
-          <div className="icon-wrap">
-            <div className="material-icons" id="category">
-              menu
-            </div>
+        <div className="header-left">
+          <div>
+            <Link to="/meet/category">
+              <div className="material-icons" id="category">
+                menu
+              </div>
+            </Link>
           </div>
-        </Link>
-        {/* <span class="material-icons bar">maximize</span> */}
-        <div className="logo">
-          <Link to="/">Weple</Link>
+          {/* <span class="material-icons bar">maximize</span> */}
+          <div className="logo">
+            <Link to="/">
+              <img src="../img/weple-logo.png" />
+            </Link>
+          </div>
         </div>
-        <input
-          className="searchFrm"
-          placeholder="지금 생각나는 취미를 검색하세요."
-          onKeyDown={moveSearch}
-        ></input>
-        <div className="icons">
+        <div className="header-mid">
+          <input
+            className="searchFrm"
+            placeholder="지금 생각나는 취미를 검색하세요."
+            onKeyDown={moveSearch}
+          ></input>
+        </div>
+        <div className="icons header-right">
           <div className="icon-wrap">
             <Link to="/feed">
               <div className="material-icons feed">note_alt</div>

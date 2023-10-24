@@ -6,7 +6,6 @@ import Pagination from "../common/Pagination";
 import Input from "../util/InputFrm";
 import { Button1 } from "../util/Button";
 
-
 const AdminMember = () => {
   const [memberList, setMemberList] = useState([]);
   const [pageInfo, setPageInfo] = useState({});
@@ -20,7 +19,16 @@ const AdminMember = () => {
       axios
         .get("/admin/memberList/" + reqPage)
         .then((res) => {
-
+          setMemberList(res.data.list);
+          setPageInfo(res.data.pi);
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+    } else {
+      axios
+        .get("/admin/searchId/" + memberId + "/" + reqPage)
+        .then((res) => {
           setMemberList(res.data.list);
           setPageInfo(res.data.pi);
         })
@@ -28,27 +36,14 @@ const AdminMember = () => {
           console.log(res);
         });
     }
-    else {
-      axios
-        .get("/admin/searchId/" + memberId + "/" + reqPage)
-        .then((res) => {
-
-          setMemberList(res.data.list);
-          setPageInfo(res.data.pi);
-        })
-        .catch((res) => {
-          //console.log(res);
-        });
-    }
   }, [reqPage, confirmedMemberId]);
-
 
   const onSearch = (e) => {
     const memberIdInputValue = document.querySelector("#memberId");
     setReqPage(1);
     setConfirmedMemberId(memberIdInputValue.value);
     setMemberList([]);
-  }
+  };
 
   return (
     <div className="admin-member-wrap">
@@ -58,7 +53,13 @@ const AdminMember = () => {
         </div>
         <div className="admin-member-search-wrap">
           <div className="admin-member-search-input">
-            <Input type="text" data={memberId} setData={setMemberId} content="memberId" placeholder="아이디를 입력해주세요" />
+            <Input
+              type="text"
+              data={memberId}
+              setData={setMemberId}
+              content="memberId"
+              placeholder="아이디를 입력해주세요"
+            />
           </div>
           <div className="admin-member-search-button">
             <Button1 text="검색" clickEvent={onSearch} />
@@ -104,27 +105,30 @@ const MemberItem = (props) => {
   const options = ["관리자", "정회원", "블랙리스트"];
 
   const clickChange = (event) => {
-
     setMemberGrade(event.target.value);
-    //console.log(event.target.value);
+
     //console 먼저 찍고 set함수 작용
   };
 
   const clickConfirm = (event) => {
-    const obj = { memberNo: memberNo, memberGrade: memberGrade, memberLike: memberLike };
-    console.log("",);
+    const obj = {
+      memberNo: memberNo,
+      memberGrade: memberGrade,
+      memberLike: memberLike,
+    };
+    console.log("");
     const token = window.localStorage.getItem("token");
     axios
       .post("/admin/changeMemberGrade", obj, {
         headers: {
           Authorization: "Bearer" + token,
-        }
+        },
       })
       .then((res) => {
         // console.log(res.data);
         if (res.data === 1) {
           setMemberGrade(memberGrade);
-          Swal.fire("변경 성공하셨습니다.")
+          Swal.fire("변경 성공하셨습니다.");
         } else {
           Swal.fire("변경 중 문제가 발생했습니다.");
         }
@@ -132,10 +136,7 @@ const MemberItem = (props) => {
       .catch((res) => {
         console.log(res.response.status);
       });
-
-  }
-
-
+  };
 
   return (
     <tr>
@@ -143,9 +144,14 @@ const MemberItem = (props) => {
       <td>{member.memberName}</td>
       <td>{member.memberEmail}</td>
       <td className="selectGrade">
-        <select value={memberGrade} onChange={clickChange} >
+        <select value={memberGrade} onChange={clickChange}>
           {options.map((option, index) => {
-            return <option value={index} key={"option" + index}> {option} </option>
+            return (
+              <option value={index} key={"option" + index}>
+                {" "}
+                {option}{" "}
+              </option>
+            );
           })}
         </select>
         <Button1 text="변경" clickEvent={clickConfirm} />
@@ -153,6 +159,5 @@ const MemberItem = (props) => {
     </tr>
   );
 };
-
 
 export default AdminMember;

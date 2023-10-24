@@ -9,10 +9,27 @@
   box-sizing: border-box;
   padding-top: 10px;
   width: 1200px;
+  margin: 0 auto;
 }
 .header-inner > * {
   float: left;
-  cursor: pointer;
+}
+.header-left {
+  width: 25%;
+  float: left;
+}
+.header-left > * {
+  float: left;
+}
+.header-mid {
+  width: 50%;
+}
+.header-left .logo {
+  width: 50%;
+}
+.header .logo img {
+  width: 90%;
+  margin-top: 5px;
 }
 .header .material-icons {
   font-size: 30px;
@@ -24,32 +41,12 @@
   color: #171717;
   text-align: center;
 }
-.header .logo {
-  font-size: 30px;
-  margin-right: 150px;
-  margin-left: 20px;
-  font-weight: 800;
-}
-.header .logo a {
-  color: #2d31fa;
-}
 
-/* 
-.header .bar{
-    -ms-transform: rotate(90deg); 
-    -webkit-transform: rotate(90deg); 
-    transform: rotate(90deg);
-    font-size: 50px;
-    color: black;
-    width: 50px;
-
-} 
-*/
 .header .searchFrm {
   border-radius: 15px;
   outline: none;
   border: 1px solid #ccc;
-  width: 50%;
+  width: 100%;
   cursor: inherit;
   height: 40px;
   padding-left: 15px;
@@ -61,7 +58,7 @@
   overflow: hidden;
 }
 .icons > div {
-  float: left;
+  display: inline-block;
 }
 #category {
   font-size: 40px;
