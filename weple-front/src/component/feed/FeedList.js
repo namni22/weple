@@ -105,7 +105,9 @@ const FeedList = (props) => {
           );
         })}
       </div>
-      {end >= total ? "" : <Button1 clickEvent={useFeedMore} text="더보기" />}
+      <div className="list-more-btn">
+        {end >= total ? "" : <Button1 clickEvent={useFeedMore} text="더보기" />}
+      </div>
     </div>
   );
 };

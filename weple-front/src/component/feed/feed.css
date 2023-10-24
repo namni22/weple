@@ -319,6 +319,9 @@
   margin-top: 0;
   margin-bottom: 20px;
 }
+.list-more-btn {
+  margin-bottom: 30px;
+}
 
 /* View */
 .feed-view .feed-comment-wrap {
