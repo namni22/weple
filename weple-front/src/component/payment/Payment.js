@@ -104,7 +104,7 @@ const Payment = (props) => {
 
             <tr>
               <td>결제금액</td>
-              <td>{payPrice.toString()} 원</td>
+              <td>{count.toString()}0,000 원</td>
             </tr>
           </tbody>
         </table>

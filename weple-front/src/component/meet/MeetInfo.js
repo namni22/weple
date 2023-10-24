@@ -44,19 +44,18 @@ const MeetInfo = (props) => {
           // console.log(res.data);
           setLoginMember(res.data);
         })
-        .catch((res) => { });
+        .catch((res) => {});
     }
   }, [props]);
 
-  //로그아웃상태에서 모임가입 버튼클릭시 
+  //로그아웃상태에서 모임가입 버튼클릭시
   const loginSwal = () => {
-    Swal.fire("로그인이 필요한 서비스 입니다.")
-  }
+    Swal.fire("로그인이 필요한 서비스 입니다.");
+  };
 
   //로그인 이후 모임가입하기 버튼 클릭시 작동하는 함수
   const meetJoin = () => {
     const token = window.localStorage.getItem("token");
-
     axios
       .post("/meet/meetJoin", meet, {
         headers: {
@@ -90,11 +89,6 @@ const MeetInfo = (props) => {
       // 만약 Promise리턴을 받으면,
       if (result.isConfirmed) {
         // 만약 모달창에서 confirm 버튼을 눌렀다면
-        console.log(
-          "탈퇴로 전달되는 이즈 맴버 : ",
-          { meetNo: isMeetMember.meetNo },
-          { memberList: isMeetMember }
-        );
         axios
           .post("/meet/selfDeleteMember", isMeetMember)
           .then((res) => {
@@ -111,7 +105,6 @@ const MeetInfo = (props) => {
 
   //모임장이 모임수정 버튼 클릭시
   const meetModify = () => {
-    // console.log("meetModyfy버튼 클릭시 전달되는 meet : ", meet);
     navigate("/meet/meetModify", { state: { meet: meet } });
   };
 
@@ -126,10 +119,9 @@ const MeetInfo = (props) => {
       cancelButtonText: "취소",
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log("삭제시필요한 모임번호 : ", meet.meetNo);
         //삭제진행
         const token = window.localStorage.getItem("token");
-        const meetNo = meet.meetNo
+        const meetNo = meet.meetNo;
         axios
           .post("/meet/meetDelete", meet, {
             headers: {
@@ -138,16 +130,15 @@ const MeetInfo = (props) => {
           })
           .then((res) => {
             console.log(("모임 삭제 ", res.data));
-            Swal.fire("삭제완료")
-            navigate("/")
+            Swal.fire("삭제완료");
+            navigate("/");
           })
           .catch((res) => {
             console.log("모임삭제 캐치", res.response.status);
           });
-
       }
     });
-  }
+  };
 
   // console.log("모임준비물 리스트 :", meetPrepareList, meetPrepareList.length);
   return (
@@ -200,13 +191,12 @@ const MeetInfo = (props) => {
           <div className="meetInfo-content-title">준비물</div>
         )}
       </div>
-      {console.log("모임 타입 : ", meet.meetType)}
       <div className="meetJoin-btn-zone">
         {/* 버튼이 보이는 조건: 로그인이 되어있고 / 아직 모임 가입을 하지 않는 경우 */}
         {isLogin ? (
           meetCaptain && loginMember ? ( //객체 가져와져있는지부터 확인
             meetCaptain.memberNo === loginMember.memberNo ? ( //로그인한 멤버가 모임장이라면?
-              meet.meetType === 1 ? (//모임 반려중이면 버튼 출력안함
+              meet.meetType === 1 ? ( //모임 반려중이면 버튼 출력안함
                 <div className="meetInfo-cap-btn-wrap">
                   <Button1 text={"수정하기"} clickEvent={meetModify} />
                   <Button1 text={"모임삭제"} clickEvent={meetDelete} />
@@ -228,13 +218,13 @@ const MeetInfo = (props) => {
                 <div className="meetJoinWait">가입승인 대기중</div> //div로 가입 승인대기중 띄워주기 또는 공백 처리
               )
             ) : //isMeetMember가 비어있을때
-              loginMember.memberGrade < 2 ? (
-                <div>
-                  <Button1 text="모임가입하기" clickEvent={meetJoin} />
-                </div>
-              ) : (
-                "" //블랙리스트일떄 가입버튼 비활성화
-              )
+            loginMember.memberGrade < 2 ? (
+              <div>
+                <Button1 text="모임가입하기" clickEvent={meetJoin} />
+              </div>
+            ) : (
+              "" //블랙리스트일떄 가입버튼 비활성화
+            )
           ) : (
             ""
           )
