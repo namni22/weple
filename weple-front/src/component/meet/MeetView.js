@@ -53,7 +53,6 @@ const MeetView = (props) => {
         },
       })
       .then((res) => {
-        // console.log("팔로워 status : ", res);
         setFollowerStatus(res.data.followerStatus);
       })
       .catch((res) => {
@@ -67,7 +66,7 @@ const MeetView = (props) => {
         setMeetLikeCount(res.data);
       })
       .catch((res) => {
-        //  console.log(res.status + "meetLikeCount");
+        console.log(res.status);
       });
     setIsMeetLikeFront(myMeet.isMeetLike);
     ///////////////////////////////////////

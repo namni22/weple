@@ -95,8 +95,6 @@ const ReviewList = (props) => {
             </div>
             <div className="meet-star-score">{meetStar}</div>
           </div>
-          {console.log("isMember", isMember)}
-          {console.log("isLogin", isLogin)}
           {isMember && isLogin ? (
             <div className="review-write-btn">
               <Button1 text="후기작성" clickEvent={write} />
@@ -202,7 +200,7 @@ const ReviewListComponent = (props) => {
         <div className="review-profile">
           <Link to="/memberProfile" state={{ memberId: review.memberId }}>
             <div className="review-profile-img">
-              {review.memberImage ? (
+              {review.memberImage !== null ? (
                 <img src={"/member/" + review.memberImage}></img>
               ) : (
                 <img src={"../img/testImg_01.png"}></img>

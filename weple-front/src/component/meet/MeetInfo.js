@@ -56,7 +56,6 @@ const MeetInfo = (props) => {
   //로그인 이후 모임가입하기 버튼 클릭시 작동하는 함수
   const meetJoin = () => {
     const token = window.localStorage.getItem("token");
-
     axios
       .post("/meet/meetJoin", meet, {
         headers: {
@@ -90,11 +89,6 @@ const MeetInfo = (props) => {
       // 만약 Promise리턴을 받으면,
       if (result.isConfirmed) {
         // 만약 모달창에서 confirm 버튼을 눌렀다면
-        //  console.log(
-        //    "탈퇴로 전달되는 이즈 맴버 : ",
-        //   { meetNo: isMeetMember.meetNo },
-        //{ memberList: isMeetMember }
-        //    );
         axios
           .post("/meet/selfDeleteMember", isMeetMember)
           .then((res) => {
@@ -111,7 +105,6 @@ const MeetInfo = (props) => {
 
   //모임장이 모임수정 버튼 클릭시
   const meetModify = () => {
-    // console.log("meetModyfy버튼 클릭시 전달되는 meet : ", meet);
     navigate("/meet/meetModify", { state: { meet: meet } });
   };
 
@@ -126,7 +119,6 @@ const MeetInfo = (props) => {
       cancelButtonText: "취소",
     }).then((result) => {
       if (result.isConfirmed) {
-        //    console.log("삭제시필요한 모임번호 : ", meet.meetNo);
         //삭제진행
         const token = window.localStorage.getItem("token");
         const meetNo = meet.meetNo;
@@ -137,7 +129,7 @@ const MeetInfo = (props) => {
             },
           })
           .then((res) => {
-            //    console.log(("모임 삭제 ", res.data));
+            console.log(("모임 삭제 ", res.data));
             Swal.fire("삭제완료");
             navigate("/");
           })
@@ -199,7 +191,6 @@ const MeetInfo = (props) => {
           <div className="meetInfo-content-title">준비물</div>
         )}
       </div>
-      {console.log("모임 타입 : ", meet.meetType)}
       <div className="meetJoin-btn-zone">
         {/* 버튼이 보이는 조건: 로그인이 되어있고 / 아직 모임 가입을 하지 않는 경우 */}
         {isLogin ? (
