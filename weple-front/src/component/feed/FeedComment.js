@@ -365,7 +365,7 @@ const CommentList = (props) => {
               )}
               {isLogin &&
               memberId == comment.fcommentWriter &&
-              memberGrade !== memberGrade ? (
+              memberGrade != 2 ? (
                 <div onClick={deleteComment}>삭제</div>
               ) : (
                 ""
